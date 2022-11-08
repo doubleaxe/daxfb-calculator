@@ -1,0 +1,11 @@
+parser: espree
+parserOptions:
+    #node 18 supports up to ES 2022 (13th Edition)
+    ecmaVersion: 2022
+    sourceType: module
+    ecmaFeatures:
+        globalReturn: true
+env:
+    node: true
+    es2022: true
+extends: [./.eslintrc.aousov.base.yml]

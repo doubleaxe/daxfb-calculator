@@ -1,0 +1,27 @@
+{
+  "name": "evospace-calculator",
+  "version": "0.0.1",
+  "description": "Calculator for Evospace game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doubleaxe/"
+  },
+  "keywords": [
+    "evospace",
+    "game",
+    "calculator"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Alexey Usov",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.27.0",
+    "jimp": "^0.16.2"
+  }
+}
