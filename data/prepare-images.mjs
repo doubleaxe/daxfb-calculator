@@ -1,7 +1,6 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import util from 'node:util';
 import Jimp from 'jimp';
 
 export class ImagesList {
@@ -38,12 +37,21 @@ export class ImagesList {
         }
         await resultImage.writeAsync(destPath);
     }
+    mergeList(...imageLists) {
+        for(const imageList of imageLists) {
+            imageList.#images.forEach((value, key) => this.#images.set(key, value));
+        }
+    }
 
     static async parseAndBuildImagesAsync(jsonPath, baseImages) {
         const derivedImages = new ImagesList();
         const jsonFile = JSON.parse(await fs.readFile(jsonPath, 'utf8'));
-        const images = jsonFile.Objects[0].Images;
-
+        for(const object of jsonFile.Objects) {
+            this.#_parseAndBuildImages(baseImages, derivedImages, object.Images);
+        }
+        return derivedImages;
+    }
+    static #_parseAndBuildImages(baseImages, derivedImages, images) {
         const notFound = new Set();
         for(const image of images) {
             const baseImage = baseImages.getImageObject(image.Base);
