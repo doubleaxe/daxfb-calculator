@@ -20,9 +20,13 @@ const _commons = {
 };
 
 export class RecipesList {
-    #recipesByCreator = new Map();
+    #recipes = {};
 
     constructor() {
+    }
+
+    prepareComposer(composer) {
+        composer.recipes = this.#recipes;
     }
 
     async parseJsonFileAsync(jsonPath) {
@@ -30,20 +34,20 @@ export class RecipesList {
         const baseName = path.basename(jsonPath, path.extname(jsonPath));
 
         for(const object of jsonFile.Objects) {
-            const recipeCreator = object.Name;
+            const name = object.Name;
             if(object.Class != 'BaseRecipeDictionary') {
-                console.log(`Unexpected class for recipe, skipped: ${recipeCreator} => ${object.Class}`);
+                console.log(`Unexpected class for recipe, skipped: ${name} => ${object.Class}`);
                 continue;
             }
-            let recipeList = this.#recipesByCreator.get(recipeCreator);
+            let recipeList = this.#recipes[name];
             if(!recipeList) {
                 recipeList = [];
-                this.#recipesByCreator.set(recipeCreator, recipeList);
+                this.#recipes[name] = recipeList;
             }
             for(const recipe of object.Recipes) {
-                _commons.validateJsonObject(RecipesList.#recipeSchema, recipe, baseName, recipeCreator);
+                _commons.validateJsonObject(RecipesList.#recipeSchema, recipe, baseName, name);
                 recipeList.push({
-                    category: baseName,
+                    Category_T: baseName,
                     ...recipe,
                 });
             }
@@ -74,6 +78,7 @@ export class RecipesList {
                     Items: {
                         type: 'array',
                         items: {'$ref': '#/$defs/Item'},
+                        minItems: 0,
                     }
                 },
             },
@@ -96,12 +101,29 @@ export class RecipesList {
 export class ItemsList {
     #objects = {
         solidStaticItem: {},
-        baseRecipeDictionary: {},
         abstractStaticItem: {},
         fluidStaticItem: {},
+        baseRecipeDictionary: {},
     };
 
     constructor() {
+    }
+
+    prepareComposer(composer) {
+        const items = {};
+        [
+            this.#objects.solidStaticItem,
+            this.#objects.abstractStaticItem,
+            this.#objects.fluidStaticItem,
+        ].forEach((item) => {
+            for(const [name, value] of Object.entries(item)) {
+                if(items[name])
+                    console.warn(`duplicate item name ${name}`);
+                items[name] = value;
+            }
+        });
+        composer.items = items;
+        composer.recipeDictionary = this.#objects.baseRecipeDictionary;
     }
 
     async parseJsonFileAsync(jsonPath) {
@@ -120,15 +142,20 @@ export class ItemsList {
 
             const name = object.Name;
             delete object.Name;
-            if(destObject[name])
-                throw new Error(`Duplicate object name ${_class} => ${name}`);
-            destObject[name] = object;
+            const maybeArray = destObject[name];
+            if(maybeArray) {
+                if(!processing.allowDuplicates)
+                    throw new Error(`Duplicate object name ${baseName} => ${_class} => ${name}`);
+                maybeArray.push(object);
+            } else {
+                destObject[name] = processing.allowDuplicates ? [object] : object;
+            }
         }
     }
     static #solidStaticItemSchema = _commons.compileJsonSchema({
         type: 'object',
         additionalProperties: false,
-        required: ['Class', 'Name', 'Image', 'MaxCount'],
+        required: ['Class', 'Name', 'Image', 'MaxCount', 'LabelParts'],
         properties: {
             Category: {type: 'string'},
             Class: {type: 'string'},
@@ -136,27 +163,210 @@ export class ItemsList {
             Tag: {type: 'string'},
             Image: {type: 'string'},
             MaxCount: {type: 'integer'},
+            LabelParts: {
+                type: 'array',
+                minItems: 1,
+                maxItems: 2,
+                items: {
+                    type: 'array',
+                    minItems: 1,
+                    maxItems: 2,
+                    items: {type: 'string'}
+                },
+            },
             Tier: {type: 'integer'},
-            UnitMul: {type: 'integer'},
+            Unit: {type: 'string'},
+            UnitMul: {type: 'number'},
             Craftable: {type: 'boolean'},
         },
     });
+    static #baseRecipeDictionary = _commons.compileJsonSchema({
+        type: 'object',
+        additionalProperties: false,
+        required: ['Class', 'Name', 'UsedIn'],
+        properties: {
+            Class: {type: 'string'},
+            Name: {type: 'string'},
+            UsedIn: {
+                type: 'array',
+                minItems: 1,
+                maxItems: 1,
+                items: {
+                    type: 'object',
+                    additionalProperties: false,
+                    required: ['Item', 'Tier'],
+                    properties: {
+                        Item: {type: 'string'},
+                        Tier: {type: 'integer'},
+                    }
+                },
+            },
+        },
+    });
+    static #baseStaticItem = {
+        schema: this.#solidStaticItemSchema,
+        unusedFields: [
+            'Color',
+            'CommonTextKeys',
+            'DescriptionParts',
+            'ItemLogic',
+            'Label',
+            'LabelFormat',
+            'LogicJson',
+            'Materials',
+            'Mesh',
+        ]
+    };
     static #processing = {
         SolidStaticItem: {
             destObject: 'solidStaticItem',
-            schema: this.#solidStaticItemSchema,
-            unusedFields: [
-                'Color',
-                'CommonTextKeys',
-                'DescriptionParts',
-                'ItemLogic',
-                'Label',
-                'LabelFormat',
-                'LabelParts',
-                'LogicJson',
-                'Materials',
-                'Mesh',
-            ]
-        }
+            ... this.#baseStaticItem,
+        },
+        AbstractStaticItem: {
+            destObject: 'abstractStaticItem',
+            ... this.#baseStaticItem,
+        },
+        FluidStaticItem: {
+            destObject: 'fluidStaticItem',
+            ... this.#baseStaticItem,
+        },
+        BaseRecipeDictionary: {
+            destObject: 'baseRecipeDictionary',
+            schema: this.#baseRecipeDictionary,
+            unusedFields: [],
+            allowDuplicates: true,
+        },
     };
+}
+
+
+export class Localization {
+    #loc = {};
+
+    constructor() {
+    }
+
+    prepareComposer(composer) {
+        composer.loc = this.#loc;
+    }
+
+    async parseJsonFileAsync(jsonPath) {
+        const jsonFile = JSON.parse(await fs.readFile(jsonPath, 'utf8'));
+        const baseName = path.basename(jsonPath, path.extname(jsonPath));
+
+        const locObject = {};
+        this.#loc[baseName] = locObject;
+        for(const [name, value] of jsonFile) {
+            if(locObject[name])
+                console.warn(`Duplicate localization name ${baseName} => ${name}`);
+            locObject[name] = value;
+        }
+    }
+}
+
+
+export class JsonComposer {
+    #recipes;
+    #items;
+    #recipeDictionary;
+    #loc;
+
+    constructor() {
+    }
+
+    compose() {
+        this.#mergeRecipeDictionary();
+        this.#mergeLocalization();
+        return this.#filterAndBuildFinal();
+    }
+
+    #mergeRecipeDictionary() {
+        const items = this.#items;
+        const recipeDictionary = this.#recipeDictionary;
+        for(const [recipeName, array] of Object.entries(recipeDictionary)) {
+            for(const recipe of array) {
+                const {Item: itemName, Tier: recipeTier} = recipe.UsedIn[0];
+                const item = items[itemName];
+                if(item.Recipes) {
+                    throw new Error(`Multiple recipes for single item\n${JSON.stringify(item, null, '  ')}`);
+                }
+                item.Recipes = {
+                    RecipeDictionary: recipeName,
+                    Tier: recipeTier,
+                };
+            }
+        }
+    }
+
+    #mergeLocalization() {
+        const items = this.#items;
+        const loc = this.#loc;
+        const formatLabel = (labelParts) => {
+            return labelParts.map(([label, file]) => loc[file][label]).join(' ');
+        };
+        for(const item of Object.values(items)) {
+            item.Label = formatLabel(item.LabelParts);
+        }
+    }
+
+    #filterAndBuildFinal() {
+        const recipes = this.#recipes;
+        const items = this.#items;
+
+        const craftableRecipes = new Set(Object.keys(this.#recipeDictionary));
+        const filteredRecipes = Object.fromEntries(
+            Object.entries(recipes).filter(([key]) => craftableRecipes.has(key))
+        );
+
+        const craftableItems = new Set(Object.values(filteredRecipes).flatMap(
+            (recipeArray) => recipeArray.flatMap((recipe) => {
+                return [
+                    ...recipe.Input.Items,
+                    ...recipe.Output.Items,
+                    ...(recipe.ResourceInput ? [recipe.ResourceInput] : []),
+                    ...(recipe.ResourceOutput ? [recipe.ResourceOutput] : []),
+                ].flatMap(({Name}) => Name);
+            }))
+        );
+        const filteredItems = Object.fromEntries(
+            Object.entries(items).filter(([key]) => craftableItems.has(key))
+        );
+
+        //delete now unused keys
+        for(const item of Object.values(filteredRecipes).flat()) {
+            if(!item.Input.Items)
+                delete item.Input;
+            else
+                item.Input = item.Input.Items;
+            if(!item.Output.Items)
+                delete item.Output;
+            else
+                item.Output = item.Output.Items;
+        }
+        for(const item of Object.values(filteredItems)) {
+            delete item.LabelParts;
+            delete item.Name;
+        }
+        return new FinalJson(filteredRecipes, filteredItems);
+    }
+
+    set recipes(recipes) { this.#recipes = recipes; }
+    set items(items) { this.#items = items; }
+    set recipeDictionary(recipeDictionary) { this.#recipeDictionary = recipeDictionary; }
+    set loc(loc) { this.#loc = loc; }
+}
+
+
+class FinalJson {
+    #filteredRecipes;
+    #filteredItems;
+
+    constructor(filteredRecipes, filteredItems) {
+        this.#filteredRecipes = filteredRecipes;
+        this.#filteredItems = filteredItems;
+    }
+
+    getUsableImages() {
+        return new Set(Object.values(this.#filteredItems).map((item) => item.Image));
+    }
 }

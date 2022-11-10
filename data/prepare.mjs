@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ImagesList } from './prepare-images.mjs';
-import { RecipesList, ItemsList } from './prepare-json.mjs';
+import { RecipesList, ItemsList, Localization, JsonComposer } from './prepare-json.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -14,8 +14,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
     if(!basePath)
         throw new Error('Evospace data path is required, e.g. ...steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content');
 
-    await processJsonAsync(basePath);
-    await processImagesAsync(basePath);
+    const finalJson = await processJsonAsync(basePath);
+    await processImagesAsync(basePath, finalJson.getUsableImages());
 })().catch((err) => console.error(err.stack));
 
 
@@ -30,22 +30,22 @@ async function walkFilesAsync(dir, functionAsync, ...args) {
     }
 }
 
-async function processImagesAsync(basePath) {
+async function processImagesAsync(basePath, usableImages) {
     const baseImages = new ImagesList();
     await walkFilesAsync(path.join(basePath, 'Icons'), baseImages.addImageFileAsync.bind(baseImages));
 
+    const derivedImagesArray = [];
     await walkFilesAsync(path.join(basePath, 'Generated', 'Resources'), async(jsonPath) => {
         const derivedImages = await ImagesList.parseAndBuildImagesAsync(jsonPath, baseImages);
-        const fileName = path.basename(jsonPath, path.extname(jsonPath));
-        await derivedImages.saveComposedImageAsync(path.join(__dirname, `${fileName}.png`));
+        derivedImagesArray.push(derivedImages);
     });
 
-    await baseImages.saveComposedImageAsync(path.join(__dirname, '1.png'));
+    baseImages.mergeList(... derivedImagesArray);
+    await baseImages.saveComposedImageAsync(path.join(__dirname, 'images.png'), usableImages);
 }
 
 async function processJsonAsync(basePath) {
     const recipesList = new RecipesList();
-
     await walkFilesAsync(path.join(basePath, 'Generated', 'Recipes'), async(jsonPath) => {
         await recipesList.parseJsonFileAsync(jsonPath);
     });
@@ -54,4 +54,13 @@ async function processJsonAsync(basePath) {
     await walkFilesAsync(path.join(basePath, 'Generated', 'Mixed'), async(jsonPath) => {
         await itemList.parseJsonFileAsync(jsonPath);
     });
+
+    const localization = new Localization();
+    await walkFilesAsync(path.join(basePath, 'Loc', 'source'), async(jsonPath) => {
+        await localization.parseJsonFileAsync(jsonPath);
+    });
+
+    const composer = new JsonComposer();
+    [recipesList, itemList, localization].forEach((obj) => obj.prepareComposer(composer));
+    return composer.compose();
 }

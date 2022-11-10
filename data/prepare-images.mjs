@@ -19,7 +19,7 @@ export class ImagesList {
     getImageObject(imageName) {
         return this.#images.get(imageName);
     }
-    async saveComposedImageAsync(destPath) {
+    async saveComposedImageAsync(destPath, usableImages) {
         const columns = 10;
         const rows = Math.ceil(this.#images.size / columns);
 
@@ -30,6 +30,8 @@ export class ImagesList {
         });
         let offsetx = 0, offsety = 0;
         for(const [name, imageObject] of this.#images.entries()) {
+            if(!usableImages.has(name))
+                continue;
             resultImage.composite(imageObject, offsetx, offsety, Jimp.BLEND_SOURCE_OVER);
             offsetx = (offsetx + ImagesList.RESOLUTION) % width;
             if(!offsetx)
