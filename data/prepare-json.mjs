@@ -369,4 +369,11 @@ class FinalJson {
     getUsableImages() {
         return new Set(Object.values(this.#filteredItems).map((item) => item.Image));
     }
+    async saveComposedJsonAsync({jsonPath}) {
+        const finalJson = {
+            recipes: this.#filteredRecipes,
+            items: this.#filteredItems,
+        };
+        await fs.writeFile(jsonPath, JSON.stringify(finalJson, null, ' '));
+    }
 }

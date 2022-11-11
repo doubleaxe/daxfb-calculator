@@ -14,15 +14,18 @@ export class ImagesList {
         this.#images.set(imageName, imageObject);
     }
     addImageObject(imageName, imageObject) {
+        if(this.#images.has(imageName))
+            console.warn(`Duplicate image name: ${imageName}`);
         this.#images.set(imageName, imageObject);
     }
     getImageObject(imageName) {
         return this.#images.get(imageName);
     }
-    async saveComposedImageAsync(destPath, usableImages) {
+    async saveComposedImageAsync({imagePath, cssPath}, usableImages) {
         const columns = 10;
         const rows = Math.ceil(this.#images.size / columns);
 
+        const cssContent = [];
         const width = columns * ImagesList.RESOLUTION;
         const height = rows * ImagesList.RESOLUTION;
         const resultImage = new Jimp(width, height, 0xffffff00, (err) => {
@@ -33,15 +36,21 @@ export class ImagesList {
             if(!usableImages.has(name))
                 continue;
             resultImage.composite(imageObject, offsetx, offsety, Jimp.BLEND_SOURCE_OVER);
+            cssContent.push(`.${name} {background-position: ${-offsetx}px ${-offsety}px;}`);
             offsetx = (offsetx + ImagesList.RESOLUTION) % width;
             if(!offsetx)
                 offsety += ImagesList.RESOLUTION;
         }
-        await resultImage.writeAsync(destPath);
+        await resultImage.writeAsync(imagePath);
+        await fs.writeFile(cssPath, cssContent.join('\n'));
     }
     mergeList(...imageLists) {
         for(const imageList of imageLists) {
-            imageList.#images.forEach((value, key) => this.#images.set(key, value));
+            imageList.#images.forEach((value, key) => {
+                if(this.#images.has(key))
+                    console.warn(`Duplicate image name: ${key}`);
+                this.#images.set(key, value);
+            });
         }
     }
 
@@ -83,7 +92,7 @@ export class ImagesList {
             derivedImages.addImageObject(image.NewName, derivedImage);
         }
         if(notFound.size) {
-            console.log(`images not found: ${[... notFound].sort().join(',')}`);
+            /* console.log(`images not found: ${[... notFound].sort().join(',')}`); */
         }
         return derivedImages;
     }

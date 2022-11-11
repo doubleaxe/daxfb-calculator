@@ -16,6 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
     const finalJson = await processJsonAsync(basePath);
     await processImagesAsync(basePath, finalJson.getUsableImages());
+    await finalJson.saveComposedJsonAsync({jsonPath: path.join(__dirname, 'data.json')});
 })().catch((err) => console.error(err.stack));
 
 
@@ -41,7 +42,10 @@ async function processImagesAsync(basePath, usableImages) {
     });
 
     baseImages.mergeList(... derivedImagesArray);
-    await baseImages.saveComposedImageAsync(path.join(__dirname, 'images.png'), usableImages);
+    await baseImages.saveComposedImageAsync({
+        imagePath: path.join(__dirname, 'images.png'),
+        cssPath: path.join(__dirname, 'images.css'),
+    }, usableImages);
 }
 
 async function processJsonAsync(basePath) {
