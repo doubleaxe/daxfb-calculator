@@ -1,2 +1,5 @@
 node_modules
 .dist
+.vscode
+!.vscode/extensions.json
+*.code-workspace
