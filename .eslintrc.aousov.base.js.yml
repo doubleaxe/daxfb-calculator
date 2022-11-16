@@ -1,0 +1,13 @@
+rules:
+    block-scoped-var: "error"
+    consistent-return: ["error", { "treatUndefinedAsUnspecified": false }]
+    no-cond-assign: ["error", "always"]
+    no-eq-null: "error"
+    no-fallthrough: ["error", { "commentPattern": "break\\s+omitted" }]
+    no-promise-executor-return: "error"
+    no-return-assign: ["error", "except-parens"]
+    no-shadow: "error"
+    no-unused-vars: ["error", { "args": "none" }]
+    no-use-before-define: ["error", { "functions": false, "classes": false }]
+    no-var: "error"
+    prefer-const: ["warn"]

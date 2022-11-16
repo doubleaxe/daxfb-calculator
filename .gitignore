@@ -3,3 +3,5 @@ node_modules
 .vscode
 !.vscode/extensions.json
 *.code-workspace
+*.log
+npm-debug.log*

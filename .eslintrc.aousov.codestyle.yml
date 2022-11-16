@@ -1,29 +1,16 @@
-extends: ["eslint:recommended"]
 rules:
-    block-scoped-var: "error"
     brace-style: ["error", "1tbs", { "allowSingleLine": true }]
     comma-dangle: ["error", "only-multiline"]
-    consistent-return: ["error", { "treatUndefinedAsUnspecified": false }]
     dot-location: ["error", "property"]
     eol-last: ["error", "always"]
     func-call-spacing: ["error", "never"]
-    indent: ["warn", 4, { "ignoreComments": true, "MemberExpression": "off", "SwitchCase": 1 }]
+    indent: ["warn", 4, { "MemberExpression": "off", "SwitchCase": 1 }]
     linebreak-style: ["error", "unix"]
     max-statements-per-line: ["error", { "max": 3 }]
     new-parens: "error"
-    no-cond-assign: ["error", "always"]
-    no-eq-null: "error"
-    no-fallthrough: ["error", { "commentPattern": "break\\s+omitted" }]
     no-multi-spaces: ["error", { "ignoreEOLComments": true }]
-    no-promise-executor-return: "error"
-    no-return-assign: ["error", "except-parens"]
-    no-shadow: "error"
     no-trailing-spaces: ["error"]
-    no-unused-vars: ["error", { "args": "none" }]
-    no-use-before-define: ["error", { "functions": false, "classes": false }]
-    no-var: "error"
     object-curly-newline: ["error", { "consistent": true }]
-    prefer-const: ["warn"]
     quotes: ["error", "single", { "avoidEscape": true }]
     semi-spacing: "error"
     #warning!
