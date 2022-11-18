@@ -9,7 +9,9 @@
     "preview": "vite preview site",
     "build-only": "vite build site",
     "type-check": "vue-tsc --noEmit -p site",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts",
+    "lint": "run-p eslint stylelint",
+    "eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "stylelint": "stylelint \"**/*.vue\" --fix",
     "prepare-data": "node prepare.mjs"
   },
   "repository": {
@@ -42,6 +44,10 @@
     "jimp": "^0.16.2",
     "jsdom": "^20.0.1",
     "npm-run-all": "^4.1.5",
+    "postcss-html": "^1.5.0",
+    "stylelint": "^14.15.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-config-standard": "^29.0.0",
     "typescript": "~4.7.4",
     "vite": "^3.1.8",
     "vue-tsc": "^1.0.8"
