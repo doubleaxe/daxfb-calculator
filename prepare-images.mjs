@@ -41,6 +41,7 @@ export class ImagesList {
             if(!offsetx)
                 offsety += ImagesList.RESOLUTION;
         }
+        resultImage.crop(0, 0, width, offsety + ImagesList.RESOLUTION);
         await resultImage.writeAsync(imagePath);
         await fs.writeFile(cssPath, cssContent.join('\n'));
     }
