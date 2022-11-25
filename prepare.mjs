@@ -12,7 +12,7 @@ const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), 'site'
     const args = process.argv.slice(2);
     const basePath = args[0];
     if(!basePath)
-        throw new Error('Evospace data path is required, e.g. ...steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content');
+        throw new Error('Evospace data path is required, e.g. "npm run prepare-data -- ...steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content"');
 
     const finalJson = await processJsonAsync(basePath);
     await processImagesAsync(basePath, finalJson.getUsableImages());
@@ -45,6 +45,7 @@ async function processImagesAsync(basePath, usableImages) {
     await baseImages.saveComposedImageAsync({
         imagePath: path.join(__dirname, 'images.png'),
         cssPath: path.join(__dirname, 'images.css'),
+        jsonPath: path.join(__dirname, 'images.json'),
     }, usableImages);
 }
 

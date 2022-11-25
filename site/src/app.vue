@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
 import { ref } from 'vue';
 
 </script>
@@ -15,7 +14,7 @@ import { ref } from 'vue';
             :show-collapsed-content="false"
             show-trigger
         >
-        &nbsp;
+            <icon-list-panel />
         </n-layout-sider>
         <n-layout-content>
             <p>You did it!</p>

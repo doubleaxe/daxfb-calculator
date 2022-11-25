@@ -30705,7 +30705,7 @@
    "Image": "T_CopperMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 1
    },
@@ -30717,7 +30717,7 @@
    "Image": "T_SteelMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 2
    },
@@ -30729,7 +30729,7 @@
    "Image": "T_AluminiumMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -30741,7 +30741,7 @@
    "Image": "T_StainlessSteelMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -30753,7 +30753,7 @@
    "Image": "T_TitaniumMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -30765,7 +30765,7 @@
    "Image": "T_HardMetalMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -30777,7 +30777,7 @@
    "Image": "T_NeutroniumMacerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MaceratorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -30789,7 +30789,7 @@
    "Image": "T_CopperCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 1
    },
@@ -30801,7 +30801,7 @@
    "Image": "T_SteelCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 2
    },
@@ -30813,7 +30813,7 @@
    "Image": "T_AluminiumCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 3
    },
@@ -30825,7 +30825,7 @@
    "Image": "T_StainlessSteelCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -30837,7 +30837,7 @@
    "Image": "T_TitaniumCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -30849,7 +30849,7 @@
    "Image": "T_HardMetalCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -30861,7 +30861,7 @@
    "Image": "T_NeutroniumCuttingMachine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CuttingMachineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -30873,7 +30873,7 @@
    "Image": "T_StainlessSteelFermenter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FermenterBaseRecipeDictionary",
     "Tier": 4
    },
@@ -30885,7 +30885,7 @@
    "Image": "T_TitaniumFermenter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FermenterBaseRecipeDictionary",
     "Tier": 5
    },
@@ -30897,7 +30897,7 @@
    "Image": "T_HardMetalFermenter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FermenterBaseRecipeDictionary",
     "Tier": 6
    },
@@ -30909,7 +30909,7 @@
    "Image": "T_NeutroniumFermenter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FermenterBaseRecipeDictionary",
     "Tier": 7
    },
@@ -30921,7 +30921,7 @@
    "Image": "T_SteelChemReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemReactorBaseRecipeDictionary",
     "Tier": 2
    },
@@ -30933,7 +30933,7 @@
    "Image": "T_AluminiumChemReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemReactorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -30945,7 +30945,7 @@
    "Image": "T_StainlessSteelChemReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemReactorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -30957,7 +30957,7 @@
    "Image": "T_TitaniumChemReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemReactorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -30969,7 +30969,7 @@
    "Image": "T_HardMetalChemReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemReactorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -30981,7 +30981,7 @@
    "Image": "T_NeutroniumChemReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemReactorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -30993,7 +30993,7 @@
    "Image": "T_SteelSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SeparatorBaseRecipeDictionary",
     "Tier": 2
    },
@@ -31005,7 +31005,7 @@
    "Image": "T_AluminiumSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SeparatorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -31017,7 +31017,7 @@
    "Image": "T_StainlessSteelSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SeparatorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -31029,7 +31029,7 @@
    "Image": "T_TitaniumSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SeparatorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -31041,7 +31041,7 @@
    "Image": "T_HardMetalSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SeparatorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -31053,7 +31053,7 @@
    "Image": "T_NeutroniumSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SeparatorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -31065,10 +31065,6 @@
    "Image": "T_CopperBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Beam"
   },
   "SteelBeamStaticItem": {
@@ -31077,10 +31073,6 @@
    "Image": "T_SteelBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Beam"
   },
   "AluminiumBeamStaticItem": {
@@ -31089,10 +31081,6 @@
    "Image": "T_AluminiumBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Beam"
   },
   "StainlessSteelBeamStaticItem": {
@@ -31101,10 +31089,6 @@
    "Image": "T_StainlessSteelBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Beam"
   },
   "TitaniumBeamStaticItem": {
@@ -31113,10 +31097,6 @@
    "Image": "T_TitaniumBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Beam"
   },
   "HardMetalBeamStaticItem": {
@@ -31125,10 +31105,6 @@
    "Image": "T_HardMetalBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Beam"
   },
   "NeutroniumBeamStaticItem": {
@@ -31137,10 +31113,6 @@
    "Image": "T_NeutroniumBeam",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "BeamBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Beam"
   },
   "CopperCornerStaticItem": {
@@ -31149,10 +31121,6 @@
    "Image": "T_CopperCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Corner"
   },
   "SteelCornerStaticItem": {
@@ -31161,10 +31129,6 @@
    "Image": "T_SteelCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Corner"
   },
   "AluminiumCornerStaticItem": {
@@ -31173,10 +31137,6 @@
    "Image": "T_AluminiumCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Corner"
   },
   "StainlessSteelCornerStaticItem": {
@@ -31185,10 +31145,6 @@
    "Image": "T_StainlessSteelCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Corner"
   },
   "TitaniumCornerStaticItem": {
@@ -31197,10 +31153,6 @@
    "Image": "T_TitaniumCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Corner"
   },
   "HardMetalCornerStaticItem": {
@@ -31209,10 +31161,6 @@
    "Image": "T_HardMetalCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Corner"
   },
   "NeutroniumCornerStaticItem": {
@@ -31221,10 +31169,6 @@
    "Image": "T_NeutroniumCorner",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "CornerBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Corner"
   },
   "CopperAutomaticHammerStaticItem": {
@@ -31233,7 +31177,7 @@
    "Image": "T_CopperAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 1
    },
@@ -31245,7 +31189,7 @@
    "Image": "T_SteelAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 2
    },
@@ -31257,7 +31201,7 @@
    "Image": "T_AluminiumAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 3
    },
@@ -31269,7 +31213,7 @@
    "Image": "T_StainlessSteelAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 4
    },
@@ -31281,7 +31225,7 @@
    "Image": "T_TitaniumAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -31293,7 +31237,7 @@
    "Image": "T_HardMetalAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -31305,7 +31249,7 @@
    "Image": "T_NeutroniumAutomaticHammer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticHammerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -31317,7 +31261,7 @@
    "Image": "T_SteelBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BoilerBaseRecipeDictionary",
     "Tier": 2
    },
@@ -31329,7 +31273,7 @@
    "Image": "T_AluminiumBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BoilerBaseRecipeDictionary",
     "Tier": 3
    },
@@ -31341,7 +31285,7 @@
    "Image": "T_StainlessSteelBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BoilerBaseRecipeDictionary",
     "Tier": 4
    },
@@ -31353,7 +31297,7 @@
    "Image": "T_TitaniumBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BoilerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -31365,7 +31309,7 @@
    "Image": "T_HardMetalBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BoilerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -31377,7 +31321,7 @@
    "Image": "T_NeutroniumBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BoilerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -31389,10 +31333,6 @@
    "Image": "T_CopperPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Pipe"
   },
   "SteelPipeStaticItem": {
@@ -31401,10 +31341,6 @@
    "Image": "T_SteelPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Pipe"
   },
   "AluminiumPipeStaticItem": {
@@ -31413,10 +31349,6 @@
    "Image": "T_AluminiumPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Pipe"
   },
   "StainlessSteelPipeStaticItem": {
@@ -31425,10 +31357,6 @@
    "Image": "T_StainlessSteelPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Pipe"
   },
   "TitaniumPipeStaticItem": {
@@ -31437,10 +31365,6 @@
    "Image": "T_TitaniumPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Pipe"
   },
   "HardMetalPipeStaticItem": {
@@ -31449,10 +31373,6 @@
    "Image": "T_HardMetalPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Pipe"
   },
   "NeutroniumPipeStaticItem": {
@@ -31461,10 +31381,6 @@
    "Image": "T_NeutroniumPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "PipeBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Pipe"
   },
   "CopperHeatPipeStaticItem": {
@@ -31473,10 +31389,6 @@
    "Image": "T_CopperHeatPipe",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "HeatPipeBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Heat Pipe"
   },
   "SteelFlywheelStaticItem": {
@@ -31485,10 +31397,6 @@
    "Image": "T_SteelFlywheel",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FlywheelBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Flywheel"
   },
   "CopperScaffoldStaticItem": {
@@ -31497,10 +31405,6 @@
    "Image": "T_CopperScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Scaffold"
   },
   "SteelScaffoldStaticItem": {
@@ -31509,10 +31413,6 @@
    "Image": "T_SteelScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Scaffold"
   },
   "AluminiumScaffoldStaticItem": {
@@ -31521,10 +31421,6 @@
    "Image": "T_AluminiumScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Scaffold"
   },
   "StainlessSteelScaffoldStaticItem": {
@@ -31533,10 +31429,6 @@
    "Image": "T_StainlessSteelScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Scaffold"
   },
   "TitaniumScaffoldStaticItem": {
@@ -31545,10 +31437,6 @@
    "Image": "T_TitaniumScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Scaffold"
   },
   "HardMetalScaffoldStaticItem": {
@@ -31557,10 +31445,6 @@
    "Image": "T_HardMetalScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Scaffold"
   },
   "NeutroniumScaffoldStaticItem": {
@@ -31569,10 +31453,6 @@
    "Image": "T_NeutroniumScaffold",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "ScaffoldBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Scaffold"
   },
   "StoneSignStaticItem": {
@@ -31581,10 +31461,6 @@
    "Image": "T_StoneSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 0
-   },
    "Label": "Stone Sign"
   },
   "CopperSignStaticItem": {
@@ -31593,10 +31469,6 @@
    "Image": "T_CopperSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Sign"
   },
   "SteelSignStaticItem": {
@@ -31605,10 +31477,6 @@
    "Image": "T_SteelSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Sign"
   },
   "AluminiumSignStaticItem": {
@@ -31617,10 +31485,6 @@
    "Image": "T_AluminiumSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Sign"
   },
   "StainlessSteelSignStaticItem": {
@@ -31629,10 +31493,6 @@
    "Image": "T_StainlessSteelSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Sign"
   },
   "TitaniumSignStaticItem": {
@@ -31641,10 +31501,6 @@
    "Image": "T_TitaniumSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Sign"
   },
   "HardMetalSignStaticItem": {
@@ -31653,10 +31509,6 @@
    "Image": "T_HardMetalSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Sign"
   },
   "NeutroniumSignStaticItem": {
@@ -31665,10 +31517,6 @@
    "Image": "T_NeutroniumSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "SignBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Sign"
   },
   "SteelAdvancedSignStaticItem": {
@@ -31677,10 +31525,6 @@
    "Image": "T_SteelAdvancedSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "AdvancedSignBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Advanced Sign"
   },
   "AluminiumAdvancedSignStaticItem": {
@@ -31689,10 +31533,6 @@
    "Image": "T_AluminiumAdvancedSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "AdvancedSignBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Advanced Sign"
   },
   "StainlessSteelAdvancedSignStaticItem": {
@@ -31701,10 +31541,6 @@
    "Image": "T_StainlessSteelAdvancedSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "AdvancedSignBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Advanced Sign"
   },
   "TitaniumAdvancedSignStaticItem": {
@@ -31713,10 +31549,6 @@
    "Image": "T_TitaniumAdvancedSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "AdvancedSignBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Advanced Sign"
   },
   "HardMetalAdvancedSignStaticItem": {
@@ -31725,10 +31557,6 @@
    "Image": "T_HardMetalAdvancedSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "AdvancedSignBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Advanced Sign"
   },
   "NeutroniumAdvancedSignStaticItem": {
@@ -31737,10 +31565,6 @@
    "Image": "T_NeutroniumAdvancedSign",
    "MaxCount": 32,
    "Tag": "Decoration",
-   "Recipes": {
-    "RecipeDictionary": "AdvancedSignBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Advanced Sign"
   },
   "CopperConnectorStaticItem": {
@@ -31749,10 +31573,6 @@
    "Image": "T_CopperConnector",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConnectorBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Cable"
   },
   "StoneChestStaticItem": {
@@ -31761,10 +31581,6 @@
    "Image": "T_StoneChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 0
-   },
    "Label": "Stone Chest"
   },
   "CopperChestStaticItem": {
@@ -31773,10 +31589,6 @@
    "Image": "T_CopperChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Chest"
   },
   "SteelChestStaticItem": {
@@ -31785,10 +31597,6 @@
    "Image": "T_SteelChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Chest"
   },
   "AluminiumChestStaticItem": {
@@ -31797,10 +31605,6 @@
    "Image": "T_AluminiumChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Chest"
   },
   "StainlessSteelChestStaticItem": {
@@ -31809,10 +31613,6 @@
    "Image": "T_StainlessSteelChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Chest"
   },
   "TitaniumChestStaticItem": {
@@ -31821,10 +31621,6 @@
    "Image": "T_TitaniumChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Chest"
   },
   "HardMetalChestStaticItem": {
@@ -31833,10 +31629,6 @@
    "Image": "T_HardMetalChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Chest"
   },
   "NeutroniumChestStaticItem": {
@@ -31845,10 +31637,6 @@
    "Image": "T_NeutroniumChest",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ChestBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Chest"
   },
   "CopperItemRackStaticItem": {
@@ -31857,10 +31645,6 @@
    "Image": "T_CopperItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Item Rack"
   },
   "SteelItemRackStaticItem": {
@@ -31869,10 +31653,6 @@
    "Image": "T_SteelItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Item Rack"
   },
   "AluminiumItemRackStaticItem": {
@@ -31881,10 +31661,6 @@
    "Image": "T_AluminiumItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Item Rack"
   },
   "StainlessSteelItemRackStaticItem": {
@@ -31893,10 +31669,6 @@
    "Image": "T_StainlessSteelItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Item Rack"
   },
   "TitaniumItemRackStaticItem": {
@@ -31905,10 +31677,6 @@
    "Image": "T_TitaniumItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Item Rack"
   },
   "HardMetalItemRackStaticItem": {
@@ -31917,10 +31685,6 @@
    "Image": "T_HardMetalItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Item Rack"
   },
   "NeutroniumItemRackStaticItem": {
@@ -31929,10 +31693,6 @@
    "Image": "T_NeutroniumItemRack",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ItemRackBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Item Rack"
   },
   "CopperVentStaticItem": {
@@ -31941,10 +31701,6 @@
    "Image": "T_CopperVent",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "VentBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Valve"
   },
   "SteelElectricalSwitchStaticItem": {
@@ -31953,10 +31709,6 @@
    "Image": "T_SteelElectricalSwitch",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ElectricalSwitchBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Switch"
   },
   "SteelOreWasherStaticItem": {
@@ -31965,7 +31717,7 @@
    "Image": "T_SteelOreWasher",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OreWasherBaseRecipeDictionary",
     "Tier": 2
    },
@@ -31977,7 +31729,7 @@
    "Image": "T_AluminiumOreWasher",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OreWasherBaseRecipeDictionary",
     "Tier": 3
    },
@@ -31989,7 +31741,7 @@
    "Image": "T_StainlessSteelOreWasher",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OreWasherBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32001,7 +31753,7 @@
    "Image": "T_TitaniumOreWasher",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OreWasherBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32013,7 +31765,7 @@
    "Image": "T_HardMetalOreWasher",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OreWasherBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32025,7 +31777,7 @@
    "Image": "T_NeutroniumOreWasher",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OreWasherBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32037,10 +31789,6 @@
    "Image": "T_CopperConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Conveyor"
   },
   "SteelConveyorStaticItem": {
@@ -32049,10 +31797,6 @@
    "Image": "T_SteelConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Conveyor"
   },
   "AluminiumConveyorStaticItem": {
@@ -32061,10 +31805,6 @@
    "Image": "T_AluminiumConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Conveyor"
   },
   "StainlessSteelConveyorStaticItem": {
@@ -32073,10 +31813,6 @@
    "Image": "T_StainlessSteelConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Conveyor"
   },
   "TitaniumConveyorStaticItem": {
@@ -32085,10 +31821,6 @@
    "Image": "T_TitaniumConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Conveyor"
   },
   "HardMetalConveyorStaticItem": {
@@ -32097,10 +31829,6 @@
    "Image": "T_HardMetalConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Conveyor"
   },
   "NeutroniumConveyorStaticItem": {
@@ -32109,10 +31837,6 @@
    "Image": "T_NeutroniumConveyor",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ConveyorBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Conveyor"
   },
   "CopperSplitterStaticItem": {
@@ -32121,10 +31845,6 @@
    "Image": "T_CopperSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Splitter"
   },
   "SteelSplitterStaticItem": {
@@ -32133,10 +31853,6 @@
    "Image": "T_SteelSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Splitter"
   },
   "AluminiumSplitterStaticItem": {
@@ -32145,10 +31861,6 @@
    "Image": "T_AluminiumSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Splitter"
   },
   "StainlessSteelSplitterStaticItem": {
@@ -32157,10 +31869,6 @@
    "Image": "T_StainlessSteelSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Splitter"
   },
   "TitaniumSplitterStaticItem": {
@@ -32169,10 +31877,6 @@
    "Image": "T_TitaniumSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Splitter"
   },
   "HardMetalSplitterStaticItem": {
@@ -32181,10 +31885,6 @@
    "Image": "T_HardMetalSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Splitter"
   },
   "NeutroniumSplitterStaticItem": {
@@ -32193,10 +31893,6 @@
    "Image": "T_NeutroniumSplitter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SplitterBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Splitter"
   },
   "SteelSorterStaticItem": {
@@ -32205,10 +31901,6 @@
    "Image": "T_SteelSorter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SorterBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Sorter"
   },
   "AluminiumSorterStaticItem": {
@@ -32217,10 +31909,6 @@
    "Image": "T_AluminiumSorter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SorterBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Sorter"
   },
   "StainlessSteelSorterStaticItem": {
@@ -32229,10 +31917,6 @@
    "Image": "T_StainlessSteelSorter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SorterBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Sorter"
   },
   "TitaniumSorterStaticItem": {
@@ -32241,10 +31925,6 @@
    "Image": "T_TitaniumSorter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SorterBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Sorter"
   },
   "HardMetalSorterStaticItem": {
@@ -32253,10 +31933,6 @@
    "Image": "T_HardMetalSorter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SorterBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Sorter"
   },
   "NeutroniumSorterStaticItem": {
@@ -32265,10 +31941,6 @@
    "Image": "T_NeutroniumSorter",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "SorterBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Sorter"
   },
   "CopperContainerStaticItem": {
@@ -32277,10 +31949,6 @@
    "Image": "T_CopperContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Container"
   },
   "SteelContainerStaticItem": {
@@ -32289,10 +31957,6 @@
    "Image": "T_SteelContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Container"
   },
   "AluminiumContainerStaticItem": {
@@ -32301,10 +31965,6 @@
    "Image": "T_AluminiumContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Container"
   },
   "StainlessSteelContainerStaticItem": {
@@ -32313,10 +31973,6 @@
    "Image": "T_StainlessSteelContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Container"
   },
   "TitaniumContainerStaticItem": {
@@ -32325,10 +31981,6 @@
    "Image": "T_TitaniumContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Container"
   },
   "HardMetalContainerStaticItem": {
@@ -32337,10 +31989,6 @@
    "Image": "T_HardMetalContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Container"
   },
   "NeutroniumContainerStaticItem": {
@@ -32349,10 +31997,6 @@
    "Image": "T_NeutroniumContainer",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "ContainerBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Container"
   },
   "SteelPressStaticItem": {
@@ -32361,7 +32005,7 @@
    "Image": "T_SteelPress",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PressBaseRecipeDictionary",
     "Tier": 2
    },
@@ -32373,7 +32017,7 @@
    "Image": "T_AluminiumPress",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PressBaseRecipeDictionary",
     "Tier": 3
    },
@@ -32385,7 +32029,7 @@
    "Image": "T_StainlessSteelPress",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PressBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32397,7 +32041,7 @@
    "Image": "T_TitaniumPress",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PressBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32409,7 +32053,7 @@
    "Image": "T_HardMetalPress",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PressBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32421,7 +32065,7 @@
    "Image": "T_NeutroniumPress",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PressBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32433,7 +32077,7 @@
    "Image": "T_CopperStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 1
    },
@@ -32445,7 +32089,7 @@
    "Image": "T_SteelStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 2
    },
@@ -32457,7 +32101,7 @@
    "Image": "T_AluminiumStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 3
    },
@@ -32469,7 +32113,7 @@
    "Image": "T_StainlessSteelStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32481,7 +32125,7 @@
    "Image": "T_TitaniumStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32493,7 +32137,7 @@
    "Image": "T_HardMetalStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32505,7 +32149,7 @@
    "Image": "T_NeutroniumStirlingEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "StirlingEngineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32517,7 +32161,7 @@
    "Image": "T_SteelCombustionEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CombustionEngineBaseRecipeDictionary",
     "Tier": 2
    },
@@ -32529,7 +32173,7 @@
    "Image": "T_AluminiumCombustionEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CombustionEngineBaseRecipeDictionary",
     "Tier": 3
    },
@@ -32541,7 +32185,7 @@
    "Image": "T_StainlessSteelCombustionEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CombustionEngineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32553,7 +32197,7 @@
    "Image": "T_TitaniumCombustionEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CombustionEngineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32565,7 +32209,7 @@
    "Image": "T_HardMetalCombustionEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CombustionEngineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32577,7 +32221,7 @@
    "Image": "T_NeutroniumCombustionEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CombustionEngineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32589,7 +32233,7 @@
    "Image": "T_AluminiumPyrolysisUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PyrolysisUnitBaseRecipeDictionary",
     "Tier": 3
    },
@@ -32601,7 +32245,7 @@
    "Image": "T_StainlessSteelPyrolysisUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PyrolysisUnitBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32613,7 +32257,7 @@
    "Image": "T_TitaniumPyrolysisUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PyrolysisUnitBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32625,7 +32269,7 @@
    "Image": "T_HardMetalPyrolysisUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PyrolysisUnitBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32637,7 +32281,7 @@
    "Image": "T_NeutroniumPyrolysisUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PyrolysisUnitBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32649,7 +32293,7 @@
    "Image": "T_SteelGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GeneratorBaseRecipeDictionary",
     "Tier": 2
    },
@@ -32661,7 +32305,7 @@
    "Image": "T_AluminiumGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GeneratorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -32673,7 +32317,7 @@
    "Image": "T_StainlessSteelGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GeneratorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32685,7 +32329,7 @@
    "Image": "T_TitaniumGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GeneratorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32697,7 +32341,7 @@
    "Image": "T_HardMetalGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GeneratorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32709,7 +32353,7 @@
    "Image": "T_NeutroniumGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GeneratorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32721,7 +32365,7 @@
    "Image": "T_CopperCompactGenerator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "CompactGeneratorBaseRecipeDictionary",
     "Tier": 1
    },
@@ -32733,7 +32377,7 @@
    "Image": "T_SteelElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricEngineBaseRecipeDictionary",
     "Tier": 2
    },
@@ -32745,7 +32389,7 @@
    "Image": "T_AluminiumElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricEngineBaseRecipeDictionary",
     "Tier": 3
    },
@@ -32757,7 +32401,7 @@
    "Image": "T_StainlessSteelElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricEngineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32769,7 +32413,7 @@
    "Image": "T_TitaniumElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricEngineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32781,7 +32425,7 @@
    "Image": "T_HardMetalElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricEngineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32793,7 +32437,7 @@
    "Image": "T_NeutroniumElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricEngineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32805,7 +32449,7 @@
    "Image": "T_StainlessSteelIndustrialElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialElectricEngineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -32817,7 +32461,7 @@
    "Image": "T_TitaniumIndustrialElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialElectricEngineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -32829,7 +32473,7 @@
    "Image": "T_HardMetalIndustrialElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialElectricEngineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -32841,7 +32485,7 @@
    "Image": "T_NeutroniumIndustrialElectricEngine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialElectricEngineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -32853,10 +32497,6 @@
    "Image": "T_CopperRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Robot Arm"
   },
   "SteelRobotArmStaticItem": {
@@ -32865,10 +32505,6 @@
    "Image": "T_SteelRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Robot Arm"
   },
   "AluminiumRobotArmStaticItem": {
@@ -32877,10 +32513,6 @@
    "Image": "T_AluminiumRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Robot Arm"
   },
   "StainlessSteelRobotArmStaticItem": {
@@ -32889,10 +32521,6 @@
    "Image": "T_StainlessSteelRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Robot Arm"
   },
   "TitaniumRobotArmStaticItem": {
@@ -32901,10 +32529,6 @@
    "Image": "T_TitaniumRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Robot Arm"
   },
   "HardMetalRobotArmStaticItem": {
@@ -32913,10 +32537,6 @@
    "Image": "T_HardMetalRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Robot Arm"
   },
   "NeutroniumRobotArmStaticItem": {
@@ -32925,10 +32545,6 @@
    "Image": "T_NeutroniumRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "RobotArmBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Robot Arm"
   },
   "CopperFilteringRobotArmStaticItem": {
@@ -32937,10 +32553,6 @@
    "Image": "T_CopperFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Filtering Robot Arm"
   },
   "SteelFilteringRobotArmStaticItem": {
@@ -32949,10 +32561,6 @@
    "Image": "T_SteelFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Filtering Robot Arm"
   },
   "AluminiumFilteringRobotArmStaticItem": {
@@ -32961,10 +32569,6 @@
    "Image": "T_AluminiumFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Filtering Robot Arm"
   },
   "StainlessSteelFilteringRobotArmStaticItem": {
@@ -32973,10 +32577,6 @@
    "Image": "T_StainlessSteelFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Filtering Robot Arm"
   },
   "TitaniumFilteringRobotArmStaticItem": {
@@ -32985,10 +32585,6 @@
    "Image": "T_TitaniumFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Filtering Robot Arm"
   },
   "HardMetalFilteringRobotArmStaticItem": {
@@ -32997,10 +32593,6 @@
    "Image": "T_HardMetalFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Filtering Robot Arm"
   },
   "NeutroniumFilteringRobotArmStaticItem": {
@@ -33009,10 +32601,6 @@
    "Image": "T_NeutroniumFilteringRobotArm",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringRobotArmBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Filtering Robot Arm"
   },
   "CopperPumpStaticItem": {
@@ -33021,7 +32609,7 @@
    "Image": "T_CopperPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 1
    },
@@ -33033,7 +32621,7 @@
    "Image": "T_SteelPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33045,7 +32633,7 @@
    "Image": "T_AluminiumPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33057,7 +32645,7 @@
    "Image": "T_StainlessSteelPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33069,7 +32657,7 @@
    "Image": "T_TitaniumPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33081,7 +32669,7 @@
    "Image": "T_HardMetalPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33093,7 +32681,7 @@
    "Image": "T_NeutroniumPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PumpBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33105,10 +32693,6 @@
    "Image": "T_CopperFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Filtering Pump"
   },
   "SteelFilteringPumpStaticItem": {
@@ -33117,10 +32701,6 @@
    "Image": "T_SteelFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Filtering Pump"
   },
   "AluminiumFilteringPumpStaticItem": {
@@ -33129,10 +32709,6 @@
    "Image": "T_AluminiumFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Filtering Pump"
   },
   "StainlessSteelFilteringPumpStaticItem": {
@@ -33141,10 +32717,6 @@
    "Image": "T_StainlessSteelFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Filtering Pump"
   },
   "TitaniumFilteringPumpStaticItem": {
@@ -33153,10 +32725,6 @@
    "Image": "T_TitaniumFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Filtering Pump"
   },
   "HardMetalFilteringPumpStaticItem": {
@@ -33165,10 +32733,6 @@
    "Image": "T_HardMetalFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Filtering Pump"
   },
   "NeutroniumFilteringPumpStaticItem": {
@@ -33177,10 +32741,6 @@
    "Image": "T_NeutroniumFilteringPump",
    "MaxCount": 32,
    "Tag": "Logistics",
-   "Recipes": {
-    "RecipeDictionary": "FilteringPumpBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Filtering Pump"
   },
   "StoneSmelterStaticItem": {
@@ -33189,7 +32749,7 @@
    "Image": "T_StoneSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SmelterBaseRecipeDictionary",
     "Tier": 0
    },
@@ -33201,7 +32761,7 @@
    "Image": "T_CopperSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SmelterBaseRecipeDictionary",
     "Tier": 1
    },
@@ -33213,7 +32773,7 @@
    "Image": "T_SteelSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SmelterBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33225,7 +32785,7 @@
    "Image": "T_SteelSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SteamTurbineBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33237,7 +32797,7 @@
    "Image": "T_AluminiumSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SteamTurbineBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33249,7 +32809,7 @@
    "Image": "T_StainlessSteelSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SteamTurbineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33261,7 +32821,7 @@
    "Image": "T_TitaniumSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SteamTurbineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33273,7 +32833,7 @@
    "Image": "T_HardMetalSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SteamTurbineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33285,7 +32845,7 @@
    "Image": "T_NeutroniumSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SteamTurbineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33297,7 +32857,7 @@
    "Image": "T_TitaniumIndustrialSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSteamTurbineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33309,7 +32869,7 @@
    "Image": "T_HardMetalIndustrialSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSteamTurbineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33321,7 +32881,7 @@
    "Image": "T_NeutroniumIndustrialSteamTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSteamTurbineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33333,7 +32893,7 @@
    "Image": "T_StainlessSteelGasTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GasTurbineBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33345,7 +32905,7 @@
    "Image": "T_TitaniumGasTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GasTurbineBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33357,7 +32917,7 @@
    "Image": "T_HardMetalGasTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GasTurbineBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33369,7 +32929,7 @@
    "Image": "T_NeutroniumGasTurbine",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GasTurbineBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33381,7 +32941,7 @@
    "Image": "T_TitaniumRiteg",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RitegBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33393,7 +32953,7 @@
    "Image": "T_HardMetalRiteg",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RitegBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33405,7 +32965,7 @@
    "Image": "T_NeutroniumRiteg",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RitegBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33417,7 +32977,7 @@
    "Image": "T_SteelArcSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ArcSmelterBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33429,7 +32989,7 @@
    "Image": "T_AluminiumArcSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ArcSmelterBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33441,7 +33001,7 @@
    "Image": "T_StainlessSteelArcSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ArcSmelterBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33453,7 +33013,7 @@
    "Image": "T_TitaniumArcSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ArcSmelterBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33465,7 +33025,7 @@
    "Image": "T_HardMetalArcSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ArcSmelterBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33477,7 +33037,7 @@
    "Image": "T_NeutroniumArcSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ArcSmelterBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33489,7 +33049,7 @@
    "Image": "T_AluminiumChemicalBath",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemicalBathBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33501,7 +33061,7 @@
    "Image": "T_StainlessSteelChemicalBath",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemicalBathBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33513,7 +33073,7 @@
    "Image": "T_TitaniumChemicalBath",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemicalBathBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33525,7 +33085,7 @@
    "Image": "T_HardMetalChemicalBath",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemicalBathBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33537,7 +33097,7 @@
    "Image": "T_NeutroniumChemicalBath",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ChemicalBathBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33549,7 +33109,7 @@
    "Image": "T_AluminiumSifter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SifterBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33561,7 +33121,7 @@
    "Image": "T_StainlessSteelSifter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SifterBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33573,7 +33133,7 @@
    "Image": "T_TitaniumSifter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SifterBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33585,7 +33145,7 @@
    "Image": "T_HardMetalSifter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SifterBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33597,7 +33157,7 @@
    "Image": "T_NeutroniumSifter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SifterBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33609,7 +33169,7 @@
    "Image": "T_AluminiumFilteringUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FilteringUnitBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33621,7 +33181,7 @@
    "Image": "T_StainlessSteelFilteringUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FilteringUnitBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33633,7 +33193,7 @@
    "Image": "T_TitaniumFilteringUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FilteringUnitBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33645,7 +33205,7 @@
    "Image": "T_HardMetalFilteringUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FilteringUnitBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33657,7 +33217,7 @@
    "Image": "T_NeutroniumFilteringUnit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FilteringUnitBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33669,7 +33229,7 @@
    "Image": "T_StoneFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 0
    },
@@ -33681,7 +33241,7 @@
    "Image": "T_CopperFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 1
    },
@@ -33693,7 +33253,7 @@
    "Image": "T_SteelFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33705,7 +33265,7 @@
    "Image": "T_AluminiumFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33717,7 +33277,7 @@
    "Image": "T_StainlessSteelFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33729,7 +33289,7 @@
    "Image": "T_TitaniumFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33741,7 +33301,7 @@
    "Image": "T_HardMetalFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33753,7 +33313,7 @@
    "Image": "T_NeutroniumFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FurnaceBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33765,7 +33325,7 @@
    "Image": "T_CopperOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 1
    },
@@ -33777,7 +33337,7 @@
    "Image": "T_SteelOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33789,7 +33349,7 @@
    "Image": "T_AluminiumOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33801,7 +33361,7 @@
    "Image": "T_StainlessSteelOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33813,7 +33373,7 @@
    "Image": "T_TitaniumOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33825,7 +33385,7 @@
    "Image": "T_HardMetalOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33837,7 +33397,7 @@
    "Image": "T_NeutroniumOven",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "OvenBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33849,7 +33409,7 @@
    "Image": "T_CopperBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 1
    },
@@ -33861,7 +33421,7 @@
    "Image": "T_SteelBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33873,7 +33433,7 @@
    "Image": "T_AluminiumBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33885,7 +33445,7 @@
    "Image": "T_StainlessSteelBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33897,7 +33457,7 @@
    "Image": "T_TitaniumBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33909,7 +33469,7 @@
    "Image": "T_HardMetalBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 6
    },
@@ -33921,7 +33481,7 @@
    "Image": "T_NeutroniumBlastFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "BlastFurnaceBaseRecipeDictionary",
     "Tier": 7
    },
@@ -33933,7 +33493,7 @@
    "Image": "T_CopperFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 1
    },
@@ -33945,7 +33505,7 @@
    "Image": "T_SteelFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 2
    },
@@ -33957,7 +33517,7 @@
    "Image": "T_AluminiumFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 3
    },
@@ -33969,7 +33529,7 @@
    "Image": "T_StainlessSteelFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 4
    },
@@ -33981,7 +33541,7 @@
    "Image": "T_TitaniumFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 5
    },
@@ -33993,7 +33553,7 @@
    "Image": "T_HardMetalFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34005,7 +33565,7 @@
    "Image": "T_NeutroniumFluidFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidFurnaceBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34017,7 +33577,7 @@
    "Image": "T_SteelElectricFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricFurnaceBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34029,7 +33589,7 @@
    "Image": "T_AluminiumElectricFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricFurnaceBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34041,7 +33601,7 @@
    "Image": "T_StainlessSteelElectricFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricFurnaceBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34053,7 +33613,7 @@
    "Image": "T_TitaniumElectricFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricFurnaceBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34065,7 +33625,7 @@
    "Image": "T_HardMetalElectricFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricFurnaceBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34077,7 +33637,7 @@
    "Image": "T_NeutroniumElectricFurnace",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectricFurnaceBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34089,10 +33649,6 @@
    "Image": "T_StainlessSteelBatteryBox",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "BatteryBoxBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Battery Box"
   },
   "TitaniumBatteryBoxStaticItem": {
@@ -34101,10 +33657,6 @@
    "Image": "T_TitaniumBatteryBox",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "BatteryBoxBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Battery Box"
   },
   "HardMetalBatteryBoxStaticItem": {
@@ -34113,10 +33665,6 @@
    "Image": "T_HardMetalBatteryBox",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "BatteryBoxBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Battery Box"
   },
   "NeutroniumBatteryBoxStaticItem": {
@@ -34125,10 +33673,6 @@
    "Image": "T_NeutroniumBatteryBox",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "BatteryBoxBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Battery Box"
   },
   "AluminiumSmallBatteryStaticItem": {
@@ -34137,10 +33681,6 @@
    "Image": "T_AluminiumSmallBattery",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "SmallBatteryBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Small Battery"
   },
   "StainlessSteelSmallBatteryStaticItem": {
@@ -34149,10 +33689,6 @@
    "Image": "T_StainlessSteelSmallBattery",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "SmallBatteryBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Small Battery"
   },
   "TitaniumSmallBatteryStaticItem": {
@@ -34161,10 +33697,6 @@
    "Image": "T_TitaniumSmallBattery",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "SmallBatteryBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Small Battery"
   },
   "HardMetalSmallBatteryStaticItem": {
@@ -34173,10 +33705,6 @@
    "Image": "T_HardMetalSmallBattery",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "SmallBatteryBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Small Battery"
   },
   "NeutroniumSmallBatteryStaticItem": {
@@ -34185,10 +33713,6 @@
    "Image": "T_NeutroniumSmallBattery",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "SmallBatteryBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Small Battery"
   },
   "NeutroniumPortalStaticItem": {
@@ -34197,7 +33721,7 @@
    "Image": "T_NeutroniumPortal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "PortalBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34209,10 +33733,6 @@
    "Image": "T_CopperDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Drilling Rig"
   },
   "SteelDrillingRigStaticItem": {
@@ -34221,10 +33741,6 @@
    "Image": "T_SteelDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Drilling Rig"
   },
   "AluminiumDrillingRigStaticItem": {
@@ -34233,10 +33749,6 @@
    "Image": "T_AluminiumDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Drilling Rig"
   },
   "StainlessSteelDrillingRigStaticItem": {
@@ -34245,10 +33757,6 @@
    "Image": "T_StainlessSteelDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Drilling Rig"
   },
   "TitaniumDrillingRigStaticItem": {
@@ -34257,10 +33765,6 @@
    "Image": "T_TitaniumDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Drilling Rig"
   },
   "HardMetalDrillingRigStaticItem": {
@@ -34269,10 +33773,6 @@
    "Image": "T_HardMetalDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Drilling Rig"
   },
   "NeutroniumDrillingRigStaticItem": {
@@ -34281,10 +33781,6 @@
    "Image": "T_NeutroniumDrillingRig",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Drilling Rig"
   },
   "CopperAssemblerStaticItem": {
@@ -34293,7 +33789,7 @@
    "Image": "T_CopperAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 1
    },
@@ -34305,7 +33801,7 @@
    "Image": "T_SteelAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34317,7 +33813,7 @@
    "Image": "T_AluminiumAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34329,7 +33825,7 @@
    "Image": "T_StainlessSteelAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34341,7 +33837,7 @@
    "Image": "T_TitaniumAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34353,7 +33849,7 @@
    "Image": "T_HardMetalAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34365,7 +33861,7 @@
    "Image": "T_NeutroniumAssembler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AssemblerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34377,7 +33873,7 @@
    "Image": "T_SteelConstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ConstructorBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34389,7 +33885,7 @@
    "Image": "T_AluminiumConstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ConstructorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34401,7 +33897,7 @@
    "Image": "T_StainlessSteelConstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ConstructorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34413,7 +33909,7 @@
    "Image": "T_TitaniumConstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ConstructorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34425,7 +33921,7 @@
    "Image": "T_HardMetalConstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ConstructorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34437,7 +33933,7 @@
    "Image": "T_NeutroniumConstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ConstructorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34449,7 +33945,7 @@
    "Image": "T_SteelDeconstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "DeconstructorBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34461,7 +33957,7 @@
    "Image": "T_AluminiumDeconstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "DeconstructorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34473,7 +33969,7 @@
    "Image": "T_StainlessSteelDeconstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "DeconstructorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34485,7 +33981,7 @@
    "Image": "T_TitaniumDeconstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "DeconstructorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34497,7 +33993,7 @@
    "Image": "T_HardMetalDeconstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "DeconstructorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34509,7 +34005,7 @@
    "Image": "T_NeutroniumDeconstructor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "DeconstructorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34521,7 +34017,7 @@
    "Image": "T_CopperFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 1
    },
@@ -34533,7 +34029,7 @@
    "Image": "T_SteelFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34545,7 +34041,7 @@
    "Image": "T_AluminiumFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34557,7 +34053,7 @@
    "Image": "T_StainlessSteelFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34569,7 +34065,7 @@
    "Image": "T_TitaniumFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34581,7 +34077,7 @@
    "Image": "T_HardMetalFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34593,7 +34089,7 @@
    "Image": "T_NeutroniumFluidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FluidDumpBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34605,7 +34101,7 @@
    "Image": "T_SteelGasDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "GasDumpBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34617,10 +34113,6 @@
    "Image": "T_SteelSolidDump",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "SolidDumpBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Solid Dump"
   },
   "CopperLampStaticItem": {
@@ -34629,10 +34121,6 @@
    "Image": "T_CopperLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 1
-   },
    "Label": "Copper Lamp"
   },
   "SteelLampStaticItem": {
@@ -34641,10 +34129,6 @@
    "Image": "T_SteelLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Lamp"
   },
   "AluminiumLampStaticItem": {
@@ -34653,10 +34137,6 @@
    "Image": "T_AluminiumLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Lamp"
   },
   "StainlessSteelLampStaticItem": {
@@ -34665,10 +34145,6 @@
    "Image": "T_StainlessSteelLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Lamp"
   },
   "TitaniumLampStaticItem": {
@@ -34677,10 +34153,6 @@
    "Image": "T_TitaniumLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Lamp"
   },
   "HardMetalLampStaticItem": {
@@ -34689,10 +34161,6 @@
    "Image": "T_HardMetalLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Lamp"
   },
   "NeutroniumLampStaticItem": {
@@ -34701,10 +34169,6 @@
    "Image": "T_NeutroniumLamp",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LampBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Lamp"
   },
   "SteelElectrolyzerStaticItem": {
@@ -34713,7 +34177,7 @@
    "Image": "T_SteelElectrolyzer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectrolyzerBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34725,7 +34189,7 @@
    "Image": "T_AluminiumElectrolyzer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectrolyzerBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34737,7 +34201,7 @@
    "Image": "T_StainlessSteelElectrolyzer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectrolyzerBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34749,7 +34213,7 @@
    "Image": "T_TitaniumElectrolyzer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectrolyzerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34761,7 +34225,7 @@
    "Image": "T_HardMetalElectrolyzer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectrolyzerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34773,7 +34237,7 @@
    "Image": "T_NeutroniumElectrolyzer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ElectrolyzerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34785,7 +34249,7 @@
    "Image": "T_SteelMixer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MixerBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34797,7 +34261,7 @@
    "Image": "T_AluminiumMixer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MixerBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34809,7 +34273,7 @@
    "Image": "T_StainlessSteelMixer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MixerBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34821,7 +34285,7 @@
    "Image": "T_TitaniumMixer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MixerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34833,7 +34297,7 @@
    "Image": "T_HardMetalMixer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MixerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34845,7 +34309,7 @@
    "Image": "T_NeutroniumMixer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "MixerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34857,7 +34321,7 @@
    "Image": "T_TitaniumFreezer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FreezerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34869,7 +34333,7 @@
    "Image": "T_HardMetalFreezer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FreezerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34881,7 +34345,7 @@
    "Image": "T_NeutroniumFreezer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FreezerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34893,7 +34357,7 @@
    "Image": "T_CopperAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 1
    },
@@ -34905,7 +34369,7 @@
    "Image": "T_SteelAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 2
    },
@@ -34917,7 +34381,7 @@
    "Image": "T_AluminiumAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 3
    },
@@ -34929,7 +34393,7 @@
    "Image": "T_StainlessSteelAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 4
    },
@@ -34941,7 +34405,7 @@
    "Image": "T_TitaniumAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 5
    },
@@ -34953,7 +34417,7 @@
    "Image": "T_HardMetalAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 6
    },
@@ -34965,7 +34429,7 @@
    "Image": "T_NeutroniumAutomaticFarm",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AutomaticFarmBaseRecipeDictionary",
     "Tier": 7
    },
@@ -34977,7 +34441,7 @@
    "Image": "T_CopperAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 1
    },
@@ -34989,7 +34453,7 @@
    "Image": "T_SteelAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 2
    },
@@ -35001,7 +34465,7 @@
    "Image": "T_AluminiumAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 3
    },
@@ -35013,7 +34477,7 @@
    "Image": "T_StainlessSteelAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35025,7 +34489,7 @@
    "Image": "T_TitaniumAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35037,7 +34501,7 @@
    "Image": "T_HardMetalAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35049,7 +34513,7 @@
    "Image": "T_NeutroniumAtmosphericCondenser",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "AtmosphericCondenserBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35061,10 +34525,6 @@
    "Image": "T_StainlessSteelTerminal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "TerminalBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Terminal"
   },
   "TitaniumBigTerminalStaticItem": {
@@ -35073,10 +34533,6 @@
    "Image": "T_TitaniumTerminal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "BigTerminalBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Big Terminal"
   },
   "HardMetalHugeTerminalStaticItem": {
@@ -35085,10 +34541,6 @@
    "Image": "T_HardMetalTerminal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "HugeTerminalBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Huge Terminal"
   },
   "StainlessSteelFlatTerminalStaticItem": {
@@ -35097,10 +34549,6 @@
    "Image": "T_StainlessSteelFlatTerminal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "FlatTerminalBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Flat Terminal"
   },
   "TitaniumBigFlatTerminalStaticItem": {
@@ -35109,10 +34557,6 @@
    "Image": "T_TitaniumFlatTerminal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "BigFlatTerminalBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Big Flat Terminal"
   },
   "HardMetalHugeFlatTerminalStaticItem": {
@@ -35121,10 +34565,6 @@
    "Image": "T_HardMetalFlatTerminal",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "HugeFlatTerminalBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Huge Flat Terminal"
   },
   "CopperComputerStaticItem": {
@@ -35133,7 +34573,7 @@
    "Image": "T_CopperComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 1
    },
@@ -35145,7 +34585,7 @@
    "Image": "T_SteelComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 2
    },
@@ -35157,7 +34597,7 @@
    "Image": "T_AluminiumComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 3
    },
@@ -35169,7 +34609,7 @@
    "Image": "T_StainlessSteelComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35181,7 +34621,7 @@
    "Image": "T_TitaniumComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35193,7 +34633,7 @@
    "Image": "T_HardMetalComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35205,7 +34645,7 @@
    "Image": "T_NeutroniumComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "ComputerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35217,10 +34657,6 @@
    "Image": "T_TitaniumQuantumComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "QuantumComputerBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Quantum Computer"
   },
   "HardMetalQuantumComputerStaticItem": {
@@ -35229,10 +34665,6 @@
    "Image": "T_HardMetalQuantumComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "QuantumComputerBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Quantum Computer"
   },
   "NeutroniumQuantumComputerStaticItem": {
@@ -35241,10 +34673,6 @@
    "Image": "T_NeutroniumQuantumComputer",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "QuantumComputerBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Quantum Computer"
   },
   "AluminiumIndustrialSeparatorStaticItem": {
@@ -35253,7 +34681,7 @@
    "Image": "T_AluminiumIndustrialSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSeparatorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -35265,7 +34693,7 @@
    "Image": "T_StainlessSteelIndustrialSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSeparatorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35277,7 +34705,7 @@
    "Image": "T_TitaniumIndustrialSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSeparatorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35289,7 +34717,7 @@
    "Image": "T_HardMetalIndustrialSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSeparatorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35301,7 +34729,7 @@
    "Image": "T_NeutroniumIndustrialSeparator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSeparatorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35313,7 +34741,7 @@
    "Image": "T_AluminiumRadiator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RadiatorBaseRecipeDictionary",
     "Tier": 3
    },
@@ -35325,7 +34753,7 @@
    "Image": "T_StainlessSteelRadiator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RadiatorBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35337,7 +34765,7 @@
    "Image": "T_TitaniumRadiator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RadiatorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35349,7 +34777,7 @@
    "Image": "T_HardMetalRadiator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RadiatorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35361,7 +34789,7 @@
    "Image": "T_NeutroniumRadiator",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "RadiatorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35373,10 +34801,6 @@
    "Image": "T_SteelDiode",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DiodeBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Diode"
   },
   "AluminiumDiodeStaticItem": {
@@ -35385,10 +34809,6 @@
    "Image": "T_AluminiumDiode",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DiodeBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Diode"
   },
   "StainlessSteelDiodeStaticItem": {
@@ -35397,10 +34817,6 @@
    "Image": "T_StainlessSteelDiode",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DiodeBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Diode"
   },
   "TitaniumDiodeStaticItem": {
@@ -35409,10 +34825,6 @@
    "Image": "T_TitaniumDiode",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DiodeBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Diode"
   },
   "HardMetalDiodeStaticItem": {
@@ -35421,10 +34833,6 @@
    "Image": "T_HardMetalDiode",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DiodeBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Diode"
   },
   "NeutroniumDiodeStaticItem": {
@@ -35433,10 +34841,6 @@
    "Image": "T_NeutroniumDiode",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "DiodeBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Diode"
   },
   "TitaniumFissionReactorStaticItem": {
@@ -35445,7 +34849,7 @@
    "Image": "T_TitaniumFissionReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FissionReactorBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35457,7 +34861,7 @@
    "Image": "T_HardMetalFissionReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FissionReactorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35469,7 +34873,7 @@
    "Image": "T_NeutroniumFissionReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FissionReactorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35481,7 +34885,7 @@
    "Image": "T_HardMetalFusionReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FusionReactorBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35493,7 +34897,7 @@
    "Image": "T_NeutroniumFusionReactor",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "FusionReactorBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35505,7 +34909,7 @@
    "Image": "T_TitaniumIndustrialBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialBoilerBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35517,7 +34921,7 @@
    "Image": "T_HardMetalIndustrialBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialBoilerBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35529,7 +34933,7 @@
    "Image": "T_NeutroniumIndustrialBoiler",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialBoilerBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35541,7 +34945,7 @@
    "Image": "T_AluminiumSolarPanel",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SolarPanelBaseRecipeDictionary",
     "Tier": 3
    },
@@ -35553,7 +34957,7 @@
    "Image": "T_StainlessSteelSolarPanel",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SolarPanelBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35565,7 +34969,7 @@
    "Image": "T_TitaniumSolarPanel",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SolarPanelBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35577,7 +34981,7 @@
    "Image": "T_HardMetalSolarPanel",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SolarPanelBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35589,7 +34993,7 @@
    "Image": "T_NeutroniumSolarPanel",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "SolarPanelBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35601,10 +35005,6 @@
    "Image": "T_AluminiumPumpjack",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-    "Tier": 3
-   },
    "Label": "Aluminium Pumpjack"
   },
   "StainlessSteelPumpjackStaticItem": {
@@ -35613,10 +35013,6 @@
    "Image": "T_StainlessSteelPumpjack",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-    "Tier": 4
-   },
    "Label": "Stainless Steel Pumpjack"
   },
   "TitaniumPumpjackStaticItem": {
@@ -35625,10 +35021,6 @@
    "Image": "T_TitaniumPumpjack",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-    "Tier": 5
-   },
    "Label": "Titanium Pumpjack"
   },
   "HardMetalPumpjackStaticItem": {
@@ -35637,10 +35029,6 @@
    "Image": "T_HardMetalPumpjack",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-    "Tier": 6
-   },
    "Label": "Hard Metal Pumpjack"
   },
   "NeutroniumPumpjackStaticItem": {
@@ -35649,10 +35037,6 @@
    "Image": "T_NeutroniumPumpjack",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Pumpjack"
   },
   "StainlessSteelIndustrialSmelterStaticItem": {
@@ -35661,7 +35045,7 @@
    "Image": "T_StainlessSteelIndustrialSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSmelterBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35673,7 +35057,7 @@
    "Image": "T_TitaniumIndustrialSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSmelterBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35685,7 +35069,7 @@
    "Image": "T_HardMetalIndustrialSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSmelterBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35697,7 +35081,7 @@
    "Image": "T_NeutroniumIndustrialSmelter",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "IndustrialSmelterBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35709,7 +35093,7 @@
    "Image": "T_StainlessSteelInductionCoil",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "InductionCoilBaseRecipeDictionary",
     "Tier": 4
    },
@@ -35721,7 +35105,7 @@
    "Image": "T_TitaniumInductionCoil",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "InductionCoilBaseRecipeDictionary",
     "Tier": 5
    },
@@ -35733,7 +35117,7 @@
    "Image": "T_HardMetalInductionCoil",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "InductionCoilBaseRecipeDictionary",
     "Tier": 6
    },
@@ -35745,7 +35129,7 @@
    "Image": "T_NeutroniumInductionCoil",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
+   "Recipe": {
     "RecipeDictionary": "InductionCoilBaseRecipeDictionary",
     "Tier": 7
    },
@@ -35757,10 +35141,6 @@
    "Image": "T_NeutroniumCreativeController",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "CreativeControllerBaseRecipeDictionary",
-    "Tier": 7
-   },
    "Label": "Neutronium Creative Controller"
   },
   "SteelLogicCircuitStaticItem": {
@@ -35769,10 +35149,6 @@
    "Image": "T_SteelLogicCircuit",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LogicCircuitBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Logic Circuit"
   },
   "SteelLogicInterfaceStaticItem": {
@@ -35781,10 +35157,6 @@
    "Image": "T_SteelLogicInterface",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LogicInterfaceBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Logic Interface"
   },
   "SteelLogicControllerStaticItem": {
@@ -35793,10 +35165,6 @@
    "Image": "T_SteelLogicController",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LogicControllerBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Logic Controller"
   },
   "SteelLogicDisplayStaticItem": {
@@ -35805,10 +35173,6 @@
    "Image": "T_SteelLogicDisplay",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LogicDisplayBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Logic Display"
   },
   "SteelLogicWireStaticItem": {
@@ -35817,10 +35181,6 @@
    "Image": "T_SteelLogicWire",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "LogicWireBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Logic Wire"
   },
   "SteelButtonStaticItem": {
@@ -35829,10 +35189,6 @@
    "Image": "T_SteelButton",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "ButtonBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Button"
   },
   "SteelToggleButtonStaticItem": {
@@ -35841,10 +35197,6 @@
    "Image": "T_SteelToggleButton",
    "MaxCount": 32,
    "Tag": "Machines",
-   "Recipes": {
-    "RecipeDictionary": "ToggleButtonBaseRecipeDictionary",
-    "Tier": 2
-   },
    "Label": "Steel Toggle Button"
   },
   "SandSurfaceStaticItem": {

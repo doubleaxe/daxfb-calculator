@@ -281,16 +281,21 @@ export class JsonComposer {
     }
 
     #mergeRecipeDictionary() {
+        const recipes = this.#recipes;
         const items = this.#items;
         const recipeDictionary = this.#recipeDictionary;
         for(const [recipeName, array] of Object.entries(recipeDictionary)) {
+            if(!recipes[recipeName]) {
+                //unused recipe
+                continue;
+            }
             for(const recipe of array) {
                 const {Item: itemName, Tier: recipeTier} = recipe.UsedIn[0];
                 const item = items[itemName];
-                if(item.Recipes) {
+                if(item.Recipe) {
                     throw new Error(`Multiple recipes for single item\n${JSON.stringify(item, null, '  ')}`);
                 }
-                item.Recipes = {
+                item.Recipe = {
                     RecipeDictionary: recipeName,
                     Tier: recipeTier,
                 };

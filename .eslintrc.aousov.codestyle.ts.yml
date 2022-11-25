@@ -1,0 +1,4 @@
+rules:
+    #ts specific
+    semi: ["off"]
+    "@typescript-eslint/semi": ["error", "always"]

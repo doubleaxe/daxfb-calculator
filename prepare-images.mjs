@@ -21,11 +21,12 @@ export class ImagesList {
     getImageObject(imageName) {
         return this.#images.get(imageName);
     }
-    async saveComposedImageAsync({imagePath, cssPath}, usableImages) {
+    async saveComposedImageAsync({imagePath, cssPath, jsonPath}, usableImages) {
         const columns = 10;
         const rows = Math.ceil(this.#images.size / columns);
 
         const cssContent = [];
+        const jsonContent = {};
         const width = columns * ImagesList.RESOLUTION;
         const height = rows * ImagesList.RESOLUTION;
         const resultImage = new Jimp(width, height, 0xffffff00, (err) => {
@@ -35,15 +36,22 @@ export class ImagesList {
         for(const [name, imageObject] of this.#images.entries()) {
             if(!usableImages.has(name))
                 continue;
-            resultImage.composite(imageObject, offsetx, offsety, Jimp.BLEND_SOURCE_OVER);
-            cssContent.push(`.${name} {background-position: ${-offsetx}px ${-offsety}px;}`);
-            offsetx = (offsetx + ImagesList.RESOLUTION) % width;
+            usableImages.delete(name);
+            const imgx = offsetx * ImagesList.RESOLUTION, imgy = offsety * ImagesList.RESOLUTION;
+            resultImage.composite(imageObject, imgx, imgy, Jimp.BLEND_SOURCE_OVER);
+            cssContent.push(`.${name} {background-position: ${-imgx}px ${-imgy}px;}`);
+            jsonContent[name] = [offsetx, offsety];
+            offsetx = (offsetx + 1) % columns;
             if(!offsetx)
-                offsety += ImagesList.RESOLUTION;
+                offsety += 1;
         }
-        resultImage.crop(0, 0, width, offsety + ImagesList.RESOLUTION);
+        if(usableImages.size) {
+            /* console.log(`Images not created: ${[...usableImages].sort().join(',')}`); */
+        }
+        resultImage.crop(0, 0, width, (offsety + 1) * ImagesList.RESOLUTION);
         await resultImage.writeAsync(imagePath);
         await fs.writeFile(cssPath, cssContent.join('\n'));
+        await fs.writeFile(jsonPath, JSON.stringify(jsonContent));
     }
     mergeList(...imageLists) {
         for(const imageList of imageLists) {

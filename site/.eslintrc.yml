@@ -10,7 +10,8 @@ extends:
     - plugin:vue/vue3-recommended
     - eslint:recommended
     - "@vue/typescript/recommended"
-    - ../.eslintrc.aousov.codestyle.vue.yml
     - ../.eslintrc.aousov.codestyle.yml
+    - ../.eslintrc.aousov.codestyle.vue.yml
+    - ../.eslintrc.aousov.codestyle.ts.yml
 plugins:
     - "@typescript-eslint"
