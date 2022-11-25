@@ -109,7 +109,7 @@ export class ImagesList {
         const original = image.clone();
         image.composite(mask, 0, 0, {mode: Jimp.BLEND_MULTIPLY});
         //reapply transparent pixels of original image
-        for (const { idx } of original.scanIterator(0, 0, original.bitmap.width, original.bitmap.height)) {
+        for (const {idx} of original.scanIterator(0, 0, original.bitmap.width, original.bitmap.height)) {
             const alpha = original.bitmap.data[idx + 3];
             image.bitmap.data[idx + 3] = alpha;
         }

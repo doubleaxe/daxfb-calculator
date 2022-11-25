@@ -1,9 +1,9 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { ImagesList } from './prepare-images.mjs';
-import { RecipesList, ItemsList, Localization, JsonComposer } from './prepare-json.mjs';
+import {fileURLToPath} from 'node:url';
+import {ImagesList} from './prepare-images.mjs';
+import {RecipesList, ItemsList, Localization, JsonComposer} from './prepare-json.mjs';
 
 const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), 'site', 'data');
 

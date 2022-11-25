@@ -1,4 +1,5 @@
 rules:
+    array-bracket-spacing: ["error", "never"]
     brace-style: ["error", "1tbs", { "allowSingleLine": true }]
     comma-dangle: ["error", "only-multiline"]
     dot-location: ["error", "property"]
@@ -11,6 +12,7 @@ rules:
     no-multi-spaces: ["error", { "ignoreEOLComments": true }]
     no-trailing-spaces: ["error"]
     object-curly-newline: ["error", { "consistent": true }]
+    object-curly-spacing: ["error", "never"]
     quotes: ["error", "single", { "avoidEscape": true }]
     semi-spacing: "error"
     #warning!

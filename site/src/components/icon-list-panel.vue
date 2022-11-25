@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { itemCollection } from '../scripts/factory';
+import {ref} from 'vue';
+import {itemCollection} from '../scripts/factory';
 
 const producerItems = itemCollection.getProducerItems();
+const tryDragging = ref(false);
+
 </script>
 
 <template>
-    <icon-component v-for="item in producerItems" :image="item.image" />
+    <producer-draggable :activating="tryDragging" />
+    <icon-component
+        v-for="item in producerItems"
+        :key="item.name"
+        :image="item.image"
+        @mousedown="tryDragging = true"
+        @mouseup="tryDragging = false"
+    />
 </template>
 
 <style scoped>

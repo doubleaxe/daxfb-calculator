@@ -1,4 +1,4 @@
-import type { JsonItem, JsonData } from '../../data';
+import type {JsonItem, JsonData} from '../../data';
 import dataJsonUntyped from '../../data/data.json';
 
 const dataJson = dataJsonUntyped as JsonData;
@@ -11,6 +11,7 @@ class Item {
     }
 
     get image() { return this.item.Image; }
+    get name() { return this.item.Name; }
 }
 
 class ProducerFactory extends Item {
