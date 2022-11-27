@@ -3,7 +3,7 @@ import dataJsonUntyped from '../../data/data.json';
 
 const dataJson = dataJsonUntyped as JsonData;
 
-class Item {
+export class Item {
     protected readonly item: JsonItem;
     constructor(name: string, item: JsonItem) {
         item.Name = name;
@@ -11,10 +11,10 @@ class Item {
     }
 
     get image() { return this.item.Image; }
-    get name() { return this.item.Name; }
+    get name(): string { return this.item.Name || ''; }
 }
 
-class ProducerFactory extends Item {
+export class ProducerFactory extends Item {
     constructor(name: string, item: JsonItem) {
         super(name, item);
     }
@@ -38,6 +38,9 @@ class ItemCollection {
     }
     getProducerItems() {
         return this.producerItems.concat();
+    }
+    getItem(name: string) {
+        return this.items[name];
     }
 }
 export const itemCollection = new ItemCollection(dataJson.items);

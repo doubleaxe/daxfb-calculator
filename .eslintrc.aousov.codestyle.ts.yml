@@ -1,4 +1,18 @@
 rules:
     #ts specific
-    semi: ["off"]
+    brace-style: off
+    "@typescript-eslint/brace-style": ["error", "1tbs", { "allowSingleLine": true }]
+    comma-dangle: off
+    "@typescript-eslint/comma-dangle": ["error", "only-multiline"]
+    func-call-spacing: off
+    "@typescript-eslint/func-call-spacing": ["error", "never"]
+    indent: off
+    "@typescript-eslint/indent": ["warn", 4, { "MemberExpression": "off", "SwitchCase": 1 }]
+    object-curly-spacing: off
+    "@typescript-eslint/object-curly-spacing": ["error", "never"]
+    quotes: off
+    "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }]
+    semi: off
     "@typescript-eslint/semi": ["error", "always"]
+    space-before-function-paren: off
+    "@typescript-eslint/space-before-function-paren": ["error", "never"]
