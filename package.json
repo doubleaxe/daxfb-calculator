@@ -35,6 +35,7 @@
     "@vueuse/core": "^9.6.0",
     "naive-ui": "^2.34.2",
     "pinia": "^2.0.23",
+    "ts-2d-geometry": "^6.3.2",
     "vue": "^3.2.41"
   },
   "devDependencies": {

@@ -2,27 +2,25 @@
 import {ref, unref} from 'vue';
 import {useBlueprintModel} from './scripts/blueprint-model';
 import {useElementBounding} from '@vueuse/core';
+import {Point, Vector, Rectangle} from 'ts-2d-geometry';
 
 const blueprints = ref<HTMLElement | null>(null);
 const {x: blueprintX, y: blueprintY, width: blueprintWidth, height: blueprintHeight} = useElementBounding(blueprints);
 
 const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: number}) => {
-    /*
     const screenPoint = new Point(screenX, sceenY);
-    const blueprintOrigin = new Plane(new Point(unref(blueprintX), unref(blueprintY)));
+    const blueprintOrigin = new Point(unref(blueprintX), unref(blueprintY));
     const boundingRect = new Rectangle(
         blueprintOrigin,
-        unref(blueprintWidth),
-        unref(blueprintHeight),
+        blueprintOrigin.plus(new Vector(unref(blueprintWidth), unref(blueprintHeight))),
     );
-    if(boundingRect.contains(screenPoint)) {
-        const blueprintPoint = blueprintOrigin.remapToPlaneSpace(screenPoint);
+    if(boundingRect.toPolygon().containsPoint(screenPoint)) {
+        const blueprintPoint = screenPoint.minus(blueprintOrigin);
         const {blueprint} = useBlueprintModel();
         const item = blueprint.addItem(itemName);
         item.x = blueprintPoint.x;
         item.y = blueprintPoint.y;
     }
-    */
 };
 </script>
 
@@ -35,12 +33,12 @@ const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: numb
             width="20%"
             :default-collapsed="false"
             :show-collapsed-content="false"
-            show-trigger
+            show-trigger="arrow-circle"
         >
             <icon-list-panel @drop="dropItem" />
         </n-layout-sider>
-        <n-layout-content>
-            <blueprint-panel ref="blueprints" />
+        <n-layout-content class="blueprints-container">
+            <blueprint-panel ref="blueprints" class="blueprints" />
         </n-layout-content>
     </n-layout>
 </template>
@@ -49,5 +47,12 @@ const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: numb
 .main-window {
     height: 100%;
     width: 100%;
+}
+.blueprints-container {
+    overflow-x: auto;
+}
+.blueprints {
+    min-height: 100%;
+    min-width: 100%;
 }
 </style>
