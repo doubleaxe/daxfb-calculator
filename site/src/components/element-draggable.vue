@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {watch, ref, unref, nextTick} from 'vue';
+import {ref, unref, nextTick} from 'vue';
 import {useTimeoutFn, useDraggable, useMouse} from '@vueuse/core';
 
 const props = defineProps<{
-    activating: boolean,
     width: number,
     height: number,
 }>();
@@ -36,18 +35,30 @@ const startDragging = () => {
     });
 };
 
-const {start: startActivate, stop: stopActivate} = useTimeoutFn(() => {
+const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
     showDraggable.value = true;
 }, 300, {immediate: false});
 
-watch(() => props.activating, (activating) => {
+const requestDragBegin = (begin: boolean) => {
     //start dragging immediatelly, but show dragged element a bit later.
     //if user does simple click dragged element won't be shown.
     //if user drags - dragged element will track position even if it shown later.
-    if(activating) {
+    if(begin) {
         startDragging();
+        startDragActivateTimeout();
+    } else {
+        cancelDragActivateTimeout();
     }
-    activating ? startActivate() : stopActivate();
+};
+
+const requestDragForce = () => {
+    showDraggable.value = true;
+    cancelDragActivateTimeout();
+};
+
+defineExpose({
+    requestDragBegin,
+    requestDragForce,
 });
 </script>
 
@@ -62,6 +73,7 @@ watch(() => props.activating, (activating) => {
 <style scoped>
 .draggable-producer {
     position: fixed;
+    z-index: 5;
 }
 .draggable-transparent {
     opacity: 0;

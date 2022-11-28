@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import {ref, unref} from 'vue';
+import {ref, unref, reactive} from 'vue';
 import {useBlueprintModel} from './scripts/blueprint-model';
 import {useElementBounding} from '@vueuse/core';
 import {Point, Vector, Rectangle} from 'ts-2d-geometry';
+import type IconDraggable from './components/icon-draggable.vue';
 
+const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 const blueprints = ref<HTMLElement | null>(null);
 const {x: blueprintX, y: blueprintY, width: blueprintWidth, height: blueprintHeight} = useElementBounding(blueprints);
 
@@ -22,9 +24,11 @@ const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: numb
         item.y = blueprintPoint.y;
     }
 };
+
 </script>
 
 <template>
+    <icon-draggable ref="draggable" @drag-drop="dropItem" />
     <n-layout has-sider class="main-window">
         <n-layout-sider
             bordered
@@ -35,9 +39,9 @@ const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: numb
             :show-collapsed-content="false"
             show-trigger="arrow-circle"
         >
-            <icon-list-panel @drop="dropItem" />
+            <icon-list-panel @drag-begin="draggable?.requestDragBegin" @drag-force="draggable?.requestDragForce" />
         </n-layout-sider>
-        <n-layout-content class="blueprints-container">
+        <n-layout-content content-style="overflow-x: auto;">
             <blueprint-panel ref="blueprints" class="blueprints" />
         </n-layout-content>
     </n-layout>
@@ -47,9 +51,6 @@ const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: numb
 .main-window {
     height: 100%;
     width: 100%;
-}
-.blueprints-container {
-    overflow-x: auto;
 }
 .blueprints {
     min-height: 100%;
