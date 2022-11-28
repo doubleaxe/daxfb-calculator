@@ -43,11 +43,11 @@ const requestDragBegin = (begin: boolean) => {
     //start dragging immediatelly, but show dragged element a bit later.
     //if user does simple click dragged element won't be shown.
     //if user drags - dragged element will track position even if it shown later.
+    cancelDragActivateTimeout();
+    showDraggable.value = false;
     if(begin) {
         startDragging();
         startDragActivateTimeout();
-    } else {
-        cancelDragActivateTimeout();
     }
 };
 

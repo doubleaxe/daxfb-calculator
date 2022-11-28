@@ -1,22 +1,38 @@
 <script setup lang="ts">
-import {ref, unref, reactive} from 'vue';
+import {ref, unref} from 'vue';
 import {useBlueprintModel} from './scripts/blueprint-model';
-import {useElementBounding} from '@vueuse/core';
+import {useElementBounding, unrefElement} from '@vueuse/core';
 import {Point, Vector, Rectangle} from 'ts-2d-geometry';
 import type IconDraggable from './components/icon-draggable.vue';
 
 const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 const blueprints = ref<HTMLElement | null>(null);
-const {x: blueprintX, y: blueprintY, width: blueprintWidth, height: blueprintHeight} = useElementBounding(blueprints);
 
 const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: number}) => {
+    const blueprintsRaw = unrefElement(blueprints);
+    const scrollboxRaw = blueprintsRaw?.parentElement;
+    const options = {
+        windowResize: false,
+        windowScroll: false,
+    };
+    const {
+        x: blueprintX,
+        y: blueprintY,
+    } = useElementBounding(blueprintsRaw, options);
+    const {
+        x: scrollboxX,
+        y: scrollboxY,
+        width: scrollboxWidth,
+        height: scrollboxHeight
+    } = useElementBounding(scrollboxRaw, options);
     const screenPoint = new Point(screenX, sceenY);
-    const blueprintOrigin = new Point(unref(blueprintX), unref(blueprintY));
+    const scrollboxOrigin = new Point(unref(scrollboxX), unref(scrollboxY));
     const boundingRect = new Rectangle(
-        blueprintOrigin,
-        blueprintOrigin.plus(new Vector(unref(blueprintWidth), unref(blueprintHeight))),
+        scrollboxOrigin,
+        scrollboxOrigin.plus(new Vector(unref(scrollboxWidth), unref(scrollboxHeight))),
     );
     if(boundingRect.toPolygon().containsPoint(screenPoint)) {
+        const blueprintOrigin = new Point(unref(blueprintX), unref(blueprintY));
         const blueprintPoint = screenPoint.minus(blueprintOrigin);
         const {blueprint} = useBlueprintModel();
         const item = blueprint.addItem(itemName);
