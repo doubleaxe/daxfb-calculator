@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import type {Images} from '../../data';
-import imagesJson from '../../data/images.json';
+import {imagesJson} from '../scripts/data-parsed';
 import {MdWarning} from '@vicons/ionicons4';
 
 const RESOLUTION = 32;
@@ -11,7 +10,7 @@ const props = defineProps<{
 }>();
 
 const styleObject = computed(() => {
-    const location = (imagesJson as Images)[props.image];
+    const location = imagesJson[props.image];
     if(!location)
         return undefined;
     return {

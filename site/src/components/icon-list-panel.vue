@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {itemCollection} from '../scripts/factory';
+import {itemCollection} from '../scripts/data-parsed';
 
 const emit = defineEmits<{
     (e: 'drag-begin', item?: typeof producerItems[0]): void,

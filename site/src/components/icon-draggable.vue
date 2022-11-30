@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, reactive} from 'vue';
-import type {ProducerFactory} from '../scripts/factory';
+import type {ProducerFactory} from '../scripts/data-parsed';
 import type ElementDraggable from './element-draggable.vue';
 
 const emit = defineEmits<{
@@ -17,7 +17,7 @@ const dropItem = (position: {x: number, y: number}) => {
     emit('drag-drop', draggingItem.name, position);
 };
 
-const requestDragBegin = (item?: ProducerFactory) => {console.log('begin');
+const requestDragBegin = (item?: ProducerFactory) => {
     unref(draggable)?.requestDragBegin(!!item);
     if(item) {
         draggingItem.name = item.name;
@@ -25,7 +25,7 @@ const requestDragBegin = (item?: ProducerFactory) => {console.log('begin');
     }
 };
 
-const requestDragForce = () => {console.log('force');
+const requestDragForce = () => {
     unref(draggable)?.requestDragForce();
 };
 
@@ -45,6 +45,3 @@ defineExpose({
         <icon-component :image="draggingItem.image" />
     </element-draggable>
 </template>
-
-<style scoped>
-</style>

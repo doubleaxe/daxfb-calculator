@@ -12,7 +12,7 @@ const {blueprint} = useBlueprintModel();
             class="blueprint-item"
             :style="{left: item.x+'px', top: item.y+'px'}"
         >
-            <icon-component :image="item.item.image" />
+            <blueprint-single-item :item="item" />
             <div class="scroll-helper" />
         </div>
     </div>

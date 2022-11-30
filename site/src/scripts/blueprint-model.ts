@@ -1,8 +1,8 @@
-import {itemCollection} from './factory';
+import {itemCollection} from './data-parsed';
 import {defineStore} from 'pinia';
 import {reactive} from 'vue';
 
-class ItemModel {
+export class ItemModel {
     private readonly _name: string;
     public x = 0;
     public y = 0;
@@ -12,6 +12,7 @@ class ItemModel {
     }
     get name() { return this._name; }
     get item() { return itemCollection.getItem(this.name); }
+    get asProducer() { return this.item?.asProducer; }
 }
 
 class BlueprintModel {
