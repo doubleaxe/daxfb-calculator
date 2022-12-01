@@ -3,7 +3,7 @@ import {unref, computed} from 'vue';
 import type {ItemModel} from '../scripts/blueprint-model';
 
 const props = defineProps<{
-    item: ItemModel
+    item: ItemModel;
 }>();
 const producer = computed(() => props.item.asProducer);
 const recipe = computed(() => unref(producer)?.recipes?.firstRecipe);

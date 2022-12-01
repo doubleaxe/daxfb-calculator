@@ -69,7 +69,7 @@ export class RecipesList {
             Scaled: {type: 'boolean'},
             Locked: {type: 'boolean'},
         },
-        '$defs': {
+        $defs: {
             IO: {
                 type: 'object',
                 additionalProperties: false,
@@ -220,15 +220,15 @@ export class ItemsList {
     static #processing = {
         SolidStaticItem: {
             destObject: 'solidStaticItem',
-            ... this.#baseStaticItem,
+            ...this.#baseStaticItem,
         },
         AbstractStaticItem: {
             destObject: 'abstractStaticItem',
-            ... this.#baseStaticItem,
+            ...this.#baseStaticItem,
         },
         FluidStaticItem: {
             destObject: 'fluidStaticItem',
-            ... this.#baseStaticItem,
+            ...this.#baseStaticItem,
         },
         BaseRecipeDictionary: {
             destObject: 'baseRecipeDictionary',

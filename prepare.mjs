@@ -41,7 +41,7 @@ async function processImagesAsync(basePath, usableImages) {
         derivedImagesArray.push(derivedImages);
     });
 
-    baseImages.mergeList(... derivedImagesArray);
+    baseImages.mergeList(...derivedImagesArray);
     await baseImages.saveComposedImageAsync({
         imagePath: path.join(__dirname, 'images.png'),
         cssPath: path.join(__dirname, 'images.css'),

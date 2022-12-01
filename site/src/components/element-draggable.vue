@@ -3,11 +3,11 @@ import {ref, unref, nextTick} from 'vue';
 import {useTimeoutFn, useDraggable, useMouse} from '@vueuse/core';
 
 const props = defineProps<{
-    width: number,
-    height: number,
+    width: number;
+    height: number;
 }>();
 const emit = defineEmits<{
-    (e: 'drop', position: {x: number, y: number}): void
+    (e: 'drop', position: {x: number; y: number}): void;
 }>();
 
 //we use separate props because when element is hidden - its position doesn't update

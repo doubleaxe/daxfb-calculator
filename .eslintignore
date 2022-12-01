@@ -1,3 +1,4 @@
 node_modules
 .dist
 *.min.js
+site/components.d.ts

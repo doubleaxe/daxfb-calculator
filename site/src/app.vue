@@ -8,7 +8,7 @@ import type IconDraggable from './components/icon-draggable.vue';
 const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 const blueprints = ref<HTMLElement | null>(null);
 
-const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number, y: number}) => {
+const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number; y: number}) => {
     const blueprintsRaw = unrefElement(blueprints);
     const scrollboxRaw = blueprintsRaw?.parentElement;
     const options = {

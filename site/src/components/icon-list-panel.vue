@@ -2,8 +2,8 @@
 import {itemCollection} from '../scripts/data-parsed';
 
 const emit = defineEmits<{
-    (e: 'drag-begin', item?: typeof producerItems[0]): void,
-    (e: 'drag-force'): void,
+    (e: 'drag-begin', item?: typeof producerItems[0]): void;
+    (e: 'drag-force'): void;
 }>();
 
 const producerItems = itemCollection.getProducerItems();

@@ -1,13 +1,27 @@
 rules:
+    array-callback-return: "error"
     block-scoped-var: "error"
     consistent-return: ["error", { "treatUndefinedAsUnspecified": false }]
+    default-case-last: "error"
+    no-caller: "error"
     no-cond-assign: ["error", "always"]
+    no-empty: ["error", { "allowEmptyCatch": true }]
     no-eq-null: "error"
     no-fallthrough: ["error", { "commentPattern": "break\\s+omitted" }]
+    no-new: "error"
+    no-new-func: "error"
+    no-new-object: "error"
+    no-new-wrappers: "error"
+    no-proto: "error"
     no-promise-executor-return: "error"
     no-return-assign: ["error", "except-parens"]
+    no-sequences: "error"
     no-shadow: "error"
+    no-throw-literal: "error"
+    no-unmodified-loop-condition: "error"
+    no-unreachable-loop: "error"
     no-unused-vars: ["error", { "args": "none" }]
     no-use-before-define: ["error", { "functions": false, "classes": false }]
     no-var: "error"
     prefer-const: ["warn"]
+    prefer-promise-reject-errors: "error"

@@ -6,7 +6,7 @@ import {MdWarning} from '@vicons/ionicons4';
 const RESOLUTION = 32;
 
 const props = defineProps<{
-    image: string
+    image: string;
 }>();
 
 const styleObject = computed(() => {
