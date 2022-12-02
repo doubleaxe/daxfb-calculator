@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {imagesJson} from '../scripts/data-parsed';
-import {MdWarning} from '@vicons/ionicons4';
 
 const RESOLUTION = 32;
 
@@ -22,7 +21,7 @@ const styleObject = computed(() => {
 <template>
     <div>
         <div v-if="styleObject" class="icon-component" :style="styleObject" />
-        <n-icon v-if="!styleObject" size="32" :component="MdWarning" color="#f0a020" />
+        <n-icon v-if="!styleObject" size="32" color="#f0a020" />
     </div>
 </template>
 

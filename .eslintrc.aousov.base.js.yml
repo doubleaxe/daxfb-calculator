@@ -23,5 +23,5 @@ rules:
     no-unused-vars: ["error", { "args": "none" }]
     no-use-before-define: ["error", { "functions": false, "classes": false }]
     no-var: "error"
-    prefer-const: ["warn"]
+    prefer-const: "error"
     prefer-promise-reject-errors: "error"

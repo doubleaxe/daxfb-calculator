@@ -12,7 +12,6 @@ export class ItemModel {
     }
     get name() { return this._name; }
     get item() { return itemCollection.getItem(this.name); }
-    get asProducer() { return this.item?.asProducer; }
 }
 
 class BlueprintModel {

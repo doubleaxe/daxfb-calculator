@@ -10,15 +10,24 @@ const parsedRecipes = new Map<string, RecipeDictionary>();
 
 export class Item {
     protected readonly item: JsonItem;
+    private readonly tier;
+    private _recipeDictionary?: RecipeDictionary = undefined;
     constructor(name: string, item: JsonItem) {
         item.Name = name;
         this.item = item;
+        this.tier = item.Recipe?.Tier || 0;
+    }
+    init() {
+        const {item} = this;
+        if(item.Recipe) {
+            this._recipeDictionary = parsedRecipes.get(item.Recipe?.RecipeDictionary || '');
+        }
     }
 
     get image() { return this.item.Image; }
     get name(): string { return this.item.Name || ''; }
-    get isProducer() { return false; }
-    get asProducer() { return undefined as ProducerFactory | undefined; }
+    get hasRecipes(): boolean { return !!this._recipeDictionary; }
+    get recipes() { return this._recipeDictionary?.forTier(this.tier); }
 }
 
 export class RecipeIO {
@@ -52,47 +61,41 @@ export class Recipe {
 
 export class RecipeDictionary {
     private readonly recipes;
-    private constructor(recipes: Recipe[]) {
+    private readonly tier;
+    //cache (not recursive)
+    private readonly recipesForTier;
+    private constructor(recipes: Recipe[], tier?: number) {
         this.recipes = new Map(recipes.map((r) => [r.name, r]));
+        this.tier = tier;
+        this.recipesForTier = new Map<number, RecipeDictionary>();
     }
     static newInstance(dictionary: JsonRecipe[]) {
         return new RecipeDictionary(dictionary.map((r) => new Recipe(r)));
     }
     forTier(tier: number) {
-        return new RecipeDictionary([...this.recipes.values()].filter((r) => (tier >= r.tier)));
+        if(this.tier) {
+            return (tier === this.tier) ? this : null;
+        }
+        let recipesForTier = this.recipesForTier.get(tier);
+        if(!recipesForTier) {
+            recipesForTier = new RecipeDictionary(
+                [...this.recipes.values()].filter((r) => (tier >= r.tier)),
+                tier,
+            );
+            this.recipesForTier.set(tier, recipesForTier);
+        }
+        return recipesForTier;
     }
     get firstRecipe() { return this.recipes.values().next().value as Recipe; }
 }
 
-export class ProducerFactory extends Item {
-    private readonly tier;
-    private _allRecipes?: RecipeDictionary = undefined;
-    private _recipes?: RecipeDictionary = undefined;
-    constructor(name: string, item: JsonItem) {
-        super(name, item);
-        this.tier = item.Recipe?.Tier || 0;
-    }
-    init() {
-        const {item} = this;
-        this._allRecipes = parsedRecipes.get(item.Recipe?.RecipeDictionary || '');
-    }
-    get isProducer() { return true; }
-    get asProducer() { return this; }
-    get recipes() {
-        if(!this._recipes)
-            this._recipes = this._allRecipes?.forTier(this.tier);
-        return this._recipes;
-    }
-}
-
 class ItemCollection {
-    private readonly producerItems: ProducerFactory[] = [];
+    private readonly producerItems: Item[] = [];
     constructor() {
-        for(const value of parsedItems.values()) {
-            if(value.isProducer) {
-                const producer = value as ProducerFactory;
-                producer.init();
-                this.producerItems.push(producer);
+        for(const item of parsedItems.values()) {
+            item.init();
+            if(item.hasRecipes) {
+                this.producerItems.push(item);
             }
         }
     }
@@ -106,13 +109,7 @@ class ItemCollection {
 
 (() => {
     for(const [key, value] of Object.entries(dataJson.items)) {
-        let item: Item;
-        if(value.Recipe) {
-            item = new ProducerFactory(key, value);
-        } else {
-            item = new Item(key, value);
-        }
-        parsedItems.set(key, item);
+        parsedItems.set(key, new Item(key, value));
     }
 
     for(const [key, value] of Object.entries(dataJson.recipes)) {

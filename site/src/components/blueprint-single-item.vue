@@ -5,8 +5,8 @@ import type {ItemModel} from '../scripts/blueprint-model';
 const props = defineProps<{
     item: ItemModel;
 }>();
-const producer = computed(() => props.item.asProducer);
-const recipe = computed(() => unref(producer)?.recipes?.firstRecipe);
+const item = computed(() => props.item.item);
+const recipe = computed(() => unref(item)?.recipes?.firstRecipe);
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const recipe = computed(() => unref(producer)?.recipes?.firstRecipe);
             />
         </div>
         <div class="column">
-            <icon-component :image="producer?.image" />
+            <icon-component :image="item?.image" />
         </div>
         <div class="column">
             <icon-component
