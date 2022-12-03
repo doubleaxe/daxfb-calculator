@@ -29,8 +29,8 @@ const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollablePar
         <v-navigation-drawer v-model="drawer">
             <icon-list-panel @drag-begin="draggable?.requestDragBegin" @drag-force="draggable?.requestDragForce" />
         </v-navigation-drawer>
-        <v-main class="overflow-auto">
-            <blueprint-panel ref="blueprints" class="blueprints" />
+        <v-main scrollable>
+            <blueprint-panel ref="blueprints" />
         </v-main>
     </v-app>
 </template>
@@ -40,8 +40,9 @@ const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollablePar
     height: 100%;
     width: 100%;
 }
-.blueprints {
-    min-height: 100%;
-    min-width: 100%;
+.main-scrollbar {
+    height: 100%;
+    display:inline-block;
+    overflow: scroll;
 }
 </style>
