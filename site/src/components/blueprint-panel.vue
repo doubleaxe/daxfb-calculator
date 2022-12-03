@@ -12,8 +12,8 @@ const {blueprint} = useBlueprintModel();
             class="blueprint-item"
             :style="{left: item.x+'px', top: item.y+'px'}"
         >
-            <blueprint-single-item :item="item" />
             <div class="scroll-helper" />
+            <blueprint-single-item :item="item" />
         </div>
     </div>
 </template>
@@ -32,5 +32,6 @@ const {blueprint} = useBlueprintModel();
     top: 0px;
     width: 200px;
     height: 200px;
+    z-index: -1;
 }
 </style>

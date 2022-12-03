@@ -10,14 +10,18 @@ const producerItems = itemCollection.getProducerItems();
 </script>
 
 <template>
-    <icon-component
-        v-for="item in producerItems"
-        :key="item.name"
-        :image="item.image"
-        class="icon-div"
-        @pointerdown="emit('drag-begin', item)"
-        @pointerup="emit('drag-begin')"
-    />
+    <div v-for="item in producerItems" :key="item.name" class="icon-div">
+        <v-hover v-slot="{isHovering, props}">
+            <icon-component
+                v-bind="props"
+                :class="`elevation-${isHovering ? 5 : 0}`"
+                class="rounded"
+                :image="item.image"
+                @pointerdown="emit('drag-begin', item)"
+                @pointerup="emit('drag-begin')"
+            />
+        </v-hover>
+    </div>
 </template>
 
 <style scoped>

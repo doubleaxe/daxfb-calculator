@@ -42,6 +42,8 @@ defineExpose({
         :height="32"
         @drop="dropItem"
     >
-        <icon-component :image="draggingItem.image" />
+        <v-sheet class="rounded elevation-10">
+            <icon-component :image="draggingItem.image" />
+        </v-sheet>
     </element-draggable>
 </template>

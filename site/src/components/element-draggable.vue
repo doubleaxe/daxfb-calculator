@@ -73,7 +73,7 @@ defineExpose({
 <style scoped>
 .draggable-producer {
     position: fixed;
-    z-index: 5;
+    z-index: 5000;
 }
 .draggable-transparent {
     opacity: 0;

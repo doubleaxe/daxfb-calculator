@@ -1,32 +1,38 @@
 <script setup lang="ts">
-import {unref, computed} from 'vue';
+import {ref, unref, computed} from 'vue';
 import type {ItemModel} from '../scripts/blueprint-model';
+import {mdiChevronRight} from '@mdi/js';
+import {useElementHover} from '@vueuse/core';
 
 const props = defineProps<{
     item: ItemModel;
 }>();
+const mainDiv = ref<HTMLElement | null>(null);
 const item = computed(() => props.item.item);
 const recipe = computed(() => unref(item)?.recipes?.firstRecipe);
+const isHovered = useElementHover(mainDiv);
 </script>
 
 <template>
-    <div>
-        <div class="column">
+    <div ref="mainDiv" class="main-row rounded bg-grey-lighten-4" :class="`elevation-${isHovered ? 2 : 0}`">
+        <div>
             <icon-component
                 v-for="io in recipe?.input"
                 :key="io.item.name"
-                class="row"
+                class="icon-row"
                 :image="io.item.image"
             />
         </div>
-        <div class="column">
-            <icon-component :image="item?.image" />
+        <v-icon v-if="recipe?.input.length" class="align-self-center" :icon="mdiChevronRight" />
+        <div class="align-self-center">
+            <icon-component class="icon-row" :image="item?.image" />
         </div>
-        <div class="column">
+        <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
+        <div>
             <icon-component
                 v-for="io in recipe?.output"
                 :key="io.item.name"
-                class="row"
+                class="icon-row"
                 :image="io.item.image"
             />
         </div>
@@ -34,10 +40,13 @@ const recipe = computed(() => unref(item)?.recipes?.firstRecipe);
 </template>
 
 <style scoped>
-.column {
-    display: inline-block;
+.main-row {
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
 }
-.row {
+.icon-row {
     display: block;
 }
 </style>
