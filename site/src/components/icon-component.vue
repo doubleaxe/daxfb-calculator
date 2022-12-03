@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {imagesJson} from '../scripts/data-parsed';
+import {mdiAlert} from '@mdi/js';
 
 const RESOLUTION = 32;
 
@@ -21,7 +22,15 @@ const styleObject = computed(() => {
 <template>
     <div>
         <div v-if="styleObject" class="icon-component" :style="styleObject" />
-        <n-icon v-if="!styleObject" size="32" color="#f0a020" />
+        <v-icon
+            v-if="!styleObject"
+            class="icon-warning"
+            :icon="mdiAlert"
+            :size="32"
+            color="warning"
+            role="img"
+            aria-hidden="false"
+        />
     </div>
 </template>
 
@@ -30,5 +39,8 @@ const styleObject = computed(() => {
     background-image: url(../../data/images.png);
     width: 32px;
     height: 32px;
+}
+.icon-warning {
+    display: block;
 }
 </style>

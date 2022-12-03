@@ -1,51 +1,26 @@
 <script setup lang="ts">
-import {ref, unref} from 'vue';
+import {ref} from 'vue';
 import {useBlueprintModel} from './scripts/blueprint-model';
-import {useElementBounding, unrefElement} from '@vueuse/core';
-import {Point, Vector, Rectangle} from 'ts-2d-geometry';
+import {useDropHelper} from './scripts/drop-helper';
+import type {DropHelper} from './scripts/drop-helper';
 import type IconDraggable from './components/icon-draggable.vue';
 
 const drawer = ref(true);
 const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 const blueprints = ref<HTMLElement | null>(null);
 
-const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number; y: number}) => {
-    const blueprintsRaw = unrefElement(blueprints);
-    const scrollboxRaw = blueprintsRaw?.parentElement;
-    const options = {
-        windowResize: false,
-        windowScroll: false,
-    };
-    const {
-        x: blueprintX,
-        y: blueprintY,
-    } = useElementBounding(blueprintsRaw, options);
-    const {
-        x: scrollboxX,
-        y: scrollboxY,
-        width: scrollboxWidth,
-        height: scrollboxHeight
-    } = useElementBounding(scrollboxRaw, options);
-    const screenPoint = new Point(screenX, sceenY);
-    const scrollboxOrigin = new Point(unref(scrollboxX), unref(scrollboxY));
-    const boundingRect = new Rectangle(
-        scrollboxOrigin,
-        scrollboxOrigin.plus(new Vector(unref(scrollboxWidth), unref(scrollboxHeight))),
-    );
-    if(boundingRect.toPolygon().containsPoint(screenPoint)) {
-        const blueprintOrigin = new Point(unref(blueprintX), unref(blueprintY));
-        const blueprintPoint = screenPoint.minus(blueprintOrigin);
-        const {blueprint} = useBlueprintModel();
-        const item = blueprint.addItem(itemName);
-        item.x = blueprintPoint.x;
-        item.y = blueprintPoint.y;
-    }
+const dropHelperProcessor: DropHelper<string> = (dropPoint: {x: number; y: number}, itemName: string) => {
+    const {blueprint} = useBlueprintModel();
+    const item = blueprint.addItem(itemName);
+    item.x = dropPoint.x;
+    item.y = dropPoint.y;
 };
+const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollableParent: true});
 </script>
 
 <template>
-    <icon-draggable ref="draggable" @drag-drop="dropItem" />
-    <v-app>
+    <icon-draggable ref="draggable" @drag-drop="dropHelper" />
+    <v-app class="main-window">
         <v-app-bar density="compact">
             <template #prepend>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -54,35 +29,16 @@ const dropItem = (itemName: string, {x: screenX, y: sceenY}: {x: number; y: numb
         <v-navigation-drawer v-model="drawer">
             <icon-list-panel @drag-begin="draggable?.requestDragBegin" @drag-force="draggable?.requestDragForce" />
         </v-navigation-drawer>
-        <v-main class="content-window">
+        <v-main class="overflow-auto">
             <blueprint-panel ref="blueprints" class="blueprints" />
         </v-main>
     </v-app>
-    <!--
-    <n-layout has-sider class="main-window">
-        <n-layout-sider
-            bordered
-            collapse-mode="width"
-            :collapsed-width="10"
-            width="20%"
-            :default-collapsed="false"
-            :show-collapsed-content="false"
-            show-trigger="arrow-circle"
-        >
-        </n-layout-sider>
-        <n-layout-content content-style="overflow-x: auto;">
-        </n-layout-content>
-    </n-layout>
-    -->
 </template>
 
 <style scoped>
 .main-window {
     height: 100%;
     width: 100%;
-}
-.content-window {
-    overflow-x: auto;
 }
 .blueprints {
     min-height: 100%;

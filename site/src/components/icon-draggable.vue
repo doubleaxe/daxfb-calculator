@@ -4,7 +4,7 @@ import type {Item} from '../scripts/data-parsed';
 import type ElementDraggable from './element-draggable.vue';
 
 const emit = defineEmits<{
-    (e: 'drag-drop', itemName: string, position: {x: number; y: number}): void;
+    (e: 'drag-drop', position: {x: number; y: number}, itemName: string): void;
 }>();
 
 const draggable = ref<InstanceType<typeof ElementDraggable> | null>(null);
@@ -14,7 +14,7 @@ const draggingItem = reactive({
 });
 
 const dropItem = (position: {x: number; y: number}) => {
-    emit('drag-drop', draggingItem.name, position);
+    emit('drag-drop', position, draggingItem.name);
 };
 
 const requestDragBegin = (item?: Item) => {
