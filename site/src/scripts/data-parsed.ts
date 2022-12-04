@@ -9,7 +9,7 @@ const parsedItems = new Map<string, Item>();
 const parsedRecipes = new Map<string, RecipeDictionary>();
 
 export class Item {
-    protected readonly item: JsonItem;
+    private readonly item: JsonItem;
     private readonly tier;
     private _recipeDictionary?: RecipeDictionary = undefined;
     constructor(name: string, item: JsonItem) {
@@ -104,6 +104,9 @@ class ItemCollection {
     }
     getItem(name: string) {
         return parsedItems.get(name);
+    }
+    getRecipeDictionary(name: string) {
+        return parsedRecipes.get(name);
     }
 }
 

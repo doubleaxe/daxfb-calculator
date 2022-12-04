@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import {ref, unref, computed} from 'vue';
-import type {ItemModel} from '../scripts/blueprint-model';
+import type {BlueprintItemModel} from '../scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 
 const props = defineProps<{
-    item: ItemModel;
+    item: BlueprintItemModel;
 }>();
 const mainDiv = ref<HTMLElement | null>(null);
-const item = computed(() => props.item.item);
-const recipe = computed(() => unref(item)?.recipes?.firstRecipe);
+const recipe = computed(() => unref(props.item)?.selectedRecipe);
 const isHovered = useElementHover(mainDiv);
 </script>
 
@@ -18,22 +17,22 @@ const isHovered = useElementHover(mainDiv);
         <div>
             <icon-component
                 v-for="io in recipe?.input"
-                :key="io.item.name"
+                :key="io.name"
                 class="icon-row"
-                :image="io.item.image"
+                :image="io.image"
             />
         </div>
         <v-icon v-if="recipe?.input.length" class="align-self-center" :icon="mdiChevronRight" />
         <div class="align-self-center">
-            <icon-component class="icon-row" :image="item?.image" />
+            <icon-component class="icon-row" :image="props.item?.image" />
         </div>
         <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
         <div>
             <icon-component
                 v-for="io in recipe?.output"
-                :key="io.item.name"
+                :key="io.name"
                 class="icon-row"
-                :image="io.item.image"
+                :image="io.image"
             />
         </div>
     </div>

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import {ref, computed} from 'vue';
-import {useBlueprintModel} from '../scripts/blueprint-model';
+import {computed} from 'vue';
+import {useBlueprintModel} from '../scripts/model/store';
 import {line, link, curveBumpX} from 'd3-shape';
-import {select} from 'd3-selection';
-import {unrefElement} from '@vueuse/core';
 
 const {blueprint} = useBlueprintModel();
 const xmax = computed(() => blueprint.xmax + 200);
@@ -20,12 +18,12 @@ const data = computed(() => {
 
 <template>
     <div class="blueprint-collection" :style="{width: xmax + 'px', height: ymax + 'px'}">
-        <svg class="demo">
+        <svg class="background-svg">
             <path :d="data" stroke="black" fill="none" />
         </svg>
         <div
             v-for="item in blueprint.items"
-            :key="item.name"
+            :key="item.key"
             class="blueprint-item"
             :style="{left: item.x + 'px', top: item.y + 'px'}"
         >
@@ -35,9 +33,9 @@ const data = computed(() => {
 </template>
 
 <style scoped>
-.demo {
-    width: 200px;
-    height: 200px;
+.background-svg {
+    width: 100%;
+    height: 100%;
 }
 .blueprint-collection {
     position: relative;

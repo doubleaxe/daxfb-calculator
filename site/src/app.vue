@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue';
-import {useBlueprintModel} from './scripts/blueprint-model';
+import {useBlueprintModel} from './scripts/model/store';
 import {useDropHelper} from './scripts/drop-helper';
 import type {DropHelper} from './scripts/drop-helper';
 import type IconDraggable from './components/icon-draggable.vue';
