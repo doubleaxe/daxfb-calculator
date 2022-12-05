@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, unref, reactive} from 'vue';
-import type {Item} from '../scripts/data-parsed';
-import type ElementDraggable from './element-draggable.vue';
+import type {Item} from '../../scripts/data-parsed';
+import type ElementDraggable from '../element-draggable.vue';
 
 const emit = defineEmits<{
     (e: 'drag-drop', position: {x: number; y: number}, itemName: string): void;

@@ -1,20 +1,22 @@
+import {ref} from 'vue';
 import type {Item} from '../data-parsed';
-import type {ItemModelInterface} from './types';
 
-export class ItemModel implements ItemModelInterface {
+export class ItemModel {
+    private _key;
     protected readonly _item;
-    protected _x = 0;
-    protected _y = 0;
+    protected _x = ref(0);
+    protected _y = ref(0);
+    private static currentKey = 0;
 
-    constructor(item?: Item) {
+    constructor(item?: Item, key?: string) {
         this._item = item;
+        this._key = key || ('k' + ItemModel.currentKey++);
     }
 
+    get key() { return this._key; }
     get name() { return this._item?.name; }
     get image() { return this._item?.image || ''; }
 
     get x() { return this._x; }
-    set x(x) { this._x = x; }
     get y() { return this._y; }
-    set y(y) { this._y = y; }
 }

@@ -9,7 +9,7 @@
     "preview": "vite preview site",
     "build-only": "vite build site",
     "type-check": "vue-tsc --noEmit -p site",
-    "lint": "run-p eslint stylelint",
+    "lint": "run-p eslint stylelint type-check",
     "eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "stylelint": "stylelint \"**/*.vue\" --fix",
     "prepare-data": "node prepare.mjs"

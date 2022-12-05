@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import {computed} from 'vue';
-import {useBlueprintModel} from '../scripts/model/store';
-import {line, link, curveBumpX} from 'd3-shape';
+import {ref, computed} from 'vue';
+import {useBlueprintModel} from '../../scripts/model/store';
+import type IconDraggable from './link-draggable.vue';
 
 const {blueprint} = useBlueprintModel();
 const xmax = computed(() => blueprint.xmax + 200);
 const ymax = computed(() => blueprint.ymax + 200);
-const data = computed(() => {
-    const l = line();
-    let a = l([[10, 60], [40, 90], [60, 10], [190, 10]]);
-
-    const i = link(curveBumpX);
-    a = i({source: [0, 0], target: [100, 150]});
-    return a || '';
-});
+const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 </script>
 
 <template>
     <div class="blueprint-collection" :style="{width: xmax + 'px', height: ymax + 'px'}">
-        <svg class="background-svg">
-            <path :d="data" stroke="black" fill="none" />
-        </svg>
+        <link-draggable ref="draggable" />
+        <blueprint-links />
         <div
             v-for="item in blueprint.items"
             :key="item.key"
@@ -33,10 +25,6 @@ const data = computed(() => {
 </template>
 
 <style scoped>
-.background-svg {
-    width: 100%;
-    height: 100%;
-}
 .blueprint-collection {
     position: relative;
     min-height: 100%;

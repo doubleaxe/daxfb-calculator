@@ -1,0 +1,48 @@
+<script setup lang="ts">
+import {ref, unref, reactive} from 'vue';
+import type {ItemModel} from '../../scripts/model/item';
+import type ElementDraggable from '../element-draggable.vue';
+
+const emit = defineEmits<{
+    (e: 'drag-drop', position: {x: number; y: number}, itemName: string): void;
+}>();
+
+const draggable = ref<InstanceType<typeof ElementDraggable> | null>(null);
+const draggingItem = reactive({
+    name: '',
+    image: '',
+});
+
+const dropItem = (position: {x: number; y: number}) => {
+    emit('drag-drop', position, draggingItem.name);
+};
+
+const requestDragBegin = (item?: ItemModel) => {
+    unref(draggable)?.requestDragBegin(!!item);
+    if(item) {
+        draggingItem.image = item.image;
+    }
+};
+
+const requestDragForce = () => {
+    unref(draggable)?.requestDragForce();
+};
+
+defineExpose({
+    requestDragBegin,
+    requestDragForce,
+});
+</script>
+
+<template>
+    <element-draggable
+        ref="draggable"
+        :width="32"
+        :height="32"
+        @drop="dropItem"
+    >
+        <v-sheet class="rounded elevation-10">
+            <icon-component :image="draggingItem.image" />
+        </v-sheet>
+    </element-draggable>
+</template>

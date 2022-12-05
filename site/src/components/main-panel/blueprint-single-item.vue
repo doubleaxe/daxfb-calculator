@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, computed} from 'vue';
-import type {BlueprintItemModel} from '../scripts/model/store';
+import type {BlueprintItemModel} from '../../scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 

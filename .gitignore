@@ -5,3 +5,4 @@ node_modules
 *.code-workspace
 *.log
 npm-debug.log*
+site/components.d.ts
