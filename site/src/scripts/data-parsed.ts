@@ -26,6 +26,7 @@ export class Item {
 
     get image() { return this.item.Image; }
     get name(): string { return this.item.Name || ''; }
+    get label(): string { return this.item.Label; }
     get hasRecipes(): boolean { return !!this._recipeDictionary; }
     get recipes() { return this._recipeDictionary?.forTier(this.tier); }
 }

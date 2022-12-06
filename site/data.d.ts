@@ -29,6 +29,7 @@ export interface JsonItem {
     Category?: string;
     Class: string;
     Name?: string;
+    Label: string;
     Tag?: string;
     Image: string;
     MaxCount: number;

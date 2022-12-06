@@ -1,44 +1,88 @@
 <script setup lang="ts">
 import {ref, unref, computed} from 'vue';
-import type {BlueprintItemModel} from '../../scripts/model/store';
+import type {BlueprintItemModel, RecipeIOModel} from '../../scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 
 const props = defineProps<{
     item: BlueprintItemModel;
 }>();
+const emit = defineEmits<{
+    (e: 'drag-begin', item?: RecipeIOModel | BlueprintItemModel): void;
+}>();
+
 const mainDiv = ref<HTMLElement | null>(null);
 const recipe = computed(() => unref(props.item)?.selectedRecipe);
 const isHovered = useElementHover(mainDiv);
 </script>
 
 <template>
-    <div ref="mainDiv" class="main-row rounded bg-grey-lighten-4" :class="`elevation-${isHovered ? 2 : 0}`">
-        <div>
-            <icon-component
-                v-for="io in recipe?.input"
-                :key="io.name"
-                class="icon-row"
-                :image="io.image"
-            />
+    <div ref="mainDiv" class="rounded bg-grey-lighten-4" :class="`elevation-${isHovered ? 2 : 0}`">
+        <div class="bg-primary title-row">
+            <div class="title-text text-caption">
+                {{ item.label }}
+            </div>
         </div>
-        <v-icon v-if="recipe?.input.length" class="align-self-center" :icon="mdiChevronRight" />
-        <div class="align-self-center">
-            <icon-component class="icon-row" :image="props.item?.image" />
-        </div>
-        <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
-        <div>
-            <icon-component
-                v-for="io in recipe?.output"
-                :key="io.name"
-                class="icon-row"
-                :image="io.image"
-            />
+        <div class="main-row">
+            <div>
+                <template v-for="io in recipe?.input" :key="io.name">
+                    <v-hover v-slot="{isHovering, props: props0}">
+                        <icon-component
+                            v-bind="props0"
+                            :class="`elevation-${isHovering ? 5 : 0}`"
+                            class="icon-row rounded"
+                            :image="io.image"
+                            @pointerdown.stop="emit('drag-begin', io)"
+                            @pointerup.stop="emit('drag-begin')"
+                        />
+                    </v-hover>
+                </template>
+            </div>
+            <v-icon v-if="recipe?.input.length" class="align-self-center" :icon="mdiChevronRight" />
+            <div class="align-self-center">
+                <v-hover v-slot="{isHovering, props: props0}">
+                    <icon-component
+                        v-bind="props0"
+                        :class="`elevation-${isHovering ? 5 : 0}`"
+                        class="icon-row rounded"
+                        :image="props.item?.image"
+                        @pointerdown.stop="emit('drag-begin', props.item)"
+                        @pointerup.stop="emit('drag-begin')"
+                    />
+                </v-hover>
+            </div>
+            <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
+            <div>
+                <template v-for="io in recipe?.output" :key="io.name">
+                    <v-hover v-slot="{isHovering, props: props0}">
+                        <icon-component
+                            v-bind="props0"
+                            :class="`elevation-${isHovering ? 5 : 0}`"
+                            class="icon-row rounded"
+                            :image="io.image"
+                            @pointerdown.stop="emit('drag-begin', io)"
+                            @pointerup.stop="emit('drag-begin')"
+                        />
+                    </v-hover>
+                </template>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+.title-row {
+    display: block;
+    position: relative;
+    height: 1.5rem;
+    overflow: hidden;
+}
+.title-text {
+    position: absolute;
+    white-space: nowrap;
+    padding-left: 4px;
+    user-select: none;
+}
 .main-row {
     flex-wrap: nowrap;
     display: flex;

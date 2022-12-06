@@ -15,6 +15,7 @@ export class ItemModel {
 
     get key() { return this._key; }
     get name() { return this._item?.name; }
+    get label() { return this._item?.label; }
     get image() { return this._item?.image || ''; }
 
     get x() { return this._x; }

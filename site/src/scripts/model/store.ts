@@ -11,3 +11,4 @@ export * from './blueprint';
 export * from './blueprint-item';
 export * from './item';
 export * from './recipe';
+export * from './recipe-io';
