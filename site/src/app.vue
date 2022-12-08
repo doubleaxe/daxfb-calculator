@@ -3,7 +3,7 @@ import {ref} from 'vue';
 import {useBlueprintModel} from './scripts/model/store';
 import {useDropHelper} from './scripts/drop-helper';
 import type {DropHelper} from './scripts/drop-helper';
-import type IconDraggable from './components/left-toolbox/icon-draggable.vue';
+import IconDraggable from './components/left-toolbox/icon-draggable.vue';
 
 const drawer = ref(true);
 const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
@@ -15,6 +15,7 @@ const dropHelperProcessor: DropHelper<string> = (dropPoint: {x: number; y: numbe
     item.x = dropPoint.x;
     item.y = dropPoint.y;
 };
+//converts window coordinates to client coordinates for position: absolute
 const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollableParent: true});
 </script>
 

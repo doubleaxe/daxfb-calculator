@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import {computed} from 'vue';
-import {line, link, curveBumpX} from 'd3-shape';
+import {useBlueprintModel, type LinkModel} from '../../scripts/model/store';
+import {link, curveBumpX} from 'd3-shape';
 
-const data = computed(() => {
-    const l = line();
-    let a = l([[10, 60], [40, 90], [60, 10], [190, 10]]);
-
-    const i = link(curveBumpX);
-    a = i({source: [0, 0], target: [100, 150]});
-    return a || '';
-});
+const svgLinkBuilder = link(curveBumpX);
+const {blueprint} = useBlueprintModel();
+function buildLink(_link: LinkModel) {
+    const svgLink = svgLinkBuilder({
+        source: [_link.input?.x || 0, _link.input?.y || 0],
+        target: [_link.output?.x || 0, _link.output?.y || 0],
+    });
+    return svgLink || '';
+}
 </script>
 
 <template>
     <svg class="background-svg">
-        <path :d="data" stroke="black" fill="none" />
+        <path
+            v-for="_link in blueprint.tempLinks"
+            :key="_link.key"
+            :d="buildLink(_link)"
+            stroke="black"
+            fill="none"
+        />
     </svg>
 </template>
 

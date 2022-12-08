@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, computed} from 'vue';
-import type {BlueprintItemModel, ItemModel, RecipeIOModel} from '../../scripts/model/store';
+import type {BlueprintItemModel, RecipeIOModel} from '../../scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 
@@ -8,8 +8,8 @@ const props = defineProps<{
     item: BlueprintItemModel;
 }>();
 const emit = defineEmits<{
-    (e: 'item-drag-begin', component?: HTMLElement, item?: ItemModel): void;
     (e: 'link-drag-begin', item?: RecipeIOModel): void;
+    (e: 'link-drag-force'): void;
 }>();
 
 const mainDiv = ref<HTMLElement | null>(null);

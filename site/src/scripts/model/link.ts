@@ -1,13 +1,23 @@
+import newKey from './key-store';
 import type {RecipeIOModel} from './types';
 
 export class LinkModelImpl {
-    public readonly input: RecipeIOModel;
-    public readonly output: RecipeIOModel;
+    private readonly _key;
+    public readonly input?: RecipeIOModel;
+    public readonly output?: RecipeIOModel;
 
-    constructor(input: RecipeIOModel, output: RecipeIOModel) {
+    constructor(input?: RecipeIOModel, output?: RecipeIOModel) {
         this.input = input;
         this.output = output;
-        input.link = this;
-        output.link = this;
+        this._key = newKey();
+    }
+
+    get key() { return this._key; }
+
+    applyPersistentLink() {
+        if(this.input)
+            this.input.link = this;
+        if(this.output)
+            this.output.link = this;
     }
 }

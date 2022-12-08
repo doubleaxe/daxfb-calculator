@@ -34,10 +34,12 @@ export class Item {
 export class RecipeIO {
     private readonly io: JsonRecipeIO;
     public readonly item: Item;
-    constructor(io: JsonRecipeIO) {
+    public readonly isInput;
+    constructor(io: JsonRecipeIO, isInput: boolean) {
         this.io = io;
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this.item = parsedItems.get(io.Name)!;
+        this.isInput = isInput;
     }
 }
 
@@ -51,9 +53,9 @@ export class Recipe {
         this._tier = recipe.Tier || -1;
 
         const input = [...(recipe.Input || []), ...(recipe.ResourceInput ? [recipe.ResourceInput] : [])];
-        this.input = input.map((i) => new RecipeIO(i));
+        this.input = input.map((i) => new RecipeIO(i, true));
         const output = [...(recipe.Output || []), ...(recipe.ResourceOutput ? [recipe.ResourceOutput] : [])];
-        this.output = output.map((o) => new RecipeIO(o));
+        this.output = output.map((o) => new RecipeIO(o, false));
     }
 
     get name(): string { return this.recipe.Name; }

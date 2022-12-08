@@ -1,24 +1,19 @@
 <script setup lang="ts">
 import {ref, computed} from 'vue';
-import {useBlueprintModel, type RecipeIOModel} from '../../scripts/model/store';
-import type IconDraggable from './link-draggable.vue';
+import {useBlueprintModel} from '../../scripts/model/store';
+import LinkDraggable from './link-draggable.vue';
 import ItemsDraggable from './items-draggable';
-
 
 const {blueprint} = useBlueprintModel();
 const xmax = computed(() => blueprint.xmax + 200);
 const ymax = computed(() => blueprint.ymax + 200);
-const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 const itemsDraggable = new ItemsDraggable();
-
-function requestLinkDragBegin(item?: RecipeIOModel) {
-    
-}
+const linkDraggable = ref<InstanceType<typeof LinkDraggable> | null>(null);
 </script>
 
 <template>
     <div class="blueprint-collection" :style="{width: xmax + 'px', height: ymax + 'px'}">
-        <link-draggable ref="draggable" />
+        <link-draggable ref="linkDraggable" />
         <blueprint-links />
         <template
             v-for="item in blueprint.items"
@@ -29,7 +24,8 @@ function requestLinkDragBegin(item?: RecipeIOModel) {
                 class="blueprint-item"
                 :style="{left: item.x + 'px', top: item.y + 'px'}"
                 @pointerdown="itemsDraggable.addDraggable(item, $event)"
-                @link-drag-force="requestLinkDragBegin"
+                @link-drag-begin="linkDraggable?.requestDragBegin"
+                @link-drag-force="linkDraggable?.requestDragForce"
             />
         </template>
     </div>

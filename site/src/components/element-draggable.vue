@@ -7,6 +7,8 @@ const props = defineProps<{
     height: number;
 }>();
 const emit = defineEmits<{
+    (e: 'drag-shown', position: {x: number; y: number}): void;
+    (e: 'drag-move', position: {x: number; y: number}): void;
     (e: 'drop', position: {x: number; y: number}): void;
 }>();
 
@@ -17,6 +19,9 @@ const element = ref<HTMLElement | null>(null);
 const {x: pageX, y: pageY} = useMouse();
 
 const {style, x: elementX, y: elementY} = useDraggable(element, {
+    onMove: (position) => {
+        emit('drag-move', position);
+    },
     onEnd: (position) => {
         activateDraggable.value = false;
         showDraggable.value = false;
@@ -35,8 +40,13 @@ const startDragging = () => {
     });
 };
 
-const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
+const showDraggableMarker = () => {
     showDraggable.value = true;
+    emit('drag-shown', {x: unref(elementX), y: unref(elementY)});
+};
+
+const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
+    showDraggableMarker();
 }, 300, {immediate: false});
 
 const requestDragBegin = (begin: boolean) => {
@@ -52,8 +62,8 @@ const requestDragBegin = (begin: boolean) => {
 };
 
 const requestDragForce = () => {
-    showDraggable.value = true;
     cancelDragActivateTimeout();
+    showDraggableMarker();
 };
 
 defineExpose({

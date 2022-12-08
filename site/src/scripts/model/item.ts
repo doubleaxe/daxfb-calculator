@@ -1,15 +1,15 @@
 import type {Item} from '../data-parsed';
+import newKey from './key-store';
 
 export class ItemModelImpl {
-    private _key;
+    private readonly _key;
     protected readonly _item;
     public x = 0;
     public y = 0;
-    private static currentKey = 0;
 
     constructor(item?: Item, key?: string) {
         this._item = item;
-        this._key = key || ('k' + ItemModelImpl.currentKey++);
+        this._key = newKey(key);
     }
 
     get key() { return this._key; }

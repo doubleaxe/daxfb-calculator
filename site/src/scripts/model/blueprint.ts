@@ -6,6 +6,7 @@ import type {BlueprintItemModel, LinkModel, RecipeIOModel} from './types';
 export class BlueprintModelImpl {
     public readonly items: BlueprintItemModel[] = [];
     public readonly links: LinkModel[] = [];
+    public readonly tempLinks: LinkModel[] = [];
     private _xmax = 0;
     private _ymax = 0;
 
@@ -21,6 +22,29 @@ export class BlueprintModelImpl {
         const link = reactive(new LinkModelImpl(input, output));
         this.links.push(link);
         return link;
+    }
+    createTempLink(...io: RecipeIOModel[]) {
+        const link = BlueprintModelImpl.newLink(io);
+        this.tempLinks.push(link);
+        return link;
+    }
+    clearTempLinks() {
+        this.tempLinks.splice(0, this.tempLinks.length);
+    }
+    private static newLink(io: RecipeIOModel[]) {
+        if(io.length > 2)
+            throw new Error(`Expected 2 elements, got ${io.length}`);
+        const _io: {input?: RecipeIOModel; output?: RecipeIOModel} = {
+            input: undefined,
+            output: undefined,
+        };
+        for(const i of io) {
+            const target: keyof(typeof _io) = i.isInput ? 'input' : 'output';
+            if(_io[target])
+                throw new Error('Expecting 1 input and 1 output, got duplicates');
+            _io[target] = i;
+        }
+        return reactive(new LinkModelImpl(_io.input, _io.output));
     }
 
     private _updateXY([newX, newY]: number[], oldXY: number[]) {
