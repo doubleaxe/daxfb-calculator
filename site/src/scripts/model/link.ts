@@ -1,6 +1,6 @@
-import type {RecipeIOModel} from './recipe-io';
+import type {RecipeIOModel} from './types';
 
-export class LinkModel {
+export class LinkModelImpl {
     public readonly input: RecipeIOModel;
     public readonly output: RecipeIOModel;
 

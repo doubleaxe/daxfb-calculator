@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, reactive} from 'vue';
-import type {ItemModel} from '../../scripts/model/item';
+import type {ItemModel} from '../../scripts/model/store';
 import type ElementDraggable from '../element-draggable.vue';
 
 const emit = defineEmits<{

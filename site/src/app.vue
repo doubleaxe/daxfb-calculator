@@ -12,8 +12,8 @@ const blueprints = ref<HTMLElement | null>(null);
 const dropHelperProcessor: DropHelper<string> = (dropPoint: {x: number; y: number}, itemName: string) => {
     const {blueprint} = useBlueprintModel();
     const item = blueprint.addItem(itemName);
-    item.x.value = dropPoint.x;
-    item.y.value = dropPoint.y;
+    item.x = dropPoint.x;
+    item.y = dropPoint.y;
 };
 const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollableParent: true});
 </script>

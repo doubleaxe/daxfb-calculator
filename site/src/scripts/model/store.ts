@@ -1,14 +1,20 @@
 import {defineStore} from 'pinia';
 import {reactive} from 'vue';
-import {BlueprintModel} from './blueprint';
+import {BlueprintModelImpl} from './blueprint';
+import type {BlueprintModel} from './types';
 
 export const useBlueprintModel = defineStore('blueprint', () => {
-    const blueprint = reactive(new BlueprintModel());
+    //types are compatible, just don't use instanceof
+    //ReactiveBlueprintModel is too complex to handle
+    const blueprint: BlueprintModel = reactive(new BlueprintModelImpl());
     return {blueprint};
 });
 
-export * from './blueprint';
-export * from './blueprint-item';
-export * from './item';
-export * from './recipe';
-export * from './recipe-io';
+export type {
+    BlueprintItemModel,
+    BlueprintModel,
+    ItemModel,
+    LinkModel,
+    RecipeIOModel,
+    RecipeModel,
+} from './types';

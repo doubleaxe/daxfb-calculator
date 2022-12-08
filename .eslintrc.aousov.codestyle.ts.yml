@@ -12,9 +12,15 @@ rules:
     "@typescript-eslint/indent": ["warn", 4, { "MemberExpression": "off", "SwitchCase": 1 }]
     keyword-spacing: "off"
     "@typescript-eslint/keyword-spacing": ["error", {
-        "before": true,
-        "after": true,
-        "overrides": { "for": { "after": false }, "if": { "after": false }, while: { "after": false } }
+        before: true,
+        after: true,
+        overrides: {
+            catch: { after: false },
+            for: { after: false },
+            if: { after: false },
+            switch: { after: false },
+            while: { after: false },
+        }
     }]
     "@typescript-eslint/member-delimiter-style": "error"
     object-curly-spacing: off

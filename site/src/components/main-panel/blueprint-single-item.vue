@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, computed} from 'vue';
-import type {BlueprintItemModel, RecipeIOModel} from '../../scripts/model/store';
+import type {BlueprintItemModel, ItemModel, RecipeIOModel} from '../../scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 
@@ -8,7 +8,8 @@ const props = defineProps<{
     item: BlueprintItemModel;
 }>();
 const emit = defineEmits<{
-    (e: 'drag-begin', item?: RecipeIOModel | BlueprintItemModel): void;
+    (e: 'item-drag-begin', component?: HTMLElement, item?: ItemModel): void;
+    (e: 'link-drag-begin', item?: RecipeIOModel): void;
 }>();
 
 const mainDiv = ref<HTMLElement | null>(null);
@@ -17,7 +18,11 @@ const isHovered = useElementHover(mainDiv);
 </script>
 
 <template>
-    <div ref="mainDiv" class="rounded bg-grey-lighten-4" :class="`elevation-${isHovered ? 2 : 0}`">
+    <div
+        ref="mainDiv"
+        class="rounded bg-grey-lighten-4"
+        :class="`elevation-${isHovered ? 2 : 0}`"
+    >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">
                 {{ item.label }}
@@ -32,8 +37,8 @@ const isHovered = useElementHover(mainDiv);
                             :class="`elevation-${isHovering ? 5 : 0}`"
                             class="icon-row rounded"
                             :image="io.image"
-                            @pointerdown.stop="emit('drag-begin', io)"
-                            @pointerup.stop="emit('drag-begin')"
+                            @pointerdown.stop="emit('link-drag-begin', io)"
+                            @pointerup.stop="emit('link-drag-begin')"
                         />
                     </v-hover>
                 </template>
@@ -46,8 +51,8 @@ const isHovered = useElementHover(mainDiv);
                         :class="`elevation-${isHovering ? 5 : 0}`"
                         class="icon-row rounded"
                         :image="props.item?.image"
-                        @pointerdown.stop="emit('drag-begin', props.item)"
-                        @pointerup.stop="emit('drag-begin')"
+                        @pointerdown.stop=""
+                        @pointerup.stop=""
                     />
                 </v-hover>
             </div>
@@ -60,8 +65,8 @@ const isHovered = useElementHover(mainDiv);
                             :class="`elevation-${isHovering ? 5 : 0}`"
                             class="icon-row rounded"
                             :image="io.image"
-                            @pointerdown.stop="emit('drag-begin', io)"
-                            @pointerup.stop="emit('drag-begin')"
+                            @pointerdown.stop="emit('link-drag-begin', io)"
+                            @pointerup.stop="emit('link-drag-begin')"
                         />
                     </v-hover>
                 </template>

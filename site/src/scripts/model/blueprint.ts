@@ -1,31 +1,33 @@
-import {ref, watch} from 'vue';
-import {BlueprintItemModel} from './blueprint-item';
-import {LinkModel} from './link';
-import type {RecipeIOModel} from './recipe-io';
+import {reactive, watch} from 'vue';
+import {BlueprintItemModelImpl} from './blueprint-item';
+import {LinkModelImpl} from './link';
+import type {BlueprintItemModel, LinkModel, RecipeIOModel} from './types';
 
-export class BlueprintModel {
+export class BlueprintModelImpl {
     public readonly items: BlueprintItemModel[] = [];
     public readonly links: LinkModel[] = [];
-    private _xmax = ref(0);
-    private _ymax = ref(0);
+    private _xmax = 0;
+    private _ymax = 0;
 
+    //types are compatible, just don't use instanceof
+    //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
     addItem(name: string) {
-        const item = new BlueprintItemModel(name);
+        const item = reactive(new BlueprintItemModelImpl(name));
         this.items.push(item);
-        watch([item.x, item.y], this._updateXY.bind(this));
+        watch([() => item.x, () => item.y], this._updateXY.bind(this));
         return item;
     }
     addLink(input: RecipeIOModel, output: RecipeIOModel) {
-        const link = new LinkModel(input, output);
+        const link = reactive(new LinkModelImpl(input, output));
         this.links.push(link);
         return link;
     }
 
-    private _updateXY(oldXY: number[], [newX, newY]: number[]) {
-        if(newX > this._xmax.value)
-            this._xmax.value = newX;
-        if(newY > this._ymax.value)
-            this._ymax.value = newY;
+    private _updateXY([newX, newY]: number[], oldXY: number[]) {
+        if(newX > this._xmax)
+            this._xmax = newX;
+        if(newY > this._ymax)
+            this._ymax = newY;
     }
 
     get xmax() { return this._xmax; }
