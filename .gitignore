@@ -1,5 +1,6 @@
 node_modules
-.dist
+dist
+stats.html
 .vscode
 !.vscode/extensions.json
 *.code-workspace

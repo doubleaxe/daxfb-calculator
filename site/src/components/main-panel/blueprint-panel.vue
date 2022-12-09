@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {ref, computed} from 'vue';
-import {useBlueprintModel} from '../../scripts/model/store';
+import {injectBlueprintModel} from '../../scripts/model/store';
 import LinkDraggable from './link-draggable.vue';
 import ItemsDraggable from './items-draggable';
 
-const {blueprint} = useBlueprintModel();
-const xmax = computed(() => blueprint.xmax + 200);
-const ymax = computed(() => blueprint.ymax + 200);
+const blueprintModel = injectBlueprintModel();
+const xmax = computed(() => blueprintModel.xmax + 200);
+const ymax = computed(() => blueprintModel.ymax + 200);
 const itemsDraggable = new ItemsDraggable();
 const linkDraggable = ref<InstanceType<typeof LinkDraggable> | null>(null);
 </script>
@@ -16,7 +16,7 @@ const linkDraggable = ref<InstanceType<typeof LinkDraggable> | null>(null);
         <link-draggable ref="linkDraggable" />
         <blueprint-links />
         <template
-            v-for="item in blueprint.items"
+            v-for="item in blueprintModel.items"
             :key="item.key"
         >
             <blueprint-single-item

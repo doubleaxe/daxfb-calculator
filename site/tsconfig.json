@@ -1,17 +1,16 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "data.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "ES2018",
+    "target": "ES2022",
     "sourceMap": true,
     "lib": [
       "ES2022",
       "DOM",
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "types": ["naive-ui/volar"]
+      "@/*": ["./src/*"]
     }
   },
 

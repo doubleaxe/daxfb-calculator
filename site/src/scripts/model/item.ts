@@ -1,4 +1,4 @@
-import type {Item} from '../data-parsed';
+import type {Item} from '../data/data';
 import newKey from './key-store';
 
 export class ItemModelImpl {

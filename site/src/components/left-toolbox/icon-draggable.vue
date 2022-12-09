@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, reactive} from 'vue';
-import type {Item} from '../../scripts/data-parsed';
+import type {Item} from '../../scripts/data/data';
 import type ElementDraggable from '../element-draggable.vue';
 
 const emit = defineEmits<{

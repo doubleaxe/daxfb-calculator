@@ -42,6 +42,8 @@ export default defineConfig({
         }
     },
     build: {
+        outDir: '../dist',
+        emptyOutDir: true,
         rollupOptions: {
             plugins: [visualizer()],
             output: {
@@ -49,7 +51,7 @@ export default defineConfig({
             },
         },
         target: 'es2018',
-        minify: false,
+        minify: true,
         sourcemap: true,
         cssCodeSplit: false,
     },

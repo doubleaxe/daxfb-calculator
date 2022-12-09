@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {useBlueprintModel, type LinkModel} from '../../scripts/model/store';
+import {injectBlueprintModel, type LinkModel} from '../../scripts/model/store';
 import {link, curveBumpX} from 'd3-shape';
 
 const svgLinkBuilder = link(curveBumpX);
-const {blueprint} = useBlueprintModel();
+const blueprintModel = injectBlueprintModel();
 function buildLink(_link: LinkModel) {
     const svgLink = svgLinkBuilder({
         source: [_link.input?.x || 0, _link.input?.y || 0],
@@ -16,7 +16,7 @@ function buildLink(_link: LinkModel) {
 <template>
     <svg class="background-svg">
         <path
-            v-for="_link in blueprint.tempLinks"
+            v-for="_link in blueprintModel.tempLinks"
             :key="_link.key"
             :d="buildLink(_link)"
             stroke="black"

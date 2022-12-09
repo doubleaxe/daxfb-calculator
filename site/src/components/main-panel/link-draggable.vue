@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, reactive} from 'vue';
-import {useBlueprintModel, type ItemModel, type LinkModel, type RecipeIOModel} from '../../scripts/model/store';
+import {injectBlueprintModel, type ItemModel, type LinkModel, type RecipeIOModel} from '../../scripts/model/store';
 import {screenToClient} from '../../scripts/drop-helper';
 import type ElementDraggable from '../element-draggable.vue';
 
@@ -8,7 +8,7 @@ const emit = defineEmits<{
     (e: 'drag-drop', position: {x: number; y: number}, itemName: string): void;
 }>();
 
-const {blueprint} = useBlueprintModel();
+const blueprintModel = injectBlueprintModel();
 const draggable = ref<InstanceType<typeof ElementDraggable> | null>(null);
 const draggingSource = ref<RecipeIOModel | null>(null);
 let draggingTarget: RecipeIOModel | undefined = undefined;
@@ -16,7 +16,7 @@ let draggingLink: LinkModel | undefined = undefined;
 const deltaXY = {x: 0, y: 0};
 
 const dropItem = (position: {x: number; y: number}) => {
-    blueprint.clearTempLinks();
+    blueprintModel.clearTempLinks();
 };
 
 const requestDragBegin = (item?: RecipeIOModel) => {
@@ -37,7 +37,7 @@ const dragShown = (screenXY: {x: number; y: number}) => {
         draggingTarget = _draggingSource.tempClone(true);
         draggingTarget.x = clientXY.x;
         draggingTarget.y = clientXY.y;
-        draggingLink = blueprint.createTempLink(_draggingSource, draggingTarget);
+        draggingLink = blueprintModel.createTempLink(_draggingSource, draggingTarget);
     }
 };
 

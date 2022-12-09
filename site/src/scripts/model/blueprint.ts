@@ -1,7 +1,7 @@
 import {reactive, watch} from 'vue';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
-import type {BlueprintItemModel, LinkModel, RecipeIOModel} from './types';
+import type {BlueprintItemModel, LinkModel, RecipeIOModel} from './store';
 
 export class BlueprintModelImpl {
     public readonly items: BlueprintItemModel[] = [];

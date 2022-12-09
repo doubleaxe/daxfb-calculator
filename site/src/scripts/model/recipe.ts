@@ -1,6 +1,6 @@
 import {RecipeIOModelImpl} from './recipe-io';
-import type {Recipe} from '../data-parsed';
-import type {BlueprintItemModel, RecipeIOModel} from './types';
+import type {Recipe} from '../data/data';
+import type {BlueprintItemModel, RecipeIOModel} from './store';
 import {reactive} from 'vue';
 
 export class RecipeModelImpl {

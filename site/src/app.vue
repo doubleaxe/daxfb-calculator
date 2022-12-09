@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue';
-import {useBlueprintModel} from './scripts/model/store';
+import {injectBlueprintModel} from './scripts/model/store';
 import {useDropHelper} from './scripts/drop-helper';
 import type {DropHelper} from './scripts/drop-helper';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
@@ -8,10 +8,10 @@ import IconDraggable from './components/left-toolbox/icon-draggable.vue';
 const drawer = ref(true);
 const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
 const blueprints = ref<HTMLElement | null>(null);
+const blueprintModel = injectBlueprintModel();
 
 const dropHelperProcessor: DropHelper<string> = (dropPoint: {x: number; y: number}, itemName: string) => {
-    const {blueprint} = useBlueprintModel();
-    const item = blueprint.addItem(itemName);
+    const item = blueprintModel.addItem(itemName);
     item.x = dropPoint.x;
     item.y = dropPoint.y;
 };

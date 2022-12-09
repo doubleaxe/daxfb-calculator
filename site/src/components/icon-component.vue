@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {imagesJson} from '../scripts/data-parsed';
+import {dataProvider} from '../scripts/data/data';
 import {mdiAlert} from '@mdi/js';
 
 const RESOLUTION = 32;
@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 
 const styleObject = computed(() => {
-    const location = imagesJson[props.image];
+    const location = dataProvider.getItemImageDef(props.image);
     if(!location)
         return undefined;
     return {

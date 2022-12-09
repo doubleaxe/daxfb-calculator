@@ -1,5 +1,5 @@
 import newKey from './key-store';
-import type {RecipeIOModel} from './types';
+import type {RecipeIOModel} from './store';
 
 export class LinkModelImpl {
     private readonly _key;

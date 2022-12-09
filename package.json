@@ -34,7 +34,6 @@
     "@vueuse/components": "^9.6.0",
     "@vueuse/core": "^9.6.0",
     "d3-shape": "^3.1.0",
-    "pinia": "^2.0.23",
     "ts-2d-geometry": "^6.3.2",
     "vue": "^3.2.41",
     "vuetify": "^3.0.3"
