@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import {injectBlueprintModel} from './scripts/model/store';
-import {useDropHelper} from './scripts/drop-helper';
-import type {DropHelper} from './scripts/drop-helper';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
+import {isPointInsideElement1, type PointType} from './scripts/geometry';
 
 const drawer = ref(true);
-const draggable = ref<InstanceType<typeof IconDraggable> | null>(null);
-const blueprints = ref<HTMLElement | null>(null);
+const draggableElement = ref<InstanceType<typeof IconDraggable> | null>(null);
+const blueprintsElement = ref<HTMLElement | null>(null);
 const blueprintModel = injectBlueprintModel();
 
-const dropHelperProcessor: DropHelper<string> = (dropPoint: {x: number; y: number}, itemName: string) => {
+function dragDrop(dropPoint: PointType, itemName: string) {
+    if(!isPointInsideElement1(blueprintsElement, dropPoint))
+        return;
     const item = blueprintModel.addItem(itemName);
-    item.x = dropPoint.x;
-    item.y = dropPoint.y;
-};
-//converts window coordinates to client coordinates for position: absolute
-const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollableParent: true});
+    item.pos.assign(blueprintModel.screenToClient(dropPoint));
+}
 </script>
 
 <template>
-    <icon-draggable ref="draggable" @drag-drop="dropHelper" />
+    <icon-draggable ref="draggableElement" @drag-drop="dragDrop" />
     <v-app class="main-window">
         <v-app-bar density="compact">
             <template #prepend>
@@ -28,10 +26,13 @@ const dropHelper = useDropHelper(blueprints, dropHelperProcessor, {scrollablePar
             </template>
         </v-app-bar>
         <v-navigation-drawer v-model="drawer">
-            <icon-list-panel @drag-begin="draggable?.requestDragBegin" @drag-force="draggable?.requestDragForce" />
+            <icon-list-panel
+                @drag-begin="draggableElement?.requestDragBegin"
+                @drag-force="draggableElement?.requestDragForce"
+            />
         </v-navigation-drawer>
         <v-main scrollable>
-            <blueprint-panel ref="blueprints" />
+            <blueprint-panel ref="blueprintsElement" />
         </v-main>
     </v-app>
 </template>

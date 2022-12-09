@@ -1,19 +1,22 @@
 import {reactive} from 'vue';
 import type {RecipeIO} from '../data/data';
 import {ItemModelImpl} from './item';
-import type {BlueprintItemModel, LinkModel} from './store';
-
+import type {BlueprintItemModel, BlueprintModel, LinkModel} from './store';
 
 export class RecipeIOModelImpl extends ItemModelImpl {
-    private readonly _owner;
+    private readonly _ownerItem;
     private readonly _io;
     private readonly _isInput;
     private _link?: LinkModel;
 
-    constructor(io: RecipeIO, owner?: BlueprintItemModel, key?: string, isReverce?: boolean) {
-        super(io.item, key);
+    constructor(
+        io: RecipeIO,
+        {owner, ownerItem, isReverce}: {owner?: BlueprintModel; ownerItem?: BlueprintItemModel; isReverce?: boolean} = {},
+        key?: string
+    ) {
+        super(owner || ownerItem?.owner, io.item, key);
         this._io = io;
-        this._owner = owner;
+        this._ownerItem = ownerItem;
         this._isInput = isReverce ? !io.isInput : io.isInput;
     }
 
@@ -22,9 +25,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isInput() { return this._isInput; }
 
     tempClone(isReverce?: boolean) {
-        const clone = reactive(new RecipeIOModelImpl(this._io, undefined, undefined, isReverce));
-        clone.x = this.x;
-        clone.y = this.y;
+        const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce}));
+        clone.pos.assign(this.pos);
         return clone;
     }
 }

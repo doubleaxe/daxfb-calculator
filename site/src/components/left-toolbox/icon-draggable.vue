@@ -7,7 +7,7 @@ const emit = defineEmits<{
     (e: 'drag-drop', position: {x: number; y: number}, itemName: string): void;
 }>();
 
-const draggable = ref<InstanceType<typeof ElementDraggable> | null>(null);
+const draggableElement = ref<InstanceType<typeof ElementDraggable> | null>(null);
 const draggingItem = reactive({
     name: '',
     image: '',
@@ -18,7 +18,7 @@ const dropItem = (position: {x: number; y: number}) => {
 };
 
 const requestDragBegin = (item?: Item) => {
-    unref(draggable)?.requestDragBegin(!!item);
+    unref(draggableElement)?.requestDragBegin(!!item);
     if(item) {
         draggingItem.name = item.name;
         draggingItem.image = item.image;
@@ -26,7 +26,7 @@ const requestDragBegin = (item?: Item) => {
 };
 
 const requestDragForce = () => {
-    unref(draggable)?.requestDragForce();
+    unref(draggableElement)?.requestDragForce();
 };
 
 defineExpose({
@@ -37,7 +37,7 @@ defineExpose({
 
 <template>
     <element-draggable
-        ref="draggable"
+        ref="draggableElement"
         :width="32"
         :height="32"
         @drop="dropItem"

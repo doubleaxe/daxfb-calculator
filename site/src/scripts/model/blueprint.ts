@@ -1,7 +1,10 @@
 import {reactive, watch} from 'vue';
+import {Point, type PointType} from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
 import type {BlueprintItemModel, LinkModel, RecipeIOModel} from './store';
+
+type UpdateOffsetPositionCallback = () => PointType | undefined;
 
 export class BlueprintModelImpl {
     public readonly items: BlueprintItemModel[] = [];
@@ -9,13 +12,15 @@ export class BlueprintModelImpl {
     public readonly tempLinks: LinkModel[] = [];
     private _xmax = 0;
     private _ymax = 0;
+    private offsetPos = new Point();
+    private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
 
     //types are compatible, just don't use instanceof
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
     addItem(name: string) {
-        const item = reactive(new BlueprintItemModelImpl(name));
+        const item = reactive(new BlueprintItemModelImpl(this, name));
         this.items.push(item);
-        watch([() => item.x, () => item.y], this._updateXY.bind(this));
+        watch([() => item.pos.x, () => item.pos.y], this._updateXY.bind(this));
         return item;
     }
     addLink(input: RecipeIOModel, output: RecipeIOModel) {
@@ -47,6 +52,27 @@ export class BlueprintModelImpl {
         return reactive(new LinkModelImpl(_io.input, _io.output));
     }
 
+    //basically we cannot watch window move (relayout) events
+    //so we should update offset every time we would need it
+    //also automatically updated on create and on scroll
+    requestUpdateOffsetPosition() {
+        if(this.updateOffsetPositionCallback) {
+            this.offsetPos.assign(this.updateOffsetPositionCallback());
+        }
+    }
+    registerUpdateOffsetPosition(callback: UpdateOffsetPositionCallback) {
+        if(this.updateOffsetPositionCallback)
+            throw new Error('Callback already registered');
+        this.updateOffsetPositionCallback = callback;
+    }
+    screenToClient(point: PointType, {noUpdate}: {noUpdate?: boolean} = {}): PointType {
+        if(!noUpdate)
+            this.requestUpdateOffsetPosition();
+        return {
+            x: point.x - this.offsetPos.x,
+            y: point.y - this.offsetPos.y,
+        };
+    }
     private _updateXY([newX, newY]: number[], oldXY: number[]) {
         if(newX > this._xmax)
             this._xmax = newX;

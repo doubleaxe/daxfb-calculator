@@ -12,14 +12,14 @@ const emit = defineEmits<{
     (e: 'link-drag-force'): void;
 }>();
 
-const mainDiv = ref<HTMLElement | null>(null);
+const mainDivElement = ref<HTMLElement | null>(null);
 const recipe = computed(() => unref(props.item)?.selectedRecipe);
-const isHovered = useElementHover(mainDiv);
+const isHovered = useElementHover(mainDivElement);
 </script>
 
 <template>
     <div
-        ref="mainDiv"
+        ref="mainDivElement"
         class="rounded bg-grey-lighten-4"
         :class="`elevation-${isHovered ? 2 : 0}`"
     >

@@ -6,8 +6,8 @@ const svgLinkBuilder = link(curveBumpX);
 const blueprintModel = injectBlueprintModel();
 function buildLink(_link: LinkModel) {
     const svgLink = svgLinkBuilder({
-        source: [_link.input?.x || 0, _link.input?.y || 0],
-        target: [_link.output?.x || 0, _link.output?.y || 0],
+        source: [_link.input?.pos.x || 0, _link.input?.pos.y || 0],
+        target: [_link.output?.pos.x || 0, _link.output?.pos.y || 0],
     });
     return svgLink || '';
 }

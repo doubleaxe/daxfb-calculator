@@ -1,19 +1,35 @@
 <script setup lang="ts">
-import {ref, computed} from 'vue';
+import {ref, computed, watch} from 'vue';
 import {injectBlueprintModel} from '../../scripts/model/store';
 import LinkDraggable from './link-draggable.vue';
 import ItemsDraggable from './items-draggable';
+import {unrefElement, useEventListener} from '@vueuse/core';
 
 const blueprintModel = injectBlueprintModel();
-const xmax = computed(() => blueprintModel.xmax + 200);
-const ymax = computed(() => blueprintModel.ymax + 200);
+const blueprintsElement = ref<HTMLElement | null>(null);
+const xmax = computed(() => blueprintModel.xmax + 2000);
+const ymax = computed(() => blueprintModel.ymax + 2000);
 const itemsDraggable = new ItemsDraggable();
-const linkDraggable = ref<InstanceType<typeof LinkDraggable> | null>(null);
+const linkDraggableElement = ref<InstanceType<typeof LinkDraggable> | null>(null);
+
+const updateBlueprintOffsetPosition = (evt?: Event) => {
+    const _blueprintsElement = unrefElement(blueprintsElement);
+    if(!_blueprintsElement)
+        return;
+    if(evt && (evt.target instanceof HTMLElement)) {
+        if(!(evt.target as HTMLElement).contains(_blueprintsElement))
+            return;
+    }
+    blueprintModel.requestUpdateOffsetPosition();
+};
+useEventListener(window, ['scroll', 'resize'], updateBlueprintOffsetPosition, {capture: true, passive: true});
+watch(blueprintsElement, () => updateBlueprintOffsetPosition());
+blueprintModel.registerUpdateOffsetPosition(() => unrefElement(blueprintsElement)?.getBoundingClientRect());
 </script>
 
 <template>
-    <div class="blueprint-collection" :style="{width: xmax + 'px', height: ymax + 'px'}">
-        <link-draggable ref="linkDraggable" />
+    <div ref="blueprintsElement" class="blueprint-collection" :style="{width: xmax + 'px', height: ymax + 'px'}">
+        <link-draggable ref="linkDraggableElement" />
         <blueprint-links />
         <template
             v-for="item in blueprintModel.items"
@@ -22,10 +38,10 @@ const linkDraggable = ref<InstanceType<typeof LinkDraggable> | null>(null);
             <blueprint-single-item
                 :item="item"
                 class="blueprint-item"
-                :style="{left: item.x + 'px', top: item.y + 'px'}"
+                :style="{left: item.pos.x + 'px', top: item.pos.y + 'px'}"
                 @pointerdown="itemsDraggable.addDraggable(item, $event)"
-                @link-drag-begin="linkDraggable?.requestDragBegin"
-                @link-drag-force="linkDraggable?.requestDragForce"
+                @link-drag-begin="linkDraggableElement?.requestDragBegin"
+                @link-drag-force="linkDraggableElement?.requestDragForce"
             />
         </template>
     </div>
