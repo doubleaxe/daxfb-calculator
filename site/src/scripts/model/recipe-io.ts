@@ -1,5 +1,6 @@
 import {reactive} from 'vue';
 import type {RecipeIO} from '../data/data';
+import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';
 import type {BlueprintItemModel, BlueprintModel, LinkModel, RecipeIOModel} from './store';
 
@@ -23,10 +24,16 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get link() { return this._link; }
     set link(value: LinkModel | undefined) { this._link = value; }
     get isInput() { return this._isInput; }
+    get ownerItem() { return this._ownerItem; }
 
     tempClone(isReverce?: boolean): RecipeIOModel {
         const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce}));
-        clone.rect.assignRect(this.rect);
+        clone.rect.assignRect(this.calculateRect());
         return clone;
+    }
+    calculateRect() {
+        if(!this._ownerItem)
+            return this.rect;
+        return new Rect(this.rect).offsetBy(this._ownerItem.rect);
     }
 }

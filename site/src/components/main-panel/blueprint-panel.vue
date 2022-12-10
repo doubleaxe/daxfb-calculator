@@ -41,7 +41,7 @@ blueprintModel.registerUpdateOffsetPosition(() => unrefElement(blueprintsElement
         <link-draggable ref="linkDraggableElement" />
         <blueprint-links />
         <template
-            v-for="item in blueprintModel.items"
+            v-for="item in blueprintModel.items.values()"
             :key="item.key"
         >
             <blueprint-single-item

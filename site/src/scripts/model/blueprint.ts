@@ -18,7 +18,7 @@ import type {
 
 
 export class BlueprintModelImpl implements ScreenToClientProvider {
-    public readonly items: BlueprintItemModel[] = [];
+    public readonly items = new Map<string, BlueprintItemModel>();
     public readonly links: LinkModel[] = [];
     public readonly tempLinks: LinkModel[] = [];
     private _maxItemXY = new Point();
@@ -29,12 +29,12 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
     addItem(name: string) {
         const item = reactive(new BlueprintItemModelImpl(this, name));
-        this.items.push(item);
+        this.items.set(item.key, item);
         watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         return item;
     }
-    addLink(input: RecipeIOModel, output: RecipeIOModel) {
-        const link = reactive(new LinkModelImpl(input, output));
+    addLink(...io: RecipeIOModel[]) {
+        const link = BlueprintModelImpl.newLink(io);
         this.links.push(link);
         return link;
     }
@@ -80,7 +80,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
             this.requestUpdateOffsetPosition();
         return new Point(point).offsetBy(this._boundingRect, -1);
     }
-    private _updateXY([newX, newY]: number[], oldXY: number[]) {
+    private _updateXY([newX, newY]: number[]) {
         const maxItemXY = this._maxItemXY;
         if(newX > maxItemXY.x)
             maxItemXY.x = newX;

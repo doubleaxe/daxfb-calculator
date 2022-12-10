@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {ref, unref, computed} from 'vue';
+import {ref, unref, computed, onMounted} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
+import {Rect} from '@/scripts/geometry';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -17,20 +18,44 @@ const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const recipe = computed(() => unref(props.item)?.selectedRecipe);
 const isHovered = useElementHover(mainDivElement);
-const getElevation = () => {
+const computedElevation = computed(() => {
     if(props.item.isFloating)
         return settings.draggingElevation;
     if(unref(isHovered))
         return settings.hoveringElevation;
     return 0;
+});
+
+let sizeIsDirty = true;
+const updateSize = () => {
+    if(!sizeIsDirty)
+        return;
+    const mainDiv = unref(mainDivElement);
+    const _item = unref(props.item);
+    const _recipe = unref(recipe);
+    if(!mainDiv || !_item || !_recipe)
+        return;
+    const mainDivRect = mainDiv.getBoundingClientRect();
+    _item.rect.assignSize(mainDivRect);
+    const ioList = mainDiv.querySelectorAll('[data-io-id]');
+    for(let i = 0; i < ioList.length; i++) {
+        const ioElement = ioList.item(i);
+        const key = ioElement.getAttribute('data-io-id') || '';
+        const io = _recipe.itemsByKey.get(key);
+        const ioRect = ioElement.getBoundingClientRect();
+        io?.rect.assignRect(new Rect(ioRect).offsetBy(mainDivRect, -1));
+    }
+    sizeIsDirty = false;
 };
+onMounted(updateSize);
 </script>
 
 <template>
     <div
         ref="mainDivElement"
         class="rounded bg-grey-lighten-4 parent-div"
-        :class="`elevation-${getElevation()}`"
+        :class="[`elevation-${computedElevation}`, props.item.stateColor]"
+        :data-item-id="props.item.key"
     >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">
@@ -39,13 +64,14 @@ const getElevation = () => {
         </div>
         <div class="main-row">
             <div>
-                <template v-for="io in recipe?.input" :key="io.name">
+                <template v-for="io in recipe?.input" :key="io.key">
                     <v-hover v-slot="{isHovering, props: props0}">
                         <icon-component
                             v-bind="props0"
                             :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                             class="icon-row rounded"
                             :image="io.image"
+                            :data-io-id="io.key"
                             @pointerdown.stop="emit('link-drag-begin', io)"
                             @pointerup.stop="emit('link-drag-begin')"
                         />
@@ -67,13 +93,14 @@ const getElevation = () => {
             </div>
             <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
             <div>
-                <template v-for="io in recipe?.output" :key="io.name">
+                <template v-for="io in recipe?.output" :key="io.key">
                     <v-hover v-slot="{isHovering, props: props0}">
                         <icon-component
                             v-bind="props0"
                             :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                             class="icon-row rounded"
                             :image="io.image"
+                            :data-io-id="io.key"
                             @pointerdown.stop="emit('link-drag-begin', io)"
                             @pointerup.stop="emit('link-drag-begin')"
                         />
