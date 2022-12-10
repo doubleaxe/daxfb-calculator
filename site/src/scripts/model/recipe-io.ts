@@ -1,7 +1,7 @@
 import {reactive} from 'vue';
 import type {RecipeIO} from '../data/data';
 import {ItemModelImpl} from './item';
-import type {BlueprintItemModel, BlueprintModel, LinkModel} from './store';
+import type {BlueprintItemModel, BlueprintModel, LinkModel, RecipeIOModel} from './store';
 
 export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _ownerItem;
@@ -24,9 +24,9 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     set link(value: LinkModel | undefined) { this._link = value; }
     get isInput() { return this._isInput; }
 
-    tempClone(isReverce?: boolean) {
+    tempClone(isReverce?: boolean): RecipeIOModel {
         const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce}));
-        clone.pos.assign(this.pos);
+        clone.rect.assignRect(this.rect);
         return clone;
     }
 }

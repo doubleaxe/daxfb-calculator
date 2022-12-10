@@ -13,7 +13,7 @@ function dragDrop(dropPoint: PointType, itemName: string) {
     if(!isPointInsideElement1(blueprintsElement, dropPoint))
         return;
     const item = blueprintModel.addItem(itemName);
-    item.pos.assign(blueprintModel.screenToClient(dropPoint));
+    item.rect.assignPoint(blueprintModel.screenToClient(dropPoint));
 }
 </script>
 

@@ -1,18 +1,28 @@
 import {reactive, watch} from 'vue';
-import {Point, type PointType} from '../geometry';
+import {
+    Point,
+    Rect,
+    type ReadonlyPointType,
+    type ReadonlyRectType
+} from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
-import type {BlueprintItemModel, LinkModel, RecipeIOModel} from './store';
+import type {
+    BlueprintItemModel,
+    LinkModel,
+    RecipeIOModel,
+    ScreenToClientOptions,
+    ScreenToClientProvider,
+    UpdateOffsetPositionCallback
+} from './store';
 
-type UpdateOffsetPositionCallback = () => PointType | undefined;
 
-export class BlueprintModelImpl {
+export class BlueprintModelImpl implements ScreenToClientProvider {
     public readonly items: BlueprintItemModel[] = [];
     public readonly links: LinkModel[] = [];
     public readonly tempLinks: LinkModel[] = [];
-    private _xmax = 0;
-    private _ymax = 0;
-    private offsetPos = new Point();
+    private _maxItemXY = new Point();
+    private _boundingRect = new Rect();
     private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
 
     //types are compatible, just don't use instanceof
@@ -20,7 +30,7 @@ export class BlueprintModelImpl {
     addItem(name: string) {
         const item = reactive(new BlueprintItemModelImpl(this, name));
         this.items.push(item);
-        watch([() => item.pos.x, () => item.pos.y], this._updateXY.bind(this));
+        watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         return item;
     }
     addLink(input: RecipeIOModel, output: RecipeIOModel) {
@@ -57,7 +67,7 @@ export class BlueprintModelImpl {
     //also automatically updated on create and on scroll
     requestUpdateOffsetPosition() {
         if(this.updateOffsetPositionCallback) {
-            this.offsetPos.assign(this.updateOffsetPositionCallback());
+            this._boundingRect.assignPoint(this.updateOffsetPositionCallback());
         }
     }
     registerUpdateOffsetPosition(callback: UpdateOffsetPositionCallback) {
@@ -65,21 +75,21 @@ export class BlueprintModelImpl {
             throw new Error('Callback already registered');
         this.updateOffsetPositionCallback = callback;
     }
-    screenToClient(point: PointType, {noUpdate}: {noUpdate?: boolean} = {}): PointType {
-        if(!noUpdate)
+    screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions = {}): ReadonlyPointType {
+        if(!isPassive)
             this.requestUpdateOffsetPosition();
-        return {
-            x: point.x - this.offsetPos.x,
-            y: point.y - this.offsetPos.y,
-        };
+        return new Point(point).offsetBy(this._boundingRect, -1);
     }
     private _updateXY([newX, newY]: number[], oldXY: number[]) {
-        if(newX > this._xmax)
-            this._xmax = newX;
-        if(newY > this._ymax)
-            this._ymax = newY;
+        const maxItemXY = this._maxItemXY;
+        if(newX > maxItemXY.x)
+            maxItemXY.x = newX;
+        if(newY > maxItemXY.y)
+            maxItemXY.y = newY;
+
+        this._boundingRect.width = Math.max(maxItemXY.x + 500, 2000);
+        this._boundingRect.height = Math.max(maxItemXY.y + 500, 2000);
     }
 
-    get xmax() { return this._xmax; }
-    get ymax() { return this._ymax; }
+    get boundingRect(): ReadonlyRectType { return this._boundingRect; }
 }

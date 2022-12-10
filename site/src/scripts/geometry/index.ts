@@ -1,48 +1,58 @@
 
+export type AssignOptions = {isSize?: boolean; isPosition?: boolean};
 export type PointType = {x: number; y: number};
+export type ReadonlyPointType = Readonly<PointType>;
+export type SizeType = {width: number; height: number};
+export type ReadonlySizeType = Readonly<SizeType>;
+export type RectType = PointType & SizeType;
+export type ReadonlyRectType = Readonly<RectType>;
+
 export class Point implements PointType {
     x = 0;
     y = 0;
-    constructor(point?: PointType) {
-        this.assign(point);
+    constructor(point?: ReadonlyPointType) {
+        this.assignPoint(point);
     }
-    assign(point?: PointType) {
-        if(!point)
-            return;
-        this.x = point.x;
-        this.y = point.y;
+    assignPoint(point?: ReadonlyPointType) {
+        if(point?.x !== undefined)
+            this.x = point.x;
+        if(point?.y !== undefined)
+            this.y = point.y;
+        return this;
     }
-    offsetTo(point?: PointType, sign?: number) {
-        if(!point)
-            return this;
-        this.x = this.x + (sign || 1) * point.x;
-        this.y = this.y + (sign || 1) * point.y;
+    offsetBy(point?: ReadonlyPointType, sign?: number) {
+        this.x = this.x + (sign || 1) * (point?.x ?? 0);
+        this.y = this.y + (sign || 1) * (point?.y ?? 0);
         return this;
     }
 }
 
 //aligned to upper-left, as in html
-export type RectType = PointType & {width: number; height: number};
 export class Rect extends Point implements RectType {
     width = 0;
     height = 0;
 
-    constructor(rect?: RectType) {
+    constructor(rect?: ReadonlyRectType) {
         super();
-        this.assign(rect);
+        this.assignRect(rect);
     }
 
     get x1() { return this.x + this.width; }
     get y1() { return this.y + this.height; }
 
-    assign(rect?: RectType) {
-        if(!rect)
-            return;
-        super.assign(rect);
-        this.width = rect.width;
-        this.height = rect.height;
+    assignSize(size?: ReadonlySizeType) {
+        if(size?.width !== undefined)
+            this.width = size.width;
+        if(size?.height !== undefined)
+            this.height = size.height;
+        return this;
     }
-    isPointInRect(point: PointType) {
+    assignRect(rect?: ReadonlyRectType) {
+        this.assignPoint(rect);
+        this.assignSize(rect);
+        return this;
+    }
+    isPointInRect(point: ReadonlyPointType) {
         return (point.x >= this.x) && (point.y >= this.y)
             && (point.x <= this.x1) && (point.y <= this.y1);
     }

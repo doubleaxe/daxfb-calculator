@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import {dataProvider} from '../../scripts/data/data';
+import {injectSettings} from '@/scripts/settings';
+import {dataProvider} from '@/scripts/data/data';
 
 const emit = defineEmits<{
     (e: 'drag-begin', item?: typeof producerItems[0]): void;
     (e: 'drag-force'): void;
 }>();
 
+const settings = injectSettings();
 const producerItems = dataProvider.getProducerItems();
 </script>
 
@@ -14,7 +16,7 @@ const producerItems = dataProvider.getProducerItems();
         <v-hover v-slot="{isHovering, props}">
             <icon-component
                 v-bind="props"
-                :class="`elevation-${isHovering ? 5 : 0}`"
+                :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                 class="rounded"
                 :image="item.image"
                 @pointerdown="emit('drag-begin', item)"

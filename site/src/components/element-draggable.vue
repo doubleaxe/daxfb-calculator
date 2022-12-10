@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import {ref, unref, nextTick} from 'vue';
 import {useTimeoutFn, useDraggable, useMouse} from '@vueuse/core';
+import type {ReadonlyPointType} from '@/scripts/geometry';
 
 const props = defineProps<{
     width: number;
     height: number;
 }>();
 const emit = defineEmits<{
-    (e: 'drag-shown', position: {x: number; y: number}): void;
-    (e: 'drag-move', position: {x: number; y: number}): void;
-    (e: 'drop', position: {x: number; y: number}): void;
+    (e: 'drag-shown', position: ReadonlyPointType): void;
+    (e: 'drag-move', position: ReadonlyPointType): void;
+    (e: 'drop', position: ReadonlyPointType): void;
 }>();
 
 //we use separate props because when element is hidden - its position doesn't update

@@ -15,9 +15,9 @@ export function isPointInsideElement1(
         return false;
     if((point.x < 0) || (point.y < 0))
         return false;
-    let scrollboxElement: HTMLElement | null = null;
+    let scrollboxElement: HTMLElement | null = targetElement;
     for(;;) {
-        scrollboxElement = targetElement.parentElement;
+        scrollboxElement = scrollboxElement.parentElement;
         if(!scrollboxElement)
             break;
         const isScrolling = (scrollboxElement.scrollHeight > scrollboxElement.clientHeight)

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {ref, unref, computed} from 'vue';
-import type {BlueprintItemModel, RecipeIOModel} from '../../scripts/model/store';
+import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
+import {injectSettings} from '@/scripts/settings';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -12,16 +13,24 @@ const emit = defineEmits<{
     (e: 'link-drag-force'): void;
 }>();
 
+const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const recipe = computed(() => unref(props.item)?.selectedRecipe);
 const isHovered = useElementHover(mainDivElement);
+const getElevation = () => {
+    if(props.item.isFloating)
+        return settings.draggingElevation;
+    if(unref(isHovered))
+        return settings.hoveringElevation;
+    return 0;
+};
 </script>
 
 <template>
     <div
         ref="mainDivElement"
-        class="rounded bg-grey-lighten-4"
-        :class="`elevation-${isHovered ? 2 : 0}`"
+        class="rounded bg-grey-lighten-4 parent-div"
+        :class="`elevation-${getElevation()}`"
     >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">
@@ -34,7 +43,7 @@ const isHovered = useElementHover(mainDivElement);
                     <v-hover v-slot="{isHovering, props: props0}">
                         <icon-component
                             v-bind="props0"
-                            :class="`elevation-${isHovering ? 5 : 0}`"
+                            :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                             class="icon-row rounded"
                             :image="io.image"
                             @pointerdown.stop="emit('link-drag-begin', io)"
@@ -48,7 +57,7 @@ const isHovered = useElementHover(mainDivElement);
                 <v-hover v-slot="{isHovering, props: props0}">
                     <icon-component
                         v-bind="props0"
-                        :class="`elevation-${isHovering ? 5 : 0}`"
+                        :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                         class="icon-row rounded"
                         :image="props.item?.image"
                         @pointerdown.stop=""
@@ -62,7 +71,7 @@ const isHovered = useElementHover(mainDivElement);
                     <v-hover v-slot="{isHovering, props: props0}">
                         <icon-component
                             v-bind="props0"
-                            :class="`elevation-${isHovering ? 5 : 0}`"
+                            :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                             class="icon-row rounded"
                             :image="io.image"
                             @pointerdown.stop="emit('link-drag-begin', io)"
@@ -76,6 +85,9 @@ const isHovered = useElementHover(mainDivElement);
 </template>
 
 <style scoped>
+.parent-div {
+    user-select: none;
+}
 .title-row {
     display: block;
     position: relative;

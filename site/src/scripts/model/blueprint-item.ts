@@ -6,6 +6,7 @@ import type {BlueprintModel, RecipeModel} from './store';
 export class BlueprintItemModelImpl extends ItemModelImpl {
     private recipes;
     private _selectedRecipe?: RecipeModel;
+    public isFloating = false;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, dataProvider.getItem(name));

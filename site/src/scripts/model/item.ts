@@ -1,13 +1,13 @@
 import type {Item} from '../data/data';
-import {Point} from '../geometry';
+import {Rect, type ReadonlyPointType} from '../geometry';
 import newKey from './key-store';
-import type {BlueprintModel} from './store';
+import type {BlueprintModel, ScreenToClientOptions, ScreenToClientProvider} from './store';
 
-export class ItemModelImpl {
+export class ItemModelImpl implements ScreenToClientProvider {
     private readonly _owner;
     private readonly _key;
     protected readonly _item;
-    private readonly _pos = new Point();
+    private readonly _rect = new Rect();
 
     constructor(owner?: BlueprintModel, item?: Item, key?: string) {
         this._owner = owner;
@@ -15,10 +15,16 @@ export class ItemModelImpl {
         this._key = newKey(key);
     }
 
-    get owner() { return this._owner; }
+    screenToClient(point: ReadonlyPointType, options: ScreenToClientOptions = {}): ReadonlyPointType {
+        if(!this._owner)
+            return point;
+        return this._owner.screenToClient(point, options);
+    }
+
     get key() { return this._key; }
     get name() { return this._item?.name; }
     get label() { return this._item?.label; }
     get image() { return this._item?.image || ''; }
-    get pos() { return this._pos; }
+    get rect() { return this._rect; }
+    get owner() { return this._owner; }
 }

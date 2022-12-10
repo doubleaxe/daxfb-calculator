@@ -1,32 +1,39 @@
 <script setup lang="ts">
 import {computed} from 'vue';
-import {dataProvider} from '../scripts/data/data';
+import {dataProvider} from '@/scripts/data/data';
 import {mdiAlert} from '@mdi/js';
-
-const RESOLUTION = 32;
+import {injectSettings} from '@/scripts/settings';
 
 const props = defineProps<{
     image: string;
 }>();
+
+const settings = injectSettings();
 
 const styleObject = computed(() => {
     const location = dataProvider.getItemImageDef(props.image);
     if(!location)
         return undefined;
     return {
-        'background-position': `${(-location[0] * RESOLUTION).toFixed(0)}px ${(-location[1] * RESOLUTION).toFixed(0)}px`,
+        'width': `${settings.iconSize}px`,
+        'height': `${settings.iconSize}px`,
+        'background-position': `${(-location[0] * settings.iconSize).toFixed(0)}px ${(-location[1] * settings.iconSize).toFixed(0)}px`,
     };
 });
 </script>
 
 <template>
     <div>
-        <div v-if="styleObject" class="icon-component" :style="styleObject" />
+        <div
+            v-if="styleObject"
+            class="icon-component"
+            :style="styleObject"
+        />
         <v-icon
             v-if="!styleObject"
             class="icon-warning"
             :icon="mdiAlert"
-            :size="32"
+            :size="settings.iconSize"
             color="warning"
             role="img"
             aria-hidden="false"
@@ -37,8 +44,6 @@ const styleObject = computed(() => {
 <style scoped>
 .icon-component {
     background-image: url(../../data/images.png);
-    width: 32px;
-    height: 32px;
 }
 .icon-warning {
     display: block;

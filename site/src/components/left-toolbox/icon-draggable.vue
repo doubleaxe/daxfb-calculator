@@ -1,19 +1,22 @@
 <script setup lang="ts">
+import {injectSettings} from '@/scripts/settings';
 import {ref, unref, reactive} from 'vue';
-import type {Item} from '../../scripts/data/data';
+import type {Item} from '@/scripts/data/data';
 import type ElementDraggable from '../element-draggable.vue';
+import type {ReadonlyPointType} from '@/scripts/geometry';
 
 const emit = defineEmits<{
-    (e: 'drag-drop', position: {x: number; y: number}, itemName: string): void;
+    (e: 'drag-drop', position: ReadonlyPointType, itemName: string): void;
 }>();
 
+const settings = injectSettings();
 const draggableElement = ref<InstanceType<typeof ElementDraggable> | null>(null);
 const draggingItem = reactive({
     name: '',
     image: '',
 });
 
-const dropItem = (position: {x: number; y: number}) => {
+const dropItem = (position: ReadonlyPointType) => {
     emit('drag-drop', position, draggingItem.name);
 };
 
@@ -36,13 +39,8 @@ defineExpose({
 </script>
 
 <template>
-    <element-draggable
-        ref="draggableElement"
-        :width="32"
-        :height="32"
-        @drop="dropItem"
-    >
-        <v-sheet class="rounded elevation-10">
+    <element-draggable ref="draggableElement" :width="settings.iconSize" :height="settings.iconSize" @drop="dropItem">
+        <v-sheet :class="['rounded', 'elevation-' + settings.draggingElevation]">
             <icon-component :image="draggingItem.image" />
         </v-sheet>
     </element-draggable>
