@@ -39,8 +39,10 @@ class Item {
 }
 
 class RecipeIO {
+    private readonly _recipe: Recipe;
     private readonly _io: JsonRecipeIO;
-    constructor(_io: JsonRecipeIO, {isInput, isResource}: {isInput: boolean; isResource: boolean}) {
+    constructor(recipe: Recipe, _io: JsonRecipeIO, {isInput, isResource}: {isInput: boolean; isResource: boolean}) {
+        this._recipe = recipe;
         this._io = _io;
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this.item = parsedItems.get(_io.Name)!;
@@ -53,6 +55,10 @@ class RecipeIO {
     public readonly item: Item;
     public readonly isInput;
     public readonly isResource;
+
+    get tier() { return this._recipe.tier; }
+    get ticks() { return this._recipe.ticks; }
+    get count() { return this._io.Count; }
 }
 
 class Recipe {
@@ -68,7 +74,7 @@ class Recipe {
             if(!item)
                 return [];
             const itemArray = Array.isArray(item) ? Object.freeze(item) : [item];
-            return itemArray.map((i) => new RecipeIO(i, options));
+            return itemArray.map((i) => new RecipeIO(this, i, options));
         };
         this.input = [
             ...mapIO(recipe.Input, {isInput: true, isResource: false}),
@@ -86,6 +92,7 @@ class Recipe {
 
     get name(): string { return this._recipe.Name; }
     get tier() { return this._tier; }
+    get ticks() { return this._recipe.Ticks; }
 }
 
 (() => {

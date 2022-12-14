@@ -69,12 +69,17 @@ onMounted(updateSize);
                         <icon-component
                             v-bind="props0"
                             :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                            class="icon-row rounded"
+                            class="io-icon-row rounded float-right"
                             :image="io.image"
                             :data-io-id="io.key"
+                            style="font-size: 0;"
                             @pointerdown.stop="emit('link-drag-begin', io)"
                             @pointerup.stop="emit('link-drag-begin')"
                         />
+                        <div class="io-description-row text-caption float-right" :style="{'line-height': settings.iconSize+'px'}">
+                            {{ io.description }}
+                        </div>
+                        <div class="io-clear-row" />
                     </v-hover>
                 </template>
             </div>
@@ -84,7 +89,7 @@ onMounted(updateSize);
                     <icon-component
                         v-bind="props0"
                         :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                        class="icon-row rounded"
+                        class="main-icon-row rounded"
                         :image="props.item?.image"
                         @pointerdown.stop=""
                         @pointerup.stop=""
@@ -98,12 +103,16 @@ onMounted(updateSize);
                         <icon-component
                             v-bind="props0"
                             :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                            class="icon-row rounded"
+                            class="io-icon-row rounded float-left"
                             :image="io.image"
                             :data-io-id="io.key"
                             @pointerdown.stop="emit('link-drag-begin', io)"
                             @pointerup.stop="emit('link-drag-begin')"
                         />
+                        <div class="io-description-row text-caption float-left" :style="{'line-height': settings.iconSize+'px'}">
+                            {{ io.description }}
+                        </div>
+                        <div class="io-clear-row" />
                     </v-hover>
                 </template>
             </div>
@@ -133,7 +142,19 @@ onMounted(updateSize);
     flex-direction: row;
     align-items: start;
 }
-.icon-row {
+.main-icon-row {
     display: block;
+}
+.io-icon-row {
+    display: inline-block;
+}
+.io-description-row {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.io-clear-row {
+    clear: both;
 }
 </style>

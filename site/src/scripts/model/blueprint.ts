@@ -36,6 +36,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
         this.links.push(link);
+        link.applyPersistentLink();
         return link;
     }
     createTempLink(...io: RecipeIOModel[]) {

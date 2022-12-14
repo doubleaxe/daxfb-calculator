@@ -31,7 +31,7 @@ class SingleItemDraggable {
             return;
         this.lastPosition = position;
         const mouseClientPos = item.owner?.screenToClient(position, {isPassive: true});
-        item.rect.assignPoint(new Point(mouseClientPos).offsetBy(deltaXY));
+        item.rect.assignPoint(new Point(mouseClientPos).offsetBy(deltaXY).positive());
     }
     onEnd() {
         this.item.isFloating = false;

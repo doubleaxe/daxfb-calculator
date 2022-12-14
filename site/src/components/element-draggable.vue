@@ -25,6 +25,7 @@ const {style, x: elementX, y: elementY} = useDraggable(element, {
     },
     onEnd: (position) => {
         activateDraggable.value = false;
+        cancelDragActivateTimeout();
         showDraggable.value = false;
         emit('drop', position);
     }

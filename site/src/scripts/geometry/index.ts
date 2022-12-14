@@ -25,6 +25,13 @@ export class Point implements PointType {
         this.y = this.y + (sign || 1) * (point?.y ?? 0);
         return this;
     }
+    positive() {
+        if(this.x < 0)
+            this.x = 0;
+        if(this.y < 0)
+            this.y = 0;
+        return this;
+    }
 }
 
 //aligned to upper-left, as in html

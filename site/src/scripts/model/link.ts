@@ -16,8 +16,8 @@ export class LinkModelImpl {
 
     applyPersistentLink() {
         if(this.input)
-            this.input.link = this;
+            this.input.addLink(this);
         if(this.output)
-            this.output.link = this;
+            this.output.addLink(this);
     }
 }
