@@ -22,4 +22,6 @@ export class RecipeModelImpl {
         const targetArray = sourceIo.isInput ? this.output : this.input;
         return targetArray.find((io) => io.name === sourceIo.name);
     }
+
+    get name() { return this._recipe.name; }
 }

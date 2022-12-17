@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {unref, computed} from 'vue';
+import {computed} from 'vue';
 import type {RecipeIOModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 
@@ -12,8 +12,8 @@ const emit = defineEmits<{
 }>();
 
 const settings = injectSettings();
-const direction = computed(() => unref(props.io).isInput ? 'flex-row-reverse' : 'flex-row');
-const align = computed(() => !unref(props.io).isInput ? 'text-left' : 'text-right');
+const direction = computed(() => props.io.isInput ? 'flex-row-reverse' : 'flex-row');
+const align = computed(() => !props.io.isInput ? 'text-left' : 'text-right');
 </script>
 
 <template>

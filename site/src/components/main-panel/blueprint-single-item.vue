@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, unref, computed, onMounted} from 'vue';
+import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
@@ -16,7 +16,8 @@ const emit = defineEmits<{
 
 const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
-const recipe = computed(() => unref(props.item)?.selectedRecipe);
+const recipe = computed(() => props.item?.selectedRecipe);
+const itemId = `blueprint-item-${props.item?.key || ''}`;
 const isHovered = useElementHover(mainDivElement);
 const computedElevation = computed(() => {
     if(props.item.isFloating)
@@ -26,28 +27,27 @@ const computedElevation = computed(() => {
     return 0;
 });
 
-let sizeIsDirty = true;
 const updateSize = () => {
-    if(!sizeIsDirty)
-        return;
-    const mainDiv = unref(mainDivElement);
-    const _item = unref(props.item);
-    const _recipe = unref(recipe);
-    if(!mainDiv || !_item || !_recipe)
-        return;
-    const mainDivRect = mainDiv.getBoundingClientRect();
-    _item.rect.assignSize(mainDivRect);
-    const ioList = mainDiv.querySelectorAll('[data-io-id]');
-    for(let i = 0; i < ioList.length; i++) {
-        const ioElement = ioList.item(i);
-        const key = ioElement.getAttribute('data-io-id') || '';
-        const io = _recipe.itemsByKey.get(key);
-        const ioRect = ioElement.getBoundingClientRect();
-        io?.rect.assignRect(new Rect(ioRect).offsetBy(mainDivRect, -1));
-    }
-    sizeIsDirty = false;
+    nextTick(() => {
+        const mainDiv = unref(mainDivElement);
+        const _item = props.item;
+        const _recipe = unref(recipe);
+        if(!mainDiv || !_item || !_recipe)
+            return;
+        const mainDivRect = mainDiv.getBoundingClientRect();
+        _item.rect.assignSize(mainDivRect);
+        const ioList = mainDiv.querySelectorAll('[data-io-id]');
+        for(let i = 0; i < ioList.length; i++) {
+            const ioElement = ioList.item(i);
+            const key = ioElement.getAttribute('data-io-id') || '';
+            const io = _recipe.itemsByKey.get(key);
+            const ioRect = ioElement.getBoundingClientRect();
+            io?.rect.assignRect(new Rect(ioRect).offsetBy(mainDivRect, -1));
+        }
+    });
 };
 onMounted(updateSize);
+watch(recipe, updateSize);
 </script>
 
 <template>
@@ -76,6 +76,7 @@ onMounted(updateSize);
             <div class="align-self-center">
                 <v-hover v-slot="{isHovering, props: props0}">
                     <icon-component
+                        :id="itemId"
                         v-bind="props0"
                         :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                         class="main-icon-row rounded"
@@ -84,6 +85,7 @@ onMounted(updateSize);
                         @pointerup.stop=""
                     />
                 </v-hover>
+                <recipes-menu :activator="`#${itemId}`" :item="props.item" />
             </div>
             <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
             <div>

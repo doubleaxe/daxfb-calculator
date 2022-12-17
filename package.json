@@ -35,7 +35,7 @@
     "@vueuse/core": "^9.6.0",
     "d3-shape": "^3.1.0",
     "vue": "^3.2.41",
-    "vuetify": "^3.0.3"
+    "vuetify": "^3.0.5"
   },
   "devDependencies": {
     "@types/d3-shape": "^3.1.0",

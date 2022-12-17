@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch} from 'vue';
+import {ref, watch, computed} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import LinkDraggable from './link-draggable.vue';
 import ItemsDraggable from './items-draggable';
@@ -10,13 +10,13 @@ const blueprintsElement = ref<HTMLElement | null>(null);
 const itemsDraggable = new ItemsDraggable();
 const linkDraggableElement = ref<InstanceType<typeof LinkDraggable> | null>(null);
 
-const buildStyle = () => {
+const computedStyle = computed(() => {
     const {boundingRect} = blueprintModel;
     return {
         width: boundingRect.width ? `${boundingRect.width}px` : '100%',
         height: boundingRect.width ? `${boundingRect.height}px` : '100%',
     };
-};
+});
 const updateBlueprintOffsetPosition = (evt?: Event) => {
     const _blueprintsElement = unrefElement(blueprintsElement);
     if(!_blueprintsElement)
@@ -36,7 +36,7 @@ blueprintModel.registerUpdateOffsetPosition(() => unrefElement(blueprintsElement
     <div
         ref="blueprintsElement"
         class="blueprint-collection"
-        :style="buildStyle()"
+        :style="computedStyle"
     >
         <link-draggable ref="linkDraggableElement" />
         <blueprint-links />

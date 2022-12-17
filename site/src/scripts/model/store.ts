@@ -7,6 +7,7 @@ import type {RecipeModelImpl} from './recipe';
 import type {InjectionKey, App} from 'vue';
 import {reactive, inject} from 'vue';
 import type {ReadonlyPointType} from '../geometry';
+import type {InterfaceOf} from '../types';
 
 export type UpdateOffsetPositionCallback = () => ReadonlyPointType | undefined;
 export type ScreenToClientOptions = {isPassive?: boolean};
@@ -14,7 +15,6 @@ export type ScreenToClientProvider = {
     screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions): ReadonlyPointType;
 };
 
-export type InterfaceOf<T> = Pick<T, keyof T>;
 export type BlueprintItemModel = InterfaceOf<BlueprintItemModelImpl>;
 export type BlueprintModel = InterfaceOf<BlueprintModelImpl>;
 export type ItemModel = InterfaceOf<ItemModelImpl>;

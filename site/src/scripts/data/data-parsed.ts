@@ -1,18 +1,23 @@
 import type {Images, JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
 import dataJsonUntyped from '../../../data/data.json';
 import imagesJsonUntyped from '../../../data/images.json';
+import type {InterfaceOf} from '../types';
 
 //immutable parsed JSON data for convenient and typed access
 const dataJson = dataJsonUntyped as JsonData;
 export const imagesJson = imagesJsonUntyped as Images;
 Object.freeze(imagesJson);
 
-type RecipeDictionaryArray = Recipe[];
+export type Item = InterfaceOf<ItemImpl>;
+export type RecipeIO = InterfaceOf<RecipeIOImpl>;
+export type Recipe = InterfaceOf<RecipeImpl>;
+export type RecipeDictionary = InterfaceOf<RecipeDictionaryImpl>;
+export type RecipeDictionaryArray = Recipe[];
+
 export const parsedItems = new Map<string, Item>();
 export const parsedRecipes = new Map<string, RecipeDictionary>();
-export type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray};
 
-class Item {
+class ItemImpl {
     private readonly _item: JsonItem;
     private _recipeDictionary?: RecipeDictionary = undefined;
     constructor(name: string, _item: JsonItem) {
@@ -41,7 +46,7 @@ class Item {
     get multiplexor() { return this._item.UnitMul; }
 }
 
-class RecipeIO {
+class RecipeIOImpl {
     private readonly _recipe: Recipe;
     private readonly _io: JsonRecipeIO;
     constructor(recipe: Recipe, _io: JsonRecipeIO, {isInput, isResource}: {isInput: boolean; isResource: boolean}) {
@@ -84,7 +89,7 @@ class RecipeIO {
     get count() { return this._io.Count; }
 }
 
-class Recipe {
+class RecipeImpl {
     private readonly _dictionary: RecipeDictionary;
     private readonly _recipe: JsonRecipe;
     public readonly input: RecipeIO[];
@@ -101,7 +106,7 @@ class Recipe {
             if(!item)
                 return [];
             const itemArray = Array.isArray(item) ? Object.freeze(item) : [item];
-            return itemArray.map((i) => new RecipeIO(this, i, options));
+            return itemArray.map((i) => new RecipeIOImpl(this, i, options));
         };
         this.input = [
             ...mapIO(recipe.Input, {isInput: true, isResource: false}),
@@ -122,11 +127,11 @@ class Recipe {
     get minItemTier() { return this._dictionary.minItemTier; }
 }
 
-class RecipeDictionary {
+class RecipeDictionaryImpl {
     public readonly recipes: RecipeDictionaryArray;
     public readonly items: Item[];
     constructor(recipes: JsonRecipe[]) {
-        this.recipes = recipes.map((r) => new Recipe(this, r));
+        this.recipes = recipes.map((r) => new RecipeImpl(this, r));
         this.items = [];
     }
     initItem(item: Item) {
@@ -147,11 +152,11 @@ class RecipeDictionary {
 
 (() => {
     for(const [key, value] of Object.entries(dataJson.items)) {
-        parsedItems.set(key, new Item(key, value));
+        parsedItems.set(key, new ItemImpl(key, value));
     }
 
     for(const [key, value] of Object.entries(dataJson.recipes)) {
-        parsedRecipes.set(key, new RecipeDictionary(value));
+        parsedRecipes.set(key, new RecipeDictionaryImpl(value));
     }
 
     for(const item of parsedItems.values()) {

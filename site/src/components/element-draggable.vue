@@ -33,8 +33,8 @@ const {style, x: elementX, y: elementY} = useDraggable(element, {
 
 const startDragging = () => {
     activateDraggable.value = true;
-    elementX.value = unref(pageX) - (unref(props.width) >> 1);
-    elementY.value = unref(pageY) - (unref(props.height) >> 1);
+    elementX.value = unref(pageX) - (props.width >> 1);
+    elementY.value = unref(pageY) - (props.height >> 1);
     nextTick(() => {
         const mouseDown = new Event('pointerdown');
         Object.assign(mouseDown, {pageX: unref(pageX), pageY: unref(pageY)});
