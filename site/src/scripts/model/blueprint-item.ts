@@ -25,6 +25,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
 
     get selectedRecipe() { return this._selectedRecipe; }
     get stateColor() { return this._stateColor; }
+    get tier() { return this._item?.tier; }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null) {
         if(!sourceIo) {

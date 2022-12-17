@@ -7,10 +7,10 @@ const dataJson = dataJsonUntyped as JsonData;
 export const imagesJson = imagesJsonUntyped as Images;
 Object.freeze(imagesJson);
 
-type RecipeDictionary = Recipe[];
+type RecipeDictionaryArray = Recipe[];
 export const parsedItems = new Map<string, Item>();
 export const parsedRecipes = new Map<string, RecipeDictionary>();
-export type {Item, RecipeIO, Recipe, RecipeDictionary};
+export type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray};
 
 class Item {
     private readonly _item: JsonItem;
@@ -24,11 +24,13 @@ class Item {
         const {_item} = this;
         if(_item.Recipe) {
             this._recipeDictionary = parsedRecipes.get(_item.Recipe?.RecipeDictionary || '');
+            this._recipeDictionary?.initItem(this);
         }
         Object.freeze(this._item);
         if(this._item.Recipe)
             Object.freeze(this._item.Recipe);
         Object.freeze(this);
+        return this;
     }
 
     get image() { return this._item.Image; }
@@ -36,6 +38,7 @@ class Item {
     get label(): string { return this._item.Label; }
     public readonly tier;
     get recipeDictionary() { return this._recipeDictionary; }
+    get multiplexor() { return this._item.UnitMul; }
 }
 
 class RecipeIO {
@@ -52,23 +55,47 @@ class RecipeIO {
         Object.freeze(this);
     }
 
+    //for item gives item/seconds
+    //for resource gives Watts
+    getCountPerSecond(producerTier: number) {
+        producerTier = Math.max(producerTier, 1);
+        const recipeTier = Math.max(this._recipe.minItemTier, 1);
+        let tierDiff = producerTier - recipeTier;
+        if(tierDiff < 0) {
+            try {
+                console.error(`Something wrong, item tier ${producerTier} < recipe tier ${recipeTier} => ${this._recipe.name}`);
+            } catch(err) { /**/ }
+            tierDiff = 0;
+        }
+        if(this.isResource) {
+            //1 Resource Item [R] * 20 = 20 Watt, time doesn't matter
+            //each tier doubles energy consuption/production (cumulative)
+            return this.count * 20 * Math.pow(2, tierDiff);
+        }
+        //each tier makes production 1.5x times faster (cumulative)
+        const multiplexor = this.item.multiplexor || 1;
+        return (this.count * multiplexor) / (this._recipe.seconds / Math.pow(1.5, tierDiff));
+    }
+
     public readonly item: Item;
     public readonly isInput;
     public readonly isResource;
 
-    get tier() { return this._recipe.tier; }
-    get ticks() { return this._recipe.ticks; }
     get count() { return this._io.Count; }
 }
 
 class Recipe {
+    private readonly _dictionary: RecipeDictionary;
     private readonly _recipe: JsonRecipe;
-    private readonly _tier;
     public readonly input: RecipeIO[];
     public readonly output: RecipeIO[];
-    constructor(recipe: JsonRecipe) {
+    public readonly seconds;
+    constructor(dictionary: RecipeDictionary, recipe: JsonRecipe) {
+        this._dictionary = dictionary;
         this._recipe = recipe;
-        this._tier = recipe.Tier || -1;
+        this.tier = recipe.Tier || -1;
+        //1 Second = 20 Ticks
+        this.seconds = recipe.Ticks / 20;
 
         const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, options: {isInput: boolean; isResource: boolean}) => {
             if(!item)
@@ -91,9 +118,32 @@ class Recipe {
     }
 
     get name(): string { return this._recipe.Name; }
-    get tier() { return this._tier; }
-    get ticks() { return this._recipe.Ticks; }
+    public readonly tier;
+    get minItemTier() { return this._dictionary.minItemTier; }
 }
+
+class RecipeDictionary {
+    public readonly recipes: RecipeDictionaryArray;
+    public readonly items: Item[];
+    constructor(recipes: JsonRecipe[]) {
+        this.recipes = recipes.map((r) => new Recipe(this, r));
+        this.items = [];
+    }
+    initItem(item: Item) {
+        this.items.push(item);
+    }
+    init() {
+        this.items.sort((i1, i2) => i1.tier - i2.tier);
+        Object.freeze(this.recipes);
+        Object.freeze(this.items);
+        Object.freeze(this);
+        return this;
+    }
+    getForTier(tier: number) { return this.recipes.filter((r) => (tier >= r.tier)); }
+
+    get minItemTier() { return this.items[0]?.tier || 0; }
+}
+
 
 (() => {
     for(const [key, value] of Object.entries(dataJson.items)) {
@@ -101,12 +151,14 @@ class Recipe {
     }
 
     for(const [key, value] of Object.entries(dataJson.recipes)) {
-        const dictionary = value.map((r) => new Recipe(r));
-        parsedRecipes.set(key, dictionary);
-        Object.freeze(dictionary);
+        parsedRecipes.set(key, new RecipeDictionary(value));
     }
 
     for(const item of parsedItems.values()) {
+        item.init();
+    }
+
+    for(const item of parsedRecipes.values()) {
         item.init();
     }
 })();

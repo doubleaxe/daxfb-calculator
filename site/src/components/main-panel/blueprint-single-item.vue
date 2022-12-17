@@ -65,22 +65,11 @@ onMounted(updateSize);
         <div class="main-row">
             <div>
                 <template v-for="io in recipe?.input" :key="io.key">
-                    <v-hover v-slot="{isHovering, props: props0}">
-                        <icon-component
-                            v-bind="props0"
-                            :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                            class="io-icon-row rounded float-right"
-                            :image="io.image"
-                            :data-io-id="io.key"
-                            style="font-size: 0;"
-                            @pointerdown.stop="emit('link-drag-begin', io)"
-                            @pointerup.stop="emit('link-drag-begin')"
-                        />
-                        <div class="io-description-row text-caption float-right" :style="{'line-height': settings.iconSize+'px'}">
-                            {{ io.description }}
-                        </div>
-                        <div class="io-clear-row" />
-                    </v-hover>
+                    <blueprint-single-io
+                        :data-io-id="io.key"
+                        :io="io"
+                        @link-drag-begin="(_io?: RecipeIOModel) => emit('link-drag-begin', _io)"
+                    />
                 </template>
             </div>
             <v-icon v-if="recipe?.input.length" class="align-self-center" :icon="mdiChevronRight" />
@@ -99,21 +88,11 @@ onMounted(updateSize);
             <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
             <div>
                 <template v-for="io in recipe?.output" :key="io.key">
-                    <v-hover v-slot="{isHovering, props: props0}">
-                        <icon-component
-                            v-bind="props0"
-                            :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                            class="io-icon-row rounded float-left"
-                            :image="io.image"
-                            :data-io-id="io.key"
-                            @pointerdown.stop="emit('link-drag-begin', io)"
-                            @pointerup.stop="emit('link-drag-begin')"
-                        />
-                        <div class="io-description-row text-caption float-left" :style="{'line-height': settings.iconSize+'px'}">
-                            {{ io.description }}
-                        </div>
-                        <div class="io-clear-row" />
-                    </v-hover>
+                    <blueprint-single-io
+                        :data-io-id="io.key"
+                        :io="io"
+                        @link-drag-begin="(_io?: RecipeIOModel) => emit('link-drag-begin', _io)"
+                    />
                 </template>
             </div>
         </div>
@@ -144,17 +123,5 @@ onMounted(updateSize);
 }
 .main-icon-row {
     display: block;
-}
-.io-icon-row {
-    display: inline-block;
-}
-.io-description-row {
-    display: inline-block;
-    vertical-align: middle;
-    padding-left: 4px;
-    padding-right: 4px;
-}
-.io-clear-row {
-    clear: both;
 }
 </style>

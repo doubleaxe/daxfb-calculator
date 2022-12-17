@@ -32,7 +32,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isInput() { return this._isInput; }
     get ownerItem() { return this._ownerItem; }
     get description() {
-        return `${(this._io.count / this._io.ticks).toFixed(2)}`;
+        return `${this._io.getCountPerSecond(this._ownerItem?.tier || 0).toFixed(2)}`;
     }
 
     addLink(value: LinkModel) {

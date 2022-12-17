@@ -28,5 +28,12 @@ const buildLink = computed(() => {
         stroke="black"
         fill="none"
         :stroke-width="settings.iconSize"
+        class="link"
     />
 </template>
+
+<style scoped>
+.link:hover {
+    stroke: red;
+}
+</style>
