@@ -12,15 +12,6 @@ const props = defineProps<{
         v-for="(io, index) in props.ioarray"
         :key="index"
     >
-        <icon-component
-            class="io-icon-row"
-            :image="io.item.image"
-        />
+        <icon-component :image="io.item.image" />
     </template>
 </template>
-
-<style scoped>
-.io-icon-row {
-    display: inline-block;
-}
-</style>

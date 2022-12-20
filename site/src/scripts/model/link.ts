@@ -16,8 +16,22 @@ export class LinkModelImpl {
 
     applyPersistentLink() {
         if(this.input)
-            this.input.addLink(this);
+            this.input.linkAdded(this);
         if(this.output)
-            this.output.addLink(this);
+            this.output.linkAdded(this);
+    }
+    deletePersistentLink() {
+        if(this.input)
+            this.input.linkDeleted(this);
+        if(this.output)
+            this.output.linkDeleted(this);
+    }
+    getOtherSide(item: RecipeIOModel) {
+        //may get proxy, so need to compare keys, not objects
+        if(item.key === this.input?.key)
+            return this.output;
+        if(item.key === this.output?.key)
+            return this.input;
+        return undefined;
     }
 }

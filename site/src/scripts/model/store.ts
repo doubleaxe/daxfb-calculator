@@ -22,14 +22,6 @@ export type LinkModel = InterfaceOf<LinkModelImpl>;
 export type RecipeIOModel = InterfaceOf<RecipeIOModelImpl>;
 export type RecipeModel = InterfaceOf<RecipeModelImpl>;
 
-export const BlueprintItemState = {
-    None: 'bg-grey-lighten-4',
-    CannotLinkTarget: 'bg-error',
-    LinkTarget: 'bg-success',
-} as const;
-type BlueprintItemStateKeys = keyof typeof BlueprintItemState;
-export type BlueprintItemStateValues = typeof BlueprintItemState[BlueprintItemStateKeys];
-
 export const BlueprintModelKey = Symbol('BlueprintModel') as InjectionKey<BlueprintModel>;
 export const provideBlueprintModel = (app: App) => {
     app.provide(BlueprintModelKey, reactive(new BlueprintModelImpl()));

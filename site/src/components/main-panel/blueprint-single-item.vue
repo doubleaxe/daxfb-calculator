@@ -17,6 +17,7 @@ const emit = defineEmits<{
 const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const recipe = computed(() => props.item?.selectedRecipe);
+const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const itemId = `blueprint-item-${props.item?.key || ''}`;
 const isHovered = useElementHover(mainDivElement);
 const computedElevation = computed(() => {
@@ -40,7 +41,7 @@ const updateSize = () => {
         for(let i = 0; i < ioList.length; i++) {
             const ioElement = ioList.item(i);
             const key = ioElement.getAttribute('data-io-id') || '';
-            const io = _recipe.itemsByKey.get(key);
+            const io = _recipe.itemByKey(key);
             const ioRect = ioElement.getBoundingClientRect();
             io?.rect.assignRect(new Rect(ioRect).offsetBy(mainDivRect, -1));
         }
@@ -54,7 +55,7 @@ watch(recipe, updateSize);
     <div
         ref="mainDivElement"
         class="rounded bg-grey-lighten-4 parent-div"
-        :class="[`elevation-${computedElevation}`, props.item.stateColor]"
+        :class="[`elevation-${computedElevation}`, itemStateColor]"
         :data-item-id="props.item.key"
     >
         <div class="bg-primary title-row">
@@ -72,7 +73,7 @@ watch(recipe, updateSize);
                     />
                 </template>
             </div>
-            <v-icon v-if="recipe?.input.length" class="align-self-center" :icon="mdiChevronRight" />
+            <v-icon v-if="recipe?.inputCount" class="align-self-center" :icon="mdiChevronRight" />
             <div class="align-self-center">
                 <v-hover v-slot="{isHovering, props: props0}">
                     <icon-component
@@ -87,7 +88,7 @@ watch(recipe, updateSize);
                 </v-hover>
                 <recipes-menu :activator="`#${itemId}`" :item="props.item" />
             </div>
-            <v-icon v-if="recipe?.output.length" class="align-self-center" :icon="mdiChevronRight" />
+            <v-icon v-if="recipe?.outputCount" class="align-self-center" :icon="mdiChevronRight" />
             <div>
                 <template v-for="io in recipe?.output" :key="io.key">
                     <blueprint-single-io

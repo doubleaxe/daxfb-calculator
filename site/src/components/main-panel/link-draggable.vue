@@ -5,10 +5,10 @@ import {
     injectBlueprintModel,
     type BlueprintItemModel,
     type RecipeIOModel,
-    BlueprintItemState,
 } from '@/scripts/model/store';
 import type ElementDraggable from '../element-draggable.vue';
 import type {ReadonlyPointType} from '@/scripts/geometry';
+import {BlueprintItemState} from '@/scripts/types';
 
 const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
@@ -27,7 +27,7 @@ const clearHoveringItem = () => {
 const dropItem = () => {
     const _draggingSource = unref(draggingSource);
     if(_draggingSource && hoveringItem) {
-        if(hoveringItem.stateColor !== BlueprintItemState.CannotLinkTarget) {
+        if(hoveringItem.state === BlueprintItemState.CanLinkTarget) {
             hoveringItem.createLink(_draggingSource);
         }
     }
@@ -66,7 +66,7 @@ const processTargetItem = (screenXY: ReadonlyPointType) => {
     elements.find((element) => {
         const itemId = element.getAttribute('data-item-id');
         if(itemId) {
-            item = blueprintModel.items.get(itemId);
+            item = blueprintModel.itemByKey(itemId);
             if(item)
                 return true;
         }

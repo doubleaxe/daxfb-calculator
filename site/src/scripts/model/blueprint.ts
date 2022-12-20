@@ -18,34 +18,46 @@ import type {
 
 
 export class BlueprintModelImpl implements ScreenToClientProvider {
-    public readonly items = new Map<string, BlueprintItemModel>();
-    public readonly links: LinkModel[] = [];
-    public readonly tempLinks: LinkModel[] = [];
+    private readonly _items = new Map<string, BlueprintItemModel>();
+    private readonly _links = new Map<string, LinkModel>();
+    private readonly _tempLinks: LinkModel[] = [];
     private _maxItemXY = new Point();
     private _boundingRect = new Rect();
     private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
+
+    get items() { return this._items.values(); }
+    itemByKey(key: string) { return this._items.get(key); }
+    get links() { return this._links.values(); }
+    get tempLinks() { return this._tempLinks[Symbol.iterator](); }
+
+    get boundingRect(): ReadonlyRectType { return this._boundingRect; }
 
     //types are compatible, just don't use instanceof
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
     addItem(name: string) {
         const item = reactive(new BlueprintItemModelImpl(this, name));
-        this.items.set(item.key, item);
+        this._items.set(item.key, item);
         watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         return item;
     }
     addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
-        this.links.push(link);
+        this._links.set(link.key, link);
         link.applyPersistentLink();
         return link;
     }
+    deleteLink(link: LinkModel) {
+        if(!this._links.delete(link.key))
+            return;
+        link.deletePersistentLink();
+    }
     createTempLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
-        this.tempLinks.push(link);
+        this._tempLinks.push(link);
         return link;
     }
     clearTempLinks() {
-        this.tempLinks.splice(0, this.tempLinks.length);
+        this._tempLinks.splice(0, this._tempLinks.length);
     }
     private static newLink(io: RecipeIOModel[]) {
         if(io.length > 2)
@@ -91,6 +103,4 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         this._boundingRect.width = Math.max(maxItemXY.x + 500, 2000);
         this._boundingRect.height = Math.max(maxItemXY.y + 500, 2000);
     }
-
-    get boundingRect(): ReadonlyRectType { return this._boundingRect; }
 }
