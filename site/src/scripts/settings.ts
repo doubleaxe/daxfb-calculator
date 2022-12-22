@@ -7,7 +7,7 @@ class Settings {
     hoveringElevation = 5;
     draggingElevation = 10;
     itemStateColor: BlueprintItemStateColorClass = {
-        [BlueprintItemState.None]: 'bg-grey-lighten-4',
+        [BlueprintItemState.None]: 'bg-window-idle',
         [BlueprintItemState.CannotLinkTarget]: 'bg-error',
         [BlueprintItemState.CanLinkTarget]: 'bg-success',
         [BlueprintItemState.LinkAlreadyExists]: 'bg-warning',

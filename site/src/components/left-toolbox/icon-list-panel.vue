@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {injectSettings} from '@/scripts/settings';
 import {dataProvider} from '@/scripts/data/data';
 
 const emit = defineEmits<{
@@ -7,27 +6,30 @@ const emit = defineEmits<{
     (e: 'drag-force'): void;
 }>();
 
-const settings = injectSettings();
 const producerItems = dataProvider.getProducerItems();
 </script>
 
 <template>
-    <div v-for="item in producerItems" :key="item.name" class="icon-div">
-        <v-hover v-slot="{isHovering, props}">
+    <optimized-tooltip class="icon-div-parent">
+        <template v-for="item in producerItems" :key="item.name">
             <icon-component
-                v-bind="props"
-                :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                class="rounded"
+                class="rounded icon-div bg-hover-border"
                 :image="item.image"
+                :data-tooltip="item.label"
                 @pointerdown="emit('drag-begin', item)"
                 @pointerup="emit('drag-begin')"
             />
-        </v-hover>
-    </div>
+        </template>
+    </optimized-tooltip>
 </template>
 
 <style scoped>
+.icon-div-parent {
+    line-height: 0px;
+    font-size: 0px;
+}
 .icon-div {
     display: inline-block;
+    padding: 1px;
 }
 </style>

@@ -31,7 +31,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isInput() { return this._isInput; }
     get ownerItem() { return this._ownerItem; }
     get description() {
-        return `${this._io.getCountPerSecond(this._ownerItem?.tier || 0).toFixed(2)}`;
+        const cps = this._io.getCountPerSecond(this._ownerItem?.tier || 0);
+        return `${parseFloat((cps).toPrecision(3))}`;
     }
 
     linkAdded(value: LinkModel) {

@@ -1,0 +1,21 @@
+@use 'vuetify/styles/settings/colors';
+
+@function get-color($main, $variant) {
+    @return map-get(colors.$colors, $main, $variant);
+}
+
+@function get-text-on-color($main, $variant) {
+    @return map-get(colors.$text-on-colors, $main, $variant);
+}
+
+.bg-hover-border {
+    border: 2px solid transparent;
+}
+
+.bg-hover-border:hover {
+    border: 2px solid get-color('grey', 'darken-2');
+}
+
+.bg-window-idle {
+    background-color: get-color('grey', 'lighten-4');
+}

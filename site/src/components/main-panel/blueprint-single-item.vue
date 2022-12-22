@@ -54,7 +54,7 @@ watch(recipe, updateSize);
 <template>
     <div
         ref="mainDivElement"
-        class="rounded bg-grey-lighten-4 parent-div"
+        class="rounded parent-div"
         :class="[`elevation-${computedElevation}`, itemStateColor]"
         :data-item-id="props.item.key"
     >
@@ -76,12 +76,13 @@ watch(recipe, updateSize);
             <v-icon v-if="recipe?.inputCount" class="align-self-center" :icon="mdiChevronRight" />
             <div class="align-self-center">
                 <v-hover v-slot="{isHovering, props: props0}">
-                    <icon-component
+                    <icon-component-tooltip
                         :id="itemId"
                         v-bind="props0"
                         :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
                         class="main-icon-row rounded"
                         :image="props.item?.image"
+                        :tooltip="props.item?.label"
                         @pointerdown.stop=""
                         @pointerup.stop=""
                     />

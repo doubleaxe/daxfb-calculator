@@ -25,7 +25,7 @@ function dragDrop(dropPoint: PointType, itemName: string) {
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
         </v-app-bar>
-        <v-navigation-drawer v-model="drawer">
+        <v-navigation-drawer v-model="drawer" permanent>
             <icon-list-panel
                 @drag-begin="draggableElement?.requestDragBegin"
                 @drag-force="draggableElement?.requestDragForce"

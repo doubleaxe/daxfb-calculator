@@ -24,6 +24,7 @@ const styleObject = computed(() => {
 
 <template>
     <div>
+        <slot />
         <div
             v-if="styleObject"
             class="icon-component"
