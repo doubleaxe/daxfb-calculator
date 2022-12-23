@@ -39,8 +39,13 @@ defineExpose({
 </script>
 
 <template>
-    <element-draggable ref="draggableElement" :width="settings.iconSize" :height="settings.iconSize" @drop="dropItem">
-        <v-sheet :class="['rounded', 'elevation-' + settings.draggingElevation]">
+    <element-draggable
+        ref="draggableElement"
+        :width="settings.iconSize"
+        :height="settings.iconSize"
+        immediate @drop="dropItem"
+    >
+        <v-sheet class="rounded dragging-elevation">
             <icon-component :image="draggingItem.image" />
         </v-sheet>
     </element-draggable>

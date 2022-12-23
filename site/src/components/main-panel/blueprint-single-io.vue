@@ -18,26 +18,19 @@ const align = computed(() => !props.io.isInput ? 'text-left' : 'text-right');
 
 <template>
     <div class="io-parent" :class="direction">
-        <v-hover v-slot="{isHovering, props: props0}">
-            <icon-component-tooltip
-                v-bind="props0"
-                :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                class="io-icon-row rounded"
-                :image="props.io.image"
-                :tooltip="props.io.label"
-                @pointerdown.stop="emit('link-drag-begin', props.io)"
-                @pointerup.stop="emit('link-drag-begin')"
-            />
-        </v-hover>
-        <v-hover v-slot="{isHovering, props: props0}">
-            <div
-                class="io-description-row text-caption"
-                v-bind="props0"
-                :class="[`elevation-${isHovering ? settings.hoveringElevation : 0}`, align]"
-            >
-                {{ props.io.description }}
-            </div>
-        </v-hover>
+        <icon-component-tooltip
+            class="io-icon-row rounded hover-elevation"
+            :image="props.io.image"
+            :tooltip="props.io.label"
+            @pointerdown.stop="emit('link-drag-begin', props.io)"
+            @pointerup.stop="emit('link-drag-begin')"
+        />
+        <div
+            class="io-description-row text-caption hover-border"
+            :class="[align]"
+        >
+            {{ props.io.description }}
+        </div>
     </div>
 </template>
 

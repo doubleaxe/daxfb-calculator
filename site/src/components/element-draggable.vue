@@ -6,6 +6,7 @@ import type {ReadonlyPointType} from '@/scripts/geometry';
 const props = defineProps<{
     width: number;
     height: number;
+    immediate?: boolean;
 }>();
 const emit = defineEmits<{
     (e: 'drag-shown', position: ReadonlyPointType): void;
@@ -39,6 +40,8 @@ const startDragging = () => {
         const mouseDown = new Event('pointerdown');
         Object.assign(mouseDown, {pageX: unref(pageX), pageY: unref(pageY)});
         element.value?.dispatchEvent(mouseDown);
+        if(props.immediate)
+            showDraggableMarker();
     });
 };
 
@@ -59,7 +62,8 @@ const requestDragBegin = (begin: boolean) => {
     showDraggable.value = false;
     if(begin) {
         startDragging();
-        startDragActivateTimeout();
+        if(!props.immediate)
+            startDragActivateTimeout();
     }
 };
 

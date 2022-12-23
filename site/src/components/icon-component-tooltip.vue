@@ -9,6 +9,7 @@ const props = defineProps<{
 
 <template>
     <icon-component :image="props.image">
+        <slot />
         <v-tooltip v-if="props.tooltip" activator="parent" location="top" open-delay="500">
             {{ props.tooltip }}
         </v-tooltip>

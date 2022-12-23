@@ -12,6 +12,6 @@ const props = defineProps<{
         v-for="(io, index) in props.ioarray"
         :key="index"
     >
-        <icon-component :image="io.item.image" />
+        <icon-component :image="io.item.image" :data-tooltip="io.item.label" />
     </template>
 </template>

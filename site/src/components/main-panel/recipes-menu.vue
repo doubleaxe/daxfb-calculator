@@ -15,20 +15,22 @@ function selected({id: name}: {id: unknown}) {
 <template>
     <v-menu :activator="props.activator">
         <v-list @click:select="selected">
-            <v-list-item
-                v-for="(recipe, index) in props.item.recipes"
-                :key="index"
-                :value="recipe.name"
-                :active="(item.selectedRecipe?.name == recipe.name)"
-            >
-                <v-list-item-title>
-                    <div class="io-menu-item">
-                        <recipes-menu-io :ioarray="recipe.input" />
-                        <v-icon class="d-block" :icon="mdiChevronRight" />
-                        <recipes-menu-io :ioarray="recipe.output" />
-                    </div>
-                </v-list-item-title>
-            </v-list-item>
+            <optimized-tooltip>
+                <v-list-item
+                    v-for="(recipe, index) in props.item.recipes"
+                    :key="index"
+                    :value="recipe.name"
+                    :active="(item.selectedRecipe?.name == recipe.name)"
+                >
+                    <v-list-item-title>
+                        <div class="io-menu-item">
+                            <recipes-menu-io :ioarray="recipe.input" />
+                            <v-icon class="d-block" :icon="mdiChevronRight" />
+                            <recipes-menu-io :ioarray="recipe.output" />
+                        </div>
+                    </v-list-item-title>
+                </v-list-item>
+            </optimized-tooltip>
         </v-list>
     </v-menu>
 </template>

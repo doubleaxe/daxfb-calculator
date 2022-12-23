@@ -4,8 +4,6 @@ import {BlueprintItemState, type BlueprintItemStateValues} from './types';
 type BlueprintItemStateColorClass = Record<BlueprintItemStateValues, string>;
 class Settings {
     iconSize = 32;
-    hoveringElevation = 5;
-    draggingElevation = 10;
     itemStateColor: BlueprintItemStateColorClass = {
         [BlueprintItemState.None]: 'bg-window-idle',
         [BlueprintItemState.CannotLinkTarget]: 'bg-error',

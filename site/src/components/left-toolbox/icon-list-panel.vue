@@ -10,17 +10,19 @@ const producerItems = dataProvider.getProducerItems();
 </script>
 
 <template>
-    <optimized-tooltip class="icon-div-parent">
-        <template v-for="item in producerItems" :key="item.name">
-            <icon-component
-                class="rounded icon-div bg-hover-border"
-                :image="item.image"
-                :data-tooltip="item.label"
-                @pointerdown="emit('drag-begin', item)"
-                @pointerup="emit('drag-begin')"
-            />
-        </template>
-    </optimized-tooltip>
+    <div class="icon-div-parent">
+        <optimized-tooltip>
+            <template v-for="item in producerItems" :key="item.name">
+                <icon-component
+                    class="rounded icon-div hover-elevation"
+                    :image="item.image"
+                    :data-tooltip="item.label"
+                    @pointerdown="emit('drag-begin', item)"
+                    @pointerup="emit('drag-begin')"
+                />
+            </template>
+        </optimized-tooltip>
+    </div>
 </template>
 
 <style scoped>
@@ -30,6 +32,5 @@ const producerItems = dataProvider.getProducerItems();
 }
 .icon-div {
     display: inline-block;
-    padding: 1px;
 }
 </style>

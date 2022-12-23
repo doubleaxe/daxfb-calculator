@@ -18,13 +18,12 @@ const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const recipe = computed(() => props.item?.selectedRecipe);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
-const itemId = `blueprint-item-${props.item?.key || ''}`;
 const isHovered = useElementHover(mainDivElement);
 const computedElevation = computed(() => {
     if(props.item.isFloating)
-        return settings.draggingElevation;
+        return 'dragging-elevation-static';
     if(unref(isHovered))
-        return settings.hoveringElevation;
+        return 'hover-elevation-static';
     return 0;
 });
 
@@ -55,7 +54,7 @@ watch(recipe, updateSize);
     <div
         ref="mainDivElement"
         class="rounded parent-div"
-        :class="[`elevation-${computedElevation}`, itemStateColor]"
+        :class="[computedElevation, itemStateColor]"
         :data-item-id="props.item.key"
     >
         <div class="bg-primary title-row">
@@ -75,19 +74,15 @@ watch(recipe, updateSize);
             </div>
             <v-icon v-if="recipe?.inputCount" class="align-self-center" :icon="mdiChevronRight" />
             <div class="align-self-center">
-                <v-hover v-slot="{isHovering, props: props0}">
-                    <icon-component-tooltip
-                        :id="itemId"
-                        v-bind="props0"
-                        :class="`elevation-${isHovering ? settings.hoveringElevation : 0}`"
-                        class="main-icon-row rounded"
-                        :image="props.item?.image"
-                        :tooltip="props.item?.label"
-                        @pointerdown.stop=""
-                        @pointerup.stop=""
-                    />
-                </v-hover>
-                <recipes-menu :activator="`#${itemId}`" :item="props.item" />
+                <icon-component
+                    class="main-icon-row rounded hover-border"
+                    :image="props.item?.image"
+                    :tooltip="props.item?.label"
+                    @pointerdown.stop=""
+                    @pointerup.stop=""
+                >
+                    <recipes-menu activator="parent" :item="props.item" />
+                </icon-component>
             </div>
             <v-icon v-if="recipe?.outputCount" class="align-self-center" :icon="mdiChevronRight" />
             <div>

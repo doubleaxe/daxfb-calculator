@@ -1,3 +1,4 @@
+@import './color.scss';
 
 html, body, #app {
     height: 100%;
@@ -7,7 +8,3 @@ html, body, #app {
 html {
     overflow-y: hidden;
 }
-
-$color-pack: false;
-@import 'vuetify/styles/main.sass';
-@import './color.scss';

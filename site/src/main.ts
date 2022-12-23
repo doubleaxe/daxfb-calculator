@@ -5,6 +5,7 @@ import App from './app.vue';
 import {provideBlueprintModel} from './scripts/model/store';
 import {provideSettings} from './scripts/settings';
 
+import './assets/vuetify.scss';
 import './assets/main.scss';
 
 const app = createApp(App);

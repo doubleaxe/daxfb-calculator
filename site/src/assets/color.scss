@@ -1,4 +1,5 @@
 @use 'vuetify/styles/settings/colors';
+@use 'vuetify/styles/tools/elevation';
 
 @function get-color($main, $variant) {
     @return map-get(colors.$colors, $main, $variant);
@@ -8,12 +9,37 @@
     @return map-get(colors.$text-on-colors, $main, $variant);
 }
 
-.bg-hover-border {
+$hover-elevation: 5;
+$dragging-elevation: 10;
+
+.hover-border {
+    padding: 1px;
     border: 2px solid transparent;
 }
 
-.bg-hover-border:hover {
+.hover-border:hover {
     border: 2px solid get-color('grey', 'darken-2');
+}
+
+.hover-elevation {
+    padding: 3px;
+}
+
+.hover-elevation:hover {
+    @include elevation.elevation($hover-elevation, false);
+}
+
+.hover-elevation-static {
+    @include elevation.elevation($hover-elevation, false);
+}
+
+.dragging-elevation {
+    padding: 3px;
+    @include elevation.elevation($dragging-elevation, false);
+}
+
+.dragging-elevation-static {
+    @include elevation.elevation($dragging-elevation, false);
 }
 
 .bg-window-idle {

@@ -61,7 +61,7 @@ function onPointerMove(evt: PointerEvent) {
 </script>
 
 <template>
-    <div @pointermove="onPointerMove">
+    <div @pointermove="onPointerMove" @pointerout="cancelTooltip">
         <v-tooltip
             v-model="tooltipObject.show"
             :activator="tooltipObject.activator"
