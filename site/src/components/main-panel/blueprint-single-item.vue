@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiChevronRight} from '@mdi/js';
+import {mdiChevronRight, mdiMenu} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect} from '@/scripts/geometry';
@@ -59,7 +59,10 @@ watch(recipe, updateSize);
     >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">
-                {{ item.label }}
+                {{ `${item.count} x ${item.label}` }}
+            </div>
+            <div class="float-right mr-1">
+                <item-menu-button :item="props.item" />
             </div>
         </div>
         <div class="main-row">
@@ -79,7 +82,6 @@ watch(recipe, updateSize);
                     :image="props.item?.image"
                     :tooltip="props.item?.label"
                     @pointerdown.stop=""
-                    @pointerup.stop=""
                 >
                     <recipes-menu activator="parent" :item="props.item" />
                 </icon-component>
@@ -105,7 +107,7 @@ watch(recipe, updateSize);
 .title-row {
     display: block;
     position: relative;
-    height: 1.5rem;
+    height: 1.7rem;
     overflow: hidden;
 }
 .title-text {

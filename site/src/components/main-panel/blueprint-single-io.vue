@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import type {RecipeIOModel} from '@/scripts/model/store';
-import {injectSettings} from '@/scripts/settings';
 
 const props = defineProps<{
     io: RecipeIOModel;
@@ -11,7 +10,6 @@ const emit = defineEmits<{
     (e: 'link-drag-force'): void;
 }>();
 
-const settings = injectSettings();
 const direction = computed(() => props.io.isInput ? 'flex-row-reverse' : 'flex-row');
 const align = computed(() => !props.io.isInput ? 'text-left' : 'text-right');
 </script>

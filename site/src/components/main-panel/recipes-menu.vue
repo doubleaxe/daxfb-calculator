@@ -14,7 +14,7 @@ function selected({id: name}: {id: unknown}) {
 
 <template>
     <v-menu :activator="props.activator">
-        <v-list @click:select="selected">
+        <v-list density="compact" @click:select="selected">
             <optimized-tooltip>
                 <v-list-item
                     v-for="(recipe, index) in props.item.recipes"
@@ -24,9 +24,9 @@ function selected({id: name}: {id: unknown}) {
                 >
                     <v-list-item-title>
                         <div class="io-menu-item">
-                            <recipes-menu-io :ioarray="recipe.input" />
+                            <recipes-menu-io :ioarray="recipe.input.filter((i) => !i.isResource)" />
                             <v-icon class="d-block" :icon="mdiChevronRight" />
-                            <recipes-menu-io :ioarray="recipe.output" />
+                            <recipes-menu-io :ioarray="recipe.output.filter((i) => !i.isResource)" />
                         </div>
                     </v-list-item-title>
                 </v-list-item>

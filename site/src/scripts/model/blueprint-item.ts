@@ -12,6 +12,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private readonly _recipes;
     private _selectedRecipe?: RecipeModel;
     public isFloating = false;
+    private _count = 1;
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
 
     constructor(owner: BlueprintModel, name: string) {
@@ -28,6 +29,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get recipes() { return this._recipes.values(); }
     get state() { return this._state; }
     get tier() { return this._item?.tier; }
+    get count() { return this._count; }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null) {
         if(!sourceIo) {
@@ -63,5 +65,15 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         oldRecipe?.copySimilarLinksTo(newRecipe);
         oldRecipe?.deleteAllLinks();
         this._selectedRecipe = newRecipe;
+    }
+    setCount(count: number) {
+        this._count = count;
+    }
+    deleteAllLinks() {
+        this._selectedRecipe?.deleteAllLinks();
+    }
+    deleteThis() {
+        this._selectedRecipe?.deleteAllLinks();
+        this.owner?.deleteItem(this);
     }
 }

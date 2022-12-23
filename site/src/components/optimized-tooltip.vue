@@ -4,8 +4,10 @@
 //not so laggy inside debugger, and maybe better in slower browsers
 
 import {Point, Rect} from '@/scripts/geometry';
-import {useTimeoutFn} from '@vueuse/core';
-import {reactive} from 'vue';
+import {unrefElement, useTimeoutFn} from '@vueuse/core';
+import {onMounted, onUnmounted, reactive, ref} from 'vue';
+
+const mainElementRef = ref<HTMLElement | undefined>();
 
 const tooltipObject: {
     tooltipText: string;
@@ -58,16 +60,30 @@ function onPointerMove(evt: PointerEvent) {
     tooltipObject.rect = new Rect(tooltipElement.getBoundingClientRect());
     startTooltipTimeout();
 }
+
+let parentElement: HTMLElement | null | undefined;
+onMounted(() => {
+    const mainElement = unrefElement(mainElementRef);
+    parentElement = mainElement?.parentElement;
+    parentElement?.addEventListener('pointermove', onPointerMove);
+    parentElement?.addEventListener('pointerout', cancelTooltip);
+});
+onUnmounted(() => {
+    parentElement?.removeEventListener('pointermove', onPointerMove);
+    parentElement?.removeEventListener('pointerout', cancelTooltip);
+});
 </script>
 
 <template>
-    <div @pointermove="onPointerMove" @pointerout="cancelTooltip">
-        <v-tooltip
-            v-model="tooltipObject.show"
-            :activator="tooltipObject.activator"
-            :text="tooltipObject.text"
-            location="top"
-        />
-        <slot />
-    </div>
+    <v-tooltip
+        ref="mainElementRef"
+        v-model="tooltipObject.show"
+        :activator="tooltipObject.activator"
+        :text="tooltipObject.text"
+        location="top"
+    >
+        <template #activator>
+            <slot />
+        </template>
+    </v-tooltip>
 </template>

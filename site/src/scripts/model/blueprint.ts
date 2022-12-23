@@ -40,6 +40,9 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         return item;
     }
+    deleteItem(item: BlueprintItemModel) {
+        this._items.delete(item.key);
+    }
     addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
         this._links.set(link.key, link);
