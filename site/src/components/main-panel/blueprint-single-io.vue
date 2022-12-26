@@ -10,8 +10,8 @@ const emit = defineEmits<{
     (e: 'link-drag-force'): void;
 }>();
 
-const direction = computed(() => props.io.isInput ? 'flex-row-reverse' : 'flex-row');
-const align = computed(() => !props.io.isInput ? 'text-left' : 'text-right');
+const direction = computed(() => !props.io.isInput ? 'flex-row-reverse' : 'flex-row');
+const align = computed(() => props.io.isInput ? 'text-left' : 'text-right');
 </script>
 
 <template>

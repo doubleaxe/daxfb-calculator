@@ -73,4 +73,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
             return this.rect;
         return new Rect(this.rect).offsetBy(this._ownerItem.rect);
     }
+    calculateLinkOrigin() {
+        return this.calculateRect().calculateLinkOrigin(this._isInput);
+    }
 }

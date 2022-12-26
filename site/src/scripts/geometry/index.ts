@@ -32,6 +32,11 @@ export class Point implements PointType {
             this.y = 0;
         return this;
     }
+    middlePoint(point?: ReadonlyPointType) {
+        const middleX = (this.x + (point?.x || 0)) / 2;
+        const middleY = (this.y + (point?.y || 0)) / 2;
+        return new Point({x: middleX, y: middleY});
+    }
 }
 
 //aligned to upper-left, as in html
@@ -62,6 +67,12 @@ export class Rect extends Point implements RectType {
     isPointInRect(point: ReadonlyPointType) {
         return (point.x >= this.x) && (point.y >= this.y)
             && (point.x <= this.x1) && (point.y <= this.y1);
+    }
+    calculateLinkOrigin(isInput: boolean) {
+        if(isInput) {
+            return new Point({x: this.x, y: this.y + (this.height / 2)});
+        }
+        return new Point({x: this.x + this.width, y: this.y + (this.height / 2)});
     }
 }
 

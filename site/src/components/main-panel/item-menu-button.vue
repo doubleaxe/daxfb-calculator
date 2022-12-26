@@ -26,32 +26,30 @@ function addCount(delta: number) {
     <v-btn size="x-small" color="secondary" variant="outlined" @pointerdown.stop="">
         <v-icon :icon="mdiMenu" />
         <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
-            <v-card>
-                <v-list>
-                    <v-list-item title="Count">
-                        <v-text-field
-                            density="compact"
-                            :append-icon="mdiPlusBox"
-                            :prepend-icon="mdiMinusBox"
-                            :value="props.item.count"
-                            @click:append="addCount(1)"
-                            @click:prepend="addCount(-1)"
-                            @input="(event: InputEvent) => setCount(((event.target) as HTMLInputElement).value)"
-                        />
-                    </v-list-item>
-                    <v-divider />
-                    <v-list-item
-                        :prepend-icon="mdiLinkOff"
-                        title="Delete all links"
-                        @click="props.item.deleteAllLinks(); menuOpened = false;"
+            <v-list>
+                <v-list-item title="Count">
+                    <v-text-field
+                        density="compact"
+                        :append-icon="mdiPlusBox"
+                        :prepend-icon="mdiMinusBox"
+                        :value="props.item.count"
+                        @click:append="addCount(1)"
+                        @click:prepend="addCount(-1)"
+                        @input="(event: InputEvent) => setCount(((event.target) as HTMLInputElement).value)"
                     />
-                    <v-list-item
-                        :prepend-icon="mdiDelete"
-                        title="Delete"
-                        @click="props.item.deleteThis()"
-                    />
-                </v-list>
-            </v-card>
+                </v-list-item>
+                <v-divider />
+                <v-list-item
+                    :prepend-icon="mdiLinkOff"
+                    title="Delete all links"
+                    @click="props.item.deleteAllLinks(); menuOpened = false;"
+                />
+                <v-list-item
+                    :prepend-icon="mdiDelete"
+                    title="Delete"
+                    @click="props.item.deleteThis()"
+                />
+            </v-list>
         </v-menu>
     </v-btn>
 </template>

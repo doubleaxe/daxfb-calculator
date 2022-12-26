@@ -18,6 +18,9 @@ const blueprintModel = injectBlueprintModel();
             :link="_link"
         />
     </svg>
+    <template v-for="_link in blueprintModel.links" :key="_link.key">
+        <blueprint-link-connector :link="_link" />
+    </template>
 </template>
 
 <style scoped>
