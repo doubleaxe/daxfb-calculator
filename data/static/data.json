@@ -1,0 +1,18 @@
+{
+  "recipes": {
+    "PumpBaseRecipeDictionary": [
+      {
+        "Category_T": "misc",
+        "Input": [],
+        "Name": "Water",
+        "Output": [
+          {
+            "Count": 600,
+            "Name": "WaterStaticItem"
+          }
+        ],
+        "Ticks": 120
+      }
+    ]
+  }
+}

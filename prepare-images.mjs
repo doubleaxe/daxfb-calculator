@@ -46,12 +46,14 @@ export class ImagesList {
                 offsety += 1;
         }
         if(usableImages.size) {
-            /* console.log(`Images not created: ${[...usableImages].sort().join(',')}`); */
+            console.log(`Images not created: ${[...usableImages].sort().join(',')}`);
         }
         resultImage.crop(0, 0, width, (offsety + 1) * ImagesList.RESOLUTION);
         await resultImage.writeAsync(imagePath);
-        await fs.writeFile(cssPath, cssContent.join('\n'));
-        await fs.writeFile(jsonPath, JSON.stringify(jsonContent));
+        if(cssPath)
+            await fs.writeFile(cssPath, cssContent.join('\n'));
+        if(jsonPath)
+            await fs.writeFile(jsonPath, JSON.stringify(jsonContent));
     }
     mergeList(...imageLists) {
         for(const imageList of imageLists) {
@@ -101,7 +103,7 @@ export class ImagesList {
             derivedImages.addImageObject(image.NewName, derivedImage);
         }
         if(notFound.size) {
-            /* console.log(`images not found: ${[... notFound].sort().join(',')}`); */
+            console.log(`images not found: ${[...notFound].sort().join(',')}`);
         }
         return derivedImages;
     }

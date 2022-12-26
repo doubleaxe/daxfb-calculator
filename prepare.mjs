@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {ImagesList} from './prepare-images.mjs';
 import {RecipesList, ItemsList, Localization, JsonComposer} from './prepare-json.mjs';
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), 'site', 'data');
+const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), 'data', 'parsed');
 
 // /data/games/SteamLibrary/steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content
 (async function() {
@@ -44,7 +44,7 @@ async function processImagesAsync(basePath, usableImages) {
     baseImages.mergeList(...derivedImagesArray);
     await baseImages.saveComposedImageAsync({
         imagePath: path.join(__dirname, 'images.png'),
-        cssPath: path.join(__dirname, 'images.css'),
+        //cssPath: path.join(__dirname, 'images.css'),
         jsonPath: path.join(__dirname, 'images.json'),
     }, usableImages);
 }

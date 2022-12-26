@@ -46,4 +46,5 @@ export interface JsonData {
     items: {
         [key: string]: JsonItem;
     };
+    images: Images;
 }
