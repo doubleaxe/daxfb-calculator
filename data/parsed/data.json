@@ -27889,13 +27889,13 @@
     "Input": [
      {
       "Count": 1000,
-      "Name": "GasolineStaticItem"
+      "Name": "HydrogenStaticItem"
      }
     ],
-    "Name": "Gasoline",
+    "Name": "Hydrogen",
     "Output": [],
     "ResourceOutput": {
-     "Count": 40,
+     "Count": 160,
      "Name": "KineticStaticItem"
     },
     "Ticks": 400
@@ -27921,13 +27921,13 @@
     "Input": [
      {
       "Count": 1000,
-      "Name": "HydrogenStaticItem"
+      "Name": "GasolineStaticItem"
      }
     ],
-    "Name": "Hydrogen",
+    "Name": "Gasoline",
     "Output": [],
     "ResourceOutput": {
-     "Count": 160,
+     "Count": 40,
      "Name": "KineticStaticItem"
     },
     "Ticks": 400
@@ -28511,6 +28511,10 @@
      {
       "Count": 3,
       "Name": "Uranium233CellStaticItem"
+     },
+     {
+      "Count": 1,
+      "Name": "DepletedUraniumCellStaticItem"
      }
     ],
     "ResourceOutput": {
@@ -28541,6 +28545,10 @@
      {
       "Count": 6,
       "Name": "Uranium233CellStaticItem"
+     },
+     {
+      "Count": 1,
+      "Name": "DepletedUraniumCellStaticItem"
      }
     ],
     "ResourceOutput": {
@@ -29413,13 +29421,13 @@
     "Input": [
      {
       "Count": 14000,
-      "Name": "GasolineStaticItem"
+      "Name": "HydrogenStaticItem"
      }
     ],
-    "Name": "Gasoline",
+    "Name": "Hydrogen",
     "Output": [],
     "ResourceOutput": {
-     "Count": 560,
+     "Count": 2240,
      "Name": "KineticStaticItem"
     },
     "Ticks": 400
@@ -29445,13 +29453,13 @@
     "Input": [
      {
       "Count": 14000,
-      "Name": "HydrogenStaticItem"
+      "Name": "GasolineStaticItem"
      }
     ],
-    "Name": "Hydrogen",
+    "Name": "Gasoline",
     "Output": [],
     "ResourceOutput": {
-     "Count": 2240,
+     "Count": 560,
      "Name": "KineticStaticItem"
     },
     "Ticks": 400
@@ -29632,10 +29640,10 @@
      },
      {
       "Count": 2,
-      "Name": "IronOreDustStaticItem"
+      "Name": "CopperOreDustStaticItem"
      }
     ],
-    "Name": "IronOreDust",
+    "Name": "CopperOreDust",
     "Output": [
      {
       "Count": 1,
@@ -29657,10 +29665,10 @@
      },
      {
       "Count": 2,
-      "Name": "CopperOreDustStaticItem"
+      "Name": "IronOreDustStaticItem"
      }
     ],
-    "Name": "CopperOreDust",
+    "Name": "IronOreDust",
     "Output": [
      {
       "Count": 1,
@@ -30035,39 +30043,6 @@
     "Input": [
      {
       "Count": 1,
-      "Name": "CopperOreGravelStaticItem"
-     }
-    ],
-    "Name": "CopperOreGravel",
-    "Output": [
-     {
-      "Count": 1,
-      "Name": "CopperOreDustStaticItem",
-      "Probability": 0.8
-     },
-     {
-      "Count": 1,
-      "Name": "MalachiteCrystalStaticItem",
-      "Probability": 0.2
-     },
-     {
-      "Count": 1,
-      "Name": "MalachiteClusterStaticItem",
-      "Probability": 0.02
-     }
-    ],
-    "ResourceInput": {
-     "Count": 200,
-     "Name": "KineticStaticItem"
-    },
-    "Ticks": 40,
-    "Tier": 0
-   },
-   {
-    "Category_T": "ores",
-    "Input": [
-     {
-      "Count": 1,
       "Name": "CopperImpureOreGravelStaticItem"
      }
     ],
@@ -30101,24 +30076,24 @@
     "Input": [
      {
       "Count": 1,
-      "Name": "IronOreGravelStaticItem"
+      "Name": "CopperOreGravelStaticItem"
      }
     ],
-    "Name": "IronOreGravel",
+    "Name": "CopperOreGravel",
     "Output": [
      {
       "Count": 1,
-      "Name": "IronOreDustStaticItem",
+      "Name": "CopperOreDustStaticItem",
       "Probability": 0.8
      },
      {
       "Count": 1,
-      "Name": "CinnabarCrystalStaticItem",
+      "Name": "MalachiteCrystalStaticItem",
       "Probability": 0.2
      },
      {
       "Count": 1,
-      "Name": "CinnabarClusterStaticItem",
+      "Name": "MalachiteClusterStaticItem",
       "Probability": 0.02
      }
     ],
@@ -30167,24 +30142,24 @@
     "Input": [
      {
       "Count": 1,
-      "Name": "UraniumOreGravelStaticItem"
+      "Name": "IronOreGravelStaticItem"
      }
     ],
-    "Name": "UraniumOreGravel",
+    "Name": "IronOreGravel",
     "Output": [
      {
       "Count": 1,
-      "Name": "ThoriumDustStaticItem",
+      "Name": "IronOreDustStaticItem",
       "Probability": 0.8
      },
      {
       "Count": 1,
-      "Name": "UraniniteCrystalStaticItem",
+      "Name": "CinnabarCrystalStaticItem",
       "Probability": 0.2
      },
      {
       "Count": 1,
-      "Name": "UraniniteClusterStaticItem",
+      "Name": "CinnabarClusterStaticItem",
       "Probability": 0.02
      }
     ],
@@ -30193,7 +30168,7 @@
      "Name": "KineticStaticItem"
     },
     "Ticks": 40,
-    "Tier": 5
+    "Tier": 0
    },
    {
     "Category_T": "ores",
@@ -30233,10 +30208,43 @@
     "Input": [
      {
       "Count": 1,
-      "Name": "AluminiumOreGravelStaticItem"
+      "Name": "UraniumOreGravelStaticItem"
      }
     ],
-    "Name": "AluminiumOreGravel",
+    "Name": "UraniumOreGravel",
+    "Output": [
+     {
+      "Count": 1,
+      "Name": "ThoriumDustStaticItem",
+      "Probability": 0.8
+     },
+     {
+      "Count": 1,
+      "Name": "UraniniteCrystalStaticItem",
+      "Probability": 0.2
+     },
+     {
+      "Count": 1,
+      "Name": "UraniniteClusterStaticItem",
+      "Probability": 0.02
+     }
+    ],
+    "ResourceInput": {
+     "Count": 200,
+     "Name": "KineticStaticItem"
+    },
+    "Ticks": 40,
+    "Tier": 5
+   },
+   {
+    "Category_T": "ores",
+    "Input": [
+     {
+      "Count": 1,
+      "Name": "AluminiumImpureOreGravelStaticItem"
+     }
+    ],
+    "Name": "AluminiumImpureOreGravel",
     "Output": [
      {
       "Count": 1,
@@ -30266,10 +30274,10 @@
     "Input": [
      {
       "Count": 1,
-      "Name": "AluminiumImpureOreGravelStaticItem"
+      "Name": "AluminiumOreGravelStaticItem"
      }
     ],
-    "Name": "AluminiumImpureOreGravel",
+    "Name": "AluminiumOreGravel",
     "Output": [
      {
       "Count": 1,

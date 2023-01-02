@@ -1,15 +1,33 @@
 root: true
-parser: espree
-parserOptions:
-    #node 18 supports up to ES 2022 (13th Edition)
-    ecmaVersion: 2022
-    sourceType: module
-    ecmaFeatures:
-        globalReturn: true
-env:
-    node: true
-    es2022: true
-extends:
-    - eslint:recommended
-    - ./.eslintrc.aousov.codestyle.yml
-    - ./.eslintrc.aousov.base.js.yml
+overrides:
+    -
+        files:
+            - "*.mjs"
+        parser: espree
+        parserOptions:
+            #node 18 supports up to ES 2022 (13th Edition)
+            ecmaVersion: 2022
+            sourceType: module
+            ecmaFeatures:
+                globalReturn: true
+        env:
+            node: true
+            es2022: true
+        extends:
+            - eslint:recommended
+            - ./.eslintrc.aousov.codestyle.yml
+            - ./.eslintrc.aousov.base.js.yml
+    -
+        files:
+            - "*.ts"
+        parser: "@typescript-eslint/parser"
+        parserOptions:
+            ecmaVersion: es2022
+            sourceType: module
+        extends:
+            - eslint:recommended
+            - "plugin:@typescript-eslint/recommended"
+            - ./.eslintrc.aousov.codestyle.yml
+            - ./.eslintrc.aousov.codestyle.ts.yml
+        plugins:
+            - "@typescript-eslint"
