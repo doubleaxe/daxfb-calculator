@@ -2,11 +2,13 @@ import {dataProvider, type Recipe} from '../data/data';
 import {RecipeModelImpl} from './recipe';
 import {ItemModelImpl} from './item';
 import type {
+    BlueprintItemModel,
     BlueprintModel,
     RecipeIOModel,
     RecipeModel
 } from './store';
 import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
+import type {SavedItem} from './saved-blueprint';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
     private readonly _recipes;
@@ -75,5 +77,33 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     deleteThis() {
         this._selectedRecipe?.deleteAllLinks();
         this.owner?.deleteItem(this);
+    }
+    save(): SavedItem {
+        return {
+            n: this._item?.name || '',
+            p: [Math.round(this.rect.x), Math.round(this.rect.y)],
+            r: this._selectedRecipe?.name || '',
+        };
+    }
+    loadItem(i: SavedItem) {
+        //TODO - show errors and status for invalid recipe
+        this.selectRecipe(i.r);
+        this.rect.assignPoint({
+            x: i.p[0],
+            y: i.p[1],
+        });
+    }
+    loadLink(sourceItem: BlueprintItemModel) {
+        //TODO - show errors and status for invalid link
+        const sourceIoArray = sourceItem.selectedRecipe?.items;
+        if(!sourceIoArray)
+            return;
+        for(const sourceIo of sourceIoArray) {
+            const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
+            if(maybeTarget) {
+                this.owner?.addLink(sourceIo, maybeTarget);
+                break;
+            }
+        }
     }
 }

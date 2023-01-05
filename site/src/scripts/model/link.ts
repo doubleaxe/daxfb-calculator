@@ -1,4 +1,5 @@
 import newKey from './key-store';
+import type {AnySavedLink} from './saved-blueprint';
 import type {RecipeIOModel} from './store';
 
 export class LinkModelImpl {
@@ -33,5 +34,11 @@ export class LinkModelImpl {
         if(item.key === this.output?.key)
             return this.input;
         return undefined;
+    }
+    save(input?: number, output?: number): AnySavedLink {
+        return [
+            input || 0,
+            output || 0,
+        ];
     }
 }

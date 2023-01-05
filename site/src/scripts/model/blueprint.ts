@@ -7,6 +7,7 @@ import {
 } from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
+import type {SavedBlueprint, SavedLink} from './saved-blueprint';
 import type {
     BlueprintItemModel,
     LinkModel,
@@ -36,6 +37,9 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
     addItem(name: string) {
         const item = reactive(new BlueprintItemModelImpl(this, name));
+        //invalid item
+        if(!item.name)
+            return item;
         this._items.set(item.key, item);
         watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         return item;
@@ -87,8 +91,9 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         }
     }
     registerUpdateOffsetPosition(callback: UpdateOffsetPositionCallback) {
-        if(this.updateOffsetPositionCallback)
-            throw new Error('Callback already registered');
+        if(this.updateOffsetPositionCallback) {
+            console?.log('Callback already registered');
+        }
         this.updateOffsetPositionCallback = callback;
     }
     screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions = {}): ReadonlyPointType {
@@ -105,5 +110,59 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
 
         this._boundingRect.width = Math.max(maxItemXY.x + 500, 2000);
         this._boundingRect.height = Math.max(maxItemXY.y + 500, 2000);
+    }
+
+    clear() {
+        this._items.clear();
+        this._links.clear();
+    }
+    save() {
+        const items = [...this._items.values()];
+        const links = [...this._links.values()];
+        const itemIndexes = new Map(items.map((item, index) => [item.key, index]));
+        const savedBlueprint: SavedBlueprint = {
+            i: items.map((item) => item.save()),
+            l: links.map((link) => link.save(
+                itemIndexes.get(link.input?.ownerItem?.key || ''),
+                itemIndexes.get(link.output?.ownerItem?.key || ''),
+            ))
+        };
+        return JSON.stringify(savedBlueprint);
+    }
+    load(savedBlueprintJson: string) {
+        const savedBlueprint: SavedBlueprint = JSON.parse(savedBlueprintJson);
+        this.clear();
+        const itemIndexes = new Map<number, string>();
+        savedBlueprint.i.forEach((i, index) => {
+            const item = this.addItem(i.n);
+            if(!item.name) {
+                //invalid item, old/broken recipe
+                //TODO - show errors and status
+                return;
+            }
+            item.loadItem(i);
+            itemIndexes.set(index, item.key);
+        });
+        savedBlueprint.l.forEach((l) => {
+            let link: SavedLink;
+            if(Array.isArray(l)) {
+                link = {l: l};
+            } else {
+                link = l as SavedLink;
+            }
+            const itemKey1 = itemIndexes.get(link.l[0]);
+            const itemKey2 = itemIndexes.get(link.l[1]);
+            if(!itemKey1 || !itemKey2) {
+                //broken link
+                //TODO - show errors and status
+                return;
+            }
+            const item1 = this.itemByKey(itemKey1);
+            const item2 = this.itemByKey(itemKey2);
+            if(!item1 || !item2) {
+                return;
+            }
+            item1.loadLink(item2);
+        });
     }
 }

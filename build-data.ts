@@ -200,8 +200,8 @@ class OptimizeData {
             };
         };
         const mapIOArray = (io?: JsonRecipeIO[]): OptimizedJsonRecipeIO[] | undefined => {
-            if(!io)
-                return io;
+            if(!io || !io.length)
+                return undefined;
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return io.map((i) => mapIO(i!)!);
         };
