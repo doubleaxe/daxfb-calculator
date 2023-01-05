@@ -1,10 +1,10 @@
-import type {Images, JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
+import type {JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
 import dataJsonUntyped from '../../../data/data.json';
 import type {InterfaceOf} from '../types';
 
 //immutable parsed JSON data for convenient and typed access
 const dataJson = dataJsonUntyped as JsonData;
-export const imagesJson = dataJson.images as Images;
+export const imagesJson = dataJson.images;
 Object.freeze(imagesJson);
 
 export type Item = InterfaceOf<ItemImpl>;

@@ -49,19 +49,9 @@ export interface JsonData {
     images?: Images;
 }
 
-export interface SingleKeyJson {
-    name: string;
-    key: string;
-    sub?: SingleKeysJson;
-}
-
-export interface SingleKeysJson {
-    keys?: SingleKeyJson[];
-    lastKey?: number;
-}
-
 export interface KeysJson {
-    recipes: SingleKeysJson;
-    items: SingleKeysJson;
-    images: SingleKeysJson;
+    keys?: {
+        [key: string]: string;
+    };
+    lastKey?: number;
 }

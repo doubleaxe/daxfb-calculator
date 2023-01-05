@@ -7,5 +7,5 @@ stats.html
 *.log
 npm-debug.log*
 site/components.d.ts
-site/data
+site/data/*
 !site/data/readme.md

@@ -20,6 +20,7 @@ const _commons = {
 };
 
 export class RecipesList {
+    #names = new Set();
     #recipes = {};
 
     constructor() {
@@ -39,12 +40,18 @@ export class RecipesList {
                 console.log(`Unexpected class for recipe, skipped: ${name} => ${object.Class}`);
                 continue;
             }
+            if(name.indexOf(RecipesList.SEPARATOR) >= 0) {
+                throw new Error(`Invalid separator, choose another: ${name}`);
+            }
             let recipeList = this.#recipes[name];
             if(!recipeList) {
                 recipeList = [];
                 this.#recipes[name] = recipeList;
             }
             for(const recipe of object.Recipes) {
+                if(this.#names.has(name + RecipesList.SEPARATOR + recipe.Name))
+                    throw new Error(`Duplicate recipe name ${name} => ${recipe.Name}`);
+                this.#names.add(name + RecipesList.SEPARATOR + recipe.Name);
                 _commons.validateJsonObject(RecipesList.#recipeSchema, recipe, baseName, name);
                 recipeList.push({
                     Category_T: baseName,
@@ -53,6 +60,7 @@ export class RecipesList {
             }
         }
     }
+    static SEPARATOR = '@';
     static #recipeSchema = _commons.compileJsonSchema({
         type: 'object',
         additionalProperties: false,
@@ -118,7 +126,7 @@ export class ItemsList {
         ].forEach((item) => {
             for(const [name, value] of Object.entries(item)) {
                 if(items[name])
-                    console.warn(`duplicate item name ${name}`);
+                    throw new Error(`Duplicate item name ${name}`);
                 items[name] = value;
             }
         });

@@ -6,10 +6,14 @@ import type {
     Images,
     JsonData,
     JsonRecipe,
-    SingleKeyJson,
-    SingleKeysJson,
+    JsonRecipeIO,
     KeysJson,
 } from './data/json-data-types';
+
+import type {
+    JsonData as OptimizedJsonData,
+    JsonRecipeIO as OptimizedJsonRecipeIO,
+} from './site/src/scripts/data/json-data-types';
 
 const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
 const __parsed = path.join(__dirname, 'data', 'parsed');
@@ -17,11 +21,8 @@ const __static = path.join(__dirname, 'data', 'static');
 const __target = path.join(__dirname, 'site', 'data');
 
 const args = process.argv.slice(2);
-let isMinimize = true;
 let isRebuildKeys = false;
 args.forEach((arg) => {
-    if(arg == 'dev')
-        isMinimize = false;
     if(arg == 'clean')
         isRebuildKeys = true;
 });
@@ -49,15 +50,9 @@ class MergeData {
     }
 }
 
-interface ParsedKeys {
-    lastKey: number;
-    entries: Map<string, {
-        key: string;
-        used: boolean;
-        sub?: ParsedKeys;
-    }>;
-}
-
+//we need to keep keys persistent across runs, so if new name is added - new key will be created for it
+//if name is deleted - key is kept in place
+//because keys will be saved - this way we make saves compatible even if further items added/removed
 class MergeKeys {
     private readonly mergedDataJson;
     private readonly keysJson;
@@ -70,51 +65,93 @@ class MergeKeys {
         this.mergeRecipes();
         this.mergeItems();
         this.mergeImages();
+
+        this.fixRecipeReferences();
+        this.fixItemReferences();
+
+        const reverceKeys = Object.fromEntries(Object.entries(this.keysJson.keys || {}).map(([name, key]) => [key, name]));
+        return {
+            reverceKeys,
+        };
     }
     private mergeRecipes() {
-        const sub = (subKeys: ParsedKeys, sub: JsonRecipe[]) => {
-            MergeKeys.mergeKeys(subKeys, sub.map((recipe) => [recipe.Name, null]));
+        const sub = (sub: JsonRecipe[]) => {
+            const mappedObject = this.mapKeys(sub.map((recipe) => [recipe.Name, recipe]));
+            return mappedObject?.map(([key, recipe]) => {
+                recipe.Name = key;
+                return recipe;
+            }) || [];
         };
-        const parsedKeys = MergeKeys.parseKeysMap(this.keysJson.recipes);
-        MergeKeys.mergeKeys(parsedKeys, Object.entries(this.mergedDataJson.recipes || {}), sub);
-        this.keysJson.recipes = MergeKeys.makeKeysFromMap(parsedKeys);
+        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.recipes || {}), undefined, sub);
+        this.mergedDataJson.recipes = Object.fromEntries(mappedObject || []);
     }
     private mergeItems() {
-        const parsedKeys = MergeKeys.parseKeysMap(this.keysJson.items);
-        MergeKeys.mergeKeys(parsedKeys, Object.entries(this.mergedDataJson.items || {}));
-        this.keysJson.items = MergeKeys.makeKeysFromMap(parsedKeys);
+        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.items || {}), MergeKeys.itemNameMapper);
+        this.mergedDataJson.items = Object.fromEntries(mappedObject || []);
     }
     private mergeImages() {
-        const parsedKeys = MergeKeys.parseKeysMap(this.keysJson.images);
-        MergeKeys.mergeKeys(parsedKeys, Object.entries(this.mergedDataJson.images || {}));
-        this.keysJson.images = MergeKeys.makeKeysFromMap(parsedKeys);
+        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.images || {}), MergeKeys.imageNameMapper);
+        this.mergedDataJson.images = Object.fromEntries(mappedObject || []);
     }
-    private static mergeKeys<T>(parsedKeys?: ParsedKeys, object?: [string, T][], recursive?: (parsedKeys: ParsedKeys, sub: T) => void) {
-        if(!parsedKeys || !object)
+    private mapKeys<T>(object?: [string, T][], nameMapper?: (name: string) => string, recursive?: (sub: T) => T) {
+        if(!object)
             return;
-        let lastKey = parsedKeys.lastKey;
-        for(const [id, sub] of object) {
-            let keyEntry = parsedKeys.entries.get(id);
-            if(!keyEntry) {
-                keyEntry = {key: this.encodeKey(++lastKey), used: false};
-                parsedKeys.entries.set(id, keyEntry);
+        const uniqueNames = new Set<string>();
+        const mappedObject: [string, T][] = object.map(([name, sub]) => {
+            if(nameMapper)
+                name = nameMapper(name);
+            if(uniqueNames.has(name))
+                throw new Error(`Duplicate name ${name}`);
+            uniqueNames.add(name);
+            const key = this.getKey(name);
+            if(recursive && sub) {
+                sub = recursive(sub);
             }
-            if(keyEntry.used)
-                throw new Error(`Duplicate name ${id}`);
-            keyEntry.used = true;
-            if(recursive) {
-                const keySub = keyEntry.sub || this.parseKeysMap({});
-                if(keySub) {
-                    keyEntry.sub = keySub;
-                    recursive(keySub, sub);
+            return [key, sub];
+        });
+        return mappedObject;
+    }
+
+    private fixRecipeReferences() {
+        const nameMapping = this.keysJson.keys || {};
+        for(const recipes of Object.values(this.mergedDataJson.recipes || {})) {
+            for(const recipe of recipes) {
+                const io = [
+                    ...(recipe.Input ? recipe.Input : []),
+                    ...(recipe.Output ? recipe.Output : []),
+                    ...(recipe.ResourceInput ? [recipe.ResourceInput] : []),
+                    ...(recipe.ResourceOutput ? [recipe.ResourceOutput] : []),
+                ];
+                for(const i of io) {
+                    i.Name = nameMapping[MergeKeys.itemNameMapper(i.Name)] || '';
                 }
             }
         }
-        parsedKeys.lastKey = lastKey;
+    }
+    private fixItemReferences() {
+        const nameMapping = this.keysJson.keys || {};
+        for(const item of Object.values(this.mergedDataJson.items || {})) {
+            item.Image = nameMapping[MergeKeys.imageNameMapper(item.Image)] || '';
+            if(item.Recipe) {
+                item.Recipe.RecipeDictionary = nameMapping[item.Recipe.RecipeDictionary] || '';
+            }
+        }
     }
 
-    private static CHARS = [...'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'];
-    private static CHARS_LENGTH = this.CHARS.length;
+    private static readonly staticItem = 'StaticItem';
+    private static readonly itemNameMapper = function(name: string) {
+        if(name.lastIndexOf(MergeKeys.staticItem) == (name.length - MergeKeys.staticItem.length))
+            name = name.substring(0, name.length - MergeKeys.staticItem.length);
+        return name;
+    };
+    private static readonly imageNameMapper = function(name: string) {
+        if(name.indexOf('T_') == 0)
+            name = name.substring(2);
+        return name;
+    };
+
+    private static readonly CHARS = [...'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+    private static readonly CHARS_LENGTH = this.CHARS.length;
     private static encodeKey(key: number) {
         let ret = '';
         do {
@@ -123,33 +160,18 @@ class MergeKeys {
         } while(key > 0);
         return ret;
     }
-
-    private static parseKeysMap(keys?: SingleKeysJson): ParsedKeys | undefined {
-        if(!keys)
-            return undefined;
-        return {
-            lastKey: keys.lastKey || -1,
-            entries: new Map((keys.keys || []).map((key) => [
-                key.name,
-                {key: key.key, used: false, sub: this.parseKeysMap(key.sub)}
-            ])),
-        };
-    }
-    private static makeKeysFromMap(parsedKeys?: ParsedKeys): SingleKeysJson {
-        if(!parsedKeys)
-            return {};
-        return {
-            lastKey: parsedKeys.lastKey,
-            keys: [...parsedKeys.entries].map(([name, value]) => {
-                const result: SingleKeyJson = {
-                    name: name,
-                    key: value.key,
-                };
-                if(value.sub)
-                    result.sub = this.makeKeysFromMap(value.sub);
-                return result;
-            })
-        };
+    private getKey(name: string) {
+        const {keysJson} = this;
+        if(!keysJson.keys)
+            keysJson.keys = {};
+        let key = keysJson.keys[name];
+        if(!key) {
+            if(keysJson.lastKey === undefined)
+                keysJson.lastKey = -1;
+            key = MergeKeys.encodeKey(++keysJson.lastKey);
+            keysJson.keys[name] = key;
+        }
+        return key;
     }
 }
 
@@ -159,8 +181,57 @@ class OptimizeData {
     constructor(mergedDataJson: JsonData) {
         this.mergedDataJson = mergedDataJson;
     }
-    optimize() {
-        return this.mergedDataJson;
+    optimize(): OptimizedJsonData {
+        return {
+            recipes: this.optimizeRecipes(),
+            items: this.optimizeItems(),
+            images: this.mergedDataJson.images || {},
+        };
+    }
+
+    optimizeRecipes() {
+        const mapIO = (io?: JsonRecipeIO): OptimizedJsonRecipeIO | undefined => {
+            if(!io)
+                return io;
+            return {
+                Name: io.Name,
+                Count: io.Count,
+                Probability: io.Probability,
+            };
+        };
+        const mapIOArray = (io?: JsonRecipeIO[]): OptimizedJsonRecipeIO[] | undefined => {
+            if(!io)
+                return io;
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            return io.map((i) => mapIO(i!)!);
+        };
+        const optimizedRecipes: OptimizedJsonData['recipes'] = {};
+        for(const [key, recipes] of Object.entries(this.mergedDataJson.recipes || {})) {
+            optimizedRecipes[key] = recipes.map((recipe) => ({
+                Name: recipe.Name,
+                Input: mapIOArray(recipe.Input),
+                Output: mapIOArray(recipe.Output),
+                ResourceInput: mapIO(recipe.ResourceInput),
+                ResourceOutput: mapIO(recipe.ResourceOutput),
+                Ticks: recipe.Ticks,
+                Tier: recipe.Tier,
+            }));
+        }
+        return optimizedRecipes;
+    }
+    optimizeItems() {
+        const optimizedItems: OptimizedJsonData['items'] = {};
+        for(const [key, item] of Object.entries(this.mergedDataJson.items || {})) {
+            optimizedItems[key] = {
+                Name: item.Name,
+                Label: item.Label,
+                Image: item.Image,
+                Tier: item.Tier,
+                UnitMul: item.UnitMul,
+                Recipe: item.Recipe,
+            };
+        }
+        return optimizedItems;
     }
 }
 
@@ -174,11 +245,7 @@ class OptimizeData {
     parsedDataJson.images = imagesJson;
     const mergedDataJson = new MergeData(parsedDataJson, staticDataJson).merge();
 
-    let keysJson: KeysJson = {
-        recipes: {},
-        items: {},
-        images: {},
-    };
+    let keysJson: KeysJson = {};
     try {
         if(!isRebuildKeys)
             keysJson = JSON.parse(fs.readFileSync(path.join(__static, 'keys.json'), 'utf8'));
@@ -186,11 +253,12 @@ class OptimizeData {
         if((err as NodeJS.ErrnoException).code != 'ENOENT')
             throw err;
     }
-    new MergeKeys(mergedDataJson, keysJson).merge();
-    fs.writeFileSync(path.join(__static, 'keys.json'), JSON.stringify(keysJson));
+    const {reverceKeys} = new MergeKeys(mergedDataJson, keysJson).merge();
+    fs.writeFileSync(path.join(__static, 'keys.json'), JSON.stringify(keysJson, null, ' '));
+    fs.writeFileSync(path.join(__target, 'keys.json'), JSON.stringify(reverceKeys));
 
     const optimizedData = new OptimizeData(mergedDataJson).optimize();
-    fs.writeFileSync(path.join(__target, 'data.json'), JSON.stringify(optimizedData, undefined, isMinimize ? undefined : '  '));
+    fs.writeFileSync(path.join(__target, 'data.json'), JSON.stringify(optimizedData));
 
     const images = fs.readFileSync(path.join(__parsed, 'images.png'));
     fs.writeFileSync(path.join(__target, 'images.png'), images);
