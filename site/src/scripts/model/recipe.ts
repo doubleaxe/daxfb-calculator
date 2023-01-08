@@ -23,17 +23,17 @@ export class RecipeModelImpl {
         const targetArray = isInput ? this._input : this._output;
         return targetArray.find((io) => io.name === sourceIo.name);
     }
-    copySimilarLinksTo(targetRecipe: RecipeModel) {
+    _$copySimilarLinksTo(targetRecipe: RecipeModel) {
         for(const targetItem of targetRecipe.items) {
             const similarItem = this.findSimilarIo(targetItem, false);
             if(!similarItem)
                 continue;
-            similarItem.copySimilarLinksTo(targetItem);
+            similarItem._$copySimilarLinksTo(targetItem);
         }
     }
-    deleteAllLinks() {
+    _$deleteAllLinks() {
         for(const item of this.items) {
-            item.deleteAllLinks();
+            item._$deleteAllLinks();
         }
     }
 

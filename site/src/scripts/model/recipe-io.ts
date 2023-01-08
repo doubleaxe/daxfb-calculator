@@ -1,4 +1,4 @@
-import {reactive} from 'vue';
+import {reactive, watch} from 'vue';
 import type {RecipeIO} from '../data/data';
 import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';
@@ -15,6 +15,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _ownerItem;
     private readonly _isInput;
     private readonly _links;
+    private _cpsMax = 0;
+    private _cps = 0;
 
     constructor(
         io: RecipeIO,
@@ -26,6 +28,10 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         this._ownerItem = ownerItem;
         this._isInput = isReverce ? !io.isInput : io.isInput;
         this._links = new Map<string, LinkModel>();
+
+        if(ownerItem) {
+            watch([() => ownerItem.count], this.updateCountPerSecond.bind(this));
+        }
     }
 
     get isInput() { return this._isInput; }
@@ -35,24 +41,24 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         return `${parseFloat((cps).toPrecision(3))}`;
     }
 
-    linkAdded(value: LinkModel) {
+    _$linkAdded(value: LinkModel) {
         this._links.set(value.key, value);
     }
-    linkDeleted(value: LinkModel) {
+    _$linkDeleted(value: LinkModel) {
         this._links.delete(value.key);
     }
-    copySimilarLinksTo(targetItem: RecipeIOModel) {
+    _$copySimilarLinksTo(targetItem: RecipeIOModel) {
         for(const link of this._links.values()) {
             const otherSide = link.getOtherSide(this);
             if(!otherSide)
                 continue;
-            this.owner?.addLink(targetItem, otherSide);
+            this.owner?._$addLink(targetItem, otherSide);
         }
     }
-    deleteAllLinks() {
+    _$deleteAllLinks() {
         const linksCopy = [...this._links.values()];
         for(const link of linksCopy) {
-            this.owner?.deleteLink(link);
+            this.owner?._$deleteLink(link);
         }
     }
     isAlreadyLinked(targetItem: RecipeIOModel) {
@@ -63,9 +69,14 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         }
         return false;
     }
-    tempClone(isReverce?: boolean): RecipeIOModel {
-        const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce}));
+    getLinkedIo() {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return [...this._links.values()].map((link) => link.getOtherSide(this)!);
+    }
+    createTempLink(): RecipeIOModel {
+        const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true}));
         clone.rect.assignRect(this.calculateRect());
+        this.owner?._$createTempLink(this, clone);
         return clone;
     }
     calculateRect() {
@@ -75,5 +86,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     }
     calculateLinkOrigin() {
         return this.calculateRect().calculateLinkOrigin(this._isInput);
+    }
+    updateCountPerSecond() {
+        this._cpsMax = this._io.getCountPerSecond(this._ownerItem?.tier || 0) * (this._ownerItem?.count || 1);
     }
 }

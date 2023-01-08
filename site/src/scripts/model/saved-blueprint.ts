@@ -1,6 +1,6 @@
 export type SavedBlueprint = {
     i: SavedItem[];
-    l: AnySavedLink[];
+    l: SavedLink[];
 };
 
 export type SavedItem = {
@@ -10,9 +10,5 @@ export type SavedItem = {
 };
 
 export type SavedLink = {
-    l: ShortSavedLink;
+    l: number[];
 };
-
-export type ShortSavedLink = number[];
-
-export type AnySavedLink = SavedLink | ShortSavedLink;

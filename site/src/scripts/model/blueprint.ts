@@ -7,7 +7,7 @@ import {
 } from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
-import type {SavedBlueprint, SavedLink} from './saved-blueprint';
+import type {SavedBlueprint} from './saved-blueprint';
 import type {
     BlueprintItemModel,
     LinkModel,
@@ -16,7 +16,6 @@ import type {
     ScreenToClientProvider,
     UpdateOffsetPositionCallback
 } from './store';
-
 
 export class BlueprintModelImpl implements ScreenToClientProvider {
     private readonly _items = new Map<string, BlueprintItemModel>();
@@ -44,21 +43,21 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         return item;
     }
-    deleteItem(item: BlueprintItemModel) {
+    _$deleteItem(item: BlueprintItemModel) {
         this._items.delete(item.key);
     }
-    addLink(...io: RecipeIOModel[]) {
+    _$addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
         this._links.set(link.key, link);
-        link.applyPersistentLink();
+        link._$applyPersistentLink();
         return link;
     }
-    deleteLink(link: LinkModel) {
+    _$deleteLink(link: LinkModel) {
         if(!this._links.delete(link.key))
             return;
-        link.deletePersistentLink();
+        link._$deletePersistentLink();
     }
-    createTempLink(...io: RecipeIOModel[]) {
+    _$createTempLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
         this._tempLinks.push(link);
         return link;
@@ -121,8 +120,8 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         const links = [...this._links.values()];
         const itemIndexes = new Map(items.map((item, index) => [item.key, index]));
         const savedBlueprint: SavedBlueprint = {
-            i: items.map((item) => item.save()),
-            l: links.map((link) => link.save(
+            i: items.map((item) => item._$save()),
+            l: links.map((link) => link._$save(
                 itemIndexes.get(link.input?.ownerItem?.key || ''),
                 itemIndexes.get(link.output?.ownerItem?.key || ''),
             ))
@@ -140,16 +139,10 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
                 //TODO - show errors and status
                 return;
             }
-            item.loadItem(i);
+            item._$loadItem(i);
             itemIndexes.set(index, item.key);
         });
-        savedBlueprint.l.forEach((l) => {
-            let link: SavedLink;
-            if(Array.isArray(l)) {
-                link = {l: l};
-            } else {
-                link = l as SavedLink;
-            }
+        savedBlueprint.l.forEach((link) => {
             const itemKey1 = itemIndexes.get(link.l[0]);
             const itemKey2 = itemIndexes.get(link.l[1]);
             if(!itemKey1 || !itemKey2) {
@@ -162,7 +155,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
             if(!item1 || !item2) {
                 return;
             }
-            item1.loadLink(item2);
+            item1._$loadLink(item2);
         });
     }
 }

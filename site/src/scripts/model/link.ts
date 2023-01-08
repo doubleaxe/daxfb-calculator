@@ -1,5 +1,5 @@
 import newKey from './key-store';
-import type {AnySavedLink} from './saved-blueprint';
+import type {SavedLink} from './saved-blueprint';
 import type {RecipeIOModel} from './store';
 
 export class LinkModelImpl {
@@ -15,17 +15,17 @@ export class LinkModelImpl {
 
     get key() { return this._key; }
 
-    applyPersistentLink() {
+    _$applyPersistentLink() {
         if(this.input)
-            this.input.linkAdded(this);
+            this.input._$linkAdded(this);
         if(this.output)
-            this.output.linkAdded(this);
+            this.output._$linkAdded(this);
     }
-    deletePersistentLink() {
+    _$deletePersistentLink() {
         if(this.input)
-            this.input.linkDeleted(this);
+            this.input._$linkDeleted(this);
         if(this.output)
-            this.output.linkDeleted(this);
+            this.output._$linkDeleted(this);
     }
     getOtherSide(item: RecipeIOModel) {
         //may get proxy, so need to compare keys, not objects
@@ -35,10 +35,12 @@ export class LinkModelImpl {
             return this.input;
         return undefined;
     }
-    save(input?: number, output?: number): AnySavedLink {
-        return [
-            input || 0,
-            output || 0,
-        ];
+    _$save(input?: number, output?: number): SavedLink {
+        return {
+            l: [
+                input || 0,
+                output || 0,
+            ]
+        };
     }
 }
