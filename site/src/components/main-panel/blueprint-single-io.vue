@@ -27,7 +27,9 @@ const align = computed(() => props.io.isInput ? 'text-left' : 'text-right');
             class="io-description-row text-caption hover-border"
             :class="[align]"
         >
-            {{ props.io.description }}
+            {{ props.io.cpsSolvedTotalText || '?' }}
+            <br>
+            {{ props.io.cpsMaxTotalText }}
         </div>
     </div>
 </template>

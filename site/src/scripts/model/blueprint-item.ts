@@ -15,6 +15,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _selectedRecipe?: RecipeModel;
     public isFloating = false;
     private _count = 1;
+    private _solvedCount: number | undefined = undefined;
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
 
     constructor(owner: BlueprintModel, name: string) {
@@ -32,6 +33,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get state() { return this._state; }
     get tier() { return this._item?.tier; }
     get count() { return this._count; }
+    get solvedCount() { return this._solvedCount; }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null) {
         if(!sourceIo) {
@@ -70,6 +72,9 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     }
     setCount(count: number) {
         this._count = count;
+    }
+    setSolvedCount(solvedCount?: number) {
+        this._solvedCount = solvedCount;
     }
     deleteAllLinks() {
         this._selectedRecipe?._$deleteAllLinks();

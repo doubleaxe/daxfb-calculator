@@ -21,9 +21,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     constructor(
         io: RecipeIO,
         {owner, ownerItem, isReverce}: RecipeIOOptions,
-        key?: string
     ) {
-        super(owner || ownerItem?.owner, io.item, key);
+        super(owner || ownerItem?.owner, io.item);
         this._io = io;
         this._ownerItem = ownerItem;
         this._isInput = isReverce ? !io.isInput : io.isInput;
@@ -35,10 +34,6 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isInput() { return this._isInput; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
-    get description() {
-        const cps = this._io.getCountPerSecond(this._ownerItem?.tier || 0) * (this._ownerItem?.count || 1);
-        return `${parseFloat((cps).toPrecision(3))}`;
-    }
 
     _$linkAdded(value: LinkModel) {
         this._links.set(value.key, value);
@@ -84,4 +79,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     }
     get cpsMax() { return this._cpsMax; }
     get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }
+    get cpsSolvedTotal() { return (this._ownerItem?.solvedCount !== undefined) ? this._cpsMax * this._ownerItem?.solvedCount : undefined; }
+    get cpsMaxTotalText() { return `${parseFloat((this.cpsMaxTotal).toPrecision(3))}`; }
+    get cpsSolvedTotalText() { return (this.cpsSolvedTotal !== undefined) ? `${parseFloat((this.cpsSolvedTotal).toPrecision(3))}` : ''; }
 }

@@ -1,4 +1,4 @@
-import type {BlueprintItemModel} from '../model/store';
+import type {BlueprintItemModel, LinkModel, RecipeIOModel} from '../model/store';
 import {newModel, type Variable} from './solver-wrapper';
 
 //this uses linear programming simplex solver to solve max output for multiple flows
@@ -9,14 +9,20 @@ import {newModel, type Variable} from './solver-wrapper';
 //we should find max value for item count, which will mean max input/output
 
 export class GraphSolver {
-    private readonly model = newModel(.01).maximize();
+    private readonly model = newModel(.001).maximize();
     private readonly variables = new Map<string, Variable>();
 
     solve(arrayScc: BlueprintItemModel[][]) {
+        this.prepareModel(arrayScc);
+        this.model.solve();
+        this.applySolution(arrayScc);
+    }
+    private prepareModel(arrayScc: BlueprintItemModel[][]) {
         const {
             model,
-            variables
+            variables,
         } = this;
+        const processedLinks = new Set<string>();
         for(const scc of arrayScc) {
             if(scc.length > 1)
                 throw new Error('Cycles are not yet supported');
@@ -31,28 +37,68 @@ export class GraphSolver {
             if(scc.length > 1)
                 throw new Error('Cycles are not yet supported');
             const item = scc[0];
-            const itemVariable = variables.get(item.key);
-            //we add complex terms for output, they will be automatic for input
+            //we must balance entire input output of multiple connected items
             //this way we'll support all link types (Many to Many)
             const recipe = item.selectedRecipe;
-            if(!recipe || !itemVariable)
+            if(!recipe)
                 continue;
             const output = recipe.output;
             for(const outItem of output) {
+                const links = new Set<string>();
+                const connectedItems = new Map<string, RecipeIOModel>();
+                GraphSolver.grabAllConnectedLinks(outItem, links, connectedItems, true);
                 //no need for term if there is no links
-                const links = [...outItem.links];
-                if(!links.length)
+                if(!links.size)
                     continue;
-                const constraint = model.equal(0).addTerm(outItem.cpsMax, itemVariable);
-                for(const link of links) {
-                    const inputItem = link.input;
-                    const inputVariable = variables.get(inputItem?.ownerItem?.key || '');
-                    if(!inputItem || !inputVariable)
+                if(links.size > 1) {
+                    //if we already processed any link - then we found it through some other item, we must skip
+                    //this is only may be case of multilink (multiple output to single input)
+                    const linksPorcessed = [...links].some((l) => {
+                        const has = processedLinks.has(l);
+                        processedLinks.add(l);
+                        return has;
+                    });
+                    if(linksPorcessed)
                         continue;
-                    constraint.addTerm(-inputItem.cpsMax, inputVariable);
+                }
+
+                const constraint = model.equal(0);
+                for(const connectedItem of connectedItems.values()) {
+                    const itemVariable = variables.get(connectedItem.ownerItem?.key || '');
+                    if(itemVariable) {
+                        constraint.addTerm((connectedItem.isInput ? -1 : 1) * connectedItem.cpsMax, itemVariable);
+                    }
                 }
             }
         }
-        model.solve();
+    }
+    private static grabAllConnectedLinks(
+        item: RecipeIOModel,
+        links: Set<string>,
+        connectedItems: Map<string, RecipeIOModel>,
+        output: boolean,
+    ) {
+        for(const link of item.links) {
+            if(links.has(link.key))
+                continue;
+            links.add(link.key);
+            link.input && connectedItems.set(link.input.key, link.input);
+            link.output && connectedItems.set(link.output.key, link.output);
+            //add all links from other side
+            const otherItem = output ? link.input : link.output;
+            if(!otherItem)
+                continue;
+            this.grabAllConnectedLinks(otherItem, links, connectedItems, !output);
+        }
+    }
+    private applySolution(arrayScc: BlueprintItemModel[][]) {
+        for(const scc of arrayScc) {
+            for(const item of scc) {
+                const itemVariable = this.variables.get(item.key);
+                if(!itemVariable)
+                    continue;
+                item.setSolvedCount(itemVariable.value);
+            }
+        }
     }
 }
