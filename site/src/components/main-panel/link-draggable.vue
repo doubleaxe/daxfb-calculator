@@ -70,6 +70,7 @@ const processTargetItem = (screenXY: ReadonlyPointType) => {
             if(item)
                 return true;
         }
+        return false;
     });
     if(!item) {
         clearHoveringItem();

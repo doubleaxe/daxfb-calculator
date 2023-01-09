@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiChevronRight, mdiMenu} from '@mdi/js';
+import {mdiChevronRight} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect} from '@/scripts/geometry';

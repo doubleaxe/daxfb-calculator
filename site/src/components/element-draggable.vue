@@ -20,6 +20,10 @@ const showDraggable = ref(false);
 const element = ref<HTMLElement | null>(null);
 const {x: pageX, y: pageY} = useMouse();
 
+const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
+    showDraggableMarker();
+}, 300, {immediate: false});
+
 const {style, x: elementX, y: elementY} = useDraggable(element, {
     onMove: (position) => {
         emit('drag-move', position);
@@ -32,7 +36,7 @@ const {style, x: elementX, y: elementY} = useDraggable(element, {
     }
 });
 
-const startDragging = () => {
+function startDragging() {
     activateDraggable.value = true;
     elementX.value = unref(pageX) - (props.width >> 1);
     elementY.value = unref(pageY) - (props.height >> 1);
@@ -43,18 +47,14 @@ const startDragging = () => {
         if(props.immediate)
             showDraggableMarker();
     });
-};
+}
 
-const showDraggableMarker = () => {
+function showDraggableMarker() {
     showDraggable.value = true;
     emit('drag-shown', {x: unref(elementX), y: unref(elementY)});
-};
+}
 
-const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
-    showDraggableMarker();
-}, 300, {immediate: false});
-
-const requestDragBegin = (begin: boolean) => {
+function requestDragBegin(begin: boolean) {
     //start dragging immediatelly, but show dragged element a bit later.
     //if user does simple click dragged element won't be shown.
     //if user drags - dragged element will track position even if it shown later.
@@ -65,12 +65,12 @@ const requestDragBegin = (begin: boolean) => {
         if(!props.immediate)
             startDragActivateTimeout();
     }
-};
+}
 
-const requestDragForce = () => {
+function requestDragForce() {
     cancelDragActivateTimeout();
     showDraggableMarker();
-};
+}
 
 defineExpose({
     requestDragBegin,

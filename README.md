@@ -7,13 +7,20 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 
 - ~~Save/Load support~~
 - Production flow calculator
-- Support for Drilling Rig production
-- Production flow optimizer
+- Freeze-Unfreeze flow calculation
+- Support for Drilling Rig and PumpJack production
 - More beautiful links, item mirror state
+- Debug/error status bar
 - Missing icons
 - Delete single link
 - Link priority
 - Item filters
 - Item ordering
-- Conveyors/Manipulators support for link
+- Auto recipe selection on linking
+- Conveyors/Robotic arms/Pipes/etc.. support for link
 - Color/Icon states for link and item (filtered, warning, etc..)
+- Zoom
+- Click-scroll and auto-scroll
+- Share
+- Some example templates
+- Help

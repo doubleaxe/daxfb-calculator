@@ -27,6 +27,8 @@ overrides:
         extends:
             - eslint:recommended
             - "plugin:@typescript-eslint/recommended"
+            - ./.eslintrc.aousov.base.js.yml
+            - ./.eslintrc.aousov.base.ts.yml
             - ./.eslintrc.aousov.codestyle.yml
             - ./.eslintrc.aousov.codestyle.ts.yml
         plugins:

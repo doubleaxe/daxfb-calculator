@@ -14,9 +14,9 @@ const CURVE_BREAKING_WIDTH = computed(() => settings.iconSize * 2);
 const svgLinkBuilderStraight = link(curveBumpX);
 const svgLinkBuilderCurved = line().curve(curveBasis);
 const buildLink = computed(() => {
-    const link = props.link;
-    const sourcePoint = link?.output?.calculateLinkOrigin();
-    const targetPoint = link?.input?.calculateLinkOrigin();
+    const link0 = props.link;
+    const sourcePoint = link0?.output?.calculateLinkOrigin();
+    const targetPoint = link0?.input?.calculateLinkOrigin();
     if(!sourcePoint || !targetPoint)
         return '';
     const breakingWidth = unref(CURVE_BREAKING_WIDTH);

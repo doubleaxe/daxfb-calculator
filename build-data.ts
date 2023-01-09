@@ -75,14 +75,14 @@ class MergeKeys {
         };
     }
     private mergeRecipes() {
-        const sub = (sub: JsonRecipe[]) => {
+        const sub0 = (sub: JsonRecipe[]) => {
             const mappedObject = this.mapKeys(sub.map((recipe) => [recipe.Name, recipe]));
             return mappedObject?.map(([key, recipe]) => {
                 recipe.Name = key;
                 return recipe;
             }) || [];
         };
-        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.recipes || {}), undefined, sub);
+        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.recipes || {}), undefined, sub0);
         this.mergedDataJson.recipes = Object.fromEntries(mappedObject || []);
     }
     private mergeItems() {
@@ -95,7 +95,7 @@ class MergeKeys {
     }
     private mapKeys<T>(object?: [string, T][], nameMapper?: (name: string) => string, recursive?: (sub: T) => T) {
         if(!object)
-            return;
+            return undefined;
         const uniqueNames = new Set<string>();
         const mappedObject: [string, T][] = object.map(([name, sub]) => {
             if(nameMapper)

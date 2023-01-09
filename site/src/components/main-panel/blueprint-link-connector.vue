@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type {LinkModel} from '@/scripts/model/store';
-import {injectSettings} from '@/scripts/settings';
 import {computed, ref, unref} from 'vue';
 
 const props = defineProps<{
     link?: LinkModel;
 }>();
 
-const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const computedStyle = computed(() => {
     const link = props.link;

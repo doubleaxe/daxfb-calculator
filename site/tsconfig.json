@@ -5,7 +5,6 @@
     "baseUrl": ".",
     "target": "ES2022",
     "sourceMap": true,
-    "allowJs": true,
     "lib": [
       "ES2022",
       "DOM",

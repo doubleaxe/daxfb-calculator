@@ -4,6 +4,7 @@ import {injectBlueprintModel} from './scripts/model/store';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
 import {isPointInsideElement1, type PointType} from './scripts/geometry';
 import {mdiContentSave, mdiFolderOutline, mdiDotsVertical, mdiDelete} from '@mdi/js';
+import {solveGraph} from '@/scripts/graph';
 
 const drawer = ref(true);
 const draggableElement = ref<InstanceType<typeof IconDraggable> | null>(null);
@@ -71,6 +72,9 @@ function loadBlueprint() {
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
             <template #append>
+                <v-btn @click="solveGraph(blueprintModel.items, true)">
+                    Test
+                </v-btn>
                 <v-btn :icon="mdiContentSave" @click="saveBlueprint" />
                 <a
                     v-if="objectUrl"

@@ -1,4 +1,4 @@
-import {reactive, watch} from 'vue';
+import {reactive} from 'vue';
 import type {RecipeIO} from '../data/data';
 import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';
@@ -15,7 +15,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _ownerItem;
     private readonly _isInput;
     private readonly _links;
-    private _cpsMax = 0;
+    private readonly _cpsMax;
     private _cps = 0;
 
     constructor(
@@ -29,13 +29,12 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         this._isInput = isReverce ? !io.isInput : io.isInput;
         this._links = new Map<string, LinkModel>();
 
-        if(ownerItem) {
-            watch([() => ownerItem.count], this.updateCountPerSecond.bind(this));
-        }
+        this._cpsMax = this._io.getCountPerSecond(this._ownerItem?.tier || 0);
     }
 
     get isInput() { return this._isInput; }
     get ownerItem() { return this._ownerItem; }
+    get links() { return this._links.values(); }
     get description() {
         const cps = this._io.getCountPerSecond(this._ownerItem?.tier || 0) * (this._ownerItem?.count || 1);
         return `${parseFloat((cps).toPrecision(3))}`;
@@ -69,10 +68,6 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         }
         return false;
     }
-    getLinkedIo() {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return [...this._links.values()].map((link) => link.getOtherSide(this)!);
-    }
     createTempLink(): RecipeIOModel {
         const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true}));
         clone.rect.assignRect(this.calculateRect());
@@ -87,7 +82,6 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     calculateLinkOrigin() {
         return this.calculateRect().calculateLinkOrigin(this._isInput);
     }
-    updateCountPerSecond() {
-        this._cpsMax = this._io.getCountPerSecond(this._ownerItem?.tier || 0) * (this._ownerItem?.count || 1);
-    }
+    get cpsMax() { return this._cpsMax; }
+    get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }
 }

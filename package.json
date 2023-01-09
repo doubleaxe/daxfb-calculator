@@ -38,6 +38,7 @@
     "@vueuse/components": "^9.6.0",
     "@vueuse/core": "^9.6.0",
     "d3-shape": "^3.1.0",
+    "javascript-lp-solver": "^0.4.24",
     "vue": "^3.2.41",
     "vuetify": "^3.0.5"
   },
