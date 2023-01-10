@@ -16,7 +16,6 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _isInput;
     private readonly _links;
     private readonly _cpsMax;
-    private _cps = 0;
 
     constructor(
         io: RecipeIO,
@@ -32,6 +31,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     }
 
     get isInput() { return this._isInput; }
+    get isResource() { return this._io.isResource; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
 
@@ -80,6 +80,4 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get cpsMax() { return this._cpsMax; }
     get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }
     get cpsSolvedTotal() { return (this._ownerItem?.solvedCount !== undefined) ? this._cpsMax * this._ownerItem?.solvedCount : undefined; }
-    get cpsMaxTotalText() { return `${parseFloat((this.cpsMaxTotal).toPrecision(3))}`; }
-    get cpsSolvedTotalText() { return (this.cpsSolvedTotal !== undefined) ? `${parseFloat((this.cpsSolvedTotal).toPrecision(3))}` : ''; }
 }

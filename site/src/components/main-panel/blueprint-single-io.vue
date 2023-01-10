@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import type {RecipeIOModel} from '@/scripts/model/store';
+import {formatIo} from '@/scripts/format';
 
 const props = defineProps<{
     io: RecipeIOModel;
@@ -27,9 +28,9 @@ const align = computed(() => props.io.isInput ? 'text-left' : 'text-right');
             class="io-description-row text-caption hover-border"
             :class="[align]"
         >
-            {{ props.io.cpsSolvedTotalText || '?' }}
+            {{ formatIo(props.io.cpsSolvedTotal, props.io) || '?' }}
             <br>
-            {{ props.io.cpsMaxTotalText }}
+            {{ formatIo(props.io.cpsMaxTotal, props.io) }}
         </div>
     </div>
 </template>
