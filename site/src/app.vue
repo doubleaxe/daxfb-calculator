@@ -72,7 +72,7 @@ function loadBlueprint() {
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
             <template #append>
-                <v-btn @click="solveGraph(blueprintModel.items, true)">
+                <v-btn @click="solveGraph(blueprintModel, blueprintModel.items)">
                     Test
                 </v-btn>
                 <v-btn :icon="mdiContentSave" @click="saveBlueprint" />

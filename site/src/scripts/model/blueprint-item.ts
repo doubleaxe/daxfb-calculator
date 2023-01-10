@@ -17,6 +17,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _count = 1;
     private _solvedCount: number | undefined = undefined;
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
+    public partOfCycle = false;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, dataProvider.getItem(name));
@@ -88,6 +89,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             n: this._item?.name || '',
             p: [Math.round(this.rect.x), Math.round(this.rect.y)],
             r: this._selectedRecipe?.name || '',
+            c: (this._count == 1) ? undefined : this._count,
         };
     }
     _$loadItem(i: SavedItem) {
@@ -97,6 +99,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             x: i.p[0],
             y: i.p[1],
         });
+        this.setCount(i.c || 1);
     }
     _$loadLink(sourceItem: BlueprintItemModel) {
         //TODO - show errors and status for invalid link

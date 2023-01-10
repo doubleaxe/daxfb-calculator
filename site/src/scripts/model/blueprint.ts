@@ -24,6 +24,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     private _maxItemXY = new Point();
     private _boundingRect = new Rect();
     private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
+    public hasCycles = false;
 
     get items() { return this._items.values(); }
     itemByKey(key: string) { return this._items.get(key); }

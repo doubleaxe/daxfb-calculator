@@ -28,31 +28,52 @@ export class GraphEdge {
 //we are using Tarjan's strongly connected components algorithm to walk graph and to find SCC/cycles
 //we may get here middle point of graph, so inside we use depth-first search (DFS) graph walker to walk upwards
 //because Tarjan's algorithm only walks downwards
+type ArrayScc = BlueprintItemModel[][];
+type ArraySccVertex = GraphVertex[][];
 
 export class TarjanGraphWalker {
     private readonly vertexMapping = new Map<string, GraphVertex>();
     private index = 0;
     private stack: GraphVertex[] = [];
-    private readonly arrayScc: BlueprintItemModel[][] = [];
-    walkGraph(items: IterableIterator<BlueprintItemModel>, isFullGraph: boolean) {
-        //if isFullGraph is true - we already have all vertices in items, no need to walk upwards
+    private readonly arraySeparateGraphs: ArrayScc[] = [];
+    private currentArrayScc: ArraySccVertex = [];
+    walkGraph(items: IterableIterator<BlueprintItemModel>) {
+        //if we have full blueprint here - we may encounter several independent graphs
         //for example we have full graph update when we just loaded data
         for(const item of items) {
             const vertex = this.mapVertex(item);
-            if(vertex.index === undefined)
+            if(vertex.index === undefined) {
                 this.strongconnect(vertex);
-            if(!isFullGraph)
-                this.walkUpward(vertex);
+                this.walkEntireGraph();
+            }
         }
-        return this.arrayScc;
+        return this.arraySeparateGraphs;
+    }
+    private walkEntireGraph() {
+        //we walked entire graph downwards, now we walk upwards from everything found
+        //until we exhausted everything
+        //this way we'll walk entire graph
+        const allFoundEdges: ArrayScc = [];
+        do {
+            const currentlyFound = this.currentArrayScc;
+            this.currentArrayScc = [];
+            for(const found of currentlyFound) {
+                allFoundEdges.push(found.map((vertex) => vertex.item));
+                for(const vertex of found) {
+                    this.walkUpward(vertex);
+                }
+            }
+        } while(this.currentArrayScc.length);
+        this.arraySeparateGraphs.push(allFoundEdges);
     }
     private walkUpward(vertex: GraphVertex) {
         const upperEdges = this.findEdges(vertex, false);
         for(const edge of upperEdges) {
             const upperVertex = edge.outputVertex;
-            if(upperVertex.index === undefined)
+            if(upperVertex.index === undefined) {
                 this.strongconnect(upperVertex);
-            this.walkUpward(upperVertex);
+                this.walkUpward(upperVertex);
+            }
         }
     }
     private mapVertex(item: BlueprintItemModel) {
@@ -121,17 +142,17 @@ export class TarjanGraphWalker {
         // If v is a root node, pop the stack and generate an SCC
         if(vertex.lowlink == vertex.index) {
             //start a new strongly connected component
-            const scc: BlueprintItemModel[] = [];
+            const scc: GraphVertex[] = [];
             for(;;) {
                 const w = this.stack.pop();
                 if(w) {
                     w.onStack = false;
-                    scc.push(w.item);
+                    scc.push(w);
                 }
                 if(w === vertex)
                     break;
             }
-            this.arrayScc.push(scc);
+            this.currentArrayScc.push(scc);
         }
     }
 }

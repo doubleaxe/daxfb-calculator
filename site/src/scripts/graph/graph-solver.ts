@@ -1,4 +1,4 @@
-import type {BlueprintItemModel, LinkModel, RecipeIOModel} from '../model/store';
+import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
 import {newModel, type Variable} from './solver-wrapper';
 
 //this uses linear programming simplex solver to solve max output for multiple flows
@@ -12,31 +12,25 @@ export class GraphSolver {
     private readonly model = newModel(.001).maximize();
     private readonly variables = new Map<string, Variable>();
 
-    solve(arrayScc: BlueprintItemModel[][]) {
-        this.prepareModel(arrayScc);
+    solve(arrayItems: BlueprintItemModel[]) {
+        this.prepareModel(arrayItems);
         this.model.solve();
-        this.applySolution(arrayScc);
+        this.applySolution(arrayItems);
     }
-    private prepareModel(arrayScc: BlueprintItemModel[][]) {
+    private prepareModel(arrayItems: BlueprintItemModel[]) {
         const {
             model,
             variables,
         } = this;
         const processedLinks = new Set<string>();
-        for(const scc of arrayScc) {
-            if(scc.length > 1)
-                throw new Error('Cycles are not yet supported');
-            const item = scc[0];
+        for(const item of arrayItems) {
             const variable = model.addVariable(1, item.key);
             variables.set(item.key, variable);
             model.smallerThan(item.count).addTerm(1, variable);
         }
 
         //variables are added, now we add terms (io flow distribution)
-        for(const scc of arrayScc) {
-            if(scc.length > 1)
-                throw new Error('Cycles are not yet supported');
-            const item = scc[0];
+        for(const item of arrayItems) {
             //we must balance entire input output of multiple connected items
             //this way we'll support all link types (Many to Many)
             const recipe = item.selectedRecipe;
@@ -91,14 +85,12 @@ export class GraphSolver {
             this.grabAllConnectedLinks(otherItem, links, connectedItems, !output);
         }
     }
-    private applySolution(arrayScc: BlueprintItemModel[][]) {
-        for(const scc of arrayScc) {
-            for(const item of scc) {
-                const itemVariable = this.variables.get(item.key);
-                if(!itemVariable)
-                    continue;
-                item.setSolvedCount(itemVariable.value);
-            }
+    private applySolution(arrayItems: BlueprintItemModel[]) {
+        for(const item of arrayItems) {
+            const itemVariable = this.variables.get(item.key);
+            if(!itemVariable)
+                continue;
+            item.setSolvedCount(itemVariable.value);
         }
     }
 }
