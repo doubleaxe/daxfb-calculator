@@ -27,7 +27,12 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         this._isInput = isReverce ? !io.isInput : io.isInput;
         this._links = new Map<string, LinkModel>();
 
-        this._cpsMax = this._io.getCountPerSecond(this._ownerItem?.tier || 0);
+        if(this._ownerItem) {
+            this._cpsMax = this._io.getCountPerSecond(this._ownerItem.tier || 0);
+        } else {
+            //temp link
+            this._cpsMax = 0;
+        }
     }
 
     get isInput() { return this._isInput; }

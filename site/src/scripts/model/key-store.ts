@@ -1,4 +1,7 @@
 let currentKey = 0;
-export default function newKey(key?: string) {
+export function newKey(key?: string) {
     return key || ('k' + currentKey++);
+}
+export function resetKeyStore() {
+    currentKey = 0;
 }

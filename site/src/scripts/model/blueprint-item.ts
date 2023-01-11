@@ -70,9 +70,11 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         oldRecipe?._$copySimilarLinksTo(newRecipe);
         oldRecipe?._$deleteAllLinks();
         this._selectedRecipe = newRecipe;
+        this.owner?._$graphChanged();
     }
     setCount(count: number) {
         this._count = count;
+        this.owner?._$graphChanged();
     }
     setSolvedCount(solvedCount?: number) {
         this._solvedCount = solvedCount;

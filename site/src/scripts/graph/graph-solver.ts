@@ -9,8 +9,12 @@ import {newModel, type Variable} from './solver-wrapper';
 //we should find max value for item count, which will mean max input/output
 
 export class GraphSolver {
-    private readonly model = newModel(.001).maximize();
+    private readonly model;
     private readonly variables = new Map<string, Variable>();
+
+    constructor(precision?: number) {
+        this.model = newModel(precision || .001).maximize();
+    }
 
     solve(arrayItems: BlueprintItemModel[]) {
         this.prepareModel(arrayItems);

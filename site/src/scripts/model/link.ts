@@ -1,4 +1,4 @@
-import newKey from './key-store';
+import {newKey} from './key-store';
 import type {SavedLink} from './saved-blueprint';
 import type {RecipeIOModel} from './store';
 

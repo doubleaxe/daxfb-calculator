@@ -1,6 +1,6 @@
 import type {Item} from '../data/data';
 import {Rect, type ReadonlyPointType} from '../geometry';
-import newKey from './key-store';
+import {newKey} from './key-store';
 import type {BlueprintModel, ScreenToClientOptions, ScreenToClientProvider} from './store';
 
 export class ItemModelImpl implements ScreenToClientProvider {

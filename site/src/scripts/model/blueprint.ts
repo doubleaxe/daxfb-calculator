@@ -16,6 +16,9 @@ import type {
     ScreenToClientProvider,
     UpdateOffsetPositionCallback
 } from './store';
+import {resetKeyStore} from './key-store';
+import {solveGraph} from '../graph';
+import {useDebounceFn} from '@vueuse/core';
 
 export class BlueprintModelImpl implements ScreenToClientProvider {
     private readonly _items = new Map<string, BlueprintItemModel>();
@@ -25,6 +28,8 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     private _boundingRect = new Rect();
     private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
     public hasCycles = false;
+    private _solvePrecision = .001;
+    private _autoSolveGraph = false;
 
     get items() { return this._items.values(); }
     itemByKey(key: string) { return this._items.get(key); }
@@ -32,6 +37,10 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     get tempLinks() { return this._tempLinks[Symbol.iterator](); }
 
     get boundingRect(): ReadonlyRectType { return this._boundingRect; }
+    get solvePrecision() { return this._solvePrecision; }
+    set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
+    get autoSolveGraph() { return this._autoSolveGraph; }
+    set autoSolveGraph(autoSolveGraph: boolean) { this._autoSolveGraph = autoSolveGraph; this._$graphChanged(true); }
 
     //types are compatible, just don't use instanceof
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
@@ -42,21 +51,25 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
             return item;
         this._items.set(item.key, item);
         watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
+        this._$graphChanged();
         return item;
     }
     _$deleteItem(item: BlueprintItemModel) {
         this._items.delete(item.key);
+        this._$graphChanged();
     }
     _$addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
         this._links.set(link.key, link);
         link._$applyPersistentLink();
+        this._$graphChanged();
         return link;
     }
     _$deleteLink(link: LinkModel) {
         if(!this._links.delete(link.key))
             return;
         link._$deletePersistentLink();
+        this._$graphChanged();
     }
     _$createTempLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
@@ -113,8 +126,13 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     }
 
     clear() {
+        this._clear();
+    }
+    private _clear() {
+        resetKeyStore();
         this._items.clear();
         this._links.clear();
+        this.hasCycles = false;
     }
     save() {
         const items = [...this._items.values()];
@@ -131,7 +149,17 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     }
     load(savedBlueprintJson: string) {
         const savedBlueprint: SavedBlueprint = JSON.parse(savedBlueprintJson);
-        this.clear();
+        const _autoSolveGraph = this._autoSolveGraph;
+        this._autoSolveGraph = false;
+        try {
+            this._clear();
+            this._load(savedBlueprint);
+        } finally {
+            this._autoSolveGraph = _autoSolveGraph;
+        }
+        this._$graphChanged(true);
+    }
+    private _load(savedBlueprint: SavedBlueprint) {
         const itemIndexes = new Map<number, string>();
         savedBlueprint.i.forEach((i, index) => {
             const item = this.addItem(i.n);
@@ -158,5 +186,30 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
             }
             item1._$loadLink(item2);
         });
+    }
+    solveGraph(items?: IterableIterator<BlueprintItemModel>) {
+        if(!items && !this._items.size)
+            return;
+        if(!items)
+            items = this._items.values();
+        const _autoSolveGraph = this._autoSolveGraph;
+        this._autoSolveGraph = false;
+        try {
+            solveGraph(this, items, this._solvePrecision);
+        } finally {
+            this._autoSolveGraph = _autoSolveGraph;
+        }
+    }
+
+    private debouncedSolve = useDebounceFn(() => {
+        this.solveGraph();
+    }, 200, {maxWait: 1000});
+    _$graphChanged(immediate?: boolean) {
+        if(this._autoSolveGraph) {
+            if(immediate)
+                this.solveGraph();
+            else
+                this.debouncedSolve();
+        }
     }
 }

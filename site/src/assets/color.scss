@@ -45,3 +45,7 @@ $dragging-elevation: 10;
 .bg-window-idle {
     background-color: get-color('grey', 'lighten-4');
 }
+
+.bg-window-statusbar {
+    background-color: get-color('grey', 'lighten-2');
+}

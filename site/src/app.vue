@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import {nextTick, ref, unref} from 'vue';
+import {nextTick, ref, unref, watch, computed} from 'vue';
 import {injectBlueprintModel} from './scripts/model/store';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
 import {isPointInsideElement1, type PointType} from './scripts/geometry';
-import {mdiContentSave, mdiFolderOutline, mdiDotsVertical, mdiDelete} from '@mdi/js';
-import {solveGraph} from '@/scripts/graph';
+import {mdiContentSave, mdiFolderOutline, mdiDotsVertical, mdiDelete, mdiSync, mdiSigma} from '@mdi/js';
 
 const drawer = ref(true);
 const draggableElement = ref<InstanceType<typeof IconDraggable> | null>(null);
@@ -14,6 +13,8 @@ const objectUrl = ref<string | null>(null);
 const objectAnchor = ref<HTMLElement | null>(null);
 const showInputFile = ref(false);
 const inputFile = ref<HTMLElement | null>(null);
+const hasCycles = ref(false);
+const hasAlerts = computed(() => unref(hasCycles));
 
 function dragDrop(dropPoint: PointType, itemName: string) {
     if(!isPointInsideElement1(blueprintsElement, dropPoint))
@@ -62,6 +63,11 @@ function loadBlueprint() {
     };
     reader.readAsText(selectedFile);
 }
+
+watch(() => blueprintModel.hasCycles, (value: boolean) => {
+    //display only when changed, then user may hide it
+    hasCycles.value = value;
+});
 </script>
 
 <template>
@@ -72,10 +78,15 @@ function loadBlueprint() {
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
             <template #append>
-                <v-btn @click="solveGraph(blueprintModel, blueprintModel.items)">
-                    Test
-                </v-btn>
-                <v-btn :icon="mdiContentSave" @click="saveBlueprint" />
+                <tooltip-button
+                    tooltip="Solve links"
+                    :icon="mdiSigma"
+                    :disabled="blueprintModel.autoSolveGraph"
+                    @click="blueprintModel.solveGraph()"
+                />
+                <v-switch v-model="blueprintModel.autoSolveGraph" label="Auto" hide-details class="mr-1" />
+                <v-divider vertical />
+                <tooltip-button tooltip="Save" :icon="mdiContentSave" @click="saveBlueprint" />
                 <a
                     v-if="objectUrl"
                     ref="objectAnchor"
@@ -83,7 +94,7 @@ function loadBlueprint() {
                     :href="objectUrl"
                     class="d-none"
                 />
-                <v-btn :icon="mdiFolderOutline" @click="loadingBlueprint" />
+                <tooltip-button tooltip="Load" :icon="mdiFolderOutline" @click="loadingBlueprint" />
                 <input
                     v-if="showInputFile"
                     ref="inputFile"
@@ -115,6 +126,13 @@ function loadBlueprint() {
         <v-main scrollable>
             <blueprint-panel ref="blueprintsElement" />
         </v-main>
+        <v-footer v-if="hasAlerts" app>
+            <v-alert v-model="hasCycles" type="warning" closable>
+                Cycles are not supported yet, please break cycles marked with
+                <v-icon :icon="mdiSync" />
+                icon.
+            </v-alert>
+        </v-footer>
     </v-app>
 </template>
 

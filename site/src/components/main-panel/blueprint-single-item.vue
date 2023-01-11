@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiChevronRight} from '@mdi/js';
+import {mdiChevronRight, mdiSync} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect} from '@/scripts/geometry';
+import {formatNumber} from '@/scripts/format';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -14,6 +15,7 @@ const emit = defineEmits<{
     (e: 'link-drag-force'): void;
 }>();
 
+const __DEBUG__ = import.meta.env.DEV;
 const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const recipe = computed(() => props.item?.selectedRecipe);
@@ -59,7 +61,7 @@ watch(recipe, updateSize);
     >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">
-                {{ `${item.count} x ${item.label}` }}
+                {{ props.item.label }}
             </div>
             <div class="float-right mr-1">
                 <item-menu-button :item="props.item" />
@@ -97,6 +99,18 @@ watch(recipe, updateSize);
                 </template>
             </div>
         </div>
+        <div class="status-row bg-window-statusbar">
+            <div class="title-text text-caption">
+                <template v-if="__DEBUG__">
+                    {{ props.item.key }}
+                </template>
+                <template v-if="props.item.partOfCycle">
+                    <v-icon :icon="mdiSync" />
+                </template>
+                {{ (props.item.solvedCount === undefined) ? '' : (formatNumber(props.item.solvedCount) + ' / ') }}
+                {{ formatNumber(props.item.count) }}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -108,6 +122,12 @@ watch(recipe, updateSize);
     display: block;
     position: relative;
     height: 1.7rem;
+    overflow: hidden;
+}
+.status-row {
+    display: block;
+    position: relative;
+    height: 1.2rem;
     overflow: hidden;
 }
 .title-text {
