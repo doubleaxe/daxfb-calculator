@@ -26,9 +26,7 @@ const computedStyle = computed(() => {
 <template>
     <div ref="mainDivElement" class="rounded-pill link-connector bg-window-idle hover-border" :style="computedStyle">
         <icon-component :image="props.link?.input?.image" />
-        <div class="mx-2">
-            200
-        </div>
+        <div class="mx-2" />
     </div>
 </template>
 

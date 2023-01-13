@@ -201,10 +201,15 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         }
     }
 
-    private debouncedSolve = useDebounceFn(() => {
-        this.solveGraph();
-    }, 200, {maxWait: 1000});
+    private debouncedSolve: (() => void) | undefined = undefined;
     _$graphChanged(immediate?: boolean) {
+        if(!this.debouncedSolve) {
+            //lazy initialize, because 'this' may be proxy in vue environment
+            this.debouncedSolve = useDebounceFn(() => {
+                this.solveGraph();
+            }, 200, {maxWait: 1000});
+        }
+
         if(this._autoSolveGraph) {
             if(immediate)
                 this.solveGraph();

@@ -102,12 +102,15 @@ watch(recipe, updateSize);
         <div class="status-row bg-window-statusbar">
             <div class="title-text text-caption">
                 <template v-if="__DEBUG__">
-                    {{ props.item.key }}
+                    {{ props.item.key }}&nbsp;
                 </template>
                 <template v-if="props.item.partOfCycle">
-                    <v-icon :icon="mdiSync" />
+                    <v-icon :icon="mdiSync" color="warning" />
                 </template>
-                {{ (props.item.solvedCount === undefined) ? '' : (formatNumber(props.item.solvedCount) + ' / ') }}
+                <template v-if="(props.item.solvedCount !== undefined)">
+                    {{ formatNumber((props.item.solvedCount * 100) / props.item.count) + '%' }}
+                    {{ formatNumber(props.item.solvedCount) + ' / ' }}
+                </template>
                 {{ formatNumber(props.item.count) }}
             </div>
         </div>

@@ -6,8 +6,8 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 ## TODO list
 
 - ~~Save/Load support~~
-- Production flow calculator
-- Freeze-Unfreeze flow calculation
+- ~~Production flow calculator~~
+- ~~Freeze-Unfreeze flow calculation~~
 - Support for Drilling Rig and PumpJack production
 - Special item - box - to temporary resolve loops
 - More beautiful links, item mirror state
