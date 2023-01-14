@@ -767,7 +767,8 @@
     "TitaniumTerminal": "ck",
     "HardMetalTerminal": "cl",
     "TitaniumFlatTerminal": "cm",
-    "HardMetalFlatTerminal": "cn"
+    "HardMetalFlatTerminal": "cn",
+    "DrillingRigBaseRecipeDictionary": "co"
   },
-  "lastKey": 767
+  "lastKey": 768
 }
