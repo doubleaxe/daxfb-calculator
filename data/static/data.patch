@@ -1,0 +1,4 @@
+@@ -557106,129 +557106,127 @@
+ r%22,%0A
+-        %22Output%22: %5B%5D,%0A        %22ResourceOutput%22: %7B%0A          %22Count%22: 600,%0A          %22Name%22: %22WaterStaticItem%22%0A        %7D,%0A
++        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 600,%0A            %22Name%22: %22WaterStaticItem%22%0A          %7D%0A        %5D,%0A

@@ -2,6 +2,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {diff_match_patch as DiffMatchPatch} from 'diff-match-patch';
+
 import type {
     Images,
     JsonData,
@@ -29,24 +31,39 @@ args.forEach((arg) => {
 
 class MergeData {
     private readonly parsedDataJson;
-    private readonly staticDataJson;
+    private readonly patchData;
+    private readonly imagesJson;
 
-    constructor(parsedDataJson: JsonData, staticDataJson: JsonData) {
+    constructor(parsedDataJson: string, patchData: string, imagesJson: Images) {
         this.parsedDataJson = parsedDataJson;
-        this.staticDataJson = staticDataJson;
+        this.patchData = patchData;
+        this.imagesJson = imagesJson;
     }
     merge(): JsonData {
-        this.mergeRecipes();
-        return this.parsedDataJson;
+        const mergedDataJson = this.mergeData();
+        mergedDataJson.images = this.imagesJson;
+        return mergedDataJson;
     }
-    private mergeRecipes() {
-        const parsedRecipes = this.parsedDataJson.recipes;
-        const staticRecipes = this.staticDataJson.recipes;
-        if(!parsedRecipes || !staticRecipes)
-            return;
-        for(const [id, dictionary] of Object.entries(staticRecipes)) {
-            parsedRecipes[id] = dictionary;
+    private mergeData() {
+        const {
+            parsedDataJson,
+            patchData,
+        } = this;
+        const diff = new DiffMatchPatch();
+        let patches: ReturnType<typeof diff['patch_fromText']>;
+        if(patchData[0] == '@') {
+            patches = diff.patch_fromText(patchData);
+        } else {
+            patches = JSON.parse(patchData);
         }
+
+        const [mergedData, results] = diff.patch_apply(patches, parsedDataJson);
+        const failed = results.map((r, index) => [r, index]).filter(([r]) => !r).map(([r, index]) => index);
+        if(failed.length) {
+            throw new Error(`some patches failed to apply:\n${failed.join('\n')}`);
+        }
+        const mergedDataJson: JsonData = JSON.parse(mergedData);
+        return mergedDataJson;
     }
 }
 
@@ -238,12 +255,11 @@ class OptimizeData {
 (async function() {
     fs.mkdirSync(__target, {recursive: true});
 
-    const parsedDataJson: JsonData = JSON.parse(fs.readFileSync(path.join(__parsed, 'data.json'), 'utf8'));
-    const staticDataJson: JsonData = JSON.parse(fs.readFileSync(path.join(__static, 'data.json'), 'utf8'));
+    const parsedDataJson: string = fs.readFileSync(path.join(__parsed, 'data.json'), 'utf8');
+    const patchData: string = fs.readFileSync(path.join(__static, 'data.patch'), 'utf8');
     const imagesJson: Images = JSON.parse(fs.readFileSync(path.join(__parsed, 'images.json'), 'utf8'));
 
-    parsedDataJson.images = imagesJson;
-    const mergedDataJson = new MergeData(parsedDataJson, staticDataJson).merge();
+    const mergedDataJson = new MergeData(parsedDataJson, patchData, imagesJson).merge();
 
     let keysJson: KeysJson = {};
     try {
@@ -254,7 +270,7 @@ class OptimizeData {
             throw err;
     }
     const {reverceKeys} = new MergeKeys(mergedDataJson, keysJson).merge();
-    fs.writeFileSync(path.join(__static, 'keys.json'), JSON.stringify(keysJson, null, ' '));
+    fs.writeFileSync(path.join(__static, 'keys.json'), JSON.stringify(keysJson, null, '  '));
     fs.writeFileSync(path.join(__target, 'keys.json'), JSON.stringify(reverceKeys));
 
     const optimizedData = new OptimizeData(mergedDataJson).optimize();

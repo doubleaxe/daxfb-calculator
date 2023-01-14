@@ -387,6 +387,6 @@ class FinalJson {
             recipes: this.#filteredRecipes,
             items: this.#filteredItems,
         };
-        await fs.writeFile(jsonPath, JSON.stringify(finalJson, null, ' '));
+        await fs.writeFile(jsonPath, JSON.stringify(finalJson, null, '  '));
     }
 }
