@@ -768,7 +768,8 @@
     "HardMetalTerminal": "cl",
     "TitaniumFlatTerminal": "cm",
     "HardMetalFlatTerminal": "cn",
-    "DrillingRigBaseRecipeDictionary": "co"
+    "DrillingRigBaseRecipeDictionary": "co",
+    "PumpjackBaseRecipeDictionary": "cp"
   },
-  "lastKey": 768
+  "lastKey": 769
 }

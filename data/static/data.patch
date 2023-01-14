@@ -3,35 +3,55 @@
 -        %22Output%22: %5B%5D,%0A        %22ResourceOutput%22: %7B%0A          %22Count%22: 600,%0A          %22Name%22: %22WaterStaticItem%22%0A        %7D,%0A
 +        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 600,%0A            %22Name%22: %22WaterStaticItem%22%0A          %7D%0A        %5D,%0A
      
-@@ -685850,24 +685850,3116 @@
+@@ -685850,24 +685850,3842 @@
  400%0A      %7D%0A
-+    %5D,%0A    %22DrillingRigBaseRecipeDictionary%22: %5B%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22Stone%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22StoneSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22RedStone%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22RedStoneSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22DarkStone%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22DarkStoneSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22Granite%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22GraniteSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22Coal%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22CoalStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22CopperOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22CopperOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 100%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22IronOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22IronOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 150%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22AluminiumOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22AluminiumOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 150%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22UraniumOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22UraniumOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 200%0A      %7D%0A
++    %5D,%0A    %22DrillingRigBaseRecipeDictionary%22: %5B%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22Stone%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22StoneSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22RedStone%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22RedStoneSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22DarkStone%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22DarkStoneSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22Granite%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22GraniteSurfaceStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22Coal%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22CoalStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 50%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22CopperOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22CopperOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 100%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22IronOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22IronOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 150%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22AluminiumOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22AluminiumOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 150%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22ores%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22UraniumOre%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1,%0A            %22Name%22: %22UraniumOreStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 200%0A      %7D%0A    %5D,%0A    %22PumpjackBaseRecipeDictionary%22: %5B%0A      %7B%0A        %22Category_T%22: %22misc%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22MineralWater%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1000,%0A            %22Name%22: %22MineralWaterStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 100%0A      %7D,%0A      %7B%0A        %22Category_T%22: %22misc%22,%0A        %22Input%22: %5B%5D,%0A        %22Name%22: %22RawOil%22,%0A        %22Output%22: %5B%0A          %7B%0A            %22Count%22: 1000,%0A            %22Name%22: %22RawOilStaticItem%22%0A          %7D%0A        %5D,%0A        %22ResourceInput%22: %7B%0A          %22Count%22: 30,%0A          %22Name%22: %22KineticStaticItem%22%0A        %7D,%0A        %22Ticks%22: 100%0A      %7D%0A
      %5D%0A  %7D,%0A 
-@@ -776818,32 +776818,140 @@
+@@ -777544,32 +777544,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 1%0A      %7D,%0A
        %22Label%22: %22
-@@ -777151,32 +777151,140 @@
+@@ -777877,32 +777877,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 2%0A      %7D,%0A
        %22Label%22: %22
-@@ -777495,32 +777495,140 @@
+@@ -778221,32 +778221,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 3%0A      %7D,%0A
        %22Label%22: %22
-@@ -777859,32 +777859,140 @@
+@@ -778585,32 +778585,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 4%0A      %7D,%0A
        %22Label%22: %22
-@@ -778210,32 +778210,140 @@
+@@ -778936,32 +778936,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 5%0A      %7D,%0A
        %22Label%22: %22
-@@ -778558,32 +778558,140 @@
+@@ -779284,32 +779284,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 6%0A      %7D,%0A
        %22Label%22: %22
-@@ -778910,32 +778910,140 @@
+@@ -779636,32 +779636,140 @@
  g%22: %22Machines%22,%0A
 +      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 7%0A      %7D,%0A
+       %22Label%22: %22
+@@ -815432,32 +815432,137 @@
+ g%22: %22Machines%22,%0A
++      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 1%0A      %7D,%0A
+       %22Label%22: %22
+@@ -815783,32 +815783,137 @@
+ g%22: %22Machines%22,%0A
++      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 2%0A      %7D,%0A
+       %22Label%22: %22
+@@ -816121,32 +816121,137 @@
+ g%22: %22Machines%22,%0A
++      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 3%0A      %7D,%0A
+       %22Label%22: %22
+@@ -816456,32 +816456,137 @@
+ g%22: %22Machines%22,%0A
++      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 4%0A      %7D,%0A
+       %22Label%22: %22
+@@ -816795,32 +816795,137 @@
+ g%22: %22Machines%22,%0A
++      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 5%0A      %7D,%0A
        %22Label%22: %22
