@@ -42,7 +42,7 @@ function cancelTooltip() {
 }
 
 function onPointerMove(evt: PointerEvent) {
-    const point = new Point({x: evt.pageX, y: evt.pageY});
+    const point = Point.assign({x: evt.pageX, y: evt.pageY});
     if(tooltipObject?.rect?.isPointInRect(point))
         return;
     if(tooltipObject.tooltipElement)
@@ -57,7 +57,7 @@ function onPointerMove(evt: PointerEvent) {
         return;
     tooltipObject.tooltipText = tooltipText;
     tooltipObject.tooltipElement = tooltipElement;
-    tooltipObject.rect = new Rect(tooltipElement.getBoundingClientRect());
+    tooltipObject.rect = Rect.assign(tooltipElement.getBoundingClientRect());
     startTooltipTimeout();
 }
 

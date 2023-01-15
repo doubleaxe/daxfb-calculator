@@ -1,7 +1,6 @@
 import {RecipeIOModelImpl} from './recipe-io';
 import type {Recipe} from '../data/data';
 import type {BlueprintItemModel, RecipeIOModel, RecipeModel} from './store';
-import {reactive} from 'vue';
 
 export class RecipeModelImpl {
     private readonly _recipe;
@@ -11,8 +10,8 @@ export class RecipeModelImpl {
 
     constructor(ownerItem: BlueprintItemModel, recipe: Recipe) {
         this._recipe = recipe;
-        this._input = recipe.input.map((io) => reactive(new RecipeIOModelImpl(io, {ownerItem})));
-        this._output = recipe.output.map((io) => reactive(new RecipeIOModelImpl(io, {ownerItem})));
+        this._input = recipe.input.map((io) => new RecipeIOModelImpl(io, {ownerItem}));
+        this._output = recipe.output.map((io) => new RecipeIOModelImpl(io, {ownerItem}));
 
         const items = [...this._input, ...this._output];
         this._itemsByKey = new Map(items.map((io) => [io.key, io]));

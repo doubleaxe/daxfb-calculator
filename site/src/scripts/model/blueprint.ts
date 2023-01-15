@@ -1,9 +1,7 @@
-import {reactive, watch} from 'vue';
 import {
     Point,
     Rect,
     type ReadonlyPointType,
-    type ReadonlyRectType
 } from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
@@ -11,10 +9,12 @@ import type {SavedBlueprint} from './saved-blueprint';
 import type {
     BlueprintItemModel,
     LinkModel,
+    PublicPoint,
+    PublicRect,
     RecipeIOModel,
     ScreenToClientOptions,
     ScreenToClientProvider,
-    UpdateOffsetPositionCallback
+    UpdateOffsetPositionCallback,
 } from './store';
 import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
@@ -24,19 +24,20 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     private readonly _items = new Map<string, BlueprintItemModel>();
     private readonly _links = new Map<string, LinkModel>();
     private readonly _tempLinks: LinkModel[] = [];
-    private _maxItemXY = new Point();
-    private _boundingRect = new Rect();
+    private _maxItemXY: PublicPoint = Point.assign();
+    private _boundingRect: PublicRect = Rect.assign();
     private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
     public hasCycles = false;
     private _solvePrecision = .001;
     private _autoSolveGraph = false;
+    private _bulkUpdate = false;
 
     get items() { return this._items.values(); }
     itemByKey(key: string) { return this._items.get(key); }
     get links() { return this._links.values(); }
     get tempLinks() { return this._tempLinks[Symbol.iterator](); }
 
-    get boundingRect(): ReadonlyRectType { return this._boundingRect; }
+    get boundingRect() { return this._boundingRect; }
     get solvePrecision() { return this._solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
     get autoSolveGraph() { return this._autoSolveGraph; }
@@ -45,18 +46,18 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     //types are compatible, just don't use instanceof
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
     addItem(name: string) {
-        const item = reactive(new BlueprintItemModelImpl(this, name));
+        const item = new BlueprintItemModelImpl(this, name);
         //invalid item
         if(!item.name)
             return item;
         this._items.set(item.key, item);
-        watch([() => item.rect.x, () => item.rect.y], this._updateXY.bind(this));
         this._$graphChanged();
         return item;
     }
     _$deleteItem(item: BlueprintItemModel) {
         this._items.delete(item.key);
         this._$graphChanged();
+        this._$updateXY();
     }
     _$addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
@@ -92,7 +93,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
                 throw new Error('Expecting 1 input and 1 output, got duplicates');
             _io[target] = i;
         }
-        return reactive(new LinkModelImpl(_io.input, _io.output));
+        return new LinkModelImpl(_io.input, _io.output);
     }
 
     //basically we cannot watch window move (relayout) events
@@ -100,7 +101,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     //also automatically updated on create and on scroll
     requestUpdateOffsetPosition() {
         if(this.updateOffsetPositionCallback) {
-            this._boundingRect.assignPoint(this.updateOffsetPositionCallback());
+            this._boundingRect = this._boundingRect.assignPoint(this.updateOffsetPositionCallback());
         }
     }
     registerUpdateOffsetPosition(callback: UpdateOffsetPositionCallback) {
@@ -109,24 +110,37 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         }
         this.updateOffsetPositionCallback = callback;
     }
-    screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions = {}): ReadonlyPointType {
+    screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions = {}): PublicPoint {
         if(!isPassive)
             this.requestUpdateOffsetPosition();
-        return new Point(point).offsetBy(this._boundingRect, -1);
+        return Point.assign(point).offsetBy(this._boundingRect, -1);
     }
-    private _updateXY([newX, newY]: number[]) {
-        const maxItemXY = this._maxItemXY;
-        if(newX > maxItemXY.x)
-            maxItemXY.x = newX;
-        if(newY > maxItemXY.y)
-            maxItemXY.y = newY;
+    _$updateXY(item?: BlueprintItemModel) {
+        if(this._bulkUpdate) {
+            return;
+        }
+        if(item) {
+            this._maxItemXY = this._maxItemXY.assignPoint({
+                x: Math.max(this._maxItemXY.x, item.rect.x),
+                y: Math.max(this._maxItemXY.y, item.rect.y),
+            });
+        } else {
+            const {maxX, maxY} = [...this.items].reduce((max, {rect}) => ({
+                maxX: Math.max(rect.x, max.maxX),
+                maxY: Math.max(rect.y, max.maxY),
+            }), {maxX: 0, maxY: 0});
+            this._maxItemXY = this._maxItemXY.assignPoint({x: maxX, y: maxY});
+        }
 
-        this._boundingRect.width = Math.max(maxItemXY.x + 500, 2000);
-        this._boundingRect.height = Math.max(maxItemXY.y + 500, 2000);
+        this._boundingRect = this._boundingRect.assignSize({
+            width: Math.max(this._maxItemXY.x + 500, 2000),
+            height: Math.max(this._maxItemXY.y + 500, 2000),
+        });
     }
 
     clear() {
         this._clear();
+        this._$updateXY();
     }
     private _clear() {
         resetKeyStore();
@@ -149,15 +163,15 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
     }
     load(savedBlueprintJson: string) {
         const savedBlueprint: SavedBlueprint = JSON.parse(savedBlueprintJson);
-        const _autoSolveGraph = this._autoSolveGraph;
-        this._autoSolveGraph = false;
+        this._bulkUpdate = true;
         try {
             this._clear();
             this._load(savedBlueprint);
         } finally {
-            this._autoSolveGraph = _autoSolveGraph;
+            this._bulkUpdate = false;
         }
         this._$graphChanged(true);
+        this._$updateXY();
     }
     private _load(savedBlueprint: SavedBlueprint) {
         const itemIndexes = new Map<number, string>();
@@ -192,29 +206,32 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
             return;
         if(!items)
             items = this._items.values();
-        const _autoSolveGraph = this._autoSolveGraph;
-        this._autoSolveGraph = false;
+        const _bulkUpdate = this._bulkUpdate;
+        this._bulkUpdate = true;
         try {
             solveGraph(this, items, this._solvePrecision);
         } finally {
-            this._autoSolveGraph = _autoSolveGraph;
+            this._bulkUpdate = _bulkUpdate;
         }
     }
 
     private debouncedSolve: (() => void) | undefined = undefined;
     _$graphChanged(immediate?: boolean) {
-        if(!this.debouncedSolve) {
-            //lazy initialize, because 'this' may be proxy in vue environment
-            this.debouncedSolve = useDebounceFn(() => {
-                this.solveGraph();
-            }, 200, {maxWait: 1000});
+        if(!this._autoSolveGraph || this._bulkUpdate) {
+            return;
         }
 
-        if(this._autoSolveGraph) {
-            if(immediate)
-                this.solveGraph();
-            else
-                this.debouncedSolve();
+        if(immediate) {
+            this.solveGraph();
+        } else {
+            if(!this.debouncedSolve) {
+                //lazy initialize, because 'this' may be proxy in vue environment
+                this.debouncedSolve = useDebounceFn(() => {
+                    this.solveGraph();
+                }, 200, {maxWait: 1000});
+            }
+
+            this.debouncedSolve();
         }
     }
 }

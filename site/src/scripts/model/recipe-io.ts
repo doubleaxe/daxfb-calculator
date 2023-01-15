@@ -1,8 +1,13 @@
-import {reactive} from 'vue';
 import type {RecipeIO} from '../data/data';
 import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';
-import type {BlueprintItemModel, BlueprintModel, LinkModel, RecipeIOModel} from './store';
+import type {
+    BlueprintItemModel,
+    BlueprintModel,
+    LinkModel,
+    PublicRect,
+    RecipeIOModel,
+} from './store';
 
 type RecipeIOOptions = {
     owner?: BlueprintModel;
@@ -11,6 +16,7 @@ type RecipeIOOptions = {
 };
 
 export class RecipeIOModelImpl extends ItemModelImpl {
+    private _rect: PublicRect = Rect.assign();
     private readonly _io;
     private readonly _ownerItem;
     private readonly _isInput;
@@ -35,6 +41,10 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         }
     }
 
+    get rect(): PublicRect { return this._rect; }
+    set rect(rect: PublicRect) {
+        this._rect = rect;
+    }
     get isInput() { return this._isInput; }
     get isResource() { return this._io.isResource; }
     get ownerItem() { return this._ownerItem; }
@@ -69,18 +79,15 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         return false;
     }
     createTempLink(): RecipeIOModel {
-        const clone = reactive(new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true}));
-        clone.rect.assignRect(this.calculateRect());
+        const clone = new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true});
+        clone.rect = this.calculateRect();
         this.owner?._$createTempLink(this, clone);
         return clone;
     }
-    calculateRect() {
+    calculateRect(): PublicRect {
         if(!this._ownerItem)
             return this.rect;
-        return new Rect(this.rect).offsetBy(this._ownerItem.rect);
-    }
-    calculateLinkOrigin() {
-        return this.calculateRect().calculateLinkOrigin(this._isInput);
+        return this.rect.offsetBy(this._ownerItem.rect);
     }
     get cpsMax() { return this._cpsMax; }
     get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }

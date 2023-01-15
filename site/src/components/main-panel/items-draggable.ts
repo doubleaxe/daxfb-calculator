@@ -7,11 +7,11 @@ import {watch} from 'vue';
 //because original captures all events, and cannot be used to drag only parts
 class SingleItemDraggable {
     private readonly item;
-    private readonly deltaXY;
+    private deltaXY: Point;
     private lastPosition: ReadonlyPointType | undefined;
     constructor(item: BlueprintItemModel, element: HTMLElement) {
         this.item = item;
-        this.deltaXY = new Point();
+        this.deltaXY = Point.assign();
         useEventListener(element, 'pointerdown', this.onStart.bind(this));
         SingleItemDraggable.init(item.owner);
     }
@@ -20,7 +20,7 @@ class SingleItemDraggable {
         //we should fix it here
         const {item, deltaXY} = this;
         const mouseClientPos = item.screenToClient({x: event.pageX, y: event.pageY}, {isPassive: false});
-        deltaXY.assignPoint(item.rect).offsetBy(mouseClientPos, -1);
+        this.deltaXY = deltaXY.assign(item.rect).offsetBy(mouseClientPos, -1);
         SingleItemDraggable.currentlyDragging = this;
         this.item.isFloating = true;
     }
@@ -31,7 +31,7 @@ class SingleItemDraggable {
             return;
         this.lastPosition = position;
         const mouseClientPos = item.owner?.screenToClient(position, {isPassive: true});
-        item.rect.assignPoint(new Point(mouseClientPos).offsetBy(deltaXY).positive());
+        item.rect = item.rect.assignPoint(mouseClientPos?.offsetBy(deltaXY)?.positive());
     }
     onEnd() {
         this.item.isFloating = false;

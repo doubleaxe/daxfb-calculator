@@ -4,13 +4,16 @@ import {ItemModelImpl} from './item';
 import type {
     BlueprintItemModel,
     BlueprintModel,
+    PublicRect,
     RecipeIOModel,
-    RecipeModel
+    RecipeModel,
 } from './store';
 import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
+import {Rect} from '../geometry';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
+    private _rect: PublicRect = Rect.assign();
     private readonly _recipes;
     private _selectedRecipe?: RecipeModel;
     public isFloating = false;
@@ -29,6 +32,11 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         }
     }
 
+    get rect(): PublicRect { return this._rect; }
+    set rect(rect: PublicRect) {
+        this._rect = rect;
+        this.owner?._$updateXY(this);
+    }
     get selectedRecipe() { return this._selectedRecipe; }
     get recipes() { return this._recipes.values(); }
     get state() { return this._state; }
@@ -97,7 +105,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     _$loadItem(i: SavedItem) {
         //TODO - show errors and status for invalid recipe
         this.selectRecipe(i.r);
-        this.rect.assignPoint({
+        this.rect = this.rect.assign({
             x: i.p[0],
             y: i.p[1],
         });

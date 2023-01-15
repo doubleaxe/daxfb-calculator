@@ -48,15 +48,19 @@ const dragShown = (screenXY: ReadonlyPointType) => {
         return;
     const clientXY = blueprintModel.screenToClient(screenXY);
     draggingTarget = _draggingSource.createTempLink();
-    draggingTarget.rect.assignPoint(clientXY);
-    draggingTarget.rect.assignSize({width: settings.iconSize, height: settings.iconSize});
+    draggingTarget.rect = draggingTarget.rect.assign({
+        x: clientXY.x,
+        y: clientXY.y,
+        width: settings.iconSize,
+        height: settings.iconSize,
+    });
 };
 
 const updateLink = (screenXY: ReadonlyPointType) => {
     if(!draggingTarget)
         return false;
     const clientXY = blueprintModel.screenToClient(screenXY, {isPassive: true});
-    draggingTarget.rect.assignPoint(clientXY);
+    draggingTarget.rect = draggingTarget.rect.assignPoint(clientXY);
     return true;
 };
 

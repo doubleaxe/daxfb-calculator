@@ -12,7 +12,7 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - Special item - box - to temporary resolve loops
 - More beautiful links, item mirror state
 - Debug/error status bar
-- Missing icons
+- ~~Missing icons~~
 - Delete single link
 - Link priority
 - Item filters

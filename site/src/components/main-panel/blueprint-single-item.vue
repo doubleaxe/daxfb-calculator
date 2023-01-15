@@ -37,14 +37,16 @@ const updateSize = () => {
         if(!mainDiv || !_item || !_recipe)
             return;
         const mainDivRect = mainDiv.getBoundingClientRect();
-        _item.rect.assignSize(mainDivRect);
+        _item.rect = _item.rect.assignSize(mainDivRect);
         const ioList = mainDiv.querySelectorAll('[data-io-id]');
         for(let i = 0; i < ioList.length; i++) {
             const ioElement = ioList.item(i);
             const key = ioElement.getAttribute('data-io-id') || '';
             const io = _recipe.itemByKey(key);
             const ioRect = ioElement.getBoundingClientRect();
-            io?.rect.assignRect(new Rect(ioRect).offsetBy(mainDivRect, -1));
+            if(io) {
+                io.rect = Rect.assign(ioRect).offsetBy(mainDivRect, -1);
+            }
         }
     });
 };

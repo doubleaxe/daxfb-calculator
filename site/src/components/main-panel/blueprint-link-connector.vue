@@ -9,13 +9,12 @@ const props = defineProps<{
 const mainDivElement = ref<HTMLElement | null>(null);
 const computedStyle = computed(() => {
     const link = props.link;
-    const sourcePoint = link?.input?.calculateLinkOrigin();
-    const targetPoint = link?.output?.calculateLinkOrigin();
+    let middlePoint = link?.buildShape()?.middlePoint;
     const mainDiv = unref(mainDivElement);
-    if(!sourcePoint || !targetPoint || !mainDiv)
+    if(!middlePoint || !mainDiv)
         return {};
     const mainDivRect = mainDiv.getBoundingClientRect();
-    const middlePoint = sourcePoint.middlePoint(targetPoint).offsetBy({x: mainDivRect.width / 2, y: mainDivRect.height / 2}, -1);
+    middlePoint = middlePoint.offsetBy({x: mainDivRect.width / 2, y: mainDivRect.height / 2}, -1);
     return {
         left: middlePoint.x + 'px',
         top: middlePoint.y + 'px',

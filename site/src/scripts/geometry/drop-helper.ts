@@ -26,7 +26,7 @@ export function isPointInsideElement1(
             break;
     }
 
-    const visibleRect = new Rect((scrollboxElement || targetElement).getBoundingClientRect());
+    const visibleRect = Rect.assign((scrollboxElement || targetElement).getBoundingClientRect());
     return visibleRect.isPointInRect(point);
 }
 
