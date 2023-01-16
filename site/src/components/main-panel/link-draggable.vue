@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {injectSettings} from '@/scripts/settings';
-import {ref, unref} from 'vue';
+import {ref, unref, reactive} from 'vue';
 import {
     injectBlueprintModel,
     type BlueprintItemModel,
@@ -47,7 +47,7 @@ const dragShown = (screenXY: ReadonlyPointType) => {
     if(!_draggingSource)
         return;
     const clientXY = blueprintModel.screenToClient(screenXY);
-    draggingTarget = _draggingSource.createTempLink();
+    draggingTarget = reactive(_draggingSource.createTempLink());
     draggingTarget.rect = draggingTarget.rect.assign({
         x: clientXY.x,
         y: clientXY.y,

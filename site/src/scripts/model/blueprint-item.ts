@@ -21,6 +21,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _solvedCount: number | undefined = undefined;
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
     public partOfCycle = false;
+    public isFlipped = false;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, dataProvider.getItem(name));

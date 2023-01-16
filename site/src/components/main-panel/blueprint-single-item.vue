@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiChevronRight, mdiSync} from '@mdi/js';
+import {mdiChevronLeft, mdiChevronRight, mdiSync} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect} from '@/scripts/geometry';
@@ -18,7 +18,6 @@ const emit = defineEmits<{
 const __DEBUG__ = import.meta.env.DEV;
 const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
-const recipe = computed(() => props.item?.selectedRecipe);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
 const computedElevation = computed(() => {
@@ -28,12 +27,36 @@ const computedElevation = computed(() => {
         return 'hover-elevation-static';
     return 0;
 });
+const leftSide = computed(() => {
+    const _recipe = props.item?.selectedRecipe;
+    return props.item.isFlipped ? {
+        io: () => _recipe?.output,
+        count: _recipe?.outputCount,
+        icon: mdiChevronLeft,
+    } : {
+        io: () => _recipe?.input,
+        count: _recipe?.inputCount,
+        icon: mdiChevronRight,
+    };
+});
+const rightSide = computed(() => {
+    const _recipe = props.item?.selectedRecipe;
+    return props.item.isFlipped ? {
+        io: () => _recipe?.input,
+        count: _recipe?.inputCount,
+        icon: mdiChevronLeft,
+    } : {
+        io: () => _recipe?.output,
+        count: _recipe?.outputCount,
+        icon: mdiChevronRight,
+    };
+});
 
 const updateSize = () => {
     nextTick(() => {
         const mainDiv = unref(mainDivElement);
         const _item = props.item;
-        const _recipe = unref(recipe);
+        const _recipe = props.item?.selectedRecipe;
         if(!mainDiv || !_item || !_recipe)
             return;
         const mainDivRect = mainDiv.getBoundingClientRect();
@@ -51,7 +74,7 @@ const updateSize = () => {
     });
 };
 onMounted(updateSize);
-watch(recipe, updateSize);
+watch([() => props.item?.selectedRecipe, () => props.item.isFlipped], updateSize);
 </script>
 
 <template>
@@ -71,7 +94,7 @@ watch(recipe, updateSize);
         </div>
         <div class="main-row">
             <div>
-                <template v-for="io in recipe?.input" :key="io.key">
+                <template v-for="io in leftSide.io()" :key="io.key">
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"
@@ -79,7 +102,7 @@ watch(recipe, updateSize);
                     />
                 </template>
             </div>
-            <v-icon v-if="recipe?.inputCount" class="align-self-center" :icon="mdiChevronRight" />
+            <v-icon v-if="leftSide.count" class="align-self-center" :icon="leftSide.icon" />
             <div class="align-self-center">
                 <icon-component
                     class="main-icon-row rounded hover-border"
@@ -90,9 +113,9 @@ watch(recipe, updateSize);
                     <recipes-menu activator="parent" :item="props.item" />
                 </icon-component>
             </div>
-            <v-icon v-if="recipe?.outputCount" class="align-self-center" :icon="mdiChevronRight" />
+            <v-icon v-if="rightSide.count" class="align-self-center" :icon="rightSide.icon" />
             <div>
-                <template v-for="io in recipe?.output" :key="io.key">
+                <template v-for="io in rightSide.io()" :key="io.key">
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"

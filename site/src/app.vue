@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, ref, unref, watch, computed} from 'vue';
+import {nextTick, ref, unref, reactive, watch, computed} from 'vue';
 import {injectBlueprintModel} from './scripts/model/store';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
 import {isPointInsideElement1, type PointType} from './scripts/geometry';
@@ -19,7 +19,7 @@ const hasAlerts = computed(() => unref(hasCycles));
 function dragDrop(dropPoint: PointType, itemName: string) {
     if(!isPointInsideElement1(blueprintsElement, dropPoint))
         return;
-    const item = blueprintModel.addItem(itemName);
+    const item = reactive(blueprintModel.addItem(itemName));
     item.rect = item.rect.assignPoint(blueprintModel.screenToClient(dropPoint));
 }
 
@@ -84,7 +84,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
                     :disabled="blueprintModel.autoSolveGraph"
                     @click="blueprintModel.solveGraph()"
                 />
-                <v-switch v-model="blueprintModel.autoSolveGraph" label="Auto" hide-details class="mr-1" />
+                <v-switch v-model="blueprintModel.autoSolveGraph" label="Auto" hide-details class="mr-1" color="primary" />
                 <v-divider vertical />
                 <tooltip-button tooltip="Save" :icon="mdiContentSave" @click="saveBlueprint" />
                 <a
@@ -128,9 +128,9 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
         </v-main>
         <v-footer v-if="hasAlerts" app>
             <v-alert v-model="hasCycles" type="warning" closable>
-                Cycles are not supported yet, please break cycles marked with
+                Blueprint has cycles  - marked with
                 <v-icon :icon="mdiSync" />
-                icon.
+                icon. Cycles should have at least one output, otherwise they will not be calculated.
             </v-alert>
         </v-footer>
     </v-app>

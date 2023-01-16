@@ -29,21 +29,27 @@ class PointBase<T> implements ReadonlyPointType {
         return this._baseAssign(this, {x: assign?.x, y: assign?.y});
     }
     offsetBy(point: ReadonlyPointType, sign?: number) {
-        return this._baseAssign({
+        return this.assignPoint({
             x: this._x + (sign || 1) * (point.x),
             y: this._y + (sign || 1) * (point.y),
         });
     }
     positive() {
-        return this._baseAssign({
-            x: Math.abs(this._x),
-            y: Math.abs(this._y),
+        return this.assignPoint({
+            x: Math.max(this._x, 0),
+            y: Math.max(this._y, 0),
         });
     }
     middlePoint(point: ReadonlyPointType) {
         const middleX = (this._x + point.x) / 2;
         const middleY = (this._y + point.y) / 2;
-        return this._baseAssign({x: middleX, y: middleY});
+        return this.assignPoint({x: middleX, y: middleY});
+    }
+    distanceTo(point: ReadonlyPointType) {
+        return this.assignPoint({
+            x: (this._x - point.x),
+            y: (this._y - point.y),
+        });
     }
     isEqual(point: ReadonlyPointType) {
         return (this._x === point.x) && (this._y === point.y);

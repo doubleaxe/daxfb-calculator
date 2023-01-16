@@ -10,7 +10,7 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - ~~Freeze-Unfreeze flow calculation~~
 - ~~Support for Drilling Rig and PumpJack production~~
 - Special item - box - to temporary resolve loops
-- More beautiful links, item mirror state
+- ~~More beautiful links, item mirror state~~
 - Debug/error status bar
 - ~~Missing icons~~
 - Delete single link

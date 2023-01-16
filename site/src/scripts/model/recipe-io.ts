@@ -49,6 +49,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isResource() { return this._io.isResource; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
+    get isFlipped() { return this._ownerItem?.isFlipped || false; }
 
     _$linkAdded(value: LinkModel) {
         this._links.set(value.key, value);

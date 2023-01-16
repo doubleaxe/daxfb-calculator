@@ -21,11 +21,10 @@ export function solveGraph(blueprint: BlueprintModel, items: IterableIterator<Bl
         if(hasCycles) {
             blueprintHasCycles = true;
             arrayScc.flat().forEach((item) => item.setSolvedCount(undefined));
-        } else {
-            //DAG = directed acyclic graph
-            const arrayDag: BlueprintItemModel[] = arrayScc.flat();
-            new GraphSolver(precision).solve(arrayDag);
         }
+        //DAG = directed acyclic graph (maybe cycles)
+        const arrayDag: BlueprintItemModel[] = arrayScc.flat();
+        new GraphSolver(precision).solve(arrayDag);
     }
     blueprint.hasCycles = blueprintHasCycles;
 }

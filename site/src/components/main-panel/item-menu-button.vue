@@ -38,6 +38,15 @@ function addCount(delta: number) {
                         @input="(event: InputEvent) => setCount(((event.target) as HTMLInputElement).value)"
                     />
                 </v-list-item>
+                <!-- eslint-disable-next-line vue/no-mutating-props -->
+                <v-list-item title="Flip" @click="(props.item.isFlipped = !props.item.isFlipped)">
+                    <template #prepend>
+                        <v-list-item-action start>
+                            <!-- eslint-disable-next-line vue/no-mutating-props -->
+                            <v-checkbox v-model="props.item.isFlipped" hide-details />
+                        </v-list-item-action>
+                    </template>
+                </v-list-item>
                 <v-divider />
                 <v-list-item
                     :prepend-icon="mdiLinkOff"

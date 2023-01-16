@@ -1,7 +1,7 @@
 import {newKey} from './key-store';
-import {LinkShapeModelImpl} from './link-shape';
+import {LinkShapeDescriptor, LinkShapeModel, LinkShapeModelBuilder} from './link-shape';
 import type {SavedLink} from './saved-blueprint';
-import type {LinkShapeModel, RecipeIOModel} from './store';
+import type {RecipeIOModel} from './store';
 
 export class LinkModelImpl {
     private readonly _key;
@@ -17,13 +17,16 @@ export class LinkModelImpl {
 
     get key() { return this._key; }
     buildShape() {
-        let linkShape: LinkShapeModel = new LinkShapeModelImpl(this.input?.rect, this.output?.rect, false);
-        if(this._linkShape?.isEqual(linkShape)) {
-            linkShape = this._linkShape;
-        } else {
-            this._linkShape = linkShape;
+        const descriptor = new LinkShapeDescriptor(
+            this.input?.calculateRect(),
+            this.output?.calculateRect(),
+            this.input?.isFlipped,
+            this.output?.isFlipped,
+        );
+        if(!this._linkShape?.descriptor?.isEqual(descriptor)) {
+            this._linkShape = new LinkShapeModelBuilder(descriptor).buildShape();
         }
-        return linkShape.buildShape();
+        return this._linkShape.shape;
     }
 
     _$applyPersistentLink() {
