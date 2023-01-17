@@ -2,7 +2,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {diff_match_patch as DiffMatchPatch} from 'diff-match-patch';
+import {applyPatch} from 'diff';
 
 import type {
     Images,
@@ -53,19 +53,7 @@ class MergeData {
             parsedDataJson,
             patchData,
         } = this;
-        const diff = new DiffMatchPatch();
-        let patches: ReturnType<typeof diff['patch_fromText']>;
-        if(patchData[0] == '@') {
-            patches = diff.patch_fromText(patchData);
-        } else {
-            patches = JSON.parse(patchData);
-        }
-
-        const [mergedData, results] = diff.patch_apply(patches, parsedDataJson);
-        const failed = results.map((r, index) => [r, index]).filter(([r]) => !r).map(([r, index]) => index);
-        if(failed.length) {
-            throw new Error(`some patches failed to apply:\n${failed.join('\n')}`);
-        }
+        const mergedData = applyPatch(parsedDataJson, patchData);
         const mergedDataJson: JsonData = JSON.parse(mergedData);
         return mergedDataJson;
     }

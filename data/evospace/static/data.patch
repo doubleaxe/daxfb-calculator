@@ -1,57 +1,399 @@
-@@ -607065,139 +607065,139 @@
- r%22,%0A
--          %22Output%22: %5B%5D,%0A          %22ResourceOutput%22: %7B%0A            %22Count%22: 600,%0A            %22Name%22: %22WaterStaticItem%22%0A          %7D,%0A
-+          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 600,%0A              %22Name%22: %22WaterStaticItem%22%0A            %7D%0A          %5D,%0A
-     
-@@ -749149,24 +749149,4276 @@
-   %7D%0A      %5D%0A
-+    %7D,%0A    %7B%0A      %22Name%22: %22DrillingRigBaseRecipeDictionary%22,%0A      %22Recipes%22: %5B%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22Stone%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22StoneSurfaceStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 50%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22RedStone%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22RedStoneSurfaceStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 50%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22DarkStone%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22DarkStoneSurfaceStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 50%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22Granite%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22GraniteSurfaceStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 50%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22Coal%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22CoalStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 50%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22CopperOre%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22CopperOreStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 100%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22IronOre%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22IronOreStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 150%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22AluminiumOre%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22AluminiumOreStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 150%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22ores%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22UraniumOre%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1,%0A              %22Name%22: %22UraniumOreStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 200%0A        %7D%0A      %5D%0A    %7D,%0A    %7B%0A      %22Name%22: %22PumpjackBaseRecipeDictionary%22,%0A      %22Recipes%22: %5B%0A        %7B%0A          %22Category_T%22: %22misc%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22MineralWater%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1000,%0A              %22Name%22: %22MineralWaterStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 100%0A        %7D,%0A        %7B%0A          %22Category_T%22: %22misc%22,%0A          %22Input%22: %5B%5D,%0A          %22Name%22: %22RawOil%22,%0A          %22Output%22: %5B%0A            %7B%0A              %22Count%22: 1000,%0A              %22Name%22: %22RawOilStaticItem%22%0A            %7D%0A          %5D,%0A          %22ResourceInput%22: %7B%0A            %22Count%22: 30,%0A            %22Name%22: %22KineticStaticItem%22%0A          %7D,%0A          %22Ticks%22: 100%0A        %7D%0A      %5D%0A
-     %7D%0A  %5D,%0A 
-@@ -845379,32 +845379,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 1%0A      %7D,%0A
-       %22Label%22: %22
-@@ -845726,32 +845726,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 2%0A      %7D,%0A
-       %22Label%22: %22
-@@ -846084,32 +846084,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 3%0A      %7D,%0A
-       %22Label%22: %22
-@@ -846462,32 +846462,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 4%0A      %7D,%0A
-       %22Label%22: %22
-@@ -846827,32 +846827,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 5%0A      %7D,%0A
-       %22Label%22: %22
-@@ -847189,32 +847189,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 6%0A      %7D,%0A
-       %22Label%22: %22
-@@ -847555,32 +847555,140 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22DrillingRigBaseRecipeDictionary%22,%0A        %22Tier%22: 7%0A      %7D,%0A
-       %22Label%22: %22
-@@ -884891,32 +884891,137 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 1%0A      %7D,%0A
-       %22Label%22: %22
-@@ -885256,32 +885256,137 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 2%0A      %7D,%0A
-       %22Label%22: %22
-@@ -885608,32 +885608,137 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 3%0A      %7D,%0A
-       %22Label%22: %22
-@@ -885957,32 +885957,137 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 4%0A      %7D,%0A
-       %22Label%22: %22
-@@ -886310,32 +886310,137 @@
- g%22: %22Machines%22,%0A
-+      %22Recipe%22: %7B%0A        %22RecipeDictionary%22: %22PumpjackBaseRecipeDictionary%22,%0A        %22Tier%22: 5%0A      %7D,%0A
-       %22Label%22: %22
+Index: data.json
+===================================================================
+--- data.json
++++ data.json
+@@ -24807,19 +24807,20 @@
+     {
+       "Name": "PumpBaseRecipeDictionary",
+       "Recipes": [
+         {
+           "Category_T": "misc",
+           "Input": [],
+           "Name": "Water",
+-          "Output": [],
+-          "ResourceOutput": {
+-            "Count": 600,
+-            "Name": "WaterStaticItem"
+-          },
++          "Output": [
++            {
++              "Count": 600,
++              "Name": "WaterStaticItem"
++            }
++          ],
+           "Ticks": 120
+         }
+       ]
+     },
+     {
+       "Name": "SeparatorBaseRecipeDictionary",
+       "Recipes": [
+@@ -30853,14 +30854,200 @@
+           "ResourceOutput": {
+             "Count": 20,
+             "Name": "HeatStaticItem"
+           },
+           "Ticks": 400
+         }
+       ]
++    },
++    {
++      "Name": "DrillingRigBaseRecipeDictionary",
++      "Recipes": [
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "Stone",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "StoneSurfaceStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 50
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "RedStone",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "RedStoneSurfaceStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 50
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "DarkStone",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "DarkStoneSurfaceStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 50
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "Granite",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "GraniteSurfaceStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 50
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "Coal",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "CoalStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 50
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "CopperOre",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "CopperOreStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 100
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "IronOre",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "IronOreStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 150
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "AluminiumOre",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "AluminiumOreStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 150
++        },
++        {
++          "Category_T": "ores",
++          "Input": [],
++          "Name": "UraniumOre",
++          "Output": [
++            {
++              "Count": 1,
++              "Name": "UraniumOreStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 200
++        }
++      ]
++    },
++    {
++      "Name": "PumpjackBaseRecipeDictionary",
++      "Recipes": [
++        {
++          "Category_T": "misc",
++          "Input": [],
++          "Name": "MineralWater",
++          "Output": [
++            {
++              "Count": 1000,
++              "Name": "MineralWaterStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 100
++        },
++        {
++          "Category_T": "misc",
++          "Input": [],
++          "Name": "RawOil",
++          "Output": [
++            {
++              "Count": 1000,
++              "Name": "RawOilStaticItem"
++            }
++          ],
++          "ResourceInput": {
++            "Count": 30,
++            "Name": "KineticStaticItem"
++          },
++          "Ticks": 100
++        }
++      ]
+     }
+   ],
+   "items": [
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperMacerator",
+@@ -34183,68 +34370,96 @@
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperDrillingRig",
+       "MaxCount": 32,
+       "Name": "CopperDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 1
++      },
+       "Label": "Copper Drilling Rig"
+     },
+     {
+       "Category": "Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_SteelDrillingRig",
+       "MaxCount": 32,
+       "Name": "SteelDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 2
++      },
+       "Label": "Steel Drilling Rig"
+     },
+     {
+       "Category": "Aluminium",
+       "Class": "SolidStaticItem",
+       "Image": "T_AluminiumDrillingRig",
+       "MaxCount": 32,
+       "Name": "AluminiumDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 3
++      },
+       "Label": "Aluminium Drilling Rig"
+     },
+     {
+       "Category": "Stainless Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_StainlessSteelDrillingRig",
+       "MaxCount": 32,
+       "Name": "StainlessSteelDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 4
++      },
+       "Label": "Stainless Steel Drilling Rig"
+     },
+     {
+       "Category": "Titanium",
+       "Class": "SolidStaticItem",
+       "Image": "T_TitaniumDrillingRig",
+       "MaxCount": 32,
+       "Name": "TitaniumDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 5
++      },
+       "Label": "Titanium Drilling Rig"
+     },
+     {
+       "Category": "Hard Metal",
+       "Class": "SolidStaticItem",
+       "Image": "T_HardMetalDrillingRig",
+       "MaxCount": 32,
+       "Name": "HardMetalDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 6
++      },
+       "Label": "Hard Metal Drilling Rig"
+     },
+     {
+       "Category": "Neutronium",
+       "Class": "SolidStaticItem",
+       "Image": "T_NeutroniumDrillingRig",
+       "MaxCount": 32,
+       "Name": "NeutroniumDrillingRigStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "DrillingRigBaseRecipeDictionary",
++        "Tier": 7
++      },
+       "Label": "Neutronium Drilling Rig"
+     },
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperAssembler",
+       "MaxCount": 32,
+@@ -35571,50 +35786,70 @@
+     {
+       "Category": "Aluminium",
+       "Class": "SolidStaticItem",
+       "Image": "T_AluminiumPumpjack",
+       "MaxCount": 32,
+       "Name": "AluminiumPumpjackStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
++        "Tier": 1
++      },
+       "Label": "Aluminium Pumpjack"
+     },
+     {
+       "Category": "Stainless Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_StainlessSteelPumpjack",
+       "MaxCount": 32,
+       "Name": "StainlessSteelPumpjackStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
++        "Tier": 2
++      },
+       "Label": "Stainless Steel Pumpjack"
+     },
+     {
+       "Category": "Titanium",
+       "Class": "SolidStaticItem",
+       "Image": "T_TitaniumPumpjack",
+       "MaxCount": 32,
+       "Name": "TitaniumPumpjackStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
++        "Tier": 3
++      },
+       "Label": "Titanium Pumpjack"
+     },
+     {
+       "Category": "Hard Metal",
+       "Class": "SolidStaticItem",
+       "Image": "T_HardMetalPumpjack",
+       "MaxCount": 32,
+       "Name": "HardMetalPumpjackStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
++        "Tier": 4
++      },
+       "Label": "Hard Metal Pumpjack"
+     },
+     {
+       "Category": "Neutronium",
+       "Class": "SolidStaticItem",
+       "Image": "T_NeutroniumPumpjack",
+       "MaxCount": 32,
+       "Name": "NeutroniumPumpjackStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
++        "Tier": 5
++      },
+       "Label": "Neutronium Pumpjack"
+     },
+     {
+       "Category": "Stainless Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_StainlessSteelIndustrialSmelter",
+       "MaxCount": 32,
