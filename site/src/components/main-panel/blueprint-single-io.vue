@@ -11,8 +11,11 @@ const emit = defineEmits<{
     (e: 'link-drag-force'): void;
 }>();
 
-const direction = computed(() => !props.io.isInput ? 'flex-row-reverse' : 'flex-row');
-const align = computed(() => props.io.isInput ? 'text-left' : 'text-right');
+function isLtr() {
+    return props.io.isFlipped ? !props.io.isInput : props.io.isInput;
+}
+const direction = computed(() => isLtr() ? 'flex-row' : 'flex-row-reverse');
+const align = computed(() => isLtr() ? 'text-left' : 'text-right');
 </script>
 
 <template>

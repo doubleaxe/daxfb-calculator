@@ -54,6 +54,7 @@ const dragShown = (screenXY: ReadonlyPointType) => {
         width: settings.iconSize,
         height: settings.iconSize,
     });
+    draggingTarget.setFlipped(_draggingSource.isFlipped);
 };
 
 const updateLink = (screenXY: ReadonlyPointType) => {
@@ -87,6 +88,7 @@ const processTargetItem = (screenXY: ReadonlyPointType) => {
     clearHoveringItem();
     hoveringItem = item;
     hoveringItem.calculateLinkState(_draggingSource);
+    draggingTarget?.setFlipped(hoveringItem.isFlipped);
 };
 
 const dragMove = (screenXY: ReadonlyPointType) => {

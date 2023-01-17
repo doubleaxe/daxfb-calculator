@@ -22,6 +22,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _isInput;
     private readonly _links;
     private readonly _cpsMax;
+    private _isFlipped = false;
 
     constructor(
         io: RecipeIO,
@@ -49,7 +50,13 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isResource() { return this._io.isResource; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
-    get isFlipped() { return this._ownerItem?.isFlipped || false; }
+    get isFlipped() { return this._ownerItem?.isFlipped || this._isFlipped; }
+
+    setFlipped(isFlipped: boolean) {
+        if(this._ownerItem)
+            throw new Error('Cannot set flipped');
+        this._isFlipped = isFlipped;
+    }
 
     _$linkAdded(value: LinkModel) {
         this._links.set(value.key, value);

@@ -101,6 +101,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             p: [Math.round(this.rect.x), Math.round(this.rect.y)],
             r: this._selectedRecipe?.name || '',
             c: (this._count == 1) ? undefined : this._count,
+            f: this.isFlipped ? 1 : undefined,
         };
     }
     _$loadItem(i: SavedItem) {
@@ -111,6 +112,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             y: i.p[1],
         });
         this.setCount(i.c || 1);
+        this.isFlipped = i.f ? true : false;
     }
     _$loadLink(sourceItem: BlueprintItemModel) {
         //TODO - show errors and status for invalid link

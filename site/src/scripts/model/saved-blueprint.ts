@@ -8,6 +8,7 @@ export type SavedItem = {
     p: number[];
     r: string;
     c?: number;
+    f?: 1;
 };
 
 export type SavedLink = {
