@@ -9,4 +9,4 @@ npm-debug.log*
 site/components.d.ts
 site/data/*
 !site/data/readme.md
-data/static/data.json
+data/**/static/data.json

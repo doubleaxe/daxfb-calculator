@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {ImagesList} from './prepare-images.mjs';
 import {RecipesList, ItemsList, Localization, JsonComposer} from './prepare-json.mjs';
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), 'data', 'parsed');
+const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), 'parsed');
 
 // /data/games/SteamLibrary/steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content
 (async function() {

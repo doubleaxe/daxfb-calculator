@@ -9,12 +9,9 @@ import {
     DIFF_EQUAL,
 } from 'diff-match-patch';
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
-const __parsed = path.join(__dirname, 'data', 'parsed');
-const __static = path.join(__dirname, 'data', 'static');
-
 //apply diff, edit, make new diff
 const args = process.argv.slice(2);
+const game = process.env['GAME'] || 'example';
 let isMakeDiff = false;
 let isLineDiff = false;
 let isTextPatch = false;
@@ -30,10 +27,14 @@ args.forEach((arg) => {
         isPrint = true;
 });
 
-//npx ts-node build-data-diff.ts
+const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
+const __parsed = path.join(__dirname, 'data', game, 'parsed');
+const __static = path.join(__dirname, 'data', game, 'static');
+
+//GAME=evospace npx ts-node build-data-diff.ts
 //edit file
-//npx ts-node build-data-diff.ts diff line text
-//npx ts-node print
+//GAME=evospace npx ts-node build-data-diff.ts diff line text
+//GAME=evospace npx ts-node build-data-diff.ts print
 (async function() {
     const diff = new DiffMatchPatch();
     const parsedDataJson = fs.readFileSync(path.join(__parsed, 'data.json'), 'utf8');
@@ -85,4 +86,7 @@ args.forEach((arg) => {
             fs.writeFileSync(path.join(__static, 'data.json'), staticDataJson, 'utf8');
         }
     }
-})().catch((err) => console.error(err.stack));
+})().catch((err) => {
+    console.error(err.stack);
+    process.exit(1);
+});

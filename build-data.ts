@@ -17,17 +17,20 @@ import type {
     JsonRecipeIO as OptimizedJsonRecipeIO,
 } from './site/src/scripts/data/json-data-types';
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
-const __parsed = path.join(__dirname, 'data', 'parsed');
-const __static = path.join(__dirname, 'data', 'static');
-const __target = path.join(__dirname, 'site', 'data');
-
+//GAME=evospace npm run build-data
+//GAME=evospace npm run dev
 const args = process.argv.slice(2);
+const game = process.env['GAME'] || 'example';
 let isRebuildKeys = false;
 args.forEach((arg) => {
     if(arg == 'clean')
         isRebuildKeys = true;
 });
+
+const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
+const __parsed = path.join(__dirname, 'data', game, 'parsed');
+const __static = path.join(__dirname, 'data', game, 'static');
+const __target = path.join(__dirname, 'site', 'data');
 
 class MergeData {
     private readonly parsedDataJson;
@@ -278,4 +281,7 @@ class OptimizeData {
 
     const images = fs.readFileSync(path.join(__parsed, 'images.png'));
     fs.writeFileSync(path.join(__target, 'images.png'), images);
-})().catch((err) => console.error(err.stack));
+})().catch((err) => {
+    console.error(err.stack);
+    process.exit(1);
+});
