@@ -7,7 +7,8 @@ import {diff_match_patch as DiffMatchPatch} from 'diff-match-patch';
 import type {
     Images,
     JsonData,
-    JsonRecipe,
+    JsonItem,
+    JsonRecipeDictionary,
     JsonRecipeIO,
     KeysJson,
 } from './data/json-data-types';
@@ -95,19 +96,28 @@ class MergeKeys {
         };
     }
     private mergeRecipes() {
-        const sub0 = (sub: JsonRecipe[]) => {
-            const mappedObject = this.mapKeys(sub.map((recipe) => [recipe.Name, recipe]));
-            return mappedObject?.map(([key, recipe]) => {
+        const sub0 = (sub: JsonRecipeDictionary) => {
+            const mappedObject = this.mapKeys(sub.Recipes.map((recipe) => [recipe.Name, recipe]));
+            sub.Recipes = mappedObject?.map(([key, recipe]) => {
                 recipe.Name = key;
                 return recipe;
             }) || [];
+            return sub;
         };
-        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.recipes || {}), undefined, sub0);
-        this.mergedDataJson.recipes = Object.fromEntries(mappedObject || []);
+        const mappedArray: [string, JsonRecipeDictionary][] = (this.mergedDataJson.recipes || []).map((r) => [r.Name, r]);
+        const mappedObject = this.mapKeys(mappedArray, undefined, sub0);
+        this.mergedDataJson.recipes = mappedObject?.map(([key, value]) => {
+            value.Name = key;
+            return value;
+        }) || [];
     }
     private mergeItems() {
-        const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.items || {}), MergeKeys.itemNameMapper);
-        this.mergedDataJson.items = Object.fromEntries(mappedObject || []);
+        const mappedArray: [string, JsonItem][] = (this.mergedDataJson.items || []).map((r) => [r.Name, r]);
+        const mappedObject = this.mapKeys(mappedArray, MergeKeys.itemNameMapper);
+        this.mergedDataJson.items = mappedObject?.map(([key, value]) => {
+            value.Name = key;
+            return value;
+        }) || [];
     }
     private mergeImages() {
         const mappedObject = this.mapKeys(Object.entries(this.mergedDataJson.images || {}), MergeKeys.imageNameMapper);
@@ -134,7 +144,7 @@ class MergeKeys {
 
     private fixRecipeReferences() {
         const nameMapping = this.keysJson.keys || {};
-        for(const recipes of Object.values(this.mergedDataJson.recipes || {})) {
+        for(const {Recipes: recipes} of this.mergedDataJson.recipes || []) {
             for(const recipe of recipes) {
                 const io = [
                     ...(recipe.Input ? recipe.Input : []),
@@ -150,7 +160,7 @@ class MergeKeys {
     }
     private fixItemReferences() {
         const nameMapping = this.keysJson.keys || {};
-        for(const item of Object.values(this.mergedDataJson.items || {})) {
+        for(const item of this.mergedDataJson.items || []) {
             item.Image = nameMapping[MergeKeys.imageNameMapper(item.Image)] || '';
             if(item.Recipe) {
                 item.Recipe.RecipeDictionary = nameMapping[item.Recipe.RecipeDictionary] || '';
@@ -201,15 +211,15 @@ class OptimizeData {
     constructor(mergedDataJson: JsonData) {
         this.mergedDataJson = mergedDataJson;
     }
-    optimize(): OptimizedJsonData {
+    optimize(reverceKeys: {[k: string]: string}): OptimizedJsonData {
         return {
-            recipes: this.optimizeRecipes(),
-            items: this.optimizeItems(),
+            recipes: this.optimizeRecipes(reverceKeys),
+            items: this.optimizeItems(reverceKeys),
             images: this.mergedDataJson.images || {},
         };
     }
 
-    optimizeRecipes() {
+    optimizeRecipes(reverceKeys: {[k: string]: string}) {
         const mapIO = (io?: JsonRecipeIO): OptimizedJsonRecipeIO | undefined => {
             if(!io)
                 return io;
@@ -225,9 +235,9 @@ class OptimizeData {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return io.map((i) => mapIO(i!)!);
         };
-        const optimizedRecipes: OptimizedJsonData['recipes'] = {};
-        for(const [key, recipes] of Object.entries(this.mergedDataJson.recipes || {})) {
-            optimizedRecipes[key] = recipes.map((recipe) => ({
+        const optimizedDictionary: OptimizedJsonData['recipes'] = [];
+        for(const dictionary of this.mergedDataJson.recipes || []) {
+            const optimizedRecipes = dictionary.Recipes.map((recipe) => ({
                 Name: recipe.Name,
                 Input: mapIOArray(recipe.Input),
                 Output: mapIOArray(recipe.Output),
@@ -236,13 +246,20 @@ class OptimizeData {
                 Ticks: recipe.Ticks,
                 Tier: recipe.Tier,
             }));
+            optimizedDictionary.push({
+                Name: dictionary.Name,
+                Recipes: optimizedRecipes,
+            });
         }
-        return optimizedRecipes;
+        /*
+        optimizedDictionary.sort((a1, a2) => (reverceKeys[a1.Name] || a1.Name).localeCompare(reverceKeys[a2.Name] || a2.Name));
+        */
+        return optimizedDictionary;
     }
-    optimizeItems() {
-        const optimizedItems: OptimizedJsonData['items'] = {};
-        for(const [key, item] of Object.entries(this.mergedDataJson.items || {})) {
-            optimizedItems[key] = {
+    optimizeItems(reverceKeys: {[k: string]: string}) {
+        const optimizedItems: OptimizedJsonData['items'] = [];
+        for(const item of this.mergedDataJson.items) {
+            const item0 = {
                 Name: item.Name,
                 Label: item.Label,
                 Image: item.Image,
@@ -250,7 +267,11 @@ class OptimizeData {
                 UnitMul: item.UnitMul,
                 Recipe: item.Recipe,
             };
+            optimizedItems.push(item0);
         }
+        /*
+        optimizedItems.sort((a1, a2) => (reverceKeys[a1.Name] || a1.Name).localeCompare(reverceKeys[a2.Name] || a2.Name));
+        */
         return optimizedItems;
     }
 }
@@ -276,7 +297,7 @@ class OptimizeData {
     fs.writeFileSync(path.join(__static, 'keys.json'), JSON.stringify(keysJson, null, '  '));
     fs.writeFileSync(path.join(__target, 'keys.json'), JSON.stringify(reverceKeys));
 
-    const optimizedData = new OptimizeData(mergedDataJson).optimize();
+    const optimizedData = new OptimizeData(mergedDataJson).optimize(reverceKeys);
     fs.writeFileSync(path.join(__target, 'data.json'), JSON.stringify(optimizedData));
 
     const images = fs.readFileSync(path.join(__parsed, 'images.png'));

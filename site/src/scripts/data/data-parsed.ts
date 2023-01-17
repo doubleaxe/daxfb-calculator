@@ -19,8 +19,7 @@ export const parsedRecipes = new Map<string, RecipeDictionary>();
 class ItemImpl {
     private readonly _item: JsonItem;
     private _recipeDictionary?: RecipeDictionary = undefined;
-    constructor(name: string, _item: JsonItem) {
-        _item.Name = name;
+    constructor(_item: JsonItem) {
         this._item = _item;
         this.tier = _item.Recipe?.Tier || 0;
     }
@@ -150,12 +149,12 @@ class RecipeDictionaryImpl {
 
 
 (() => {
-    for(const [key, value] of Object.entries(dataJson.items)) {
-        parsedItems.set(key, new ItemImpl(key, value));
+    for(const value of dataJson.items) {
+        parsedItems.set(value.Name, new ItemImpl(value));
     }
 
-    for(const [key, value] of Object.entries(dataJson.recipes)) {
-        parsedRecipes.set(key, new RecipeDictionaryImpl(value));
+    for(const value of dataJson.recipes) {
+        parsedRecipes.set(value.Name, new RecipeDictionaryImpl(value.Recipes));
     }
 
     for(const item of parsedItems.values()) {

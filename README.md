@@ -16,7 +16,7 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - ~~Missing icons~~
 - Delete single link
 - Item filters
-- Item ordering
+- ~~Item ordering~~
 - Auto recipe selection on linking
 - Large recipe menu pagination and filtering
 - Conveyors/Robotic arms/Pipes/etc.. support for link
@@ -28,4 +28,4 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - Share
 - Some example templates
 - Help
-- Generalize recipe data, so other games may be supported in the future
+- ~~Generalize recipe data, so other games may be supported in the future~~

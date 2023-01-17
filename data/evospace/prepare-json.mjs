@@ -21,7 +21,8 @@ const _commons = {
 
 export class RecipesList {
     #names = new Set();
-    #recipes = {};
+    //insertion order is important
+    #recipes = new Map();
 
     constructor() {
     }
@@ -43,17 +44,20 @@ export class RecipesList {
             if(name.indexOf(RecipesList.SEPARATOR) >= 0) {
                 throw new Error(`Invalid separator, choose another: ${name}`);
             }
-            let recipeList = this.#recipes[name];
+            let recipeList = this.#recipes.get(name);
             if(!recipeList) {
-                recipeList = [];
-                this.#recipes[name] = recipeList;
+                recipeList = {
+                    Name: name,
+                    Recipes: [],
+                };
+                this.#recipes.set(name, recipeList);
             }
             for(const recipe of object.Recipes) {
                 if(this.#names.has(name + RecipesList.SEPARATOR + recipe.Name))
                     throw new Error(`Duplicate recipe name ${name} => ${recipe.Name}`);
                 this.#names.add(name + RecipesList.SEPARATOR + recipe.Name);
                 _commons.validateJsonObject(RecipesList.#recipeSchema, recipe, baseName, name);
-                recipeList.push({
+                recipeList.Recipes.push({
                     Category_T: baseName,
                     ...recipe,
                 });
@@ -107,27 +111,29 @@ export class RecipesList {
 
 
 export class ItemsList {
+    //insertion order is important
     #objects = {
-        solidStaticItem: {},
-        abstractStaticItem: {},
-        fluidStaticItem: {},
-        baseRecipeDictionary: {},
+        solidStaticItem: new Map(),
+        abstractStaticItem: new Map(),
+        fluidStaticItem: new Map(),
+        baseRecipeDictionary: new Map(),
     };
 
     constructor() {
     }
 
     prepareComposer(composer) {
-        const items = {};
+        //insertion order is important
+        const items = new Map();
         [
             this.#objects.solidStaticItem,
             this.#objects.abstractStaticItem,
             this.#objects.fluidStaticItem,
         ].forEach((item) => {
-            for(const [name, value] of Object.entries(item)) {
-                if(items[name])
+            for(const [name, value] of item.entries()) {
+                if(items.has(name))
                     throw new Error(`Duplicate item name ${name}`);
-                items[name] = value;
+                items.set(name, value);
             }
         });
         composer.items = items;
@@ -149,14 +155,13 @@ export class ItemsList {
             _commons.validateJsonObject(schema, object, baseName);
 
             const name = object.Name;
-            delete object.Name;
-            const maybeArray = destObject[name];
+            const maybeArray = destObject.get(name);
             if(maybeArray) {
                 if(!processing.allowDuplicates)
                     throw new Error(`Duplicate object name ${baseName} => ${_class} => ${name}`);
                 maybeArray.push(object);
             } else {
-                destObject[name] = processing.allowDuplicates ? [object] : object;
+                destObject.set(name, processing.allowDuplicates ? [object] : object);
             }
         }
     }
@@ -292,14 +297,14 @@ export class JsonComposer {
         const recipes = this.#recipes;
         const items = this.#items;
         const recipeDictionary = this.#recipeDictionary;
-        for(const [recipeName, array] of Object.entries(recipeDictionary)) {
-            if(!recipes[recipeName]) {
+        for(const [recipeName, array] of recipeDictionary.entries()) {
+            if(!recipes.has(recipeName)) {
                 //unused recipe
                 continue;
             }
             for(const recipe of array) {
                 const {Item: itemName, Tier: recipeTier} = recipe.UsedIn[0];
-                const item = items[itemName];
+                const item = items.get(itemName);
                 if(item.Recipe) {
                     throw new Error(`Multiple recipes for single item\n${JSON.stringify(item, null, '  ')}`);
                 }
@@ -317,7 +322,7 @@ export class JsonComposer {
         const formatLabel = (labelParts) => {
             return labelParts.map(([label, file]) => loc[file][label]).join(' ');
         };
-        for(const item of Object.values(items)) {
+        for(const item of items.values()) {
             item.Label = formatLabel(item.LabelParts);
         }
     }
@@ -326,13 +331,13 @@ export class JsonComposer {
         const recipes = this.#recipes;
         const items = this.#items;
 
-        const craftableRecipes = new Set(Object.keys(this.#recipeDictionary));
-        const filteredRecipes = Object.fromEntries(
-            Object.entries(recipes).filter(([key]) => craftableRecipes.has(key))
+        const craftableRecipes = this.#recipeDictionary;
+        const filteredRecipes = new Map(
+            [...recipes.entries()].filter(([key]) => craftableRecipes.has(key))
         );
 
-        const craftableItems = new Set(Object.values(filteredRecipes).flatMap(
-            (recipeArray) => recipeArray.flatMap((recipe) => {
+        const craftableItems = new Set([...filteredRecipes.values()].flatMap(
+            ({Recipes: recipeArray}) => recipeArray.flatMap((recipe) => {
                 return [
                     ...recipe.Input.Items,
                     ...recipe.Output.Items,
@@ -341,12 +346,12 @@ export class JsonComposer {
                 ].flatMap(({Name}) => Name);
             }))
         );
-        const filteredItems = Object.fromEntries(
-            Object.entries(items).filter(([key]) => craftableItems.has(key))
+        const filteredItems = new Map(
+            [...items.entries()].filter(([key]) => craftableItems.has(key))
         );
 
         //delete now unused keys
-        for(const item of Object.values(filteredRecipes).flat()) {
+        for(const item of [...filteredRecipes.values()].flatMap(({Recipes}) => Recipes)) {
             if(!item.Input.Items)
                 delete item.Input;
             else
@@ -356,9 +361,8 @@ export class JsonComposer {
             else
                 item.Output = item.Output.Items;
         }
-        for(const item of Object.values(filteredItems)) {
+        for(const item of [...filteredItems.values()]) {
             delete item.LabelParts;
-            delete item.Name;
         }
         return new FinalJson(filteredRecipes, filteredItems);
     }
@@ -380,12 +384,12 @@ class FinalJson {
     }
 
     getUsableImages() {
-        return new Set(Object.values(this.#filteredItems).map((item) => item.Image));
+        return new Set([...this.#filteredItems.values()].map((item) => item.Image));
     }
     async saveComposedJsonAsync({jsonPath}) {
         const finalJson = {
-            recipes: this.#filteredRecipes,
-            items: this.#filteredItems,
+            recipes: [...this.#filteredRecipes.values()],
+            items: [...this.#filteredItems.values()],
         };
         await fs.writeFile(jsonPath, JSON.stringify(finalJson, null, '  '));
     }

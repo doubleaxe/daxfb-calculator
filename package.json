@@ -13,7 +13,6 @@
     "eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "stylelint": "stylelint \"**/*.vue\" --fix",
     "type-check": "tsc --noEmit && vue-tsc --noEmit -p site",
-    "prepare-data": "node prepare.mjs",
     "build-data": "ts-node build-data.ts",
     "build-data-debug": "node --loader ts-node/esm --inspect-brk build-data.ts"
   },

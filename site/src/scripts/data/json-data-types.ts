@@ -9,19 +9,26 @@ export interface JsonRecipeIO {
 }
 export interface JsonRecipe {
     Name: string;
+    //ordered in natural order
     Input?: JsonRecipeIO[];
+    //ordered in natural order
     Output?: JsonRecipeIO[];
     ResourceInput?: JsonRecipeIO;
     ResourceOutput?: JsonRecipeIO;
     Ticks: number;
     Tier?: number;
 }
+export interface JsonRecipeDictionary {
+    Name: string;
+    //ordered in natural order
+    Recipes: JsonRecipe[];
+}
 export interface JsonRecipeReference {
     RecipeDictionary: string;
     Tier: number;
 }
 export interface JsonItem {
-    Name?: string;
+    Name: string;
     Label: string;
     Image: string;
     Tier?: number;
@@ -29,11 +36,9 @@ export interface JsonItem {
     Recipe?: JsonRecipeReference;
 }
 export interface JsonData {
-    recipes: {
-        [key: string]: JsonRecipe[];
-    };
-    items: {
-        [key: string]: JsonItem;
-    };
+    //ordered in natural order
+    recipes: JsonRecipeDictionary[];
+    //ordered in natural order
+    items: JsonItem[];
     images: Images;
 }
