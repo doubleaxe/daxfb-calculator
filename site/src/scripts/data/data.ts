@@ -6,14 +6,19 @@ import type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray} fr
 export type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray};
 
 class DataProvider {
+    private readonly allItems;
     private readonly producerItems;
     private readonly recipesForItem;
     constructor() {
-        this.producerItems = [...parsedItems.values()].filter((item) => item.recipeDictionary);
+        this.allItems = [...parsedItems.values()];
+        this.producerItems = this.allItems.filter((item) => item.recipeDictionary);
         this.recipesForItem = new Map<Item, RecipeDictionaryArray>();
     }
     getItemImageDef(key: string) {
         return imagesJson[key];
+    }
+    getAllItems() {
+        return this.allItems.concat();
     }
     getProducerItems() {
         return this.producerItems.concat();

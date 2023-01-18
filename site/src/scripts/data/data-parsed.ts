@@ -22,6 +22,7 @@ class ItemImpl {
     constructor(_item: JsonItem) {
         this._item = _item;
         this.tier = _item.Recipe?.Tier || 0;
+        this.lowerLabel = _item.Label.toLowerCase();
     }
     init() {
         const {_item} = this;
@@ -40,6 +41,7 @@ class ItemImpl {
     get name(): string { return this._item.Name || ''; }
     get label(): string { return this._item.Label; }
     public readonly tier;
+    public readonly lowerLabel;
     get recipeDictionary() { return this._recipeDictionary; }
     get multiplexor() { return this._item.UnitMul; }
 }
