@@ -1,6 +1,5 @@
 node_modules
 dist
-stats.html
 .vscode
 !.vscode/extensions.json
 *.code-workspace

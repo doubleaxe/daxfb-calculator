@@ -1,40 +1,45 @@
 import {
     parsedItems,
     imagesJson,
+    newItemRecipeDictionary,
 } from './data-parsed';
-import type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray} from './data-parsed';
-export type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray};
+import type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray, ItemRecipeDictionary} from './data-parsed';
+export type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray, ItemRecipeDictionary};
 
+const EMPTY_RECIPE_DICTIONARY = newItemRecipeDictionary();
 class DataProvider {
     private readonly allItems;
     private readonly producerItems;
-    private readonly recipesForItem;
+    private readonly itemRecipeDictionary;
     constructor() {
         this.allItems = [...parsedItems.values()];
+        Object.freeze(this.allItems);
         this.producerItems = this.allItems.filter((item) => item.recipeDictionary);
-        this.recipesForItem = new Map<Item, RecipeDictionaryArray>();
+        Object.freeze(this.producerItems);
+        this.itemRecipeDictionary = new Map<Item, ItemRecipeDictionary>();
     }
     getItemImageDef(key: string) {
         return imagesJson[key];
     }
     getAllItems() {
-        return this.allItems.concat();
+        return this.allItems;
     }
     getProducerItems() {
-        return this.producerItems.concat();
+        return this.producerItems;
     }
     getItem(name: string) {
         return parsedItems.get(name);
     }
-    getRecipesForItem(item?: Item): RecipeDictionaryArray {
+    getRecipesForItem(item?: Item): ItemRecipeDictionary {
         if(!item?.recipeDictionary)
-            return [];
-        let recipesForItem = this.recipesForItem.get(item);
-        if(!recipesForItem) {
-            recipesForItem = item.recipeDictionary.getForTier(item.tier);
-            this.recipesForItem.set(item, recipesForItem);
+            return EMPTY_RECIPE_DICTIONARY;
+
+        let itemRecipeDictionary = this.itemRecipeDictionary.get(item);
+        if(!itemRecipeDictionary) {
+            itemRecipeDictionary = newItemRecipeDictionary(item);
+            this.itemRecipeDictionary.set(item, itemRecipeDictionary);
         }
-        return recipesForItem;
+        return itemRecipeDictionary;
     }
 }
 

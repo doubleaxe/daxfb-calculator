@@ -1,4 +1,4 @@
-import {dataProvider, type Recipe} from '../data/data';
+import {dataProvider} from '../data/data';
 import {RecipeModelImpl} from './recipe';
 import {ItemModelImpl} from './item';
 import type {
@@ -14,6 +14,7 @@ import {Rect} from '../geometry';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
     private _rect: PublicRect = Rect.assign();
+    private readonly _recipesDictionary;
     private readonly _recipes;
     private _selectedRecipe?: RecipeModel;
     public isFloating = false;
@@ -25,9 +26,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, dataProvider.getItem(name));
-        this._recipes = new Map<string, Recipe>(
-            dataProvider.getRecipesForItem(this._item).map((r) => [r.name, r])
-        );
+        this._recipesDictionary = dataProvider.getRecipesForItem(this._item);
+        this._recipes = this._recipesDictionary.recipesMap;
         if(this._recipes.size) {
             this._selectedRecipe = new RecipeModelImpl(this, this._recipes.values().next().value);
         }
@@ -80,6 +80,22 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         oldRecipe?._$deleteAllLinks();
         this._selectedRecipe = newRecipe;
         this.owner?._$graphChanged();
+    }
+    possibleRecipeForItem(name: string, direction: number): string | undefined {
+        let possibleRecipesArray: string[] = [];
+        if(direction <= 0) {
+            const possibleRecipes = this._recipesDictionary.recipesByInputMap.get(name);
+            if(possibleRecipes)
+                possibleRecipesArray = possibleRecipesArray.concat(possibleRecipes);
+        }
+        if(direction >= 0) {
+            const possibleRecipes = this._recipesDictionary.recipesByOutputMap.get(name);
+            if(possibleRecipes)
+                possibleRecipesArray = possibleRecipesArray.concat(possibleRecipes);
+        }
+        if(!possibleRecipesArray.length)
+            return undefined;
+        return possibleRecipesArray[0];
     }
     setCount(count: number) {
         this._count = count;

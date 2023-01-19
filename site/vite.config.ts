@@ -1,4 +1,5 @@
-import {fileURLToPath, URL} from 'node:url';
+import {fileURLToPath} from 'node:url';
+import * as path from 'node:path';
 
 import {defineConfig} from 'vite';
 import type {IndexHtmlTransformHook} from 'vite';
@@ -11,6 +12,9 @@ import {
     VueUseComponentsResolver,
     VueUseDirectiveResolver
 } from 'unplugin-vue-components/resolvers';
+
+const game = process.env['GAME'] || 'example';
+const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
 
 const htmlPlugin = () => {
     const transformIndexHtml: IndexHtmlTransformHook = (html) => {
@@ -38,14 +42,16 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': path.join(__dirname, 'src')
         }
     },
     build: {
-        outDir: '../dist',
+        outDir: path.join(__dirname, `../dist/${game}`),
         emptyOutDir: true,
         rollupOptions: {
-            plugins: [visualizer()],
+            plugins: [visualizer({
+                filename: path.join(__dirname, '../dist/stats.html')
+            })],
             output: {
                 format: 'iife',
             },

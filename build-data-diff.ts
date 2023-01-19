@@ -13,7 +13,7 @@ args.forEach((arg) => {
         isMakeDiff = true;
 });
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const __parsed = path.join(__dirname, 'data', game, 'parsed');
 const __static = path.join(__dirname, 'data', game, 'static');
 

@@ -4,11 +4,10 @@ import {dataProvider, type Item} from './data/data';
 class Filter {
     private _tier?: number;
     private _tierEqual = 0;
-    private _label?: string;
+    private _groupTier = false;
     private _key?: string;
     private _direction = 0;
-    private _subFilter?: Filter;
-    private _filtered?: Item[];
+    private _filtered?: Item[][];
 
     get tier() { return this._tier; }
     set tier(tier: number | undefined) { this._tier = tier; this._filtered = undefined; }
@@ -16,8 +15,8 @@ class Filter {
     get tierEqual() { return this._tierEqual; }
     set tierEqual(tierEqual: number) { this._tierEqual = tierEqual; this._filtered = undefined; }
 
-    get label() { return this._label; }
-    set label(label: string | undefined) { this._label = label; this._filtered = undefined; }
+    get groupTier() { return this._groupTier; }
+    set groupTier(groupTier: boolean) { this._groupTier = groupTier; this._filtered = undefined; }
 
     get key() { return this._key; }
     set key(key: string | undefined) { this._key = key; this._filtered = undefined; }
@@ -25,30 +24,24 @@ class Filter {
     get direction() { return this._direction; }
     set direction(direction: number) { this._direction = direction; this._filtered = undefined; }
 
-    get subFilter() { return this._subFilter; }
-    newSubFilter() {
-        this._subFilter = new Filter();
-        return this._subFilter;
-    }
-    resetSubFilter() {
-        this._subFilter = undefined;
-    }
-
-    buildFilter(): Item[] {
-        if(this._subFilter)
-            return this._subFilter.buildFilter();
+    buildFilter(): Item[][] {
         if(this._filtered)
             return this._filtered;
         let filteredItems = dataProvider.getProducerItems();
 
         //key takes precedence before label
         if(this._key) {
-            filteredItems = Filter.filterItems(filteredItems, this._direction, (item) => (item.name == this._key));
-        } else if(this._label) {
-            const labels = this._label.split(' ').map((s) => s.trim());
-            filteredItems = Filter.filterItems(filteredItems, this._direction, (item) => (
-                labels.some((l) => item.label.indexOf(l) >= 0)
-            ));
+            const key = this._key;
+            filteredItems = filteredItems.filter((item) => {
+                if(item.name == key)
+                    return true;
+                const recipes = dataProvider.getRecipesForItem(item);
+                if((this._direction <= 0) && recipes.recipesByInputMap.has(key))
+                    return true;
+                if((this._direction >= 0) && recipes.recipesByOutputMap.has(key))
+                    return true;
+                return false;
+            });
         }
 
         if(this._tier) {
@@ -61,19 +54,23 @@ class Filter {
                 return item.tier == tier;
             });
         }
-        return filteredItems;
-    }
-    private static filterItems(filteredItems: Item[], direction: number, comparator: (item: Item) => boolean) {
-        filteredItems = filteredItems.filter((item) => {
-            if(comparator(item))
-                return true;
-            const recipes = dataProvider.getRecipesForItem(item);
-            return recipes.some((recipe) => (
-                ((direction <= 0) && recipe.input.some((io) => comparator(io.item)))
-                || ((direction >= 0) && recipe.output.some((io) => comparator(io.item)))
-            ));
-        });
-        return filteredItems;
+
+        let filteredGroup: Item[][];
+        if(this._groupTier) {
+            filteredGroup = [];
+            for(const item of filteredItems) {
+                let array = filteredGroup[(item.tier || 1) - 1];
+                if(!array) {
+                    array = [];
+                    filteredGroup[(item.tier || 1) - 1] = array;
+                }
+                array.push(item);
+            }
+        } else {
+            filteredGroup = [filteredItems];
+        }
+        this._filtered = filteredGroup;
+        return this._filtered;
     }
 }
 

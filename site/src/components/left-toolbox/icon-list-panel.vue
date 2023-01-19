@@ -15,14 +15,17 @@ const filter = injectFilter();
         <icon-list-filter />
         <div class="icon-div-parent">
             <optimized-tooltip>
-                <template v-for="item in filter.buildFilter()" :key="item.name">
-                    <icon-component
-                        class="rounded icon-div hover-elevation"
-                        :image="item.image"
-                        :data-tooltip="item.label"
-                        @pointerdown="emit('drag-begin', item)"
-                        @pointerup="emit('drag-begin')"
-                    />
+                <template v-for="(group, _index1) in filter.buildFilter()" :key="_index1">
+                    <v-divider v-if="_index1" />
+                    <template v-for="item in group" :key="item.name">
+                        <icon-component
+                            class="rounded icon-div hover-elevation"
+                            :image="item.image"
+                            :data-tooltip="item.label"
+                            @pointerdown="emit('drag-begin', item)"
+                            @pointerup="emit('drag-begin')"
+                        />
+                    </template>
                 </template>
             </optimized-tooltip>
         </div>

@@ -19,15 +19,16 @@ const select = ref<Item | undefined>(undefined);
 const search = ref('');
 const direction = ref('0');
 const updateSearch = useDebounceFn(() => {
-    const val = unref(search);
+    let val = unref(search);
+    val = val && val.trim();
     if(!val) {
         filteredItems.value = allItems;
         page.value = 1;
         return;
     }
-    const searchText = val.toLowerCase().split(' ').map((s) => s.trim());
+    const searchText = val.toLowerCase().split(/\s+/).map((s) => s.trim());
     filteredItems.value = allItems.filter((item) => (
-        searchText.every((l) => item.lowerLabel.indexOf(l) > -1))
+        searchText.every((l) => !l || (item.lowerLabel.indexOf(l) > -1)))
     );
     if(unref(page) > unref(pages)) {
         page.value = unref(pages);
@@ -75,12 +76,13 @@ watch(() => filter.tierEqual, (value) => {
             v-model:search="search"
             clearable
             no-filter
+            hide-details
             label="Item"
             :items="currentPage"
             @focus="(page = 1)"
         >
             <template #prepend-item>
-                <v-btn-toggle v-model="direction" group mandatory variant="outlined">
+                <v-btn-toggle v-model="direction" class="ml-2" group mandatory variant="outlined">
                     <v-btn value="-1">
                         Input
                     </v-btn>
@@ -116,6 +118,7 @@ watch(() => filter.tierEqual, (value) => {
             v-model="filter.tier"
             label="Tier"
             clearable
+            hide-details
             :items="[1, 2, 3, 4, 5, 6, 7]"
         >
             <template #prepend-item>
@@ -130,6 +133,13 @@ watch(() => filter.tierEqual, (value) => {
                         &gt;=
                     </v-btn>
                 </v-btn-toggle>
+                <v-list-item title="Group By" @click="(filter.groupTier = !filter.groupTier)">
+                    <template #prepend>
+                        <v-list-item-action start>
+                            <v-checkbox v-model="filter.groupTier" hide-details />
+                        </v-list-item-action>
+                    </template>
+                </v-list-item>
             </template>
         </v-select>
     </div>

@@ -336,7 +336,7 @@ Index: data.json
        "Tag": "Machines",
 +      "Recipe": {
 +        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-+        "Tier": 1
++        "Tier": 3
 +      },
        "Label": "Aluminium Pumpjack"
      },
@@ -349,7 +349,7 @@ Index: data.json
        "Tag": "Machines",
 +      "Recipe": {
 +        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-+        "Tier": 2
++        "Tier": 4
 +      },
        "Label": "Stainless Steel Pumpjack"
      },
@@ -362,7 +362,7 @@ Index: data.json
        "Tag": "Machines",
 +      "Recipe": {
 +        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-+        "Tier": 3
++        "Tier": 5
 +      },
        "Label": "Titanium Pumpjack"
      },
@@ -375,7 +375,7 @@ Index: data.json
        "Tag": "Machines",
 +      "Recipe": {
 +        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-+        "Tier": 4
++        "Tier": 6
 +      },
        "Label": "Hard Metal Pumpjack"
      },
@@ -388,7 +388,7 @@ Index: data.json
        "Tag": "Machines",
 +      "Recipe": {
 +        "RecipeDictionary": "PumpjackBaseRecipeDictionary",
-+        "Tier": 5
++        "Tier": 7
 +      },
        "Label": "Neutronium Pumpjack"
      },

@@ -28,7 +28,7 @@ args.forEach((arg) => {
         isRebuildKeys = true;
 });
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const __parsed = path.join(__dirname, 'data', game, 'parsed');
 const __static = path.join(__dirname, 'data', game, 'static');
 const __target = path.join(__dirname, 'site', 'data');

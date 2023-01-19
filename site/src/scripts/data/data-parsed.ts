@@ -11,6 +11,7 @@ export type Item = InterfaceOf<ItemImpl>;
 export type RecipeIO = InterfaceOf<RecipeIOImpl>;
 export type Recipe = InterfaceOf<RecipeImpl>;
 export type RecipeDictionary = InterfaceOf<RecipeDictionaryImpl>;
+export type ItemRecipeDictionary = InterfaceOf<ItemRecipeDictionaryImpl>;
 export type RecipeDictionaryArray = Recipe[];
 
 export const parsedItems = new Map<string, Item>();
@@ -46,16 +47,24 @@ class ItemImpl {
     get multiplexor() { return this._item.UnitMul; }
 }
 
+interface RecipeIOOptions {
+    isInput: boolean;
+    isResource: boolean;
+}
+type JsonRecipeIOEx = JsonRecipeIO & {
+    HasProbability?: boolean;
+    IsInput: boolean;
+    IsResource: boolean;
+};
+
 class RecipeIOImpl {
     private readonly _recipe: Recipe;
-    private readonly _io: JsonRecipeIO;
-    constructor(recipe: Recipe, _io: JsonRecipeIO, {isInput, isResource}: {isInput: boolean; isResource: boolean}) {
+    private readonly _io: JsonRecipeIOEx;
+    constructor(recipe: Recipe, _io: JsonRecipeIOEx) {
         this._recipe = recipe;
         this._io = _io;
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this.item = parsedItems.get(_io.Name)!;
-        this.isInput = isInput;
-        this.isResource = isResource;
         Object.freeze(this._io);
         Object.freeze(this);
     }
@@ -83,8 +92,9 @@ class RecipeIOImpl {
     }
 
     public readonly item: Item;
-    public readonly isInput;
-    public readonly isResource;
+    public get hasProbability() { return this._io.HasProbability; }
+    public get isInput() { return this._io.IsInput; }
+    public get isResource() { return this._io.IsResource; }
 
     get count() { return this._io.Count; }
 }
@@ -102,11 +112,32 @@ class RecipeImpl {
         //1 Second = 20 Ticks
         this.seconds = recipe.Ticks / 20;
 
-        const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, options: {isInput: boolean; isResource: boolean}) => {
+        const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {isInput, isResource}: RecipeIOOptions) => {
             if(!item)
                 return [];
-            const itemArray = Array.isArray(item) ? Object.freeze(item) : [item];
-            return itemArray.map((i) => new RecipeIOImpl(this, i, options));
+            const itemArray = Array.isArray(item) ? item : [item];
+
+            //merge probability, copy objects
+            const merge = new Map<string, JsonRecipeIOEx>();
+            for(const i of itemArray) {
+                const count = i.Probability ? (i.Count * i.Probability) : i.Count;
+                const i0 = merge.get(i.Name);
+                if(!i0) {
+                    merge.set(i.Name, {
+                        Name: i.Name,
+                        Count: count,
+                        HasProbability: i.Probability ? true : undefined,
+                        IsInput: isInput,
+                        IsResource: isResource,
+                    });
+                } else {
+                    i0.Count += count;
+                    if(i.Probability)
+                        i0.HasProbability = true;
+                }
+            }
+
+            return [...merge.values()].map((i) => new RecipeIOImpl(this, i));
         };
         this.input = [
             ...mapIO(recipe.Input, {isInput: true, isResource: false}),
@@ -116,6 +147,13 @@ class RecipeImpl {
             ...mapIO(recipe.Output, {isInput: false, isResource: false}),
             ...mapIO(recipe.ResourceOutput, {isInput: false, isResource: true}),
         ];
+
+        //they are merged and extracted
+        delete this._recipe.Input;
+        delete this._recipe.ResourceInput;
+        delete this._recipe.Output;
+        delete this._recipe.ResourceOutput;
+
         Object.freeze(this._recipe);
         Object.freeze(this.input);
         Object.freeze(this.output);
@@ -147,6 +185,45 @@ class RecipeDictionaryImpl {
     getForTier(tier: number) { return this.recipes.filter((r) => (tier >= r.tier)); }
 
     get minItemTier() { return this.items[0]?.tier || 0; }
+}
+
+class ItemRecipeDictionaryImpl {
+    public readonly recipes;
+    public readonly recipesMap;
+    //item name => recipe names
+    public readonly recipesByInputMap;
+    public readonly recipesByOutputMap;
+    constructor(recipes: RecipeDictionaryArray) {
+        this.recipes = recipes;
+        Object.freeze(this.recipes);
+        this.recipesMap = new Map<string, Recipe>(
+            recipes.map((r) => [r.name, r])
+        );
+        Object.freeze(this.recipesMap);
+
+        const recipesByProduct = (type: 'input' | 'output') => {
+            const recipesByProductMap = new Map<string, string[]>();
+            for(const recipe of recipes) {
+                for(const io of recipe[type]) {
+                    let byProduct = recipesByProductMap.get(io.item.name);
+                    if(!byProduct) {
+                        byProduct = [];
+                        recipesByProductMap.set(io.item.name, byProduct);
+                    }
+                    byProduct.push(recipe.name);
+                }
+            }
+            Object.freeze(recipesByProductMap);
+            return recipesByProductMap;
+        };
+        this.recipesByInputMap = recipesByProduct('input');
+        this.recipesByOutputMap = recipesByProduct('output');
+        Object.freeze(this);
+    }
+}
+export function newItemRecipeDictionary(item?: Item) {
+    const recipesForItem = item?.recipeDictionary?.getForTier(item.tier) || [];
+    return new ItemRecipeDictionaryImpl(recipesForItem);
 }
 
 
