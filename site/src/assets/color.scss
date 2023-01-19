@@ -21,6 +21,10 @@ $dragging-elevation: 10;
     border: 2px solid get-color('grey', 'darken-2');
 }
 
+.highlight-border {
+    border: 2px solid get-color('purple', 'darken-2');
+}
+
 .hover-elevation {
     padding: 3px;
 }
