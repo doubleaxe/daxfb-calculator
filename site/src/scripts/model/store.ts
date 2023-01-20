@@ -25,8 +25,10 @@ export type RecipeIOModel = InterfaceOf<RecipeIOModelImpl>;
 export type RecipeModel = InterfaceOf<RecipeModelImpl>;
 
 export const BlueprintModelKey = Symbol('BlueprintModel') as InjectionKey<BlueprintModel>;
-export const provideBlueprintModel = (app: App) => {
-    app.provide(BlueprintModelKey, reactive(new BlueprintModelImpl()));
+export const provideBlueprintModel = (app: App): BlueprintModel => {
+    const blueprint = reactive(new BlueprintModelImpl());
+    app.provide(BlueprintModelKey, blueprint);
+    return blueprint;
 };
 export const injectBlueprintModel = () => {
     const blueprint = inject(BlueprintModelKey);

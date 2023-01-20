@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import {ref, watch, computed} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
+import {injectSettings} from '@/scripts/settings';
 import LinkDraggable from './link-draggable.vue';
 import ItemsDraggable from './items-draggable';
 import {unrefElement, useEventListener} from '@vueuse/core';
+import {Rect} from '@/scripts/geometry';
 
+const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
 const blueprintsElement = ref<HTMLElement | null>(null);
 const itemsDraggable = new ItemsDraggable();
@@ -15,6 +18,7 @@ const computedStyle = computed(() => {
     return {
         width: boundingRect.width ? `${boundingRect.width}px` : '100%',
         height: boundingRect.width ? `${boundingRect.height}px` : '100%',
+        /* transform: `scale(${settings.scale})`, */
     };
 });
 const updateBlueprintOffsetPosition = (evt?: Event) => {
@@ -28,8 +32,11 @@ const updateBlueprintOffsetPosition = (evt?: Event) => {
     blueprintModel.requestUpdateOffsetPosition();
 };
 useEventListener(window, ['scroll', 'resize'], updateBlueprintOffsetPosition, {capture: true, passive: true});
-watch(blueprintsElement, () => updateBlueprintOffsetPosition());
-blueprintModel.registerUpdateOffsetPosition(() => unrefElement(blueprintsElement)?.getBoundingClientRect());
+watch([blueprintsElement, () => settings.scale], () => updateBlueprintOffsetPosition());
+blueprintModel.registerUpdateOffsetPosition(() => {
+    const transformedRect = unrefElement(blueprintsElement)?.getBoundingClientRect();
+    return Rect.assign(transformedRect);
+});
 </script>
 
 <template>
@@ -61,6 +68,7 @@ blueprintModel.registerUpdateOffsetPosition(() => unrefElement(blueprintsElement
     position: relative;
     min-height: 100%;
     min-width: 100%;
+    transform-origin: 0 0;
 }
 .blueprint-item {
     position: absolute;

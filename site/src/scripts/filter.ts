@@ -1,10 +1,11 @@
 import {type InjectionKey, type App, reactive, inject} from 'vue';
 import {dataProvider, type Item} from './data/data';
+import type {InterfaceOf} from './types';
 
 class Filter {
     private _tier?: number;
     private _tierEqual = 0;
-    private _groupTier = false;
+    private _groupTier = true;
     private _key?: string;
     private _direction = 0;
     private _filtered?: Item[][];
@@ -73,10 +74,13 @@ class Filter {
         return this._filtered;
     }
 }
+export type PublicFilter = InterfaceOf<Filter>;
 
 export const FilterKey = Symbol('Filter') as InjectionKey<Filter>;
-export const provideFilter = (app: App) => {
-    app.provide(FilterKey, reactive(new Filter()));
+export const provideFilter = (app: App): PublicFilter => {
+    const filter = reactive(new Filter());
+    app.provide(FilterKey, filter);
+    return filter;
 };
 export const injectFilter = (): Filter => {
     const filter = inject(FilterKey);

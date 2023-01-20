@@ -99,6 +99,13 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
         return Rect.assign(this, {width: assign?.width, height: assign?.height});
     }
 
+    upscale(scale: number) {
+        return this.assignSize({
+            width: (this._width / scale),
+            height: (this._height / scale),
+        });
+    }
+
     isEqual(rect: ReadonlyRectType) {
         return super.isEqual(rect) && (this._width === rect.width) && (this._height === rect.height);
     }

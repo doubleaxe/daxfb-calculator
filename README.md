@@ -14,8 +14,8 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - Debounce link drawing while dragging for better performance
 - File open, File paste errors
 - ~~Missing icons~~
-- Delete single link
-- Item filters
+- ~~Delete single link~~
+- ~~Item filters~~
 - ~~Item ordering~~
 - Auto recipe selection on linking
 - Large recipe menu pagination and filtering
@@ -28,4 +28,5 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - Share
 - Some example templates
 - Help
+- Settings
 - ~~Generalize recipe data, so other games may be supported in the future~~

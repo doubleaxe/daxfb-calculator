@@ -3,7 +3,7 @@ import {ref, unref, reactive, watch, computed} from 'vue';
 import {injectBlueprintModel} from './scripts/model/store';
 import {injectFilter} from './scripts/filter';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
-import {isPointInsideElement1, type PointType} from './scripts/geometry';
+import {isPointInsideElement2, type PointType} from './scripts/geometry';
 import {mdiSync} from '@mdi/js';
 
 const drawer = ref(true);
@@ -15,7 +15,7 @@ const hasCycles = ref(false);
 const hasAlerts = computed(() => unref(hasCycles));
 
 function dragDrop(dropPoint: PointType, itemName: string) {
-    if(!isPointInsideElement1(blueprintsElement, dropPoint))
+    if(!isPointInsideElement2(blueprintsElement, dropPoint))
         return;
     const item = reactive(blueprintModel.addItem(itemName));
     item.rect = item.rect.assignPoint(blueprintModel.screenToClient(dropPoint));

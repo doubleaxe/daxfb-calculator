@@ -28,6 +28,11 @@ export class LinkModelImpl {
         }
         return this._linkShape.shape;
     }
+    deleteThis() {
+        const owner = (this.input || this.output)?.owner;
+        if(owner)
+            owner._$deleteLink(this);
+    }
 
     _$applyPersistentLink() {
         if(this.input)

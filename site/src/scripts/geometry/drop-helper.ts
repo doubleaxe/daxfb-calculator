@@ -5,7 +5,7 @@ import {Rect, type PointType} from '.';
 //two methods
 //first one is based on scrollable parent (element may have scrollable parent) - blueprint has
 //second one is based on elementsFromPoint - should be universal, maybe slower
-
+//first one doesn't support zoom
 export function isPointInsideElement1(
     target: Ref<HTMLElement | null> | HTMLElement | null,
     point: PointType,

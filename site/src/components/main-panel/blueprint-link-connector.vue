@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {LinkModel} from '@/scripts/model/store';
 import {computed, ref, unref} from 'vue';
+import {mdiLinkOff} from '@mdi/js';
 
 const props = defineProps<{
     link?: LinkModel;
@@ -20,12 +21,23 @@ const computedStyle = computed(() => {
         top: middlePoint.y + 'px',
     };
 });
+
+const menuOpened = ref(false);
 </script>
 
 <template>
     <div ref="mainDivElement" class="rounded-pill link-connector bg-window-idle hover-border" :style="computedStyle">
         <icon-component :image="props.link?.input?.image" />
         <div class="mx-2" />
+        <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
+            <v-list>
+                <v-list-item
+                    :prepend-icon="mdiLinkOff"
+                    title="Delete"
+                    @click="props.link?.deleteThis(); menuOpened = false;"
+                />
+            </v-list>
+        </v-menu>
     </div>
 </template>
 

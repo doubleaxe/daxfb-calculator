@@ -11,9 +11,9 @@ import './assets/main.scss';
 
 const app = createApp(App);
 
-provideBlueprintModel(app);
-provideSettings(app);
-provideFilter(app);
+const blueprint = provideBlueprintModel(app);
+const filter = provideFilter(app);
+provideSettings(app, blueprint, filter);
 app.use(createVuetify({
     icons: {
         defaultSet: 'mdi',

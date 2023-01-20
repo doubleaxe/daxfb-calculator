@@ -29,6 +29,8 @@ function filterForIo() {
     if(filter.key != props.io.name) {
         filter.key = props.io.name;
         filter.direction = props.io.isInput ? 1 : -1;
+    } else {
+        filter.key = undefined;
     }
 }
 </script>

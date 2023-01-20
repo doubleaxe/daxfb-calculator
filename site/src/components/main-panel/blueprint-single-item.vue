@@ -59,7 +59,7 @@ const updateSize = () => {
         const _recipe = props.item?.selectedRecipe;
         if(!mainDiv || !_item || !_recipe)
             return;
-        const mainDivRect = mainDiv.getBoundingClientRect();
+        const mainDivRect = Rect.assign(mainDiv.getBoundingClientRect());
         _item.rect = _item.rect.assignSize(mainDivRect);
         const ioList = mainDiv.querySelectorAll('[data-io-id]');
         for(let i = 0; i < ioList.length; i++) {
@@ -74,7 +74,11 @@ const updateSize = () => {
     });
 };
 onMounted(updateSize);
-watch([() => props.item?.selectedRecipe, () => props.item.isFlipped], updateSize);
+watch([
+    () => props.item?.selectedRecipe,
+    () => props.item.isFlipped,
+    () => settings.scale,
+], updateSize);
 </script>
 
 <template>
