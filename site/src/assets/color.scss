@@ -53,3 +53,55 @@ $dragging-elevation: 10;
 .bg-window-statusbar {
     background-color: get-color('grey', 'lighten-2');
 }
+
+.link-stroke-black {
+    stroke: black;
+}
+.link-stroke-red {
+    stroke: get-color('red', 'base');
+}
+.link-stroke-pink {
+    stroke: get-color('pink', 'base');
+}
+.link-stroke-purple {
+    stroke: get-color('purple', 'base');
+}
+.link-stroke-indigo {
+    stroke: get-color('indigo', 'base');
+}
+.link-stroke-blue {
+    stroke: get-color('blue', 'base');
+}
+.link-stroke-light-blue {
+    stroke: get-color('light-blue', 'base');
+}
+.link-stroke-cyan {
+    stroke: get-color('cyan', 'base');
+}
+.link-stroke-teal {
+    stroke: get-color('teal', 'base');
+}
+.link-stroke-green {
+    stroke: get-color('green', 'base');
+}
+.link-stroke-light-green {
+    stroke: get-color('light-green', 'base');
+}
+.link-stroke-lime {
+    stroke: get-color('lime', 'base');
+}
+.link-stroke-yellow {
+    stroke: get-color('yellow', 'base');
+}
+.link-stroke-amber {
+    stroke: get-color('amber', 'base');
+}
+.link-stroke-orange {
+    stroke: get-color('orange', 'base');
+}
+.link-stroke-deep-orange {
+    stroke: get-color('deep-orange', 'base');
+}
+.link-stroke-brown {
+    stroke: get-color('brown', 'base');
+}

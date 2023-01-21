@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import type {Recipe} from '@/scripts/data/data';
+import {dataProvider, type Recipe} from '@/scripts/data/data';
+import {injectFilter} from '@/scripts/filter';
 import type {BlueprintItemModel} from '@/scripts/model/store';
-import {mdiChevronRight} from '@mdi/js';
+import {mdiArrowRight, mdiContentPaste} from '@mdi/js';
 import {useDebounceFn} from '@vueuse/core';
 import {computed, nextTick, ref, unref, watch} from 'vue';
+
+const filter = injectFilter();
 
 type Activator = {item: BlueprintItemModel; activator: Element};
 const item = ref<BlueprintItemModel | undefined>(undefined);
@@ -22,6 +25,7 @@ const currentPage = computed(() => {
     const start = (unref(page) - 1) * pageSize;
     return unref(recipes).slice(start, start + pageSize);
 });
+const canPasteSeacrhValue = computed(() => filter.key ? mdiContentPaste : '');
 
 function recipeSelected(name: string) {
     unref(item)?.selectRecipe(name);
@@ -91,6 +95,14 @@ const applyFilter = useDebounceFn(() => {
     }
 }, 400, {maxWait: 1000});
 
+function pasteSearchValue() {
+    if(!filter.key)
+        return;
+    const newSearch = dataProvider.getItem(filter.key)?.label;
+    if(newSearch)
+        search.value = newSearch;
+}
+
 
 watch(active, (value, oldValue) => {
     if(oldValue && !value) {
@@ -111,12 +123,15 @@ defineExpose({
 <template>
     <v-menu v-model="active" :activator="activator" @click:outside="activateOnClose">
         <v-list density="compact">
-            <v-list-item v-if="(maxPages > 2)">
+            <v-list-item v-if="(maxPages > 1)" class="minwidth">
                 <v-text-field
                     v-model="search"
                     density="compact"
+                    :prepend-inner-icon="canPasteSeacrhValue"
+                    hide-details
                     clearable
                     @click.stop
+                    @click:prepend-inner.stop="pasteSearchValue"
                 />
             </v-list-item>
             <optimized-tooltip>
@@ -130,13 +145,13 @@ defineExpose({
                     <v-list-item-title>
                         <div class="io-menu-item">
                             <recipes-menu-io :ioarray="recipe.input.filter((i) => !i.isResource)" />
-                            <v-icon class="d-block" :icon="mdiChevronRight" />
+                            <v-icon class="d-block" :icon="mdiArrowRight" />
                             <recipes-menu-io :ioarray="recipe.output.filter((i) => !i.isResource)" />
                         </div>
                     </v-list-item-title>
                 </v-list-item>
             </optimized-tooltip>
-            <v-list-item v-if="(maxPages > 1)">
+            <v-list-item v-if="(maxPages > 1)" class="minwidth">
                 <v-pagination v-model="page" density="compact" :length="pages" :total-visible="4" @click.stop="" />
             </v-list-item>
         </v-list>
@@ -147,5 +162,8 @@ defineExpose({
 .io-menu-item {
     display: flex;
     align-items: center;
+}
+.minwidth {
+    min-width: 15rem;
 }
 </style>

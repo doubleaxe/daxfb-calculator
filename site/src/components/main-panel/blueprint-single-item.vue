@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiChevronLeft, mdiChevronRight, mdiSync} from '@mdi/js';
+import {mdiArrowLeft, mdiArrowRight, mdiSync} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect} from '@/scripts/geometry';
@@ -33,11 +33,9 @@ const leftSide = computed(() => {
     return props.item.isFlipped ? {
         io: () => _recipe?.output,
         count: _recipe?.outputCount,
-        icon: mdiChevronLeft,
     } : {
         io: () => _recipe?.input,
         count: _recipe?.inputCount,
-        icon: mdiChevronRight,
     };
 });
 const rightSide = computed(() => {
@@ -45,13 +43,16 @@ const rightSide = computed(() => {
     return props.item.isFlipped ? {
         io: () => _recipe?.input,
         count: _recipe?.inputCount,
-        icon: mdiChevronLeft,
     } : {
         io: () => _recipe?.output,
         count: _recipe?.outputCount,
-        icon: mdiChevronRight,
     };
 });
+const icon = computed(() => (props.item.isFlipped ? mdiArrowLeft : mdiArrowRight));
+function flip() {
+    // eslint-disable-next-line vue/no-mutating-props
+    props.item.isFlipped = !props.item.isFlipped;
+}
 
 const updateSize = () => {
     nextTick(() => {
@@ -76,7 +77,7 @@ const updateSize = () => {
 };
 onMounted(updateSize);
 watch([
-    () => props.item?.selectedRecipe,
+    () => props.item.selectedRecipe,
     () => props.item.isFlipped,
     () => settings.scale,
 ], updateSize);
@@ -104,11 +105,11 @@ watch([
                         :data-io-id="io.key"
                         :io="io"
                         @link-drag-begin="(_io?: RecipeIOModel) => emit('link-drag-begin', _io)"
+                        @text-update="updateSize"
                     />
                 </template>
             </div>
-            <v-icon v-if="leftSide.count" class="align-self-center" :icon="leftSide.icon" />
-            <div class="align-self-center">
+            <div class="align-self-center d-flex flex-column align-center">
                 <icon-component
                     class="main-icon-row rounded hover-border"
                     :image="props.item?.image"
@@ -116,14 +117,22 @@ watch([
                     @pointerdown.stop=""
                     @click="emit('recipes-menu-activate', props.item, $event.currentTarget)"
                 />
+                <v-btn
+                    variant="outlined"
+                    rounded="pill"
+                    size="x-small"
+                    @click="flip"
+                >
+                    <v-icon class="align-self-center" :icon="icon" />
+                </v-btn>
             </div>
-            <v-icon v-if="rightSide.count" class="align-self-center" :icon="rightSide.icon" />
             <div>
                 <template v-for="io in rightSide.io()" :key="io.key">
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"
                         @link-drag-begin="(_io?: RecipeIOModel) => emit('link-drag-begin', _io)"
+                        @text-update="updateSize"
                     />
                 </template>
             </div>

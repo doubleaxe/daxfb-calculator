@@ -29,6 +29,12 @@ const dropItem = () => {
     if(_draggingSource && hoveringItem) {
         if(hoveringItem.state === BlueprintItemState.CanLinkTarget) {
             hoveringItem.createLink(_draggingSource);
+        } else if(hoveringItem.state === BlueprintItemState.CanLinkWithRecipeChange) {
+            const recipe = hoveringItem.possibleRecipeForIo(_draggingSource);
+            if(recipe) {
+                hoveringItem.selectRecipe(recipe);
+                hoveringItem.createLink(_draggingSource);
+            }
         }
     }
     clearHoveringItem();

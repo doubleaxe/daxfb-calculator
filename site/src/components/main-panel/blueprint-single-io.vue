@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed} from 'vue';
+import {computed, watch} from 'vue';
 import type {RecipeIOModel} from '@/scripts/model/store';
 import {formatIo} from '@/scripts/format';
 import {injectFilter} from '@/scripts/filter';
@@ -10,6 +10,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'link-drag-begin', item?: RecipeIOModel): void;
     (e: 'link-drag-force'): void;
+    (e: 'text-update'): void;
 }>();
 
 const filter = injectFilter();
@@ -33,6 +34,7 @@ function filterForIo() {
         filter.key = undefined;
     }
 }
+watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('text-update'));
 </script>
 
 <template>

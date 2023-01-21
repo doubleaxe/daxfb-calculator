@@ -8,6 +8,7 @@ type BlueprintItemStateColorClass = Record<BlueprintItemStateValues, string>;
 
 type PossibleKeys = Array<keyof Settings>;
 const SavedKeys: PossibleKeys = [
+    'colorfulLinks',
     'tier',
     'tierEqual',
     'groupTier',
@@ -42,8 +43,10 @@ class Settings {
         [BlueprintItemState.CannotLinkTarget]: 'bg-error',
         [BlueprintItemState.CanLinkTarget]: 'bg-success',
         [BlueprintItemState.LinkAlreadyExists]: 'bg-warning',
+        [BlueprintItemState.CanLinkWithRecipeChange]: 'bg-info',
     };
     scale = 1;
+    colorfulLinks = true;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }

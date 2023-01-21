@@ -5,6 +5,7 @@ import {computed} from 'vue';
 
 const props = defineProps<{
     link?: LinkModel;
+    color?: string;
 }>();
 
 const settings = injectSettings();
@@ -13,15 +14,24 @@ const buildLink = computed(() => {
     const svgLink = link0?.buildShape()?.svgLink;
     return svgLink || '';
 });
+
+const colorClass = computed(() => {
+    const defaultColor = 'link-stroke-black';
+    if(props.color)
+        return props.color;
+    if(settings.colorfulLinks)
+        return props.link?.colorClass || defaultColor;
+    return defaultColor;
+});
 </script>
 
 <template>
     <path
         :d="buildLink"
-        stroke="black"
         fill="none"
         :stroke-width="settings.iconSize"
         class="link"
+        :class="colorClass"
     />
 </template>
 

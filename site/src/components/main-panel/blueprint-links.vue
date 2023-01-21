@@ -10,6 +10,7 @@ const blueprintModel = injectBlueprintModel();
             v-for="_link in blueprintModel.tempLinks"
             :key="_link.key"
             :link="_link"
+            color="link-stroke-black"
         />
 
         <blueprint-link

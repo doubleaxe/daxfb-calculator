@@ -23,6 +23,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
     public partOfCycle = false;
     public isFlipped = false;
+    public isLocked = false;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, dataProvider.getItem(name));
@@ -52,15 +53,19 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             return;
         }
         const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
-        if(!maybeTarget) {
-            this._state = BlueprintItemState.CannotLinkTarget;
+        if(maybeTarget) {
+            if(maybeTarget.isAlreadyLinked(sourceIo)) {
+                this._state = BlueprintItemState.LinkAlreadyExists;
+                return;
+            }
+            this._state = BlueprintItemState.CanLinkTarget;
             return;
         }
-        if(maybeTarget.isAlreadyLinked(sourceIo)) {
-            this._state = BlueprintItemState.LinkAlreadyExists;
+        if(this.possibleRecipeForIo(sourceIo)) {
+            this._state = BlueprintItemState.CanLinkWithRecipeChange;
             return;
         }
-        this._state = BlueprintItemState.CanLinkTarget;
+        this._state = BlueprintItemState.CannotLinkTarget;
     }
     createLink(sourceIo: RecipeIOModel) {
         const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
@@ -81,6 +86,11 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         oldRecipe?._$deleteAllLinks();
         this._selectedRecipe = newRecipe;
         this.owner?._$graphChanged();
+    }
+    possibleRecipeForIo(sourceIo?: RecipeIOModel | null): string | undefined {
+        if(!sourceIo)
+            return undefined;
+        return this.possibleRecipeForItem(sourceIo.name || '', sourceIo.isInput ? 1 : -1);
     }
     possibleRecipeForItem(name: string, direction: number): string | undefined {
         let possibleRecipesArray: string[] = [];

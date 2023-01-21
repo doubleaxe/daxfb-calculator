@@ -30,6 +30,7 @@ function addCount(delta: number) {
                 <v-list-item title="Count">
                     <v-text-field
                         density="compact"
+                        hide-details
                         :append-icon="mdiPlusBox"
                         :prepend-icon="mdiMinusBox"
                         :value="props.item.count"
@@ -39,11 +40,11 @@ function addCount(delta: number) {
                     />
                 </v-list-item>
                 <!-- eslint-disable-next-line vue/no-mutating-props -->
-                <v-list-item title="Flip" @click="(props.item.isFlipped = !props.item.isFlipped)">
+                <v-list-item title="Lock" @click="(props.item.isLocked = !props.item.isLocked)">
                     <template #prepend>
                         <v-list-item-action start>
                             <!-- eslint-disable-next-line vue/no-mutating-props -->
-                            <v-checkbox v-model="props.item.isFlipped" hide-details />
+                            <v-checkbox v-model="props.item.isLocked" hide-details />
                         </v-list-item-action>
                     </template>
                 </v-list-item>
