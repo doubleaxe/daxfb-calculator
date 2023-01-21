@@ -13,6 +13,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'link-drag-begin', item?: RecipeIOModel): void;
     (e: 'link-drag-force'): void;
+    (e: 'recipes-menu-activate', item: BlueprintItemModel, activator: Element): void;
 }>();
 
 const __DEBUG__ = import.meta.env.DEV;
@@ -113,9 +114,8 @@ watch([
                     :image="props.item?.image"
                     :tooltip="props.item?.label"
                     @pointerdown.stop=""
-                >
-                    <recipes-menu activator="parent" :item="props.item" />
-                </icon-component>
+                    @click="emit('recipes-menu-activate', props.item, $event.currentTarget)"
+                />
             </div>
             <v-icon v-if="rightSide.count" class="align-self-center" :icon="rightSide.icon" />
             <div>

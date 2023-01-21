@@ -18,7 +18,7 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - ~~Item filters~~
 - ~~Item ordering~~
 - Auto recipe selection on linking
-- Large recipe menu pagination and filtering
+- ~~Large recipe menu pagination and filtering~~
 - Conveyors/Robotic arms/Pipes/etc.. support for link
 - Color/Icon states for link and item (filtered, warning, etc..)
 - Pin/Lock items for flow calculation around them

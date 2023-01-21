@@ -40,6 +40,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     }
     get selectedRecipe() { return this._selectedRecipe; }
     get recipes() { return this._recipes.values(); }
+    get recipesCount() { return this._recipes.size; }
     get state() { return this._state; }
     get tier() { return this._item?.tier; }
     get count() { return this._count; }

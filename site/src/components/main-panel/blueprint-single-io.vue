@@ -48,6 +48,7 @@ function filterForIo() {
             class="io-description-row text-caption hover-border"
             :class="[align, border]"
             @click="filterForIo()"
+            @pointerdown.stop=""
         >
             {{ formatIo(props.io.cpsSolvedTotal, props.io) || '?' }}
             <br>

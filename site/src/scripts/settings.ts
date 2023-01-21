@@ -6,15 +6,19 @@ import {BlueprintItemState, type BlueprintItemStateValues} from './types';
 
 type BlueprintItemStateColorClass = Record<BlueprintItemStateValues, string>;
 
-type SavedObject = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [k: string]: any;
-};
-const SavedKeys = [
+type PossibleKeys = Array<keyof Settings>;
+const SavedKeys: PossibleKeys = [
+    'tier',
+    'tierEqual',
     'groupTier',
     'autoSolveGraph',
     'solvePrecision',
 ];
+type SavedObject = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [k: string]: any;
+};
+
 function filterSavedKeys(object: SavedObject) {
     const savedObject = SavedKeys.reduce((obj, key) => {
         obj[key] = object[key];
@@ -40,6 +44,11 @@ class Settings {
         [BlueprintItemState.LinkAlreadyExists]: 'bg-warning',
     };
     scale = 1;
+
+    get tier() { return this._filter.tier; }
+    set tier(tier: number | undefined) { this._filter.tier = tier; }
+    get tierEqual() { return this._filter.tierEqual; }
+    set tierEqual(tierEqual: number) { this._filter.tierEqual = tierEqual; }
     get groupTier() { return this._filter.groupTier; }
     set groupTier(groupTier: boolean) { this._filter.groupTier = groupTier; }
     get autoSolveGraph() { return this._blueprintModel.autoSolveGraph; }

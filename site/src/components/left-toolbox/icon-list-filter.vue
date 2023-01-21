@@ -10,7 +10,7 @@ const filteredItems = ref(allItems);
 
 const pageSize = 10;
 const page = ref(1);
-const pages = computed(() => (Math.ceil(unref(filteredItems).length / pageSize)));
+const pages = computed(() => (Math.ceil(unref(filteredItems).length / pageSize) || 1));
 const currentPage = computed(() => {
     const start = (unref(page) - 1) * pageSize;
     return unref(filteredItems).slice(start, start + pageSize);
@@ -82,7 +82,14 @@ watch(() => filter.tierEqual, (value) => {
             @focus="(page = 1)"
         >
             <template #prepend-item>
-                <v-btn-toggle v-model="direction" class="ml-2" group mandatory variant="outlined">
+                <v-btn-toggle
+                    v-model="direction"
+                    density="compact"
+                    class="ml-2"
+                    group
+                    mandatory
+                    variant="outlined"
+                >
                     <v-btn value="-1">
                         Input
                     </v-btn>
@@ -111,7 +118,7 @@ watch(() => filter.tierEqual, (value) => {
                 />
             </template>
             <template #append-item>
-                <v-pagination v-model="page" :length="pages" :total-visible="5" />
+                <v-pagination v-model="page" density="compact" :length="pages" :total-visible="5" />
             </template>
         </v-autocomplete>
         <v-select
@@ -122,7 +129,13 @@ watch(() => filter.tierEqual, (value) => {
             :items="[1, 2, 3, 4, 5, 6, 7]"
         >
             <template #prepend-item>
-                <v-btn-toggle v-model="tierEqual" group mandatory variant="outlined">
+                <v-btn-toggle
+                    v-model="tierEqual"
+                    density="compact"
+                    group
+                    mandatory
+                    variant="outlined"
+                >
                     <v-btn value="-1">
                         &lt;=
                     </v-btn>

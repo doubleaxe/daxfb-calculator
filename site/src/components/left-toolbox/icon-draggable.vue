@@ -43,7 +43,8 @@ defineExpose({
         ref="draggableElement"
         :width="settings.iconSize"
         :height="settings.iconSize"
-        immediate @drop="dropItem"
+        immediate
+        @drop="dropItem"
     >
         <v-sheet class="rounded dragging-elevation">
             <icon-component :image="draggingItem.image" />

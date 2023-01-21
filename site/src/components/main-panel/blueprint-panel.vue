@@ -3,6 +3,7 @@ import {ref, watch, computed} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import LinkDraggable from './link-draggable.vue';
+import RecipesMenu from './recipes-menu.vue';
 import ItemsDraggable from './items-draggable';
 import {unrefElement, useEventListener} from '@vueuse/core';
 import {Rect} from '@/scripts/geometry';
@@ -12,6 +13,7 @@ const blueprintModel = injectBlueprintModel();
 const blueprintsElement = ref<HTMLElement | null>(null);
 const itemsDraggable = new ItemsDraggable();
 const linkDraggableElement = ref<InstanceType<typeof LinkDraggable> | null>(null);
+const recipesMenuElement = ref<InstanceType<typeof RecipesMenu> | null>(null);
 
 const computedStyle = computed(() => {
     const {boundingRect} = blueprintModel;
@@ -46,6 +48,7 @@ blueprintModel.registerUpdateOffsetPosition(() => {
         :style="computedStyle"
     >
         <link-draggable ref="linkDraggableElement" />
+        <recipes-menu ref="recipesMenuElement" />
         <blueprint-links />
         <template
             v-for="item in blueprintModel.items"
@@ -58,6 +61,7 @@ blueprintModel.registerUpdateOffsetPosition(() => {
                 @pointerdown="itemsDraggable.addDraggable(item, $event)"
                 @link-drag-begin="linkDraggableElement?.requestDragBegin"
                 @link-drag-force="linkDraggableElement?.requestDragForce"
+                @recipes-menu-activate="recipesMenuElement?.activate"
             />
         </template>
     </div>
