@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import {ref, unref, reactive, watch, computed} from 'vue';
+import {ref, unref, reactive, watch, computed, type Ref} from 'vue';
 import {injectBlueprintModel} from './scripts/model/store';
 import {injectFilter} from './scripts/filter';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
+import BlueprintPanel from './components/main-panel/blueprint-panel.vue';
 import {isPointInsideElement2, type PointType} from './scripts/geometry';
 import {mdiSync} from '@mdi/js';
 
 const drawer = ref(true);
 const draggableElement = ref<InstanceType<typeof IconDraggable> | null>(null);
-const blueprintsElement = ref<HTMLElement | null>(null);
+const blueprintsElement = ref<InstanceType<typeof BlueprintPanel> | null>(null);
 const blueprintModel = injectBlueprintModel();
 const filter = injectFilter();
 const hasCycles = ref(false);
 const hasAlerts = computed(() => unref(hasCycles));
 
+function dragMove(position: unknown, element: Ref<HTMLElement | null>) {
+    unref(blueprintsElement)?.onDragMove(position, element);
+}
 function dragDrop(dropPoint: PointType, itemName: string) {
-    if(!isPointInsideElement2(blueprintsElement, dropPoint))
+    if(!isPointInsideElement2(unref(blueprintsElement)?.$el, dropPoint))
         return;
     const item = reactive(blueprintModel.addItem(itemName));
     item.rect = item.rect.assignPoint(blueprintModel.screenToClient(dropPoint));
@@ -24,6 +28,7 @@ function dragDrop(dropPoint: PointType, itemName: string) {
         if(preselectRecipe)
             item.selectRecipe(preselectRecipe);
     }
+    unref(blueprintsElement)?.onDrop();
 }
 
 watch(() => blueprintModel.hasCycles, (value: boolean) => {
@@ -33,7 +38,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
 </script>
 
 <template>
-    <icon-draggable ref="draggableElement" @drag-drop="dragDrop" />
+    <icon-draggable ref="draggableElement" @drag-move="dragMove" @drag-drop="dragDrop" />
     <v-app class="main-window">
         <v-app-bar density="compact">
             <template #prepend>

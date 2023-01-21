@@ -21,7 +21,7 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - ~~Large recipe menu pagination and filtering~~
 - Conveyors/Robotic arms/Pipes/etc.. support for link
 - Color/Icon states for link and item (filtered, warning, etc..)
-- Pin/Lock items for flow calculation around them
+- ~~Pin/Lock items for flow calculation around them~~
 - Zoom
 - Click-scroll and auto-scroll
 - Better count control
@@ -31,3 +31,4 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - Help
 - Settings
 - ~~Generalize recipe data, so other games may be supported in the future~~
+- General item list and scroll to item

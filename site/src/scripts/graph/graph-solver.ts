@@ -17,11 +17,12 @@ export class GraphSolver {
     }
 
     solve(arrayItems: BlueprintItemModel[]) {
-        this.prepareModel(arrayItems);
+        const hasLockedItems = arrayItems.some((item) => item.isLocked);
+        this.prepareModel(arrayItems, hasLockedItems);
         this.model.solve();
-        this.applySolution(arrayItems);
+        this.applySolution(arrayItems, hasLockedItems);
     }
-    private prepareModel(arrayItems: BlueprintItemModel[]) {
+    private prepareModel(arrayItems: BlueprintItemModel[], hasLockedItems: boolean) {
         const {
             model,
             variables,
@@ -30,7 +31,9 @@ export class GraphSolver {
         for(const item of arrayItems) {
             const variable = model.addVariable(1, item.key);
             variables.set(item.key, variable);
-            model.smallerThan(item.count).addTerm(1, variable);
+            if(!hasLockedItems || item.isLocked) {
+                model.smallerThan(item.count).addTerm(1, variable);
+            }
         }
 
         //variables are added, now we add terms (io flow distribution)
@@ -89,7 +92,7 @@ export class GraphSolver {
             this.grabAllConnectedLinks(otherItem, links, connectedItems, !output);
         }
     }
-    private applySolution(arrayItems: BlueprintItemModel[]) {
+    private applySolution(arrayItems: BlueprintItemModel[], hasLockedItems: boolean) {
         for(const item of arrayItems) {
             const itemVariable = this.variables.get(item.key);
             if(!itemVariable)

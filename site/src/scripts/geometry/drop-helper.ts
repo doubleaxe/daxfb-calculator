@@ -2,19 +2,11 @@ import {unrefElement} from '@vueuse/core';
 import type {Ref} from 'vue';
 import {Rect, type PointType} from '.';
 
-//two methods
-//first one is based on scrollable parent (element may have scrollable parent) - blueprint has
-//second one is based on elementsFromPoint - should be universal, maybe slower
-//first one doesn't support zoom
-export function isPointInsideElement1(
-    target: Ref<HTMLElement | null> | HTMLElement | null,
-    point: PointType,
-): boolean {
+export function getScrollBox(target: Ref<HTMLElement | null> | HTMLElement | null) {
     const targetElement = unrefElement(target);
     if(!targetElement)
-        return false;
-    if((point.x < 0) || (point.y < 0))
-        return false;
+        return {};
+
     let scrollboxElement: HTMLElement | null = targetElement;
     for(;;) {
         scrollboxElement = scrollboxElement.parentElement;
@@ -25,6 +17,25 @@ export function isPointInsideElement1(
         if(isScrolling)
             break;
     }
+    return {
+        targetElement,
+        scrollboxElement
+    };
+}
+
+//two methods
+//first one is based on scrollable parent (element may have scrollable parent) - blueprint has
+//second one is based on elementsFromPoint - should be universal, maybe slower
+export function isPointInsideElement1(
+    target: Ref<HTMLElement | null> | HTMLElement | null,
+    point: PointType,
+): boolean {
+    if((point.x < 0) || (point.y < 0))
+        return false;
+
+    const {targetElement, scrollboxElement} = getScrollBox(target);
+    if(!targetElement)
+        return false;
 
     const visibleRect = Rect.assign((scrollboxElement || targetElement).getBoundingClientRect());
     return visibleRect.isPointInRect(point);

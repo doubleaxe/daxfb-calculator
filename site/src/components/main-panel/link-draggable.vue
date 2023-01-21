@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {injectSettings} from '@/scripts/settings';
-import {ref, unref, reactive} from 'vue';
+import {ref, unref, reactive, type Ref} from 'vue';
 import {
     injectBlueprintModel,
     type BlueprintItemModel,
@@ -9,6 +9,12 @@ import {
 import type ElementDraggable from '../element-draggable.vue';
 import type {ReadonlyPointType} from '@/scripts/geometry';
 import {BlueprintItemState} from '@/scripts/types';
+
+const emit = defineEmits<{
+    (e: 'drag-shown', position: ReadonlyPointType): void;
+    (e: 'drag-move', position: ReadonlyPointType, element: Ref<HTMLElement | null>): void;
+    (e: 'drop', position: ReadonlyPointType): void;
+}>();
 
 const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
@@ -24,7 +30,7 @@ const clearHoveringItem = () => {
     }
 };
 
-const dropItem = () => {
+const dropItem = (screenXY: ReadonlyPointType) => {
     const _draggingSource = unref(draggingSource);
     if(_draggingSource && hoveringItem) {
         if(hoveringItem.state === BlueprintItemState.CanLinkTarget) {
@@ -39,6 +45,7 @@ const dropItem = () => {
     }
     clearHoveringItem();
     blueprintModel.clearTempLinks();
+    emit('drop', screenXY);
 };
 
 const requestDragBegin = (item?: RecipeIOModel) => {
@@ -61,6 +68,7 @@ const dragShown = (screenXY: ReadonlyPointType) => {
         height: settings.iconSize,
     });
     draggingTarget.setFlipped(_draggingSource.isFlipped);
+    emit('drag-shown', screenXY);
 };
 
 const updateLink = (screenXY: ReadonlyPointType) => {
@@ -97,10 +105,11 @@ const processTargetItem = (screenXY: ReadonlyPointType) => {
     draggingTarget?.setFlipped(hoveringItem.isFlipped);
 };
 
-const dragMove = (screenXY: ReadonlyPointType) => {
+const dragMove = (screenXY: ReadonlyPointType, element: Ref<HTMLElement | null>) => {
     if(!updateLink(screenXY))
         return;
     processTargetItem(screenXY);
+    emit('drag-move', screenXY, element);
 };
 
 const requestDragForce = () => {

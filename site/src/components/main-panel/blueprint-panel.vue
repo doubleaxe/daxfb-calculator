@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch, computed} from 'vue';
+import {ref, watch, computed, type Ref} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import LinkDraggable from './link-draggable.vue';
@@ -7,11 +7,16 @@ import RecipesMenu from './recipes-menu.vue';
 import ItemsDraggable from './items-draggable';
 import {unrefElement, useEventListener} from '@vueuse/core';
 import {Rect} from '@/scripts/geometry';
+import {ScrollHelper} from './scroll-helper';
 
 const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
 const blueprintsElement = ref<HTMLElement | null>(null);
-const itemsDraggable = new ItemsDraggable();
+const scrollHelper = new ScrollHelper(blueprintsElement);
+const itemsDraggable = new ItemsDraggable({
+    onDrag: (element) => scrollHelper.processItemDrag(element),
+    onDrop: () => scrollHelper.processItemDrop(),
+});
 const linkDraggableElement = ref<InstanceType<typeof LinkDraggable> | null>(null);
 const recipesMenuElement = ref<InstanceType<typeof RecipesMenu> | null>(null);
 
@@ -39,6 +44,17 @@ blueprintModel.registerUpdateOffsetPosition(() => {
     const transformedRect = unrefElement(blueprintsElement)?.getBoundingClientRect();
     return Rect.assign(transformedRect);
 });
+
+function onDragMove(position: unknown, element: Ref<HTMLElement | null>) {
+    scrollHelper.processItemDrag(element);
+}
+function onDrop() {
+    scrollHelper.processItemDrop();
+}
+defineExpose({
+    onDragMove,
+    onDrop,
+});
 </script>
 
 <template>
@@ -47,7 +63,11 @@ blueprintModel.registerUpdateOffsetPosition(() => {
         class="blueprint-collection"
         :style="computedStyle"
     >
-        <link-draggable ref="linkDraggableElement" />
+        <link-draggable
+            ref="linkDraggableElement"
+            @drag-move="onDragMove"
+            @drop="onDrop"
+        />
         <recipes-menu ref="recipesMenuElement" />
         <blueprint-links />
         <template

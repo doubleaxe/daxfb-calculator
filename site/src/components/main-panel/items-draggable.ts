@@ -3,15 +3,24 @@ import {useEventListener} from '@vueuse/core';
 import {Point, type ReadonlyPointType} from '@/scripts/geometry';
 import {watch} from 'vue';
 
+interface DragListener {
+    onDrag: (element: HTMLElement) => void;
+    onDrop: () => void;
+}
+
 //custom useDraggable
 //because original captures all events, and cannot be used to drag only parts
 class SingleItemDraggable {
     private readonly item;
+    private readonly element;
     private deltaXY: Point;
     private lastPosition: ReadonlyPointType | undefined;
-    constructor(item: BlueprintItemModel, element: HTMLElement) {
+    private readonly listener;
+    constructor(item: BlueprintItemModel, element: HTMLElement, listener?: DragListener) {
         this.item = item;
+        this.element = element;
         this.deltaXY = Point.assign();
+        this.listener = listener;
         useEventListener(element, 'pointerdown', this.onStart.bind(this));
         SingleItemDraggable.init(item.owner);
     }
@@ -32,9 +41,11 @@ class SingleItemDraggable {
         this.lastPosition = position;
         const mouseClientPos = item.owner?.screenToClient(position, {isPassive: true});
         item.rect = item.rect.assignPoint(mouseClientPos?.offsetBy(deltaXY)?.positive());
+        this.listener?.onDrag(this.element);
     }
     onEnd() {
         this.item.isFloating = false;
+        this.listener?.onDrop();
     }
     private static initialized = false;
     private static currentlyDragging?: SingleItemDraggable;
@@ -60,6 +71,11 @@ class SingleItemDraggable {
 
 export default class ItemsDraggable {
     private itemsDraggable = new WeakMap<HTMLElement, SingleItemDraggable>();
+    private readonly listener;
+
+    constructor(listener?: DragListener) {
+        this.listener = listener;
+    }
 
     addDraggable(item?: BlueprintItemModel, mouseEvent?: PointerEvent) {
         if(!item || !mouseEvent)
@@ -69,7 +85,7 @@ export default class ItemsDraggable {
         const element = mouseEvent.currentTarget as HTMLElement;
         if(this.itemsDraggable.has(element))
             return;
-        const itemDraggable = new SingleItemDraggable(item, element);
+        const itemDraggable = new SingleItemDraggable(item, element, this.listener);
         this.itemsDraggable.set(element, itemDraggable);
         //activate draggable then resend event, to activate first dragging
         itemDraggable.onStart(mouseEvent);

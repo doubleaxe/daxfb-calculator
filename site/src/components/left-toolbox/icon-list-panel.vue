@@ -36,6 +36,7 @@ const filter = injectFilter();
 .icon-div-parent {
     line-height: 0px;
     font-size: 0px;
+    user-select: none;
 }
 .icon-div {
     display: inline-block;

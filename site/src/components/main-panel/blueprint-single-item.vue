@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiArrowLeft, mdiArrowRight, mdiSync} from '@mdi/js';
+import {mdiArrowLeft, mdiArrowRight, mdiSync, mdiLock} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect} from '@/scripts/geometry';
@@ -139,17 +139,20 @@ watch([
         </div>
         <div class="status-row bg-window-statusbar">
             <div class="title-text text-caption">
-                <template v-if="__DEBUG__">
-                    {{ props.item.key }}&nbsp;
+                <template v-if="props.item.isLocked">
+                    <v-icon :icon="mdiLock" />
                 </template>
                 <template v-if="props.item.partOfCycle">
                     <v-icon :icon="mdiSync" color="warning" />
                 </template>
                 <template v-if="(props.item.solvedCount !== undefined)">
-                    {{ formatNumber((props.item.solvedCount * 100) / props.item.count) + '%' }}
+                    {{ (props.item.count ? formatNumber((props.item.solvedCount * 100) / props.item.count) : '0') + '%' }}
                     {{ formatNumber(props.item.solvedCount) + ' / ' }}
                 </template>
                 {{ formatNumber(props.item.count) }}
+            </div>
+            <div v-if="__DEBUG__" class="float-right mr-1 text-caption">
+                {{ props.item.key }}
             </div>
         </div>
     </div>

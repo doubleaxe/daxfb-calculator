@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, unref, nextTick} from 'vue';
+import {ref, unref, nextTick, type Ref} from 'vue';
 import {useTimeoutFn, useDraggable, useMouse} from '@vueuse/core';
 import type {ReadonlyPointType} from '@/scripts/geometry';
 
@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
     (e: 'drag-shown', position: ReadonlyPointType): void;
-    (e: 'drag-move', position: ReadonlyPointType): void;
+    (e: 'drag-move', position: ReadonlyPointType, element: Ref<HTMLElement | null>): void;
     (e: 'drop', position: ReadonlyPointType): void;
 }>();
 
@@ -26,7 +26,7 @@ const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTi
 
 const {style, x: elementX, y: elementY} = useDraggable(element, {
     onMove: (position) => {
-        emit('drag-move', position);
+        emit('drag-move', position, element);
     },
     onEnd: (position) => {
         activateDraggable.value = false;
