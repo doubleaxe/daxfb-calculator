@@ -62,6 +62,7 @@ defineExpose({
         ref="blueprintsElement"
         class="blueprint-collection"
         :style="computedStyle"
+        @pointerdown="scrollHelper.dragScrollStart($event)"
     >
         <link-draggable
             ref="linkDraggableElement"
@@ -78,7 +79,7 @@ defineExpose({
                 :item="item"
                 class="blueprint-item"
                 :style="{left: item.rect.x + 'px', top: item.rect.y + 'px'}"
-                @pointerdown="itemsDraggable.addDraggable(item, $event)"
+                @pointerdown.stop="itemsDraggable.addDraggable(item, $event)"
                 @link-drag-begin="linkDraggableElement?.requestDragBegin"
                 @link-drag-force="linkDraggableElement?.requestDragForce"
                 @recipes-menu-activate="recipesMenuElement?.activate"

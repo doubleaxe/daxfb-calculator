@@ -1,15 +1,16 @@
-import {getScrollBox, Rect} from '@/scripts/geometry';
-import {unrefElement} from '@vueuse/core';
+import {getScrollBox, Point, Rect} from '@/scripts/geometry';
+import {unrefElement, useEventListener} from '@vueuse/core';
 import type {Ref} from 'vue';
 
 export class ScrollHelper {
     private readonly target;
-    private currentItem?: HTMLElement;
-    private currentInterval?: number;
     constructor(target: Ref<HTMLElement | null> | HTMLElement | null) {
         this.target = target;
+        this.registerDragScroll();
     }
 
+    private currentItem?: HTMLElement;
+    private currentInterval?: number;
     processItemDrag(item: Ref<HTMLElement | null> | HTMLElement | null) {
         const currentItem = unrefElement(item);
         if(currentItem && (currentItem != this.currentItem)) {
@@ -50,5 +51,36 @@ export class ScrollHelper {
         }
         if(scrollY >= 0)
             scrollboxElement.scrollTop = scrollY;
+    }
+
+    private dragScrolling?: {mouse: Point; scroll: Point; scrollboxElement: HTMLElement};
+    registerDragScroll() {
+        useEventListener(window, 'pointermove', this.dragScrollMove.bind(this));
+        useEventListener(window, 'pointerup', this.dragScrollStop.bind(this));
+    }
+    dragScrollStart(event: PointerEvent) {
+        //TODO user clicked on something else
+        const {scrollboxElement} = getScrollBox(this.target);
+        if(!scrollboxElement)
+            return;
+        this.dragScrolling = {
+            mouse: Point.assign({x: event.pageX, y: event.pageY}),
+            scroll: Point.assign({x: scrollboxElement.scrollLeft, y: scrollboxElement.scrollTop}),
+            scrollboxElement,
+        };
+    }
+    dragScrollMove(event: PointerEvent) {
+        if(!this.dragScrolling)
+            return;
+        const {mouse, scroll, scrollboxElement} = this.dragScrolling;
+        const delta = Point.assign({x: event.pageX, y: event.pageY}).offsetBy(mouse, -1);
+        const deltaScroll = scroll.offsetBy(delta, -1);
+        if(deltaScroll.x >= 0)
+            scrollboxElement.scrollLeft = deltaScroll.x;
+        if(deltaScroll.y >= 0)
+            scrollboxElement.scrollTop = deltaScroll.y;
+    }
+    dragScrollStop() {
+        this.dragScrolling = undefined;
     }
 }

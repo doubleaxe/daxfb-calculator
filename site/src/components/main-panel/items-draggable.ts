@@ -59,6 +59,7 @@ class SingleItemDraggable {
     private static init(blueprint?: BlueprintModel) {
         if(this.initialized)
             return;
+        this.initialized = true;
         useEventListener(window, 'pointermove', this.onMove.bind(this));
         useEventListener(window, 'pointerup', this.onEnd.bind(this));
         if(blueprint) {

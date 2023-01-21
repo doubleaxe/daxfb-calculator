@@ -26,7 +26,12 @@ const menuOpened = ref(false);
 </script>
 
 <template>
-    <div ref="mainDivElement" class="rounded-pill link-connector bg-window-idle hover-border" :style="computedStyle">
+    <div
+        ref="mainDivElement"
+        class="rounded-pill link-connector bg-window-idle hover-border"
+        :style="computedStyle"
+        @pointerdown.stop
+    >
         <icon-component :image="props.link?.input?.image" />
         <div class="mx-2" />
         <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
