@@ -152,7 +152,7 @@ defineExpose({
                 </v-list-item>
             </optimized-tooltip>
             <v-list-item v-if="(maxPages > 1)" class="minwidth">
-                <v-pagination v-model="page" density="compact" :length="pages" :total-visible="4" @click.stop="" />
+                <v-pagination v-model="page" density="compact" :length="pages" :total-visible="4" @click.stop />
             </v-list-item>
         </v-list>
     </v-menu>

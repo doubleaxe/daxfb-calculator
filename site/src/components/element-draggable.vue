@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, nextTick, type Ref} from 'vue';
-import {useTimeoutFn, useDraggable, useMouse} from '@vueuse/core';
+import {useTimeoutFn, useDraggable, usePointer} from '@vueuse/core';
 import type {ReadonlyPointType} from '@/scripts/geometry';
 
 const props = defineProps<{
@@ -18,7 +18,7 @@ const emit = defineEmits<{
 const activateDraggable = ref(false);
 const showDraggable = ref(false);
 const element = ref<HTMLElement | null>(null);
-const {x: pageX, y: pageY} = useMouse();
+const {x: pageX, y: pageY} = usePointer();
 
 const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
     showDraggableMarker();

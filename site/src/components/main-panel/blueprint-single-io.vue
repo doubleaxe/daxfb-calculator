@@ -50,7 +50,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             class="io-description-row text-caption hover-border"
             :class="[align, border]"
             @click="filterForIo()"
-            @pointerdown.stop=""
+            @pointerdown.stop
         >
             {{ formatIo(props.io.cpsSolvedTotal, props.io) || '?' }}
             <br>

@@ -114,7 +114,7 @@ watch([
                     class="main-icon-row rounded hover-border"
                     :image="props.item?.image"
                     :tooltip="props.item?.label"
-                    @pointerdown.stop=""
+                    @pointerdown.stop
                     @click="emit('recipes-menu-activate', props.item, $event.currentTarget)"
                 />
                 <v-btn

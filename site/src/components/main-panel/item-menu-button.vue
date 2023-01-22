@@ -23,7 +23,7 @@ function addCount(delta: number) {
 </script>
 
 <template>
-    <v-btn size="x-small" color="secondary" variant="outlined" @pointerdown.stop="">
+    <v-btn size="x-small" color="secondary" variant="outlined" @pointerdown.stop>
         <v-icon :icon="mdiMenu" />
         <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
             <v-list>
