@@ -26,11 +26,16 @@ $dragging-elevation: 10;
 }
 
 .hover-elevation {
-    padding: 3px;
+    padding: 1px;
+    border: 2px solid transparent;
 }
 
 .hover-elevation:hover {
     @include elevation.elevation($hover-elevation, false);
+}
+
+.selected-border {
+    border: 2px solid get-color('green', 'darken-2');
 }
 
 .hover-elevation-static {

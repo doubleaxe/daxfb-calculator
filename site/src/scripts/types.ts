@@ -9,3 +9,11 @@ export const BlueprintItemState = {
 } as const;
 export type BlueprintItemStateKeys = keyof typeof BlueprintItemState;
 export type BlueprintItemStateValues = typeof BlueprintItemState[BlueprintItemStateKeys];
+
+export const ClassType = {
+    Item: 'A',
+    BlueprintItemModel: 'B',
+    RecipeIOModel: 'C',
+} as const;
+export type ClassTypeKeys = keyof typeof ClassType;
+export type ClassTypeValues = typeof ClassType[ClassTypeKeys];

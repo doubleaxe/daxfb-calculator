@@ -1,6 +1,7 @@
 import {useLocalStorage} from '@vueuse/core';
 import {type InjectionKey, type App, reactive, inject, watch, unref} from 'vue';
 import type {PublicFilter} from './filter';
+import type {HtmlHelpers} from './html';
 import type {BlueprintModel} from './model/store';
 import {BlueprintItemState, type BlueprintItemStateValues} from './types';
 
@@ -31,10 +32,12 @@ function filterSavedKeys(object: SavedObject) {
 class Settings {
     private _filter: PublicFilter;
     private _blueprintModel: BlueprintModel;
+    private _htmlHelpers: HtmlHelpers;
 
-    constructor(blueprintModel: BlueprintModel, filter: PublicFilter) {
+    constructor(blueprintModel: BlueprintModel, filter: PublicFilter, htmlHelpers: HtmlHelpers) {
         this._blueprintModel = blueprintModel;
         this._filter = filter;
+        this._htmlHelpers = htmlHelpers;
     }
 
     iconSize = 32;
@@ -47,6 +50,9 @@ class Settings {
     };
     scale = 1;
     colorfulLinks = true;
+    dragAndDropEnabled = true;
+    dragAndScrollEnabled = true;
+    overflowScrollEnabled = true;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }
@@ -59,6 +65,9 @@ class Settings {
     get solvePrecision() { return this._blueprintModel.solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._blueprintModel.solvePrecision = solvePrecision; }
 
+    get pointAndClickEnabled() { return this._htmlHelpers.pointAndClickImpl.pointAndClickEnabled; }
+    set pointAndClickEnabled(pointAndClickEnabled: boolean) { this._htmlHelpers.pointAndClickImpl.pointAndClickEnabled = pointAndClickEnabled; }
+
     save() {
         return filterSavedKeys(this);
     }
@@ -68,8 +77,8 @@ class Settings {
 }
 
 export const SettingsKey = Symbol('Settings') as InjectionKey<Settings>;
-export const provideSettings = (app: App, blueprintModel: BlueprintModel, filter: PublicFilter) => {
-    const settings = reactive(new Settings(blueprintModel, filter));
+export const provideSettings = (app: App, blueprintModel: BlueprintModel, filter: PublicFilter, htmlHelpers: HtmlHelpers) => {
+    const settings = reactive(new Settings(blueprintModel, filter, htmlHelpers));
     app.provide(SettingsKey, settings);
     const savedSettings = useLocalStorage<SavedObject>('settings', settings.save(), {
         mergeDefaults: true,

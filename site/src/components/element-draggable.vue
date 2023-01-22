@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {ref, unref, nextTick, type Ref} from 'vue';
-import {useTimeoutFn, useDraggable, usePointer} from '@vueuse/core';
+import {useTimeoutFn, useDraggable} from '@vueuse/core';
 import type {ReadonlyPointType} from '@/scripts/geometry';
+import {injectHtmlHelpers} from '@/scripts/html';
 
 const props = defineProps<{
     width: number;
@@ -18,11 +19,11 @@ const emit = defineEmits<{
 const activateDraggable = ref(false);
 const showDraggable = ref(false);
 const element = ref<HTMLElement | null>(null);
-const {x: pageX, y: pageY} = usePointer();
+const pointer = injectHtmlHelpers().pointer;
 
 const {start: startDragActivateTimeout, stop: cancelDragActivateTimeout} = useTimeoutFn(() => {
     showDraggableMarker();
-}, 300, {immediate: false});
+}, 100, {immediate: false});
 
 const {style, x: elementX, y: elementY} = useDraggable(element, {
     onMove: (position) => {
@@ -38,14 +39,17 @@ const {style, x: elementX, y: elementY} = useDraggable(element, {
 
 function startDragging() {
     activateDraggable.value = true;
-    elementX.value = unref(pageX) - (props.width >> 1);
-    elementY.value = unref(pageY) - (props.height >> 1);
+    const client = pointer.getCoordinate('client');
+    elementX.value = client.x - (props.width >> 1);
+    elementY.value = client.y - (props.height >> 1);
     nextTick(() => {
-        const mouseDown = new Event('pointerdown');
-        Object.assign(mouseDown, {pageX: unref(pageX), pageY: unref(pageY)});
-        element.value?.dispatchEvent(mouseDown);
-        if(props.immediate)
+        const pointerDown = pointer.cloneLastEvent('pointerdown');
+        if(pointerDown) {
+            element.value?.dispatchEvent(pointerDown);
+        }
+        if(props.immediate) {
             showDraggableMarker();
+        }
     });
 }
 

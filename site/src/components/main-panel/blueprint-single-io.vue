@@ -43,14 +43,14 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             class="io-icon-row rounded hover-elevation"
             :image="props.io.image"
             :tooltip="props.io.label"
-            @pointerdown.stop="emit('link-drag-begin', props.io)"
-            @pointerup.stop="emit('link-drag-begin')"
+            @pointerdown.left.stop="emit('link-drag-begin', props.io)"
+            @pointerup.left.stop="emit('link-drag-begin')"
         />
         <div
             class="io-description-row text-caption hover-border"
             :class="[align, border]"
             @click="filterForIo()"
-            @pointerdown.stop
+            @pointerdown.left.stop
         >
             {{ formatIo(props.io.cpsSolvedTotal, props.io) || '?' }}
             <br>

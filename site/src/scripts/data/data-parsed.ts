@@ -1,6 +1,6 @@
 import type {JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
 import dataJsonUntyped from '../../../data/data.json';
-import type {InterfaceOf} from '../types';
+import {ClassType, type ClassTypeValues, type InterfaceOf} from '../types';
 
 //immutable parsed JSON data for convenient and typed access
 const dataJson = dataJsonUntyped as JsonData;
@@ -45,6 +45,7 @@ class ItemImpl {
     public readonly lowerLabel;
     get recipeDictionary() { return this._recipeDictionary; }
     get multiplexor() { return this._item.UnitMul; }
+    get type(): ClassTypeValues { return ClassType.Item; }
 }
 
 interface RecipeIOOptions {

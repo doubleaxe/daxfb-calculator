@@ -8,7 +8,7 @@ import type {
     RecipeIOModel,
     RecipeModel,
 } from './store';
-import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
+import {BlueprintItemState, ClassType, type BlueprintItemStateValues, type ClassTypeValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
 import {Rect} from '../geometry';
 
@@ -46,6 +46,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get tier() { return this._item?.tier; }
     get count() { return this._count; }
     get solvedCount() { return this._solvedCount; }
+    get type(): ClassTypeValues { return ClassType.BlueprintItemModel; }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null) {
         if(!sourceIo) {

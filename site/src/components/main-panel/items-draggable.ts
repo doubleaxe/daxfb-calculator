@@ -25,6 +25,8 @@ class SingleItemDraggable {
         SingleItemDraggable.init(item.owner);
     }
     onStart(event: PointerEvent) {
+        if(event.buttons != 1)
+            return;
         //draggable will pass incorrect coordinates, due to scrollable, padding, ect
         //we should fix it here
         const {item, deltaXY} = this;
@@ -34,6 +36,8 @@ class SingleItemDraggable {
         this.item.isFloating = true;
     }
     onMove(event?: PointerEvent) {
+        if(event && (event.buttons != 1))
+            return;
         const {item, deltaXY} = this;
         const position = event ? {x: event.pageX, y: event.pageY} : this.lastPosition;
         if(!position)

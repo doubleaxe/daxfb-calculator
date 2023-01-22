@@ -1,12 +1,15 @@
 import {getScrollBox, Point, Rect} from '@/scripts/geometry';
 import {unrefElement, useEventListener} from '@vueuse/core';
 import type {Ref} from 'vue';
+import type {Pointer} from '@/scripts/html/pointer';
 
 export class ScrollHelper {
     private readonly target;
-    constructor(target: Ref<HTMLElement | null> | HTMLElement | null) {
+    private readonly pointer;
+    constructor(target: Ref<HTMLElement | null> | HTMLElement | null, pointer: Pointer) {
         this.target = target;
         this.registerDragScroll();
+        this.pointer = pointer;
     }
 
     private currentItem?: HTMLElement;
@@ -51,6 +54,12 @@ export class ScrollHelper {
         }
         if(scrollY >= 0)
             scrollboxElement.scrollTop = scrollY;
+
+        //emit pointermove so element may adjust its position (link for example)
+        const pointerMove = this.pointer.cloneLastEvent('pointermove');
+        if(pointerMove) {
+            this.currentItem.dispatchEvent(pointerMove);
+        }
     }
 
     private dragScrolling?: {mouse: Point; scroll: Point; scrollboxElement: HTMLElement};

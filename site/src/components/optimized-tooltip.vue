@@ -42,12 +42,12 @@ function cancelTooltip() {
 }
 
 function onPointerMove(evt: PointerEvent) {
-    const point = Point.assign({x: evt.pageX, y: evt.pageY});
+    const point = Point.assign({x: evt.clientX, y: evt.clientY});
     if(tooltipObject?.rect?.isPointInRect(point))
         return;
     if(tooltipObject.tooltipElement)
         cancelTooltip();
-    const elements = document.elementsFromPoint(evt.pageX, evt.pageY);
+    const elements = document.elementsFromPoint(evt.clientX, evt.clientY);
     let tooltipText = null;
     const tooltipElement = elements.find((element) => {
         tooltipText = element.getAttribute('data-tooltip');
