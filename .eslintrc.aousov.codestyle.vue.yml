@@ -1,4 +1,4 @@
 rules:
     #vue specific
     vue/html-indent: ["warn", 4]
-    vue/max-attributes-per-line: ["error", { singleline: 5, multiline: 5 }]
+    vue/max-attributes-per-line: ["error", { singleline: 5, multiline: 1 }]
