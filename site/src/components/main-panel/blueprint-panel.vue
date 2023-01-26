@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import {ref, watch, computed, type Ref} from 'vue';
+import {ref, watch, computed, type Ref, reactive} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
-import {injectHtmlHelpers} from '@/scripts/html';
 import LinkDraggable from './link-draggable.vue';
 import RecipesMenu from './recipes-menu.vue';
-import ItemsDraggable from './items-draggable';
-import {unrefElement, useEventListener} from '@vueuse/core';
+import {syncRefs, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
 import {Rect} from '@/scripts/geometry';
-import {ScrollHelper} from './scroll-helper';
+import {screenToClient, useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
+import {useEventHook} from '@/composables';
+import {injectFilter} from '@/scripts/filter';
 
-const htmlHelpers = injectHtmlHelpers();
 const settings = injectSettings();
+const filter = injectFilter();
 const blueprintModel = injectBlueprintModel();
-const blueprintsElement = ref<HTMLElement | null>(null);
-const scrollHelper = new ScrollHelper(blueprintsElement, htmlHelpers.pointer);
-const itemsDraggable = new ItemsDraggable({
-    onDrag: (element) => scrollHelper.processItemDrag(element),
-    onDrop: () => scrollHelper.processItemDrop(),
-});
+const blueprintsElement = ref<MaybeElement>(null);
 const linkDraggableElement = ref<InstanceType<typeof LinkDraggable> | null>(null);
 const recipesMenuElement = ref<InstanceType<typeof RecipesMenu> | null>(null);
+
+const {hooks: leftPanelHooks, dropZoneElem} = useLeftPanelDragAndDrop();
+syncRefs(blueprintsElement, dropZoneElem);
+useEventHook(leftPanelHooks.notifyDrop, (param) => {
+    const item = reactive(blueprintModel.addItem(param.item.name));
+    item.rect = item.rect.assignPoint(screenToClient(blueprintsElement, param.itemRect));
+    if(filter.key) {
+        const preselectRecipe = item.possibleRecipeForItem(filter.key, filter.direction);
+        if(preselectRecipe)
+            item.selectRecipe(preselectRecipe);
+    }
+
+});
 
 const computedStyle = computed(() => {
     const {boundingRect} = blueprintModel;
@@ -47,16 +55,6 @@ blueprintModel.registerUpdateOffsetPosition(() => {
     return Rect.assign(transformedRect);
 });
 
-function onDragMove(position: unknown, element: Ref<HTMLElement | null>) {
-    scrollHelper.processItemDrag(element);
-}
-function onDrop() {
-    scrollHelper.processItemDrop();
-}
-defineExpose({
-    onDragMove,
-    onDrop,
-});
 </script>
 
 <template>
@@ -64,12 +62,12 @@ defineExpose({
         ref="blueprintsElement"
         class="blueprint-collection"
         :style="computedStyle"
-        @pointerdown.left="scrollHelper.dragScrollStart($event)"
+        @pointerdown.left=""
     >
         <link-draggable
             ref="linkDraggableElement"
-            @drag-move="onDragMove"
-            @drop="onDrop"
+            @drag-move=""
+            @drop=""
         />
         <recipes-menu ref="recipesMenuElement" />
         <blueprint-links />
@@ -81,7 +79,7 @@ defineExpose({
                 :item="item"
                 class="blueprint-item"
                 :style="{left: item.rect.x + 'px', top: item.rect.y + 'px'}"
-                @pointerdown.left.stop="itemsDraggable.addDraggable(item, $event)"
+                @pointerdown.left.stop=""
                 @link-drag-begin="linkDraggableElement?.requestDragBegin"
                 @link-drag-force="linkDraggableElement?.requestDragForce"
                 @recipes-menu-activate="recipesMenuElement?.activate"

@@ -1,53 +1,35 @@
 <script setup lang="ts">
-import {injectSettings} from '@/scripts/settings';
-import {ref, unref, reactive} from 'vue';
-import type {Item} from '@/scripts/data/data';
-import type ElementDraggable from '../element-draggable.vue';
-import type {ReadonlyPointType} from '@/scripts/geometry';
+import {useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
+import {computed, unref} from 'vue';
 
-const emit = defineEmits<{
-    (e: 'drag-drop', position: ReadonlyPointType, itemName: string): void;
-}>();
+const {isDragging, currentItem, dragRect, movableElem} = useLeftPanelDragAndDrop();
 
-const settings = injectSettings();
-const draggableElement = ref<InstanceType<typeof ElementDraggable> | null>(null);
-const draggingItem = reactive({
-    name: '',
-    image: '',
-});
-
-const dropItem = (position: ReadonlyPointType) => {
-    emit('drag-drop', position, draggingItem.name);
-};
-
-const requestDragBegin = (item?: Item) => {
-    unref(draggableElement)?.requestDragBegin(!!item);
-    if(item) {
-        draggingItem.name = item.name;
-        draggingItem.image = item.image;
-    }
-};
-
-const requestDragForce = () => {
-    unref(draggableElement)?.requestDragForce();
-};
-
-defineExpose({
-    requestDragBegin,
-    requestDragForce,
+const draggableStyle = computed(() => {
+    const _isDragging = unref(isDragging);
+    const _dragRect = unref(dragRect);
+    //keep far offscreen, so drag-n-drop processor could get width and height
+    return {
+        left: `${((_isDragging && _dragRect?.x) || -10000)}px`,
+        top: `${((_isDragging && _dragRect?.y) || -10000)}px`,
+    };
 });
 </script>
 
 <template>
-    <element-draggable
-        ref="draggableElement"
-        :width="settings.iconSize"
-        :height="settings.iconSize"
-        immediate
-        @drop="dropItem"
-    >
-        <v-sheet class="rounded dragging-elevation">
-            <icon-component :image="draggingItem.image" />
+    <manual-transition :animate="isDragging">
+        <v-sheet
+            ref="movableElem"
+            class="rounded dragging-elevation icon-draggable"
+            :style="draggableStyle"
+        >
+            <icon-component :image="currentItem?.image || ''" />
         </v-sheet>
-    </element-draggable>
+    </manual-transition>
 </template>
+
+<style scoped>
+.icon-draggable {
+    position: fixed;
+    z-index: 5000;
+}
+</style>

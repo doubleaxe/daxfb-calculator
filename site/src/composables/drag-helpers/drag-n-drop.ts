@@ -1,8 +1,8 @@
 import {Point, Rect, type ReadonlyPointType} from '@/scripts/geometry';
 import {injectSettings} from '@/scripts/settings';
-import {createEventHook, createGlobalState, createSharedComposable, tryOnScopeDispose, useEventListener} from '@vueuse/core';
-import {ref, unref} from 'vue';
-import {justEventHook, useEventHook, type JustEventHook} from '../use-event-hook';
+import {createEventHook, createGlobalState, createSharedComposable, tryOnScopeDispose, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
+import {computed, ref, unref} from 'vue';
+import {justEventHook, type JustEventHook} from '../use-event-hook';
 import {isPointInsideElement2} from './commons';
 
 interface CurrentlyDraggable {
@@ -24,17 +24,6 @@ export interface DraggableListenerParam<ItemType> {
     item: ItemType;
     itemRect: Rect;
 }
-
-const ListenerKeyValues = [
-    'onStart',
-    'onMove',
-    'onDrop',
-    'onCancel',
-] as const;
-export type ListenerKeys = (typeof ListenerKeyValues)[number];
-export type DraggableListener<ItemType> = {
-    [s in ListenerKeys]?: (item: DraggableListenerParam<ItemType>) => void;
-};
 
 const NotifierKeyValues = [
     'notifyStart',
@@ -58,16 +47,6 @@ class DraggableHooksImpl<ItemType> {
             NotifierKeyValues.map((key) => [key, justEventHook(this[key])]),
         ) as DraggableHooks<ItemType>;
         return result;
-    }
-    bindToListener(listener?: DraggableListener<ItemType>) {
-        if(listener?.onStart)
-            useEventHook(this.notifyStart, listener.onStart.bind(listener));
-        if(listener?.onMove)
-            useEventHook(this.notifyMove, listener.onMove.bind(listener));
-        if(listener?.onDrop)
-            useEventHook(this.notifyDrop, listener.onDrop.bind(listener));
-        if(listener?.onCancel)
-            useEventHook(this.notifyCancel, listener.onCancel.bind(listener));
     }
     trigger(key: NotifierKeys, param: DraggableListenerParam<ItemType>) {
         this[key].trigger(param);
@@ -101,7 +80,6 @@ export const useGlobalDragAndDropListener = createGlobalState(() => globalHooks.
 //listener for single instance
 //notifier for shared instance
 export function useDragAndDrop<ItemType>(
-    listener: DraggableListener<ItemType> | undefined = undefined,
     options: UseDragAndDropOptions = {},
 ) {
     const settings = injectSettings();
@@ -112,10 +90,11 @@ export function useDragAndDrop<ItemType>(
     const activatorElem = ref<HTMLElement | undefined>();
     //movable is what is moved on screen, by default = activator
     //for links and left panel it is different
-    const movableElem = ref<HTMLElement | undefined>();
+    const movableElem = ref<MaybeElement>();
+    const movableElemAuto = computed(() => (unrefElement(movableElem) as HTMLElement | undefined) || unref(activatorElem));
     //dropZone is where to drop, by default = entire window
     //drag is not finished if dropped outside drop zone
-    const dropZoneElem = ref<HTMLElement | undefined>();
+    const dropZoneElem = ref<MaybeElement>();
 
     const offsetPosition = ref<Point | undefined>();
     //in screen coordinates
@@ -124,7 +103,6 @@ export function useDragAndDrop<ItemType>(
 
     const currentItem = ref<ItemType | undefined>();
     const hooks = new DraggableHooksImpl<ItemType>();
-    hooks.bindToListener(listener);
 
     function trigger(key: NotifierKeys) {
         const param: DraggableListenerParam<ItemType> = {
@@ -192,11 +170,9 @@ export function useDragAndDrop<ItemType>(
         isDragging.value = true;
 
         const activator = event.target as HTMLElement;
-        const movable = unref(movableElem) || activator;
+        const movable = unref(movableElemAuto) || activator;
         activatorElem.value = activator;
-        if(!unref(movableElem)) {
-            movableElem.value = movable;
-        }
+
         //we will align activatorElem and movableElem by center points, then calculate offset mouse position
         //so movableElem will be shown in the same place as activatorElem
         const activatorRect = Rect.assign(activator.getBoundingClientRect());
@@ -240,8 +216,10 @@ export function useDragAndDrop<ItemType>(
         dragRect,
         isDragging,
         hooks: hooks.toJustEventHooks(),
+        currentItem,
         activatorElem,
         movableElem,
+        movableElemAuto,
         dropZoneElem,
     };
 }

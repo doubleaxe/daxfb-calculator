@@ -51,6 +51,12 @@ class PointBase<T> implements ReadonlyPointType {
             y: (this._y - point.y),
         });
     }
+    scalePoint(scale: number) {
+        return this.assignPoint({
+            x: (this._x * scale),
+            y: (this._y * scale),
+        });
+    }
     isEqual(point: ReadonlyPointType) {
         return (this._x === point.x) && (this._y === point.y);
     }
@@ -99,10 +105,10 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
         return Rect.assign(this, {width: assign?.width, height: assign?.height});
     }
 
-    upscale(scale: number) {
+    scaleSize(scale: number) {
         return this.assignSize({
-            width: (this._width / scale),
-            height: (this._height / scale),
+            width: (this._width * scale),
+            height: (this._height * scale),
         });
     }
 

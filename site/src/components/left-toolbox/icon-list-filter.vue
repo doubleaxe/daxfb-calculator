@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {dataProvider, type Item} from '@/scripts/data/data';
 import {injectFilter} from '@/scripts/filter';
-import {useDebounceFn} from '@vueuse/core';
-import {computed, ref, unref, watch} from 'vue';
+import {syncRef, useDebounceFn} from '@vueuse/core';
+import {computed, ref, toRef, unref, watch} from 'vue';
 
 const filter = injectFilter();
 const allItems = dataProvider.getAllItems();
@@ -18,6 +18,7 @@ const currentPage = computed(() => {
 const select = ref<Item | undefined>(undefined);
 const search = ref('');
 const direction = ref('0');
+const tierEqual = ref('0');
 const updateSearch = useDebounceFn(() => {
     let val = unref(search);
     val = val && val.trim();
@@ -28,45 +29,40 @@ const updateSearch = useDebounceFn(() => {
     }
     const searchText = val.toLowerCase().split(/\s+/).map((s) => s.trim());
     filteredItems.value = allItems.filter((item) => (
-        searchText.every((l) => !l || (item.lowerLabel.indexOf(l) > -1)))
+        searchText.every((l) => !l || (item.lowerLabel.indexOf(l) > -1))),
     );
     if(unref(page) > unref(pages)) {
         page.value = unref(pages);
     }
 }, 400, {maxWait: 1000});
-watch(search, updateSearch);
-
-watch(select, (value) => {
-    if(filter.key !== value?.name)
-        filter.key = value?.name;
-});
-watch(() => filter.key, (value) => {
-    if(select.value?.name !== value)
-        select.value = value ? dataProvider.getItem(value) : undefined;
+watch(search, (value, oldValue) => {
+    if(value != oldValue)
+        updateSearch();
 });
 
-watch(direction, (value) => {
-    const v = Number(value);
-    if(filter.direction !== v)
-        filter.direction = v;
-});
-watch(() => filter.direction, (value) => {
-    const v = String(value);
-    if(direction.value !== v)
-        direction.value = v;
-});
+syncRef(
+    toRef(filter, 'key'),
+    computed({
+        get: () => unref(select)?.name,
+        set: (value?: string) => { select.value = value ? dataProvider.getItem(value) : undefined; },
+    }),
+);
 
-const tierEqual = ref('0');
-watch(tierEqual, (value) => {
-    const v = Number(value);
-    if(filter.tierEqual !== v)
-        filter.tierEqual = v;
-});
-watch(() => filter.tierEqual, (value) => {
-    const v = String(value);
-    if(tierEqual.value !== v)
-        tierEqual.value = v;
-});
+syncRef(
+    toRef(filter, 'direction'),
+    computed({
+        get: () => Number(unref(direction)),
+        set: (value: number) => { direction.value = String(value); },
+    }),
+);
+
+syncRef(
+    toRef(filter, 'tierEqual'),
+    computed({
+        get: () => Number(unref(tierEqual)),
+        set: (value: number) => { tierEqual.value = String(value); },
+    }),
+);
 </script>
 
 <template>

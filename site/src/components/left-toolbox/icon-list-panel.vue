@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import {useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
 import type {Item} from '@/scripts/data/data';
 import {injectFilter} from '@/scripts/filter';
+import {injectHtmlHelpers} from '@/scripts/html-drag-helpers';
+import {ClassType} from '@/scripts/types';
 
-const emit = defineEmits<{
-    (e: 'drag-begin', item?: Item): void;
-    (e: 'drag-force'): void;
-}>();
+const {dragStart} = useLeftPanelDragAndDrop();
 
 const filter = injectFilter();
+const htmlHelpers = injectHtmlHelpers();
+
+function itemClass(item: Item) {
+    const selected = htmlHelpers.pointAndClickImpl.selectedObject;
+    if((selected?.type == ClassType.Item) && (selected === item))
+        return ['selected-border'];
+    return [];
+}
 </script>
 
 <template>
@@ -20,10 +28,10 @@ const filter = injectFilter();
                     <template v-for="item in group" :key="item.name">
                         <icon-component
                             class="rounded icon-div hover-elevation"
+                            :class="itemClass(item)"
                             :image="item.image"
                             :data-tooltip="item.label"
-                            @pointerdown="emit('drag-begin', item)"
-                            @pointerup="emit('drag-begin')"
+                            @pointerdown="dragStart($event, item)"
                         />
                     </template>
                 </template>
@@ -40,5 +48,9 @@ const filter = injectFilter();
 }
 .icon-div {
     display: inline-block;
+}
+.icon-draggable {
+    position: fixed;
+    z-index: 5000;
 }
 </style>
