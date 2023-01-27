@@ -2,11 +2,11 @@
 import {useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
 import {computed, unref} from 'vue';
 
-const {isDragging, currentItem, dragRect, movableElem} = useLeftPanelDragAndDrop();
+const {isDragging, currentItem, screenRect, movableElem} = useLeftPanelDragAndDrop();
 
 const draggableStyle = computed(() => {
     const _isDragging = unref(isDragging);
-    const _dragRect = unref(dragRect);
+    const _dragRect = unref(screenRect);
     //keep far offscreen, so drag-n-drop processor could get width and height
     return {
         left: `${((_isDragging && _dragRect?.x) || -10000)}px`,

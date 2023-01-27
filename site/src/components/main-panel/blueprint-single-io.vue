@@ -3,17 +3,17 @@ import {computed, watch} from 'vue';
 import type {RecipeIOModel} from '@/scripts/model/store';
 import {formatIo} from '@/scripts/format';
 import {injectFilter} from '@/scripts/filter';
+import {useLinkDragAndDrop, LinkDragAndDropItem} from '@/composables/drag-helpers';
 
 const props = defineProps<{
     io: RecipeIOModel;
 }>();
 const emit = defineEmits<{
-    (e: 'link-drag-begin', item?: RecipeIOModel): void;
-    (e: 'link-drag-force'): void;
     (e: 'text-update'): void;
 }>();
 
 const filter = injectFilter();
+const {dragStart} = useLinkDragAndDrop();
 
 function isLtr() {
     return props.io.isFlipped ? !props.io.isInput : props.io.isInput;
@@ -43,8 +43,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             class="io-icon-row rounded hover-elevation"
             :image="props.io.image"
             :tooltip="props.io.label"
-            @pointerdown.left.stop="emit('link-drag-begin', props.io)"
-            @pointerup.left.stop="emit('link-drag-begin')"
+            @pointerdown.left.stop="dragStart($event, new LinkDragAndDropItem(props.io))"
         />
         <div
             class="io-description-row text-caption hover-border"

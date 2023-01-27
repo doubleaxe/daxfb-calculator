@@ -1,27 +1,29 @@
 <script setup lang="ts">
-import {injectSettings} from '@/scripts/settings';
-import {ref, unref, reactive, type Ref} from 'vue';
+import {unref, computed, reactive} from 'vue';
 import {
     injectBlueprintModel,
     type BlueprintItemModel,
     type RecipeIOModel,
 } from '@/scripts/model/store';
-import type ElementDraggable from '../element-draggable.vue';
 import type {ReadonlyPointType} from '@/scripts/geometry';
 import {BlueprintItemState} from '@/scripts/types';
+import {useLinkDragAndDrop} from '@/composables/drag-helpers';
+import {useEventHook} from '@/composables';
 
-const emit = defineEmits<{
-    (e: 'drag-shown', position: ReadonlyPointType): void;
-    (e: 'drag-move', position: ReadonlyPointType, element: Ref<HTMLElement | null>): void;
-    (e: 'drop', position: ReadonlyPointType): void;
-}>();
-
-const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
-const draggableElement = ref<InstanceType<typeof ElementDraggable> | null>(null);
-const draggingSource = ref<RecipeIOModel | null>(null);
-let draggingTarget: RecipeIOModel | undefined = undefined;
 let hoveringItem: BlueprintItemModel | undefined = undefined;
+
+const {hooks, isDragging, currentItem, clientRect, movableElem} = useLinkDragAndDrop();
+
+const draggableStyle = computed(() => {
+    const _isDragging = unref(isDragging);
+    const _dragRect = unref(clientRect);
+    //keep far offscreen, so drag-n-drop processor could get width and height
+    return {
+        left: `${((_isDragging && _dragRect?.x) || -10000)}px`,
+        top: `${((_isDragging && _dragRect?.y) || -10000)}px`,
+    };
+});
 
 const clearHoveringItem = () => {
     if(hoveringItem) {
@@ -30,57 +32,8 @@ const clearHoveringItem = () => {
     }
 };
 
-const dropItem = (screenXY: ReadonlyPointType) => {
-    const _draggingSource = unref(draggingSource);
-    if(_draggingSource && hoveringItem) {
-        if(hoveringItem.state === BlueprintItemState.CanLinkTarget) {
-            hoveringItem.createLink(_draggingSource);
-        } else if(hoveringItem.state === BlueprintItemState.CanLinkWithRecipeChange) {
-            const recipe = hoveringItem.possibleRecipeForIo(_draggingSource);
-            if(recipe) {
-                hoveringItem.selectRecipe(recipe);
-                hoveringItem.createLink(_draggingSource);
-            }
-        }
-    }
-    clearHoveringItem();
-    blueprintModel.clearTempLinks();
-    emit('drop', screenXY);
-};
-
-const requestDragBegin = (item?: RecipeIOModel) => {
-    unref(draggableElement)?.requestDragBegin(!!item);
-    if(item) {
-        draggingSource.value = item;
-    }
-};
-
-const dragShown = (screenXY: ReadonlyPointType) => {
-    const _draggingSource = unref(draggingSource);
-    if(!_draggingSource)
-        return;
-    const clientXY = blueprintModel.screenToClient(screenXY);
-    draggingTarget = reactive(_draggingSource.createTempLink());
-    draggingTarget.rect = draggingTarget.rect.assign({
-        x: clientXY.x,
-        y: clientXY.y,
-        width: settings.iconSize,
-        height: settings.iconSize,
-    });
-    draggingTarget.setFlipped(_draggingSource.isFlipped);
-    emit('drag-shown', screenXY);
-};
-
-const updateLink = (screenXY: ReadonlyPointType) => {
-    if(!draggingTarget)
-        return false;
-    const clientXY = blueprintModel.screenToClient(screenXY, {isPassive: true});
-    draggingTarget.rect = draggingTarget.rect.assignPoint(clientXY);
-    return true;
-};
-
-const processTargetItem = (screenXY: ReadonlyPointType) => {
-    const elements = document.elementsFromPoint(screenXY.x, screenXY.y);
+const processTargetItem = (sourceItem: RecipeIOModel, draggingItem: RecipeIOModel, screenPoint: ReadonlyPointType) => {
+    const elements = document.elementsFromPoint(screenPoint.x, screenPoint.y);
     let item: BlueprintItemModel | undefined;
     elements.find((element) => {
         const itemId = element.getAttribute('data-item-id');
@@ -95,45 +48,66 @@ const processTargetItem = (screenXY: ReadonlyPointType) => {
         clearHoveringItem();
         return;
     }
-    const _draggingSource = unref(draggingSource);
-    if((item === hoveringItem) || (item === _draggingSource?.ownerItem)) {
+    if((item === hoveringItem) || (item === sourceItem?.ownerItem)) {
         return;
     }
     clearHoveringItem();
     hoveringItem = item;
-    hoveringItem.calculateLinkState(_draggingSource);
-    draggingTarget?.setFlipped(hoveringItem.isFlipped);
+    hoveringItem.calculateLinkState(sourceItem);
+    draggingItem.setFlipped(hoveringItem.isFlipped);
 };
 
-const dragMove = (screenXY: ReadonlyPointType, element: Ref<HTMLElement | null>) => {
-    if(!updateLink(screenXY))
-        return;
-    processTargetItem(screenXY);
-    emit('drag-move', screenXY, element);
-};
+useEventHook(hooks.notifyStart, (param) => {
+    const item = param.item;
+    const {link, target} = reactive(item.source.createTempLink());
+    target.setFlipped(item.source.isFlipped);
+    item.link = link;
+    item.dragging = target;
+});
 
-const requestDragForce = () => {
-    unref(draggableElement)?.requestDragForce();
-};
+useEventHook(hooks.notifyDrop, (param) => {
+    const sourceItem = param.item.source;
+    if(sourceItem && hoveringItem) {
+        if(hoveringItem.state === BlueprintItemState.CanLinkTarget) {
+            hoveringItem.createLink(sourceItem);
+        } else if(hoveringItem.state === BlueprintItemState.CanLinkWithRecipeChange) {
+            const recipe = hoveringItem.possibleRecipeForIo(sourceItem);
+            if(recipe) {
+                hoveringItem.selectRecipe(recipe);
+                hoveringItem.createLink(sourceItem);
+            }
+        }
+    }
+    clearHoveringItem();
+    blueprintModel.clearTempLinks();
+});
 
-defineExpose({
-    requestDragBegin,
-    requestDragForce,
+useEventHook(hooks.notifyCancel, () => blueprintModel.clearTempLinks());
+
+useEventHook(hooks.notifyMove, (param) => {
+    const draggingItem = param.item.dragging;
+    if(draggingItem) {
+        draggingItem.rect = param.clientRect;
+        processTargetItem(param.item.source, draggingItem, param.screenRect);
+    }
 });
 </script>
 
 <template>
-    <element-draggable
-        ref="draggableElement"
-        :width="settings.iconSize"
-        :height="settings.iconSize"
-        immediate
-        @drag-shown="dragShown"
-        @drag-move="dragMove"
-        @drop="dropItem"
-    >
-        <v-sheet class="rounded dragging-elevation bg-window-idle">
-            <icon-component :image="draggingSource?.image || ''" />
+    <manual-transition :animate="isDragging">
+        <v-sheet
+            ref="movableElem"
+            class="rounded dragging-elevation bg-window-idle link-draggable"
+            :style="draggableStyle"
+        >
+            <icon-component :image="currentItem?.source?.image || ''" />
         </v-sheet>
-    </element-draggable>
+    </manual-transition>
 </template>
+
+<style scoped>
+.link-draggable {
+    position: absolute;
+    z-index: 5000;
+}
+</style>

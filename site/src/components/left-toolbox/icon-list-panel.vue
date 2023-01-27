@@ -31,7 +31,7 @@ function itemClass(item: Item) {
                             :class="itemClass(item)"
                             :image="item.image"
                             :data-tooltip="item.label"
-                            @pointerdown="dragStart($event, item)"
+                            @pointerdown.left="dragStart($event, item)"
                         />
                     </template>
                 </template>

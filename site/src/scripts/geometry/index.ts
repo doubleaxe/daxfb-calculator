@@ -60,6 +60,10 @@ class PointBase<T> implements ReadonlyPointType {
     isEqual(point: ReadonlyPointType) {
         return (this._x === point.x) && (this._y === point.y);
     }
+
+    toString() {
+        return `${this._x}:${this._y}`;
+    }
 }
 
 //object is immutable
@@ -119,6 +123,10 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
     isPointInRect(point: ReadonlyPointType) {
         return (point.x >= this._x) && (point.y >= this._y)
             && (point.x <= this.x1) && (point.y <= this.y1);
+    }
+
+    toString() {
+        return `${super.toString()}|${this._width}:${this._height}`;
     }
 }
 

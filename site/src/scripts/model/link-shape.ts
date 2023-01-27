@@ -34,6 +34,10 @@ export class LinkShapeDescriptor {
             && (this.inputFlipped === shape.inputFlipped)
             && (this.outputFlipped === shape.outputFlipped);
     }
+
+    toString() {
+        return `${this.input.toString()}=>${this.output.toString()}`;
+    }
 }
 
 export class LinkShapeModel {
@@ -140,12 +144,12 @@ export class LinkShapeModelBuilder {
         if(isLeftSide) {
             return Point.assign({
                 x: rect.x,
-                y: rect.y + (rect.height / 2)
+                y: rect.y + (rect.height / 2),
             });
         }
         return Point.assign({
             x: rect.x + rect.width,
-            y: rect.y + (rect.height / 2)
+            y: rect.y + (rect.height / 2),
         });
     }
     private curveBreakingWidth() {

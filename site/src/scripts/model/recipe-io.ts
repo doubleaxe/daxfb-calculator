@@ -88,11 +88,14 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         }
         return false;
     }
-    createTempLink(): RecipeIOModel {
+    createTempLink() {
         const clone = new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true});
         clone.rect = this.calculateRect();
-        this.owner?._$createTempLink(this, clone);
-        return clone;
+        const link = this.owner?._$createTempLink(this, clone);
+        return {
+            link,
+            target: clone,
+        };
     }
     calculateRect(): PublicRect {
         if(!this._ownerItem)

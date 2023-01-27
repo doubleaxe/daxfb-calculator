@@ -63,7 +63,7 @@ export class LinkModelImpl {
             l: [
                 input || 0,
                 output || 0,
-            ]
+            ],
         };
     }
 }

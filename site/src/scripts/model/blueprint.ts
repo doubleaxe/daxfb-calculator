@@ -157,7 +157,7 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
             l: links.map((link) => link._$save(
                 itemIndexes.get(link.input?.ownerItem?.key || ''),
                 itemIndexes.get(link.output?.ownerItem?.key || ''),
-            ))
+            )),
         };
         return JSON.stringify(savedBlueprint);
     }

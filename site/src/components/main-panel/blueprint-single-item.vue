@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
-import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
+import type {BlueprintItemModel} from '@/scripts/model/store';
 import {mdiArrowLeft, mdiArrowRight, mdiSync, mdiLock} from '@mdi/js';
 import {useElementHover} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
@@ -11,8 +11,6 @@ const props = defineProps<{
     item: BlueprintItemModel;
 }>();
 const emit = defineEmits<{
-    (e: 'link-drag-begin', item?: RecipeIOModel): void;
-    (e: 'link-drag-force'): void;
     (e: 'recipes-menu-activate', item: BlueprintItemModel, activator: Element): void;
 }>();
 
@@ -104,7 +102,6 @@ watch([
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"
-                        @link-drag-begin="(_io?: RecipeIOModel) => emit('link-drag-begin', _io)"
                         @text-update="updateSize"
                     />
                 </template>
@@ -131,7 +128,6 @@ watch([
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"
-                        @link-drag-begin="(_io?: RecipeIOModel) => emit('link-drag-begin', _io)"
                         @text-update="updateSize"
                     />
                 </template>

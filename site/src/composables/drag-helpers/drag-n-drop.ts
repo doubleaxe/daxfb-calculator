@@ -1,9 +1,10 @@
+import {LOG, log} from '@/scripts/debug';
 import {Point, Rect, type ReadonlyPointType} from '@/scripts/geometry';
 import {injectSettings} from '@/scripts/settings';
 import {createEventHook, createGlobalState, createSharedComposable, tryOnScopeDispose, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
 import {computed, ref, unref} from 'vue';
 import {justEventHook, type JustEventHook} from '../use-event-hook';
-import {isPointInsideElement2} from './commons';
+import {isPointInsideElement2, screenToClient} from './commons';
 
 interface CurrentlyDraggable {
     onMove: (event?: PointerEvent) => void;
@@ -22,7 +23,8 @@ export interface UseDragAndDropOptions {
 
 export interface DraggableListenerParam<ItemType> {
     item: ItemType;
-    itemRect: Rect;
+    screenRect: Rect;
+    clientRect: Rect;
 }
 
 const NotifierKeyValues = [
@@ -85,6 +87,7 @@ export function useDragAndDrop<ItemType>(
     const settings = injectSettings();
     const {currentlyDragging, lastMousePosition} = useSharedMouse();
 
+    const nextActivatorElem = ref<HTMLElement | undefined>();
     //activator is element, which activates drag-and-drop on keydown
     //it will be taken from PointerEvent
     const activatorElem = ref<HTMLElement | undefined>();
@@ -98,7 +101,9 @@ export function useDragAndDrop<ItemType>(
 
     const offsetPosition = ref<Point | undefined>();
     //in screen coordinates
-    const dragRect = ref<Rect | undefined>();
+    const screenRect = ref<Rect | undefined>();
+    //in drop zone coordinates
+    const clientRect = ref<Rect | undefined>();
     const isDragging = ref(false);
 
     const currentItem = ref<ItemType | undefined>();
@@ -108,18 +113,28 @@ export function useDragAndDrop<ItemType>(
         const param: DraggableListenerParam<ItemType> = {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             item: unref(currentItem)!,
-            itemRect: unref(dragRect) || Rect.assign(),
+            screenRect: unref(screenRect) || Rect.assign(),
+            clientRect: unref(clientRect) || Rect.assign(),
         };
         hooks.trigger(key, param);
         globalHooks.trigger(key, param);
+        //log(LOG.TRACE, key);
     }
 
     function cleanup() {
         currentItem.value = undefined;
         currentlyDragging.value = undefined;
+        nextActivatorElem.value = undefined;
         activatorElem.value = undefined;
         isDragging.value = false;
         //don't clear rect, item may use it for positions
+    }
+
+    function updateClientRect() {
+        const dropZone = unref(dropZoneElem);
+        if(dropZone) {
+            clientRect.value = screenToClient(dropZone, screenRect.value || Rect.assign(), settings.scale);
+        }
     }
 
     function updatePosition(event?: PointerEvent) {
@@ -131,8 +146,9 @@ export function useDragAndDrop<ItemType>(
         }
 
         const offset = unref(offsetPosition) || Point.assign();
-        const movableRect = unref(dragRect) || Rect.assign();
-        dragRect.value = Rect.assign(movableRect, mousePosition.offsetBy(offset));
+        const movableRect = unref(screenRect) || Rect.assign();
+        screenRect.value = Rect.assign(movableRect, mousePosition.offsetBy(offset));
+        updateClientRect();
         return mousePosition;
     }
 
@@ -161,9 +177,11 @@ export function useDragAndDrop<ItemType>(
     }
 
     function onStart(event: PointerEvent, item: ItemType) {
+        log(LOG.TRACE, 'onStart');
+
         timer = undefined;
         if(unref(currentlyDragging)) {
-            console.warn('Already dragging something, you can drag only one item at a time');
+            log(LOG.WARN, 'Already dragging something, you can drag only one item at a time');
         }
         currentItem.value = item;
         currentlyDragging.value = draggable;
@@ -191,29 +209,36 @@ export function useDragAndDrop<ItemType>(
         const movablePos = mousePosition.offsetBy(offset);
 
         offsetPosition.value = offset;
-        dragRect.value = Rect.assign(movablePos, {width: movableRect.width, height: movableRect.height});
+        screenRect.value = Rect.assign(movablePos, {width: movableRect.width, height: movableRect.height});
+        updateClientRect();
+
         trigger('notifyStart');
     }
 
     const dragStart: DragStart<ItemType> = (event: PointerEvent, item: ItemType) => {
         cancelDelayedStart();
+        nextActivatorElem.value = event.target as HTMLElement;
         const start = () => onStart(event, item);
         if(settings.pointAndClickEnabled && options.useDelay) {
             //usual click takes around 110-130 ms
-            setTimeout(start, 300);
+            timer = setTimeout(start, 300);
         } else {
             start();
         }
     };
 
     //if we are waiting for activation and user moves cursor out of element - cancel drag
-    useEventListener(activatorElem, 'pointerleave', cancelDelayedStart);
+    useEventListener(nextActivatorElem, ['pointerleave', 'pointerup'], (evt) => {
+        cancelDelayedStart();
+        //log(LOG.TRACE, evt.type);
+    });
 
     tryOnScopeDispose(cancelDelayedStart);
 
     return {
         dragStart,
-        dragRect,
+        screenRect,
+        clientRect,
         isDragging,
         hooks: hooks.toJustEventHooks(),
         currentItem,

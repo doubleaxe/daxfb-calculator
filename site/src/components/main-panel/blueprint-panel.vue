@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import {ref, watch, computed, type Ref, reactive} from 'vue';
+import {ref, watch, computed, reactive} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
-import LinkDraggable from './link-draggable.vue';
 import RecipesMenu from './recipes-menu.vue';
 import {syncRefs, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
 import {Rect} from '@/scripts/geometry';
-import {screenToClient, useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
+import {useLeftPanelDragAndDrop, useLinkDragAndDrop} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 import {injectFilter} from '@/scripts/filter';
 
@@ -14,20 +13,20 @@ const settings = injectSettings();
 const filter = injectFilter();
 const blueprintModel = injectBlueprintModel();
 const blueprintsElement = ref<MaybeElement>(null);
-const linkDraggableElement = ref<InstanceType<typeof LinkDraggable> | null>(null);
 const recipesMenuElement = ref<InstanceType<typeof RecipesMenu> | null>(null);
 
-const {hooks: leftPanelHooks, dropZoneElem} = useLeftPanelDragAndDrop();
-syncRefs(blueprintsElement, dropZoneElem);
+const {hooks: leftPanelHooks, dropZoneElem: dropZoneElem1} = useLeftPanelDragAndDrop();
+const {dropZoneElem: dropZoneElem2} = useLinkDragAndDrop();
+syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2]);
+
 useEventHook(leftPanelHooks.notifyDrop, (param) => {
     const item = reactive(blueprintModel.addItem(param.item.name));
-    item.rect = item.rect.assignPoint(screenToClient(blueprintsElement, param.itemRect));
+    item.rect = item.rect.assignPoint(param.clientRect);
     if(filter.key) {
         const preselectRecipe = item.possibleRecipeForItem(filter.key, filter.direction);
         if(preselectRecipe)
             item.selectRecipe(preselectRecipe);
     }
-
 });
 
 const computedStyle = computed(() => {
@@ -64,11 +63,7 @@ blueprintModel.registerUpdateOffsetPosition(() => {
         :style="computedStyle"
         @pointerdown.left=""
     >
-        <link-draggable
-            ref="linkDraggableElement"
-            @drag-move=""
-            @drop=""
-        />
+        <link-draggable />
         <recipes-menu ref="recipesMenuElement" />
         <blueprint-links />
         <template
@@ -80,8 +75,6 @@ blueprintModel.registerUpdateOffsetPosition(() => {
                 class="blueprint-item"
                 :style="{left: item.rect.x + 'px', top: item.rect.y + 'px'}"
                 @pointerdown.left.stop=""
-                @link-drag-begin="linkDraggableElement?.requestDragBegin"
-                @link-drag-force="linkDraggableElement?.requestDragForce"
                 @recipes-menu-activate="recipesMenuElement?.activate"
             />
         </template>
