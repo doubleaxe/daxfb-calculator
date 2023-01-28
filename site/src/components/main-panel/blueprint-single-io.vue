@@ -43,6 +43,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             class="io-icon-row rounded hover-elevation"
             :image="props.io.image"
             :tooltip="props.io.label"
+            :data-io-id="props.io.key"
             @pointerdown.left.stop="dragStart($event, new LinkDragAndDropItem(props.io))"
         />
         <div

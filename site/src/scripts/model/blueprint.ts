@@ -1,8 +1,4 @@
-import {
-    Point,
-    Rect,
-    type ReadonlyPointType,
-} from '../geometry';
+import {Point, Rect} from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
 import type {SavedBlueprint} from './saved-blueprint';
@@ -12,21 +8,17 @@ import type {
     PublicPoint,
     PublicRect,
     RecipeIOModel,
-    ScreenToClientOptions,
-    ScreenToClientProvider,
-    UpdateOffsetPositionCallback,
 } from './store';
 import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
 
-export class BlueprintModelImpl implements ScreenToClientProvider {
+export class BlueprintModelImpl {
     private readonly _items = new Map<string, BlueprintItemModel>();
     private readonly _links = new Map<string, LinkModel>();
     private readonly _tempLinks: LinkModel[] = [];
     private _maxItemXY: PublicPoint = Point.assign();
     private _boundingRect: PublicRect = Rect.assign();
-    private updateOffsetPositionCallback: UpdateOffsetPositionCallback | undefined;
     public hasCycles = false;
     private _solvePrecision = .001;
     private _autoSolveGraph = false;
@@ -96,25 +88,6 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         return new LinkModelImpl(_io.input, _io.output);
     }
 
-    //basically we cannot watch window move (relayout) events
-    //so we should update offset every time we would need it
-    //also automatically updated on create and on scroll
-    requestUpdateOffsetPosition() {
-        if(this.updateOffsetPositionCallback) {
-            this._boundingRect = this._boundingRect.assignPoint(this.updateOffsetPositionCallback());
-        }
-    }
-    registerUpdateOffsetPosition(callback: UpdateOffsetPositionCallback) {
-        if(this.updateOffsetPositionCallback) {
-            console?.log('Callback already registered');
-        }
-        this.updateOffsetPositionCallback = callback;
-    }
-    screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions = {}): PublicPoint {
-        if(!isPassive)
-            this.requestUpdateOffsetPosition();
-        return Point.assign(point).offsetBy(this._boundingRect, -1);
-    }
     _$updateXY(item?: BlueprintItemModel) {
         if(this._bulkUpdate) {
             return;

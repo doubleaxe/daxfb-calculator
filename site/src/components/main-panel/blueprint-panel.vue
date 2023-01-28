@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import {ref, watch, computed, reactive} from 'vue';
+import {ref, computed, reactive} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import RecipesMenu from './recipes-menu.vue';
-import {syncRefs, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
-import {Rect} from '@/scripts/geometry';
-import {useDragAndScroll, useLeftPanelDragAndDrop, useLinkDragAndDrop, useOverflowScroll} from '@/composables/drag-helpers';
+import {syncRefs, type MaybeElement} from '@vueuse/core';
+import {
+    useDragAndScroll,
+    useLeftPanelDragAndDrop,
+    useLinkDragAndDrop,
+    useOverflowScroll,
+} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 import {injectFilter} from '@/scripts/filter';
 
@@ -36,26 +40,9 @@ const computedStyle = computed(() => {
     return {
         width: boundingRect.width ? `${boundingRect.width}px` : '100%',
         height: boundingRect.width ? `${boundingRect.height}px` : '100%',
-        /* transform: `scale(${settings.scale})`, */
+        transform: `scale(${settings.scale})`,
     };
 });
-const updateBlueprintOffsetPosition = (evt?: Event) => {
-    const _blueprintsElement = unrefElement(blueprintsElement);
-    if(!_blueprintsElement)
-        return;
-    if(evt && (evt.target instanceof HTMLElement)) {
-        if(!(evt.target as HTMLElement).contains(_blueprintsElement))
-            return;
-    }
-    blueprintModel.requestUpdateOffsetPosition();
-};
-useEventListener(window, ['scroll', 'resize'], updateBlueprintOffsetPosition, {capture: true, passive: true});
-watch([blueprintsElement, () => settings.scale], () => updateBlueprintOffsetPosition());
-blueprintModel.registerUpdateOffsetPosition(() => {
-    const transformedRect = unrefElement(blueprintsElement)?.getBoundingClientRect();
-    return Rect.assign(transformedRect);
-});
-
 </script>
 
 <template>

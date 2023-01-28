@@ -6,14 +6,8 @@ import type {RecipeIOModelImpl} from './recipe-io';
 import type {RecipeModelImpl} from './recipe';
 import type {InjectionKey, App} from 'vue';
 import {reactive, inject} from 'vue';
-import type {Point, ReadonlyPointType, Rect} from '../geometry';
+import type {Point, Rect} from '../geometry';
 import type {InterfaceOf} from '../types';
-
-export type UpdateOffsetPositionCallback = () => ReadonlyPointType | undefined;
-export type ScreenToClientOptions = {isPassive?: boolean};
-export type ScreenToClientProvider = {
-    screenToClient(point: ReadonlyPointType, {isPassive}: ScreenToClientOptions): ReadonlyPointType;
-};
 
 export type PublicPoint = InterfaceOf<Point>;
 export type PublicRect = InterfaceOf<Rect>;

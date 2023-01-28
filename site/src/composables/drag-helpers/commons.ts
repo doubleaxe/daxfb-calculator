@@ -69,8 +69,9 @@ export function screenToClient(
     const rectsArray = Array.isArray(rects) ? rects : [rects];
     const clientRects = rectsArray.map((rect) => {
         let clientRect = Rect.assign(rect).offsetBy(parentRect, -1);
-        if(scale) {
-            clientRect = clientRect.scalePoint(scale).scaleSize(scale);
+        if(scale && (scale != 1)) {
+            const div = 1 / scale;
+            clientRect = clientRect.scalePoint(div).scaleSize(div);
         }
         return clientRect;
     });

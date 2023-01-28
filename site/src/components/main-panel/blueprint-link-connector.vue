@@ -2,11 +2,14 @@
 import type {LinkModel} from '@/scripts/model/store';
 import {computed, ref, unref} from 'vue';
 import {mdiLinkOff} from '@mdi/js';
+import {Rect} from '@/scripts/geometry';
+import {injectSettings} from '@/scripts/settings';
 
 const props = defineProps<{
     link?: LinkModel;
 }>();
 
+const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const computedStyle = computed(() => {
     const link = props.link;
@@ -14,7 +17,10 @@ const computedStyle = computed(() => {
     const mainDiv = unref(mainDivElement);
     if(!middlePoint || !mainDiv)
         return {};
-    const mainDivRect = mainDiv.getBoundingClientRect();
+    let mainDivRect = Rect.assign(mainDiv.getBoundingClientRect());
+    if(settings.scale && (settings.scale != 1)) {
+        mainDivRect = mainDivRect.scaleSize(1 / settings.scale);
+    }
     middlePoint = middlePoint.offsetBy({x: mainDivRect.width / 2, y: mainDivRect.height / 2}, -1);
     return {
         left: middlePoint.x + 'px',

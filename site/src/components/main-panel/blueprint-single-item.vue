@@ -123,7 +123,6 @@ watch([
             <div>
                 <template v-for="io in leftSide.io()" :key="io.key">
                     <blueprint-single-io
-                        :data-io-id="io.key"
                         :io="io"
                         @text-update="updateIoRects"
                     />
@@ -148,7 +147,6 @@ watch([
             <div>
                 <template v-for="io in rightSide.io()" :key="io.key">
                     <blueprint-single-io
-                        :data-io-id="io.key"
                         :io="io"
                         @text-update="updateIoRects"
                     />
