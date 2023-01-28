@@ -4,20 +4,19 @@ import {ItemModelImpl} from './item';
 import type {
     BlueprintItemModel,
     BlueprintModel,
-    PublicRect,
+    PublicPoint,
     RecipeIOModel,
     RecipeModel,
 } from './store';
 import {BlueprintItemState, ClassType, type BlueprintItemStateValues, type ClassTypeValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
-import {Rect} from '../geometry';
+import {Point} from '../geometry';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
-    private _rect: PublicRect = Rect.assign();
+    private _position: PublicPoint = Point.assign();
     private readonly _recipesDictionary;
     private readonly _recipes;
     private _selectedRecipe?: RecipeModel;
-    public isFloating = false;
     private _count = 1;
     private _solvedCount: number | undefined = undefined;
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
@@ -34,9 +33,9 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         }
     }
 
-    get rect(): PublicRect { return this._rect; }
-    set rect(rect: PublicRect) {
-        this._rect = rect;
+    get position(): PublicPoint { return this._position; }
+    set position(position: PublicPoint) {
+        this._position = position;
         this.owner?._$updateXY(this);
     }
     get selectedRecipe() { return this._selectedRecipe; }
@@ -126,7 +125,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     _$save(): SavedItem {
         return {
             n: this._item?.name || '',
-            p: [Math.round(this.rect.x), Math.round(this.rect.y)],
+            p: [Math.round(this._position.x), Math.round(this._position.y)],
             r: this._selectedRecipe?.name || '',
             c: (this._count == 1) ? undefined : this._count,
             f: this.isFlipped ? 1 : undefined,
@@ -135,7 +134,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     _$loadItem(i: SavedItem) {
         //TODO - show errors and status for invalid recipe
         this.selectRecipe(i.r);
-        this.rect = this.rect.assign({
+        this._position = this._position.assign({
             x: i.p[0],
             y: i.p[1],
         });

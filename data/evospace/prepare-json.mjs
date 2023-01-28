@@ -91,7 +91,7 @@ export class RecipesList {
                         type: 'array',
                         items: {'$ref': '#/$defs/Item'},
                         minItems: 0,
-                    }
+                    },
                 },
             },
             Item: {
@@ -103,8 +103,8 @@ export class RecipesList {
                     Probability: {type: 'number'},
                     Name: {type: 'string'},
                     Capacity: {type: 'integer'},
-                }
-            }
+                },
+            },
         },
     });
 }
@@ -184,7 +184,7 @@ export class ItemsList {
                     type: 'array',
                     minItems: 1,
                     maxItems: 2,
-                    items: {type: 'string'}
+                    items: {type: 'string'},
                 },
             },
             Tier: {type: 'integer'},
@@ -211,7 +211,7 @@ export class ItemsList {
                     properties: {
                         Item: {type: 'string'},
                         Tier: {type: 'integer'},
-                    }
+                    },
                 },
             },
         },
@@ -228,7 +228,7 @@ export class ItemsList {
             'LogicJson',
             'Materials',
             'Mesh',
-        ]
+        ],
     };
     static #processing = {
         SolidStaticItem: {
@@ -333,7 +333,7 @@ export class JsonComposer {
 
         const craftableRecipes = this.#recipeDictionary;
         const filteredRecipes = new Map(
-            [...recipes.entries()].filter(([key]) => craftableRecipes.has(key))
+            [...recipes.entries()].filter(([key]) => craftableRecipes.has(key)),
         );
 
         const craftableItems = new Set([...filteredRecipes.values()].flatMap(
@@ -344,10 +344,10 @@ export class JsonComposer {
                     ...(recipe.ResourceInput ? [recipe.ResourceInput] : []),
                     ...(recipe.ResourceOutput ? [recipe.ResourceOutput] : []),
                 ].flatMap(({Name}) => Name);
-            }))
+            })),
         );
         const filteredItems = new Map(
-            [...items.entries()].filter(([key]) => craftableItems.has(key))
+            [...items.entries()].filter(([key]) => craftableItems.has(key)),
         );
 
         //delete now unused keys

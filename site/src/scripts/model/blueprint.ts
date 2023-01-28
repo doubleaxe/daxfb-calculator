@@ -121,13 +121,13 @@ export class BlueprintModelImpl implements ScreenToClientProvider {
         }
         if(item) {
             this._maxItemXY = this._maxItemXY.assignPoint({
-                x: Math.max(this._maxItemXY.x, item.rect.x),
-                y: Math.max(this._maxItemXY.y, item.rect.y),
+                x: Math.max(this._maxItemXY.x, item.position.x),
+                y: Math.max(this._maxItemXY.y, item.position.y),
             });
         } else {
-            const {maxX, maxY} = [...this.items].reduce((max, {rect}) => ({
-                maxX: Math.max(rect.x, max.maxX),
-                maxY: Math.max(rect.y, max.maxY),
+            const {maxX, maxY} = [...this.items].reduce((max, {position}) => ({
+                maxX: Math.max(position.x, max.maxX),
+                maxY: Math.max(position.y, max.maxY),
             }), {maxX: 0, maxY: 0});
             this._maxItemXY = this._maxItemXY.assignPoint({x: maxX, y: maxY});
         }

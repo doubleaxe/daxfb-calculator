@@ -87,7 +87,7 @@ const applyFilter = useDebounceFn(() => {
     recipes.value = unref(allRecipes).filter((recipe) => (
         searchText.every((l) => !l || (
             recipe.input.some((io) => io.item.lowerLabel.indexOf(l) > -1))
-            || recipe.output.some((io) => io.item.lowerLabel.indexOf(l) > -1)
+            || recipe.output.some((io) => io.item.lowerLabel.indexOf(l) > -1),
         )
     ));
     if(unref(page) > unref(pages)) {

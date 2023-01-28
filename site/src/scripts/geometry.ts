@@ -129,5 +129,3 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
         return `${super.toString()}|${this._width}:${this._height}`;
     }
 }
-
-export * from './drop-helper';

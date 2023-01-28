@@ -2,18 +2,17 @@
 import {useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
 import type {Item} from '@/scripts/data/data';
 import {injectFilter} from '@/scripts/filter';
-import {injectHtmlHelpers} from '@/scripts/html-drag-helpers';
 import {ClassType} from '@/scripts/types';
 
 const {dragStart} = useLeftPanelDragAndDrop();
 
 const filter = injectFilter();
-const htmlHelpers = injectHtmlHelpers();
 
 function itemClass(item: Item) {
-    const selected = htmlHelpers.pointAndClickImpl.selectedObject;
+/*    const selected = htmlHelpers.pointAndClickImpl.selectedObject;
     if((selected?.type == ClassType.Item) && (selected === item))
         return ['selected-border'];
+        */
     return [];
 }
 </script>

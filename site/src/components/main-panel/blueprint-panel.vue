@@ -21,7 +21,7 @@ syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2]);
 
 useEventHook(leftPanelHooks.notifyDrop, (param) => {
     const item = reactive(blueprintModel.addItem(param.item.name));
-    item.rect = item.rect.assignPoint(param.clientRect);
+    item.position = item.position.assignPoint(param.clientRect);
     if(filter.key) {
         const preselectRecipe = item.possibleRecipeForItem(filter.key, filter.direction);
         if(preselectRecipe)
@@ -72,9 +72,7 @@ blueprintModel.registerUpdateOffsetPosition(() => {
         >
             <blueprint-single-item
                 :item="item"
-                class="blueprint-item"
-                :style="{left: item.rect.x + 'px', top: item.rect.y + 'px'}"
-                @pointerdown.left.stop=""
+                :parent="blueprintsElement"
                 @recipes-menu-activate="recipesMenuElement?.activate"
             />
         </template>
@@ -87,8 +85,5 @@ blueprintModel.registerUpdateOffsetPosition(() => {
     min-height: 100%;
     min-width: 100%;
     transform-origin: 0 0;
-}
-.blueprint-item {
-    position: absolute;
 }
 </style>

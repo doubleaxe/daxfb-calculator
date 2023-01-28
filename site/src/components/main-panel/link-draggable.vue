@@ -13,15 +13,18 @@ import {useEventHook} from '@/composables';
 const blueprintModel = injectBlueprintModel();
 let hoveringItem: BlueprintItemModel | undefined = undefined;
 
-const {hooks, isDragging, currentItem, clientRect, movableElem} = useLinkDragAndDrop();
+const {hooks, isDragging, currentItem, movableElem} = useLinkDragAndDrop();
 
 const draggableStyle = computed(() => {
     const _isDragging = unref(isDragging);
-    const _dragRect = unref(clientRect);
+    const _dragRect = unref(currentItem)?.dragging?.rect;
     //keep far offscreen, so drag-n-drop processor could get width and height
+    if(!_isDragging || !_dragRect) {
+        return {left: '-10000px', top: '-10000px'};
+    }
     return {
-        left: `${((_isDragging && _dragRect?.x) || -10000)}px`,
-        top: `${((_isDragging && _dragRect?.y) || -10000)}px`,
+        left: `${_dragRect.x}px`,
+        top: `${_dragRect.y}px`,
     };
 });
 
@@ -87,7 +90,7 @@ useEventHook(hooks.notifyCancel, () => blueprintModel.clearTempLinks());
 useEventHook(hooks.notifyMove, (param) => {
     const draggingItem = param.item.dragging;
     if(draggingItem) {
-        draggingItem.rect = param.clientRect;
+        draggingItem.rect = param.clientRect.positive();
         processTargetItem(param.item.source, draggingItem, param.screenRect);
     }
 });

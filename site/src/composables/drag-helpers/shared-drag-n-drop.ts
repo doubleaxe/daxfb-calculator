@@ -1,5 +1,5 @@
 import type {Item} from '@/scripts/data/data';
-import type {LinkModel, RecipeIOModel} from '@/scripts/model/store';
+import type {BlueprintItemModel, LinkModel, RecipeIOModel} from '@/scripts/model/store';
 import {createSharedComposable} from '@vueuse/core';
 import {useDragAndDrop} from './drag-n-drop';
 
@@ -15,3 +15,5 @@ export class LinkDragAndDropItem {
     }
 }
 export const useLinkDragAndDrop = createSharedComposable(() => useDragAndDrop<LinkDragAndDropItem>({useDelay: true}));
+
+export const useItemDragAndDrop = useDragAndDrop<BlueprintItemModel>;

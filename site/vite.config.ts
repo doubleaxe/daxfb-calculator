@@ -10,7 +10,7 @@ import Components from 'unplugin-vue-components/vite';
 import {
     Vuetify3Resolver,
     VueUseComponentsResolver,
-    VueUseDirectiveResolver
+    VueUseDirectiveResolver,
 } from 'unplugin-vue-components/resolvers';
 
 const game = process.env['GAME'] || 'example';
@@ -36,21 +36,21 @@ export default defineConfig({
                 Vuetify3Resolver(),
                 VueUseComponentsResolver(),
                 VueUseDirectiveResolver(),
-            ]
+            ],
         }),
         htmlPlugin(),
     ],
     resolve: {
         alias: {
-            '@': path.join(__dirname, 'src')
-        }
+            '@': path.join(__dirname, 'src'),
+        },
     },
     build: {
         outDir: path.join(__dirname, `../dist/${game}`),
         emptyOutDir: true,
         rollupOptions: {
             plugins: [visualizer({
-                filename: path.join(__dirname, '../dist/stats.html')
+                filename: path.join(__dirname, '../dist/stats.html'),
             })],
             output: {
                 format: 'iife',

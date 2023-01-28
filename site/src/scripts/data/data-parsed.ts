@@ -198,7 +198,7 @@ class ItemRecipeDictionaryImpl {
         this.recipes = recipes;
         Object.freeze(this.recipes);
         this.recipesMap = new Map<string, Recipe>(
-            recipes.map((r) => [r.name, r])
+            recipes.map((r) => [r.name, r]),
         );
         Object.freeze(this.recipesMap);
 

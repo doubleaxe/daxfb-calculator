@@ -1,5 +1,5 @@
 import {Rect, type ReadonlyPointType, type ReadonlyRectType} from '@/scripts/geometry';
-import {unrefElement, type MaybeComputedElementRef, type MaybeElement} from '@vueuse/core';
+import {unrefElement, type Arrayable, type MaybeComputedElementRef, type MaybeElement} from '@vueuse/core';
 
 export function getScrollBox(target: MaybeComputedElementRef<MaybeElement> | undefined) {
     const targetElement = unrefElement(target);
@@ -54,18 +54,25 @@ export function isPointInsideElement2(
 }
 
 //if scaled - transform-origin must be: 0 0;
+export function screenToClient<T = Arrayable<ReadonlyRectType>>(
+    parent: MaybeComputedElementRef<MaybeElement> | undefined,
+    rects: T,
+    scale?: number,
+): T extends ReadonlyRectType ? Rect : Rect[];
 export function screenToClient(
     parent: MaybeComputedElementRef<MaybeElement> | undefined,
-    rect: ReadonlyRectType,
+    rects: Arrayable<ReadonlyRectType>,
     scale?: number,
-): Rect {
+): Arrayable<Rect> {
     const parentElement = unrefElement(parent);
-    if(!parentElement)
-        return Rect.assign();
-    const parentRect = parentElement.getBoundingClientRect();
-    let itemRect = Rect.assign(rect).offsetBy(parentRect, -1);
-    if(scale) {
-        itemRect = itemRect.scalePoint(scale).scaleSize(scale);
-    }
-    return itemRect;
+    const parentRect = parentElement?.getBoundingClientRect() || Rect.assign();
+    const rectsArray = Array.isArray(rects) ? rects : [rects];
+    const clientRects = rectsArray.map((rect) => {
+        let clientRect = Rect.assign(rect).offsetBy(parentRect, -1);
+        if(scale) {
+            clientRect = clientRect.scalePoint(scale).scaleSize(scale);
+        }
+        return clientRect;
+    });
+    return Array.isArray(rects) ? clientRects : clientRects[0];
 }

@@ -43,10 +43,9 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         }
     }
 
+    //in client coordinates related to blueprint panel
     get rect(): PublicRect { return this._rect; }
-    set rect(rect: PublicRect) {
-        this._rect = rect;
-    }
+    set rect(rect: PublicRect) { this._rect = rect; }
     get isInput() { return this._isInput; }
     get isResource() { return this._io.isResource; }
     get ownerItem() { return this._ownerItem; }
@@ -90,17 +89,12 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     }
     createTempLink() {
         const clone = new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true});
-        clone.rect = this.calculateRect();
+        clone.rect = this._rect;
         const link = this.owner?._$createTempLink(this, clone);
         return {
             link,
             target: clone,
         };
-    }
-    calculateRect(): PublicRect {
-        if(!this._ownerItem)
-            return this.rect;
-        return this.rect.offsetBy(this._ownerItem.rect);
     }
     get cpsMax() { return this._cpsMax; }
     get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }

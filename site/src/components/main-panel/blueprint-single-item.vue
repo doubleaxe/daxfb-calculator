@@ -1,31 +1,74 @@
 <script setup lang="ts">
-import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
-import type {BlueprintItemModel} from '@/scripts/model/store';
-import {mdiArrowLeft, mdiArrowRight, mdiSync, mdiLock} from '@mdi/js';
-import {useElementHover} from '@vueuse/core';
+import {ref, unref, computed, onMounted, watch, nextTick, watchEffect} from 'vue';
+import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
+import {mdiArrowLeft, mdiArrowRight} from '@mdi/js';
+import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
-import {Rect} from '@/scripts/geometry';
-import {formatNumber} from '@/scripts/format';
+import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
+import {screenToClient, useItemDragAndDrop} from '@/composables/drag-helpers';
+import {useEventHook} from '@/composables';
 
 const props = defineProps<{
     item: BlueprintItemModel;
+    parent: MaybeElement;
 }>();
 const emit = defineEmits<{
     (e: 'recipes-menu-activate', item: BlueprintItemModel, activator: Element): void;
 }>();
 
-const __DEBUG__ = import.meta.env.DEV;
 const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
+const {dragStart, isDragging, hooks, dropZoneElem} = useItemDragAndDrop();
+
+watchEffect(() => { dropZoneElem.value = props.parent; });
+
 const computedElevation = computed(() => {
-    if(props.item.isFloating)
+    if(unref(isDragging))
         return 'dragging-elevation-static';
     if(unref(isHovered))
         return 'hover-elevation-static';
     return 0;
 });
+
+const computeStyle = computed(() => {
+    return {
+        left: `${props.item.position.x}px`,
+        top: `${props.item.position.y}px`,
+    };
+});
+
+function updateIoRects() {
+    nextTick(() => {
+        const mainDiv = unref(mainDivElement);
+        const _recipe = props.item?.selectedRecipe;
+        if(!mainDiv || !_recipe)
+            return;
+        const ioElements = mainDiv.querySelectorAll('[data-io-id]');
+        const ioScreenRects: ReadonlyRectType[] = [];
+        const ioList: RecipeIOModel[] = [];
+        for(let i = 0; i < ioElements.length; i++) {
+            const ioElement = ioElements.item(i);
+            const key = ioElement.getAttribute('data-io-id') || '';
+            const io = _recipe.itemByKey(key);
+            if(io) {
+                ioScreenRects.push(ioElement.getBoundingClientRect());
+                ioList.push(io);
+            }
+        }
+        const ioClientRects = screenToClient(props.parent, ioScreenRects, settings.scale);
+
+        ioList.forEach((io, index) => { io.rect = ioClientRects[index] || Rect.assign(); });
+    });
+}
+
+useEventHook([hooks.notifyMove, hooks.notifyDrop], (param) => {
+    const item = props.item;
+    item.position = item.position.assignPoint(param.clientRect).positive();
+    updateIoRects();
+});
+
 const leftSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
     return props.item.isFlipped ? {
@@ -52,33 +95,11 @@ function flip() {
     props.item.isFlipped = !props.item.isFlipped;
 }
 
-const updateSize = () => {
-    nextTick(() => {
-        const mainDiv = unref(mainDivElement);
-        const _item = props.item;
-        const _recipe = props.item?.selectedRecipe;
-        if(!mainDiv || !_item || !_recipe)
-            return;
-        const mainDivRect = Rect.assign(mainDiv.getBoundingClientRect());
-        _item.rect = _item.rect.assignSize(mainDivRect);
-        const ioList = mainDiv.querySelectorAll('[data-io-id]');
-        for(let i = 0; i < ioList.length; i++) {
-            const ioElement = ioList.item(i);
-            const key = ioElement.getAttribute('data-io-id') || '';
-            const io = _recipe.itemByKey(key);
-            const ioRect = ioElement.getBoundingClientRect();
-            if(io) {
-                io.rect = Rect.assign(ioRect).offsetBy(mainDivRect, -1);
-            }
-        }
-    });
-};
-onMounted(updateSize);
+onMounted(updateIoRects);
 watch([
     () => props.item.selectedRecipe,
     () => props.item.isFlipped,
-    () => settings.scale,
-], updateSize);
+], updateIoRects);
 </script>
 
 <template>
@@ -86,7 +107,9 @@ watch([
         ref="mainDivElement"
         class="rounded parent-div"
         :class="[computedElevation, itemStateColor]"
+        :style="computeStyle"
         :data-item-id="props.item.key"
+        @pointerdown.left.stop="dragStart($event, props.item)"
     >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">
@@ -102,16 +125,15 @@ watch([
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"
-                        @text-update="updateSize"
+                        @text-update="updateIoRects"
                     />
                 </template>
             </div>
-            <div class="align-self-center d-flex flex-column align-center">
+            <div class="align-self-center d-flex flex-column align-center" @pointerdown.left.stop>
                 <icon-component
                     class="main-icon-row rounded hover-border"
                     :image="props.item?.image"
                     :tooltip="props.item?.label"
-                    @pointerdown.left.stop
                     @click="emit('recipes-menu-activate', props.item, $event.currentTarget)"
                 />
                 <v-btn
@@ -128,34 +150,18 @@ watch([
                     <blueprint-single-io
                         :data-io-id="io.key"
                         :io="io"
-                        @text-update="updateSize"
+                        @text-update="updateIoRects"
                     />
                 </template>
             </div>
         </div>
-        <div class="status-row bg-window-statusbar">
-            <div class="title-text text-caption">
-                <template v-if="props.item.isLocked">
-                    <v-icon :icon="mdiLock" />
-                </template>
-                <template v-if="props.item.partOfCycle">
-                    <v-icon :icon="mdiSync" color="warning" />
-                </template>
-                <template v-if="(props.item.solvedCount !== undefined)">
-                    {{ (props.item.count ? formatNumber((props.item.solvedCount * 100) / props.item.count) : '0') + '%' }}
-                    {{ formatNumber(props.item.solvedCount) + ' / ' }}
-                </template>
-                {{ formatNumber(props.item.count) }}
-            </div>
-            <div v-if="__DEBUG__" class="float-right mr-1 text-caption">
-                {{ props.item.key }}
-            </div>
-        </div>
+        <blueprint-single-item-status :item="props.item" />
     </div>
 </template>
 
 <style scoped>
 .parent-div {
+    position: absolute;
     user-select: none;
 }
 .title-row {
@@ -163,18 +169,6 @@ watch([
     position: relative;
     height: 1.7rem;
     overflow: hidden;
-}
-.status-row {
-    display: block;
-    position: relative;
-    height: 1.2rem;
-    overflow: hidden;
-}
-.title-text {
-    position: absolute;
-    white-space: nowrap;
-    padding-left: 4px;
-    user-select: none;
 }
 .main-row {
     flex-wrap: nowrap;

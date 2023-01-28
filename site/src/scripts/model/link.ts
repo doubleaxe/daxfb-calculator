@@ -22,8 +22,8 @@ export class LinkModelImpl {
     get colorClass() { return this._colorClass; }
     buildShape() {
         const descriptor = new LinkShapeDescriptor(
-            this.input?.calculateRect(),
-            this.output?.calculateRect(),
+            this.input?.rect,
+            this.output?.rect,
             this.input?.isFlipped,
             this.output?.isFlipped,
         );

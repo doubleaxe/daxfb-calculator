@@ -8,3 +8,10 @@ html, body, #app {
 html {
     overflow-y: hidden;
 }
+
+.title-text {
+    position: absolute;
+    white-space: nowrap;
+    padding-left: 4px;
+    user-select: none;
+}

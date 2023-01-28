@@ -187,9 +187,9 @@ export function useDragAndDrop<ItemType>(
         currentlyDragging.value = draggable;
         isDragging.value = true;
 
-        const activator = event.target as HTMLElement;
-        const movable = unref(movableElemAuto) || activator;
+        const activator = event.currentTarget as HTMLElement;
         activatorElem.value = activator;
+        const movable = unref(movableElemAuto) || activator;
 
         //we will align activatorElem and movableElem by center points, then calculate offset mouse position
         //so movableElem will be shown in the same place as activatorElem
@@ -217,7 +217,7 @@ export function useDragAndDrop<ItemType>(
 
     const dragStart: DragStart<ItemType> = (event: PointerEvent, item: ItemType) => {
         cancelDelayedStart();
-        nextActivatorElem.value = event.target as HTMLElement;
+        nextActivatorElem.value = event.currentTarget as HTMLElement;
         const start = () => onStart(event, item);
         if(settings.pointAndClickEnabled && options.useDelay) {
             //usual click takes around 110-130 ms
