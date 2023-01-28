@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import {SelectedClassType, usePointAndClick} from '@/composables/drag-helpers';
 import type {BlueprintItemModel} from '@/scripts/model/store';
-import {mdiDelete, mdiLinkOff, mdiMenu, mdiPlusBox, mdiMinusBox} from '@mdi/js';
+import {injectSettings} from '@/scripts/settings';
+import {mdiDelete, mdiLinkOff, mdiMenu, mdiPlusBox, mdiMinusBox, mdiCursorMove} from '@mdi/js';
 import {ref} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
 }>();
+
+const settings = injectSettings();
+const {selectItem} = usePointAndClick();
 
 const menuOpened = ref(false);
 function setCount(value: number | string) {
@@ -23,10 +28,17 @@ function addCount(delta: number) {
 </script>
 
 <template>
-    <v-btn size="x-small" color="secondary" variant="outlined" @pointerdown.left.stop>
+    <v-btn size="x-small" color="secondary" variant="outlined" @pointerdown.left.stop @click.stop>
         <v-icon :icon="mdiMenu" />
         <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
             <v-list>
+                <v-list-item
+                    v-if="settings.pointAndClickEnabled"
+                    :prepend-icon="mdiCursorMove"
+                    title="Move"
+                    @click="selectItem(SelectedClassType.BlueprintItemModel, props.item); menuOpened = false;"
+                />
+
                 <v-list-item title="Count">
                     <v-text-field
                         density="compact"

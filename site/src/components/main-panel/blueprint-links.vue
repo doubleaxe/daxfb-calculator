@@ -7,9 +7,9 @@ const blueprintModel = injectBlueprintModel();
 <template>
     <svg class="background-svg">
         <blueprint-link
-            v-for="_link in blueprintModel.tempLinks"
-            :key="_link.key"
-            :link="_link"
+            v-if="blueprintModel.tempLink"
+            :key="blueprintModel.tempLink.key"
+            :link="blueprintModel.tempLink"
             color="link-stroke-black"
         />
 

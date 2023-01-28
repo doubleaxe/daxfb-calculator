@@ -8,9 +8,12 @@ const draggableStyle = computed(() => {
     const _isDragging = unref(isDragging);
     const _dragRect = unref(screenRect);
     //keep far offscreen, so drag-n-drop processor could get width and height
+    if(!_isDragging || !_dragRect) {
+        return {left: '-10000px', top: '-10000px'};
+    }
     return {
-        left: `${((_isDragging && _dragRect?.x) || -10000)}px`,
-        top: `${((_isDragging && _dragRect?.y) || -10000)}px`,
+        left: `${_dragRect.x}px`,
+        top: `${_dragRect.y}px`,
     };
 });
 </script>
@@ -19,7 +22,7 @@ const draggableStyle = computed(() => {
     <manual-transition :animate="isDragging">
         <v-sheet
             ref="movableElem"
-            class="rounded dragging-elevation icon-draggable"
+            class="rounded dragging-elevation icon-draggable hover-background"
             :style="draggableStyle"
         >
             <icon-component :image="currentItem?.image || ''" />

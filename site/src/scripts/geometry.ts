@@ -122,6 +122,10 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
         return (point.x >= this.x) && (point.y >= this.y)
             && (point.x <= this.x1) && (point.y <= this.y1);
     }
+    isRectInRect(rect: ReadonlyRectType) {
+        return (rect.x >= this.x) && (rect.y >= this.y)
+            && ((rect.x + rect.width) <= this.x1) && ((rect.y + rect.height) <= this.y1);
+    }
 
     toString() {
         return `${super.toString()}|${this.width}:${this.height}`;

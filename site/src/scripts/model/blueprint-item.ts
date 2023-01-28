@@ -8,7 +8,7 @@ import type {
     RecipeIOModel,
     RecipeModel,
 } from './store';
-import {BlueprintItemState, ClassType, type BlueprintItemStateValues, type ClassTypeValues} from '../types';
+import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
 import {Point} from '../geometry';
 
@@ -45,27 +45,25 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get tier() { return this._item?.tier; }
     get count() { return this._count; }
     get solvedCount() { return this._solvedCount; }
-    get type(): ClassTypeValues { return ClassType.BlueprintItemModel; }
 
-    calculateLinkState(sourceIo?: RecipeIOModel | null) {
+    calculateLinkState(sourceIo?: RecipeIOModel | null): BlueprintItemStateValues {
         if(!sourceIo) {
-            this._state = BlueprintItemState.None;
-            return;
+            return BlueprintItemState.None;
         }
         const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
         if(maybeTarget) {
             if(maybeTarget.isAlreadyLinked(sourceIo)) {
-                this._state = BlueprintItemState.LinkAlreadyExists;
-                return;
+                return BlueprintItemState.LinkAlreadyExists;
             }
-            this._state = BlueprintItemState.CanLinkTarget;
-            return;
+            return BlueprintItemState.CanLinkTarget;
         }
         if(this.possibleRecipeForIo(sourceIo)) {
-            this._state = BlueprintItemState.CanLinkWithRecipeChange;
-            return;
+            return BlueprintItemState.CanLinkWithRecipeChange;
         }
-        this._state = BlueprintItemState.CannotLinkTarget;
+        return BlueprintItemState.CannotLinkTarget;
+    }
+    updateLinkState(sourceIo?: RecipeIOModel | null) {
+        this._state = this.calculateLinkState(sourceIo);
     }
     createLink(sourceIo: RecipeIOModel) {
         const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);

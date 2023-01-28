@@ -16,7 +16,7 @@ import {useDebounceFn} from '@vueuse/core';
 export class BlueprintModelImpl {
     private readonly _items = new Map<string, BlueprintItemModel>();
     private readonly _links = new Map<string, LinkModel>();
-    private readonly _tempLinks: LinkModel[] = [];
+    private _tempLink?: LinkModel = undefined;
     private _maxItemXY: PublicPoint = Point.assign();
     private _boundingRect: PublicRect = Rect.assign();
     public hasCycles = false;
@@ -27,7 +27,7 @@ export class BlueprintModelImpl {
     get items() { return this._items.values(); }
     itemByKey(key: string) { return this._items.get(key); }
     get links() { return this._links.values(); }
-    get tempLinks() { return this._tempLinks[Symbol.iterator](); }
+    get tempLink() { return this._tempLink; }
 
     get boundingRect() { return this._boundingRect; }
     get solvePrecision() { return this._solvePrecision; }
@@ -65,12 +65,15 @@ export class BlueprintModelImpl {
         this._$graphChanged();
     }
     _$createTempLink(...io: RecipeIOModel[]) {
+        if(this._tempLink) {
+            throw new Error('Already have temp link');
+        }
         const link = BlueprintModelImpl.newLink(io);
-        this._tempLinks.push(link);
+        this._tempLink = link;
         return link;
     }
-    clearTempLinks() {
-        this._tempLinks.splice(0, this._tempLinks.length);
+    clearTempLink() {
+        this._tempLink = undefined;
     }
     private static newLink(io: RecipeIOModel[]) {
         if(io.length > 2)

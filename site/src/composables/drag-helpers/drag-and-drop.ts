@@ -2,8 +2,8 @@ import {LOG, log} from '@/scripts/debug';
 import {Point, Rect, type ReadonlyPointType} from '@/scripts/geometry';
 import {injectSettings} from '@/scripts/settings';
 import {createEventHook, createGlobalState, createSharedComposable, tryOnScopeDispose, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
-import {computed, ref, unref} from 'vue';
-import {justEventHook, type JustEventHook} from '../use-event-hook';
+import {computed, readonly, ref, unref} from 'vue';
+import {justEventHook, type JustEventHook} from '..';
 import {isPointInsideElement2, screenToClient} from './commons';
 
 interface CurrentlyDraggable {
@@ -22,9 +22,9 @@ export interface UseDragAndDropOptions {
 }
 
 export interface DraggableListenerParam<ItemType> {
-    item: ItemType;
-    screenRect: Rect;
-    clientRect: Rect;
+    readonly item: ItemType;
+    readonly screenRect: Rect;
+    readonly clientRect: Rect;
 }
 
 const NotifierKeyValues = [
@@ -116,6 +116,7 @@ export function useDragAndDrop<ItemType>(
             screenRect: unref(screenRect) || Rect.assign(),
             clientRect: unref(clientRect) || Rect.assign(),
         };
+        Object.freeze(param);
         hooks.trigger(key, param);
         globalHooks.trigger(key, param);
         //log(LOG.TRACE, key);
@@ -124,7 +125,6 @@ export function useDragAndDrop<ItemType>(
     function cleanup() {
         currentItem.value = undefined;
         currentlyDragging.value = undefined;
-        nextActivatorElem.value = undefined;
         activatorElem.value = undefined;
         isDragging.value = false;
         //don't clear rect, item may use it for positions
@@ -173,13 +173,19 @@ export function useDragAndDrop<ItemType>(
         if(timer !== undefined) {
             clearTimeout(timer);
             timer = undefined;
+            nextActivatorElem.value = undefined;
         }
     }
 
-    function onStart(event: PointerEvent, item: ItemType) {
+    type StoredEvent = {
+        currentTarget: HTMLElement;
+        mousePosition: Point;
+    };
+    function onStart(event: StoredEvent, item: ItemType) {
         log(LOG.TRACE, 'onStart');
 
         timer = undefined;
+        nextActivatorElem.value = undefined;
         if(unref(currentlyDragging)) {
             log(LOG.WARN, 'Already dragging something, you can drag only one item at a time');
         }
@@ -187,7 +193,7 @@ export function useDragAndDrop<ItemType>(
         currentlyDragging.value = draggable;
         isDragging.value = true;
 
-        const activator = event.currentTarget as HTMLElement;
+        const activator = event.currentTarget;
         activatorElem.value = activator;
         const movable = unref(movableElemAuto) || activator;
 
@@ -195,7 +201,7 @@ export function useDragAndDrop<ItemType>(
         //so movableElem will be shown in the same place as activatorElem
         const activatorRect = Rect.assign(activator.getBoundingClientRect());
         const movableRect = Rect.assign(movable.getBoundingClientRect());
-        const mousePosition = Point.assign({x: event.clientX, y: event.clientY});
+        const mousePosition = event.mousePosition;
 
         //we assume movable is less than activator, and mouse is inside activator
         //otherwise all calculations become negative, but it won't break them
@@ -216,11 +222,18 @@ export function useDragAndDrop<ItemType>(
     }
 
     const dragStart: DragStart<ItemType> = (event: PointerEvent, item: ItemType) => {
+        if(!settings.dragAndDropEnabled) {
+            return;
+        }
         cancelDelayedStart();
-        nextActivatorElem.value = event.currentTarget as HTMLElement;
-        const start = () => onStart(event, item);
+        const storedEvenet: StoredEvent = {
+            currentTarget: event.currentTarget as HTMLElement,
+            mousePosition: Point.assign({x: event.clientX, y: event.clientY}),
+        };
+        const start = () => onStart(storedEvenet, item);
         if(settings.pointAndClickEnabled && options.useDelay) {
             //usual click takes around 110-130 ms
+            nextActivatorElem.value = storedEvenet.currentTarget;
             timer = setTimeout(start, 300);
         } else {
             start();
@@ -237,14 +250,13 @@ export function useDragAndDrop<ItemType>(
 
     return {
         dragStart,
-        screenRect,
-        clientRect,
-        isDragging,
+        screenRect: readonly(screenRect),
+        clientRect: readonly(clientRect),
+        isDragging: readonly(isDragging),
         hooks: hooks.toJustEventHooks(),
-        currentItem,
-        activatorElem,
+        currentItem: readonly(currentItem),
+        activatorElem: readonly(activatorElem),
         movableElem,
-        movableElemAuto,
         dropZoneElem,
     };
 }

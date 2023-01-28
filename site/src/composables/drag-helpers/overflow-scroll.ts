@@ -8,8 +8,25 @@ export function useOverflowScroll(parent: MaybeComputedElementRef<MaybeElement> 
     const globalDragAndDropEvents = useGlobalDragAndDropListener();
     let interval: number | undefined = undefined;
     let itemRect: Rect | undefined = undefined;
+    //when user starts dragging and item is initially overlaps - don't start scrolling
+    //instead first wait for item inside area, and if it is outside again - start scrolling
+    //otherwise it will scroll immediatelly when user selects item on left panel
+    let waitingInside = false;
+
+    function checkInside() {
+        if(!waitingInside)
+            return;
+        const scrollboxElement = getScrollBox(parent)?.scrollboxElement;
+        if(!scrollboxElement || !itemRect)
+            return;
+        const visibleRect = Rect.assign(scrollboxElement.getBoundingClientRect());
+        if(visibleRect.isRectInRect(itemRect))
+            waitingInside = false;
+    }
 
     function processScroll() {
+        if(waitingInside)
+            return;
         const scrollboxElement = getScrollBox(parent)?.scrollboxElement;
         if(!scrollboxElement || !itemRect)
             return;
@@ -39,10 +56,13 @@ export function useOverflowScroll(parent: MaybeComputedElementRef<MaybeElement> 
     }
     useEventHook(globalDragAndDropEvents.notifyStart, (param) => {
         itemRect = param.screenRect;
+        waitingInside = true;
+        checkInside();
         interval = setInterval(() => processScroll(), 200);
     });
     useEventHook(globalDragAndDropEvents.notifyMove, (param) => {
         itemRect = param.screenRect;
+        checkInside();
     });
     useEventHook([globalDragAndDropEvents.notifyCancel, globalDragAndDropEvents.notifyDrop], () => {
         if(interval !== undefined) {

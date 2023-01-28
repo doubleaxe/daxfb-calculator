@@ -1,6 +1,5 @@
 import type {RecipeIO} from '../data/data';
 import {Rect} from '../geometry';
-import {ClassType, type ClassTypeValues} from '../types';
 import {ItemModelImpl} from './item';
 import type {
     BlueprintItemModel,
@@ -51,7 +50,6 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
     get isFlipped() { return this._ownerItem?.isFlipped || this._isFlipped; }
-    get type(): ClassTypeValues { return ClassType.RecipeIOModel; }
 
     setFlipped(isFlipped: boolean) {
         if(this._ownerItem)

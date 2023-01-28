@@ -5,7 +5,7 @@ import {mdiArrowLeft, mdiArrowRight} from '@mdi/js';
 import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
-import {screenToClient, useItemDragAndDrop} from '@/composables/drag-helpers';
+import {screenToClient, useItemDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 
 const props = defineProps<{
@@ -21,6 +21,7 @@ const mainDivElement = ref<HTMLElement | null>(null);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
 const {dragStart, isDragging, hooks, dropZoneElem} = useItemDragAndDrop();
+const {selectedItem} = usePointAndClick();
 
 watchEffect(() => { dropZoneElem.value = props.parent; });
 
@@ -37,6 +38,12 @@ const computeStyle = computed(() => {
         left: `${props.item.position.x}px`,
         top: `${props.item.position.y}px`,
     };
+});
+
+const computedSelectedClass = computed(() => {
+    if(unref(selectedItem)?.isSelected(props.item))
+        return 'selected-border';
+    return 'unselected-border';
 });
 
 function updateIoRects() {
@@ -66,7 +73,6 @@ function updateIoRects() {
 useEventHook([hooks.notifyMove, hooks.notifyDrop], (param) => {
     const item = props.item;
     item.position = item.position.assignPoint(param.clientRect).positive();
-    updateIoRects();
 });
 
 const leftSide = computed(() => {
@@ -97,6 +103,7 @@ function flip() {
 
 onMounted(updateIoRects);
 watch([
+    () => props.item.position,
     () => props.item.selectedRecipe,
     () => props.item.isFlipped,
 ], updateIoRects);
@@ -106,7 +113,7 @@ watch([
     <div
         ref="mainDivElement"
         class="rounded parent-div"
-        :class="[computedElevation, itemStateColor]"
+        :class="[computedElevation, itemStateColor, computedSelectedClass]"
         :style="computeStyle"
         :data-item-id="props.item.key"
         @pointerdown.left.stop="dragStart($event, props.item)"
@@ -128,7 +135,7 @@ watch([
                     />
                 </template>
             </div>
-            <div class="align-self-center d-flex flex-column align-center" @pointerdown.left.stop>
+            <div class="align-self-center d-flex flex-column align-center" @pointerdown.left.stop @click.stop>
                 <icon-component
                     class="main-icon-row rounded hover-border"
                     :image="props.item?.image"

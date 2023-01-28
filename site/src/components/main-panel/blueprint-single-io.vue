@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {computed, watch} from 'vue';
+import {computed, watch, unref} from 'vue';
 import type {RecipeIOModel} from '@/scripts/model/store';
 import {formatIo} from '@/scripts/format';
 import {injectFilter} from '@/scripts/filter';
-import {useLinkDragAndDrop, LinkDragAndDropItem} from '@/composables/drag-helpers';
+import {SelectedClassType, useLinkDragAndDrop, LinkDragAndDropItem, usePointAndClick} from '@/composables/drag-helpers';
 
 const props = defineProps<{
     io: RecipeIOModel;
@@ -14,6 +14,13 @@ const emit = defineEmits<{
 
 const filter = injectFilter();
 const {dragStart} = useLinkDragAndDrop();
+const {selectedItem, selectItem} = usePointAndClick();
+
+const computedIconClass = computed(() => {
+    if(unref(selectedItem)?.isSelected(props.io))
+        return ['selected-border'];
+    return [];
+});
 
 function isLtr() {
     return props.io.isFlipped ? !props.io.isInput : props.io.isInput;
@@ -38,19 +45,20 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
 </script>
 
 <template>
-    <div class="io-parent" :class="direction">
+    <div class="io-parent" :class="direction" @pointerdown.left.stop @click.stop>
         <icon-component-tooltip
             class="io-icon-row rounded hover-elevation"
+            :class="computedIconClass"
             :image="props.io.image"
             :tooltip="props.io.label"
             :data-io-id="props.io.key"
-            @pointerdown.left.stop="dragStart($event, new LinkDragAndDropItem(props.io))"
+            @click="selectItem(SelectedClassType.RecipeIOModel, props.io)"
+            @pointerdown.left="dragStart($event, new LinkDragAndDropItem(props.io))"
         />
         <div
             class="io-description-row text-caption hover-border"
             :class="[align, border]"
             @click="filterForIo()"
-            @pointerdown.left.stop
         >
             {{ formatIo(props.io.cpsSolvedTotal, props.io) || '?' }}
             <br>

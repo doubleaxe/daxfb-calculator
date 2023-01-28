@@ -50,7 +50,7 @@ class Settings {
     dragAndDropEnabled = true;
     dragAndScrollEnabled = true;
     overflowScrollEnabled = true;
-    pointAndClickEnabled = false;
+    pointAndClickEnabled = true;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }

@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import {useLeftPanelDragAndDrop} from '@/composables/drag-helpers';
+import {SelectedClassType, useLeftPanelDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
 import type {Item} from '@/scripts/data/data';
 import {injectFilter} from '@/scripts/filter';
-import {ClassType} from '@/scripts/types';
+import {unref} from 'vue';
 
 const {dragStart} = useLeftPanelDragAndDrop();
+const {selectedItem, selectItem} = usePointAndClick();
 
 const filter = injectFilter();
 
-function itemClass(item: Item) {
-/*    const selected = htmlHelpers.pointAndClickImpl.selectedObject;
-    if((selected?.type == ClassType.Item) && (selected === item))
+function computedItemClass(item: Item) {
+    if(unref(selectedItem)?.isSelected(item))
         return ['selected-border'];
-        */
     return [];
 }
 </script>
@@ -27,10 +26,11 @@ function itemClass(item: Item) {
                     <template v-for="item in group" :key="item.name">
                         <icon-component
                             class="rounded icon-div hover-elevation"
-                            :class="itemClass(item)"
+                            :class="computedItemClass(item)"
                             :image="item.image"
                             :data-tooltip="item.label"
                             @pointerdown.left="dragStart($event, item)"
+                            @click="selectItem(SelectedClassType.Item, item)"
                         />
                     </template>
                 </template>

@@ -37,6 +37,7 @@ const menuOpened = ref(false);
         class="rounded-pill link-connector bg-window-idle hover-border"
         :style="computedStyle"
         @pointerdown.left.stop
+        @click.stop
     >
         <icon-component :image="props.link?.input?.image" />
         <div class="mx-2" />

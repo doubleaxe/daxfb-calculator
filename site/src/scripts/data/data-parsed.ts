@@ -1,6 +1,7 @@
 import type {JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
 import dataJsonUntyped from '../../../data/data.json';
-import {ClassType, type ClassTypeValues, type InterfaceOf} from '../types';
+import type {InterfaceOf} from '../types';
+import {LOG, log} from '../debug';
 
 //immutable parsed JSON data for convenient and typed access
 const dataJson = dataJsonUntyped as JsonData;
@@ -45,7 +46,6 @@ class ItemImpl {
     public readonly lowerLabel;
     get recipeDictionary() { return this._recipeDictionary; }
     get multiplexor() { return this._item.UnitMul; }
-    get type(): ClassTypeValues { return ClassType.Item; }
 }
 
 interface RecipeIOOptions {
@@ -77,9 +77,7 @@ class RecipeIOImpl {
         const recipeTier = Math.max(this._recipe.minItemTier, 1);
         let tierDiff = producerTier - recipeTier;
         if(tierDiff < 0) {
-            try {
-                console.error(`Something wrong, item tier ${producerTier} < recipe tier ${recipeTier} => ${this._recipe.name}`);
-            } catch(err) { /**/ }
+            log(LOG.ERROR, `Something wrong, item tier ${producerTier} < recipe tier ${recipeTier} => ${this._recipe.name}`);
             tierDiff = 0;
         }
         if(this.isResource) {

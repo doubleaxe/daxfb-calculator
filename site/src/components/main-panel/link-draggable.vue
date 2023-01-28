@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import {unref, computed, reactive} from 'vue';
+import {unref, computed, reactive, toRaw} from 'vue';
 import {
     injectBlueprintModel,
     type BlueprintItemModel,
     type RecipeIOModel,
 } from '@/scripts/model/store';
 import type {ReadonlyPointType} from '@/scripts/geometry';
-import {BlueprintItemState} from '@/scripts/types';
-import {useLinkDragAndDrop} from '@/composables/drag-helpers';
+import {BlueprintItemState, type BlueprintItemStateValues} from '@/scripts/types';
+import {SelectedClassType, useLinkDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 
 const blueprintModel = injectBlueprintModel();
 let hoveringItem: BlueprintItemModel | undefined = undefined;
 
 const {hooks, isDragging, currentItem, movableElem} = useLinkDragAndDrop();
+const {notifySelected} = usePointAndClick();
 
 const draggableStyle = computed(() => {
     const _isDragging = unref(isDragging);
@@ -28,14 +29,14 @@ const draggableStyle = computed(() => {
     };
 });
 
-const clearHoveringItem = () => {
+function clearHoveringItem() {
     if(hoveringItem) {
-        hoveringItem.calculateLinkState();
+        hoveringItem.updateLinkState();
         hoveringItem = undefined;
     }
-};
+}
 
-const processTargetItem = (sourceItem: RecipeIOModel, draggingItem: RecipeIOModel, screenPoint: ReadonlyPointType) => {
+function detectItemFromPoint(screenPoint: ReadonlyPointType) {
     const elements = document.elementsFromPoint(screenPoint.x, screenPoint.y);
     let item: BlueprintItemModel | undefined;
     elements.find((element) => {
@@ -47,18 +48,38 @@ const processTargetItem = (sourceItem: RecipeIOModel, draggingItem: RecipeIOMode
         }
         return false;
     });
+    return item;
+}
+
+function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOModel, screenPoint: ReadonlyPointType) {
+    const item = detectItemFromPoint(screenPoint);
     if(!item) {
         clearHoveringItem();
         return;
     }
-    if((item === hoveringItem) || (item === sourceItem?.ownerItem)) {
+    if((toRaw(item) === toRaw(hoveringItem)) || (toRaw(item) === toRaw(sourceItem?.ownerItem))) {
         return;
     }
     clearHoveringItem();
     hoveringItem = item;
-    hoveringItem.calculateLinkState(sourceItem);
+    hoveringItem.updateLinkState(sourceItem);
     draggingItem.setFlipped(hoveringItem.isFlipped);
-};
+}
+
+function processLink(sourceItem: RecipeIOModel, _hoveringItem: BlueprintItemModel, hoveringState: BlueprintItemStateValues) {
+    if(hoveringState === BlueprintItemState.CanLinkTarget) {
+        _hoveringItem.createLink(sourceItem);
+        return true;
+    } else if(hoveringState === BlueprintItemState.CanLinkWithRecipeChange) {
+        const recipe = _hoveringItem.possibleRecipeForIo(sourceItem);
+        if(recipe) {
+            _hoveringItem.selectRecipe(recipe);
+            _hoveringItem.createLink(sourceItem);
+        }
+        return true;
+    }
+    return false;
+}
 
 useEventHook(hooks.notifyStart, (param) => {
     const item = param.item;
@@ -71,21 +92,13 @@ useEventHook(hooks.notifyStart, (param) => {
 useEventHook(hooks.notifyDrop, (param) => {
     const sourceItem = param.item.source;
     if(sourceItem && hoveringItem) {
-        if(hoveringItem.state === BlueprintItemState.CanLinkTarget) {
-            hoveringItem.createLink(sourceItem);
-        } else if(hoveringItem.state === BlueprintItemState.CanLinkWithRecipeChange) {
-            const recipe = hoveringItem.possibleRecipeForIo(sourceItem);
-            if(recipe) {
-                hoveringItem.selectRecipe(recipe);
-                hoveringItem.createLink(sourceItem);
-            }
-        }
+        processLink(sourceItem, hoveringItem, hoveringItem.state);
     }
     clearHoveringItem();
-    blueprintModel.clearTempLinks();
+    blueprintModel.clearTempLink();
 });
 
-useEventHook(hooks.notifyCancel, () => blueprintModel.clearTempLinks());
+useEventHook(hooks.notifyCancel, () => blueprintModel.clearTempLink());
 
 useEventHook(hooks.notifyMove, (param) => {
     const draggingItem = param.item.dragging;
@@ -94,13 +107,28 @@ useEventHook(hooks.notifyMove, (param) => {
         processTargetItem(param.item.source, draggingItem, param.screenRect);
     }
 });
+
+useEventHook(notifySelected, (param) => {
+    if(param.item.clazz != SelectedClassType.RecipeIOModel) {
+        return;
+    }
+    const sourceItem = param.item.item as RecipeIOModel;
+    const _hoveringItem = detectItemFromPoint(param.screenPosition);
+    if(!_hoveringItem || (toRaw(_hoveringItem) === toRaw(sourceItem?.ownerItem))) {
+        return;
+    }
+    const linkState = _hoveringItem.calculateLinkState(sourceItem);
+    if(processLink(sourceItem, _hoveringItem, linkState)) {
+        param.wasHandled();
+    }
+});
 </script>
 
 <template>
     <manual-transition :animate="isDragging">
         <v-sheet
             ref="movableElem"
-            class="rounded dragging-elevation bg-window-idle link-draggable"
+            class="rounded dragging-elevation link-draggable hover-background"
             :style="draggableStyle"
         >
             <icon-component :image="currentItem?.source?.image || ''" />

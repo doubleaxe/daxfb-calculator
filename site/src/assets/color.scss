@@ -12,6 +12,10 @@
 $hover-elevation: 5;
 $dragging-elevation: 10;
 
+.hover-background {
+    background-color: get-color('grey', 'lighten-2');
+}
+
 .hover-border {
     padding: 1px;
     border: 2px solid transparent;
@@ -32,6 +36,10 @@ $dragging-elevation: 10;
 
 .hover-elevation:hover {
     @include elevation.elevation($hover-elevation, false);
+}
+
+.unselected-border {
+    border: 2px solid transparent;
 }
 
 .selected-border {
