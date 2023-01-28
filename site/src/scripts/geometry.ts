@@ -1,4 +1,7 @@
-
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 export type PointType = {x: number; y: number};
 export type ReadonlyPointType = Readonly<PointType>;
 export type PartialPointType = Partial<ReadonlyPointType>;

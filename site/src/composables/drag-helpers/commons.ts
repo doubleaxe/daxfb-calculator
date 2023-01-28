@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {Rect, type ReadonlyPointType, type ReadonlyRectType} from '@/scripts/geometry';
 import {unrefElement, type Arrayable, type MaybeComputedElementRef, type MaybeElement} from '@vueuse/core';
 

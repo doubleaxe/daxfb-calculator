@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {RecipeIOModelImpl} from './recipe-io';
 import type {Recipe} from '../data/data';
 import type {BlueprintItemModel, RecipeIOModel, RecipeModel} from './store';

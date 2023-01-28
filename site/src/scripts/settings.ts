@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {useLocalStorage} from '@vueuse/core';
 import {type InjectionKey, type App, reactive, inject, watch, unref} from 'vue';
 import type {PublicFilter} from './filter';

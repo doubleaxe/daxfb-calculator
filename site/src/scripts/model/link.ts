@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {newColorClass, newKey} from './key-store';
 import {LinkShapeDescriptor, LinkShapeModel, LinkShapeModelBuilder} from './link-shape';
 import type {SavedLink} from './saved-blueprint';

@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {Point, Rect} from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';

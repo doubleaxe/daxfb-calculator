@@ -1,7 +1,7 @@
 {
   "name": "evospace-calculator",
   "version": "0.0.1",
-  "description": "Calculator/Factory Builder for Evospace game",
+  "description": "Calculator/Factory Builder for factory management games",
   "main": "index.js",
   "scripts": {
     "dev": "run-s build-data site",
@@ -21,7 +21,6 @@
     "url": "https://github.com/doubleaxe/evospace-calculator"
   },
   "keywords": [
-    "evospace",
     "game",
     "calculator",
     "factory builder"
@@ -30,7 +29,7 @@
     "node": ">=18"
   },
   "type": "module",
-  "author": "Alexey Usov",
+  "author": "Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)",
   "license": "MIT",
   "dependencies": {
     "@mdi/js": "^7.1.96",

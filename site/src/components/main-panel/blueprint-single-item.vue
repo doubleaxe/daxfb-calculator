@@ -1,3 +1,7 @@
+<!--
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+-->
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick, watchEffect} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';

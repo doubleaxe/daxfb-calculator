@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import type {Item} from '@/scripts/data/data';
 import type {BlueprintItemModel, LinkModel, RecipeIOModel} from '@/scripts/model/store';
 import {createSharedComposable} from '@vueuse/core';

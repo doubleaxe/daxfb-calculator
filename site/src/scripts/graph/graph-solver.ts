@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
 import {newModel, type Variable} from './solver-wrapper';
 

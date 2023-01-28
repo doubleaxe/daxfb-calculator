@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {Point, Rect} from '../geometry';
 import type {PublicPoint, PublicRect} from './store';
 import {link, curveBumpX, line, curveBasis} from 'd3-shape';

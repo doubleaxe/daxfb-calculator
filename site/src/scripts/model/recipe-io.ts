@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import type {RecipeIO} from '../data/data';
 import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';

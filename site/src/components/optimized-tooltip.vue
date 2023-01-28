@@ -1,3 +1,7 @@
+<!--
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+-->
 <script setup lang="ts">
 //this v-tooltip is optimized for many tooltip list
 //it is created only once for all children, and then watches children to show tooltip

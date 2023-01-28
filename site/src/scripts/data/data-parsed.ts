@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import type {JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
 import dataJsonUntyped from '../../../data/data.json';
 import type {InterfaceOf} from '../types';

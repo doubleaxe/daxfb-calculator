@@ -1,3 +1,7 @@
+<!--
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+-->
 <script setup lang="ts">
 //separate component, because if we inject v-tooltip inside icon-component
 //even with v-if it becomes extremely lagging in menus with debugger

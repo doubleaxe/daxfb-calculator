@@ -1,3 +1,7 @@
+/*
+Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Please don't remove author reference from this file
+*/
 import {dataProvider} from '../data/data';
 import {RecipeModelImpl} from './recipe';
 import {ItemModelImpl} from './item';
