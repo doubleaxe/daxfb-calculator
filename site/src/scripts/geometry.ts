@@ -13,16 +13,14 @@ type AssignablePoinFunction<T> = (point?: PartialPointType, assign?: PartialPoin
 
 class PointBase<T> implements ReadonlyPointType {
     private readonly _baseAssign;
-    protected readonly _x;
-    protected readonly _y;
+    readonly x;
+    readonly y;
 
     protected constructor(_baseAssign: AssignablePoinFunction<T>, base?: PartialPointType, assign?: PartialPointType) {
         this._baseAssign = _baseAssign;
-        this._x = assign?.x ?? base?.x ?? 0;
-        this._y = assign?.y ?? base?.y ?? 0;
+        this.x = assign?.x ?? base?.x ?? 0;
+        this.y = assign?.y ?? base?.y ?? 0;
     }
-    get x() { return this._x; }
-    get y() { return this._y; }
 
     assignPoint(assign?: PartialPointType) {
         //filter only valid ones, for not unexpectedly dragging rect instead of point
@@ -30,39 +28,39 @@ class PointBase<T> implements ReadonlyPointType {
     }
     offsetBy(point: ReadonlyPointType, sign?: number) {
         return this.assignPoint({
-            x: this._x + (sign || 1) * (point.x),
-            y: this._y + (sign || 1) * (point.y),
+            x: this.x + (sign || 1) * (point.x),
+            y: this.y + (sign || 1) * (point.y),
         });
     }
     positive() {
         return this.assignPoint({
-            x: Math.max(this._x, 0),
-            y: Math.max(this._y, 0),
+            x: Math.max(this.x, 0),
+            y: Math.max(this.y, 0),
         });
     }
     middlePoint(point: ReadonlyPointType) {
-        const middleX = (this._x + point.x) / 2;
-        const middleY = (this._y + point.y) / 2;
+        const middleX = (this.x + point.x) / 2;
+        const middleY = (this.y + point.y) / 2;
         return this.assignPoint({x: middleX, y: middleY});
     }
     distanceTo(point: ReadonlyPointType) {
         return this.assignPoint({
-            x: (this._x - point.x),
-            y: (this._y - point.y),
+            x: (this.x - point.x),
+            y: (this.y - point.y),
         });
     }
     scalePoint(scale: number) {
         return this.assignPoint({
-            x: (this._x * scale),
-            y: (this._y * scale),
+            x: (this.x * scale),
+            y: (this.y * scale),
         });
     }
     isEqual(point: ReadonlyPointType) {
-        return (this._x === point.x) && (this._y === point.y);
+        return (this.x === point.x) && (this.y === point.y);
     }
 
     toString() {
-        return `${this._x}:${this._y}`;
+        return `${this.x}:${this.y}`;
     }
 }
 
@@ -70,6 +68,7 @@ class PointBase<T> implements ReadonlyPointType {
 export class Point extends PointBase<Point> implements ReadonlyPointType {
     protected constructor(base?: PartialPointType, assign?: PartialPointType) {
         super(Point.assign, base, assign);
+        Object.freeze(this);
     }
 
     static assign(base?: PartialPointType, assign?: PartialPointType): Point {
@@ -84,18 +83,17 @@ export class Point extends PointBase<Point> implements ReadonlyPointType {
 //object is immutable
 //aligned to upper-left, as in html
 export class Rect extends PointBase<Rect> implements ReadonlyRectType {
-    protected readonly _width;
-    protected readonly _height;
+    readonly width;
+    readonly height;
     protected constructor(base?: PartialRectType, assign?: PartialRectType) {
         super(Rect.assign, base, assign);
-        this._width = assign?.width ?? base?.width ?? 0;
-        this._height = assign?.height ?? base?.height ?? 0;
+        this.width = assign?.width ?? base?.width ?? 0;
+        this.height = assign?.height ?? base?.height ?? 0;
+        Object.freeze(this);
     }
-    get width() { return this._width; }
-    get height() { return this._height; }
 
-    get x1() { return this._x + this._width; }
-    get y1() { return this._y + this._height; }
+    get x1() { return this.x + this.width; }
+    get y1() { return this.y + this.height; }
 
     static assign(base?: PartialRectType, assign?: PartialRectType): Rect {
         return new Rect(base, assign);
@@ -111,21 +109,21 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
 
     scaleSize(scale: number) {
         return this.assignSize({
-            width: (this._width * scale),
-            height: (this._height * scale),
+            width: (this.width * scale),
+            height: (this.height * scale),
         });
     }
 
     isEqual(rect: ReadonlyRectType) {
-        return super.isEqual(rect) && (this._width === rect.width) && (this._height === rect.height);
+        return super.isEqual(rect) && (this.width === rect.width) && (this.height === rect.height);
     }
 
     isPointInRect(point: ReadonlyPointType) {
-        return (point.x >= this._x) && (point.y >= this._y)
+        return (point.x >= this.x) && (point.y >= this.y)
             && (point.x <= this.x1) && (point.y <= this.y1);
     }
 
     toString() {
-        return `${super.toString()}|${this._width}:${this._height}`;
+        return `${super.toString()}|${this.width}:${this.height}`;
     }
 }

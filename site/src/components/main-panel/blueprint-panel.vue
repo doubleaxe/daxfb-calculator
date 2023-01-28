@@ -5,7 +5,7 @@ import {injectSettings} from '@/scripts/settings';
 import RecipesMenu from './recipes-menu.vue';
 import {syncRefs, unrefElement, useEventListener, type MaybeElement} from '@vueuse/core';
 import {Rect} from '@/scripts/geometry';
-import {useLeftPanelDragAndDrop, useLinkDragAndDrop} from '@/composables/drag-helpers';
+import {useDragAndScroll, useLeftPanelDragAndDrop, useLinkDragAndDrop, useOverflowScroll} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 import {injectFilter} from '@/scripts/filter';
 
@@ -15,6 +15,8 @@ const blueprintModel = injectBlueprintModel();
 const blueprintsElement = ref<MaybeElement>(null);
 const recipesMenuElement = ref<InstanceType<typeof RecipesMenu> | null>(null);
 
+const {onStart: startDragAndScroll} = useDragAndScroll();
+useOverflowScroll(blueprintsElement);
 const {hooks: leftPanelHooks, dropZoneElem: dropZoneElem1} = useLeftPanelDragAndDrop();
 const {dropZoneElem: dropZoneElem2} = useLinkDragAndDrop();
 syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2]);
@@ -61,7 +63,7 @@ blueprintModel.registerUpdateOffsetPosition(() => {
         ref="blueprintsElement"
         class="blueprint-collection"
         :style="computedStyle"
-        @pointerdown.left=""
+        @pointerdown.left="startDragAndScroll($event)"
     >
         <link-draggable />
         <recipes-menu ref="recipesMenuElement" />

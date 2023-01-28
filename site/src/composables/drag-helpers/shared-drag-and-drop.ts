@@ -1,7 +1,7 @@
 import type {Item} from '@/scripts/data/data';
 import type {BlueprintItemModel, LinkModel, RecipeIOModel} from '@/scripts/model/store';
 import {createSharedComposable} from '@vueuse/core';
-import {useDragAndDrop} from './drag-n-drop';
+import {useDragAndDrop} from './drag-and-drop';
 
 export const useLeftPanelDragAndDrop = createSharedComposable(() => useDragAndDrop<Item>({useDelay: true}));
 
