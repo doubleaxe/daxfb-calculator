@@ -3,10 +3,12 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 */
 import {Point} from '@/scripts/geometry';
+import {injectSettings} from '@/scripts/settings';
 import {useEventListener} from '@vueuse/core';
 import {getScrollBox} from './commons';
 
 export function useDragAndScroll() {
+    const settings = injectSettings();
     let data: {
         mouse: Point;
         scroll: Point;
@@ -14,6 +16,10 @@ export function useDragAndScroll() {
     } | undefined = undefined;
 
     function onStart(event: PointerEvent) {
+        if(!settings.dragAndScrollEnabled) {
+            data = undefined;
+            return;
+        }
         //TODO user clicked on something else
         const {scrollboxElement} = getScrollBox(event.currentTarget as HTMLElement);
         if(!scrollboxElement)

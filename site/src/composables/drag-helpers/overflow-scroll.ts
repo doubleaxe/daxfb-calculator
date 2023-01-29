@@ -3,12 +3,14 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 */
 import {Rect} from '@/scripts/geometry';
+import {injectSettings} from '@/scripts/settings';
 import type {MaybeComputedElementRef, MaybeElement} from '@vueuse/core';
 import {useEventHook} from '..';
 import {getScrollBox} from './commons';
 import {useGlobalDragAndDropListener} from './drag-and-drop';
 
 export function useOverflowScroll(parent: MaybeComputedElementRef<MaybeElement> | undefined) {
+    const settings = injectSettings();
     const globalDragAndDropEvents = useGlobalDragAndDropListener();
     let interval: number | undefined = undefined;
     let itemRect: Rect | undefined = undefined;
@@ -16,6 +18,14 @@ export function useOverflowScroll(parent: MaybeComputedElementRef<MaybeElement> 
     //instead first wait for item inside area, and if it is outside again - start scrolling
     //otherwise it will scroll immediatelly when user selects item on left panel
     let waitingInside = false;
+
+    function clear() {
+        if(interval !== undefined) {
+            clearInterval(interval);
+            interval = undefined;
+            itemRect = undefined;
+        }
+    }
 
     function checkInside() {
         if(!waitingInside)
@@ -59,6 +69,10 @@ export function useOverflowScroll(parent: MaybeComputedElementRef<MaybeElement> 
             scrollboxElement.scrollTop = scrollY;
     }
     useEventHook(globalDragAndDropEvents.notifyStart, (param) => {
+        if(!settings.dragAndDropEnabled || !settings.overflowScrollEnabled) {
+            clear();
+            return;
+        }
         itemRect = param.screenRect;
         waitingInside = true;
         checkInside();
@@ -68,11 +82,5 @@ export function useOverflowScroll(parent: MaybeComputedElementRef<MaybeElement> 
         itemRect = param.screenRect;
         checkInside();
     });
-    useEventHook([globalDragAndDropEvents.notifyCancel, globalDragAndDropEvents.notifyDrop], () => {
-        if(interval !== undefined) {
-            clearInterval(interval);
-            interval = undefined;
-            itemRect = undefined;
-        }
-    });
+    useEventHook([globalDragAndDropEvents.notifyCancel, globalDragAndDropEvents.notifyDrop], clear);
 }

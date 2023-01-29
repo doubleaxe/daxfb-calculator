@@ -16,6 +16,7 @@ import type {
 import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
+import {DEFAULT_PRECISION} from '../types';
 
 export class BlueprintModelImpl {
     private readonly _items = new Map<string, BlueprintItemModel>();
@@ -24,7 +25,7 @@ export class BlueprintModelImpl {
     private _maxItemXY: PublicPoint = Point.assign();
     private _boundingRect: PublicRect = Rect.assign();
     public hasCycles = false;
-    private _solvePrecision = .001;
+    private _solvePrecision = DEFAULT_PRECISION;
     private _autoSolveGraph = false;
     private _bulkUpdate = false;
 

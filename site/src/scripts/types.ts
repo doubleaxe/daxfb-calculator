@@ -13,3 +13,6 @@ export const BlueprintItemState = {
 } as const;
 export type BlueprintItemStateKeys = keyof typeof BlueprintItemState;
 export type BlueprintItemStateValues = typeof BlueprintItemState[BlueprintItemStateKeys];
+
+export const DEFAULT_PRECISION = .001;
+export const MIN_PRECISION = 1e-8;

@@ -19,6 +19,12 @@ const SavedKeys: PossibleKeys = [
     'groupTier',
     'autoSolveGraph',
     'solvePrecision',
+    'scale',
+    'colorfulLinks',
+    'dragAndDropEnabled',
+    'dragAndScrollEnabled',
+    'overflowScrollEnabled',
+    'pointAndClickEnabled',
 ];
 type SavedObject = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,6 +39,15 @@ function filterSavedKeys(object: SavedObject) {
     return savedObject;
 }
 
+function isTouchDevice() {
+    try {
+        return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0));
+    } catch(err) {
+        return false;
+    }
+}
+
 class Settings {
     private _filter: PublicFilter;
     private _blueprintModel: BlueprintModel;
@@ -40,6 +55,12 @@ class Settings {
     constructor(blueprintModel: BlueprintModel, filter: PublicFilter) {
         this._blueprintModel = blueprintModel;
         this._filter = filter;
+
+        const touchDevice = isTouchDevice();
+        this.dragAndDropEnabled = !touchDevice;
+        this.dragAndScrollEnabled = !touchDevice;
+        this.overflowScrollEnabled = !touchDevice;
+        this.pointAndClickEnabled = touchDevice;
     }
 
     iconSize = 32;
@@ -52,10 +73,10 @@ class Settings {
     };
     scale = 1;
     colorfulLinks = true;
-    dragAndDropEnabled = true;
-    dragAndScrollEnabled = true;
-    overflowScrollEnabled = true;
-    pointAndClickEnabled = true;
+    dragAndDropEnabled;
+    dragAndScrollEnabled;
+    overflowScrollEnabled;
+    pointAndClickEnabled;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }
