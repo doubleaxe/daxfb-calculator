@@ -6,6 +6,7 @@ import {
     parsedItems,
     imagesJson,
     newItemRecipeDictionary,
+    getDescription,
 } from './data-parsed';
 import type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray, ItemRecipeDictionary} from './data-parsed';
 export type {Item, RecipeIO, Recipe, RecipeDictionary, RecipeDictionaryArray, ItemRecipeDictionary};
@@ -44,6 +45,9 @@ class DataProvider {
             this.itemRecipeDictionary.set(item, itemRecipeDictionary);
         }
         return itemRecipeDictionary;
+    }
+    getDescription() {
+        return getDescription();
     }
 }
 

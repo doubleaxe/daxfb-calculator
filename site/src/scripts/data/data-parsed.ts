@@ -21,6 +21,7 @@ export type RecipeDictionaryArray = Recipe[];
 
 export const parsedItems = new Map<string, Item>();
 export const parsedRecipes = new Map<string, RecipeDictionary>();
+export const getDescription = () => dataJson.description;
 
 class ItemImpl {
     private readonly _item: JsonItem;
@@ -77,6 +78,7 @@ class RecipeIOImpl {
     //for item gives item/seconds
     //for resource gives Watts
     getCountPerSecond(producerTier: number) {
+        const description = dataJson.description;
         producerTier = Math.max(producerTier, 1);
         const recipeTier = Math.max(this._recipe.minItemTier, 1);
         let tierDiff = producerTier - recipeTier;
@@ -87,7 +89,7 @@ class RecipeIOImpl {
         if(this.isResource) {
             //1 Resource Item [R] * 20 = 20 Watt, time doesn't matter
             //each tier doubles energy consuption/production (cumulative)
-            return this.count * 20 * Math.pow(2, tierDiff);
+            return this.count * description.WattsPerItem * Math.pow(2, tierDiff);
         }
         //each tier makes production 1.5x times faster (cumulative)
         const multiplexor = this.item.multiplexor || 1;
@@ -109,11 +111,12 @@ class RecipeImpl {
     public readonly output: RecipeIO[];
     public readonly seconds;
     constructor(dictionary: RecipeDictionary, recipe: JsonRecipe) {
+        const description = dataJson.description;
         this._dictionary = dictionary;
         this._recipe = recipe;
         this.tier = recipe.Tier || -1;
         //1 Second = 20 Ticks
-        this.seconds = recipe.Ticks / 20;
+        this.seconds = recipe.Ticks / description.TicksPerSecond;
 
         const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {isInput, isResource}: RecipeIOOptions) => {
             if(!item)
@@ -185,7 +188,14 @@ class RecipeDictionaryImpl {
         Object.freeze(this);
         return this;
     }
-    getForTier(tier: number) { return this.recipes.filter((r) => (tier >= r.tier)); }
+    getForTier(tier: number) {
+        const filtered = this.recipes.filter((r) => (tier >= r.tier));
+        const cacheable = (filtered.length == this.recipes.length);
+        return {
+            recipes: cacheable ? this.recipes : filtered,
+            cacheable,
+        };
+    }
 
     get minItemTier() { return this.items[0]?.tier || 0; }
 }
@@ -224,8 +234,20 @@ class ItemRecipeDictionaryImpl {
         Object.freeze(this);
     }
 }
+const itemRecipeDictionaryCache = new Map<RecipeDictionaryArray, ItemRecipeDictionaryImpl>();
 export function newItemRecipeDictionary(item?: Item) {
-    const recipesForItem = item?.recipeDictionary?.getForTier(item.tier) || [];
+    const {
+        recipes: recipesForItem,
+        cacheable,
+    } = item?.recipeDictionary?.getForTier(item.tier) || {recipes: [], cacheable: true};
+    if(cacheable) {
+        let chached = itemRecipeDictionaryCache.get(recipesForItem);
+        if(!chached) {
+            chached = new ItemRecipeDictionaryImpl(recipesForItem);
+            itemRecipeDictionaryCache.set(recipesForItem, chached);
+        }
+        return chached;
+    }
     return new ItemRecipeDictionaryImpl(recipesForItem);
 }
 
@@ -246,4 +268,18 @@ export function newItemRecipeDictionary(item?: Item) {
     for(const item of parsedRecipes.values()) {
         item.init();
     }
+
+    let maxTier = 0;
+    for(const dictionary of parsedRecipes.values()) {
+        //sorted by tier
+        const tier1 = dictionary.items[dictionary.items.length - 1]?.tier || 0;
+        if(tier1 > maxTier)
+            maxTier = tier1;
+        for(const recipe of dictionary.recipes) {
+            if(recipe.tier > maxTier)
+                maxTier = recipe.tier;
+        }
+    }
+    const description = dataJson.description;
+    description.MaxTier = maxTier;
 })();

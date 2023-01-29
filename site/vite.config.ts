@@ -14,6 +14,7 @@ import {
 } from 'unplugin-vue-components/resolvers';
 
 const game = process.env['GAME'] || 'example';
+//const __GAME__ = import.meta.env.VITE_GAME;
 process.env['VITE_GAME'] = game;
 
 const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));

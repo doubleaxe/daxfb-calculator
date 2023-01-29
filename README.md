@@ -22,10 +22,10 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - Conveyors/Robotic arms/Pipes/etc.. support for link
 - Color/Icon states for link and item (filtered, warning, etc..)
 - ~~Pin/Lock items for flow calculation around them~~
-- Zoom
+- ~~Zoom~~
 - ~~Click-scroll and auto-scroll~~
 - Better count control
-- Point and click processing similar to drag and drop.
+- ~~Point and click processing similar to drag and drop.~~
 - Share
 - Some example templates
 - Help

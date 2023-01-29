@@ -9,14 +9,13 @@ import App from './app.vue';
 import {provideBlueprintModel} from './scripts/model/store';
 import {provideSettings} from './scripts/settings';
 import {provideFilter} from './scripts/filter';
+import {dataProvider} from './scripts/data/data';
 
 import './assets/vuetify.scss';
 import './assets/main.scss';
 
-const __GAME__ = import.meta.env.VITE_GAME;
-if(__GAME__) {
-    document.title = `${__GAME__.charAt(0).toUpperCase() + __GAME__.slice(1)} Calculator/Factory Builder by Alexey Usov`;
-}
+const description = dataProvider.getDescription();
+document.title = `${description.Description} Calculator/Factory Builder by Alexey Usov`;
 
 const app = createApp(App);
 

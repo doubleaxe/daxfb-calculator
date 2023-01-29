@@ -338,21 +338,35 @@ export class JsonComposer {
         const filteredRecipes = new Map(
             [...recipes.entries()].filter(([key]) => craftableRecipes.has(key)),
         );
-
-        const craftableItems = new Set([...filteredRecipes.values()].flatMap(
-            ({Recipes: recipeArray}) => recipeArray.flatMap((recipe) => {
-                return [
-                    ...recipe.Input.Items,
-                    ...recipe.Output.Items,
-                    ...(recipe.ResourceInput ? [recipe.ResourceInput] : []),
-                    ...(recipe.ResourceOutput ? [recipe.ResourceOutput] : []),
-                ].flatMap(({Name}) => Name);
-            })),
+        const flatRecipes = [...filteredRecipes.values()].flatMap(
+            ({Recipes: recipeArray}) => recipeArray.flatMap((recipe) => recipe),
         );
+
+        const producableItems = new Set(flatRecipes.flatMap((recipe) => {
+            return [
+                ...recipe.Output.Items,
+                ...(recipe.ResourceOutput ? [recipe.ResourceOutput] : []),
+            ].flatMap(({Name}) => Name);
+        }));
+        const consumableItems = new Set(flatRecipes.flatMap((recipe) => {
+            return [
+                ...recipe.Input.Items,
+                ...(recipe.ResourceInput ? [recipe.ResourceInput] : []),
+            ].flatMap(({Name}) => Name);
+        }));
+
+        const allItems = [...items.entries()];
         const filteredItems = new Map(
-            [...items.entries()].filter(([key]) => craftableItems.has(key)),
+            allItems.filter(
+                ([key]) => producableItems.has(key) || consumableItems.has(key),
+            ),
         );
-
+        /*
+        const uncraftableItems = allItems.filter(([key]) => consumableItems.has(key) && !producableItems.has(key));
+        if(uncraftableItems.length) {
+            console.log(`Uncraftable items: ${uncraftableItems.map(([key, value]) => value.Name)}`);
+        }
+        */
         //delete now unused keys
         for(const item of [...filteredRecipes.values()].flatMap(({Recipes}) => Recipes)) {
             if(!item.Input.Items)

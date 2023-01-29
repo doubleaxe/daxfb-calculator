@@ -8,6 +8,7 @@ import {fileURLToPath} from 'node:url';
 import {applyPatch} from 'diff';
 
 import type {
+    GameDescription,
     Images,
     JsonData,
     JsonItem,
@@ -39,16 +40,13 @@ const __target = path.join(__dirname, 'site', 'data');
 class MergeData {
     private readonly parsedDataJson;
     private readonly patchData;
-    private readonly imagesJson;
 
-    constructor(parsedDataJson: string, patchData: string, imagesJson: Images) {
+    constructor(parsedDataJson: string, patchData: string) {
         this.parsedDataJson = parsedDataJson;
         this.patchData = patchData;
-        this.imagesJson = imagesJson;
     }
     merge(): JsonData {
         const mergedDataJson = this.mergeData();
-        mergedDataJson.images = this.imagesJson;
         return mergedDataJson;
     }
     private mergeData() {
@@ -207,6 +205,8 @@ class OptimizeData {
             recipes: this.optimizeRecipes(reverceKeys),
             items: this.optimizeItems(reverceKeys),
             images: this.mergedDataJson.images || {},
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            description: this.mergedDataJson.description!,
         };
     }
 
@@ -273,8 +273,11 @@ class OptimizeData {
     const parsedDataJson: string = fs.readFileSync(path.join(__parsed, 'data.json'), 'utf8');
     const patchData: string = fs.readFileSync(path.join(__static, 'data.patch'), 'utf8');
     const imagesJson: Images = JSON.parse(fs.readFileSync(path.join(__parsed, 'images.json'), 'utf8'));
+    const descriptionJson: GameDescription = JSON.parse(fs.readFileSync(path.join(__static, 'description.json'), 'utf8'));
 
-    const mergedDataJson = new MergeData(parsedDataJson, patchData, imagesJson).merge();
+    const mergedDataJson = new MergeData(parsedDataJson, patchData).merge();
+    mergedDataJson.images = imagesJson;
+    mergedDataJson.description = descriptionJson;
 
     let keysJson: KeysJson = {};
     try {

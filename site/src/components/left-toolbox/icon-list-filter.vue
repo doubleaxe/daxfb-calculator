@@ -8,6 +8,8 @@ import {injectFilter} from '@/scripts/filter';
 import {syncRef, useDebounceFn} from '@vueuse/core';
 import {computed, ref, toRef, unref, watch} from 'vue';
 
+const maxTier = dataProvider.getDescription().MaxTier || 1;
+const allTiers = (maxTier > 1) ? Array.from(Array(maxTier), (el, i: number) => (i + 1)) : [];
 const filter = injectFilter();
 const allItems = dataProvider.getAllItems();
 const filteredItems = ref(allItems);
@@ -122,11 +124,12 @@ syncRef(
             </template>
         </v-autocomplete>
         <v-select
+            v-if="(maxTier > 1)"
             v-model="filter.tier"
             label="Tier"
             clearable
             hide-details
-            :items="[1, 2, 3, 4, 5, 6, 7]"
+            :items="allTiers"
         >
             <template #prepend-item>
                 <v-btn-toggle

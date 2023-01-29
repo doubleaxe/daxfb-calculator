@@ -6,6 +6,15 @@ export interface Images {
     [key: string]: number[];
 }
 
+export interface GameDescription {
+    Name: string;
+    Description: string;
+    Version: string;
+    MaxTier?: number;
+    TicksPerSecond: number;
+    WattsPerItem: number;
+}
+
 export interface JsonRecipeIO {
     Name: string;
     Count: number;
@@ -45,4 +54,5 @@ export interface JsonData {
     //ordered in natural order
     items: JsonItem[];
     images: Images;
+    description: GameDescription;
 }

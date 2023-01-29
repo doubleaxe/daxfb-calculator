@@ -1,0 +1,7 @@
+{
+    "Name": "evospace",
+    "Description": "Evospace",
+    "Version": "v18",
+    "TicksPerSecond": 20,
+    "WattsPerItem": 20
+}

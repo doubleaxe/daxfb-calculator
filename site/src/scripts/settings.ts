@@ -4,6 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 import {useLocalStorage} from '@vueuse/core';
 import {type InjectionKey, type App, reactive, inject, watch, unref} from 'vue';
+import {dataProvider} from './data/data';
 import type {PublicFilter} from './filter';
 import type {BlueprintModel} from './model/store';
 import {BlueprintItemState, type BlueprintItemStateValues} from './types';
@@ -78,8 +79,9 @@ class Settings {
 export const SettingsKey = Symbol('Settings') as InjectionKey<Settings>;
 export const provideSettings = (app: App, blueprintModel: BlueprintModel, filter: PublicFilter) => {
     const settings = reactive(new Settings(blueprintModel, filter));
+    const name = dataProvider.getDescription().Name;
     app.provide(SettingsKey, settings);
-    const savedSettings = useLocalStorage<SavedObject>('settings', settings.save(), {
+    const savedSettings = useLocalStorage<SavedObject>(`settings-${name}`, settings.save(), {
         mergeDefaults: true,
     });
     settings.load(unref(savedSettings));
