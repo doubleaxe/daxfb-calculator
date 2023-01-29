@@ -1,6 +1,6 @@
 <!--
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
-Please don't remove author reference from this file
+Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick, watchEffect} from 'vue';
