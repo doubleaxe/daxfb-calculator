@@ -6,8 +6,8 @@ Please don't remove this comment if you use unmodified file
 import {SelectedClassType, usePointAndClick} from '@/composables/drag-helpers';
 import type {BlueprintItemModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
-import {mdiDelete, mdiLinkOff, mdiMenu, mdiPlusBox, mdiMinusBox, mdiCursorMove} from '@mdi/js';
-import {ref} from 'vue';
+import {mdiDelete, mdiLinkOff, mdiMenu, mdiPlusBox, mdiMinusBox, mdiCursorMove, mdiCheck} from '@mdi/js';
+import {ref, unref, watch} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -17,18 +17,32 @@ const settings = injectSettings();
 const {selectItem} = usePointAndClick();
 
 const menuOpened = ref(false);
-function setCount(value: number | string) {
-    if(typeof(value) == 'string')
-        value = Number(value) || 1;
-    if(value <= 0)
+const tempCount = ref<string | number>(1);
+
+function updateCount() {
+    let value = unref(tempCount);
+    if(typeof(value) != 'number') {
+        value = parseFloat(value);
+    }
+    if(isNaN(value)) {
         value = 1;
-    props.item.setCount(Math.round(value));
+    } else if(value <= 0) {
+        value = 0;
+    }
+    props.item.setCount(value);
+    tempCount.value = value;
 }
 function addCount(delta: number) {
-    if((props.item.count + delta) <= 0)
-        return;
-    setCount(props.item.count + delta);
+    updateCount();
+    tempCount.value = Number(unref(tempCount)) + delta;
+    updateCount();
 }
+
+watch(menuOpened, (value) => {
+    if(value) {
+        tempCount.value = props.item.count;
+    }
+});
 </script>
 
 <template>
@@ -45,14 +59,22 @@ function addCount(delta: number) {
 
                 <v-list-item title="Count">
                     <v-text-field
+                        v-model="tempCount"
+                        class="count-number"
                         density="compact"
                         hide-details
+                        clearable
+                        persistent-clear
+                        type="number"
+                        min="0"
                         :append-icon="mdiPlusBox"
                         :prepend-icon="mdiMinusBox"
-                        :value="props.item.count"
+                        :append-inner-icon="mdiCheck"
+                        @blur="updateCount"
+                        @click:append-inner="updateCount"
+                        @click:clear="tempCount = 1; updateCount();"
                         @click:append="addCount(1)"
                         @click:prepend="addCount(-1)"
-                        @input="(event: InputEvent) => setCount(((event.target) as HTMLInputElement).value)"
                     />
                 </v-list-item>
                 <!-- eslint-disable-next-line vue/no-mutating-props -->
@@ -81,8 +103,7 @@ function addCount(delta: number) {
 </template>
 
 <style scoped>
-.io-menu-item {
-    display: flex;
-    align-items: center;
+.count-number {
+    width: 15em;
 }
 </style>

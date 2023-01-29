@@ -136,7 +136,4 @@ function loadBlueprint() {
     margin-right: 1em;
     margin-top: 1em;
 }
-.scale-number {
-    width: 5em;
-}
 </style>

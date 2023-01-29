@@ -24,11 +24,11 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - ~~Pin/Lock items for flow calculation around them~~
 - ~~Zoom~~
 - ~~Click-scroll and auto-scroll~~
-- Better count control
+- ~~Better count control~~
 - ~~Point and click processing similar to drag and drop.~~
 - Share
 - Some example templates
 - Help
-- Settings
+- ~~Settings~~
 - ~~Generalize recipe data, so other games may be supported in the future~~
 - General item list and scroll to item

@@ -15,3 +15,14 @@ html {
     padding-left: 4px;
     user-select: none;
 }
+
+input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+}

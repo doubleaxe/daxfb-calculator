@@ -77,7 +77,7 @@ function updateSolvePrecision() {
                             :append-inner-icon="mdiCheck"
                             @blur="updateSolvePrecision"
                             @click:append-inner="updateSolvePrecision"
-                            @click:clear="solvePrecision = DEFAULT_PRECISION; updateSolvePrecision()"
+                            @click:clear="solvePrecision = DEFAULT_PRECISION; updateSolvePrecision();"
                         />
                     </v-list-item>
                     <v-list-subheader>Actions</v-list-subheader>
@@ -128,14 +128,3 @@ function updateSolvePrecision() {
         </v-dialog>
     </v-row>
 </template>
-
-<style scoped>
-.scale-slider {
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-top: 1em;
-}
-.scale-number {
-    width: 5em;
-}
-</style>
