@@ -11,6 +11,7 @@ import {syncRefs, useEventListener, type MaybeElement} from '@vueuse/core';
 import {
     SelectedClassType,
     useDragAndScroll,
+    useItemDragAndDrop,
     useLeftPanelDragAndDrop,
     useLinkDragAndDrop,
     useOverflowScroll,
@@ -33,8 +34,9 @@ const {onStart: startDragAndScroll} = useDragAndScroll();
 useOverflowScroll(blueprintsElement);
 const {hooks: leftPanelHooks, dropZoneElem: dropZoneElem1} = useLeftPanelDragAndDrop();
 const {dropZoneElem: dropZoneElem2} = useLinkDragAndDrop();
-const {processSelected, parentElem: dropZoneElem3, notifySelected} = usePointAndClick();
-syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2, dropZoneElem3]);
+const {hooks: itemHooks, dropZoneElem: dropZoneElem3} = useItemDragAndDrop();
+const {processSelected, parentElem: dropZoneElem4, notifySelected} = usePointAndClick();
+syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2, dropZoneElem3, dropZoneElem4]);
 
 function addItem(selected: Item, clientPosition: ReadonlyPointType) {
     const item = reactive(blueprintModel.addItem(selected.name));
@@ -62,6 +64,11 @@ useEventHook(notifySelected, (param) => {
         param.wasHandled();
         return;
     }
+});
+
+useEventHook([itemHooks.notifyMove, itemHooks.notifyDrop], (param) => {
+    const item = param.item;
+    item.position = item.position.assignPoint(param.clientRect).positive();
 });
 
 const computedStyle = computed(() => {

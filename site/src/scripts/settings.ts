@@ -7,7 +7,7 @@ import {type InjectionKey, type App, reactive, inject, watch, unref} from 'vue';
 import {dataProvider} from './data/data';
 import type {PublicFilter} from './filter';
 import type {BlueprintModel} from './model/store';
-import {BlueprintItemState, type BlueprintItemStateValues} from './types';
+import {BlueprintItemState, DEFAULT_BLUEPRINT_SPLIT, type BlueprintItemStateValues} from './types';
 
 type BlueprintItemStateColorClass = Record<BlueprintItemStateValues, string>;
 
@@ -25,6 +25,9 @@ const SavedKeys: PossibleKeys = [
     'dragAndScrollEnabled',
     'overflowScrollEnabled',
     'pointAndClickEnabled',
+    'blueprintCompress',
+    'blueprintEncode',
+    'blueprintSplit',
 ];
 type SavedObject = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,6 +80,10 @@ class Settings {
     dragAndScrollEnabled;
     overflowScrollEnabled;
     pointAndClickEnabled;
+
+    blueprintCompress = true;
+    blueprintEncode = true;
+    blueprintSplit = DEFAULT_BLUEPRINT_SPLIT;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }

@@ -16,3 +16,5 @@ export type BlueprintItemStateValues = typeof BlueprintItemState[BlueprintItemSt
 
 export const DEFAULT_PRECISION = .001;
 export const MIN_PRECISION = 1e-8;
+
+export const DEFAULT_BLUEPRINT_SPLIT = 60;

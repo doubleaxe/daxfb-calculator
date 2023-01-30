@@ -41,7 +41,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
             <v-alert v-model="hasCycles" type="warning" closable>
                 Blueprint has cycles  - marked with
                 <v-icon :icon="mdiSync" />
-                icon. Cycles should have at least one output, otherwise they will not be calculated.
+                icon.
             </v-alert>
         </v-footer>
     </v-app>

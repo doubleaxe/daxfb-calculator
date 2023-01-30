@@ -6,8 +6,8 @@ Please don't remove this comment if you use unmodified file
 import {mdiClose, mdiCheck} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {useVModel} from '@vueuse/core';
-import {ref, unref} from 'vue';
-import {DEFAULT_PRECISION, MIN_PRECISION} from '@/scripts/types';
+import {DEFAULT_BLUEPRINT_SPLIT, DEFAULT_PRECISION, MIN_PRECISION} from '@/scripts/types';
+import {useNumberInputHelper} from '@/composables';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -16,23 +16,30 @@ const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 
 const settings = injectSettings();
-const solvePrecision = ref<string | number>(settings.solvePrecision);
+const {
+    updateNumber: updateSolvePrecision,
+    tempNumber: tempSolvePrecision,
+    resetNumber: resetSolvePrecision,
+} = useNumberInputHelper({
+    min: 0,
+    defaultMin: MIN_PRECISION,
+    max: 1,
+    defaultValue: DEFAULT_PRECISION,
+    apply(value) { settings.solvePrecision = value; },
+});
+tempSolvePrecision.value = settings.solvePrecision;
 
-function updateSolvePrecision() {
-    let value = unref(solvePrecision);
-    if(typeof(value) != 'number') {
-        value = parseFloat(value);
-    }
-    if(isNaN(value)) {
-        value = DEFAULT_PRECISION;
-    } else if(value >= 1) {
-        value = 1;
-    } else if(value <= 0) {
-        value = MIN_PRECISION;
-    }
-    settings.solvePrecision = value;
-    solvePrecision.value = value;
-}
+const {
+    updateNumber: updateBlueprintSplit,
+    tempNumber: tempBlueprintSplit,
+    resetNumber: resetBlueprintSplit,
+} = useNumberInputHelper({
+    min: 0,
+    defaultMin: 0,
+    defaultValue: DEFAULT_BLUEPRINT_SPLIT,
+    apply(value) { settings.blueprintSplit = value; },
+});
+tempBlueprintSplit.value = settings.blueprintSplit;
 </script>
 
 <template>
@@ -43,11 +50,12 @@ function updateSolvePrecision() {
         >
             <v-card>
                 <v-toolbar>
+                    <v-toolbar-title>Settings</v-toolbar-title>
+                    <v-spacer />
                     <v-btn
                         :icon="mdiClose"
                         @click="dialog = false"
                     />
-                    <v-toolbar-title>Settings</v-toolbar-title>
                 </v-toolbar>
                 <v-list subheader density="compact" :lines="false">
                     <v-list-subheader>Appearance</v-list-subheader>
@@ -66,7 +74,7 @@ function updateSolvePrecision() {
                             Default is ".001".
                         </template>
                         <v-text-field
-                            v-model="solvePrecision"
+                            v-model="tempSolvePrecision"
                             density="compact"
                             hide-details
                             clearable
@@ -77,7 +85,7 @@ function updateSolvePrecision() {
                             :append-inner-icon="mdiCheck"
                             @blur="updateSolvePrecision"
                             @click:append-inner="updateSolvePrecision"
-                            @click:clear="solvePrecision = DEFAULT_PRECISION; updateSolvePrecision();"
+                            @click:clear="resetSolvePrecision"
                         />
                     </v-list-item>
                     <v-list-subheader>Actions</v-list-subheader>
@@ -91,7 +99,7 @@ function updateSolvePrecision() {
                         </template>
                     </v-list-item>
                     <v-list-item
-                        v-if="settings.dragAndDropEnabled"
+                        :disabled="!settings.dragAndDropEnabled"
                         title="Auto Scroll On Overflow"
                         @click="settings.overflowScrollEnabled = !settings.overflowScrollEnabled"
                     >
@@ -122,6 +130,48 @@ function updateSolvePrecision() {
                         <template #prepend>
                             <v-checkbox v-model="settings.pointAndClickEnabled" />
                         </template>
+                    </v-list-item>
+                    <v-list-subheader>Save (advanced)</v-list-subheader>
+                    <v-list-item title="Compress Saved Data" @click="settings.blueprintCompress = !settings.blueprintCompress">
+                        <template #subtitle>
+                            Decreases size for big blueprints.
+                        </template>
+                        <template #prepend>
+                            <v-checkbox v-model="settings.blueprintCompress" />
+                        </template>
+                    </v-list-item>
+                    <v-list-item
+                        :disabled="settings.blueprintCompress"
+                        title="Encode Saved Data"
+                        @click="settings.blueprintEncode = !settings.blueprintEncode"
+                    >
+                        <template #subtitle>
+                            Encodes raw blueprint JSON to Base64. Better for sharing blueprint text.
+                        </template>
+                        <template #prepend>
+                            <v-checkbox v-model="settings.blueprintEncode" />
+                        </template>
+                    </v-list-item>
+                    <v-list-item
+                        :disabled="!settings.blueprintCompress && !settings.blueprintEncode"
+                        title="Split Encoded Data"
+                    >
+                        <template #subtitle>
+                            Splits to chunks with new line. Better for sharing. Set 0 to disable splitting.
+                        </template>
+                        <v-text-field
+                            v-model="tempBlueprintSplit"
+                            density="compact"
+                            hide-details
+                            clearable
+                            persistent-clear
+                            type="number"
+                            min="0"
+                            :append-inner-icon="mdiCheck"
+                            @blur="updateBlueprintSplit"
+                            @click:append-inner="updateBlueprintSplit"
+                            @click:clear="resetBlueprintSplit"
+                        />
                     </v-list-item>
                 </v-list>
             </v-card>

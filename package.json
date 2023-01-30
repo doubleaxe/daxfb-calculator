@@ -37,6 +37,8 @@
     "@vueuse/core": "^9.11.1",
     "d3-shape": "^3.2.0",
     "javascript-lp-solver": "^0.4.24",
+    "js-base64": "^3.7.4",
+    "pako": "^2.1.0",
     "vue": "^3.2.41",
     "vuetify": "^3.1.2"
   },
@@ -44,6 +46,7 @@
     "@types/d3-shape": "^3.1.1",
     "@types/diff": "^5.0.2",
     "@types/node": "^18.11.18",
+    "@types/pako": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "@vitejs/plugin-vue": "^3.2.0",

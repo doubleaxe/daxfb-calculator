@@ -140,10 +140,9 @@ export class BlueprintModelImpl {
                 itemIndexes.get(link.output?.ownerItem?.key || ''),
             )),
         };
-        return JSON.stringify(savedBlueprint);
+        return savedBlueprint;
     }
-    load(savedBlueprintJson: string) {
-        const savedBlueprint: SavedBlueprint = JSON.parse(savedBlueprintJson);
+    load(savedBlueprint: SavedBlueprint) {
         this._bulkUpdate = true;
         try {
             this._clear();

@@ -20,4 +20,4 @@ export class LinkDragAndDropItem {
 }
 export const useLinkDragAndDrop = createSharedComposable(() => useDragAndDrop<LinkDragAndDropItem>({useDelay: true}));
 
-export const useItemDragAndDrop = useDragAndDrop<BlueprintItemModel>;
+export const useItemDragAndDrop = createSharedComposable(() => useDragAndDrop<BlueprintItemModel>());

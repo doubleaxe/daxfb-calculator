@@ -3,11 +3,12 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
+import {useNumberInputHelper} from '@/composables';
 import {SelectedClassType, usePointAndClick} from '@/composables/drag-helpers';
 import type {BlueprintItemModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import {mdiDelete, mdiLinkOff, mdiMenu, mdiPlusBox, mdiMinusBox, mdiCursorMove, mdiCheck} from '@mdi/js';
-import {ref, unref, watch} from 'vue';
+import {ref, watch} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -17,26 +18,16 @@ const settings = injectSettings();
 const {selectItem} = usePointAndClick();
 
 const menuOpened = ref(false);
-const tempCount = ref<string | number>(1);
-
-function updateCount() {
-    let value = unref(tempCount);
-    if(typeof(value) != 'number') {
-        value = parseFloat(value);
-    }
-    if(isNaN(value)) {
-        value = 1;
-    } else if(value <= 0) {
-        value = 0;
-    }
-    props.item.setCount(value);
-    tempCount.value = value;
-}
-function addCount(delta: number) {
-    updateCount();
-    tempCount.value = Number(unref(tempCount)) + delta;
-    updateCount();
-}
+const {
+    updateNumber: updateCount,
+    tempNumber: tempCount,
+    addNumber: addCount,
+    resetNumber: resetCount,
+} = useNumberInputHelper({
+    min: 0,
+    defaultValue: 1,
+    apply(value) { props.item.setCount(value); },
+});
 
 watch(menuOpened, (value) => {
     if(value) {
@@ -72,7 +63,7 @@ watch(menuOpened, (value) => {
                         :append-inner-icon="mdiCheck"
                         @blur="updateCount"
                         @click:append-inner="updateCount"
-                        @click:clear="tempCount = 1; updateCount();"
+                        @click:clear="resetCount"
                         @click:append="addCount(1)"
                         @click:prepend="addCount(-1)"
                     />

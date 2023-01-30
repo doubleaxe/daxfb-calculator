@@ -3,14 +3,13 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {ref, unref, computed, onMounted, watch, nextTick, watchEffect} from 'vue';
+import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {mdiArrowLeft, mdiArrowRight} from '@mdi/js';
 import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
 import {screenToClient, useItemDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
-import {useEventHook} from '@/composables';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -24,10 +23,8 @@ const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
-const {dragStart, isDragging, hooks, dropZoneElem} = useItemDragAndDrop();
+const {dragStart, isDragging} = useItemDragAndDrop();
 const {selectedItem} = usePointAndClick();
-
-watchEffect(() => { dropZoneElem.value = props.parent; });
 
 const computedElevation = computed(() => {
     if(unref(isDragging))
@@ -73,11 +70,6 @@ function updateIoRects() {
         ioList.forEach((io, index) => { io.rect = ioClientRects[index] || Rect.assign(); });
     });
 }
-
-useEventHook([hooks.notifyMove, hooks.notifyDrop], (param) => {
-    const item = props.item;
-    item.position = item.position.assignPoint(param.clientRect).positive();
-});
 
 const leftSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;

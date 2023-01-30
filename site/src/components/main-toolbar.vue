@@ -7,6 +7,7 @@ import {computed, nextTick, ref, unref} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiContentSave, mdiFolderOutline, mdiDotsVertical, mdiDelete, mdiSigma, mdiMagnify, mdiCog} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
+import {BlueprintDecoder, BlueprintEncoder} from '@/scripts/model/serializer';
 
 const blueprintModel = injectBlueprintModel();
 const settings = injectSettings();
@@ -28,7 +29,9 @@ function saveBlueprint() {
     }
     //recreate anchor
     nextTick(() => {
-        const blob = new Blob([blueprintModel.save()], {type: 'application/json'});
+        const encoder = new BlueprintEncoder(settings);
+        const encoded = encoder.split(encoder.encode(blueprintModel.save()));
+        const blob = new Blob([encoded], {type: 'text/plain'});
         objectUrl.value = URL.createObjectURL(blob);
         nextTick(() => {
             unref(objectAnchor)?.click();
@@ -57,7 +60,11 @@ function loadBlueprint() {
         const fileContents = reader.result;
         if(typeof(fileContents) != 'string')
             return;
-        blueprintModel.load(fileContents);
+        const decoder = new BlueprintDecoder();
+        const decoded = decoder.decode(fileContents);
+        if(!decoded)
+            return;
+        blueprintModel.load(decoded);
     };
     reader.readAsText(selectedFile);
 }
@@ -76,7 +83,7 @@ function loadBlueprint() {
     <a
         v-if="objectUrl"
         ref="objectAnchor"
-        download="blueprint.json"
+        download="blueprint.txt"
         :href="objectUrl"
         class="d-none"
     />
@@ -86,7 +93,7 @@ function loadBlueprint() {
         ref="inputFile"
         type="file"
         class="d-none"
-        accept=".json,application/json"
+        accept=".txt,text/plain"
         @change="loadBlueprint"
     >
     <v-divider vertical />
@@ -103,7 +110,7 @@ function loadBlueprint() {
                 :step="10"
             >
                 <template #append>
-                    <v-chip>{{ scalePercent }}</v-chip>
+                    <v-chip>{{ scalePercent }} %</v-chip>
                 </template>
             </v-slider>
         </v-sheet>
@@ -125,7 +132,7 @@ function loadBlueprint() {
             />
         </v-list>
     </v-menu>
-    <div>
+    <div class="d-none">
         <settings-dialog v-model="showSettingsDialog" />
     </div>
 </template>
