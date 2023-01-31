@@ -5,7 +5,7 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {mdiCheck, mdiPlusBox, mdiMinusBox} from '@mdi/js';
 import {useNumberInputHelper} from '@/composables';
-import {unref, watch} from 'vue';
+import {onMounted, unref, watch} from 'vue';
 
 const props = defineProps<{
     modelValue: number;
@@ -32,6 +32,7 @@ watch(() => props.modelValue, (value) => {
     if(unref(tempNumber) != value)
         tempNumber.value = value;
 });
+onMounted(() => { tempNumber.value = props.modelValue; });
 </script>
 
 <template>

@@ -58,7 +58,7 @@ function load() {
                         <v-textarea
                             v-model="loadedBlueprint"
                             class="text-monospaced"
-                            label="Blueprint Data"
+                            label="Paste Blueprint Data"
                             variant="outlined"
                             hide-details
                         />

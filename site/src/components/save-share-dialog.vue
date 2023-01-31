@@ -52,7 +52,7 @@ watch(() => props.modelValue, (value) => {
                     <v-col>
                         <v-textarea
                             class="text-monospaced"
-                            label="Blueprint Data"
+                            label="Copy Blueprint Data"
                             variant="outlined"
                             readonly
                             hide-details
