@@ -1,6 +1,8 @@
 @import './color.scss';
 
-html, body, #app {
+html,
+body,
+#app {
     height: 100%;
     width: 100%;
 }
@@ -25,4 +27,8 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     appearance: none;
     -webkit-appearance: none;
+}
+
+.text-monospaced {
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }

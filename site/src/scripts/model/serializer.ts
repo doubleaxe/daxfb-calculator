@@ -10,10 +10,11 @@ import {log, LOG} from '../debug';
 const RAW_HEADER = 'DFGC';
 
 const HEADER = {
-    COMPRESSED: RAW_HEADER + 'C-',
-    ENCODED: RAW_HEADER + 'B-',
-    JSON: RAW_HEADER + 'J-',
+    COMPRESSED: RAW_HEADER + 'C',
+    ENCODED: RAW_HEADER + 'B',
+    JSON: RAW_HEADER + 'J',
 } as const;
+const HEADER_SEPARATOR = '$';
 
 type EncoderOptions = {
     blueprintCompress: boolean;
@@ -32,9 +33,9 @@ export class BlueprintEncoder {
         let encoded: string | undefined;
         if(this._options.blueprintCompress) {
             const compressed = deflate(data, {level: 9});
-            encoded = HEADER.COMPRESSED + fromUint8Array(compressed, true);
+            encoded = HEADER.COMPRESSED + HEADER_SEPARATOR + fromUint8Array(compressed, true);
         } else if(this._options.blueprintEncode) {
-            encoded = HEADER.ENCODED + encode(data, true);
+            encoded = HEADER.ENCODED + HEADER_SEPARATOR + encode(data, true);
         } else {
             //no need for header, it will be decoded automatically
             encoded = data;
@@ -69,7 +70,7 @@ export class BlueprintDecoder {
         let rawEncoded = '';
         try {
             if(RAW_HEADER == encoded.substring(0, RAW_HEADER.length)) {
-                const header = encoded.substring(0, RAW_HEADER.length + 2);
+                const header = encoded.substring(0, RAW_HEADER.length + 1);
                 rawEncoded = encoded.substring(RAW_HEADER.length + 2);
                 switch(header) {
                     case HEADER.COMPRESSED:

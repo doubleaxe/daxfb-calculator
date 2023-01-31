@@ -20,6 +20,8 @@ const blueprintModel = injectBlueprintModel();
     <v-divider vertical />
     <button-save />
     <button-load />
+    <button-save-share />
+    <button-load-share />
     <v-divider vertical />
     <button-scale />
     <button-settings />
