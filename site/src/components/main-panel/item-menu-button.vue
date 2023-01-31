@@ -3,12 +3,11 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {useNumberInputHelper} from '@/composables';
 import {SelectedClassType, usePointAndClick} from '@/composables/drag-helpers';
 import type {BlueprintItemModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
-import {mdiDelete, mdiLinkOff, mdiMenu, mdiPlusBox, mdiMinusBox, mdiCursorMove, mdiCheck} from '@mdi/js';
-import {ref, watch} from 'vue';
+import {mdiDelete, mdiLinkOff, mdiMenu, mdiCursorMove} from '@mdi/js';
+import {ref} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -18,22 +17,6 @@ const settings = injectSettings();
 const {selectItem} = usePointAndClick();
 
 const menuOpened = ref(false);
-const {
-    updateNumber: updateCount,
-    tempNumber: tempCount,
-    addNumber: addCount,
-    resetNumber: resetCount,
-} = useNumberInputHelper({
-    min: 0,
-    defaultValue: 1,
-    apply(value) { props.item.setCount(value); },
-});
-
-watch(menuOpened, (value) => {
-    if(value) {
-        tempCount.value = props.item.count;
-    }
-});
 </script>
 
 <template>
@@ -49,23 +32,12 @@ watch(menuOpened, (value) => {
                 />
 
                 <v-list-item title="Count">
-                    <v-text-field
-                        v-model="tempCount"
-                        class="count-number"
-                        density="compact"
-                        hide-details
-                        clearable
-                        persistent-clear
-                        type="number"
-                        min="0"
-                        :append-icon="mdiPlusBox"
-                        :prepend-icon="mdiMinusBox"
-                        :append-inner-icon="mdiCheck"
-                        @blur="updateCount"
-                        @click:append-inner="updateCount"
-                        @click:clear="resetCount"
-                        @click:append="addCount(1)"
-                        @click:prepend="addCount(-1)"
+                    <input-number
+                        :model-value="props.item.count"
+                        :min="0"
+                        :default-value="1"
+                        spin-icons
+                        @update:model-value="props.item.setCount($event);"
                     />
                 </v-list-item>
                 <!-- eslint-disable-next-line vue/no-mutating-props -->

@@ -3,11 +3,10 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {mdiClose, mdiCheck} from '@mdi/js';
+import {mdiClose} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {useVModel} from '@vueuse/core';
 import {DEFAULT_BLUEPRINT_SPLIT, DEFAULT_PRECISION, MIN_PRECISION} from '@/scripts/types';
-import {useNumberInputHelper} from '@/composables';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -16,30 +15,6 @@ const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 
 const settings = injectSettings();
-const {
-    updateNumber: updateSolvePrecision,
-    tempNumber: tempSolvePrecision,
-    resetNumber: resetSolvePrecision,
-} = useNumberInputHelper({
-    min: 0,
-    defaultMin: MIN_PRECISION,
-    max: 1,
-    defaultValue: DEFAULT_PRECISION,
-    apply(value) { settings.solvePrecision = value; },
-});
-tempSolvePrecision.value = settings.solvePrecision;
-
-const {
-    updateNumber: updateBlueprintSplit,
-    tempNumber: tempBlueprintSplit,
-    resetNumber: resetBlueprintSplit,
-} = useNumberInputHelper({
-    min: 0,
-    defaultMin: 0,
-    defaultValue: DEFAULT_BLUEPRINT_SPLIT,
-    apply(value) { settings.blueprintSplit = value; },
-});
-tempBlueprintSplit.value = settings.blueprintSplit;
 </script>
 
 <template>
@@ -73,19 +48,12 @@ tempBlueprintSplit.value = settings.blueprintSplit;
                             Less number - more preciese calculations of factory io at price of calclation time.
                             Default is ".001".
                         </template>
-                        <v-text-field
-                            v-model="tempSolvePrecision"
-                            density="compact"
-                            hide-details
-                            clearable
-                            persistent-clear
-                            type="number"
-                            max="1"
-                            min="0"
-                            :append-inner-icon="mdiCheck"
-                            @blur="updateSolvePrecision"
-                            @click:append-inner="updateSolvePrecision"
-                            @click:clear="resetSolvePrecision"
+                        <input-number
+                            v-model="settings.solvePrecision"
+                            :max="1"
+                            :min="0"
+                            :default-min="MIN_PRECISION"
+                            :default-value="DEFAULT_PRECISION"
                         />
                     </v-list-item>
                     <v-list-subheader>Actions</v-list-subheader>
@@ -159,18 +127,10 @@ tempBlueprintSplit.value = settings.blueprintSplit;
                         <template #subtitle>
                             Splits to chunks with new line. Better for sharing. Set 0 to disable splitting.
                         </template>
-                        <v-text-field
-                            v-model="tempBlueprintSplit"
-                            density="compact"
-                            hide-details
-                            clearable
-                            persistent-clear
-                            type="number"
-                            min="0"
-                            :append-inner-icon="mdiCheck"
-                            @blur="updateBlueprintSplit"
-                            @click:append-inner="updateBlueprintSplit"
-                            @click:clear="resetBlueprintSplit"
+                        <input-number
+                            v-model="settings.blueprintSplit"
+                            :min="0"
+                            :default-value="DEFAULT_BLUEPRINT_SPLIT"
                         />
                     </v-list-item>
                 </v-list>

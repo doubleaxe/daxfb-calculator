@@ -23,9 +23,9 @@ export function useNumberInputHelper(options: NumberInputHelperOptions = {}) {
         }
         if(isNaN(value)) {
             value = defaultValue;
-        } else if(options.max && (value >= options.max)) {
+        } else if((typeof(options.max) == 'number') && (value >= options.max)) {
             value = options.defaultMax ?? options.max;
-        } else if(options.min && (value <= options.min)) {
+        } else if((typeof(options.min) == 'number') && (value <= options.min)) {
             value = options.defaultMin ?? options.min;
         }
         tempNumber.value = value;
