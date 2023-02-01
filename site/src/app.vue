@@ -21,6 +21,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
 </script>
 
 <template>
+    <error-dialog />
     <icon-draggable />
     <v-app class="main-window">
         <v-app-bar density="compact">

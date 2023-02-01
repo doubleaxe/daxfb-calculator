@@ -10,7 +10,7 @@ export interface GameDescription {
     Name: string;
     Description: string;
     Version: string;
-    MaxTier?: number;
+    SaveHeader: [string, string];
     TicksPerSecond: number;
     WattsPerItem: number;
 }

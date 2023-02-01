@@ -17,6 +17,8 @@ import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
 import {DEFAULT_PRECISION} from '../types';
+import type {ErrorCollector} from '../error-collector';
+import {dataProvider} from '../data/data';
 
 export class BlueprintModelImpl {
     private readonly _items = new Map<string, BlueprintItemModel>();
@@ -140,29 +142,40 @@ export class BlueprintModelImpl {
                 itemIndexes.get(link.output?.ownerItem?.key || ''),
             )),
         };
+        const description = dataProvider.getDescription();
+        savedBlueprint.h = {
+            g: description.SaveHeaderParsed,
+            v: description.Version,
+        };
         return savedBlueprint;
     }
-    load(savedBlueprint: SavedBlueprint) {
+    load(savedBlueprint: SavedBlueprint, errorCollector: ErrorCollector) {
         this._bulkUpdate = true;
         try {
             this._clear();
-            this._load(savedBlueprint);
+            this._load(savedBlueprint, errorCollector);
+        } catch(err) {
+            errorCollector.collectError(err);
         } finally {
             this._bulkUpdate = false;
         }
         this._$graphChanged(true);
         this._$updateXY();
     }
-    private _load(savedBlueprint: SavedBlueprint) {
+    private _load(savedBlueprint: SavedBlueprint, errorCollector: ErrorCollector) {
+        const description = dataProvider.getDescription();
+        if(savedBlueprint.h?.v && (savedBlueprint.h?.v != description.Version)) {
+            errorCollector.collectError(`Invalid game version, expecting "${description.Version}", got "${savedBlueprint.h?.v}"`);
+        }
         const itemIndexes = new Map<number, string>();
         savedBlueprint.i.forEach((i, index) => {
             const item = this.addItem(i.n);
             if(!item.name) {
                 //invalid item, old/broken recipe
-                //TODO - show errors and status
+                errorCollector.collectError(`Invalid item id "${i.n}"`);
                 return;
             }
-            item._$loadItem(i);
+            item._$loadItem(i, errorCollector);
             itemIndexes.set(index, item.key);
         });
         savedBlueprint.l.forEach((link) => {
@@ -170,7 +183,7 @@ export class BlueprintModelImpl {
             const itemKey2 = itemIndexes.get(link.l[1]);
             if(!itemKey1 || !itemKey2) {
                 //broken link
-                //TODO - show errors and status
+                errorCollector.collectError(`Invalid link "${link.l[0]}" => "${link.l[1]}"`);
                 return;
             }
             const item1 = this.itemByKey(itemKey1);
@@ -178,7 +191,7 @@ export class BlueprintModelImpl {
             if(!item1 || !item2) {
                 return;
             }
-            item1._$loadLink(item2);
+            item1._$loadLink(item2, errorCollector);
         });
     }
     solveGraph(items?: IterableIterator<BlueprintItemModel>) {

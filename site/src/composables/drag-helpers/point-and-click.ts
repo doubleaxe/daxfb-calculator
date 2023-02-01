@@ -6,6 +6,7 @@ import type {Item} from '@/scripts/data/data';
 import {Point, Rect} from '@/scripts/geometry';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
+import type {Keys, Values} from '@/scripts/types';
 import {createEventHook, createSharedComposable, type MaybeElement} from '@vueuse/core';
 import {readonly, ref, toRaw, unref, watch} from 'vue';
 import {justEventHook} from '..';
@@ -16,8 +17,8 @@ export const SelectedClassType = {
     BlueprintItemModel: 'B',
     RecipeIOModel: 'C',
 } as const;
-export type SelectedClassTypeKeys = keyof typeof SelectedClassType;
-export type SelectedClassTypeValues = typeof SelectedClassType[SelectedClassTypeKeys];
+export type SelectedClassTypeKeys = Keys<typeof SelectedClassType>;
+export type SelectedClassTypeValues = Values<typeof SelectedClassType>;
 
 export type SelectedItemType = Item | BlueprintItemModel | RecipeIOModel | undefined;
 

@@ -15,6 +15,7 @@ import type {
 import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
 import {Point} from '../geometry';
+import type {ErrorCollector} from '../error-collector';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
     private _position: PublicPoint = Point.assign();
@@ -78,16 +79,17 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     selectRecipe(name: string) {
         const recipe = this._recipes.get(name);
         if(!recipe)
-            return;
+            return false;
         const oldRecipe = this._selectedRecipe;
         const newRecipe = new RecipeModelImpl(this, recipe);
         if(oldRecipe?.name == newRecipe.name)
-            return;
+            return true;
         //try to persist similar links from old recipe to new one
         oldRecipe?._$copySimilarLinksTo(newRecipe);
         oldRecipe?._$deleteAllLinks();
         this._selectedRecipe = newRecipe;
         this.owner?._$graphChanged();
+        return true;
     }
     possibleRecipeForIo(sourceIo?: RecipeIOModel | null): string | undefined {
         if(!sourceIo)
@@ -133,9 +135,11 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             f: this.isFlipped ? 1 : undefined,
         };
     }
-    _$loadItem(i: SavedItem) {
+    _$loadItem(i: SavedItem, errorCollector: ErrorCollector) {
         //TODO - show errors and status for invalid recipe
-        this.selectRecipe(i.r);
+        if(!this.selectRecipe(i.r)) {
+            errorCollector.collectError(`Cannot select recipe ${i.r} for item ${this.label}`);
+        }
         this._position = this._position.assign({
             x: i.p[0],
             y: i.p[1],
@@ -143,17 +147,21 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this.setCount(i.c || 1);
         this.isFlipped = i.f ? true : false;
     }
-    _$loadLink(sourceItem: BlueprintItemModel) {
-        //TODO - show errors and status for invalid link
+    _$loadLink(sourceItem: BlueprintItemModel, errorCollector: ErrorCollector) {
         const sourceIoArray = sourceItem.selectedRecipe?.items;
         if(!sourceIoArray)
             return;
+        let linkLoaded = false;
         for(const sourceIo of sourceIoArray) {
             const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
             if(maybeTarget) {
                 this.owner?._$addLink(sourceIo, maybeTarget);
+                linkLoaded = true;
                 break;
             }
+        }
+        if(!linkLoaded) {
+            errorCollector.collectError(`Cannot load link "${sourceItem.label}" => "${this.label}"`);
         }
     }
 }

@@ -7,6 +7,11 @@ import {nextTick, ref, unref} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiFolderOutline} from '@mdi/js';
 import {BlueprintDecoder} from '@/scripts/model/serializer';
+import {useErrorHandler} from '@/composables/error-handler';
+import {ErrorCollector} from '@/scripts/error-collector';
+
+const {showError} = useErrorHandler();
+const ERROR_TITLE = 'Error loading blueprint';
 
 const blueprintModel = injectBlueprintModel();
 const showInputFile = ref(false);
@@ -32,13 +37,25 @@ function loadBlueprint() {
     const reader = new FileReader();
     reader.onload = function() {
         const fileContents = reader.result;
-        if(typeof(fileContents) != 'string')
+        if(typeof(fileContents) != 'string') {
+            const error = new Error(`Invalid file type, expected "string", got "${typeof(fileContents)}"`);
+            showError(ERROR_TITLE, error);
             return;
-        const decoder = new BlueprintDecoder();
+        }
+        const errorCollector = new ErrorCollector();
+        const decoder = new BlueprintDecoder(errorCollector);
         const decoded = decoder.decode(fileContents);
-        if(!decoded)
+        if(!decoded || errorCollector.haveErrors) {
+            showError(ERROR_TITLE, errorCollector);
             return;
-        blueprintModel.load(decoded);
+        }
+        blueprintModel.load(decoded, errorCollector);
+        if(errorCollector.haveErrors) {
+            showError('Blueprint possibly wasn\'t loaded correctly', errorCollector, true);
+        }
+    };
+    reader.onerror = function() {
+        showError(ERROR_TITLE, reader.error);
     };
     reader.readAsText(selectedFile);
 }

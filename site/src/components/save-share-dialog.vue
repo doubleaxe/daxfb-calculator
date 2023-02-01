@@ -7,7 +7,7 @@ import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {useClipboard, useShare, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
-import {ref, watch} from 'vue';
+import {nextTick, ref, unref, watch} from 'vue';
 import {BlueprintEncoder} from '@/scripts/model/serializer';
 
 const props = defineProps<{
@@ -21,6 +21,7 @@ const blueprintModel = injectBlueprintModel();
 
 const encodedBlueprint = ref('');
 const splitBlueprint = ref('');
+const textArea = ref<HTMLTextAreaElement | undefined>();
 
 const {copy, copied, isSupported: isClipboardSupported} = useClipboard();
 const {share, isSupported: isShareSupported} = useShare();
@@ -32,6 +33,9 @@ watch(() => props.modelValue, (value) => {
         const split = encoder.split(encoded);
         encodedBlueprint.value = encoded;
         splitBlueprint.value = split;
+        nextTick(() => {
+            unref(textArea)?.select();
+        });
     }
 });
 </script>
@@ -51,6 +55,7 @@ watch(() => props.modelValue, (value) => {
                 <v-row dense>
                     <v-col>
                         <v-textarea
+                            ref="textArea"
                             class="text-monospaced"
                             label="Copy Blueprint Data"
                             variant="outlined"

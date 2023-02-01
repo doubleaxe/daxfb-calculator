@@ -2,6 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {Values} from './types';
 export const __DEBUG__ = import.meta.env.DEV;
 
 export const LOG = {
@@ -11,7 +12,7 @@ export const LOG = {
     WARN: 4,
     ERROR: 5,
 } as const;
-export type LogSeverity = typeof LOG[keyof typeof LOG];
+export type LogSeverity = Values<typeof LOG>;
 
 export const log = (__DEBUG__ && typeof(console.log) == 'function') ? (severity: LogSeverity, ...data: unknown[]) => {
     try {

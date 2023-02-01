@@ -2,6 +2,7 @@
     "Name": "evospace",
     "Description": "Evospace",
     "Version": "v18",
+    "SaveHeader": ["E", "S"],
     "TicksPerSecond": 20,
     "WattsPerItem": 20
 }

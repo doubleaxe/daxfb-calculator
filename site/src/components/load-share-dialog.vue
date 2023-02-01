@@ -8,6 +8,8 @@ import {useClipboard, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {ref, watch} from 'vue';
 import {BlueprintDecoder} from '@/scripts/model/serializer';
+import {ErrorCollector} from '@/scripts/error-collector';
+import {useErrorHandler} from '@/composables/error-handler';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -20,6 +22,7 @@ const blueprintModel = injectBlueprintModel();
 const loadedBlueprint = ref('');
 
 const {isSupported: isClipboardSupported} = useClipboard();
+const {showError} = useErrorHandler();
 
 watch(() => props.modelValue, (value) => {
     if(value) {
@@ -32,11 +35,17 @@ function paste() {
     });
 }
 function load() {
-    const decoder = new BlueprintDecoder();
+    const errorCollector = new ErrorCollector();
+    const decoder = new BlueprintDecoder(errorCollector);
     const decoded = decoder.decode(loadedBlueprint.value);
-    if(!decoded)
+    if(!decoded || errorCollector.haveErrors) {
+        showError('Error loading blueprint', errorCollector);
         return;
-    blueprintModel.load(decoded);
+    }
+    blueprintModel.load(decoded, errorCollector);
+    if(errorCollector.haveErrors) {
+        showError('Blueprint possibly wasn\'t loaded correctly', errorCollector, true);
+    }
     dialog.value = false;
 }
 </script>

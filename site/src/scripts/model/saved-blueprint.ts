@@ -3,8 +3,14 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 */
 export type SavedBlueprint = {
+    h?: Header;
     i: SavedItem[];
     l: SavedLink[];
+};
+
+export type Header = {
+    g: string;
+    v: string;
 };
 
 export type SavedItem = {

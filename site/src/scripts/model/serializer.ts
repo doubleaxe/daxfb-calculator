@@ -5,16 +5,26 @@ Please don't remove this comment if you use unmodified file
 import type {SavedBlueprint} from './saved-blueprint';
 import {decode, encode, fromUint8Array, toUint8Array} from 'js-base64';
 import {deflate, inflate} from 'pako';
-import {log, LOG} from '../debug';
+import {dataProvider} from '../data/data';
+import type {Values} from '../types';
+import type {ErrorCollector} from '../error-collector';
 
-const RAW_HEADER = 'DFGC';
+const HEADER_HEADER = 'DAXFB';
 
-const HEADER = {
-    COMPRESSED: RAW_HEADER + 'C',
-    ENCODED: RAW_HEADER + 'B',
-    JSON: RAW_HEADER + 'J',
+const HEADER_FOOTER = {
+    COMPRESSED: 'C',
+    ENCODED: 'B',
+    JSON: 'J',
 } as const;
+const FOOTERS = new Set<string>(Object.values(HEADER_FOOTER));
+const GAME_HEADER = dataProvider.getDescription().SaveHeaderParsed;
 const HEADER_SEPARATOR = '$';
+
+function buildHeader(footer: Values<typeof HEADER_FOOTER>) {
+    return HEADER_HEADER + GAME_HEADER + footer + HEADER_SEPARATOR;
+}
+
+const HEADER_LENGTH = buildHeader(HEADER_FOOTER.JSON).length;
 
 type EncoderOptions = {
     blueprintCompress: boolean;
@@ -33,9 +43,9 @@ export class BlueprintEncoder {
         let encoded: string | undefined;
         if(this._options.blueprintCompress) {
             const compressed = deflate(data, {level: 9});
-            encoded = HEADER.COMPRESSED + HEADER_SEPARATOR + fromUint8Array(compressed, true);
+            encoded = buildHeader(HEADER_FOOTER.COMPRESSED) + fromUint8Array(compressed, true);
         } else if(this._options.blueprintEncode) {
-            encoded = HEADER.ENCODED + HEADER_SEPARATOR + encode(data, true);
+            encoded = buildHeader(HEADER_FOOTER.ENCODED) + encode(data, true);
         } else {
             //no need for header, it will be decoded automatically
             encoded = data;
@@ -58,33 +68,75 @@ export class BlueprintEncoder {
 }
 
 export class BlueprintDecoder {
+    private readonly _errorCollector;
+    constructor(errorCollector: ErrorCollector) {
+        this._errorCollector = errorCollector;
+    }
+
     decode(encoded: string) {
         const savedBlueprint = this._decode(encoded);
-        if(typeof(savedBlueprint) == 'object') {
-            return savedBlueprint as SavedBlueprint;
+        if(savedBlueprint) {
+            if(typeof(savedBlueprint) == 'object') {
+                const _savedBlueprint = savedBlueprint as SavedBlueprint;
+                if(_savedBlueprint.h?.g && (_savedBlueprint.h?.g != GAME_HEADER)) {
+                    this.logError(new Error(`Invalid game, expecting "${GAME_HEADER}", got "${_savedBlueprint.h.g}"`));
+                } else {
+                    return _savedBlueprint;
+                }
+            } else {
+                this.logError(new Error(`Invalid saved JSON type, expected "object", got "${typeof(savedBlueprint)}"`));
+            }
         }
         return undefined;
+    }
+    private static _parseHeader(encoded: string) {
+        const fullHeader = encoded.substring(0, HEADER_LENGTH);
+        if(fullHeader.charAt(HEADER_LENGTH - 1) != HEADER_SEPARATOR) {
+            return undefined;
+        }
+        const header = fullHeader.substring(0, HEADER_HEADER.length);
+        if(header != HEADER_HEADER) {
+            throw new Error(`Invalid header, expecting "${HEADER_HEADER}", got "${header}" for "${fullHeader}"`);
+        }
+        const game = fullHeader.substring(HEADER_HEADER.length, HEADER_HEADER.length + GAME_HEADER.length);
+        if(game != GAME_HEADER) {
+            throw new Error(`Invalid game, expecting "${GAME_HEADER}", got "${game}" for "${fullHeader}"`);
+        }
+        const type = fullHeader.substring(HEADER_LENGTH - 2, HEADER_LENGTH - 1);
+        if(!FOOTERS.has(type)) {
+            throw new Error(`Invalid type, expecting one of "${[...FOOTERS].join(',')}", got "${type}" for "${fullHeader}"`);
+        }
+        return {
+            type,
+            rawEncoded: encoded.substring(HEADER_LENGTH),
+        };
     }
     private _decode(encoded: string) {
         encoded = encoded.replace(/\n/g, '');
         let rawEncoded = '';
         try {
-            if(RAW_HEADER == encoded.substring(0, RAW_HEADER.length)) {
-                const header = encoded.substring(0, RAW_HEADER.length + 1);
-                rawEncoded = encoded.substring(RAW_HEADER.length + 2);
-                switch(header) {
-                    case HEADER.COMPRESSED:
-                        return JSON.parse(this.loadCompressed(rawEncoded));
-                    case HEADER.ENCODED:
+            const header = BlueprintDecoder._parseHeader(encoded);
+            if(header) {
+                rawEncoded = header.rawEncoded;
+                switch(header.type) {
+                    case HEADER_FOOTER.COMPRESSED:
+                        {
+                            const decompressed = this.loadCompressed(rawEncoded);
+                            if(decompressed) {
+                                return JSON.parse(decompressed);
+                            }
+                        }
+                        break;
+                    case HEADER_FOOTER.ENCODED:
                         return JSON.parse(this.loadEncoded(rawEncoded));
-                    case HEADER.JSON:
+                    case HEADER_FOOTER.JSON:
                         return JSON.parse(rawEncoded);
                     default:
-                        throw new Error(`Invalid header: "${header}"`);
+                        throw new Error(`Invalid type, expecting one of "${[...FOOTERS].join(',')}", got "${header.type}"`);
                 }
             }
         } catch(err) {
-            BlueprintDecoder.logError(err);
+            this.logError(err);
             return this.fallbackDecode(encoded, rawEncoded);
         }
         return this.fallbackDecode(encoded, rawEncoded);
@@ -101,35 +153,34 @@ export class BlueprintDecoder {
             if(rawEncoded.charAt(0) == 'e')
                 return JSON.parse(this.loadEncoded(rawEncoded));
         } catch(err) {
-            BlueprintDecoder.logError(err);
+            this.logError(err);
         }
-        try {
-            return JSON.parse(this.loadCompressed(encoded));
-        } catch(err) {
-            if(rawEncoded) {
-                try {
-                    return JSON.parse(this.loadCompressed(rawEncoded));
-                } catch(err0) {
-                    BlueprintDecoder.logError(err);
-                }
-            } else {
-                BlueprintDecoder.logError(err);
+        let decompressed = this.loadCompressed(encoded);
+        if(!decompressed) {
+            decompressed = this.loadCompressed(rawEncoded);
+        }
+        if(decompressed) {
+            try {
+                return JSON.parse(decompressed);
+            } catch(err) {
+                this.logError(err);
             }
         }
         return undefined;
     }
 
-    static logError(err: unknown) {
-        if(err instanceof Error) {
-            log(LOG.ERROR, (err as Error).message);
-        } else {
-            log(LOG.ERROR, err);
-        }
+    logError(err: unknown) {
+        this._errorCollector.collectError(err);
     }
 
     private loadCompressed(encoded: string) {
-        const compressed = toUint8Array(encoded);
-        return inflate(compressed, {to: 'string'});
+        try {
+            const compressed = toUint8Array(encoded);
+            return inflate(compressed, {to: 'string'});
+        } catch(err) {
+            this.logError(['Decompression error', err]);
+        }
+        return '';
     }
 
     private loadEncoded(encoded: string) {

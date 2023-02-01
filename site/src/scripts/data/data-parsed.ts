@@ -2,13 +2,13 @@
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {JsonItem, JsonData, JsonRecipe, JsonRecipeIO} from './json-data-types';
+import type {JsonItem, JsonData, JsonRecipe, JsonRecipeIO, GameDescription} from './json-data-types';
 import dataJsonUntyped from '../../../data/data.json';
 import type {InterfaceOf} from '../types';
 import {LOG, log} from '../debug';
 
 //immutable parsed JSON data for convenient and typed access
-const dataJson = dataJsonUntyped as JsonData;
+const dataJson = dataJsonUntyped as unknown as JsonData;
 export const imagesJson = dataJson.images;
 Object.freeze(imagesJson);
 
@@ -21,7 +21,14 @@ export type RecipeDictionaryArray = Recipe[];
 
 export const parsedItems = new Map<string, Item>();
 export const parsedRecipes = new Map<string, RecipeDictionary>();
-export const getDescription = () => dataJson.description;
+export const parsedDescription: GameDescription & {
+    SaveHeaderParsed: string;
+    MaxTier: number;
+} = {
+    ...dataJson.description,
+    SaveHeaderParsed: '',
+    MaxTier: 0,
+};
 
 class ItemImpl {
     private readonly _item: JsonItem;
@@ -49,6 +56,7 @@ class ItemImpl {
     get label(): string { return this._item.Label; }
     public readonly tier;
     public readonly lowerLabel;
+    get recipeDictionaryName() { return this._item.Recipe?.RecipeDictionary || ''; }
     get recipeDictionary() { return this._recipeDictionary; }
     get multiplexor() { return this._item.UnitMul; }
 }
@@ -234,17 +242,17 @@ class ItemRecipeDictionaryImpl {
         Object.freeze(this);
     }
 }
-const itemRecipeDictionaryCache = new Map<RecipeDictionaryArray, ItemRecipeDictionaryImpl>();
+const itemRecipeDictionaryCache = new Map<string, ItemRecipeDictionaryImpl>();
 export function newItemRecipeDictionary(item?: Item) {
     const {
         recipes: recipesForItem,
         cacheable,
     } = item?.recipeDictionary?.getForTier(item.tier) || {recipes: [], cacheable: true};
     if(cacheable) {
-        let chached = itemRecipeDictionaryCache.get(recipesForItem);
+        let chached = itemRecipeDictionaryCache.get(item?.recipeDictionaryName || '');
         if(!chached) {
             chached = new ItemRecipeDictionaryImpl(recipesForItem);
-            itemRecipeDictionaryCache.set(recipesForItem, chached);
+            itemRecipeDictionaryCache.set(item?.recipeDictionaryName || '', chached);
         }
         return chached;
     }
@@ -280,6 +288,8 @@ export function newItemRecipeDictionary(item?: Item) {
                 maxTier = recipe.tier;
         }
     }
-    const description = dataJson.description;
-    description.MaxTier = maxTier;
+    parsedDescription.MaxTier = maxTier;
+    //sanitize header
+    parsedDescription.SaveHeaderParsed = parsedDescription.SaveHeader.slice(0, 2).map((s) => s.charAt(0)).join('');
+    Object.freeze(parsedDescription);
 })();
