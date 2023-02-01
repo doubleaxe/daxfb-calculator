@@ -3,18 +3,13 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {SelectedClassType, usePointAndClick} from '@/composables/drag-helpers';
 import type {BlueprintItemModel} from '@/scripts/model/store';
-import {injectSettings} from '@/scripts/settings';
-import {mdiDelete, mdiLinkOff, mdiMenu, mdiCursorMove} from '@mdi/js';
+import {mdiDelete, mdiLinkOff, mdiMenu} from '@mdi/js';
 import {ref} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
 }>();
-
-const settings = injectSettings();
-const {selectItem} = usePointAndClick();
 
 const menuOpened = ref(false);
 </script>
@@ -24,15 +19,9 @@ const menuOpened = ref(false);
         <v-icon :icon="mdiMenu" />
         <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
             <v-list>
-                <v-list-item
-                    v-if="settings.pointAndClickEnabled"
-                    :prepend-icon="mdiCursorMove"
-                    title="Move"
-                    @click="selectItem(SelectedClassType.BlueprintItemModel, props.item); menuOpened = false;"
-                />
-
                 <v-list-item title="Count">
                     <input-number
+                        class="count-number"
                         :model-value="props.item.count"
                         :min="0"
                         :default-value="1"

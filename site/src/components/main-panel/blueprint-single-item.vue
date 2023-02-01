@@ -5,11 +5,11 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiArrowLeft, mdiArrowRight} from '@mdi/js';
+import {mdiArrowLeft, mdiArrowRight, mdiCursorMove} from '@mdi/js';
 import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
-import {screenToClient, useItemDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
+import {SelectedClassType, screenToClient, useItemDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -24,7 +24,7 @@ const mainDivElement = ref<HTMLElement | null>(null);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
 const {dragStart, isDragging} = useItemDragAndDrop();
-const {selectedItem} = usePointAndClick();
+const {selectItem, selectedItem} = usePointAndClick();
 
 const computedElevation = computed(() => {
     if(unref(isDragging))
@@ -120,6 +120,17 @@ watch([
             </div>
             <div class="float-right mr-1">
                 <item-menu-button :item="props.item" />
+            </div>
+            <div v-if="settings.pointAndClickEnabled" class="float-right mr-1">
+                <v-btn
+                    size="x-small"
+                    color="secondary"
+                    variant="outlined"
+                    @pointerdown.left.stop
+                    @click.stop="selectItem(SelectedClassType.BlueprintItemModel, props.item)"
+                >
+                    <v-icon :icon="mdiCursorMove" />
+                </v-btn>
             </div>
         </div>
         <div class="main-row">
