@@ -5,13 +5,17 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiDotsVertical, mdiDelete, mdiSigma} from '@mdi/js';
+import {ref} from 'vue';
 
 const blueprintModel = injectBlueprintModel();
+const showSettingsDialog = ref(false);
+const showHelpDialog = ref(false);
+const showAboutDialog = ref(false);
 </script>
 
 <template>
     <tooltip-button
-        tooltip="Solve links"
+        tooltip="Solve graph"
         :icon="mdiSigma"
         :disabled="blueprintModel.autoSolveGraph"
         @click="blueprintModel.solveGraph()"
@@ -24,7 +28,6 @@ const blueprintModel = injectBlueprintModel();
     <button-load-share />
     <v-divider vertical />
     <button-scale />
-    <button-settings />
     <v-menu>
         <template #activator="{ props }">
             <v-btn :icon="mdiDotsVertical" v-bind="props" />
@@ -32,9 +35,18 @@ const blueprintModel = injectBlueprintModel();
         <v-list>
             <v-list-item
                 :prepend-icon="mdiDelete"
-                title="Clear"
+                title="Clear All"
                 @click="blueprintModel.clear()"
             />
+            <v-divider horizontal />
+            <button-settings is-menu @show-dialog="showSettingsDialog = true" />
+            <button-help is-menu @show-dialog="showHelpDialog = true" />
+            <button-about is-menu @show-dialog="showAboutDialog = true" />
         </v-list>
     </v-menu>
+    <div class="d-none">
+        <settings-dialog v-model="showSettingsDialog" />
+        <help-dialog v-model="showHelpDialog" />
+        <about-dialog v-model="showAboutDialog" />
+    </div>
 </template>

@@ -10,7 +10,7 @@ export type SavedBlueprint = {
 
 export type Header = {
     g: string;
-    v: string;
+    v: number;
 };
 
 export type SavedItem = {

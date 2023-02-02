@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {mdiCog} from '@mdi/js';
+import {mdiHelpCircle} from '@mdi/js';
 
 const props = defineProps<{
     isMenu?: boolean;
@@ -17,14 +17,14 @@ const emit = defineEmits<{
 <template>
     <tooltip-button
         v-if="!props.isMenu"
-        tooltip="Settings"
-        :icon="mdiCog"
+        tooltip="Help"
+        :icon="mdiHelpCircle"
         @click="emit('show-dialog')"
     />
     <v-list-item
         v-if="props.isMenu"
-        :prepend-icon="mdiCog"
-        title="Settings"
+        :prepend-icon="mdiHelpCircle"
+        title="Help"
         @click="emit('show-dialog')"
     />
 </template>

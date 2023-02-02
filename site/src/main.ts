@@ -15,7 +15,7 @@ import './assets/vuetify.scss';
 import './assets/main.scss';
 
 const description = dataProvider.getDescription();
-document.title = `${description.Description} Calculator/Factory Builder by Alexey Usov`;
+document.title = `${description.Description} Calculator/Factory Builder by doubleaxe`;
 
 const app = createApp(App);
 

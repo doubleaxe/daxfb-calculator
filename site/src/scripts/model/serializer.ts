@@ -17,7 +17,7 @@ const HEADER_FOOTER = {
     JSON: 'J',
 } as const;
 const FOOTERS = new Set<string>(Object.values(HEADER_FOOTER));
-const GAME_HEADER = dataProvider.getDescription().SaveHeaderParsed;
+const GAME_HEADER = dataProvider.getDescription().ShortName;
 const HEADER_SEPARATOR = '$';
 
 function buildHeader(footer: Values<typeof HEADER_FOOTER>) {

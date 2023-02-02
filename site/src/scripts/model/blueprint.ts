@@ -144,8 +144,8 @@ export class BlueprintModelImpl {
         };
         const description = dataProvider.getDescription();
         savedBlueprint.h = {
-            g: description.SaveHeaderParsed,
-            v: description.Version,
+            g: description.ShortName,
+            v: description.SaveVersion,
         };
         return savedBlueprint;
     }
@@ -163,9 +163,9 @@ export class BlueprintModelImpl {
         this._$updateXY();
     }
     private _load(savedBlueprint: SavedBlueprint, errorCollector: ErrorCollector) {
-        const description = dataProvider.getDescription();
-        if(savedBlueprint.h?.v && (savedBlueprint.h?.v != description.Version)) {
-            errorCollector.collectError(`Invalid game version, expecting "${description.Version}", got "${savedBlueprint.h?.v}"`);
+        const {CompatibleSaveVersions: compatVersions} = dataProvider.getDescription();
+        if(savedBlueprint.h?.v && !compatVersions.some((v) => (v == savedBlueprint.h?.v))) {
+            errorCollector.collectError(`Incompatible game version, expecting "${compatVersions.join(',')}", got "${savedBlueprint.h?.v}"`);
         }
         const itemIndexes = new Map<number, string>();
         savedBlueprint.i.forEach((i, index) => {

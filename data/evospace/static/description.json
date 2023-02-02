@@ -1,8 +1,10 @@
 {
     "Name": "evospace",
+    "ShortName": "ES",
     "Description": "Evospace",
-    "Version": "v18",
-    "SaveHeader": ["E", "S"],
+    "Version": "0.18.3",
+    "SaveVersion": 18,
+    "CompatibleSaveVersions": [18],
     "TicksPerSecond": 20,
     "WattsPerItem": 20
 }

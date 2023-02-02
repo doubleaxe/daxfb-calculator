@@ -12,10 +12,16 @@ import {
     VueUseComponentsResolver,
     VueUseDirectiveResolver,
 } from 'unplugin-vue-components/resolvers';
+import pkg from '../package.json';
 
 const game = process.env['GAME'] || 'example';
+
 //const __GAME__ = import.meta.env.VITE_GAME;
 process.env['VITE_GAME'] = game;
+//const __VERSION__ = import.meta.env.VITE_VERSION;
+process.env['VITE_VERSION'] = pkg.version;
+//const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
+process.env['VITE_BUILD_TIME'] = new Date().toISOString().replace('T', ' ').replace(/\..*$/, '');
 
 const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
 

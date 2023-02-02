@@ -8,9 +8,11 @@ export interface Images {
 
 export interface GameDescription {
     Name: string;
+    ShortName: string;
     Description: string;
     Version: string;
-    SaveHeader: [string, string];
+    SaveVersion: number;
+    CompatibleSaveVersions: number[];
     TicksPerSecond: number;
     WattsPerItem: number;
 }

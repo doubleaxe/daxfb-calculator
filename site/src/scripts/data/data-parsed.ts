@@ -22,11 +22,9 @@ export type RecipeDictionaryArray = Recipe[];
 export const parsedItems = new Map<string, Item>();
 export const parsedRecipes = new Map<string, RecipeDictionary>();
 export const parsedDescription: GameDescription & {
-    SaveHeaderParsed: string;
     MaxTier: number;
 } = {
     ...dataJson.description,
-    SaveHeaderParsed: '',
     MaxTier: 0,
 };
 
@@ -290,6 +288,6 @@ export function newItemRecipeDictionary(item?: Item) {
     }
     parsedDescription.MaxTier = maxTier;
     //sanitize header
-    parsedDescription.SaveHeaderParsed = parsedDescription.SaveHeader.slice(0, 2).map((s) => s.charAt(0)).join('');
+    parsedDescription.ShortName = (parsedDescription.ShortName + 'XX').substring(0, 2);
     Object.freeze(parsedDescription);
 })();

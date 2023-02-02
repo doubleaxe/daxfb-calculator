@@ -28,7 +28,7 @@ This is work in progress repository. Nothing is ready yet. Please be patient.
 - ~~Point and click processing similar to drag and drop.~~
 - ~~Share~~
 - Some example templates
-- Help
+- ~~Help~~
 - ~~Settings~~
 - ~~Generalize recipe data, so other games may be supported in the future~~
 - General item list and scroll to item
