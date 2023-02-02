@@ -73,10 +73,10 @@ export class RecipesList {
         additionalProperties: false,
         required: ['Name', 'Ticks', 'Input', 'Output'],
         properties: {
-            Input: {'$ref': '#/$defs/IO'},
-            Output: {'$ref': '#/$defs/IO'},
-            ResourceInput: {'$ref': '#/$defs/Item'},
-            ResourceOutput: {'$ref': '#/$defs/Item'},
+            Input: {$ref: '#/$defs/IO'},
+            Output: {$ref: '#/$defs/IO'},
+            ResourceInput: {$ref: '#/$defs/Item'},
+            ResourceOutput: {$ref: '#/$defs/Item'},
             Name: {type: 'string'},
             Ticks: {type: 'number'},
             Tier: {type: 'integer'},
@@ -92,7 +92,7 @@ export class RecipesList {
                 properties: {
                     Items: {
                         type: 'array',
-                        items: {'$ref': '#/$defs/Item'},
+                        items: {$ref: '#/$defs/Item'},
                         minItems: 0,
                     },
                 },

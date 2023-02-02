@@ -41,7 +41,7 @@ class MergeData {
     private readonly parsedDataJson;
     private readonly patchData;
 
-    constructor(parsedDataJson: string, patchData: string) {
+    constructor(parsedDataJson: string, patchData: string | null) {
         this.parsedDataJson = parsedDataJson;
         this.patchData = patchData;
     }
@@ -54,7 +54,7 @@ class MergeData {
             parsedDataJson,
             patchData,
         } = this;
-        const mergedData = applyPatch(parsedDataJson, patchData);
+        const mergedData = patchData ? applyPatch(parsedDataJson, patchData) : parsedDataJson;
         const mergedDataJson: JsonData = JSON.parse(mergedData);
         return mergedDataJson;
     }
@@ -271,7 +271,13 @@ class OptimizeData {
     fs.mkdirSync(__target, {recursive: true});
 
     const parsedDataJson: string = fs.readFileSync(path.join(__parsed, 'data.json'), 'utf8');
-    const patchData: string = fs.readFileSync(path.join(__static, 'data.patch'), 'utf8');
+    let patchData: string | null = null;
+    try {
+        patchData = fs.readFileSync(path.join(__static, 'data.patch'), 'utf8');
+    } catch(err) {
+        if((err as NodeJS.ErrnoException).code != 'ENOENT')
+            throw err;
+    }
     const imagesJson: Images = JSON.parse(fs.readFileSync(path.join(__parsed, 'images.json'), 'utf8'));
     const descriptionJson: GameDescription = JSON.parse(fs.readFileSync(path.join(__static, 'description.json'), 'utf8'));
 

@@ -35,7 +35,7 @@ rules:
     no-whitespace-before-property: "error"
     object-curly-newline: ["error", { "consistent": true }]
     object-curly-spacing: ["error", "never"]
-    quote-props: ["error", "consistent"]
+    quote-props: ["error", "as-needed"]
     quotes: ["error", "single", { "avoidEscape": true }]
     rest-spread-spacing: ["error", "never"]
     semi-spacing: "error"

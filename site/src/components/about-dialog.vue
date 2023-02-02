@@ -46,7 +46,7 @@ const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
                                 https://github.com/doubleaxe/evospace-calculator/issues
                             </a>
                         </v-list-item-subtitle>
-                        </v-list-item>
+                    </v-list-item>
                 </v-list>
             </v-card-text>
         </v-card>

@@ -87,12 +87,12 @@ export class ImagesList {
         return derivedImages;
     }
     static #IMAGE_PLACEFOLDER = {
-        'T_SteelCombustionEngine': 'SC',
-        'T_AluminiumCombustionEngine': 'AC',
-        'T_StainlessSteelCombustionEngine': 'LC',
-        'T_TitaniumCombustionEngine': 'TC',
-        'T_HardMetalCombustionEngine': 'HC',
-        'T_NeutroniumCombustionEngine': 'NC',
+        T_SteelCombustionEngine: 'SC',
+        T_AluminiumCombustionEngine: 'AC',
+        T_StainlessSteelCombustionEngine: 'LC',
+        T_TitaniumCombustionEngine: 'TC',
+        T_HardMetalCombustionEngine: 'HC',
+        T_NeutroniumCombustionEngine: 'NC',
     };
     static async #_parseAndBuildImages(baseImages, derivedImages, images) {
         const baseNotFound = new Set();

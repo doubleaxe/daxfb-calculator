@@ -19,8 +19,8 @@ const styleObject = computed(() => {
     if(!location)
         return undefined;
     return {
-        'width': `${settings.iconSize}px`,
-        'height': `${settings.iconSize}px`,
+        width: `${settings.iconSize}px`,
+        height: `${settings.iconSize}px`,
         'background-position': `${(-location[0] * settings.iconSize).toFixed(0)}px ${(-location[1] * settings.iconSize).toFixed(0)}px`,
     };
 });

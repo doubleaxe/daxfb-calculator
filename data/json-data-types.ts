@@ -24,7 +24,7 @@ export interface JsonRecipeIO {
     Capacity?: number;
 }
 export interface JsonRecipe {
-    Category_T: string;
+    Category_T?: string;
     Name: string;
     //ordered in natural order
     Input?: JsonRecipeIO[];
@@ -49,12 +49,12 @@ export interface JsonRecipeReference {
 }
 export interface JsonItem {
     Category?: string;
-    Class: string;
+    Class?: string;
     Name: string;
     Label: string;
     Tag?: string;
     Image: string;
-    MaxCount: number;
+    MaxCount?: number;
     Tier?: number;
     Unit?: string;
     UnitMul?: number;
