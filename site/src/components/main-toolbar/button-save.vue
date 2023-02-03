@@ -8,7 +8,7 @@ import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiContentSave} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {BlueprintEncoder} from '@/scripts/model/serializer';
-import { dataProvider } from '@/scripts/data/data';
+import {dataProvider} from '@/scripts/data/data';
 
 const blueprintModel = injectBlueprintModel();
 const settings = injectSettings();
