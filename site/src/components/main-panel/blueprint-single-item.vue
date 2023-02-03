@@ -10,6 +10,7 @@ import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
 import {SelectedClassType, screenToClient, useItemDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
+import {useEventHook} from '@/composables';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -21,10 +22,16 @@ const emit = defineEmits<{
 
 const settings = injectSettings();
 const mainDivElement = ref<HTMLElement | null>(null);
+//separate state, because useItemDragAndDrop is shared between all items
+const isDragging = ref(false);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
-const {dragStart, isDragging} = useItemDragAndDrop();
+const {hooks: itemHooks, dragStart} = useItemDragAndDrop();
 const {selectItem, selectedItem} = usePointAndClick();
+
+useEventHook([itemHooks.notifyCancel, itemHooks.notifyDrop], () => {
+    isDragging.value = false;
+});
 
 const computedElevation = computed(() => {
     if(unref(isDragging))
@@ -112,7 +119,7 @@ watch([
         :class="[computedElevation, itemStateColor, computedSelectedClass]"
         :style="computeStyle"
         :data-item-id="props.item.key"
-        @pointerdown.left.stop="dragStart($event, props.item)"
+        @pointerdown.left.stop="dragStart($event, props.item); isDragging = true;"
     >
         <div class="bg-primary title-row">
             <div class="title-text text-caption">

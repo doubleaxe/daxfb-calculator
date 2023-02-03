@@ -8,9 +8,11 @@ import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiContentSave} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {BlueprintEncoder} from '@/scripts/model/serializer';
+import { dataProvider } from '@/scripts/data/data';
 
 const blueprintModel = injectBlueprintModel();
 const settings = injectSettings();
+const description = dataProvider.getDescription();
 const objectUrl = ref<string | null>(null);
 const objectAnchor = ref<HTMLElement | null>(null);
 
@@ -37,7 +39,7 @@ function saveBlueprint() {
     <a
         v-if="objectUrl"
         ref="objectAnchor"
-        download="blueprint.txt"
+        :download="`blueprint-${description.Name}.txt`"
         :href="objectUrl"
         class="d-none"
     />
