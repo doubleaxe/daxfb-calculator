@@ -37,7 +37,7 @@ const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
                 <v-list :lines="undefined">
                     <v-list-item title="Game">
                         <v-list-item-subtitle>
-                            <a v-if="description.Url" href="description.Url" target="_blank">{{ description.Description }}</a>
+                            <a v-if="description.Url" :href="description.Url" target="_blank">{{ description.Description }}</a>
                             <span v-else>{{ description.Description }}</span>
                         </v-list-item-subtitle>
                     </v-list-item>
