@@ -3,10 +3,12 @@
 This project was initially developed as calculator/factory builder for Evospace game.
 Later it turned out this project is quite universal and could be used for other factory management games.
 
-### Currently supported games
+### Builds for currently supported games
 
-- [Sample](https://doubleaxe.github.io/daxfb/sample/) - demo game to build help pages
-- [Evospace](https://doubleaxe.github.io/daxfb/evospace-calculator/)
+- Sample - demo game to build help pages.
+Calculator link: [https://doubleaxe.github.io/daxfb/sample/](https://doubleaxe.github.io/daxfb/sample/).
+- [Evospace](https://store.steampowered.com/app/1013540/Evospace/).
+Calculator link: [https://doubleaxe.github.io/daxfb/evospace-calculator/](https://doubleaxe.github.io/daxfb/evospace-calculator/).
 
 # How to use
 
