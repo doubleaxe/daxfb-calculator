@@ -7,12 +7,14 @@ import {ref, unref, watch, computed} from 'vue';
 import {injectBlueprintModel} from './scripts/model/store';
 import IconDraggable from './components/left-toolbox/icon-draggable.vue';
 import BlueprintPanel from './components/main-panel/blueprint-panel.vue';
-import {mdiSync} from '@mdi/js';
+import {dataProvider} from './scripts/data/data';
 
 const drawer = ref(true);
 const blueprintModel = injectBlueprintModel();
 const hasCycles = ref(false);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const hasAlerts = computed(() => unref(hasCycles));
+const description = dataProvider.getDescription();
 
 watch(() => blueprintModel.hasCycles, (value: boolean) => {
     //display only when changed, then user may hide it
@@ -28,6 +30,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
             <template #prepend>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
+            <v-app-bar-title>{{ `${description.Description} Calculator/Factory Builder` }}</v-app-bar-title>
             <template #append>
                 <main-toolbar />
             </template>
@@ -38,6 +41,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
         <v-main scrollable>
             <blueprint-panel />
         </v-main>
+        <!--
         <v-footer v-if="hasAlerts" app>
             <v-alert v-model="hasCycles" type="warning" closable>
                 Blueprint has cycles  - marked with
@@ -45,6 +49,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
                 icon.
             </v-alert>
         </v-footer>
+        -->
     </v-app>
 </template>
 

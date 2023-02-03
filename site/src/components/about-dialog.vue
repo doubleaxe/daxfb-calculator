@@ -31,12 +31,16 @@ const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
             <v-card-title>{{ `${description.Description} Calculator/Factory Builder` }}</v-card-title>
             <v-card-subtitle>
                 By doubleaxe (<v-icon :icon="mdiEmail" /><a href="mailto:dax@xdax.ru" target="_blank">dax@xdax.ru</a>,
-                <a href="https://t.me/doubleaxe" target="_blank">https://t.me/doubleaxe</a>,
                 <a href="https://github.com/doubleaxe" target="_blank">https://github.com/doubleaxe</a>)
             </v-card-subtitle>
             <v-card-text>
                 <v-list :lines="undefined">
-                    <v-list-item title="Game" :subtitle="description.Description" />
+                    <v-list-item title="Game">
+                        <v-list-item-subtitle>
+                            <a v-if="description.Url" href="description.Url" target="_blank">{{ description.Description }}</a>
+                            <span v-else>{{ description.Description }}</span>
+                        </v-list-item-subtitle>
+                    </v-list-item>
                     <v-list-item title="Game version" :subtitle="description.Version" />
                     <v-list-item title="Build version" :subtitle="__VERSION__" />
                     <v-list-item title="Build time" :subtitle="__BUILD_TIME__" />

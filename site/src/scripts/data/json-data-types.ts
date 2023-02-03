@@ -10,6 +10,7 @@ export interface GameDescription {
     Name: string;
     ShortName: string;
     Description: string;
+    Url?: string;
     Version: string;
     SaveVersion: number;
     CompatibleSaveVersions: number[];
