@@ -45,6 +45,13 @@ function filterForIo() {
         filter.key = undefined;
     }
 }
+
+function newLinkDragAndDropItem() {
+    //if used inline, as @pointerdown.left="dragStart($event, new LinkDragAndDropItem(props.io))"
+    //it will be transformed to new unref(LinkDragAndDropItem)(props.io) which causes bug
+    return new LinkDragAndDropItem(props.io);
+}
+
 watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('text-update'));
 </script>
 
@@ -57,7 +64,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             :tooltip="props.io.label"
             :data-io-id="props.io.key"
             @click="selectItem(SelectedClassType.RecipeIOModel, props.io)"
-            @pointerdown.left="dragStart($event, new LinkDragAndDropItem(props.io))"
+            @pointerdown.left="dragStart($event, newLinkDragAndDropItem())"
         />
         <div
             class="io-description-row text-caption hover-border"
