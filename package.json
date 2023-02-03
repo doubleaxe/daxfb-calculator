@@ -1,6 +1,6 @@
 {
   "name": "evospace-calculator",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Calculator/Factory Builder for factory management games",
   "main": "index.js",
   "scripts": {
