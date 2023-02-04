@@ -6,6 +6,8 @@ import {type InjectionKey, type App, reactive, inject} from 'vue';
 import {dataProvider, type Item} from './data/data';
 import type {InterfaceOf} from './types';
 
+const minTier = dataProvider.getDescription().MinTier;
+
 class Filter {
     private _tier?: number;
     private _tierEqual = 0;
@@ -49,7 +51,7 @@ class Filter {
             });
         }
 
-        if(this._tier) {
+        if(this._tier !== undefined) {
             const tier = this._tier;
             filteredItems = filteredItems.filter((item) => {
                 if(this._tierEqual > 0)
@@ -64,10 +66,10 @@ class Filter {
         if(this._groupTier) {
             filteredGroup = [];
             for(const item of filteredItems) {
-                let array = filteredGroup[(item.tier || 1) - 1];
+                let array = filteredGroup[item.tier - minTier];
                 if(!array) {
                     array = [];
-                    filteredGroup[(item.tier || 1) - 1] = array;
+                    filteredGroup[item.tier - minTier] = array;
                 }
                 array.push(item);
             }

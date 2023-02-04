@@ -28,7 +28,7 @@ export class BlueprintModelImpl {
     private _boundingRect: PublicRect = Rect.assign();
     public hasCycles = false;
     private _solvePrecision = DEFAULT_PRECISION;
-    private _autoSolveGraph = false;
+    private _autoSolveGraph = true;
     private _bulkUpdate = false;
 
     get items() { return this._items.values(); }

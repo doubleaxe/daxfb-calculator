@@ -28,6 +28,23 @@ Index: data.json
      {
        "Name": "SeparatorBaseRecipeDictionary",
        "Recipes": [
+@@ -28265,15 +28266,15 @@
+       "Recipes": [
+         {
+           "Category_T": "misc",
+           "Input": [],
+           "Name": "Computations",
+           "Output": [
+             {
+-              "Count": 1,
++              "Count": 3,
+               "Name": "ComputationsStaticItem"
+             }
+           ],
+           "ResourceInput": {
+             "Count": 10,
+             "Name": "ElectricityStaticItem"
+           },
 @@ -30853,14 +30854,200 @@
            "ResourceOutput": {
              "Count": 20,

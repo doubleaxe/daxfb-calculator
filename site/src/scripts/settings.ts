@@ -86,7 +86,7 @@ class Settings {
     blueprintSplit = DEFAULT_BLUEPRINT_SPLIT;
 
     get tier() { return this._filter.tier; }
-    set tier(tier: number | undefined) { this._filter.tier = tier; }
+    set tier(tier: number | null | undefined) { this._filter.tier = tier ?? undefined; }
     get tierEqual() { return this._filter.tierEqual; }
     set tierEqual(tierEqual: number) { this._filter.tierEqual = tierEqual; }
     get groupTier() { return this._filter.groupTier; }

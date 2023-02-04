@@ -12,6 +12,42 @@ const dataJson = dataJsonUntyped as unknown as JsonData;
 export const imagesJson = dataJson.images;
 Object.freeze(imagesJson);
 
+const {
+    minTier,
+    maxTier,
+} = (() => {
+    //calculate in advance, below classes will need it
+    //we'll ignore negative tiers
+    let _minTier: undefined | number = undefined;
+    let _maxTier: undefined | number = undefined;
+    for(const item of dataJson.items) {
+        const tier1 = item.Recipe?.Tier;
+        if((tier1 !== undefined) && (tier1 >= 0)) {
+            if((_minTier === undefined) || (tier1 < _minTier))
+                _minTier = tier1;
+            if((_maxTier === undefined) || (tier1 > _maxTier))
+                _maxTier = tier1;
+        }
+    }
+
+    for(const dictionary of dataJson.recipes) {
+        for(const recipe of dictionary.Recipes) {
+            const tier2 = recipe.Tier;
+            if((tier2 !== undefined) && (tier2 >= 0)) {
+                if((_minTier === undefined) || (tier2 < _minTier))
+                    _minTier = tier2;
+                if((_maxTier === undefined) || (tier2 > _maxTier))
+                    _maxTier = tier2;
+            }
+        }
+    }
+
+    return {
+        minTier: _minTier ?? 0,
+        maxTier: _maxTier ?? 0,
+    };
+})();
+
 export type Item = InterfaceOf<ItemImpl>;
 export type RecipeIO = InterfaceOf<RecipeIOImpl>;
 export type Recipe = InterfaceOf<RecipeImpl>;
@@ -22,10 +58,12 @@ export type RecipeDictionaryArray = Recipe[];
 export const parsedItems = new Map<string, Item>();
 export const parsedRecipes = new Map<string, RecipeDictionary>();
 export const parsedDescription: GameDescription & {
+    MinTier: number;
     MaxTier: number;
 } = {
     ...dataJson.description,
-    MaxTier: 0,
+    MinTier: minTier,
+    MaxTier: maxTier,
 };
 
 class ItemImpl {
@@ -33,7 +71,7 @@ class ItemImpl {
     private _recipeDictionary?: RecipeDictionary = undefined;
     constructor(_item: JsonItem) {
         this._item = _item;
-        this.tier = _item.Recipe?.Tier || 0;
+        this.tier = _item.Recipe?.Tier ?? minTier;
         this.lowerLabel = _item.Label.toLowerCase();
     }
     init() {
@@ -85,8 +123,7 @@ class RecipeIOImpl {
     //for resource gives Watts
     getCountPerSecond(producerTier: number) {
         const description = dataJson.description;
-        producerTier = Math.max(producerTier, 1);
-        const recipeTier = Math.max(this._recipe.minItemTier, 1);
+        const recipeTier = this._recipe.minItemTier;
         let tierDiff = producerTier - recipeTier;
         if(tierDiff < 0) {
             log(LOG.ERROR, `Something wrong, item tier ${producerTier} < recipe tier ${recipeTier} => ${this._recipe.name}`);
@@ -120,7 +157,7 @@ class RecipeImpl {
         const description = dataJson.description;
         this._dictionary = dictionary;
         this._recipe = recipe;
-        this.tier = recipe.Tier || -1;
+        this.tier = recipe.Tier;
         //1 Second = 20 Ticks
         this.seconds = recipe.Ticks / description.TicksPerSecond;
 
@@ -195,7 +232,7 @@ class RecipeDictionaryImpl {
         return this;
     }
     getForTier(tier: number) {
-        const filtered = this.recipes.filter((r) => (tier >= r.tier));
+        const filtered = this.recipes.filter((r) => (r.tier === undefined) || (tier >= r.tier));
         const cacheable = (filtered.length == this.recipes.length);
         return {
             recipes: cacheable ? this.recipes : filtered,
@@ -203,7 +240,7 @@ class RecipeDictionaryImpl {
         };
     }
 
-    get minItemTier() { return this.items[0]?.tier || 0; }
+    get minItemTier() { return this.items[0]?.tier ?? minTier; }
 }
 
 class ItemRecipeDictionaryImpl {
@@ -275,18 +312,6 @@ export function newItemRecipeDictionary(item?: Item) {
         item.init();
     }
 
-    let maxTier = 0;
-    for(const dictionary of parsedRecipes.values()) {
-        //sorted by tier
-        const tier1 = dictionary.items[dictionary.items.length - 1]?.tier || 0;
-        if(tier1 > maxTier)
-            maxTier = tier1;
-        for(const recipe of dictionary.recipes) {
-            if(recipe.tier > maxTier)
-                maxTier = recipe.tier;
-        }
-    }
-    parsedDescription.MaxTier = maxTier;
     //sanitize header
     parsedDescription.ShortName = (parsedDescription.ShortName + 'XX').substring(0, 2);
     Object.freeze(parsedDescription);
