@@ -16,25 +16,25 @@ This is done to differentiate `Click` and `Drag`.
 
 <details><summary>Drag factory and drop on blueprint</summary>
 
-![drag-n-drop-1](assets/drag-n-drop-1.gif)
+![drag-n-drop-1](./assets/drag-n-drop-1.gif)
 </details>
 
 <details><summary>Drag links between factories</summary>
 
-![drag-n-drop-2](assets/drag-n-drop-2.gif)
+![drag-n-drop-2](./assets/drag-n-drop-2.gif)
 </details>
 
 <details><summary>Drag to move factory</summary>
 
-![drag-n-drop-3](assets/drag-n-drop-3.gif)
+![drag-n-drop-3](./assets/drag-n-drop-3.gif)
 </details>
 
 <details><summary>Drag on free space to scroll window</summary>
 
-![drag-n-drop-4](assets/drag-n-drop-4.gif)
+![drag-n-drop-4](./assets/drag-n-drop-4.gif)
 </details>
 
 <details><summary>Drag something out of window to automatically scroll</summary>
 
-![drag-n-drop-5](assets/drag-n-drop-5.gif)
+![drag-n-drop-5](./assets/drag-n-drop-5.gif)
 </details>
