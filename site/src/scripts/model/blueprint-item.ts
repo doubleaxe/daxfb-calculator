@@ -27,7 +27,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
     public partOfCycle = false;
     public isFlipped = false;
-    public isLocked = false;
+    private _isLocked = false;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, dataProvider.getItem(name));
@@ -50,6 +50,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get tier() { return this._item?.tier; }
     get count() { return this._count; }
     get solvedCount() { return this._solvedCount; }
+    get isLocked() { return this._isLocked; }
+    set isLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(); }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null): BlueprintItemStateValues {
         if(!sourceIo) {
