@@ -12,7 +12,8 @@ Calculator link: [https://doubleaxe.github.io/daxfb/evospace-calculator/](https:
 
 # How to use
 
-Help is available as [separate page](https://doubleaxe.github.io/evospace-calculator-help/).
+Help is available as separate page [https://doubleaxe.github.io/daxfb-calculator/](https://doubleaxe.github.io/daxfb-calculator/).
+Help sources are located inside `docs` folder in this repository.
 
 # Building
 

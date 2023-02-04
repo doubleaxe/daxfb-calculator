@@ -1,4 +1,4 @@
-# Calculator/Factory Builder for factory management games by doubleaxe
+# Calculator/Factory Builder for factory management games
 
 # General usage
 

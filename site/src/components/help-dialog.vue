@@ -24,7 +24,7 @@ const dialog = useVModel(props, 'modelValue', emit);
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <iframe class="help-iframe" src="https://doubleaxe.github.io/evospace-calculator-help/" />
+            <iframe class="help-iframe" src="https://doubleaxe.github.io/daxfb-calculator/" />
         </v-sheet>
     </v-dialog>
 </template>
