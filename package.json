@@ -1,5 +1,5 @@
 {
-  "name": "evospace-calculator",
+  "name": "daxfb-calculator",
   "version": "1.0.0",
   "description": "Calculator/Factory Builder for factory management games",
   "main": "index.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/doubleaxe/evospace-calculator"
+    "url": "https://github.com/doubleaxe/daxfb-calculator"
   },
   "keywords": [
     "game",
@@ -36,7 +36,7 @@
     "@vueuse/components": "^9.11.1",
     "@vueuse/core": "^9.11.1",
     "d3-shape": "^3.2.0",
-    "javascript-lp-solver": "^0.4.24",
+    "javascript-lp-solver": "github:edwardez/jsLPSolver#13d93daeea0bd0b329cc673e72eedcb796201bf0",
     "js-base64": "^3.7.4",
     "pako": "^2.1.0",
     "vue": "^3.2.41",

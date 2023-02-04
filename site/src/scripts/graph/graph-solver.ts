@@ -3,7 +3,8 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 */
 import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
-import {newModel, type Variable} from './solver-wrapper';
+import {Model} from 'javascript-lp-solver';
+import type {Model as Model2, Variable} from './solver-better-types';
 
 //this uses linear programming simplex solver to solve max output for multiple flows
 //external library is used for algorithm itself, we just build multiple expressions to solve
@@ -13,11 +14,11 @@ import {newModel, type Variable} from './solver-wrapper';
 //we should find max value for item count, which will mean max input/output
 
 export class GraphSolver {
-    private readonly model;
+    private readonly model: Model2;
     private readonly variables = new Map<string, Variable>();
 
     constructor(precision?: number) {
-        this.model = newModel(precision || .001).maximize();
+        this.model = new Model(precision || .001).maximize();
     }
 
     solve(arrayItems: BlueprintItemModel[]) {

@@ -27,7 +27,7 @@ Released packages can be downloaded from 'release' page or self-built.
 Then it is possible to just open `index.html` included in release archive locally in browser.
 The only remote dependency is `https://polyfill.io/` which is used to make it work inside unsupported browsers.
 
-### TODO list
+# TODO list
 
 - Conveyors/Robotic arms/Pipes/etc.. support for link
 - Color/Icon states for link and item (overflow, underflow, warning, etc..)

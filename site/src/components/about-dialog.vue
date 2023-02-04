@@ -46,8 +46,8 @@ const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
                     <v-list-item title="Build time" :subtitle="__BUILD_TIME__" />
                     <v-list-item title="Bug reports">
                         <v-list-item-subtitle>
-                            <a href="https://github.com/doubleaxe/evospace-calculator/issues" target="_blank">
-                                https://github.com/doubleaxe/evospace-calculator/issues
+                            <a href="https://github.com/doubleaxe/daxfb-calculator/issues" target="_blank">
+                                https://github.com/doubleaxe/daxfb-calculator/issues
                             </a>
                         </v-list-item-subtitle>
                     </v-list-item>

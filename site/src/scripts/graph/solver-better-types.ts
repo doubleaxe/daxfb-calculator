@@ -2,12 +2,6 @@
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import * as AnyModel from 'javascript-lp-solver/src/Model';
-//side effects
-import 'javascript-lp-solver/src/Tableau';
-
 export interface Variable {
     id: string;
     cost: number;
@@ -38,9 +32,4 @@ export interface Model {
     smallerThan(rhs: number): Constraint;
     greaterThan(rhs: number): Constraint;
     equal(rhs: number): Constraint;
-}
-
-
-export function newModel(precision?: number): Model {
-    return new AnyModel(precision);
 }
