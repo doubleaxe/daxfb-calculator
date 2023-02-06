@@ -30,7 +30,7 @@ watch(() => blueprintModel.hasCycles, (value: boolean) => {
             <template #prepend>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
-            <v-app-bar-title>{{ `${description.Description} Calculator/Factory Builder` }}</v-app-bar-title>
+            <v-app-bar-title>{{ `${description.Description} Calculator/Factory Planner` }}</v-app-bar-title>
             <template #append>
                 <main-toolbar />
             </template>

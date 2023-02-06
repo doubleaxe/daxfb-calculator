@@ -28,7 +28,7 @@ const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <v-card-title>{{ `${description.Description} Calculator/Factory Builder` }}</v-card-title>
+            <v-card-title>{{ `${description.Description} Calculator/Factory Planner` }}</v-card-title>
             <v-card-subtitle>
                 By doubleaxe (<v-icon :icon="mdiEmail" /><a href="mailto:dax@xdax.ru" target="_blank">dax@xdax.ru</a>,
                 <a href="https://github.com/doubleaxe" target="_blank">https://github.com/doubleaxe</a>)

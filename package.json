@@ -1,7 +1,7 @@
 {
   "name": "daxfb-calculator",
   "version": "1.0.2",
-  "description": "Calculator/Factory Builder for factory management games",
+  "description": "Calculator/Factory Planner for factory management games",
   "main": "index.js",
   "scripts": {
     "dev": "run-s build-data site",
@@ -23,7 +23,7 @@
   "keywords": [
     "game",
     "calculator",
-    "factory builder"
+    "factory planner"
   ],
   "engines": {
     "node": ">=18"

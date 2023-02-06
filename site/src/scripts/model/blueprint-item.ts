@@ -135,6 +135,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             r: this._selectedRecipe?.name || '',
             c: (this._count == 1) ? undefined : this._count,
             f: this.isFlipped ? 1 : undefined,
+            l: this._isLocked ? 1 : undefined,
         };
     }
     _$loadItem(i: SavedItem, errorCollector: ErrorCollector) {
@@ -148,6 +149,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         });
         this.setCount(i.c || 1);
         this.isFlipped = i.f ? true : false;
+        this._isLocked = i.l ? true : false;
     }
     _$loadLink(sourceItem: BlueprintItemModel, errorCollector: ErrorCollector) {
         const sourceIoArray = sourceItem.selectedRecipe?.items;
