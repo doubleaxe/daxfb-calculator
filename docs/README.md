@@ -60,6 +60,16 @@ In this mode items can be selected with click, and then pasted/moved with anothe
 ![point-n-click3](./assets/point-n-click3.gif)
 </details>
 
+# Selecting  recipe
+
+Just click on center factory icon to select recipe. Filters also work here.
+If factory has only one recipe - recipes menu won't be shown.
+
+<details><summary>Details</summary>
+
+![recipe-selection](./assets/recipe-selection.png)
+</details>
+
 # Factory rotation
 
 Factory may be rotated to create more pretty looking links.
@@ -110,4 +120,20 @@ In this mode calculator will answer the question: how many factories will be nee
 <details><summary>See in action</summary>
 
 ![locking](./assets/locking.gif)
+</details>
+
+# Known problems and limitations
+
+When factory outputs two items or more, and these items directly or through production chain will be both feed to another factory at imperfect rate (i.e. first factory cannot dump all its output to second factory). In this case graph solver cannot solve factory io, so entire flow rate will be 0. To overcome this issue, use two the same factories as input or output, or use 'fake' dump factory do dump exceeded resources.
+
+<details><summary>Details</summary>
+
+[https://doubleaxe.github.io/daxfb/evospace-calculator/](https://doubleaxe.github.io/daxfb/evospace-calculator/)
+```
+DAXFBESC$eNpNz70OwyAMBOB3udkDxpAAe4bOHatMHZL-RVWHLFHevdDgNAs
+6rA-fWHBDuiyYkOBnEN75yiwNiYk94ZPnccZKG7lXETyTsFfQ5fEVKSrjU3V
+ePFluqmuHzQV1VgtNtBR0XfvY-2TSQmcotArGP3gpsIE8u4PI8fn7WzmZbF_
+elGxIDpn37A5GyPVlw4i0YMgbu3MumpE4rOsXTWxMyA
+```
+![limitation-ratio](./assets/limitation-ratio.gif)
 </details>
