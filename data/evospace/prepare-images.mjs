@@ -112,20 +112,20 @@ export class ImagesList {
                     continue;
                 }
             }
-            if(image.AddMask) {
-                const mask = baseImages.getImageObject(image.AddMask);
-                if(mask)
-                    derivedImage.composite(mask, 0, 0, {mode: Jimp.BLEND_SOURCE_OVER});
-                else {
-                    notFound.add(image.AddMask);
-                }
-            }
             if(image.MulMask) {
                 const mask = baseImages.getImageObject(image.MulMask);
                 if(mask) {
                     this.#applyMask(derivedImage, mask);
                 } else {
                     notFound.add(image.MulMask);
+                }
+            }
+            if(image.AddMask) {
+                const mask = baseImages.getImageObject(image.AddMask);
+                if(mask)
+                    derivedImage.composite(mask, 0, 0, {mode: Jimp.BLEND_SOURCE_OVER});
+                else {
+                    notFound.add(image.AddMask);
                 }
             }
             derivedImages.addImageObject(image.NewName, derivedImage);
