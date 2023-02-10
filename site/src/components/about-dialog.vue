@@ -14,7 +14,7 @@ const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 const description = dataProvider.getDescription();
 const __VERSION__ = import.meta.env.VITE_VERSION;
-const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
+const __BUILD_TIME__ = new Date(import.meta.env.VITE_BUILD_TIME).toISOString().replace('T', ' ').replace(/\..*$/, '');
 </script>
 
 <template>

@@ -30,18 +30,6 @@ const {
         }
     }
 
-    for(const dictionary of dataJson.recipes) {
-        for(const recipe of dictionary.Recipes) {
-            const tier2 = recipe.Tier;
-            if((tier2 !== undefined) && (tier2 >= 0)) {
-                if((_minTier === undefined) || (tier2 < _minTier))
-                    _minTier = tier2;
-                if((_maxTier === undefined) || (tier2 > _maxTier))
-                    _maxTier = tier2;
-            }
-        }
-    }
-
     return {
         minTier: _minTier ?? 0,
         maxTier: _maxTier ?? 0,
@@ -278,7 +266,9 @@ class ItemRecipeDictionaryImpl {
     }
 }
 const itemRecipeDictionaryCache = new Map<string, ItemRecipeDictionaryImpl>();
-export function newItemRecipeDictionary(item?: Item) {
+//unised. misinterpreted tier usage on recipe dictionaty
+//may be useful for other games in the future
+export function newItemTierRecipeDictionary(item?: Item) {
     const {
         recipes: recipesForItem,
         cacheable,
@@ -292,6 +282,15 @@ export function newItemRecipeDictionary(item?: Item) {
         return chached;
     }
     return new ItemRecipeDictionaryImpl(recipesForItem);
+}
+export function newItemRecipeDictionary(item?: Item) {
+    let chached = itemRecipeDictionaryCache.get(item?.recipeDictionaryName || '');
+    if(!chached) {
+        const recipes = item?.recipeDictionary?.recipes || [];
+        chached = new ItemRecipeDictionaryImpl(recipes);
+        itemRecipeDictionaryCache.set(item?.recipeDictionaryName || '', chached);
+    }
+    return chached;
 }
 
 

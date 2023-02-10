@@ -14,14 +14,18 @@ import {
 } from 'unplugin-vue-components/resolvers';
 import pkg from '../package.json';
 
+//GAME=example TRACK=1 npm run build
 const game = process.env['GAME'] || 'example';
+const tracking = process.env['TRACK'];
 
 //const __GAME__ = import.meta.env.VITE_GAME;
 process.env['VITE_GAME'] = game;
 //const __VERSION__ = import.meta.env.VITE_VERSION;
 process.env['VITE_VERSION'] = pkg.version;
 //const __BUILD_TIME__ = import.meta.env.VITE_BUILD_TIME;
-process.env['VITE_BUILD_TIME'] = new Date().toISOString().replace('T', ' ').replace(/\..*$/, '');
+process.env['VITE_BUILD_TIME'] = new Date().toISOString();
+//const __TRACK__ = import.meta.env.VITE_TRACK;
+process.env['VITE_TRACK'] = tracking ? '1' : '';
 
 const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
 

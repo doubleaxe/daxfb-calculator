@@ -124,9 +124,9 @@ In this mode calculator will answer the question: how many factories will be nee
 
 # Known problems and limitations
 
-When factory outputs two items or more, and these items directly or through production chain will be both feed to another factory at imperfect rate (i.e. first factory cannot dump all its output to second factory). In this case graph solver cannot solve factory io, so entire flow rate will be 0. To overcome this issue, use two the same factories as input or output, or use 'fake' dump factory do dump exceeded resources.
+When factory outputs two items or more, and these items directly or through production chain will be both feed to another factory at imperfect rate (i.e. first factory cannot dump all its output to second factory). In this case graph solver cannot solve factory io, so entire flow rate will be 0. This is not actually a bug, because real production chain of this type will also produce at zero rate after some time, because one output will be clogged. To overcome this, use two the same factories as input or output, or use 'fake' dump factory do dump exceeded resources.
 
-<details><summary>Details</summary>
+<details><summary>Example</summary>
 
 [https://doubleaxe.github.io/daxfb/evospace-calculator/](https://doubleaxe.github.io/daxfb/evospace-calculator/)
 ```
