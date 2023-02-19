@@ -1,23 +1,14 @@
 {
-  "include": ["./*.ts"],
+  "extends": "./tsconfig.common.json",
+  "include": ["./*.ts", "./data/**/*.ts", "./site/data/**/*.ts"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "module": "ES2022",
-    "target": "ES2022",
-    "sourceMap": true,
-    "lib": ["ES2022"],
+    "module": "commonjs",
     "types": ["node"],
-    "noEmit": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true
+    "esModuleInterop": true,
+    "noEmit": true
   },
   "ts-node": {
     "transpileOnly": true,
-    "esm": true
+    "esm": false
   }
 }

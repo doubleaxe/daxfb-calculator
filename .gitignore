@@ -6,6 +6,6 @@ dist
 *.log
 npm-debug.log*
 site/components.d.ts
-site/data/*
-!site/data/readme.md
-data/**/static/data.json
+site/public/games
+data/evospace/static/data.json
+tmp

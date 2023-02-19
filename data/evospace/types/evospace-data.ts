@@ -1,21 +1,9 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 export interface Images {
     [key: string]: number[];
-}
-
-export interface GameDescription {
-    Name: string;
-    ShortName: string;
-    Description: string;
-    Url?: string;
-    Version: string;
-    SaveVersion: number;
-    CompatibleSaveVersions: number[];
-    TicksPerSecond: number;
-    WattsPerItem: number;
 }
 
 export interface JsonRecipeIO {
@@ -24,6 +12,7 @@ export interface JsonRecipeIO {
     Probability?: number;
     Capacity?: number;
 }
+
 export interface JsonRecipe {
     Category_T?: string;
     Name: string;
@@ -39,15 +28,18 @@ export interface JsonRecipe {
     Scaled?: boolean;
     Locked?: boolean;
 }
+
 export interface JsonRecipeDictionary {
     Name: string;
     //ordered in natural order
     Recipes: JsonRecipe[];
 }
+
 export interface JsonRecipeReference {
     RecipeDictionary: string;
     Tier: number;
 }
+
 export interface JsonItem {
     Category?: string;
     Class?: string;
@@ -62,18 +54,10 @@ export interface JsonItem {
     Craftable?: boolean;
     Recipe?: JsonRecipeReference;
 }
+
 export interface JsonData {
     //ordered in natural order
-    recipes: JsonRecipeDictionary[];
+    Recipes: JsonRecipeDictionary[];
     //ordered in natural order
-    items: JsonItem[];
-    images?: Images;
-    description?: GameDescription;
-}
-
-export interface KeysJson {
-    keys?: {
-        [key: string]: string;
-    };
-    lastKey?: number;
+    Items: JsonItem[];
 }

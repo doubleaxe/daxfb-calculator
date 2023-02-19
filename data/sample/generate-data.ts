@@ -2,168 +2,153 @@
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
-import {JsonData} from '../json-data-types';
+import type {GameData} from '#types/game-data';
 
-const jsonContent: JsonData = {
-    recipes: [{
-        Name: 'V',
-        Recipes: [{
-            Input: [{
-                Count: 1,
-                Name: 'A',
-            }],
-            Name: 'V1',
-            Output: [{
-                Count: 2,
-                Name: 'B',
-            }],
-            ResourceInput: {
-                Count: 1,
-                Name: 'R',
-            },
-            Ticks: 1,
-        }, {
-            Input: [{
-                Count: 1,
-                Name: 'A',
-            }],
-            Name: 'V2',
-            Output: [{
-                Count: 4,
-                Name: 'C',
-            }],
-            ResourceInput: {
-                Count: 2,
-                Name: 'R',
-            },
-            Ticks: 1,
-        }],
-    }, {
-        Name: 'W',
-        Recipes: [{
-            Input: [{
-                Count: 1,
-                Name: 'B',
+export const gameData: Omit<GameData, 'description' | 'images'> = {
+    recipeDictionaries: [{
+        name: 'V',
+        recipes: [{
+            input: [{
+                count: 1,
+                name: 'A',
             }, {
-                Count: 2,
-                Name: 'C',
+                count: 1,
+                name: 'R',
             }],
-            Name: 'W1',
-            Output: [{
-                Count: 3,
-                Name: 'D',
+            name: 'V1',
+            output: [{
+                count: 2,
+                name: 'B',
             }],
-            ResourceInput: {
-                Count: 1,
-                Name: 'R',
-            },
-            Ticks: 1,
+            time: 1,
+        }, {
+            input: [{
+                count: 1,
+                name: 'A',
+            }, {
+                count: 2,
+                name: 'R',
+            }],
+            name: 'V2',
+            output: [{
+                count: 4,
+                name: 'C',
+            }],
+            time: 1,
         }],
     }, {
-        Name: 'M',
-        Recipes: [{
-            Input: [],
-            Name: 'M1',
-            Output: [{
-                Count: 4,
-                Name: 'A',
+        name: 'W',
+        recipes: [{
+            input: [{
+                count: 1,
+                name: 'B',
+            }, {
+                count: 2,
+                name: 'C',
+            }, {
+                count: 1,
+                name: 'R',
             }],
-            ResourceInput: {
-                Count: 5,
-                Name: 'R',
-            },
-            Ticks: 1,
+            name: 'W1',
+            output: [{
+                count: 3,
+                name: 'D',
+            }],
+            time: 1,
         }],
     }, {
-        Name: 'G',
-        Recipes: [{
-            Input: [],
-            Name: 'G1',
-            Output: [],
-            ResourceOutput: {
-                Count: 5,
-                Name: 'R',
-            },
-            Ticks: 1,
+        name: 'M',
+        recipes: [{
+            input: [{
+                count: 5,
+                name: 'R',
+            }],
+            name: 'M1',
+            output: [{
+                count: 4,
+                name: 'A',
+            }],
+            time: 1,
+        }],
+    }, {
+        name: 'G',
+        recipes: [{
+            input: [],
+            name: 'G1',
+            output: [{
+                count: 5,
+                name: 'R',
+            }],
+            time: 1,
         }],
     }],
     items: [{
-        Image: 'A',
-        Name: 'A',
-        Label: 'Item A',
+        image: 'A',
+        name: 'A',
+        label: 'Item A',
     }, {
-        Image: 'B',
-        Name: 'B',
-        Label: 'Item B',
+        image: 'B',
+        name: 'B',
+        label: 'Item B',
     }, {
-        Image: 'C',
-        Name: 'C',
-        Label: 'Item C',
+        image: 'C',
+        name: 'C',
+        label: 'Item C',
     }, {
-        Image: 'D',
-        Name: 'D',
-        Label: 'Item D',
+        image: 'D',
+        name: 'D',
+        label: 'Item D',
     }, {
-        Image: 'R',
-        Name: 'R',
-        Label: 'Resource',
+        image: 'R',
+        name: 'R',
+        label: 'Resource',
     }, {
-        Image: 'G',
-        Name: 'G',
-        Label: 'Generator',
-        Recipe: {
-            RecipeDictionary: 'G',
-            Tier: 1,
+        image: 'G',
+        name: 'G',
+        label: 'Generator',
+        recipe: {
+            recipeDictionary: 'G',
+            tier: 1,
         },
     }, {
-        Image: '1',
-        Name: '1',
-        Label: 'Factory 1',
-        Recipe: {
-            RecipeDictionary: 'V',
-            Tier: 1,
+        image: '1',
+        name: '1',
+        label: 'Factory 1',
+        recipe: {
+            recipeDictionary: 'V',
+            tier: 1,
         },
     }, {
-        Image: '2',
-        Name: '2',
-        Label: 'Factory 2',
-        Recipe: {
-            RecipeDictionary: 'W',
-            Tier: 1,
+        image: '2',
+        name: '2',
+        label: 'Factory 2',
+        recipe: {
+            recipeDictionary: 'W',
+            tier: 1,
         },
     }, {
-        Image: '3',
-        Name: '3',
-        Label: 'Factory 2X',
-        Recipe: {
-            RecipeDictionary: 'W',
-            Tier: 2,
+        image: '3',
+        name: '3',
+        label: 'Factory 2X',
+        recipe: {
+            recipeDictionary: 'W',
+            tier: 2,
         },
     }, {
-        Image: 'M',
-        Name: 'M',
-        Label: 'Ore Miner 1',
-        Recipe: {
-            RecipeDictionary: 'M',
-            Tier: 1,
+        image: 'M',
+        name: 'M',
+        label: 'Ore Miner 1',
+        recipe: {
+            recipeDictionary: 'M',
+            tier: 1,
         },
     }, {
-        Image: 'N',
-        Name: 'N',
-        Label: 'Ore Miner 1X',
-        Recipe: {
-            RecipeDictionary: 'M',
-            Tier: 2,
+        image: 'N',
+        name: 'N',
+        label: 'Ore Miner 1X',
+        recipe: {
+            recipeDictionary: 'M',
+            tier: 2,
         },
     }],
 };
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const __parsed = path.join(__dirname, 'parsed');
-
-(async function() {
-    await fs.writeFile(path.join(__parsed, 'data.json'), JSON.stringify(jsonContent, undefined, '  '));
-})().catch((err) => console.error(err.stack));

@@ -28,7 +28,7 @@
   "engines": {
     "node": ">=18"
   },
-  "type": "module",
+  "type": "commonjs",
   "author": "Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)",
   "license": "MIT",
   "dependencies": {

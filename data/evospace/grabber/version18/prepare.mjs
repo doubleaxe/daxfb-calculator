@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import fs from 'node:fs/promises';
@@ -9,14 +9,14 @@ import {ImagesList} from './prepare-images.mjs';
 import {RecipesList, ItemsList, Localization, JsonComposer} from './prepare-json.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const __parsed = path.join(__dirname, 'parsed');
+const __parsed = path.join(__dirname, '../../parsed');
 
 // /data/games/SteamLibrary/steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content
 (async function() {
     const args = process.argv.slice(2);
     const basePath = args[0];
     if(!basePath)
-        throw new Error('Evospace data path is required, e.g. "npm run prepare-data -- ...steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content"');
+        throw new Error('Evospace data path is required, e.g. "node prepare.mjs ...steamapps/common/Evospace/Evospace-Mac-Shipping.app/Contents/UE4/Evospace/Content"');
 
     const finalJson = await processJsonAsync(basePath);
     await processImagesAsync(basePath, finalJson.getUsableImages());

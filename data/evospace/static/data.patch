@@ -241,7 +241,7 @@ Index: data.json
 +      ]
      }
    ],
-   "items": [
+   "Items": [
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",

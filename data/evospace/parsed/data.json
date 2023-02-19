@@ -1,5 +1,5 @@
 {
-  "recipes": [
+  "Recipes": [
     {
       "Name": "DeconstructorBaseRecipeDictionary",
       "Recipes": [
@@ -30859,7 +30859,7 @@
       ]
     }
   ],
-  "items": [
+  "Items": [
     {
       "Category": "Copper",
       "Class": "SolidStaticItem",

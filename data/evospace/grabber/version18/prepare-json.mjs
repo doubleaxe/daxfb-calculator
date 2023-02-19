@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import fs from 'node:fs/promises';
@@ -405,8 +405,8 @@ class FinalJson {
     }
     async saveComposedJsonAsync({jsonPath}) {
         const finalJson = {
-            recipes: [...this.#filteredRecipes.values()],
-            items: [...this.#filteredItems.values()],
+            Recipes: [...this.#filteredRecipes.values()],
+            Items: [...this.#filteredItems.values()],
         };
         await fs.writeFile(jsonPath, JSON.stringify(finalJson, null, '  '));
     }

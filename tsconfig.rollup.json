@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.common.json",
+  "include": ["./data/**/calculator/*.ts", "./site/data/**/*.ts"],
+  "compilerOptions": {
+    "module": "ES2022",
+    "sourceMap": true,
+    "removeComments": true,
+    "noEmitOnError": true
+  }
+}

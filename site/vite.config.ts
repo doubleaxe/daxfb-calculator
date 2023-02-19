@@ -27,7 +27,7 @@ process.env['VITE_BUILD_TIME'] = new Date().toISOString();
 //const __TRACK__ = import.meta.env.VITE_TRACK;
 process.env['VITE_TRACK'] = tracking ? '1' : '';
 
-const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
+const _dirname = path.join(path.dirname(fileURLToPath(import.meta.url)));
 
 const htmlPlugin = () => {
     const transformIndexHtml: IndexHtmlTransformHook = (html) => {
@@ -55,15 +55,15 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': path.join(__dirname, 'src'),
+            '@': path.join(_dirname, 'src'),
         },
     },
     build: {
-        outDir: path.join(__dirname, `../dist/${game}`),
+        outDir: path.join(_dirname, `../dist/${game}`),
         emptyOutDir: true,
         rollupOptions: {
             plugins: [visualizer({
-                filename: path.join(__dirname, '../dist/stats.html'),
+                filename: path.join(_dirname, '../dist/stats.html'),
             })],
             output: {
                 format: 'iife',
