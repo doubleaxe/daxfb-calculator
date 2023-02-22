@@ -2,9 +2,9 @@
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameData} from '#types/game-data';
+import type {GameDataSerialized} from '#types/game-data-serialized';
 
-export const gameData: Omit<GameData, 'description' | 'images'> = {
+export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
     recipeDictionaries: [{
         name: 'V',
         recipes: [{

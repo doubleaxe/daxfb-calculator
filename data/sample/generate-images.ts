@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 import Jimp from 'jimp';
 import type {Font} from '@jimp/plugin-print';
-import type {GameImages} from '#types/game-data';
+import type {GameImagesSerialized} from '#types/game-data-serialized';
 
 let font16: Font | null = null;
 let font32: Font | null = null;
@@ -37,7 +37,7 @@ export async function generateImages(count = 36, resolution = 32) {
     const columns = 10;
     const rows = Math.ceil(count / columns);
 
-    const jsonContent: GameImages = {};
+    const jsonContent: GameImagesSerialized = {};
     const width = columns * resolution;
     const height = rows * resolution;
     const resultImage = new Jimp(width, height, 0xffffff00, (err) => {

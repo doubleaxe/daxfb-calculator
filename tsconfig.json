@@ -2,6 +2,7 @@
   "extends": "./tsconfig.common.json",
   "include": ["./*.ts", "./data/**/*.ts", "./site/data/**/*.ts"],
   "compilerOptions": {
+    "target": "ES2022",
     "module": "commonjs",
     "types": ["node"],
     "esModuleInterop": true,

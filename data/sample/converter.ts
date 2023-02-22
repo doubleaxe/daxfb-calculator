@@ -6,10 +6,10 @@ import description from './description.json';
 import {generateImages} from './generate-images';
 import {gameData as generatedGameData} from './generate-data';
 import type {Converter} from '../processing';
-import type {GameData} from '#types/game-data';
+import type {GameDataSerialized} from '#types/game-data-serialized';
 
-export function useConverter(): Converter {
-    let gameData: GameData | undefined;
+function useConverter(): Converter {
+    let gameData: GameDataSerialized | undefined;
     let image: Buffer | undefined;
     async function init() {
         if(gameData && image) {
@@ -34,3 +34,7 @@ export function useConverter(): Converter {
         },
     };
 }
+
+export default {
+    useConverter,
+};

@@ -20,9 +20,9 @@ import type {
 } from './types/evospace-data';
 
 import type {
-    GameData,
-    GameRecipeIO,
-} from '#types/game-data';
+    GameDataSerialized,
+    GameRecipeIOSerialized,
+} from '#types/game-data-serialized';
 
 const _dirname = __dirname;
 const __parsed = path.join(_dirname, 'parsed');
@@ -51,7 +51,7 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
         const itemArray = Array.isArray(item) ? item : [item];
 
         //merge probability, copy objects
-        const mappedMergedIO = new Map<string, GameRecipeIO>();
+        const mappedMergedIO = new Map<string, GameRecipeIOSerialized>();
         for(const i of itemArray) {
             const count = i.Probability ? (i.Count * i.Probability) : i.Count;
             const i0 = mappedMergedIO.get(i.Name);
@@ -131,7 +131,7 @@ async function convertGameData() {
 
     const imagesJson: Images = JSON.parse(fs.readFileSync(path.join(__parsed, 'images.json'), 'utf8'));
 
-    const gameData: GameData = {
+    const gameData: GameDataSerialized = {
         recipeDictionaries: convertRecipes(patchedDataJson.Recipes),
         items: convertItems(patchedDataJson.Items),
         images: Object.fromEntries(
@@ -142,7 +142,7 @@ async function convertGameData() {
     return gameData;
 }
 
-export function useConverter(): Converter {
+function useConverter(): Converter {
     return {
         convertGameData,
         async loadImages() {
@@ -150,3 +150,7 @@ export function useConverter(): Converter {
         },
     };
 }
+
+export default {
+    useConverter,
+};

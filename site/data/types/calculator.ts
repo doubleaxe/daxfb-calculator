@@ -4,22 +4,10 @@ Please don't remove this comment if you use unmodified file
 */
 
 import type {
-    GameRecipeIO,
-    GameRecipe,
     GameItem,
+    GameRecipeIO,
 } from './game-data';
 
-export type IOItem = {
-    io: GameRecipeIO;
-    item: GameItem;
-};
-
-export type ExItemData = {
-    minItemTier: number;
-};
-
 export interface Calculator {
-    getCountPerSecond: (item: GameItem, recipe: GameRecipe, io: IOItem, exData: ExItemData) => number;
+    getCountPerSecond: (item: GameItem, io: GameRecipeIO) => number;
 }
-
-export type CalculatorFactory = () => Calculator;

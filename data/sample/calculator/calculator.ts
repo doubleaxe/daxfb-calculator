@@ -7,8 +7,8 @@ import type {
 } from '#types/calculator';
 
 export function useCalculator(): Calculator {
-    const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, recipe, io, exData) {
-        return io.io.count / recipe.time;
+    const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
+        return io.count / io.recipe.time;
     };
 
     return {

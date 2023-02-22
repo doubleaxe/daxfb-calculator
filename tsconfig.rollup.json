@@ -1,7 +1,8 @@
 {
   "extends": "./tsconfig.common.json",
-  "include": ["./data/**/calculator/*.ts", "./site/data/**/*.ts"],
+  "include": ["./data/*/calculator/*.ts"],
   "compilerOptions": {
+    "target": "ES2018",
     "module": "ES2022",
     "sourceMap": true,
     "removeComments": true,

@@ -6,10 +6,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 import type {
-    GameRecipeDictionary,
-    GameItem,
-    GameData,
-} from '#types/game-data';
+    GameRecipeDictionarySerialized,
+    GameItemSerialized,
+    GameDataSerialized,
+} from '#types/game-data-serialized';
 
 interface KeysJson {
     keys?: {
@@ -22,11 +22,12 @@ interface KeysJson {
 //if name is deleted - key is kept in place
 //because keys will be saved - this way we make saves compatible even if further items added/removed
 export class KeyProcessor {
-    private readonly gameData: GameData;
+    private readonly gameData: GameDataSerialized;
     private readonly keyStorePath: string;
     private readonly keysJson: KeysJson;
+    private readonly isAttachKeys?: boolean;
 
-    constructor(gameData: GameData, sourceDir: string, isRebuildKeys?: boolean) {
+    constructor(gameData: GameDataSerialized, sourceDir: string, isRebuildKeys?: boolean, isAttachKeys?: boolean) {
         this.gameData = gameData;
         this.keyStorePath = path.join(sourceDir, 'keys.json');
 
@@ -39,6 +40,7 @@ export class KeyProcessor {
                 throw err;
         }
         this.keysJson = keysJson;
+        this.isAttachKeys = isAttachKeys;
     }
     async processKeys() {
         this.mergeRecipes();
@@ -56,25 +58,36 @@ export class KeyProcessor {
         };
     }
     private mergeRecipes() {
-        const sub0 = (sub: GameRecipeDictionary) => {
+        const sub0 = (sub: GameRecipeDictionarySerialized) => {
             const mappedObject = this.mapKeys(sub.recipes.map((recipe) => [recipe.name, recipe]));
             sub.recipes = mappedObject?.map(([key, recipe]) => {
+                if(this.isAttachKeys) {
+                    recipe.longName = recipe.name;
+                }
                 recipe.name = key;
                 return recipe;
             }) || [];
             return sub;
         };
-        const mappedArray: [string, GameRecipeDictionary][] = (this.gameData.recipeDictionaries || []).map((r) => [r.name, r]);
+        const mappedArray: [string, GameRecipeDictionarySerialized][] = (this.gameData.recipeDictionaries || []).map(
+            (r) => [r.name, r],
+        );
         const mappedObject = this.mapKeys(mappedArray, sub0);
         this.gameData.recipeDictionaries = mappedObject?.map(([key, value]) => {
+            if(this.isAttachKeys) {
+                value.longName = value.name;
+            }
             value.name = key;
             return value;
         }) || [];
     }
     private mergeItems() {
-        const mappedArray: [string, GameItem][] = (this.gameData.items || []).map((r) => [r.name, r]);
+        const mappedArray: [string, GameItemSerialized][] = (this.gameData.items || []).map((r) => [r.name, r]);
         const mappedObject = this.mapKeys(mappedArray);
         this.gameData.items = mappedObject?.map(([key, value]) => {
+            if(this.isAttachKeys) {
+                value.longName = value.name;
+            }
             value.name = key;
             return value;
         }) || [];
@@ -109,6 +122,9 @@ export class KeyProcessor {
                     ...(recipe.output ? recipe.output : []),
                 ];
                 for(const i of io) {
+                    if(this.isAttachKeys) {
+                        i.longName = i.name;
+                    }
                     i.name = nameMapping[i.name] || '';
                 }
             }
@@ -119,6 +135,9 @@ export class KeyProcessor {
         for(const item of this.gameData.items || []) {
             item.image = nameMapping[item.image] || '';
             if(item.recipe) {
+                if(this.isAttachKeys) {
+                    item.recipe.longRecipeDictionary = item.recipe.recipeDictionary;
+                }
                 item.recipe.recipeDictionary = nameMapping[item.recipe.recipeDictionary] || '';
             }
         }

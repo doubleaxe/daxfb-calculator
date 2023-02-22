@@ -4,6 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {deflateRawSync} from 'node:zlib';
 import {rollup, type InputOptions, type OutputOptions} from 'rollup';
 import virtual from '@rollup/plugin-virtual';
 import typescript from '@rollup/plugin-typescript';
@@ -11,6 +12,7 @@ import {minify} from 'rollup-plugin-esbuild';
 
 import {KeyProcessor} from './data/key-processor';
 import type {ConverterFactory} from './data/processing';
+import {DebugKeys, GameDataSerialized} from '#types/game-data-serialized';
 
 //npx ts-node build-data.ts [clean] [debug]
 //node --loader ts-node/esm --inspect-brk build-data.ts [clean] [debug]
@@ -47,38 +49,52 @@ async function buildSingleGame(game: string) {
     const targetGameDir = path.join(_target, game);
     fs.mkdirSync(targetGameDir, {recursive: true});
 
-    const converterPackage = await import(path.join(gameDir, 'converter.ts'));
-    const useConverter: ConverterFactory = converterPackage.useConverter;
+    const {default: converterFactory}: {default: ConverterFactory} = await import(path.join(gameDir, 'converter.ts'));
     const {
         convertGameData,
         loadImages,
-    } = useConverter();
+    } = converterFactory.useConverter();
     const gameData = await convertGameData();
     const {
         gameData: minifiedGameData,
         reverceKeys,
-    } = await (new KeyProcessor(gameData, gameDir, isRebuildKeys).processKeys());
-    const gameDataString = JSON.stringify(minifiedGameData);
+    } = await (new KeyProcessor(gameData, gameDir, isRebuildKeys, isDebug).processKeys());
 
     const imagesData = await loadImages();
     if(imagesData) {
         fs.writeFileSync(path.join(targetGameDir, 'images.png'), imagesData);
     }
 
-    await packageGameData(gameDir, targetGameDir, gameDataString, reverceKeys);
+    await packageGameData(gameDir, targetGameDir, minifiedGameData, reverceKeys);
 }
 
-async function packageGameData(gameDir: string, targetGameDir: string, gameDataString: string, reverceKeys: {[k: string]: string}) {
+async function packageGameData(gameDir: string, targetGameDir: string, gameData: GameDataSerialized, reverceKeys: DebugKeys) {
+    //will be minified but sourcemapped in release mode
+    let gameDataString: string;
+    if(isDebug) {
+        gameDataString = JSON.stringify(gameData, undefined, '  ');
+    } else {
+        gameDataString = JSON.stringify(gameData);
+        gameDataString = "'" + deflateRawSync(Buffer.from(gameDataString, 'utf8'), {level: 9}).toString('base64') + "'";
+    }
+    const reverceKeysString = 'undefined';
     const calculatorPath = path.join(gameDir, 'calculator', 'calculator.ts');
     const calculatorTargetPath = path.join(targetGameDir, 'game.js');
     const inputOptions: InputOptions = {
         input: 'entry',
         plugins: [
+            //virtual doesn't build typescript files
+            //this is written in javascript, and it should be checked whenever GameImplementation interface changes
             virtual({
                 entry: `
-export * from '${calculatorPath}';
-export const gameData = ${gameDataString};
-${isDebug ? ('export const debugKeys = ' + JSON.stringify(reverceKeys) + ';') : ''}
+import {useCalculator} from '${calculatorPath}';
+const gameData = ${gameDataString};
+const debugKeys = ${isDebug ? reverceKeysString : 'undefined'};
+const gameImplementation = {
+    useCalculator,
+    useGameData: function() { return gameData; },
+};
+export default gameImplementation;
 `,
             }),
             typescript({

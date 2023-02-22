@@ -3,12 +3,14 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {
-    GameData,
-} from '#types/game-data';
+    GameDataSerialized,
+} from '#types/game-data-serialized';
 
 export interface Converter {
-    convertGameData: () => Promise<GameData>;
+    convertGameData: () => Promise<GameDataSerialized>;
     loadImages: () => Promise<Buffer>;
 }
 
-export type ConverterFactory = () => Converter;
+export type ConverterFactory = {
+    useConverter: () => Converter;
+};
