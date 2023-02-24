@@ -12,45 +12,52 @@ import type {
     GameImagesSerialized,
 } from './game-data-serialized';
 
-export type GameImages = Readonly<GameImagesSerialized>;
+export type GameImagesRaw = GameImagesSerialized;
+export type GameImages = Readonly<GameImagesRaw>;
 
 //the same game data but with cross-links and other preparsing
 //used for easier lookups and calculations
-export interface GameRecipeIO extends Readonly<GameRecipeIOSerialized> {
-    readonly isInput: boolean;
-    readonly recipe: GameRecipe;
-    readonly product: GameItem;
+export interface GameRecipeIORaw extends GameRecipeIOSerialized {
+    isInput: boolean;
+    recipe: GameRecipe;
+    product: GameItem;
 
     getCountPerSecond: (item: GameItem) => number;
 }
+export type GameRecipeIO = Readonly<GameRecipeIORaw>;
 
-export interface GameRecipe extends Readonly<GameRecipeSerialized> {
+export interface GameRecipeRaw extends GameRecipeSerialized {
     //ordered in natural order
-    readonly input: GameRecipeIO[];
+    input: GameRecipeIO[];
     //ordered in natural order
-    readonly output: GameRecipeIO[];
-    readonly recipeDictionary: GameRecipeDictionary;
+    output: GameRecipeIO[];
+    recipeDictionary: GameRecipeDictionary;
 }
+export type GameRecipe = Readonly<GameRecipeRaw>;
 
-export interface GameRecipeDictionary extends Readonly<GameRecipeDictionarySerialized> {
+export interface GameRecipeDictionaryRaw extends GameRecipeDictionarySerialized {
     //ordered in natural order
-    readonly recipes: GameRecipe[];
-    readonly items: GameItem[];
+    recipes: GameRecipe[];
+    items: GameItem[];
 
-    readonly recipesMap: ReadonlyMap<string, GameRecipe>;
+    recipesMap: ReadonlyMap<string, GameRecipe>;
     //item name => recipe names
-    readonly recipesByInputMap: ReadonlyMap<string, string[]>;
-    readonly recipesByOutputMap: ReadonlyMap<string, string[]>;
+    recipesByInputMap: ReadonlyMap<string, string[]>;
+    recipesByOutputMap: ReadonlyMap<string, string[]>;
 }
+export type GameRecipeDictionary = Readonly<GameRecipeDictionaryRaw>;
 
-export type GameRecipeReference = Readonly<GameRecipeReferenceSerialized>;
+export type GameRecipeReferenceRaw = GameRecipeReferenceSerialized;
+export type GameRecipeReference = Readonly<GameRecipeReferenceRaw>;
 
-export interface GameItem extends Readonly<GameItemSerialized> {
-    readonly lowerLabel: string;
-    readonly recipeDictionary?: GameRecipeDictionary;
+export interface GameItemRaw extends GameItemSerialized {
+    lowerLabel: string;
+    recipeDictionary?: GameRecipeDictionary;
 }
+export type GameItem = Readonly<GameItemRaw>;
 
-export interface GameDescription extends Readonly<GameDescriptionSerialized> {
+export interface GameDescriptionRaw extends GameDescriptionSerialized {
     minTier: number;
     maxTier: number;
 }
+export type GameDescription = Readonly<GameDescriptionRaw>;

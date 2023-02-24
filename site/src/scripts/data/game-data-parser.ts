@@ -1,16 +1,20 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {GameImplementation} from '#types/game-implementation';
 import type {
     GameDescription,
+    GameDescriptionRaw,
     GameImages,
     GameItem,
+    GameItemRaw,
     GameRecipe,
     GameRecipeDictionary,
+    GameRecipeDictionaryRaw,
     GameRecipeIO,
-    GameRecipeReference,
+    GameRecipeIORaw,
+    GameRecipeRaw,
 } from '#types/game-data';
 import type {
     GameDataSerialized,
@@ -37,190 +41,198 @@ export type ParsedGameData = {
     description: GameDescription;
 };
 
-class ItemImpl implements GameItem {
-    name!: string;
-    longName?: string;
-    label!: string;
-    image!: string;
-    unitMul?: number;
-    recipe?: GameRecipeReference;
+//package private item
+type ItemImpl = {
+    item: GameItem;
+    _postInit: (parsedRecipes: ParsedRecipesImpl) => void;
+};
+function createItemImpl(_item: GameItemSerialized) {
+    const item: GameItemRaw = {
+        ..._item,
+        lowerLabel: _item.label.toLowerCase(),
+        recipeDictionary: undefined,
+    };
 
-    lowerLabel: string;
-    recipeDictionary?: Readonly<RecipeDictionaryImpl>;
+    const itemImpl: ItemImpl = {
+        item,
+        _postInit(parsedRecipesImpl: ParsedRecipesImpl) {
+            if(item.recipe) {
+                const recipeDictionaryImpl = parsedRecipesImpl.get(item.recipe.recipeDictionary);
+                recipeDictionaryImpl?._postInitItem(this);
+                item.recipeDictionary = recipeDictionaryImpl?.recipeDictionary;
+            }
+            if(item.recipe)
+                Object.freeze(item.recipe);
+            Object.freeze(item);
+        },
+    };
 
-    constructor(item: GameItemSerialized) {
-        Object.assign(this, item);
-        this.lowerLabel = item.label.toLowerCase();
-    }
-    _postInit(parsedRecipes: ParsedRecipesImpl) {
-        if(this.recipe) {
-            const recipeDictionary = parsedRecipes.get(this.recipe.recipeDictionary);
-            recipeDictionary?._postInitItem(this);
-            this.recipeDictionary = recipeDictionary;
-        }
-        if(this.recipe)
-            Object.freeze(this.recipe);
-        Object.freeze(this);
-    }
+    return itemImpl;
 }
 
+//package private io
 interface RecipeIOOptions {
     isInput: boolean;
 }
-
-class RecipeIOImpl implements GameRecipeIO {
-    name!: string;
-    longName?: string;
-    count!: number;
-    hasProbability?: boolean;
-    type?: number;
-
-    isInput: boolean;
-    recipe: Readonly<RecipeImpl>;
-    product!: Readonly<ItemImpl>;
-
-    constructor(recipe: Readonly<RecipeImpl>, io: GameRecipeIOSerialized, options: RecipeIOOptions) {
-        Object.assign(this, io);
-
-        this.isInput = options.isInput;
-        this.recipe = recipe;
-    }
-    _postInit(parsedItems: ParsedItemsImpl) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        this.product = parsedItems.get(this.name)!;
-        Object.freeze(this);
-    }
-
-    //count per second is immutable
-    private _cachedCount?: number;
-    getCountPerSecond(item: GameItem) {
-        if(!this._cachedCount) {
-            this._cachedCount = this.recipe.recipeDictionary.calculator.getCountPerSecond(item, this);
-        }
-        return this._cachedCount;
-    }
-}
-
-class RecipeImpl implements GameRecipe {
-    name!: string;
-    longName?: string;
-    //ordered in natural order
-    input: Readonly<RecipeIOImpl>[];
-    //ordered in natural order
-    output: Readonly<RecipeIOImpl>[];
-    time!: number;
-
-    recipeDictionary: Readonly<RecipeDictionaryImpl>;
-
-    constructor(recipeDictionary: Readonly<RecipeDictionaryImpl>, recipe: GameRecipeSerialized) {
-        Object.assign(this, recipe);
-
-        this.recipeDictionary = recipeDictionary;
-
-        const mapIO = (itemArray: GameRecipeIOSerialized[] | undefined, options: RecipeIOOptions) => {
-            if(!itemArray)
-                return [];
-            return itemArray.map((i) => new RecipeIOImpl(this, i, options));
-        };
-        this.input = mapIO(recipe.input, {isInput: true});
-        this.output = mapIO(recipe.output, {isInput: false});
-    }
-
-    _postInit(parsedItems: ParsedItemsImpl) {
-        for(const io of [...this.input, ...this.output]) {
-            io._postInit(parsedItems);
-        }
-        Object.freeze(this.input);
-        Object.freeze(this.output);
-        Object.freeze(this);
-    }
-}
-
-class RecipeDictionaryImpl implements GameRecipeDictionary {
-    name!: string;
-    longName?: string;
-
-    recipes: Readonly<RecipeImpl>[];
-    items: Readonly<ItemImpl>[];
-
-    recipesMap!: ReadonlyMap<string, Readonly<RecipeImpl>>;
-    //item name => recipe names
-    recipesByInputMap!: ReadonlyMap<string, string[]>;
-    recipesByOutputMap!: ReadonlyMap<string, string[]>;
-
-    calculator;
-
-    constructor(calculator: Calculator, recipeDictionary: GameRecipeDictionarySerialized) {
-        Object.assign(this, recipeDictionary);
-
-        this.recipes = recipeDictionary.recipes.map((r) => new RecipeImpl(this, r));
-        this.items = [];
-        this.calculator = calculator;
-    }
-    _postInitItem(item: Readonly<ItemImpl>) {
-        this.items.push(item);
-    }
-    _postInit(parsedItems: ParsedItemsImpl) {
-        for(const recipe of this.recipes) {
-            recipe._postInit(parsedItems);
-        }
-
-        Object.freeze(this.recipes);
-        Object.freeze(this.items);
-
-        this.recipesMap = freezeMap(new Map<string, Readonly<RecipeImpl>>(
-            this.recipes.map((r) => [r.name, r]),
-        ));
-
-        const recipesByProduct = (type: 'input' | 'output') => {
-            const recipesByProductMap = new Map<string, string[]>();
-            for(const recipe of this.recipes) {
-                for(const io of recipe[type]) {
-                    let byProduct = recipesByProductMap.get(io.name);
-                    if(!byProduct) {
-                        byProduct = [];
-                        recipesByProductMap.set(io.name, byProduct);
-                    }
-                    byProduct.push(recipe.name);
-                }
+type RecipeIOImpl = {
+    io: GameRecipeIO;
+    _postInit: (parsedItems: ParsedItemsImpl) => void;
+};
+function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOSerialized, options: RecipeIOOptions) {
+    let _cachedCount: number | undefined;
+    const recipeDictionaryImpl = recipeImpl.recipeDictionaryImpl;
+    const io: GameRecipeIORaw = {
+        ..._io,
+        isInput: options.isInput,
+        recipe: recipeImpl.recipe,
+        product: {} as GameItem,
+        //count per second is immutable
+        getCountPerSecond(item: GameItem) {
+            if(!_cachedCount) {
+                _cachedCount = recipeDictionaryImpl.calculator.getCountPerSecond(item, this);
             }
-            return freezeMap(recipesByProductMap);
-        };
-        this.recipesByInputMap = recipesByProduct('input');
-        this.recipesByOutputMap = recipesByProduct('output');
-        Object.freeze(this);
+            return _cachedCount || 0;
+        },
+    };
+
+    const ioImpl: RecipeIOImpl = {
+        io,
+        _postInit(parsedItemsImpl: ParsedItemsImpl) {
+            const itemImpl = parsedItemsImpl.get(io.name);
+            if(itemImpl) {
+                io.product = itemImpl.item;
+            }
+            Object.freeze(io);
+        },
+    };
+
+    return ioImpl;
+}
+
+//package private recipe
+type RecipeImpl = {
+    recipe: GameRecipe;
+    recipeDictionaryImpl: Readonly<RecipeDictionaryImpl>;
+    _postInit: (parsedItems: ParsedItemsImpl) => void;
+};
+function createRecipeImpl(recipeDictionaryImpl: Readonly<RecipeDictionaryImpl>, _recipe: GameRecipeSerialized) {
+    function mapIO(_recipeImpl: RecipeImpl, itemArray: GameRecipeIOSerialized[] | undefined, options: RecipeIOOptions) {
+        if(!itemArray)
+            return [];
+        return itemArray.map((i) => createRecipeIOImpl(_recipeImpl, i, options));
     }
+
+    let ioImpl: RecipeIOImpl[] = [];
+    const recipe: GameRecipeRaw = {
+        ..._recipe,
+        recipeDictionary: recipeDictionaryImpl.recipeDictionary,
+        input: [],
+        output: [],
+    };
+
+    const recipeImpl: RecipeImpl = {
+        recipe,
+        recipeDictionaryImpl,
+        _postInit(parsedItemsImpl: ParsedItemsImpl) {
+            for(const io of ioImpl) {
+                io._postInit(parsedItemsImpl);
+            }
+            Object.freeze(recipe.input);
+            Object.freeze(recipe.output);
+            Object.freeze(recipe);
+        },
+    };
+
+    const inputImpl = mapIO(recipeImpl, _recipe.input, {isInput: true});
+    const outputImpl = mapIO(recipeImpl, _recipe.output, {isInput: false});
+    recipe.input = inputImpl.map(({io}) => io);
+    recipe.output = outputImpl.map(({io}) => io);
+    ioImpl = [...inputImpl, ...outputImpl];
+
+    return recipeImpl;
+}
+
+//package private recipe dictionary
+type RecipeDictionaryImpl = {
+    recipeDictionary: GameRecipeDictionary;
+    calculator: Calculator;
+    _postInitItem: (item: Readonly<ItemImpl>) => void;
+    _postInit: (parsedItems: ParsedItemsImpl) => void;
+};
+function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: GameRecipeDictionarySerialized) {
+    const emptyMap = new Map();
+    let recipesImpl: RecipeImpl[] = [];
+    const recipeDictionary: GameRecipeDictionaryRaw = {
+        ..._recipeDictionary,
+        recipes: [],
+        items: [],
+
+        recipesMap: emptyMap,
+        //item name => recipe names
+        recipesByInputMap: emptyMap,
+        recipesByOutputMap: emptyMap,
+    };
+
+    const recipeDictionaryImpl: RecipeDictionaryImpl = {
+        recipeDictionary,
+        calculator,
+        _postInitItem(itemImpl: Readonly<ItemImpl>) {
+            recipeDictionary.items.push(itemImpl.item);
+        },
+        _postInit(parsedItemsImpl: ParsedItemsImpl) {
+            for(const recipeImpl of recipesImpl) {
+                recipeImpl._postInit(parsedItemsImpl);
+            }
+
+            Object.freeze(recipeDictionary.recipes);
+            Object.freeze(recipeDictionary.items);
+
+            recipeDictionary.recipesMap = freezeMap(new Map<string, GameRecipe>(
+                recipeDictionary.recipes.map((r) => [r.name, r]),
+            ));
+
+            const recipesByProduct = (type: 'input' | 'output') => {
+                const recipesByProductMap = new Map<string, string[]>();
+                for(const recipe of recipeDictionary.recipes) {
+                    for(const io of recipe[type]) {
+                        let byProduct = recipesByProductMap.get(io.name);
+                        if(!byProduct) {
+                            byProduct = [];
+                            recipesByProductMap.set(io.name, byProduct);
+                        }
+                        byProduct.push(recipe.name);
+                    }
+                }
+                return freezeMap(recipesByProductMap);
+            };
+            recipeDictionary.recipesByInputMap = recipesByProduct('input');
+            recipeDictionary.recipesByOutputMap = recipesByProduct('output');
+            Object.freeze(recipeDictionary);
+        },
+    };
+
+    recipesImpl = recipeDictionary.recipes.map((r) => createRecipeImpl(recipeDictionaryImpl, r));
+    recipeDictionary.recipes = recipesImpl.map(({recipe}) => recipe);
+
+    return recipeDictionaryImpl;
 }
 
 type DescriptionData = {
     minTier: number;
     maxTier: number;
 };
+function createDescriptionImpl(_description: GameDescriptionSerialized, data: DescriptionData) {
+    const description: GameDescriptionRaw = {
+        ..._description,
+        ...data,
+    };
 
-class DescriptionImpl implements GameDescription {
-    name!: string;
-    longName?: string;
-    shortName!: string;
-    description!: string;
-    url?: string;
-    version!: string;
-    saveVersion!: number;
-    compatibleSaveVersions!: number[];
+    //sanitize header
+    description.shortName = (description.shortName + 'XX').substring(0, 2);
+    Object.freeze(description.compatibleSaveVersions);
+    Object.freeze(description);
 
-    minTier: number;
-    maxTier: number;
-
-    constructor(description: GameDescriptionSerialized, data: DescriptionData) {
-        Object.assign(this, description);
-        //sanitize header
-        this.shortName = (this.shortName + 'XX').substring(0, 2);
-
-        this.minTier = data.minTier;
-        this.maxTier = data.maxTier;
-
-        Object.freeze(this.compatibleSaveVersions);
-        Object.freeze(this);
-    }
+    return description;
 }
 
 export function useGameDataParser(gameImplementation: GameImplementation): ParsedGameData {
@@ -234,8 +246,10 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
         gameData = _gameData;
     }
 
-    const parsedItems = new Map<string, ItemImpl>();
-    const parsedRecipes = new Map<string, RecipeDictionaryImpl>();
+    const parsedItemsImpl = new Map<string, ItemImpl>();
+    const parsedRecipesImpl = new Map<string, RecipeDictionaryImpl>();
+    const parsedItems = new Map<string, GameItem>();
+    const parsedRecipes = new Map<string, GameRecipeDictionary>();
 
     //calculate in advance, below classes will need it
     //we'll ignore negative tiers
@@ -254,19 +268,23 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
     maxTier = maxTier ?? 0;
 
     for(const value of gameData.items) {
-        parsedItems.set(value.name, new ItemImpl(value));
+        const itemImpl = createItemImpl(value);
+        parsedItemsImpl.set(value.name, itemImpl);
+        parsedItems.set(value.name, itemImpl.item);
     }
     for(const value of gameData.recipeDictionaries) {
-        parsedRecipes.set(value.name, new RecipeDictionaryImpl(calculator, value));
+        const recipeDictionaryImpl = createRecipeDictionaryImpl(calculator, value);
+        parsedRecipesImpl.set(value.name, recipeDictionaryImpl);
+        parsedRecipes.set(value.name, recipeDictionaryImpl.recipeDictionary);
     }
-    for(const item of parsedItems.values()) {
-        item._postInit(parsedRecipes);
+    for(const itemImpl of parsedItemsImpl.values()) {
+        itemImpl._postInit(parsedRecipesImpl);
     }
-    for(const recipeDictionary of parsedRecipes.values()) {
-        recipeDictionary._postInit(parsedItems);
+    for(const recipeDictionaryImpl of parsedRecipesImpl.values()) {
+        recipeDictionaryImpl._postInit(parsedItemsImpl);
     }
 
-    const description = new DescriptionImpl(gameData.description, {minTier, maxTier});
+    const description = createDescriptionImpl(gameData.description, {minTier, maxTier});
     const images = gameData.images;
     Object.freeze(images);
 

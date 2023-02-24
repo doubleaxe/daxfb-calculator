@@ -14,13 +14,13 @@ import {KeyProcessor} from './data/key-processor';
 import type {ConverterFactory} from './data/processing';
 import {DebugKeys, GameDataSerialized} from '#types/game-data-serialized';
 
-//npx ts-node build-data.ts [clean] [debug]
-//node --loader ts-node/esm --inspect-brk build-data.ts [clean] [debug]
+//npx ts-node build-data.ts [rebuild_keys] [debug]
+//node --loader ts-node/esm --inspect-brk build-data.ts [rebuild_keys] [debug]
 const args = process.argv.slice(2);
 let isRebuildKeys = false;
 let isDebug = false;
 args.forEach((arg) => {
-    if(arg == 'clean')
+    if(arg == 'rebuild_keys')
         isRebuildKeys = true;
     if(arg == 'debug')
         isDebug = true;
@@ -28,6 +28,7 @@ args.forEach((arg) => {
 
 const _dirname = __dirname;
 const _games = path.join(_dirname, 'data');
+const _types = path.join(_dirname, 'site', 'data', 'types');
 const _target = path.join(_dirname, 'site', 'public', 'games');
 
 
@@ -35,7 +36,7 @@ const _target = path.join(_dirname, 'site', 'public', 'games');
     fs.rmSync(_target, {recursive: true, force: true});
     fs.mkdirSync(_target, {recursive: true});
 
-    const gameList = JSON.parse(fs.readFileSync(path.join(_games, 'game-list.json'), 'utf8')) as string[];
+    const gameList = JSON.parse(fs.readFileSync(path.join(_types, 'game-list.json'), 'utf8')) as string[];
     for(const game of gameList) {
         await buildSingleGame(game);
     }
