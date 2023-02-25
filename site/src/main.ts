@@ -1,7 +1,8 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+
 import {createApp} from 'vue';
 import {createVuetify} from 'vuetify';
 import {aliases, mdi} from 'vuetify/iconsets/mdi-svg';
@@ -10,10 +11,12 @@ import {provideBlueprintModel} from './scripts/model/store';
 import {provideSettings} from './scripts/settings';
 import {provideFilter} from './scripts/filter';
 import {dataProvider} from './scripts/data/data';
+import {useAnalitycs} from './composables/analytics';
 
 import './assets/vuetify.scss';
 import './assets/main.scss';
 
+useAnalitycs();
 const description = dataProvider.getDescription();
 document.title = `${description.Description} Calculator/Factory Planner by doubleaxe`;
 

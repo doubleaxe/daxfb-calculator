@@ -5,18 +5,27 @@ Please don't remove this comment if you use unmodified file
 
 import {useEventListener} from '@vueuse/core';
 
-export type LoadScriptOptions<T> = {
+export type LoadScriptOptionsPartial = {
     timeout?: number;
-    globalVariable?: string;
-    validationCallback?: (globalVariable?: unknown) => T | undefined;
     attributes?: {[key: string]: string};
 };
-export function loadScript<T>(src: string, options: LoadScriptOptions<T> = {}): Promise<T | true> {
+export type LoadScriptOptions1 = LoadScriptOptionsPartial & {
+    globalVariable: string;
+};
+export type LoadScriptOptions2<T> = Partial<LoadScriptOptions1> & {
+    validationCallback: (globalVariable?: unknown) => T | undefined;
+};
+type LoadScriptOptions3 = Partial<LoadScriptOptions2<unknown>>;
+
+export function loadScript(src: string, options: LoadScriptOptions1): Promise<unknown>;
+export function loadScript<T>(src: string, options: LoadScriptOptions2<T>): Promise<T>;
+export function loadScript(src: string, options?: LoadScriptOptionsPartial): Promise<true>;
+export function loadScript(src: string, options?: LoadScriptOptions3): Promise<unknown> {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.setAttribute('async', 'async');
         script.setAttribute('src', src);
-        for(const [key, value] of Object.entries(options.attributes || {})) {
+        for(const [key, value] of Object.entries(options?.attributes || {})) {
             script.setAttribute(key, value);
         }
 
@@ -28,11 +37,11 @@ export function loadScript<T>(src: string, options: LoadScriptOptions<T> = {}): 
         const timeout = setTimeout(() => {
             cleanup();
             reject(new Error(`Timeout loading script: ${src}`));
-        }, options.timeout || 60000);
+        }, options?.timeout || 60000);
         cleanupArray.push(() => clearTimeout(timeout));
 
         function validateObject() {
-            if(!options.globalVariable && !options.validationCallback)
+            if(!options?.globalVariable && !options?.validationCallback)
                 return true;
             let globalVariable: unknown = undefined;
             if(options.globalVariable) {
@@ -52,7 +61,7 @@ export function loadScript<T>(src: string, options: LoadScriptOptions<T> = {}): 
             if(valid === undefined)
                 return;
             cleanup();
-            resolve((valid === true) ? true : (valid as T));
+            resolve(valid);
         }
 
         cleanupArray.push(useEventListener(script, ['error', 'abort'], () => {
@@ -71,4 +80,11 @@ export function loadScript<T>(src: string, options: LoadScriptOptions<T> = {}): 
         }, 100);
         cleanupArray.push(() => clearInterval(interval));
     });
+}
+
+export function createCss(css: string): void {
+    const style = document.createElement('style');
+    style.setAttribute('type', 'text/css');
+    style.innerText = css;
+    document.head.appendChild(style);
 }

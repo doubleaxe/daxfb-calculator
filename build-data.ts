@@ -36,8 +36,8 @@ const _target = path.join(_dirname, 'site', 'public', 'games');
     fs.rmSync(_target, {recursive: true, force: true});
     fs.mkdirSync(_target, {recursive: true});
 
-    const gameList = JSON.parse(fs.readFileSync(path.join(_types, 'game-list.json'), 'utf8')) as string[];
-    for(const game of gameList) {
+    const gameList = JSON.parse(fs.readFileSync(path.join(_types, 'game-list.json'), 'utf8')) as {[k: string]: string};
+    for(const game of Object.keys(gameList)) {
         await buildSingleGame(game);
     }
 })().catch((err) => {
