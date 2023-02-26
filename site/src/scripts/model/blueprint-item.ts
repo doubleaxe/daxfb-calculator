@@ -1,8 +1,7 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import {dataProvider} from '../data/data';
 import {RecipeModelImpl} from './recipe';
 import {ItemModelImpl} from './item';
 import type {
@@ -30,8 +29,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _isLocked = false;
 
     constructor(owner: BlueprintModel, name: string) {
-        super(owner, dataProvider.getItem(name));
-        this._recipesDictionary = dataProvider.getRecipesForItem(this._item);
+        super(owner, owner.gameData.getGameItem(name));
+        this._recipesDictionary = owner.gameData.getItemRecipeDictionary(this._item);
         this._recipes = this._recipesDictionary.recipesMap;
         if(this._recipes.size) {
             this._selectedRecipe = new RecipeModelImpl(this, this._recipes.values().next().value);
@@ -47,7 +46,6 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get recipes() { return this._recipes.values(); }
     get recipesCount() { return this._recipes.size; }
     get state() { return this._state; }
-    get tier() { return this._item?.tier; }
     get count() { return this._count; }
     get solvedCount() { return this._solvedCount; }
     get isLocked() { return this._isLocked; }

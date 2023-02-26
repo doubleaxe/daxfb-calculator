@@ -12,13 +12,14 @@ const emit = defineEmits(['ready']);
 const loadGameId = ref('');
 const gameId = ref('');
 const {showError} = useErrorHandler();
-const {gameList, isReady, isLoading} = useGameDataProvider(gameId, (err: unknown) => {
+const {gameList, gameDataRef, isReady, isLoading} = useGameDataProvider(gameId, (err: unknown) => {
+    gameId.value = '';
     showError('Failed to load game data', err);
 });
 
-watch(isReady, () => {
-    if(unref(isReady)) {
-        emit('ready');
+watch(gameDataRef, () => {
+    if(unref(gameDataRef)) {
+        emit('ready', unref(gameDataRef));
     }
 });
 
@@ -26,20 +27,21 @@ onMounted(() => {
     const seacrhParams = new URLSearchParams(window.location.search);
     const _gameId = seacrhParams.get('gameId');
     if(_gameId) {
+        loadGameId.value = _gameId;
         gameId.value = _gameId;
     }
 });
 </script>
 
 <template>
-    <v-card v-if="!isReady && !isLoading" title="Select game" variant="outlined">
+    <v-card v-if="!isReady" title="Select game" variant="outlined">
         <v-card-text>
             <v-radio-group v-model="loadGameId">
                 <v-radio v-for="(value, key) in gameList" :key="key" :label="value" :value="key" />
             </v-radio-group>
         </v-card-text>
         <v-card-actions>
-            <v-btn :disabled="!loadGameId" @click="gameId = loadGameId">
+            <v-btn color="primary" variant="outlined" :disabled="!loadGameId" @click="gameId = loadGameId">
                 Load game
             </v-btn>
         </v-card-actions>
@@ -52,16 +54,3 @@ onMounted(() => {
         </v-overlay>
     </v-card>
 </template>
-
-<style scoped>
-.help-parent {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.help-iframe {
-    width: 100%;
-    flex-grow: 1;
-    border: 0px;
-}
-</style>

@@ -1,9 +1,9 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {GameRecipe} from '#types/game-data';
 import {RecipeIOModelImpl} from './recipe-io';
-import type {Recipe} from '../data/data';
 import type {BlueprintItemModel, RecipeIOModel, RecipeModel} from './store';
 
 export class RecipeModelImpl {
@@ -12,7 +12,7 @@ export class RecipeModelImpl {
     private readonly _output: RecipeIOModel[];
     private readonly _itemsByKey;
 
-    constructor(ownerItem: BlueprintItemModel, recipe: Recipe) {
+    constructor(ownerItem: BlueprintItemModel, recipe: GameRecipe) {
         this._recipe = recipe;
         this._input = recipe.input.map((io) => new RecipeIOModelImpl(io, {ownerItem}));
         this._output = recipe.output.map((io) => new RecipeIOModelImpl(io, {ownerItem}));

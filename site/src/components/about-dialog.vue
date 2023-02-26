@@ -1,9 +1,9 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {dataProvider} from '@/scripts/data/data';
+import {injectGameData} from '@/scripts/data';
 import {mdiClose, mdiEmail} from '@mdi/js';
 import {useVModel} from '@vueuse/core';
 
@@ -12,7 +12,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
-const description = dataProvider.getDescription();
+const {gameDescription} = injectGameData();
 const __VERSION__ = import.meta.env.VITE_VERSION;
 const __BUILD_TIME__ = new Date(import.meta.env.VITE_BUILD_TIME).toISOString().replace('T', ' ').replace(/\..*$/, '');
 </script>
@@ -28,7 +28,7 @@ const __BUILD_TIME__ = new Date(import.meta.env.VITE_BUILD_TIME).toISOString().r
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <v-card-title>{{ `${description.Description} Calculator/Factory Planner` }}</v-card-title>
+            <v-card-title>{{ `${gameDescription.description} Calculator/Factory Planner` }}</v-card-title>
             <v-card-subtitle>
                 By doubleaxe (<v-icon :icon="mdiEmail" /><a href="mailto:dax@xdax.ru" target="_blank">dax@xdax.ru</a>,
                 <a href="https://github.com/doubleaxe" target="_blank">https://github.com/doubleaxe</a>)
@@ -37,11 +37,11 @@ const __BUILD_TIME__ = new Date(import.meta.env.VITE_BUILD_TIME).toISOString().r
                 <v-list :lines="undefined">
                     <v-list-item title="Game">
                         <v-list-item-subtitle>
-                            <a v-if="description.Url" :href="description.Url" target="_blank">{{ description.Description }}</a>
-                            <span v-else>{{ description.Description }}</span>
+                            <a v-if="gameDescription.url" :href="gameDescription.url" target="_blank">{{ gameDescription.description }}</a>
+                            <span v-else>{{ gameDescription.description }}</span>
                         </v-list-item-subtitle>
                     </v-list-item>
-                    <v-list-item title="Game version" :subtitle="description.Version" />
+                    <v-list-item title="Game version" :subtitle="gameDescription.version" />
                     <v-list-item title="Build version" :subtitle="__VERSION__" />
                     <v-list-item title="Build time" :subtitle="__BUILD_TIME__" />
                     <v-list-item title="Bug reports">

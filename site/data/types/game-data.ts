@@ -19,6 +19,7 @@ export type GameImages = Readonly<GameImagesRaw>;
 //used for easier lookups and calculations
 export interface GameRecipeIORaw extends GameRecipeIOSerialized {
     isInput: boolean;
+    isCommon: boolean;
     recipe: GameRecipe;
     product: GameItem;
 

@@ -5,6 +5,7 @@
     "target": "ES2022",
     "module": "commonjs",
     "types": ["node"],
+    "lib": ["ES2022", "DOM"],
     "esModuleInterop": true,
     "noEmit": true
   },

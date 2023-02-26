@@ -1,12 +1,12 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import type {RecipeIO} from '@/scripts/data/data';
+import type {GameRecipeIO} from '#types/game-data';
 
 const props = defineProps<{
-    ioarray: RecipeIO[];
+    ioarray: GameRecipeIO[];
 }>();
 
 </script>
@@ -16,6 +16,6 @@ const props = defineProps<{
         v-for="(io, index) in props.ioarray"
         :key="index"
     >
-        <icon-component :image="io.item.image" :data-tooltip="io.item.label" />
+        <icon-component :image="io.product.image" :data-tooltip="io.product.label" />
     </template>
 </template>

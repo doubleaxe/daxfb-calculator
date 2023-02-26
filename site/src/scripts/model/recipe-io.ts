@@ -1,8 +1,8 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {RecipeIO} from '../data/data';
+import type {GameRecipeIO} from '#types/game-data';
 import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';
 import type {
@@ -29,17 +29,17 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private _isFlipped = false;
 
     constructor(
-        io: RecipeIO,
+        io: GameRecipeIO,
         {owner, ownerItem, isReverce}: RecipeIOOptions,
     ) {
-        super(owner || ownerItem?.owner, io.item);
+        super(owner || ownerItem?.owner, io.product);
         this._io = io;
         this._ownerItem = ownerItem;
         this._isInput = isReverce ? !io.isInput : io.isInput;
         this._links = new Map<string, LinkModel>();
 
-        if(this._ownerItem?.tier !== undefined) {
-            this._cpsMax = this._io.getCountPerSecond(this._ownerItem.tier);
+        if(this._ownerItem?.item !== undefined) {
+            this._cpsMax = this._io.getCountPerSecond(this._ownerItem.item);
         } else {
             //temp link
             this._cpsMax = 0;
@@ -50,7 +50,6 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get rect(): PublicRect { return this._rect; }
     set rect(rect: PublicRect) { this._rect = rect; }
     get isInput() { return this._isInput; }
-    get isResource() { return this._io.isResource; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
     get isFlipped() { return this._ownerItem?.isFlipped || this._isFlipped; }

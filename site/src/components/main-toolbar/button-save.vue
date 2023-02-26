@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -8,11 +8,11 @@ import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiContentSave} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {BlueprintEncoder} from '@/scripts/model/serializer';
-import {dataProvider} from '@/scripts/data/data';
+import {injectGameData} from '@/scripts/data';
 
+const gameData = injectGameData();
 const blueprintModel = injectBlueprintModel();
 const settings = injectSettings();
-const description = dataProvider.getDescription();
 const objectUrl = ref<string | null>(null);
 const objectAnchor = ref<HTMLElement | null>(null);
 
@@ -23,7 +23,7 @@ function saveBlueprint() {
     }
     //recreate anchor
     nextTick(() => {
-        const encoder = new BlueprintEncoder(settings);
+        const encoder = new BlueprintEncoder(gameData, settings);
         const encoded = encoder.split(encoder.encode(blueprintModel.save()));
         const blob = new Blob([encoded], {type: 'text/plain'});
         objectUrl.value = URL.createObjectURL(blob);
@@ -39,7 +39,7 @@ function saveBlueprint() {
     <a
         v-if="objectUrl"
         ref="objectAnchor"
-        :download="`blueprint-${description.Name}.txt`"
+        :download="`blueprint-${gameData.gameDescription.name}.txt`"
         :href="objectUrl"
         class="d-none"
     />

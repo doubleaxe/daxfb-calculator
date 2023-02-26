@@ -9,7 +9,7 @@ type GoatCounter = {
     count: () => void;
 };
 
-export function useAnalitycs() {
+export function useAnalytics() {
     //turn on analytics only on global domain
     const hostname = window?.location?.hostname;
     if(!hostname?.toLowerCase()?.includes('doubleaxe.github.io')) {
@@ -18,7 +18,7 @@ export function useAnalitycs() {
     loadScript('https://lbc.xdax.ru/count.js', {
         attributes: {
             'data-goatcounter': 'https://lbc.xdax.ru/count',
-            'data-goatcounter-settings': '{"no_onload": true}',
+            'data-goatcounter-settings': '{"no_onload": true, "allow_frame": true}',
         },
         globalVariable: 'goatcounter',
         validationCallback: (globalVariable: unknown): GoatCounter | undefined => {

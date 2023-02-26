@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -9,10 +9,12 @@ import {mdiFolderOutline} from '@mdi/js';
 import {BlueprintDecoder} from '@/scripts/model/serializer';
 import {useErrorHandler} from '@/composables/error-handler';
 import {ErrorCollector} from '@/scripts/error-collector';
+import {injectGameData} from '@/scripts/data';
 
 const {showError} = useErrorHandler();
 const ERROR_TITLE = 'Error loading blueprint';
 
+const gameData = injectGameData();
 const blueprintModel = injectBlueprintModel();
 const showInputFile = ref(false);
 const inputFile = ref<HTMLElement | null>(null);
@@ -43,7 +45,7 @@ function loadBlueprint() {
             return;
         }
         const errorCollector = new ErrorCollector();
-        const decoder = new BlueprintDecoder(errorCollector);
+        const decoder = new BlueprintDecoder(gameData, errorCollector);
         const decoded = decoder.decode(fileContents);
         if(!decoded || errorCollector.haveErrors) {
             showError(ERROR_TITLE, errorCollector);

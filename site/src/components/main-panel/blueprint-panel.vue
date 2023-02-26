@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -20,7 +20,7 @@ import {
 import {useEventHook} from '@/composables';
 import {injectFilter} from '@/scripts/filter';
 import type {ReadonlyPointType} from '@/scripts/geometry';
-import type {Item} from '@/scripts/data/data';
+import type {GameItem} from '#types/game-data';
 
 const settings = injectSettings();
 const filter = injectFilter();
@@ -38,7 +38,7 @@ const {hooks: itemHooks, dropZoneElem: dropZoneElem3} = useItemDragAndDrop();
 const {processSelected, parentElem: dropZoneElem4, notifySelected} = usePointAndClick();
 syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2, dropZoneElem3, dropZoneElem4]);
 
-function addItem(selected: Item, clientPosition: ReadonlyPointType) {
+function addItem(selected: GameItem, clientPosition: ReadonlyPointType) {
     const item = reactive(blueprintModel.addItem(selected.name));
     item.position = item.position.assignPoint(clientPosition);
     if(filter.key) {
@@ -54,7 +54,7 @@ useEventHook(notifySelected, (param) => {
         return;
     }
     if(param.item.clazz == SelectedClassType.Item) {
-        addItem(param.item.item as Item, param.clientPosition);
+        addItem(param.item.item as GameItem, param.clientPosition);
         param.wasHandled();
         return;
     }

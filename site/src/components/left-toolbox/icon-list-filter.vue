@@ -1,20 +1,20 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {dataProvider, type Item} from '@/scripts/data/data';
+import type {GameItem} from '#types/game-data';
+import {injectGameData} from '@/scripts/data';
 import {injectFilter} from '@/scripts/filter';
 import {syncRef, useDebounceFn} from '@vueuse/core';
 import {computed, ref, toRef, unref, watch} from 'vue';
 
-const {
-    MinTier: minTier,
-    MaxTier: maxTier,
-} = dataProvider.getDescription();
+const gameData = injectGameData();
+
+const {minTier, maxTier} = gameData.gameDescription;
 const allTiers = (maxTier > minTier) ? Array.from(Array(1 + maxTier - minTier), (el, i: number) => (i + minTier)) : [];
 const filter = injectFilter();
-const allItems = dataProvider.getAllItems();
+const allItems = gameData.gameItemsArray;
 const filteredItems = ref(allItems);
 
 const pageSize = 10;
@@ -24,7 +24,7 @@ const currentPage = computed(() => {
     const start = (unref(page) - 1) * pageSize;
     return unref(filteredItems).slice(start, start + pageSize);
 });
-const select = ref<Item | undefined>(undefined);
+const select = ref<GameItem | undefined>(undefined);
 const search = ref('');
 const direction = ref('0');
 const tierEqual = ref('0');
@@ -53,7 +53,7 @@ syncRef(
     toRef(filter, 'key'),
     computed({
         get: () => unref(select)?.name,
-        set: (value?: string) => { select.value = value ? dataProvider.getItem(value) : undefined; },
+        set: (value?: string) => { select.value = value ? gameData.getGameItem(value) : undefined; },
     }),
 );
 

@@ -1,8 +1,8 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {Item} from '@/scripts/data/data';
+import type {GameItem} from '#types/game-data';
 import {Point, Rect} from '@/scripts/geometry';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
@@ -20,7 +20,7 @@ export const SelectedClassType = {
 export type SelectedClassTypeKeys = Keys<typeof SelectedClassType>;
 export type SelectedClassTypeValues = Values<typeof SelectedClassType>;
 
-export type SelectedItemType = Item | BlueprintItemModel | RecipeIOModel | undefined;
+export type SelectedItemType = GameItem | BlueprintItemModel | RecipeIOModel | undefined;
 
 export class SelectedItem {
     public readonly clazz;

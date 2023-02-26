@@ -1,13 +1,13 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {SavedBlueprint} from './saved-blueprint';
 import {decode, encode, fromUint8Array, toUint8Array} from 'js-base64';
 import {deflate, inflate} from 'pako';
-import {dataProvider} from '../data/data';
 import type {Values} from '../types';
 import type {ErrorCollector} from '../error-collector';
+import type {GameData} from '../data';
 
 const HEADER_HEADER = 'DAXFB';
 
@@ -17,14 +17,14 @@ const HEADER_FOOTER = {
     JSON: 'J',
 } as const;
 const FOOTERS = new Set<string>(Object.values(HEADER_FOOTER));
-const GAME_HEADER = dataProvider.getDescription().ShortName;
 const HEADER_SEPARATOR = '$';
 
-function buildHeader(footer: Values<typeof HEADER_FOOTER>) {
+function buildHeader(GAME_HEADER: string, footer: Values<typeof HEADER_FOOTER>) {
     return HEADER_HEADER + GAME_HEADER + footer + HEADER_SEPARATOR;
 }
 
-const HEADER_LENGTH = buildHeader(HEADER_FOOTER.JSON).length;
+//we build dummy header, because header length is always the same
+const HEADER_LENGTH = buildHeader('AA', HEADER_FOOTER.JSON).length;
 
 type EncoderOptions = {
     blueprintCompress: boolean;
@@ -34,18 +34,21 @@ type EncoderOptions = {
 
 export class BlueprintEncoder {
     private readonly _options;
-    constructor(options: EncoderOptions) {
+    private readonly GAME_HEADER: string;
+    constructor(gameData: GameData, options: EncoderOptions) {
         this._options = options;
+        this.GAME_HEADER = gameData.gameDescription.shortName;
     }
 
     encode(savedBlueprint: SavedBlueprint) {
+        const GAME_HEADER = this.GAME_HEADER;
         const data = JSON.stringify(savedBlueprint);
         let encoded: string | undefined;
         if(this._options.blueprintCompress) {
             const compressed = deflate(data, {level: 9});
-            encoded = buildHeader(HEADER_FOOTER.COMPRESSED) + fromUint8Array(compressed, true);
+            encoded = buildHeader(GAME_HEADER, HEADER_FOOTER.COMPRESSED) + fromUint8Array(compressed, true);
         } else if(this._options.blueprintEncode) {
-            encoded = buildHeader(HEADER_FOOTER.ENCODED) + encode(data, true);
+            encoded = buildHeader(GAME_HEADER, HEADER_FOOTER.ENCODED) + encode(data, true);
         } else {
             //no need for header, it will be decoded automatically
             encoded = data;
@@ -69,11 +72,14 @@ export class BlueprintEncoder {
 
 export class BlueprintDecoder {
     private readonly _errorCollector;
-    constructor(errorCollector: ErrorCollector) {
+    private readonly GAME_HEADER: string;
+    constructor(gameData: GameData, errorCollector: ErrorCollector) {
         this._errorCollector = errorCollector;
+        this.GAME_HEADER = gameData.gameDescription.shortName;
     }
 
     decode(encoded: string) {
+        const GAME_HEADER = this.GAME_HEADER;
         const savedBlueprint = this._decode(encoded);
         if(savedBlueprint) {
             if(typeof(savedBlueprint) == 'object') {
@@ -89,7 +95,7 @@ export class BlueprintDecoder {
         }
         return undefined;
     }
-    private static _parseHeader(encoded: string) {
+    private static _parseHeader(GAME_HEADER: string, encoded: string) {
         const fullHeader = encoded.substring(0, HEADER_LENGTH);
         if(fullHeader.charAt(HEADER_LENGTH - 1) != HEADER_SEPARATOR) {
             return undefined;
@@ -115,7 +121,7 @@ export class BlueprintDecoder {
         encoded = encoded.replace(/\n/g, '');
         let rawEncoded = '';
         try {
-            const header = BlueprintDecoder._parseHeader(encoded);
+            const header = BlueprintDecoder._parseHeader(this.GAME_HEADER, encoded);
             if(header) {
                 rawEncoded = header.rawEncoded;
                 switch(header.type) {

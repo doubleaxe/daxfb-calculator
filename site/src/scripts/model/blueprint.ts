@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import {Point, Rect} from '../geometry';
@@ -18,9 +18,10 @@ import {solveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
 import {DEFAULT_PRECISION} from '../types';
 import type {ErrorCollector} from '../error-collector';
-import {dataProvider} from '../data/data';
+import type {GameData} from '../data';
 
 export class BlueprintModelImpl {
+    private readonly _gameData: GameData;
     private readonly _items = new Map<string, BlueprintItemModel>();
     private readonly _links = new Map<string, LinkModel>();
     private _tempLink?: LinkModel = undefined;
@@ -31,6 +32,11 @@ export class BlueprintModelImpl {
     private _autoSolveGraph = true;
     private _bulkUpdate = false;
 
+    constructor(_gameData: GameData) {
+        this._gameData = _gameData;
+    }
+
+    get gameData() { return this._gameData; }
     get items() { return this._items.values(); }
     itemByKey(key: string) { return this._items.get(key); }
     get links() { return this._links.values(); }
@@ -142,10 +148,10 @@ export class BlueprintModelImpl {
                 itemIndexes.get(link.output?.ownerItem?.key || ''),
             )),
         };
-        const description = dataProvider.getDescription();
+        const description = this._gameData.gameDescription;
         savedBlueprint.h = {
-            g: description.ShortName,
-            v: description.SaveVersion,
+            g: description.shortName,
+            v: description.saveVersion,
         };
         return savedBlueprint;
     }
@@ -163,7 +169,7 @@ export class BlueprintModelImpl {
         this._$updateXY();
     }
     private _load(savedBlueprint: SavedBlueprint, errorCollector: ErrorCollector) {
-        const {CompatibleSaveVersions: compatVersions} = dataProvider.getDescription();
+        const {compatibleSaveVersions: compatVersions} = this._gameData.gameDescription;
         if(savedBlueprint.h?.v && !compatVersions.some((v) => (v == savedBlueprint.h?.v))) {
             errorCollector.collectError(`Incompatible game version, expecting "${compatVersions.join(',')}", got "${savedBlueprint.h?.v}"`);
         }

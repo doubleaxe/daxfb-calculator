@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -9,6 +9,7 @@ import {useClipboard, useShare, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {nextTick, ref, unref, watch} from 'vue';
 import {BlueprintEncoder} from '@/scripts/model/serializer';
+import {injectGameData} from '@/scripts/data';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -16,6 +17,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 
+const gameData = injectGameData();
 const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
 
@@ -28,7 +30,7 @@ const {share, isSupported: isShareSupported} = useShare();
 
 watch(() => props.modelValue, (value) => {
     if(value) {
-        const encoder = new BlueprintEncoder(settings);
+        const encoder = new BlueprintEncoder(gameData, settings);
         const encoded = encoder.encode(blueprintModel.save());
         const split = encoder.split(encoded);
         encodedBlueprint.value = encoded;

@@ -1,20 +1,24 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import {type InjectionKey, type App, reactive, inject} from 'vue';
-import {dataProvider, type Item} from './data/data';
+import type {GameItem} from '#types/game-data';
+import {type InjectionKey, provide, reactive, inject} from 'vue';
+import type {GameData} from './data';
 import type {InterfaceOf} from './types';
 
-const minTier = dataProvider.getDescription().MinTier;
-
 class Filter {
+    private readonly _gameData: GameData;
     private _tier?: number;
     private _tierEqual = 0;
     private _groupTier = true;
     private _key?: string;
     private _direction = 0;
-    private _filtered?: Item[][];
+    private _filtered?: GameItem[][];
+
+    constructor(_gameData: GameData) {
+        this._gameData = _gameData;
+    }
 
     get tier() { return this._tier; }
     set tier(tier: number | undefined) { this._tier = tier; this._filtered = undefined; }
@@ -31,10 +35,10 @@ class Filter {
     get direction() { return this._direction; }
     set direction(direction: number) { this._direction = direction; this._filtered = undefined; }
 
-    buildFilter(): Item[][] {
+    buildFilter(): GameItem[][] {
         if(this._filtered)
             return this._filtered;
-        let filteredItems = dataProvider.getProducerItems();
+        let filteredItems = this._gameData.gameFactoriesArray;
 
         //key takes precedence before label
         if(this._key) {
@@ -42,10 +46,10 @@ class Filter {
             filteredItems = filteredItems.filter((item) => {
                 if(item.name == key)
                     return true;
-                const recipes = dataProvider.getRecipesForItem(item);
-                if((this._direction <= 0) && recipes.recipesByInputMap.has(key))
+                const recipeDictionary = item.recipeDictionary;
+                if((this._direction <= 0) && recipeDictionary?.recipesByInputMap?.has(key))
                     return true;
-                if((this._direction >= 0) && recipes.recipesByOutputMap.has(key))
+                if((this._direction >= 0) && recipeDictionary?.recipesByOutputMap?.has(key))
                     return true;
                 return false;
             });
@@ -54,22 +58,25 @@ class Filter {
         if(this._tier !== undefined) {
             const tier = this._tier;
             filteredItems = filteredItems.filter((item) => {
+                const itemTier = item.recipe?.tier || 0;
                 if(this._tierEqual > 0)
-                    return item.tier >= tier;
+                    return itemTier >= tier;
                 if(this._tierEqual < 0)
-                    return item.tier <= tier;
-                return item.tier == tier;
+                    return itemTier <= tier;
+                return itemTier == tier;
             });
         }
 
-        let filteredGroup: Item[][];
+        const minTier = this._gameData.gameDescription.minTier;
+        let filteredGroup: GameItem[][];
         if(this._groupTier) {
             filteredGroup = [];
             for(const item of filteredItems) {
-                let array = filteredGroup[item.tier - minTier];
+                const itemTier = item.recipe?.tier || 0;
+                let array = filteredGroup[itemTier - minTier];
                 if(!array) {
                     array = [];
-                    filteredGroup[item.tier - minTier] = array;
+                    filteredGroup[itemTier - minTier] = array;
                 }
                 array.push(item);
             }
@@ -83,9 +90,9 @@ class Filter {
 export type PublicFilter = InterfaceOf<Filter>;
 
 export const FilterKey = Symbol('Filter') as InjectionKey<Filter>;
-export const provideFilter = (app: App): PublicFilter => {
-    const filter = reactive(new Filter());
-    app.provide(FilterKey, filter);
+export const provideFilter = (gameData: GameData): PublicFilter => {
+    const filter = reactive(new Filter(gameData));
+    provide(FilterKey, filter);
     return filter;
 };
 export const injectFilter = (): Filter => {

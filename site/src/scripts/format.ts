@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {RecipeIOModel} from './model/store';
@@ -44,5 +44,5 @@ export function formatNumber(n: number | undefined, units?: string) {
 }
 
 export function formatIo(n: number | undefined, io: RecipeIOModel) {
-    return formatNumber(n, io.isResource ? 'W' : 'ps');
+    return formatNumber(n/*, io.isResource ? 'W' : 'ps'*/);
 }

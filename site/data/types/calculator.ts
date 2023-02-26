@@ -10,4 +10,5 @@ import type {
 
 export interface Calculator {
     getCountPerSecond: (item: GameItem, io: GameRecipeIO) => number;
+    isCommonIo: (io: GameRecipeIO) => boolean;
 }

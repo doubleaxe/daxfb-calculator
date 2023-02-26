@@ -34,7 +34,12 @@ export function useCalculator(): Calculator {
         return (io.count * unitMul * Math.pow(1.5, tierDiff) * TICKS_PER_SECOND) / io.recipe.time;
     };
 
+    const isCommonIo: Calculator['isCommonIo'] = function(io) {
+        return io.type == GameRecipeIOType.Resource;
+    };
+
     return {
         getCountPerSecond,
+        isCommonIo,
     };
 }

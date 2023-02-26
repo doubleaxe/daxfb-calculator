@@ -37,6 +37,7 @@ type ParsedRecipesImpl = Map<string, Readonly<RecipeDictionaryImpl>>;
 export type ParsedGameData = {
     parsedItems: ParsedItems;
     parsedRecipes: ParsedRecipes;
+    emptyRecipeDictionary: GameRecipeDictionary;
     images: GameImages;
     description: GameDescription;
 };
@@ -80,20 +81,22 @@ type RecipeIOImpl = {
 };
 function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOSerialized, options: RecipeIOOptions) {
     let _cachedCount: number | undefined;
-    const recipeDictionaryImpl = recipeImpl.recipeDictionaryImpl;
+    const calculator = recipeImpl.recipeDictionaryImpl.calculator;
     const io: GameRecipeIORaw = {
         ..._io,
         isInput: options.isInput,
+        isCommon: false,
         recipe: recipeImpl.recipe,
         product: {} as GameItem,
         //count per second is immutable
         getCountPerSecond(item: GameItem) {
             if(!_cachedCount) {
-                _cachedCount = recipeDictionaryImpl.calculator.getCountPerSecond(item, this);
+                _cachedCount = calculator.getCountPerSecond(item, this);
             }
             return _cachedCount || 0;
         },
     };
+    io.isCommon = calculator.isCommonIo(io);
 
     const ioImpl: RecipeIOImpl = {
         io,
@@ -288,9 +291,16 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
     const images = gameData.images;
     Object.freeze(images);
 
+    const {recipeDictionary: emptyRecipeDictionary} = createRecipeDictionaryImpl(calculator, {
+        name: '',
+        recipes: [],
+    });
+    Object.freeze(emptyRecipeDictionary);
+
     return {
         parsedItems: freezeMap(parsedItems),
         parsedRecipes: freezeMap(parsedRecipes),
+        emptyRecipeDictionary,
         images,
         description,
     };

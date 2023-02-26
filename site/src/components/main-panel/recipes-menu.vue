@@ -1,15 +1,17 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {dataProvider, type Recipe} from '@/scripts/data/data';
+import type {GameRecipe} from '#types/game-data';
+import {injectGameData} from '@/scripts/data';
 import {injectFilter} from '@/scripts/filter';
 import type {BlueprintItemModel} from '@/scripts/model/store';
 import {mdiArrowRight, mdiContentPaste} from '@mdi/js';
 import {useDebounceFn} from '@vueuse/core';
 import {computed, nextTick, ref, unref, watch} from 'vue';
 
+const gameData = injectGameData();
 const filter = injectFilter();
 
 type Activator = {item: BlueprintItemModel; activator: Element};
@@ -17,8 +19,8 @@ const item = ref<BlueprintItemModel | undefined>(undefined);
 const activator = ref<Element | undefined>(undefined);
 const active = ref<boolean>(false);
 const search = ref<string>('');
-const allRecipes = ref<Recipe[]>([]);
-const recipes = ref<Recipe[]>([]);
+const allRecipes = ref<GameRecipe[]>([]);
+const recipes = ref<GameRecipe[]>([]);
 let waitingForClose: Activator | undefined = undefined;
 
 const pageSize = 10;
@@ -90,8 +92,8 @@ const applyFilter = useDebounceFn(() => {
     const searchText = val.toLowerCase().split(/\s+/).map((s) => s.trim());
     recipes.value = unref(allRecipes).filter((recipe) => (
         searchText.every((l) => !l || (
-            recipe.input.some((io) => io.item.lowerLabel.indexOf(l) > -1))
-            || recipe.output.some((io) => io.item.lowerLabel.indexOf(l) > -1),
+            recipe.input.some((io) => io.product.lowerLabel.indexOf(l) > -1))
+            || recipe.output.some((io) => io.product.lowerLabel.indexOf(l) > -1),
         )
     ));
     if(unref(page) > unref(pages)) {
@@ -102,7 +104,7 @@ const applyFilter = useDebounceFn(() => {
 function pasteSearchValue() {
     if(!filter.key)
         return;
-    const newSearch = dataProvider.getItem(filter.key)?.label;
+    const newSearch = gameData.getGameItem(filter.key)?.label;
     if(newSearch)
         search.value = newSearch;
 }
@@ -148,9 +150,9 @@ defineExpose({
                 >
                     <v-list-item-title>
                         <div class="io-menu-item">
-                            <recipes-menu-io :ioarray="recipe.input.filter((i) => !i.isResource)" />
+                            <recipes-menu-io :ioarray="recipe.input.filter((i) => !i.isCommon)" />
                             <v-icon class="d-block" :icon="mdiArrowRight" />
-                            <recipes-menu-io :ioarray="recipe.output.filter((i) => !i.isResource)" />
+                            <recipes-menu-io :ioarray="recipe.output.filter((i) => !i.isCommon)" />
                         </div>
                     </v-list-item-title>
                 </v-list-item>

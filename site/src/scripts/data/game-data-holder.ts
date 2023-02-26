@@ -2,6 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {GameItem} from '#types/game-data';
 import type {GameImplementation} from '#types/game-implementation';
 import {useGameDataParser} from './game-data-parser';
 
@@ -15,11 +16,16 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
     const gameFactoriesArray = gameItemsArray.filter((item) => item.recipeDictionary);
     Object.freeze(gameFactoriesArray);
 
+    const emptyRecipeDictionary = parsedGameData.emptyRecipeDictionary;
+
     return {
         gameItemsMap,
         gameItemsArray,
+        getGameItem: (name: string) => gameItemsMap.get(name),
         gameFactoriesArray,
+        getItemRecipeDictionary: (item?: GameItem) => (item?.recipeDictionary || emptyRecipeDictionary),
         gameImages: parsedGameData.images,
+        getImage: (name: string) => parsedGameData.images[name],
         gameDescription: parsedGameData.description,
     };
 }

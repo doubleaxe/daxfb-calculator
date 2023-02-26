@@ -11,7 +11,12 @@ export function useCalculator(): Calculator {
         return io.count / io.recipe.time;
     };
 
+    const isCommonIo: Calculator['isCommonIo'] = function(io) {
+        return false;
+    };
+
     return {
         getCountPerSecond,
+        isCommonIo,
     };
 }

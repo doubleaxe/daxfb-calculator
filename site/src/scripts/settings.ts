@@ -1,10 +1,10 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import {useLocalStorage} from '@vueuse/core';
-import {type InjectionKey, type App, reactive, inject, watch, unref} from 'vue';
-import {dataProvider} from './data/data';
+import {type InjectionKey, provide, reactive, inject, watch, unref} from 'vue';
+import type {GameData} from './data';
 import type {PublicFilter} from './filter';
 import type {BlueprintModel} from './model/store';
 import {BlueprintItemState, DEFAULT_BLUEPRINT_SPLIT, type BlueprintItemStateValues} from './types';
@@ -105,10 +105,10 @@ class Settings {
 }
 
 export const SettingsKey = Symbol('Settings') as InjectionKey<Settings>;
-export const provideSettings = (app: App, blueprintModel: BlueprintModel, filter: PublicFilter) => {
+export const provideSettings = (gameData: GameData, blueprintModel: BlueprintModel, filter: PublicFilter) => {
     const settings = reactive(new Settings(blueprintModel, filter));
-    const name = dataProvider.getDescription().Name;
-    app.provide(SettingsKey, settings);
+    const name = gameData.gameDescription.name;
+    provide(SettingsKey, settings);
     const savedSettings = useLocalStorage<SavedObject>(`settings-${name}`, settings.save(), {
         mergeDefaults: true,
     });

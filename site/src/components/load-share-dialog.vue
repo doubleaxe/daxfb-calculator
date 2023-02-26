@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -10,6 +10,7 @@ import {ref, watch} from 'vue';
 import {BlueprintDecoder} from '@/scripts/model/serializer';
 import {ErrorCollector} from '@/scripts/error-collector';
 import {useErrorHandler} from '@/composables/error-handler';
+import {injectGameData} from '@/scripts/data';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -17,6 +18,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 
+const gameData = injectGameData();
 const blueprintModel = injectBlueprintModel();
 
 const loadedBlueprint = ref('');
@@ -36,7 +38,7 @@ function paste() {
 }
 function load() {
     const errorCollector = new ErrorCollector();
-    const decoder = new BlueprintDecoder(errorCollector);
+    const decoder = new BlueprintDecoder(gameData, errorCollector);
     const decoded = decoder.decode(loadedBlueprint.value);
     if(!decoded || errorCollector.haveErrors) {
         showError('Error loading blueprint', errorCollector);

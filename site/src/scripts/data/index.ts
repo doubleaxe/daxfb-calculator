@@ -2,12 +2,14 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import {ref, unref, watch, type Ref} from 'vue';
+import {inject, ref, shallowRef, unref, watch, type InjectionKey, type Ref, type ShallowRef} from 'vue';
 import {useGameDataHolder, type GameData} from './game-data-holder';
 export type {GameData};
-import gameList from '#types/game-list.json';
+//vite cannot find #types reference, using full relative path
+import gameList from '../../../data/types/game-list.json';
 import {createCss, loadScript} from '../load-script-css';
 import type {GameImplementation} from '#types/game-implementation';
+import {useDebounceFn} from '@vueuse/core';
 
 function initializeCss(gameId: string) {
     const cssContent = `
@@ -18,16 +20,16 @@ function initializeCss(gameId: string) {
     createCss(cssContent);
 }
 
-const gameDataRef = ref<GameData | undefined>();
+export const GameDataKey = Symbol('GameData') as InjectionKey<ShallowRef<GameData>>;
 
 export function useGameDataProvider(gameId: Ref<string>, onError?: (e: unknown) => void) {
     const isLoading = ref(false);
     const isReady = ref(false);
     const isFailed = ref(false);
+    const gameDataRef = shallowRef<GameData | undefined>();
 
     function loadGameData() {
         const _gameId = unref(gameId);
-        isLoading.value = true;
         Promise.resolve()
             .then(() => new Promise((resolve) => { setTimeout(resolve, 1); }))
             .then(() => {
@@ -53,15 +55,17 @@ export function useGameDataProvider(gameId: Ref<string>, onError?: (e: unknown) 
                 onError?.(err);
             });
     }
+    const loadGameDataDebounce = useDebounceFn(loadGameData, 250);
 
     watch(gameId, () => {
         if(!unref(gameId)) {
             return;
         }
         gameDataRef.value = undefined;
+        isLoading.value = true;
         isReady.value = false;
         isFailed.value = false;
-        loadGameData();
+        loadGameDataDebounce();
     }, {immediate: true});
 
     return {
@@ -74,12 +78,8 @@ export function useGameDataProvider(gameId: Ref<string>, onError?: (e: unknown) 
 }
 
 export function injectGameData(): GameData {
-    const gameData = unref(gameDataRef);
+    const gameData = unref(inject(GameDataKey));
     if(!gameData)
         throw new Error('gameData not instantiated');
     return gameData;
-}
-
-export function injectGameDataRef() {
-    return gameDataRef;
 }

@@ -1,21 +1,22 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {computed} from 'vue';
-import {dataProvider} from '@/scripts/data/data';
 import {mdiAlert} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
+import {injectGameData} from '@/scripts/data';
 
 const props = defineProps<{
     image: string;
 }>();
 
+const gameData = injectGameData();
 const settings = injectSettings();
 
 const styleObject = computed(() => {
-    const location = dataProvider.getItemImageDef(props.image);
+    const location = gameData.getImage(props.image);
     if(!location)
         return undefined;
     return {
@@ -47,9 +48,6 @@ const styleObject = computed(() => {
 </template>
 
 <style scoped>
-.icon-component {
-    background-image: url(../../data/images.png);
-}
 .icon-warning {
     display: block;
 }

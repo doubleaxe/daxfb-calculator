@@ -3,8 +3,8 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
+import type {GameItem} from '#types/game-data';
 import {SelectedClassType, useLeftPanelDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
-import type {Item} from '@/scripts/data/data';
 import {injectFilter} from '@/scripts/filter';
 import {unref} from 'vue';
 
@@ -13,7 +13,7 @@ const {selectedItem, selectItem} = usePointAndClick();
 
 const filter = injectFilter();
 
-function computedItemClass(item: Item) {
+function computedItemClass(item: GameItem) {
     if(unref(selectedItem)?.isSelected(item))
         return ['selected-border'];
     return [];

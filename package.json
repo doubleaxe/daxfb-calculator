@@ -4,7 +4,7 @@
   "description": "Calculator/Factory Planner for factory management games",
   "main": "index.js",
   "scripts": {
-    "dev": "run-s build-data site",
+    "dev": "run-s build-data-debug site",
     "build": "run-s type-check build-data build-only",
     "site": "vite site",
     "preview": "vite preview site",
@@ -14,7 +14,7 @@
     "stylelint": "stylelint \"**/*.vue\" --fix",
     "type-check": "tsc --noEmit && vue-tsc --noEmit -p site",
     "build-data": "ts-node build-data.ts",
-    "build-data-debug": "node --loader ts-node/esm --inspect-brk build-data.ts"
+    "build-data-debug": "ts-node build-data.ts debug"
   },
   "repository": {
     "type": "git",
