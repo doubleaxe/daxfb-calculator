@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {deflateRawSync} from 'node:zlib';
+import {deflateSync} from 'node:zlib';
 import {rollup, type InputOptions, type OutputOptions} from 'rollup';
 import virtual from '@rollup/plugin-virtual';
 import typescript from '@rollup/plugin-typescript';
@@ -76,7 +76,7 @@ async function packageGameData(gameDir: string, targetGameDir: string, gameData:
         gameDataString = JSON.stringify(gameData, undefined, '  ');
     } else {
         gameDataString = JSON.stringify(gameData);
-        gameDataString = "'" + deflateRawSync(Buffer.from(gameDataString, 'utf8'), {level: 9}).toString('base64') + "'";
+        gameDataString = "'" + deflateSync(Buffer.from(gameDataString, 'utf8'), {level: 9}).toString('base64') + "'";
     }
     const reverceKeysString = 'undefined';
     const calculatorPath = path.join(gameDir, 'calculator', 'calculator.ts');

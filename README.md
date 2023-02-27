@@ -41,8 +41,4 @@ The only remote dependency is `https://polyfill.io/` which is used to make it wo
 - Show total energy, heat, items, etc.. for open ends
 - Drag-n-drop flickering fix
 - Look into scrollbar expanding bugs
-
-### Notes
-
-Copper Robotic Arm 150 degree per second = .833 ps for 90 degrees, .416 ps for 180 degrees
-Steel Robotic Arm 225 degree per second = 1.25 ps for 90 degrees, .625 ps for 180 degrees
+- Use `https://github.com/bcakmakoglu/vue-flow/` for nicer graph display? (will require almost full rewrite)

@@ -214,7 +214,7 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
         },
     };
 
-    recipesImpl = recipeDictionary.recipes.map((r) => createRecipeImpl(recipeDictionaryImpl, r));
+    recipesImpl = _recipeDictionary.recipes.map((r) => createRecipeImpl(recipeDictionaryImpl, r));
     recipeDictionary.recipes = recipesImpl.map(({recipe}) => recipe);
 
     return recipeDictionaryImpl;
