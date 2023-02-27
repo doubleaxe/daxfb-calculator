@@ -11,12 +11,20 @@ export function useCalculator(): Calculator {
         return io.count / io.recipe.time;
     };
 
+    const formatCountPerSecond: Calculator['formatCountPerSecond'] = function(io, count) {
+        return {
+            count,
+            unit: (io.product.name == 'R') ? 'W' : 'cps',
+        };
+    };
+
     const isCommonIo: Calculator['isCommonIo'] = function(io) {
         return false;
     };
 
     return {
         getCountPerSecond,
+        formatCountPerSecond,
         isCommonIo,
     };
 }

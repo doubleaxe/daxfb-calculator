@@ -100,4 +100,5 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get cpsMax() { return this._cpsMax; }
     get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }
     get cpsSolvedTotal() { return (this._ownerItem?.solvedCount !== undefined) ? this._cpsMax * this._ownerItem?.solvedCount : undefined; }
+    formatCountPerSecond(count: number) { return this._io.formatCountPerSecond(count); }
 }

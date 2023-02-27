@@ -6,7 +6,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {applyPatch} from 'diff';
 import description from './description.json';
-import {GameRecipeIOType} from './types/custom-game-data';
+import {GameItemType, GameItemTypeValue, GameRecipeIOType} from './types/custom-game-data';
 import type {Converter} from '../processing';
 
 import type {
@@ -21,6 +21,7 @@ import type {
 
 import type {
     GameDataSerialized,
+    GameItemSerialized,
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
 
@@ -98,6 +99,15 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
     }));
 }
 
+const classTypes: {[key: string]: GameItemTypeValue} = {
+    SolidStaticItem: GameItemType.Solid,
+    FluidStaticItem: GameItemType.Fluid,
+    AbstractStaticItem: GameItemType.Energy,
+};
+const itemClassTypes: {[key: string]: GameItemTypeValue} = {
+    Computations: GameItemType.Special,
+};
+
 function convertItems(items: JsonItem[]) {
     const mapRecipe = (recipe?: JsonRecipeReference) => {
         if(!recipe)
@@ -108,13 +118,17 @@ function convertItems(items: JsonItem[]) {
         };
     };
 
-    return items.map((item) => ({
-        name: itemNameMapper(item.Name),
-        label: item.Label,
-        image: imageNameMapper(item.Image),
-        unitMul: (item.UnitMul == 1) ? undefined : item.UnitMul,
-        recipe: mapRecipe(item.Recipe),
-    }));
+    return items.map((item) => {
+        const mappedItem: GameItemSerialized = {
+            name: itemNameMapper(item.Name),
+            label: item.Label,
+            image: imageNameMapper(item.Image),
+            unitMul: (item.UnitMul == 1) ? undefined : item.UnitMul,
+            recipe: mapRecipe(item.Recipe),
+        };
+        mappedItem.type = itemClassTypes[mappedItem.name] || classTypes[item.Class];
+        return mappedItem;
+    });
 }
 
 async function convertGameData() {

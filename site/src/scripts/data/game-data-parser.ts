@@ -80,7 +80,6 @@ type RecipeIOImpl = {
     _postInit: (parsedItems: ParsedItemsImpl) => void;
 };
 function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOSerialized, options: RecipeIOOptions) {
-    let _cachedCount: number | undefined;
     const calculator = recipeImpl.recipeDictionaryImpl.calculator;
     const io: GameRecipeIORaw = {
         ..._io,
@@ -88,12 +87,12 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
         isCommon: false,
         recipe: recipeImpl.recipe,
         product: {} as GameItem,
-        //count per second is immutable
         getCountPerSecond(item: GameItem) {
-            if(!_cachedCount) {
-                _cachedCount = calculator.getCountPerSecond(item, this);
-            }
-            return _cachedCount || 0;
+            const count = calculator.getCountPerSecond(item, this);
+            return count;
+        },
+        formatCountPerSecond(count: number) {
+            return calculator.formatCountPerSecond(this, count);
         },
     };
     io.isCommon = calculator.isCommonIo(io);

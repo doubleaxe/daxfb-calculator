@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 import type {Calculator} from '#types/calculator';
 import {GameRecipeDictionary} from '#types/game-data';
-import {GameRecipeIOType} from '../types/custom-game-data';
+import {GameItemType, GameRecipeIOType} from '../types/custom-game-data';
 
 export function useCalculator(): Calculator {
     const TICKS_PER_SECOND = 20;
@@ -34,12 +34,29 @@ export function useCalculator(): Calculator {
         return (io.count * unitMul * Math.pow(1.5, tierDiff) * TICKS_PER_SECOND) / io.recipe.time;
     };
 
+    const formatCountPerSecond: Calculator['formatCountPerSecond'] = function(io, count) {
+        const productType = io.product.type;
+        if(productType == GameItemType.Energy) {
+            //energy ,easured in Watts, 1 Resource Item [R] * 20 = 20 Watt
+            count *= 20;
+            return {
+                count,
+                unit: 'W',
+            };
+        }
+        return {
+            count,
+            unit: 'cps',
+        };
+    };
+
     const isCommonIo: Calculator['isCommonIo'] = function(io) {
         return io.type == GameRecipeIOType.Resource;
     };
 
     return {
         getCountPerSecond,
+        formatCountPerSecond,
         isCommonIo,
     };
 }

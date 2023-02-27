@@ -56,6 +56,7 @@ export interface GameItemSerialized {
     image: string;
     unitMul?: number;
     recipe?: GameRecipeReferenceSerialized;
+    type?: number;
 }
 
 export interface GameDataSerialized {

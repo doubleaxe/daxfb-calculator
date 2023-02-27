@@ -44,5 +44,8 @@ export function formatNumber(n: number | undefined, units?: string) {
 }
 
 export function formatIo(n: number | undefined, io: RecipeIOModel) {
-    return formatNumber(n/*, io.isResource ? 'W' : 'ps'*/);
+    if(n === undefined)
+        return '';
+    const format = io.formatCountPerSecond(n);
+    return formatNumber(format.count, format.unit);
 }

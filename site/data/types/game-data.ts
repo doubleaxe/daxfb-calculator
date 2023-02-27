@@ -24,6 +24,7 @@ export interface GameRecipeIORaw extends GameRecipeIOSerialized {
     product: GameItem;
 
     getCountPerSecond: (item: GameItem) => number;
+    formatCountPerSecond: (count: number) => FromatCountPerSecond;
 }
 export type GameRecipeIO = Readonly<GameRecipeIORaw>;
 
@@ -62,3 +63,8 @@ export interface GameDescriptionRaw extends GameDescriptionSerialized {
     maxTier: number;
 }
 export type GameDescription = Readonly<GameDescriptionRaw>;
+
+export type FromatCountPerSecond = {
+    count: number;
+    unit: string;
+};

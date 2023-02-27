@@ -42,12 +42,12 @@ export interface JsonRecipeReference {
 
 export interface JsonItem {
     Category?: string;
-    Class?: string;
+    Class: string;
     Name: string;
     Label: string;
     Tag?: string;
     Image: string;
-    MaxCount?: number;
+    MaxCount: number;
     Tier?: number;
     Unit?: string;
     UnitMul?: number;

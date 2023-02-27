@@ -19,14 +19,14 @@ Help sources are located inside `docs` folder in this repository.
 
 - Install `node.js` version `18` or later.
 - Perform `npm install`.
-- Set environment variable `GAME` to target game, then run `npm run build`.
-For example `GAME=sample npm run build` or `GAME=evospace npm run build`.
+- Run `npm run build`.
 
 # Offline usage
 
 Released packages can be downloaded from 'release' page or self-built.
 Then it is possible to just open `index.html` included in release archive locally in browser.
 The only remote dependency is `https://polyfill.io/` which is used to make it work inside unsupported browsers.
+Query string `?gameId=<game>` may be added to quickly open desired game, for example `daxfb-calculator/dist/index.html?gameId=evospace`.
 
 # TODO list
 
@@ -39,6 +39,6 @@ The only remote dependency is `https://polyfill.io/` which is used to make it wo
 - Naming blueprints, remember loaded file name, name saved files according to opened file or blueprint name
 - Use `\R\N` for Windows saved files instead of `\N`
 - Show total energy, heat, items, etc.. for open ends
-- Drag-n-drop flickering fix
-- Look into scrollbar expanding bugs
+- ~~Drag-n-drop flickering fix~~
+- ~~Look into scrollbar expanding bugs~~
 - Use `https://github.com/bcakmakoglu/vue-flow/` for nicer graph display? (will require almost full rewrite)

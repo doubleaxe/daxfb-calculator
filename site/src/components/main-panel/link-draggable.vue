@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {unref, computed, reactive, toRaw} from 'vue';
+import {unref, computed, reactive, toRaw, ref, watch, nextTick} from 'vue';
 import {
     injectBlueprintModel,
     type BlueprintItemModel,
@@ -20,6 +20,7 @@ let hoveringItem: BlueprintItemModel | undefined = undefined;
 const {hooks, isDragging, currentItem, movableElem} = useLinkDragAndDrop();
 const {notifySelected} = usePointAndClick();
 
+const draggableClass = ref('');
 const draggableStyle = computed(() => {
     const _isDragging = unref(isDragging);
     const _dragRect = unref(currentItem)?.dragging?.rect;
@@ -32,6 +33,18 @@ const draggableStyle = computed(() => {
         top: `${_dragRect.y}px`,
     };
 });
+
+watch(isDragging, (value) => {
+    if(!value) {
+        draggableClass.value = 'icon-draggable-hidden';
+    } else {
+        //this is against flickering, so first position is set, and next icon is shown
+        //otherwise it sometimes jump out of somewhere
+        nextTick(() => {
+            draggableClass.value = '';
+        });
+    }
+}, {immediate: true});
 
 function clearHoveringItem() {
     if(hoveringItem) {
@@ -133,6 +146,7 @@ useEventHook(notifySelected, (param) => {
         <v-sheet
             ref="movableElem"
             class="rounded dragging-elevation link-draggable hover-background"
+            :class="draggableClass"
             :style="draggableStyle"
         >
             <icon-component :image="currentItem?.source?.image || ''" />
@@ -144,5 +158,11 @@ useEventHook(notifySelected, (param) => {
 .link-draggable {
     position: absolute;
     z-index: 5000;
+}
+</style>
+<style>
+.link-draggable-hidden {
+    z-index: -1;
+    opacity: 0;
 }
 </style>
