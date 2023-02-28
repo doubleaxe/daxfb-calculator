@@ -44,9 +44,9 @@ function imageNameMapper(name: string) {
 
 function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
     interface RecipeIOOptions {
-        isResource: boolean;
+        type?: number;
     }
-    const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {isResource}: RecipeIOOptions) => {
+    const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {type}: RecipeIOOptions) => {
         if(!item)
             return [];
         const itemArray = Array.isArray(item) ? item : [item];
@@ -61,7 +61,7 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
                     name: itemNameMapper(i.Name),
                     count: count,
                     hasProbability: i.Probability ? true : undefined,
-                    type: isResource ? GameRecipeIOType.Resource : undefined,
+                    type: type,
                 });
             } else {
                 i0.count += count;
@@ -72,15 +72,17 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
 
         return [...mappedMergedIO.values()];
     };
-    const mapRecipes = (recipes: JsonRecipe[]) => (
-        recipes.map((recipe) => {
+    const mapRecipes = (dictionaryName: string, recipes: JsonRecipe[]) => {
+        const isPump = dictionaryName == 'PumpBaseRecipeDictionary';
+        return recipes.map((recipe) => {
+            const type = isPump ? GameRecipeIOType.Pump : undefined;
             const input = [
-                ...mapIO(recipe.Input, {isResource: false}),
-                ...mapIO(recipe.ResourceInput, {isResource: true}),
+                ...mapIO(recipe.Input, {type}),
+                ...mapIO(recipe.ResourceInput, {type: GameRecipeIOType.Resource}),
             ];
             const output = [
-                ...mapIO(recipe.Output, {isResource: false}),
-                ...mapIO(recipe.ResourceOutput, {isResource: true}),
+                ...mapIO(recipe.Output, {type}),
+                ...mapIO(recipe.ResourceOutput, {type: GameRecipeIOType.Resource}),
             ];
 
             const mappedRecipe = {
@@ -90,12 +92,12 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
                 time: recipe.Ticks,
             };
             return mappedRecipe;
-        })
-    );
+        });
+    };
 
     return recipeDictionaries.map((recipeDictionary) => ({
         name: recipeDictionary.Name,
-        recipes: mapRecipes(recipeDictionary.Recipes),
+        recipes: mapRecipes(recipeDictionary.Name, recipeDictionary.Recipes),
     }));
 }
 

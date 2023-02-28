@@ -17,7 +17,7 @@ Index: data.json
 -          },
 +          "Output": [
 +            {
-+              "Count": 600,
++              "Count": 300,
 +              "Name": "WaterStaticItem"
 +            }
 +          ],

@@ -23,6 +23,13 @@ export function useCalculator(): Calculator {
             console.error(`Something wrong, item tier ${factoryTier} < recipe tier ${recipeTier} => ${io.recipe.name}`);
             tierDiff = 0;
         }
+        if(io.type == GameRecipeIOType.Pump) {
+            //pump is quite strange in current vanilla according to my experiments
+            //it behaves like a energy, making 2x, but it is still fluid
+            //tier list is .125 .25 .5 1 1.25 1.5 1.5
+            const pumpTierList = [.125, .25, .5, 1, 1.25, 1.5, 1.5];
+            return pumpTierList[tierDiff] || pumpTierList[pumpTierList.length - 1] || 0;
+        }
         if(io.type == GameRecipeIOType.Resource) {
             //1 Resource Item [R] * 20 = 20 Watt, time doesn't matter
             //each resource tier doubles energy consuption/production (cumulative)
@@ -37,7 +44,7 @@ export function useCalculator(): Calculator {
     const formatCountPerSecond: Calculator['formatCountPerSecond'] = function(io, count) {
         const productType = io.product.type;
         if(productType == GameItemType.Energy) {
-            //energy ,easured in Watts, 1 Resource Item [R] * 20 = 20 Watt
+            //energy measured in Watts, 1 Resource Item [R] * 20 = 20 Watt
             count *= 20;
             return {
                 count,
