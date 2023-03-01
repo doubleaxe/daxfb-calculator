@@ -24,7 +24,15 @@ export class RecipeModelImpl {
     findSimilarIo(sourceIo: RecipeIOModel, reverce: boolean) {
         const isInput = reverce ? !sourceIo.isInput : sourceIo.isInput;
         const targetArray = isInput ? this._input : this._output;
-        return targetArray.find((io) => io.name === sourceIo.name);
+        return targetArray.find((io) => (
+            (io.name === sourceIo.name)
+            || (
+                (io.isAbstractClassItem !== sourceIo.isAbstractClassItem)
+                && !io.isMatherialized
+                && !sourceIo.isMatherialized
+                && (io.type === sourceIo.type)
+            )
+        ));
     }
     _$copySimilarLinksTo(targetRecipe: RecipeModel) {
         for(const targetItem of targetRecipe.items) {

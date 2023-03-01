@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.common.json",
-  "include": ["./*.ts", "./data/**/*.ts", "./site/data/types/constants.ts"],
+  "include": ["./*.ts", "./data/**/*.ts"],
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",

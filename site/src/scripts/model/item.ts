@@ -17,10 +17,11 @@ export class ItemModelImpl {
         this._key = newKey(key);
     }
 
-    get item() { return this._item; }
+    _$getItem() { return this._item; }
     get key() { return this._key; }
     get name() { return this._item?.name; }
     get label() { return this._item?.label; }
     get image() { return this._item?.image || ''; }
+    get type() { return this._item?.type; }
     get owner() { return this._owner; }
 }

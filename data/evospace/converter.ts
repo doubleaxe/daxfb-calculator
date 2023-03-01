@@ -120,6 +120,12 @@ const itemClassTypes: {[key: string]: GameItemType} = {
     Computations: GameItemType.Special,
 };
 
+const AbstractClassItems = new Set([
+    'AnySolidStaticItem',
+    'AnyFluidStaticItem',
+    'AnyEnergyStaticItem',
+]);
+
 function convertItems(items: JsonItem[]) {
     const mapRecipe = (recipe?: JsonRecipeReference) => {
         if(!recipe)
@@ -137,6 +143,7 @@ function convertItems(items: JsonItem[]) {
             image: imageNameMapper(item.Image),
             unitMul: (item.UnitMul == 1) ? undefined : item.UnitMul,
             recipe: mapRecipe(item.Recipe),
+            isAbstractClassItem: AbstractClassItems.has(item.Name) || undefined,
         };
         mappedItem.type = itemClassTypes[mappedItem.name] || classTypes[item.Class];
         return mappedItem;

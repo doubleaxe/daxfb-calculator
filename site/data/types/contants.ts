@@ -4,6 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 
 export enum GameItemType {
+    Unknown = 0,
     Solid = 1,
     Liquid,
     Gas,

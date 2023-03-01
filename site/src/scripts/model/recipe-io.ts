@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameRecipeIO} from '#types/game-data';
+import type {GameItem, GameRecipeIO} from '#types/game-data';
 import {Rect} from '../geometry';
 import {ItemModelImpl} from './item';
 import type {
@@ -27,6 +27,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _links;
     private readonly _cpsMax;
     private _isFlipped = false;
+    private _matherializeAbstractItem: GameItem | undefined;
 
     constructor(
         io: GameRecipeIO,
@@ -38,8 +39,9 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         this._isInput = isReverce ? !io.isInput : io.isInput;
         this._links = new Map<string, LinkModel>();
 
-        if(this._ownerItem?.item !== undefined) {
-            this._cpsMax = this._io.getCountPerSecond(this._ownerItem.item);
+        const ownerGameItem = ownerItem?._$getItem();
+        if(ownerGameItem !== undefined) {
+            this._cpsMax = this._io.getCountPerSecond(ownerGameItem);
         } else {
             //temp link
             this._cpsMax = 0;
@@ -54,17 +56,35 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get links() { return this._links.values(); }
     get isFlipped() { return this._ownerItem?.isFlipped || this._isFlipped; }
 
+    get isAbstractClassItem() { return this._item?.isAbstractClassItem || false; }
+    get isMatherialized() { return !!this._matherializeAbstractItem; }
+
+    get name() { return this._matherializeAbstractItem?.name || this._item?.name; }
+    get label() { return this._matherializeAbstractItem?.label || this._item?.label; }
+    get image() { return this._matherializeAbstractItem?.image || this._item?.image || ''; }
+
     setFlipped(isFlipped: boolean) {
         if(this._ownerItem)
             throw new Error('Cannot set flipped');
         this._isFlipped = isFlipped;
     }
 
+    _$matherializeAbstractItem(item: GameItem | undefined) {
+        if(this.isAbstractClassItem)
+            this._matherializeAbstractItem = item;
+    }
+
     _$linkAdded(value: LinkModel) {
         this._links.set(value.key, value);
+        if(this.isAbstractClassItem && (this._links.size === 1)) {
+            this._matherializeAbstractItem = value.getOtherSide(this)?._$getItem();
+        }
     }
     _$linkDeleted(value: LinkModel) {
         this._links.delete(value.key);
+        if(!this._links.size) {
+            this._matherializeAbstractItem = undefined;
+        }
     }
     _$copySimilarLinksTo(targetItem: RecipeIOModel) {
         for(const link of this._links.values()) {
@@ -79,6 +99,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         for(const link of linksCopy) {
             this.owner?._$deleteLink(link);
         }
+        this._matherializeAbstractItem = undefined;
     }
     isAlreadyLinked(targetItem: RecipeIOModel) {
         for(const link of this._links.values()) {
@@ -91,6 +112,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     createTempLink() {
         const clone = new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true});
         clone.rect = this._rect;
+        clone._$matherializeAbstractItem(this._matherializeAbstractItem);
         const link = this.owner?._$createTempLink(this, clone);
         return {
             link,
