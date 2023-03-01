@@ -12,7 +12,7 @@ import {minify} from 'rollup-plugin-esbuild';
 
 import {KeyProcessor} from './data/key-processor';
 import type {ConverterFactory} from './data/processing';
-import {DebugKeys, GameDataSerialized} from '#types/game-data-serialized';
+import type {DebugKeys, GameDataSerialized} from '#types/game-data-serialized';
 
 //npx ts-node build-data.ts [rebuild_keys] [debug]
 //node --loader ts-node/esm --inspect-brk build-data.ts [rebuild_keys] [debug]

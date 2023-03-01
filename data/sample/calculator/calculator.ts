@@ -14,7 +14,7 @@ export function useCalculator(): Calculator {
     const formatCountPerSecond: Calculator['formatCountPerSecond'] = function(io, count) {
         return {
             count,
-            unit: (io.product.name == 'R') ? 'W' : 'cps',
+            unit: (io.product.name == 'R') ? 'W' : 'ps',
         };
     };
 

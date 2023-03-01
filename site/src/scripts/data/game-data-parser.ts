@@ -53,6 +53,8 @@ function createItemImpl(_item: GameItemSerialized) {
         lowerLabel: _item.label.toLowerCase(),
         recipeDictionary: undefined,
     };
+    if(!item.exdata)
+        item.exdata = {};
 
     const itemImpl: ItemImpl = {
         item,
@@ -95,6 +97,9 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
             return calculator.formatCountPerSecond(this, count);
         },
     };
+    //init exdata, keep it writable, it could be used as cache
+    if(!io.exdata)
+        io.exdata = {};
     io.isCommon = calculator.isCommonIo(io);
 
     const ioImpl: RecipeIOImpl = {
@@ -131,6 +136,9 @@ function createRecipeImpl(recipeDictionaryImpl: Readonly<RecipeDictionaryImpl>, 
         input: [],
         output: [],
     };
+    //init exdata, keep it writable, it could be used as cache
+    if(!recipe.exdata)
+        recipe.exdata = {};
 
     const recipeImpl: RecipeImpl = {
         recipe,
@@ -174,6 +182,9 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
         recipesByInputMap: emptyMap,
         recipesByOutputMap: emptyMap,
     };
+    //init exdata, keep it writable, it could be used as cache
+    if(!recipeDictionary.exdata)
+        recipeDictionary.exdata = {};
 
     const recipeDictionaryImpl: RecipeDictionaryImpl = {
         recipeDictionary,

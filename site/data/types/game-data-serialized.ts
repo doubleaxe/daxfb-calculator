@@ -2,9 +2,15 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {GameItemType} from './contants';
+
 //this is used for storage inside json
 export interface GameImagesSerialized {
     [key: string]: number[];
+}
+
+export interface GameExDataSerialized {
+    [key: string]: unknown;
 }
 
 export interface GameDescriptionSerialized {
@@ -24,6 +30,7 @@ export interface GameRecipeIOSerialized {
     count: number;
     hasProbability?: boolean;
     type?: number;
+    exdata?: GameExDataSerialized;
 }
 
 export interface GameRecipeSerialized {
@@ -34,6 +41,7 @@ export interface GameRecipeSerialized {
     //ordered in natural order
     output?: GameRecipeIOSerialized[];
     time: number;
+    exdata?: GameExDataSerialized;
 }
 
 export interface GameRecipeDictionarySerialized {
@@ -41,6 +49,7 @@ export interface GameRecipeDictionarySerialized {
     longName?: string;
     //ordered in natural order
     recipes: GameRecipeSerialized[];
+    exdata?: GameExDataSerialized;
 }
 
 export interface GameRecipeReferenceSerialized {
@@ -56,7 +65,9 @@ export interface GameItemSerialized {
     image: string;
     unitMul?: number;
     recipe?: GameRecipeReferenceSerialized;
-    type?: number;
+    type?: GameItemType;
+    isAbstractClassItem?: boolean;
+    exdata?: GameExDataSerialized;
 }
 
 export interface GameDataSerialized {

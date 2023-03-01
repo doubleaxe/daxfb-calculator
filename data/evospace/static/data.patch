@@ -45,7 +45,103 @@ Index: data.json
              "Count": 10,
              "Name": "ElectricityStaticItem"
            },
-@@ -30853,14 +30854,200 @@
+@@ -30706,14 +30707,95 @@
+           "Name": "Helium",
+           "Output": [],
+           "Ticks": 1
+         }
+       ]
+     },
+     {
++      "Name": "SolidDumpBaseRecipeDictionary",
++      "Recipes": [
++        {
++          "Category_T": "parts",
++          "Input": [
++            {
++              "Count": 50,
++              "Name": "AnySolidStaticItem"
++            }
++          ],
++          "Name": "AnySolid",
++          "Output": [],
++          "Ticks": 1
++        }
++      ]
++    },
++    {
++      "Name": "ContainerBaseRecipeDictionary",
++      "Recipes": [
++        {
++          "Category_T": "parts",
++          "Input": [
++            {
++              "Count": 50,
++              "Name": "AnyFluidStaticItem"
++            }
++          ],
++          "Name": "AnyFluid",
++          "Output": [
++            {
++              "Count": 50,
++              "Name": "AnyFluidStaticItem"
++            }
++          ],
++          "Ticks": 1
++        }
++      ]
++    },
++    {
++      "Name": "ChestBaseRecipeDictionary",
++      "Recipes": [
++        {
++          "Category_T": "parts",
++          "Input": [
++            {
++              "Count": 50,
++              "Name": "AnySolidStaticItem"
++            }
++          ],
++          "Name": "AnySolid",
++          "Output": [
++            {
++              "Count": 50,
++              "Name": "AnySolidStaticItem"
++            }
++          ],
++          "Ticks": 1
++        }
++      ]
++    },
++    {
++      "Name": "AnyEnergyContainerBaseRecipeDictionary",
++      "Recipes": [
++        {
++          "Category_T": "parts",
++          "Input": [],
++          "Name": "AnyEnergy",
++          "Output": [],
++          "ResourceInput": {
++            "Count": 50000000,
++            "Name": "AnyEnergyStaticItem"
++          },
++          "ResourceOutput": {
++            "Count": 50000000,
++            "Name": "AnyEnergyStaticItem"
++          },
++          "Ticks": 1
++        }
++      ]
++    },
++    {
+       "Name": "FluidFurnaceBaseRecipeDictionary",
+       "Recipes": [
+         {
+           "Category_T": "parts",
+           "Input": [
+             {
+               "Count": 1000,
+@@ -30853,14 +30935,200 @@
            "ResourceOutput": {
              "Count": 20,
              "Name": "HeatStaticItem"
@@ -246,7 +342,214 @@ Index: data.json
        "Category": "Copper",
        "Class": "SolidStaticItem",
        "Image": "T_CopperMacerator",
-@@ -34183,68 +34370,96 @@
+@@ -31827,77 +32095,109 @@
+     {
+       "Category": "Stone",
+       "Class": "SolidStaticItem",
+       "Image": "T_StoneChest",
+       "MaxCount": 32,
+       "Name": "StoneChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 0
++      },
+       "Label": "Stone Chest"
+     },
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperChest",
+       "MaxCount": 32,
+       "Name": "CopperChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 1
++      },
+       "Label": "Copper Chest"
+     },
+     {
+       "Category": "Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_SteelChest",
+       "MaxCount": 32,
+       "Name": "SteelChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 2
++      },
+       "Label": "Steel Chest"
+     },
+     {
+       "Category": "Aluminium",
+       "Class": "SolidStaticItem",
+       "Image": "T_AluminiumChest",
+       "MaxCount": 32,
+       "Name": "AluminiumChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 3
++      },
+       "Label": "Aluminium Chest"
+     },
+     {
+       "Category": "Stainless Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_StainlessSteelChest",
+       "MaxCount": 32,
+       "Name": "StainlessSteelChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 4
++      },
+       "Label": "Stainless Steel Chest"
+     },
+     {
+       "Category": "Titanium",
+       "Class": "SolidStaticItem",
+       "Image": "T_TitaniumChest",
+       "MaxCount": 32,
+       "Name": "TitaniumChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 5
++      },
+       "Label": "Titanium Chest"
+     },
+     {
+       "Category": "Hard Metal",
+       "Class": "SolidStaticItem",
+       "Image": "T_HardMetalChest",
+       "MaxCount": 32,
+       "Name": "HardMetalChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 6
++      },
+       "Label": "Hard Metal Chest"
+     },
+     {
+       "Category": "Neutronium",
+       "Class": "SolidStaticItem",
+       "Image": "T_NeutroniumChest",
+       "MaxCount": 32,
+       "Name": "NeutroniumChestStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ChestBaseRecipeDictionary",
++        "Tier": 7
++      },
+       "Label": "Neutronium Chest"
+     },
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperItemRack",
+       "MaxCount": 32,
+@@ -32238,68 +32538,96 @@
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperContainer",
+       "MaxCount": 32,
+       "Name": "CopperContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 1
++      },
+       "Label": "Copper Container"
+     },
+     {
+       "Category": "Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_SteelContainer",
+       "MaxCount": 32,
+       "Name": "SteelContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 2
++      },
+       "Label": "Steel Container"
+     },
+     {
+       "Category": "Aluminium",
+       "Class": "SolidStaticItem",
+       "Image": "T_AluminiumContainer",
+       "MaxCount": 32,
+       "Name": "AluminiumContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 3
++      },
+       "Label": "Aluminium Container"
+     },
+     {
+       "Category": "Stainless Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_StainlessSteelContainer",
+       "MaxCount": 32,
+       "Name": "StainlessSteelContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 4
++      },
+       "Label": "Stainless Steel Container"
+     },
+     {
+       "Category": "Titanium",
+       "Class": "SolidStaticItem",
+       "Image": "T_TitaniumContainer",
+       "MaxCount": 32,
+       "Name": "TitaniumContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 5
++      },
+       "Label": "Titanium Container"
+     },
+     {
+       "Category": "Hard Metal",
+       "Class": "SolidStaticItem",
+       "Image": "T_HardMetalContainer",
+       "MaxCount": 32,
+       "Name": "HardMetalContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 6
++      },
+       "Label": "Hard Metal Container"
+     },
+     {
+       "Category": "Neutronium",
+       "Class": "SolidStaticItem",
+       "Image": "T_NeutroniumContainer",
+       "MaxCount": 32,
+       "Name": "NeutroniumContainerStaticItem",
+       "Tag": "Logistics",
++      "Recipe": {
++        "RecipeDictionary": "ContainerBaseRecipeDictionary",
++        "Tier": 7
++      },
+       "Label": "Neutronium Container"
+     },
+     {
+       "Category": "Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_SteelPress",
+       "MaxCount": 32,
+@@ -34183,68 +34511,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -343,7 +646,26 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperAssembler",
        "MaxCount": 32,
-@@ -35571,50 +35786,70 @@
+@@ -34597,14 +34953,18 @@
+     {
+       "Category": "Steel",
+       "Class": "SolidStaticItem",
+       "Image": "T_SteelSolidDump",
+       "MaxCount": 32,
+       "Name": "SteelSolidDumpStaticItem",
+       "Tag": "Machines",
++      "Recipe": {
++        "RecipeDictionary": "SolidDumpBaseRecipeDictionary",
++        "Tier": 2
++      },
+       "Label": "Steel Solid Dump"
+     },
+     {
+       "Category": "Copper",
+       "Class": "SolidStaticItem",
+       "Image": "T_CopperLamp",
+       "MaxCount": 32,
+@@ -35571,50 +35931,70 @@
      {
        "Category": "Aluminium",
        "Class": "SolidStaticItem",
@@ -414,3 +736,51 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_StainlessSteelIndustrialSmelter",
        "MaxCount": 32,
+@@ -37656,10 +38036,46 @@
+       "Class": "FluidStaticItem",
+       "Image": "T_Mercury",
+       "MaxCount": 1,
+       "Name": "MercuryStaticItem",
+       "Tag": "Misc",
+       "UnitMul": 0.001,
+       "Label": "Mercury"
++    },
++    {
++      "Class": "AbstractStaticItem",
++      "Image": "T_NeutroniumBatteryBox",
++      "MaxCount": 1,
++      "Name": "AnyEnergyContainerStaticItem",
++      "Tag": "Misc",
++      "Recipe": {
++        "RecipeDictionary": "AnyEnergyContainerBaseRecipeDictionary",
++        "Tier": 0
++      },
++      "Label": "Any Energy Container"
++    },
++    {
++      "Class": "SolidStaticItem",
++      "Image": "T_StoneTiles",
++      "MaxCount": 1,
++      "Name": "AnySolidStaticItem",
++      "Tag": "Misc",
++      "Label": "Any Solid Item"
++    },
++    {
++      "Class": "FluidStaticItem",
++      "Image": "T_Oxygen",
++      "MaxCount": 1,
++      "Name": "AnyFluidStaticItem",
++      "Tag": "Misc",
++      "Label": "Any Fluid"
++    },
++    {
++      "Class": "AbstractStaticItem",
++      "Image": "T_NeutroniumSmallBattery",
++      "MaxCount": 1,
++      "Name": "AnyEnergyStaticItem",
++      "Tag": "Misc",
++      "Label": "Any Energy"
+     }
+   ]
+ }
+\ No newline at end of file

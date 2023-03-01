@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.common.json",
-  "include": ["./data/*/calculator/*.ts"],
+  "include": ["./data/*/calculator/*.ts", "./site/data/types/constants.ts"],
   "compilerOptions": {
     "target": "ES2018",
     "module": "ES2022",

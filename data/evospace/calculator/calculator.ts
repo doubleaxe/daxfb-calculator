@@ -4,30 +4,37 @@ Please don't remove this comment if you use unmodified file
 */
 import type {Calculator} from '#types/calculator';
 import {GameRecipeDictionary} from '#types/game-data';
-import {GameItemType, GameRecipeIOType} from '../types/custom-game-data';
+import {GameItemType} from '#types/contants';
+import {GameRecipeDictionaryExData, GameRecipeIOType} from '../types/custom-game-data';
 
 export function useCalculator(): Calculator {
     const TICKS_PER_SECOND = 20;
     //const WATTS_PER_ITEM = 20;
 
-    function minItemTier(recipeDictionary: GameRecipeDictionary) {
+    //pump is quite strange in current vanilla according to my experiments
+    //it behaves like a energy, making 2x, but it is still fluid
+    //tier list is .125 .25 .5 1 1.25 1.5 1.5
+    const pumpTierList = [.125, .25, .5, 1, 1.25, 1.5, 1.5];
+
+    function getStartingTier(recipeDictionary: GameRecipeDictionary, exdata: GameRecipeDictionaryExData) {
+        if(exdata.startingTier)
+            return exdata.startingTier;
         const items = [...recipeDictionary.items];
         items.sort((i1, i2) => (i1.recipe?.tier ?? 0) - (i2.recipe?.tier ?? 0));
-        return items[0]?.recipe?.tier ?? 0;
+        exdata.startingTier = items[0]?.recipe?.tier ?? 0;
+        return exdata.startingTier;
     }
     const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
-        const recipeTier = minItemTier(io.recipe.recipeDictionary);
-        const factoryTier = item.recipe?.tier || recipeTier;
-        let tierDiff = factoryTier - recipeTier;
+        const recipeDictionary: GameRecipeDictionary = io.recipe.recipeDictionary;
+        const exdata = recipeDictionary.exdata as GameRecipeDictionaryExData;
+        const startingTier = getStartingTier(recipeDictionary, exdata);
+        const factoryTier = item.recipe?.tier || startingTier;
+        let tierDiff = factoryTier - startingTier;
         if(tierDiff < 0) {
-            console.error(`Something wrong, item tier ${factoryTier} < recipe tier ${recipeTier} => ${io.recipe.name}`);
+            console.error(`Something wrong, item tier ${factoryTier} < starting tier ${startingTier} => ${io.recipe.name}`);
             tierDiff = 0;
         }
-        if(io.type == GameRecipeIOType.Pump) {
-            //pump is quite strange in current vanilla according to my experiments
-            //it behaves like a energy, making 2x, but it is still fluid
-            //tier list is .125 .25 .5 1 1.25 1.5 1.5
-            const pumpTierList = [.125, .25, .5, 1, 1.25, 1.5, 1.5];
+        if(exdata.isPump) {
             return pumpTierList[tierDiff] || pumpTierList[pumpTierList.length - 1] || 0;
         }
         if(io.type == GameRecipeIOType.Resource) {
@@ -53,7 +60,7 @@ export function useCalculator(): Calculator {
         }
         return {
             count,
-            unit: 'cps',
+            unit: 'ps',
         };
     };
 

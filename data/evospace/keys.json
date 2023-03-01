@@ -769,7 +769,15 @@
     "TitaniumFlatTerminal": "cm",
     "HardMetalFlatTerminal": "cn",
     "DrillingRigBaseRecipeDictionary": "co",
-    "PumpjackBaseRecipeDictionary": "cp"
+    "PumpjackBaseRecipeDictionary": "cp",
+    "SolidDumpBaseRecipeDictionary": "cq",
+    "AnySolid": "cr",
+    "AnyFluid": "cs",
+    "ContainerBaseRecipeDictionary": "ct",
+    "ChestBaseRecipeDictionary": "cu",
+    "AnyEnergyContainerBaseRecipeDictionary": "cv",
+    "AnyEnergy": "cw",
+    "AnyEnergyContainer": "cx"
   },
-  "lastKey": 769
+  "lastKey": 777
 }

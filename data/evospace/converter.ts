@@ -6,7 +6,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {applyPatch} from 'diff';
 import description from './description.json';
-import {GameItemType, GameItemTypeValue, GameRecipeIOType} from './types/custom-game-data';
+import {GameRecipeDictionaryExData, GameRecipeIOType} from './types/custom-game-data';
 import type {Converter} from '../processing';
 
 import type {
@@ -22,8 +22,10 @@ import type {
 import type {
     GameDataSerialized,
     GameItemSerialized,
+    GameRecipeDictionarySerialized,
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
+import {GameItemType} from '../../site/data/types/contants';
 
 const _dirname = __dirname;
 const __parsed = path.join(_dirname, 'parsed');
@@ -73,15 +75,13 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
         return [...mappedMergedIO.values()];
     };
     const mapRecipes = (dictionaryName: string, recipes: JsonRecipe[]) => {
-        const isPump = dictionaryName == 'PumpBaseRecipeDictionary';
-        return recipes.map((recipe) => {
-            const type = isPump ? GameRecipeIOType.Pump : undefined;
+        const mappedRecipes = recipes.map((recipe) => {
             const input = [
-                ...mapIO(recipe.Input, {type}),
+                ...mapIO(recipe.Input, {}),
                 ...mapIO(recipe.ResourceInput, {type: GameRecipeIOType.Resource}),
             ];
             const output = [
-                ...mapIO(recipe.Output, {type}),
+                ...mapIO(recipe.Output, {}),
                 ...mapIO(recipe.ResourceOutput, {type: GameRecipeIOType.Resource}),
             ];
 
@@ -93,20 +93,30 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
             };
             return mappedRecipe;
         });
+        return mappedRecipes;
     };
 
-    return recipeDictionaries.map((recipeDictionary) => ({
-        name: recipeDictionary.Name,
-        recipes: mapRecipes(recipeDictionary.Name, recipeDictionary.Recipes),
-    }));
+    return recipeDictionaries.map((recipeDictionary) => {
+        const isPump = recipeDictionary.Name == 'PumpBaseRecipeDictionary';
+        const mappedDictionary: GameRecipeDictionarySerialized = {
+            name: recipeDictionary.Name,
+            recipes: mapRecipes(recipeDictionary.Name, recipeDictionary.Recipes),
+        };
+        let exdata: GameRecipeDictionaryExData | undefined = undefined;
+        if(isPump) {
+            exdata = {isPump: true};
+        }
+        mappedDictionary.exdata = exdata;
+        return mappedDictionary;
+    });
 }
 
-const classTypes: {[key: string]: GameItemTypeValue} = {
+const classTypes: {[key: string]: GameItemType} = {
     SolidStaticItem: GameItemType.Solid,
     FluidStaticItem: GameItemType.Fluid,
     AbstractStaticItem: GameItemType.Energy,
 };
-const itemClassTypes: {[key: string]: GameItemTypeValue} = {
+const itemClassTypes: {[key: string]: GameItemType} = {
     Computations: GameItemType.Special,
 };
 
