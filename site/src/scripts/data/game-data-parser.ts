@@ -100,7 +100,6 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
     //init exdata, keep it writable, it could be used as cache
     if(!io.exdata)
         io.exdata = {};
-    io.isCommon = calculator.isCommonIo(io);
 
     const ioImpl: RecipeIOImpl = {
         io,
@@ -109,6 +108,8 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
             if(itemImpl) {
                 io.product = itemImpl.item;
             }
+            //almost initialized
+            io.isCommon = calculator.isCommonIo(io);
             Object.freeze(io);
         },
     };

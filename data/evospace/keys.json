@@ -777,7 +777,13 @@
     "ChestBaseRecipeDictionary": "cu",
     "AnyEnergyContainerBaseRecipeDictionary": "cv",
     "AnyEnergy": "cw",
-    "AnyEnergyContainer": "cx"
+    "AnyEnergyContainer": "cx",
+    "AnyFluidIn": "cy",
+    "AnyFluidOut": "cz",
+    "AnySolidIn": "cA",
+    "AnySolidOut": "cB",
+    "AnyEnergyIn": "cC",
+    "AnyEnergyOut": "cD"
   },
-  "lastKey": 777
+  "lastKey": 783
 }

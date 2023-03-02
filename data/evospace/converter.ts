@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import {applyPatch} from 'diff';
 import description from './description.json';
 import {GameRecipeDictionaryExData, GameRecipeIOType} from './types/custom-game-data';
-import type {Converter} from '../processing';
+import type {ConvertedData} from '../processing';
 
 import type {
     Images,
@@ -26,6 +26,7 @@ import type {
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
 import {GameItemType} from '../../site/data/types/contants';
+import {ImageProcessor} from '../image-processor';
 
 const _dirname = __dirname;
 const __parsed = path.join(_dirname, 'parsed');
@@ -162,25 +163,40 @@ async function convertGameData() {
     const patchedData = patchData ? applyPatch(parsedData, patchData) : parsedData;
     const patchedDataJson: JsonData = JSON.parse(patchedData);
 
-    const imagesJson: Images = JSON.parse(fs.readFileSync(path.join(__parsed, 'images.json'), 'utf8'));
-
     const gameData: GameDataSerialized = {
         recipeDictionaries: convertRecipes(patchedDataJson.Recipes),
         items: convertItems(patchedDataJson.Items),
-        images: Object.fromEntries(
-            Object.entries(imagesJson).map(([key, value]) => [imageNameMapper(key), value]),
-        ),
+        images: {},
         description,
     };
     return gameData;
 }
 
-function useConverter(): Converter {
+async function convertImages() {
+    let imagesJson: Images = JSON.parse(fs.readFileSync(path.join(__parsed, 'images.json'), 'utf8'));
+
+    const imageProcessor = new ImageProcessor(32);
+    await imageProcessor.addCollectionBuffer(fs.readFileSync(path.join(__parsed, 'images.png')), imagesJson);
+    await imageProcessor.addImageFolder(path.join(__static, 'images'));
+
+    const {image: imagesData, references} = await imageProcessor.composeImage();
+    imagesJson = Object.fromEntries(
+        Object.entries(references).map(([key, value]) => [imageNameMapper(key), value]),
+    );
+
     return {
-        convertGameData,
-        async loadImages() {
-            return fs.readFileSync(path.join(__parsed, 'images.png'));
-        },
+        imagesJson,
+        imagesData,
+    };
+}
+
+async function useConverter(): Promise<ConvertedData> {
+    const gameData = await convertGameData();
+    const images = await convertImages();
+    gameData.images = images.imagesJson;
+    return {
+        gameData,
+        imagesData: images.imagesData,
     };
 }
 

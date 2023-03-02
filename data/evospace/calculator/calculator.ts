@@ -65,7 +65,9 @@ export function useCalculator(): Calculator {
     };
 
     const isCommonIo: Calculator['isCommonIo'] = function(io) {
-        return io.type == GameRecipeIOType.Resource;
+        const items = io.isInput ? io.recipe.input : io.recipe.output;
+        return (io.type == GameRecipeIOType.Resource)
+            && (items.length > 1);
     };
 
     return {

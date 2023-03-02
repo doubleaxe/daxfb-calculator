@@ -6,11 +6,11 @@ import type {
     GameDataSerialized,
 } from '#types/game-data-serialized';
 
-export interface Converter {
-    convertGameData: () => Promise<GameDataSerialized>;
-    loadImages: () => Promise<Buffer>;
+export interface ConvertedData {
+    gameData: GameDataSerialized;
+    imagesData: Buffer;
 }
 
 export type ConverterFactory = {
-    useConverter: () => Converter;
+    useConverter: () => Promise<ConvertedData>;
 };

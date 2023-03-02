@@ -45,7 +45,7 @@ Index: data.json
              "Count": 10,
              "Name": "ElectricityStaticItem"
            },
-@@ -30706,14 +30707,95 @@
+@@ -30706,14 +30707,116 @@
            "Name": "Helium",
            "Output": [],
            "Ticks": 1
@@ -80,7 +80,14 @@ Index: data.json
 +              "Name": "AnyFluidStaticItem"
 +            }
 +          ],
-+          "Name": "AnyFluid",
++          "Name": "AnyFluidIn",
++          "Output": [],
++          "Ticks": 1
++        },
++        {
++          "Category_T": "parts",
++          "Input": [],
++          "Name": "AnyFluidOut",
 +          "Output": [
 +            {
 +              "Count": 50,
@@ -102,7 +109,14 @@ Index: data.json
 +              "Name": "AnySolidStaticItem"
 +            }
 +          ],
-+          "Name": "AnySolid",
++          "Name": "AnySolidIn",
++          "Output": [],
++          "Ticks": 1
++        },
++        {
++          "Category_T": "parts",
++          "Input": [],
++          "Name": "AnySolidOut",
 +          "Output": [
 +            {
 +              "Count": 50,
@@ -119,12 +133,19 @@ Index: data.json
 +        {
 +          "Category_T": "parts",
 +          "Input": [],
-+          "Name": "AnyEnergy",
++          "Name": "AnyEnergyIn",
 +          "Output": [],
 +          "ResourceInput": {
 +            "Count": 50000000,
 +            "Name": "AnyEnergyStaticItem"
 +          },
++          "Ticks": 1
++        },
++        {
++          "Category_T": "parts",
++          "Input": [],
++          "Name": "AnyEnergyOut",
++          "Output": [],
 +          "ResourceOutput": {
 +            "Count": 50000000,
 +            "Name": "AnyEnergyStaticItem"
@@ -141,7 +162,7 @@ Index: data.json
            "Input": [
              {
                "Count": 1000,
-@@ -30853,14 +30935,200 @@
+@@ -30853,14 +30956,200 @@
            "ResourceOutput": {
              "Count": 20,
              "Name": "HeatStaticItem"
@@ -342,7 +363,7 @@ Index: data.json
        "Category": "Copper",
        "Class": "SolidStaticItem",
        "Image": "T_CopperMacerator",
-@@ -31827,77 +32095,109 @@
+@@ -31827,77 +32116,109 @@
      {
        "Category": "Stone",
        "Class": "SolidStaticItem",
@@ -452,7 +473,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperItemRack",
        "MaxCount": 32,
-@@ -32238,68 +32538,96 @@
+@@ -32238,68 +32559,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -549,7 +570,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_SteelPress",
        "MaxCount": 32,
-@@ -34183,68 +34511,96 @@
+@@ -34183,68 +34532,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -646,7 +667,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperAssembler",
        "MaxCount": 32,
-@@ -34597,14 +34953,18 @@
+@@ -34597,14 +34974,18 @@
      {
        "Category": "Steel",
        "Class": "SolidStaticItem",
@@ -665,7 +686,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperLamp",
        "MaxCount": 32,
-@@ -35571,50 +35931,70 @@
+@@ -35571,50 +35952,70 @@
      {
        "Category": "Aluminium",
        "Class": "SolidStaticItem",
@@ -736,7 +757,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_StainlessSteelIndustrialSmelter",
        "MaxCount": 32,
-@@ -37656,10 +38036,46 @@
+@@ -37656,10 +38057,46 @@
        "Class": "FluidStaticItem",
        "Image": "T_Mercury",
        "MaxCount": 1,
@@ -747,7 +768,7 @@ Index: data.json
 +    },
 +    {
 +      "Class": "AbstractStaticItem",
-+      "Image": "T_NeutroniumBatteryBox",
++      "Image": "T_AnyEnergyContainer",
 +      "MaxCount": 1,
 +      "Name": "AnyEnergyContainerStaticItem",
 +      "Tag": "Misc",
@@ -759,7 +780,7 @@ Index: data.json
 +    },
 +    {
 +      "Class": "SolidStaticItem",
-+      "Image": "T_StoneTiles",
++      "Image": "T_AnySolid",
 +      "MaxCount": 1,
 +      "Name": "AnySolidStaticItem",
 +      "Tag": "Misc",
@@ -767,7 +788,7 @@ Index: data.json
 +    },
 +    {
 +      "Class": "FluidStaticItem",
-+      "Image": "T_Oxygen",
++      "Image": "T_AnyFluid",
 +      "MaxCount": 1,
 +      "Name": "AnyFluidStaticItem",
 +      "Tag": "Misc",
@@ -775,7 +796,7 @@ Index: data.json
 +    },
 +    {
 +      "Class": "AbstractStaticItem",
-+      "Image": "T_NeutroniumSmallBattery",
++      "Image": "T_AnyEnergy",
 +      "MaxCount": 1,
 +      "Name": "AnyEnergyStaticItem",
 +      "Tag": "Misc",

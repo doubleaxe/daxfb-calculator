@@ -52,16 +52,14 @@ async function buildSingleGame(game: string) {
 
     const {default: converterFactory}: {default: ConverterFactory} = await import(path.join(gameDir, 'converter.ts'));
     const {
-        convertGameData,
-        loadImages,
-    } = converterFactory.useConverter();
-    const gameData = await convertGameData();
+        gameData,
+        imagesData,
+    } = await converterFactory.useConverter();
     const {
         gameData: minifiedGameData,
         reverceKeys,
     } = await (new KeyProcessor(gameData, gameDir, isRebuildKeys, isDebug).processKeys());
 
-    const imagesData = await loadImages();
     if(imagesData) {
         fs.writeFileSync(path.join(targetGameDir, 'images.png'), imagesData);
     }
