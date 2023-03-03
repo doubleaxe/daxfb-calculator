@@ -8,7 +8,7 @@ import type {
 
 export function useCalculator(): Calculator {
     const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
-        return io.count / io.recipe.time;
+        return io.count * (item.recipe?.tier || 1) / io.recipe.time;
     };
 
     const formatCountPerSecond: Calculator['formatCountPerSecond'] = function(io, count) {

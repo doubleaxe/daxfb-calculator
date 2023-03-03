@@ -124,16 +124,16 @@ In this mode calculator will answer the question: how many factories will be nee
 
 # Known problems and limitations
 
+## Factory dual dependent io
+
 When factory outputs two items or more, and these items directly or through production chain will be both feed to another factory at imperfect rate (i.e. first factory cannot dump all its output to second factory). In this case graph solver cannot solve factory io, so entire flow rate will be 0. This is not actually a bug, because real production chain of this type will also produce at zero rate after some time, because one output will be clogged. To overcome this, use two the same factories as input or output, or use 'fake' dump factory do dump exceeded resources.
 
 <details><summary>Example</summary>
 
-[https://doubleaxe.github.io/daxfb/evospace-calculator/](https://doubleaxe.github.io/daxfb/evospace-calculator/)
-```
-DAXFBESC$eNpNz70OwyAMBOB3udkDxpAAe4bOHatMHZL-RVWHLFHevdDgNAs
-6rA-fWHBDuiyYkOBnEN75yiwNiYk94ZPnccZKG7lXETyTsFfQ5fEVKSrjU3V
-ePFluqmuHzQV1VgtNtBR0XfvY-2TSQmcotArGP3gpsIE8u4PI8fn7WzmZbF_
-elGxIDpn37A5GyPVlw4i0YMgbu3MumpE4rOsXTWxMyA
-```
-![limitation-ratio](./assets/limitation-ratio.gif)
+![limitation-ratio](./assets/limitation-ratio1.png)
+![limitation-ratio](./assets/limitation-ratio2.png)
 </details>
+
+## Too much flow difference between connected factories
+
+When one factory produces/consumes at much higher ratio, than other connected factory (1000x or more), and their numbers are not integers, calculator fails to determine correct count due to insufficient precision. To fix this issue, precision should be set to other (lower) value, although it may not be enough for some cases.

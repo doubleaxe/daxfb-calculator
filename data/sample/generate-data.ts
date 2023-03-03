@@ -35,6 +35,20 @@ export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
                 name: 'C',
             }],
             time: 1,
+        }, {
+            input: [{
+                count: 1000000,
+                name: 'A',
+            }, {
+                count: 2000000,
+                name: 'R',
+            }],
+            name: 'V3',
+            output: [{
+                count: 4000000,
+                name: 'C',
+            }],
+            time: 1,
         }],
     }, {
         name: 'W',
@@ -53,6 +67,26 @@ export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
             output: [{
                 count: 3,
                 name: 'D',
+            }],
+            time: 1,
+        }],
+    }, {
+        name: 'X',
+        recipes: [{
+            input: [{
+                count: 3,
+                name: 'D',
+            }, {
+                count: 5,
+                name: 'R',
+            }],
+            name: 'X1',
+            output: [{
+                count: 4,
+                name: 'B',
+            }, {
+                count: 2,
+                name: 'C',
             }],
             time: 1,
         }],
@@ -133,6 +167,14 @@ export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
         recipe: {
             recipeDictionary: 'W',
             tier: 2,
+        },
+    }, {
+        image: '4',
+        name: '4',
+        label: 'Factory 3',
+        recipe: {
+            recipeDictionary: 'X',
+            tier: 1,
         },
     }, {
         image: 'M',

@@ -45,7 +45,7 @@ Index: data.json
              "Count": 10,
              "Name": "ElectricityStaticItem"
            },
-@@ -30706,14 +30707,116 @@
+@@ -30706,14 +30707,138 @@
            "Name": "Helium",
            "Output": [],
            "Ticks": 1
@@ -59,13 +59,13 @@ Index: data.json
 +          "Category_T": "parts",
 +          "Input": [
 +            {
-+              "Count": 50,
++              "Count": 10,
 +              "Name": "AnySolidStaticItem"
 +            }
 +          ],
 +          "Name": "AnySolid",
 +          "Output": [],
-+          "Ticks": 1
++          "Ticks": 20
 +        }
 +      ]
 +    },
@@ -76,13 +76,13 @@ Index: data.json
 +          "Category_T": "parts",
 +          "Input": [
 +            {
-+              "Count": 50,
++              "Count": 1000,
 +              "Name": "AnyFluidStaticItem"
 +            }
 +          ],
 +          "Name": "AnyFluidIn",
 +          "Output": [],
-+          "Ticks": 1
++          "Ticks": 20
 +        },
 +        {
 +          "Category_T": "parts",
@@ -90,11 +90,11 @@ Index: data.json
 +          "Name": "AnyFluidOut",
 +          "Output": [
 +            {
-+              "Count": 50,
++              "Count": 1000,
 +              "Name": "AnyFluidStaticItem"
 +            }
 +          ],
-+          "Ticks": 1
++          "Ticks": 20
 +        }
 +      ]
 +    },
@@ -105,13 +105,13 @@ Index: data.json
 +          "Category_T": "parts",
 +          "Input": [
 +            {
-+              "Count": 50,
++              "Count": 10,
 +              "Name": "AnySolidStaticItem"
 +            }
 +          ],
 +          "Name": "AnySolidIn",
 +          "Output": [],
-+          "Ticks": 1
++          "Ticks": 20
 +        },
 +        {
 +          "Category_T": "parts",
@@ -119,11 +119,11 @@ Index: data.json
 +          "Name": "AnySolidOut",
 +          "Output": [
 +            {
-+              "Count": 50,
++              "Count": 10,
 +              "Name": "AnySolidStaticItem"
 +            }
 +          ],
-+          "Ticks": 1
++          "Ticks": 20
 +        }
 +      ]
 +    },
@@ -133,10 +133,10 @@ Index: data.json
 +        {
 +          "Category_T": "parts",
 +          "Input": [],
-+          "Name": "AnyEnergyIn",
++          "Name": "AnyEnergyIn10kW",
 +          "Output": [],
 +          "ResourceInput": {
-+            "Count": 50000000,
++            "Count": 500,
 +            "Name": "AnyEnergyStaticItem"
 +          },
 +          "Ticks": 1
@@ -144,10 +144,32 @@ Index: data.json
 +        {
 +          "Category_T": "parts",
 +          "Input": [],
-+          "Name": "AnyEnergyOut",
++          "Name": "AnyEnergyIn10MW",
++          "Output": [],
++          "ResourceInput": {
++            "Count": 500000,
++            "Name": "AnyEnergyStaticItem"
++          },
++          "Ticks": 1
++        },
++        {
++          "Category_T": "parts",
++          "Input": [],
++          "Name": "AnyEnergyOut10kW",
 +          "Output": [],
 +          "ResourceOutput": {
-+            "Count": 50000000,
++            "Count": 500,
++            "Name": "AnyEnergyStaticItem"
++          },
++          "Ticks": 1
++        },
++        {
++          "Category_T": "parts",
++          "Input": [],
++          "Name": "AnyEnergyOut10MW",
++          "Output": [],
++          "ResourceOutput": {
++            "Count": 500000,
 +            "Name": "AnyEnergyStaticItem"
 +          },
 +          "Ticks": 1
@@ -162,7 +184,7 @@ Index: data.json
            "Input": [
              {
                "Count": 1000,
-@@ -30853,14 +30956,200 @@
+@@ -30853,14 +30978,200 @@
            "ResourceOutput": {
              "Count": 20,
              "Name": "HeatStaticItem"
@@ -363,7 +385,7 @@ Index: data.json
        "Category": "Copper",
        "Class": "SolidStaticItem",
        "Image": "T_CopperMacerator",
-@@ -31827,77 +32116,109 @@
+@@ -31827,77 +32138,109 @@
      {
        "Category": "Stone",
        "Class": "SolidStaticItem",
@@ -473,7 +495,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperItemRack",
        "MaxCount": 32,
-@@ -32238,68 +32559,96 @@
+@@ -32238,68 +32581,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -570,7 +592,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_SteelPress",
        "MaxCount": 32,
-@@ -34183,68 +34532,96 @@
+@@ -34183,68 +34554,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -667,7 +689,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperAssembler",
        "MaxCount": 32,
-@@ -34597,14 +34974,18 @@
+@@ -34597,14 +34996,18 @@
      {
        "Category": "Steel",
        "Class": "SolidStaticItem",
@@ -686,7 +708,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperLamp",
        "MaxCount": 32,
-@@ -35571,50 +35952,70 @@
+@@ -35571,50 +35974,70 @@
      {
        "Category": "Aluminium",
        "Class": "SolidStaticItem",
@@ -757,7 +779,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_StainlessSteelIndustrialSmelter",
        "MaxCount": 32,
-@@ -37656,10 +38057,46 @@
+@@ -37656,10 +38079,47 @@
        "Class": "FluidStaticItem",
        "Image": "T_Mercury",
        "MaxCount": 1,
@@ -792,6 +814,7 @@ Index: data.json
 +      "MaxCount": 1,
 +      "Name": "AnyFluidStaticItem",
 +      "Tag": "Misc",
++      "UnitMul": 0.001,
 +      "Label": "Any Fluid"
 +    },
 +    {
