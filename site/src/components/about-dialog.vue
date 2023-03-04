@@ -7,6 +7,10 @@ import {injectGameData} from '@/scripts/data';
 import {mdiClose, mdiEmail} from '@mdi/js';
 import {useVModel} from '@vueuse/core';
 
+function padNumber(num: number, padding?: number) {
+    return num.toString().padStart(padding || 2, '0');
+}
+
 const props = defineProps<{
     modelValue: boolean;
 }>();
@@ -14,7 +18,9 @@ const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 const {gameDescription} = injectGameData();
 const __VERSION__ = import.meta.env.VITE_VERSION;
-const __BUILD_TIME__ = new Date(import.meta.env.VITE_BUILD_TIME).toISOString().replace('T', ' ').replace(/\..*$/, '');
+const btime = new Date(import.meta.env.VITE_BUILD_TIME);
+const __BUILD_TIME_STR__ = `${padNumber(btime.getFullYear(), 4)}-${padNumber(btime.getMonth() + 1)}-${padNumber(btime.getDate())}`
+    + ` ${padNumber(btime.getHours())}:${padNumber(btime.getMinutes())}:${padNumber(btime.getSeconds())}`;
 </script>
 
 <template>
@@ -43,7 +49,7 @@ const __BUILD_TIME__ = new Date(import.meta.env.VITE_BUILD_TIME).toISOString().r
                     </v-list-item>
                     <v-list-item title="Game version" :subtitle="gameDescription.version" />
                     <v-list-item title="Build version" :subtitle="__VERSION__" />
-                    <v-list-item title="Build time" :subtitle="__BUILD_TIME__" />
+                    <v-list-item title="Build time" :subtitle="__BUILD_TIME_STR__" />
                     <v-list-item title="Bug reports">
                         <v-list-item-subtitle>
                             <a href="https://github.com/doubleaxe/daxfb-calculator/issues" target="_blank">

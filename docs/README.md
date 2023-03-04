@@ -1,6 +1,8 @@
 # Calculator/Factory Planner for factory management games
 
-[Link to this page](https://doubleaxe.github.io/daxfb-calculator/).
+[Link to this page](https://doubleaxe.github.io/daxfb-calculator/docs/).
+
+[Edit this page](https://github.com/doubleaxe/daxfb-calculator/edit/main/docs/README.md).
 
 # General usage
 

@@ -5,18 +5,15 @@ Please don't remove this comment if you use unmodified file
 import {inject, ref, shallowRef, unref, watch, type InjectionKey, type Ref, type ShallowRef} from 'vue';
 import {useGameDataHolder, type GameData} from './game-data-holder';
 export type {GameData};
-//vite cannot find #types reference, using full relative path
-import gameList from '../../../data/types/game-list.json';
+import gameList from '#types/game-list.json';
 import {createCss, loadScript} from '../load-script-css';
 import type {GameImplementation} from '#types/game-implementation';
 import {useDebounceFn} from '@vueuse/core';
 
+const __VERSION__ = 'v=' + encodeURIComponent(import.meta.env.VITE_VERSION);
+
 function initializeCss(gameId: string) {
-    const cssContent = `
-.icon-component {
-    background-image: url(games/${encodeURIComponent(gameId)}/images.png);
-};
-`;
+    const cssContent = `.icon-component {background-image: url(games/${encodeURIComponent(gameId)}/images.png?${__VERSION__});}`;
     createCss(cssContent);
 }
 
@@ -35,7 +32,7 @@ export function useGameDataProvider(gameId: Ref<string>, onError?: (e: unknown) 
             .then(() => {
                 if(!(_gameId in gameList))
                     throw new Error(`Invalid game id: ${_gameId}`);
-                return loadScript(`games/${encodeURIComponent(_gameId)}/game.js`, {
+                return loadScript(`games/${encodeURIComponent(_gameId)}/game.js?${__VERSION__}`, {
                     globalVariable: 'gameImplementation',
                 });
             })

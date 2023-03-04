@@ -5,14 +5,20 @@ Later it turned out this project is quite universal and could be used for other 
 
 ### Builds for currently supported games
 
+#### Common startup page for all games
+
+[https://doubleaxe.github.io/daxfb-calculator/](https://doubleaxe.github.io/daxfb-calculator/)
+
+#### Direct links for specific games
+
 - Sample - demo game to build help pages.
-Calculator link: [https://doubleaxe.github.io/daxfb/sample/](https://doubleaxe.github.io/daxfb/sample/).
+Calculator link: [https://doubleaxe.github.io/daxfb-calculator/?gameId=sample](https://doubleaxe.github.io/daxfb-calculator/?gameId=sample).
 - [Evospace](https://store.steampowered.com/app/1013540/Evospace/).
-Calculator link: [https://doubleaxe.github.io/daxfb/evospace-calculator/](https://doubleaxe.github.io/daxfb/evospace-calculator/).
+Calculator link: [https://doubleaxe.github.io/daxfb-calculator/?gameId=evospace](https://doubleaxe.github.io/daxfb-calculator/?gameId=evospace).
 
 # How to use
 
-Help is available as separate page [https://doubleaxe.github.io/daxfb-calculator/](https://doubleaxe.github.io/daxfb-calculator/).
+Help is available as separate page [https://doubleaxe.github.io/daxfb-calculator/docs/](https://doubleaxe.github.io/daxfb-calculator/docs/).
 Help sources are located inside `docs` folder in this repository.
 
 # Building

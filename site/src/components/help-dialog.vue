@@ -24,7 +24,7 @@ const dialog = useVModel(props, 'modelValue', emit);
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <iframe class="help-iframe" src="https://doubleaxe.github.io/daxfb-calculator/" />
+            <iframe class="help-iframe" src="https://doubleaxe.github.io/daxfb-calculator/docs/" />
         </v-sheet>
     </v-dialog>
 </template>

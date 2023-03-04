@@ -25,6 +25,7 @@ import type {
     GameRecipeDictionarySerialized,
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
+//using relative path, without #types, because it is compiled into js, and not handled by typescript only
 import {GameItemType} from '../../site/data/types/contants';
 import {ImageProcessor} from '../image-processor';
 

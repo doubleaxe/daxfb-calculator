@@ -27,7 +27,6 @@ jobs:
       - name: Build
         run: |
           npm run build
-          cp -R docs dist
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
@@ -35,7 +34,7 @@ jobs:
           path: dist
       - name: Zip release artifact
         run: |
-          zip -r daxfb-calculator.zip * -x docs/_config.yml
+          zip -r daxfb-calculator.zip *
         working-directory: dist
       - name: Upload release artifact
         uses: actions/upload-artifact@v3
