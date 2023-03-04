@@ -1,0 +1,78 @@
+name: Build and Deploy Release
+on:
+  push:
+    tags:
+      - v1.*
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "deploy"
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: |
+          npm run build
+          cp -R docs dist
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          name: daxfb-calculator-pages
+          path: dist
+      - name: Zip release artifact
+        run: |
+          zip -r daxfb-calculator.zip * -x docs/_config.yml
+        working-directory: dist
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: daxfb-calculator-release
+          path: dist/daxfb-calculator.zip
+          retention-days: 1
+  deploy-pages:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy GitHub pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+        with:
+          artifact_name: daxfb-calculator-pages
+  deploy-release:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get tag name
+        id: get_tag
+        run: echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
+      - name: Download release artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: daxfb-calculator-release
+          path: daxfb-calculator-${{ steps.get_tag.outputs.TAG }}.zip
+      - name: Create release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          draft: true
+          prerelease: false
+          files: |
+            daxfb-calculator-${{ steps.get_tag.outputs.TAG }}.zip

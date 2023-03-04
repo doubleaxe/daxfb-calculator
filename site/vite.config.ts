@@ -56,7 +56,7 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             plugins: [visualizer({
-                filename: path.join(_dirname, '../dist/stats.html'),
+                filename: path.join(_dirname, '../tmp/stats.html'),
             })],
             output: {
                 format: 'iife',
