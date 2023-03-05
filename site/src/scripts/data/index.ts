@@ -23,6 +23,7 @@ export function useGameDataProvider(gameId: Ref<string>, onError?: (e: unknown) 
     const isLoading = ref(false);
     const isReady = ref(false);
     const isFailed = ref(false);
+    const isAutomatic = ref(false);
     const gameDataRef = shallowRef<GameData | undefined>();
 
     function loadGameData() {
@@ -62,13 +63,14 @@ export function useGameDataProvider(gameId: Ref<string>, onError?: (e: unknown) 
         isLoading.value = true;
         isReady.value = false;
         isFailed.value = false;
-        loadGameDataDebounce();
+        unref(isAutomatic) ? loadGameData() : loadGameDataDebounce();
     }, {immediate: true});
 
     return {
         isLoading,
         isReady,
         isFailed,
+        isAutomatic,
         gameDataRef,
         gameList,
     };

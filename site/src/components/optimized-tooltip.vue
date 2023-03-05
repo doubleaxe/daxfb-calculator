@@ -9,7 +9,7 @@ Please don't remove this comment if you use unmodified file
 
 import {Point, Rect} from '@/scripts/geometry';
 import {unrefElement, useTimeoutFn} from '@vueuse/core';
-import {onMounted, onUnmounted, reactive, ref} from 'vue';
+import {nextTick, onMounted, onUnmounted, reactive, ref} from 'vue';
 
 const mainElementRef = ref<HTMLElement | undefined>();
 
@@ -32,7 +32,9 @@ const tooltipObject: {
 const {start: startTooltipTimeout, stop: cancelTooltipTimeout} = useTimeoutFn(() => {
     tooltipObject.text = tooltipObject.tooltipText;
     tooltipObject.activator = tooltipObject.tooltipElement || '';
-    tooltipObject.show = true;
+    nextTick(() => {
+        tooltipObject.show = true;
+    });
 }, 500, {immediate: false});
 
 function cancelTooltip() {

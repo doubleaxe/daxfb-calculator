@@ -38,8 +38,8 @@ function recipeSelected(name: string) {
 }
 
 function performActivate(_activatorObj: Activator) {
+    activator.value = _activatorObj.activator;
     nextTick(() => {
-        activator.value = _activatorObj.activator;
         active.value = true;
 
         const sameItem = (unref(item)?.key == _activatorObj.item.key);
@@ -75,10 +75,14 @@ function activate(_item: BlueprintItemModel, _activator: Element) {
     }
 }
 function activateOnClose() {
-    if(waitingForClose) {
-        performActivate(waitingForClose);
-        waitingForClose = undefined;
-    }
+    if(!waitingForClose)
+        return;
+    const _waitingForClose = waitingForClose;
+    waitingForClose = undefined;
+    activator.value = undefined;
+    nextTick(() => {
+        performActivate(_waitingForClose);
+    });
 }
 
 const applyFilter = useDebounceFn(() => {

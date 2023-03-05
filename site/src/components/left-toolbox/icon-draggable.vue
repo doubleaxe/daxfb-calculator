@@ -35,16 +35,14 @@ watch(isDragging, (value) => {
 </script>
 
 <template>
-    <manual-transition :animate="isDragging">
-        <v-sheet
-            ref="movableElem"
-            class="rounded dragging-elevation icon-draggable hover-background"
-            :class="draggableClass"
-            :style="draggableStyle"
-        >
-            <icon-component :image="currentItem?.image || ''" />
-        </v-sheet>
-    </manual-transition>
+    <v-sheet
+        ref="movableElem"
+        class="rounded dragging-elevation icon-draggable hover-background"
+        :class="draggableClass"
+        :style="draggableStyle"
+    >
+        <icon-component :image="currentItem?.image || ''" />
+    </v-sheet>
 </template>
 
 <style scoped>

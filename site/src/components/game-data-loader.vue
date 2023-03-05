@@ -12,8 +12,9 @@ const emit = defineEmits(['ready']);
 const loadGameId = ref('');
 const gameId = ref('');
 const {showError} = useErrorHandler();
-const {gameList, gameDataRef, isReady, isLoading} = useGameDataProvider(gameId, (err: unknown) => {
+const {gameList, gameDataRef, isReady, isLoading, isAutomatic} = useGameDataProvider(gameId, (err: unknown) => {
     gameId.value = '';
+    isAutomatic.value = false;
     showError('Failed to load game data', err);
 });
 
@@ -29,6 +30,7 @@ onMounted(() => {
     if(_gameId) {
         loadGameId.value = _gameId;
         gameId.value = _gameId;
+        isAutomatic.value = true;
     }
 });
 </script>
@@ -41,7 +43,7 @@ onMounted(() => {
             </v-radio-group>
         </v-card-text>
         <v-card-actions>
-            <v-btn color="primary" variant="outlined" :disabled="!loadGameId" @click="gameId = loadGameId">
+            <v-btn color="primary" variant="outlined" :disabled="!loadGameId" @click="gameId = loadGameId; isAutomatic = false;">
                 Load game
             </v-btn>
         </v-card-actions>

@@ -142,16 +142,14 @@ useEventHook(notifySelected, (param) => {
 </script>
 
 <template>
-    <manual-transition :animate="isDragging">
-        <v-sheet
-            ref="movableElem"
-            class="rounded dragging-elevation link-draggable hover-background"
-            :class="draggableClass"
-            :style="draggableStyle"
-        >
-            <icon-component :image="currentItem?.source?.image || ''" />
-        </v-sheet>
-    </manual-transition>
+    <v-sheet
+        ref="movableElem"
+        class="rounded dragging-elevation link-draggable hover-background"
+        :class="draggableClass"
+        :style="draggableStyle"
+    >
+        <icon-component :image="currentItem?.source?.image || ''" />
+    </v-sheet>
 </template>
 
 <style scoped>
