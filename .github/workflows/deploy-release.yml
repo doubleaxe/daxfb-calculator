@@ -6,8 +6,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
   group: "deploy"
   cancel-in-progress: true
@@ -44,6 +42,9 @@ jobs:
           retention-days: 1
   deploy-pages:
     needs: build
+    permissions:
+      id-token: write
+      pages: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -57,21 +58,32 @@ jobs:
   deploy-release:
     if: github.event_name == 'push'
     needs: build
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Get tag name
-        id: get_tag
-        run: echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - name: Download release artifact
         uses: actions/download-artifact@v3
         with:
           name: daxfb-calculator-release
-          path: daxfb-calculator-${{ steps.get_tag.outputs.TAG }}.zip
-      - name: Create release
-        uses: marvinpinto/action-automatic-releases@latest
+          path: ~/daxfb-calculator-${{ env.RELEASE_TAG }}.zip
+      - name: Check artifact
+        run: |
+          ls -l ~
+          unzip -t ~/daxfb-calculator-${{ env.RELEASE_TAG }}.zip
+      - name: Build changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          commitMode: true
+      - name: Create release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
           draft: true
           prerelease: false
+          generate_release_notes: false
+          body: ${{ steps.github_release.outputs.changelog }}
           files: |
-            daxfb-calculator-${{ steps.get_tag.outputs.TAG }}.zip
+            ~/daxfb-calculator-${{ env.RELEASE_TAG }}.zip

@@ -7,5 +7,6 @@ dist
 npm-debug.log*
 site/components.d.ts
 site/public/games
+site/public/docs
 data/evospace/static/data.json
 tmp

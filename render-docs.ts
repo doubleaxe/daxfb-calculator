@@ -11,7 +11,7 @@ import {marked} from 'marked';
 
 const _dirname = __dirname;
 const _docs = path.join(_dirname, 'docs');
-const _target = path.join(_dirname, 'dist', 'docs');
+const _target = path.join(_dirname, 'site', 'public', 'docs');
 const _css = path.join(_dirname, 'node_modules', 'github-markdown-css');
 /*
 TODO:

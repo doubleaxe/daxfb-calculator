@@ -11,6 +11,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
+const __VERSION__ = 'v=' + encodeURIComponent(import.meta.env.VITE_VERSION);
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const dialog = useVModel(props, 'modelValue', emit);
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <iframe class="help-iframe" src="https://doubleaxe.github.io/daxfb-calculator/docs/" />
+            <iframe class="help-iframe" :src="`./docs/index.html?${__VERSION__}`" />
         </v-sheet>
     </v-dialog>
 </template>
