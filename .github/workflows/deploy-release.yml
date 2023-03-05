@@ -62,28 +62,36 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Get tag name
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - name: Download release artifact
+        id: download_artifact
         uses: actions/download-artifact@v3
         with:
           name: daxfb-calculator-release
-          path: ~/daxfb-calculator-${{ env.RELEASE_TAG }}.zip
       - name: Check artifact
         run: |
-          ls -l ~
-          unzip -t ~/daxfb-calculator-${{ env.RELEASE_TAG }}.zip
+          ls -lR ${{ steps.download_artifact.outputs.download-path }}
+          cp ${{ steps.download_artifact.outputs.download-path }}/daxfb-calculator.zip daxfb-calculator-${{ env.RELEASE_TAG }}.zip
+          ls -l .
+          unzip -t daxfb-calculator-${{ env.RELEASE_TAG }}.zip
       - name: Build changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.0.1
         with:
-          commitMode: true
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check changelog
+        run: |
+          printf %s "${{ steps.changelog.outputs.changelog }}" > CHANGELOG.txt
+          ls -l .
       - name: Create release
         uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           prerelease: false
           generate_release_notes: false
-          body: ${{ steps.github_release.outputs.changelog }}
+          body_path: CHANGELOG.txt
           files: |
-            ~/daxfb-calculator-${{ env.RELEASE_TAG }}.zip
+            daxfb-calculator-${{ env.RELEASE_TAG }}.zip
