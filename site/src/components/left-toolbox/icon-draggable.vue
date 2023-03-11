@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -49,11 +49,6 @@ watch(isDragging, (value) => {
 .icon-draggable {
     position: fixed;
     z-index: 5000;
-}
-</style>
-<style>
-.icon-draggable-hidden {
-    z-index: -1;
-    opacity: 0;
+    touch-action: none;
 }
 </style>

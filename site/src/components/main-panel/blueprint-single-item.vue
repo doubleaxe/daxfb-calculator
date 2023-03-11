@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -43,8 +43,8 @@ const computedElevation = computed(() => {
 
 const computeStyle = computed(() => {
     return {
-        left: `${props.item.position.x}px`,
-        top: `${props.item.position.y}px`,
+        left: `${props.item.rect.x}px`,
+        top: `${props.item.rect.y}px`,
     };
 });
 
@@ -60,6 +60,10 @@ function updateIoRects() {
         const _recipe = props.item?.selectedRecipe;
         if(!mainDiv || !_recipe)
             return;
+
+        const mainDivrect: ReadonlyRectType = screenToClient(props.parent, mainDiv.getBoundingClientRect(), settings.scale);
+        props.item.setRect(props.item.rect.assignSize(mainDivrect));
+
         const ioElements = mainDiv.querySelectorAll('[data-io-id]');
         const ioScreenRects: ReadonlyRectType[] = [];
         const ioList: RecipeIOModel[] = [];
@@ -74,7 +78,7 @@ function updateIoRects() {
         }
         const ioClientRects = screenToClient(props.parent, ioScreenRects, settings.scale);
 
-        ioList.forEach((io, index) => { io.rect = ioClientRects[index] || Rect.assign(); });
+        ioList.forEach((io, index) => { io.setRect(ioClientRects[index] || Rect.assign()); });
     });
 }
 
@@ -106,10 +110,15 @@ function flip() {
 
 onMounted(updateIoRects);
 watch([
-    () => props.item.position,
     () => props.item.selectedRecipe,
     () => props.item.isFlipped,
 ], updateIoRects);
+watch(() => props.item.rect, (value, oldValue) => {
+    //size is updated by function updateIoRects
+    if((value.x !== oldValue.x) || (value.y !== oldValue.y)) {
+        updateIoRects();
+    }
+});
 </script>
 
 <template>
@@ -182,6 +191,7 @@ watch([
 .parent-div {
     position: absolute;
     user-select: none;
+    touch-action: none;
 }
 .title-row {
     display: block;

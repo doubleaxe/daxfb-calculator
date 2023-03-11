@@ -2,38 +2,36 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import {Point, Rect} from '../geometry';
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
 import type {SavedBlueprint} from './saved-blueprint';
 import type {
     BlueprintItemModel,
     LinkModel,
-    PublicPoint,
-    PublicRect,
     RecipeIOModel,
 } from './store';
 import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
-import {DEFAULT_PRECISION} from '../types';
+import {DEFAULT_PRECISION, type InterfaceOf} from '../types';
 import type {ErrorCollector} from '../error-collector';
 import type {GameData} from '../data';
+import {BlueprintSurface} from './blueprint-surface';
 
 export class BlueprintModelImpl {
     private readonly _gameData: GameData;
     private readonly _items = new Map<string, BlueprintItemModel>();
     private readonly _links = new Map<string, LinkModel>();
     private _tempLink?: LinkModel = undefined;
-    private _maxItemXY: PublicPoint = Point.assign();
-    private _boundingRect: PublicRect = Rect.assign();
     public hasCycles = false;
     private _solvePrecision = DEFAULT_PRECISION;
     private _autoSolveGraph = true;
     private _bulkUpdate = false;
+    private readonly _blueprintSurface: InterfaceOf<BlueprintSurface>;
 
     constructor(_gameData: GameData) {
         this._gameData = _gameData;
+        this._blueprintSurface = new BlueprintSurface(this);
     }
 
     get gameData() { return this._gameData; }
@@ -42,7 +40,9 @@ export class BlueprintModelImpl {
     get links() { return this._links.values(); }
     get tempLink() { return this._tempLink; }
 
-    get boundingRect() { return this._boundingRect; }
+    get boundingRect() { return this._blueprintSurface.boundingRect; }
+    freezeBoundingRect(freezeBoundingRect: boolean) { this._blueprintSurface.freezeBoundingRect(freezeBoundingRect); }
+
     get solvePrecision() { return this._solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
     get autoSolveGraph() { return this._autoSolveGraph; }
@@ -108,23 +108,7 @@ export class BlueprintModelImpl {
         if(this._bulkUpdate) {
             return;
         }
-        if(item) {
-            this._maxItemXY = this._maxItemXY.assignPoint({
-                x: Math.max(this._maxItemXY.x, item.position.x),
-                y: Math.max(this._maxItemXY.y, item.position.y),
-            });
-        } else {
-            const {maxX, maxY} = [...this.items].reduce((max, {position}) => ({
-                maxX: Math.max(position.x, max.maxX),
-                maxY: Math.max(position.y, max.maxY),
-            }), {maxX: 0, maxY: 0});
-            this._maxItemXY = this._maxItemXY.assignPoint({x: maxX, y: maxY});
-        }
-
-        this._boundingRect = this._boundingRect.assignSize({
-            width: Math.max(this._maxItemXY.x + 500, 2000),
-            height: Math.max(this._maxItemXY.y + 500, 2000),
-        });
+        this._blueprintSurface.updateSurface(item);
     }
 
     clear() {

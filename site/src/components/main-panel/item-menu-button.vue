@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -29,8 +29,7 @@ const menuOpened = ref(false);
                         @update:model-value="props.item.setCount($event);"
                     />
                 </v-list-item>
-                <!-- eslint-disable-next-line vue/no-mutating-props -->
-                <v-list-item title="Lock" @click="(props.item.isLocked = !props.item.isLocked)">
+                <v-list-item title="Lock" @click="props.item.setLocked(!props.item.isLocked)">
                     <template #prepend>
                         <v-list-item-action start>
                             <!-- eslint-disable-next-line vue/no-mutating-props -->

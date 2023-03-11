@@ -3,13 +3,12 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {GameItem, GameRecipeIO} from '#types/game-data';
-import {Rect} from '../geometry';
+import {Rect, type PublicRect} from '../geometry';
 import {ItemModelImpl} from './item';
 import type {
     BlueprintItemModel,
     BlueprintModel,
     LinkModel,
-    PublicRect,
     RecipeIOModel,
 } from './store';
 
@@ -50,7 +49,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
 
     //in client coordinates related to blueprint panel
     get rect(): PublicRect { return this._rect; }
-    set rect(rect: PublicRect) { this._rect = rect; }
+    setRect(rect: PublicRect) { this._rect = rect; }
     get isInput() { return this._isInput; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
@@ -111,7 +110,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     }
     createTempLink() {
         const clone = new RecipeIOModelImpl(this._io, {owner: this.owner, isReverce: true});
-        clone.rect = this._rect;
+        clone.setRect(this._rect);
         clone._$matherializeAbstractItem(this._matherializeAbstractItem);
         const link = this.owner?._$createTempLink(this, clone);
         return {

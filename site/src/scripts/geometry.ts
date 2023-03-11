@@ -1,7 +1,9 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {InterfaceOf} from './types';
+
 export type PointType = {x: number; y: number};
 export type ReadonlyPointType = Readonly<PointType>;
 export type PartialPointType = Partial<ReadonlyPointType>;
@@ -35,10 +37,24 @@ class PointBase<T> implements ReadonlyPointType {
             y: this.y + (sign || 1) * (point.y),
         });
     }
-    positive() {
+    limit(rect: PublicRect) {
+        let x = this.x;
+        if(x < rect.x)
+            x = rect.x;
+        if(x > rect.x1)
+            x = rect.x1;
+
+        let y = this.y;
+        if(y < rect.y)
+            y = rect.y;
+        if(y > rect.y1)
+            y = rect.y1;
+        if((x == this.x) && (y == this.y))
+            return this;
+
         return this.assignPoint({
-            x: Math.max(this.x, 0),
-            y: Math.max(this.y, 0),
+            x,
+            y,
         });
     }
     middlePoint(point: ReadonlyPointType) {
@@ -116,6 +132,26 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
             height: (this.height * scale),
         });
     }
+    limit(rect: PublicRect) {
+        let x = this.x;
+        if(x < rect.x)
+            x = rect.x;
+        if(this.x1 > rect.x1)
+            x = rect.x1 - this.width;
+
+        let y = this.y;
+        if(y < rect.y)
+            y = rect.y;
+        if(this.y1 > rect.y1)
+            y = rect.y1 - this.height;
+        if((x == this.x) && (y == this.y))
+            return this;
+
+        return this.assignPoint({
+            x,
+            y,
+        });
+    }
 
     isEqual(rect: ReadonlyRectType) {
         return super.isEqual(rect) && (this.width === rect.width) && (this.height === rect.height);
@@ -134,3 +170,6 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
         return `${super.toString()}|${this.width}:${this.height}`;
     }
 }
+
+export type PublicPoint = InterfaceOf<Point>;
+export type PublicRect = InterfaceOf<Rect>;

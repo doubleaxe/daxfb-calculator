@@ -7,17 +7,16 @@ import {ItemModelImpl} from './item';
 import type {
     BlueprintItemModel,
     BlueprintModel,
-    PublicPoint,
     RecipeIOModel,
     RecipeModel,
 } from './store';
 import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
-import {Point} from '../geometry';
+import {Rect, type PublicRect} from '../geometry';
 import type {ErrorCollector} from '../error-collector';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
-    private _position: PublicPoint = Point.assign();
+    private _rect: PublicRect = Rect.assign();
     private readonly _recipesDictionary;
     private readonly _recipes;
     private _selectedRecipe?: RecipeModel;
@@ -37,10 +36,12 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         }
     }
 
-    get position(): PublicPoint { return this._position; }
-    set position(position: PublicPoint) {
-        this._position = position;
-        this.owner?._$updateXY(this);
+    get rect(): PublicRect { return this._rect; }
+    setRect(rect: PublicRect) {
+        if(!this._rect.isEqual(rect)) {
+            this._rect = rect;
+            this.owner?._$updateXY(this);
+        }
     }
     get selectedRecipe() { return this._selectedRecipe; }
     get recipes() { return this._recipes.values(); }
@@ -49,7 +50,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get count() { return this._count; }
     get solvedCount() { return this._solvedCount; }
     get isLocked() { return this._isLocked; }
-    set isLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(); }
+    setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(); }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null): BlueprintItemStateValues {
         if(!sourceIo) {
@@ -129,7 +130,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     _$save(): SavedItem {
         return {
             n: this._item?.name || '',
-            p: [Math.round(this._position.x), Math.round(this._position.y)],
+            p: [Math.round(this._rect.x), Math.round(this._rect.y)],
             r: this._selectedRecipe?.name || '',
             c: (this._count == 1) ? undefined : this._count,
             f: this.isFlipped ? 1 : undefined,
@@ -141,7 +142,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         if(!this.selectRecipe(i.r)) {
             errorCollector.collectError(`Cannot select recipe ${i.r} for item ${this.label}`);
         }
-        this._position = this._position.assign({
+        this._rect = this._rect.assign({
             x: i.p[0],
             y: i.p[1],
         });

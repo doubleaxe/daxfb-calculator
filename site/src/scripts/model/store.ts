@@ -10,12 +10,9 @@ import type {RecipeIOModelImpl} from './recipe-io';
 import type {RecipeModelImpl} from './recipe';
 import type {InjectionKey} from 'vue';
 import {reactive, inject, provide} from 'vue';
-import type {Point, Rect} from '../geometry';
 import type {InterfaceOf} from '../types';
 import type {GameData} from '../data';
 
-export type PublicPoint = InterfaceOf<Point>;
-export type PublicRect = InterfaceOf<Rect>;
 export type BlueprintItemModel = InterfaceOf<BlueprintItemModelImpl>;
 export type BlueprintModel = InterfaceOf<BlueprintModelImpl>;
 export type ItemModel = InterfaceOf<ItemModelImpl>;

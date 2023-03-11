@@ -1,9 +1,9 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import {Point, Rect} from '../geometry';
-import type {PublicPoint, PublicRect} from './store';
+import type {PublicPoint, PublicRect} from '../geometry';
 import {link, curveBumpX, line, curveBasis} from 'd3-shape';
 
 const svgLinkBuilderStraight = link(curveBumpX);

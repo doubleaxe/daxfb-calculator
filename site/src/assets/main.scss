@@ -32,3 +32,13 @@ input::-webkit-inner-spin-button {
 .text-monospaced {
     font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
+
+.icon-draggable-hidden {
+    z-index: -1!important;
+    opacity: 0;
+}
+
+.link-draggable-hidden {
+    z-index: -1!important;
+    opacity: 0;
+}

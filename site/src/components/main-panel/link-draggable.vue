@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -26,7 +26,7 @@ const draggableStyle = computed(() => {
     const _dragRect = unref(currentItem)?.dragging?.rect;
     //keep far offscreen, so drag-n-drop processor could get width and height
     if(!_isDragging || !_dragRect) {
-        return {left: '-10000px', top: '-10000px'};
+        return {};
     }
     return {
         left: `${_dragRect.x}px`,
@@ -36,7 +36,7 @@ const draggableStyle = computed(() => {
 
 watch(isDragging, (value) => {
     if(!value) {
-        draggableClass.value = 'icon-draggable-hidden';
+        draggableClass.value = 'link-draggable-hidden';
     } else {
         //this is against flickering, so first position is set, and next icon is shown
         //otherwise it sometimes jump out of somewhere
@@ -120,7 +120,7 @@ useEventHook(hooks.notifyCancel, () => blueprintModel.clearTempLink());
 useEventHook(hooks.notifyMove, (param) => {
     const draggingItem = param.item.dragging;
     if(draggingItem) {
-        draggingItem.rect = param.clientRect.positive();
+        draggingItem.setRect(param.clientRect.limit(blueprintModel.boundingRect));
         processTargetItem(param.item.source, draggingItem, param.screenRect);
     }
 });
@@ -156,11 +156,6 @@ useEventHook(notifySelected, (param) => {
 .link-draggable {
     position: absolute;
     z-index: 5000;
-}
-</style>
-<style>
-.link-draggable-hidden {
-    z-index: -1;
-    opacity: 0;
+    touch-action: none;
 }
 </style>
