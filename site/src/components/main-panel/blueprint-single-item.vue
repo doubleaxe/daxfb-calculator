@@ -5,11 +5,11 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiArrowLeft, mdiArrowRight, mdiCursorMove} from '@mdi/js';
+import {mdiArrowLeft, mdiArrowRight} from '@mdi/js';
 import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
-import {SelectedClassType, screenToClient, useItemDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
+import {screenToClient, useItemDragAndDrop} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 
 const props = defineProps<{
@@ -27,7 +27,6 @@ const isDragging = ref(false);
 const itemStateColor = computed(() => settings.itemStateColor[props.item.state]);
 const isHovered = useElementHover(mainDivElement);
 const {hooks: itemHooks, dragStart} = useItemDragAndDrop();
-const {selectItem, selectedItem} = usePointAndClick();
 
 useEventHook([itemHooks.notifyCancel, itemHooks.notifyDrop], () => {
     isDragging.value = false;
@@ -48,12 +47,6 @@ const computeStyle = computed(() => {
     };
 });
 
-const computedSelectedClass = computed(() => {
-    if(unref(selectedItem)?.isSelected(props.item))
-        return 'selected-border';
-    return 'unselected-border';
-});
-
 function updateIoRects() {
     nextTick(() => {
         const mainDiv = unref(mainDivElement);
@@ -63,6 +56,7 @@ function updateIoRects() {
 
         const mainDivrect: ReadonlyRectType = screenToClient(props.parent, mainDiv.getBoundingClientRect(), settings.scale);
         props.item.setRect(props.item.rect.assignSize(mainDivrect));
+        props.item.initializationCompleted();
 
         const ioElements = mainDiv.querySelectorAll('[data-io-id]');
         const ioScreenRects: ReadonlyRectType[] = [];
@@ -125,7 +119,7 @@ watch(() => props.item.rect, (value, oldValue) => {
     <div
         ref="mainDivElement"
         class="rounded parent-div"
-        :class="[computedElevation, itemStateColor, computedSelectedClass]"
+        :class="[computedElevation, itemStateColor]"
         :style="computeStyle"
         :data-item-id="props.item.key"
         @pointerdown.left.stop="dragStart($event, props.item); isDragging = true;"
@@ -136,17 +130,6 @@ watch(() => props.item.rect, (value, oldValue) => {
             </div>
             <div class="float-right mr-1">
                 <item-menu-button :item="props.item" />
-            </div>
-            <div v-if="settings.pointAndClickEnabled" class="float-right mr-1">
-                <v-btn
-                    size="x-small"
-                    color="secondary"
-                    variant="outlined"
-                    @pointerdown.left.stop
-                    @click.stop="selectItem(SelectedClassType.BlueprintItemModel, props.item)"
-                >
-                    <v-icon :icon="mdiCursorMove" />
-                </v-btn>
             </div>
         </div>
         <div class="main-row">

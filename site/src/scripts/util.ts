@@ -20,3 +20,7 @@ export function freezeMap<K, V>(map: Map<K, V>): ReadonlyMap<K, V> {
 
     return Object.freeze(map);
 }
+
+export function buildTransformStyle(transform: Record<string, string>): string {
+    return Object.entries(transform).map(([key, value]) => `${key}(${value})`).join(' ');
+}

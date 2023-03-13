@@ -26,6 +26,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     public partOfCycle = false;
     public isFlipped = false;
     private _isLocked = false;
+    private _initializationCompleted = false;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, owner.gameData.getGameItem(name));
@@ -40,7 +41,6 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     setRect(rect: PublicRect) {
         if(!this._rect.isEqual(rect)) {
             this._rect = rect;
-            this.owner?._$updateXY(this);
         }
     }
     get selectedRecipe() { return this._selectedRecipe; }
@@ -51,6 +51,12 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get solvedCount() { return this._solvedCount; }
     get isLocked() { return this._isLocked; }
     setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(); }
+    initializationCompleted() {
+        if(!this._initializationCompleted) {
+            this._initializationCompleted = true;
+            this.owner?._$itemInitializationCompleted(this);
+        }
+    }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null): BlueprintItemStateValues {
         if(!sourceIo) {

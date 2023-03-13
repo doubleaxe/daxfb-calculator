@@ -14,7 +14,6 @@ import {screenToClient} from './commons';
 
 export const SelectedClassType = {
     Item: 'A',
-    BlueprintItemModel: 'B',
     RecipeIOModel: 'C',
 } as const;
 export type SelectedClassTypeKeys = Keys<typeof SelectedClassType>;

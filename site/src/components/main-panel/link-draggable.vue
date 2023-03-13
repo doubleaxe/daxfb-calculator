@@ -11,7 +11,7 @@ import {
 } from '@/scripts/model/store';
 import type {ReadonlyPointType} from '@/scripts/geometry';
 import {BlueprintItemState, type BlueprintItemStateValues} from '@/scripts/types';
-import {SelectedClassType, useLinkDragAndDrop, usePointAndClick} from '@/composables/drag-helpers';
+import {SelectedClassType, useLinkDragAndDrop, usePointAndClick, useSharedBlueprintSurface} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 
 const blueprintModel = injectBlueprintModel();
@@ -19,6 +19,7 @@ let hoveringItem: BlueprintItemModel | undefined = undefined;
 
 const {hooks, isDragging, currentItem, movableElem} = useLinkDragAndDrop();
 const {notifySelected} = usePointAndClick();
+const {boundingRect} = useSharedBlueprintSurface();
 
 const draggableClass = ref('');
 const draggableStyle = computed(() => {
@@ -120,7 +121,7 @@ useEventHook(hooks.notifyCancel, () => blueprintModel.clearTempLink());
 useEventHook(hooks.notifyMove, (param) => {
     const draggingItem = param.item.dragging;
     if(draggingItem) {
-        draggingItem.setRect(param.clientRect.limit(blueprintModel.boundingRect));
+        draggingItem.setRect(param.clientRect.limit(unref(boundingRect)));
         processTargetItem(param.item.source, draggingItem, param.screenRect);
     }
 });

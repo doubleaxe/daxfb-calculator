@@ -13,10 +13,9 @@ import type {
 import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
-import {DEFAULT_PRECISION, type InterfaceOf} from '../types';
+import {DEFAULT_PRECISION} from '../types';
 import type {ErrorCollector} from '../error-collector';
 import type {GameData} from '../data';
-import {BlueprintSurface} from './blueprint-surface';
 
 export class BlueprintModelImpl {
     private readonly _gameData: GameData;
@@ -27,11 +26,11 @@ export class BlueprintModelImpl {
     private _solvePrecision = DEFAULT_PRECISION;
     private _autoSolveGraph = true;
     private _bulkUpdate = false;
-    private readonly _blueprintSurface: InterfaceOf<BlueprintSurface>;
+    //could be used by vue to watch items added/removed
+    private _itemsGenerationNumber = 0;
 
     constructor(_gameData: GameData) {
         this._gameData = _gameData;
-        this._blueprintSurface = new BlueprintSurface(this);
     }
 
     get gameData() { return this._gameData; }
@@ -39,9 +38,7 @@ export class BlueprintModelImpl {
     itemByKey(key: string) { return this._items.get(key); }
     get links() { return this._links.values(); }
     get tempLink() { return this._tempLink; }
-
-    get boundingRect() { return this._blueprintSurface.boundingRect; }
-    freezeBoundingRect(freezeBoundingRect: boolean) { this._blueprintSurface.freezeBoundingRect(freezeBoundingRect); }
+    get itemsGenerationNumber() { return this._itemsGenerationNumber; }
 
     get solvePrecision() { return this._solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
@@ -59,10 +56,13 @@ export class BlueprintModelImpl {
         this._$graphChanged();
         return item;
     }
+    _$itemInitializationCompleted(item: BlueprintItemModel) {
+        this._itemsGenerationNumber++;
+    }
     _$deleteItem(item: BlueprintItemModel) {
         this._items.delete(item.key);
         this._$graphChanged();
-        this._$updateXY();
+        this._itemsGenerationNumber++;
     }
     _$addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io);
@@ -104,16 +104,9 @@ export class BlueprintModelImpl {
         return new LinkModelImpl(_io.input, _io.output);
     }
 
-    _$updateXY(item?: BlueprintItemModel) {
-        if(this._bulkUpdate) {
-            return;
-        }
-        this._blueprintSurface.updateSurface(item);
-    }
-
     clear() {
         this._clear();
-        this._$updateXY();
+        this._itemsGenerationNumber++;
     }
     private _clear() {
         resetKeyStore();
@@ -150,7 +143,7 @@ export class BlueprintModelImpl {
             this._bulkUpdate = false;
         }
         this._$graphChanged(true);
-        this._$updateXY();
+        this._itemsGenerationNumber++;
     }
     private _load(savedBlueprint: SavedBlueprint, errorCollector: ErrorCollector) {
         const {compatibleSaveVersions: compatVersions} = this._gameData.gameDescription;

@@ -3,13 +3,12 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {ref, computed, reactive, watch, unref, nextTick} from 'vue';
-import {injectBlueprintModel, type BlueprintItemModel} from '@/scripts/model/store';
+import {ref, computed, reactive, unref, watch} from 'vue';
+import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import RecipesMenu from './recipes-menu.vue';
 import {syncRefs, useEventListener, type MaybeElement} from '@vueuse/core';
 import {
-    getScrollBox,
     SelectedClassType,
     useDragAndScroll,
     useItemDragAndDrop,
@@ -17,27 +16,41 @@ import {
     useLinkDragAndDrop,
     useOverflowScroll,
     usePointAndClick,
+    useSharedBlueprintSurface,
 } from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 import {injectFilter} from '@/scripts/filter';
 import type {ReadonlyPointType} from '@/scripts/geometry';
 import type {GameItem} from '#types/game-data';
+import {buildTransformStyle} from '@/scripts/util';
 
 const settings = injectSettings();
 const filter = injectFilter();
 const blueprintModel = injectBlueprintModel();
-const blueprintsElement = ref<MaybeElement>(null);
+const blueprintSurface = ref<MaybeElement>(null);
+const blueprintCollection = ref<MaybeElement>(null);
 const recipesMenuElement = ref<InstanceType<typeof RecipesMenu> | null>(null);
 //detects if screen was scrolled between pointer down and click, don't perform anything if was scrolled
 let wasScrolled = false;
 
 const {onStart: startDragAndScroll} = useDragAndScroll();
-useOverflowScroll(blueprintsElement);
-const {hooks: leftPanelHooks, dropZoneElem: dropZoneElem1} = useLeftPanelDragAndDrop();
-const {dropZoneElem: dropZoneElem2} = useLinkDragAndDrop();
-const {hooks: itemHooks, dropZoneElem: dropZoneElem3} = useItemDragAndDrop();
-const {processSelected, parentElem: dropZoneElem4, notifySelected} = usePointAndClick();
-syncRefs(blueprintsElement, [dropZoneElem1, dropZoneElem2, dropZoneElem3, dropZoneElem4]);
+useOverflowScroll(blueprintSurface);
+const {
+    hooks: leftPanelHooks,
+    dropZoneSurfaceElem: dropZoneSurfaceElem1,
+    dropZoneOriginElem: dropZoneOriginElem1,
+} = useLeftPanelDragAndDrop();
+const {dropZoneSurfaceElem: dropZoneSurfaceElem2, dropZoneOriginElem: dropZoneOriginElem2} = useLinkDragAndDrop();
+const {
+    hooks: itemHooks,
+    dropZoneSurfaceElem: dropZoneSurfaceElem3,
+    dropZoneOriginElem: dropZoneOriginElem3,
+} = useItemDragAndDrop();
+const {processSelected, parentElem: dropZoneSurfaceElem4, notifySelected} = usePointAndClick();
+const {surfaceElem, originElem, updateSurface, boundingRect} = useSharedBlueprintSurface();
+
+syncRefs(blueprintSurface, [surfaceElem, dropZoneSurfaceElem1, dropZoneSurfaceElem2, dropZoneSurfaceElem3, dropZoneSurfaceElem4]);
+syncRefs(blueprintCollection, [originElem, dropZoneOriginElem1, dropZoneOriginElem2, dropZoneOriginElem3]);
 
 function addItem(selected: GameItem, clientPosition: ReadonlyPointType) {
     const item = reactive(blueprintModel.addItem(selected.name));
@@ -59,93 +72,40 @@ useEventHook(notifySelected, (param) => {
         param.wasHandled();
         return;
     }
-    if(param.item.clazz == SelectedClassType.BlueprintItemModel) {
-        const item = param.item.item as BlueprintItemModel;
-        item.setRect(item.rect.assignPoint(param.clientPosition).limit(blueprintModel.boundingRect));
-        param.wasHandled();
-        return;
-    }
 });
 
-useEventHook(itemHooks.notifyStart, (param) => {
-    //there will be glitches, if we drag and expand and scroll simultaneously
-    blueprintModel.freezeBoundingRect(true);
-});
-useEventHook(itemHooks.notifyDrop, (param) => {
-    //there will be glitches, if we drag and expand and scroll simultaneously
-    blueprintModel.freezeBoundingRect(false);
-});
 useEventHook([itemHooks.notifyMove, itemHooks.notifyDrop], (param) => {
     const item = param.item;
-    item.setRect(item.rect.assignPoint(param.clientRect).limit(blueprintModel.boundingRect));
-});
-
-const transform = reactive<Record<string, string>>({});
-const backgroundStyle = ref<Record<string, string>>({});
-const transformStyle = computed(() => {
-    const _transform: Record<string, string> = {
-        ...unref(transform),
-        scale: String(settings.scale),
-    };
-    return {
-        transform: Object.entries(_transform).map(([key, value]) => `${key}(${value})`).join(' '),
-    };
-});
-const computedStyle = computed(() => {
-    return {
-        ...unref(backgroundStyle),
-    };
-});
-
-watch(() => blueprintModel.boundingRect, (value, oldValue) => {
-    const {boundingRect} = blueprintModel;
-    //first update bounding rect and adjusting translate, so scrollbar may appear
-    backgroundStyle.value = {
-        left: `${boundingRect.x}px`,
-        top: `${boundingRect.y}px`,
-        width: `${boundingRect.width}px`,
-        height: `${boundingRect.height}px`,
-    };
-    if((value.x !== oldValue.x) || (value.y !== oldValue.y)) {
-        transform.translateX = `${Math.max(-value.x, 0)}px`;
-        transform.translateY = `${Math.max(-value.y, 0)}px`;
-        //adjusting scrolling the same amount, so screen is left on the same position
-        const keepScrollPosition = (scrollboxElement?: HTMLElement | null) => {
-            if(!scrollboxElement) {
-                scrollboxElement = getScrollBox(blueprintsElement)?.scrollboxElement;
-            }
-            if(!scrollboxElement) {
-                return;
-            }
-            const deltaX = value.x - oldValue.x;
-            const deltaY = value.y - oldValue.y;
-            const scrollX = scrollboxElement.scrollLeft - deltaX;
-            const scrollY = scrollboxElement.scrollTop - deltaY;
-            if(scrollX >= 0)
-                scrollboxElement.scrollLeft = scrollX;
-            if(scrollY >= 0)
-                scrollboxElement.scrollTop = scrollY;
-        };
-        const scrollboxElement = getScrollBox(blueprintsElement)?.scrollboxElement;
-        if(scrollboxElement) {
-            keepScrollPosition(scrollboxElement);
-        } else {
-            nextTick(keepScrollPosition);
-        }
+    item.setRect(item.rect.assignPoint(param.clientRect).limit(unref(boundingRect)));
+    if(param.event == 'notifyDrop') {
+        updateSurface(blueprintModel.items);
     }
+});
+
+const surfaceStyle = computed(() => {
+    return {
+        transform: buildTransformStyle({scale: String(settings.scale)}),
+    };
+});
+
+watch(() => blueprintModel.itemsGenerationNumber, () => {
+    updateSurface(blueprintModel.items);
 });
 
 useEventListener('scroll', () => { wasScrolled = true; }, {capture: true, passive: true});
 </script>
 
 <template>
-    <div class="flexible-scroll-origin" :style="transformStyle">
+    <div
+        ref="blueprintSurface"
+        class="blueprint-surface"
+        :style="surfaceStyle"
+        @pointerdown.left="startDragAndScroll($event); wasScrolled = false;"
+        @click="processSelected($event)"
+    >
         <div
-            ref="blueprintsElement"
+            ref="blueprintCollection"
             class="blueprint-collection"
-            :style="computedStyle"
-            @pointerdown.left="startDragAndScroll($event); wasScrolled = false;"
-            @click="processSelected($event)"
         >
             <link-draggable />
             <recipes-menu ref="recipesMenuElement" />
@@ -156,7 +116,7 @@ useEventListener('scroll', () => { wasScrolled = true; }, {capture: true, passiv
             >
                 <blueprint-single-item
                     :item="item"
-                    :parent="blueprintsElement"
+                    :parent="blueprintCollection"
                     @recipes-menu-activate="recipesMenuElement?.activate"
                 />
             </template>
@@ -165,13 +125,12 @@ useEventListener('scroll', () => { wasScrolled = true; }, {capture: true, passiv
 </template>
 
 <style scoped>
-.flexible-scroll-origin {
-    height: 100%;
-    width: 100%;
+.blueprint-surface {
     transform-origin: 0 0;
+    min-width: 100%;
+    min-height: 100%;
 }
 .blueprint-collection {
     position: relative;
-    transform-origin: 0 0;
 }
 </style>

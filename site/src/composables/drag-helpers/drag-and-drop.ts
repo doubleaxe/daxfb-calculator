@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import {LOG, log} from '@/scripts/debug';
@@ -26,6 +26,7 @@ export interface UseDragAndDropOptions {
 }
 
 export interface DraggableListenerParam<ItemType> {
+    readonly event: NotifierKeys;
     readonly item: ItemType;
     readonly screenRect: Rect;
     readonly clientRect: Rect;
@@ -101,7 +102,10 @@ export function useDragAndDrop<ItemType>(
     const movableElemAuto = computed(() => (unrefElement(movableElem) as HTMLElement | undefined) || unref(activatorElem));
     //dropZone is where to drop, by default = entire window
     //drag is not finished if dropped outside drop zone
-    const dropZoneElem = ref<MaybeElement>();
+    const dropZoneSurfaceElem = ref<MaybeElement>();
+    //relative coordinates are calculated relative to origin
+    //this may be different from surface to support negative scroll
+    const dropZoneOriginElem = ref<MaybeElement>();
 
     const offsetPosition = ref<Point | undefined>();
     //in screen coordinates
@@ -115,6 +119,7 @@ export function useDragAndDrop<ItemType>(
 
     function trigger(key: NotifierKeys) {
         const param: DraggableListenerParam<ItemType> = {
+            event: key,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             item: unref(currentItem)!,
             screenRect: unref(screenRect) || Rect.assign(),
@@ -135,9 +140,9 @@ export function useDragAndDrop<ItemType>(
     }
 
     function updateClientRect() {
-        const dropZone = unref(dropZoneElem);
-        if(dropZone) {
-            clientRect.value = screenToClient(dropZone, screenRect.value || Rect.assign(), settings.scale);
+        const dropZoneOrigin = unref(dropZoneOriginElem);
+        if(dropZoneOrigin) {
+            clientRect.value = screenToClient(dropZoneOrigin, screenRect.value || Rect.assign(), settings.scale);
         }
     }
 
@@ -163,7 +168,7 @@ export function useDragAndDrop<ItemType>(
         },
         onEnd(event?: PointerEvent) {
             const mousePosition = updatePosition(event);
-            if(unref(dropZoneElem) && !isPointInsideElement2(dropZoneElem, mousePosition)) {
+            if(unref(dropZoneSurfaceElem) && !isPointInsideElement2(dropZoneSurfaceElem, mousePosition)) {
                 trigger('notifyCancel');
             } else {
                 trigger('notifyDrop');
@@ -261,6 +266,7 @@ export function useDragAndDrop<ItemType>(
         currentItem: readonly(currentItem),
         activatorElem: readonly(activatorElem),
         movableElem,
-        dropZoneElem,
+        dropZoneSurfaceElem,
+        dropZoneOriginElem,
     };
 }

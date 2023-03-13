@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import {Rect, type ReadonlyPointType, type ReadonlyRectType} from '@/scripts/geometry';
@@ -15,9 +15,20 @@ export function getScrollBox(target: MaybeComputedElementRef<MaybeElement> | und
         scrollboxElement = scrollboxElement?.parentElement || null;
         if(!scrollboxElement)
             break;
-        const isScrolling = (scrollboxElement.scrollHeight > scrollboxElement.clientHeight)
-            || (scrollboxElement.scrollWidth > scrollboxElement.clientWidth);
-        if(isScrolling)
+        const isScrolling1 = (scrollboxElement.scrollHeight > scrollboxElement.clientHeight)
+            || (scrollboxElement.scrollWidth > scrollboxElement.clientWidth)
+            || (scrollboxElement.style.overflowX === 'scroll')
+            || (scrollboxElement.style.overflowX === 'auto')
+            || (scrollboxElement.style.overflowY === 'scroll')
+            || (scrollboxElement.style.overflowY === 'auto');
+        if(isScrolling1)
+            break;
+        const computedStyle = getComputedStyle(scrollboxElement);
+        const isScrolling2 = (computedStyle.overflowX === 'scroll')
+            || (computedStyle.overflowX === 'auto')
+            || (computedStyle.overflowY === 'scroll')
+            || (computedStyle.overflowY === 'auto');
+        if(isScrolling2)
             break;
     }
     return {
