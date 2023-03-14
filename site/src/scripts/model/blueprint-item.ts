@@ -12,7 +12,7 @@ import type {
 } from './store';
 import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
 import type {SavedItem} from './saved-blueprint';
-import {Rect, type PublicRect} from '../geometry';
+import {Rect, type PublicRect, type ReadonlyPointType} from '../geometry';
 import type {ErrorCollector} from '../error-collector';
 
 export class BlueprintItemModelImpl extends ItemModelImpl {
@@ -133,10 +133,14 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this._selectedRecipe?._$deleteAllLinks();
         this.owner?._$deleteItem(this);
     }
-    _$save(): SavedItem {
+    _$save(offsetBy?: ReadonlyPointType): SavedItem {
+        let rect = this.rect;
+        if(offsetBy) {
+            rect = rect.offsetBy(offsetBy);
+        }
         return {
             n: this._item?.name || '',
-            p: [Math.round(this._rect.x), Math.round(this._rect.y)],
+            p: [Math.round(rect.x), Math.round(rect.y)],
             r: this._selectedRecipe?.name || '',
             c: (this._count == 1) ? undefined : this._count,
             f: this.isFlipped ? 1 : undefined,

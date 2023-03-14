@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 
 import {Point, Rect, type PublicRect} from '@/scripts/geometry';
-import type {BlueprintItemModel} from '@/scripts/model/store';
+import {calculateItemPositions, type BlueprintItemModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import {createSharedComposable, unrefElement, type MaybeElement} from '@vueuse/core';
 import {readonly, ref, unref} from 'vue';
@@ -16,6 +16,7 @@ export function useBlueprintSurface() {
     const surfaceElem = ref<MaybeElement>();
     //this may be different from surface to support negative scroll
     const originElem = ref<MaybeElement>();
+    const marginSize = 500;
 
     function applyStyle(elem: HTMLElement | SVGElement | null | undefined, style: Record<string, string>) {
         if(!elem)
@@ -27,16 +28,8 @@ export function useBlueprintSurface() {
 
     //there will be glitches, if we drag and expand and scroll simultaneously
     //so we do this only on demand, when blueprint items changed
-    function updateSurface(items: IterableIterator<BlueprintItemModel>) {
-        type MinMax = Record<'minX' | 'minY' | 'maxX' | 'maxY', number | undefined>;
-        const {minX, minY, maxX, maxY} = [...items].reduce((minmax: MinMax, {rect}) => ({
-            minX: (minmax.minX !== undefined) ? Math.min(rect.x, minmax.minX) : rect.x,
-            minY: (minmax.minY !== undefined) ? Math.min(rect.y, minmax.minY) : rect.y,
-            maxX: (minmax.maxX !== undefined) ? Math.max(rect.x1, minmax.maxX) : rect.x1,
-            maxY: (minmax.maxY !== undefined) ? Math.max(rect.y1, minmax.maxY) : rect.y1,
-        }), {} as MinMax);
-        const _minItemXY = Point.assign({x: minX, y: minY});
-        const _maxItemXY = Point.assign({x: maxX, y: maxY});
+    function updateSurface(items: IterableIterator<BlueprintItemModel>, resetScroll?: boolean) {
+        const {minItemXY: _minItemXY, maxItemXY: _maxItemXY} = calculateItemPositions(items);
         const scale = settings.scale;
         const haveScale = (scale && (scale != 1));
 
@@ -54,8 +47,8 @@ export function useBlueprintSurface() {
         if(!_minItemXY.x && !_minItemXY.y && !_maxItemXY.x && !_maxItemXY.y) {
             boundingRect = Rect.assign();
         } else {
-            const x1 = Math.min(_minItemXY.x - 500, 0);
-            const y1 = Math.min(_minItemXY.y - 500, 0);
+            const x1 = Math.min(_minItemXY.x - marginSize, 0);
+            const y1 = Math.min(_minItemXY.y - marginSize, 0);
 
             //we need keep scroll position, so it will not suddenly jump somewhere
             //for this we must make bounding rect bigger than visible rect (at offset 0,0)
@@ -66,8 +59,8 @@ export function useBlueprintSurface() {
             boundingRect = Rect.assign({
                 x: x1,
                 y: y1,
-                width: ((x2 - x1) + 500),
-                height: ((y2 - y1) + 500),
+                width: ((x2 - x1) + marginSize),
+                height: ((y2 - y1) + marginSize),
             });
         }
         const {x, y, width, height} = boundingRect;
@@ -98,13 +91,18 @@ export function useBlueprintSurface() {
         applyStyle(targetElement, surfaceStyle);
         applyStyle(unrefElement(originElem), originStyle);
         if(scrollboxElement) {
-            //adjusting scrolling the same amount, so screen is left on the same position
-            const scrollX = scrollboxElement.scrollLeft + delta.x;
-            const scrollY = scrollboxElement.scrollTop + delta.y;
-            if(scrollX >= 0)
-                scrollboxElement.scrollLeft = scrollX;
-            if(scrollY >= 0)
-                scrollboxElement.scrollTop = scrollY;
+            if(resetScroll) {
+                scrollboxElement.scrollLeft = marginSize;
+                scrollboxElement.scrollTop = marginSize;
+            } else {
+                //adjusting scrolling the same amount, so screen is left on the same position
+                const scrollX = scrollboxElement.scrollLeft + delta.x;
+                const scrollY = scrollboxElement.scrollTop + delta.y;
+                if(scrollX >= 0)
+                    scrollboxElement.scrollLeft = scrollX;
+                if(scrollY >= 0)
+                    scrollboxElement.scrollTop = scrollY;
+            }
         }
 
         boundingRectRef.value = boundingRect;

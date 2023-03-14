@@ -32,3 +32,5 @@ export const injectBlueprintModel = () => {
         throw new Error('blueprint not instantiated');
     return blueprint;
 };
+
+export * from './normalize-item-positions';

@@ -5,10 +5,12 @@ Please don't remove this comment if you use unmodified file
 import {BlueprintItemModelImpl} from './blueprint-item';
 import {LinkModelImpl} from './link';
 import type {SavedBlueprint} from './saved-blueprint';
-import type {
-    BlueprintItemModel,
-    LinkModel,
-    RecipeIOModel,
+import {
+    calculateItemPositions,
+    normalizeItemPositions,
+    type BlueprintItemModel,
+    type LinkModel,
+    type RecipeIOModel,
 } from './store';
 import {resetKeyStore} from './key-store';
 import {solveGraph} from '../graph';
@@ -115,11 +117,15 @@ export class BlueprintModelImpl {
         this.hasCycles = false;
     }
     save() {
+        //normalize positions before saving
+        const {minItemXY} = calculateItemPositions(this.items);
+        const offsetBy = minItemXY.scalePoint(-1);
+
         const items = [...this._items.values()];
         const links = [...this._links.values()];
         const itemIndexes = new Map(items.map((item, index) => [item.key, index]));
         const savedBlueprint: SavedBlueprint = {
-            i: items.map((item) => item._$save()),
+            i: items.map((item) => item._$save(offsetBy)),
             l: links.map((link) => link._$save(
                 itemIndexes.get(link.input?.ownerItem?.key || ''),
                 itemIndexes.get(link.output?.ownerItem?.key || ''),
@@ -143,7 +149,7 @@ export class BlueprintModelImpl {
             this._bulkUpdate = false;
         }
         this._$graphChanged(true);
-        this._itemsGenerationNumber++;
+        this._itemsGenerationNumber = 0;
     }
     private _load(savedBlueprint: SavedBlueprint, errorCollector: ErrorCollector) {
         const {compatibleSaveVersions: compatVersions} = this._gameData.gameDescription;
@@ -176,6 +182,7 @@ export class BlueprintModelImpl {
             }
             item1._$loadLink(item2, errorCollector);
         });
+        normalizeItemPositions(this.items);
     }
     solveGraph(items?: IterableIterator<BlueprintItemModel>) {
         if(!items && !this._items.size)

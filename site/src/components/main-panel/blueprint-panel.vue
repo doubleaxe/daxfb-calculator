@@ -89,7 +89,9 @@ const scaleStyle = computed(() => {
 });
 
 watch([() => blueprintModel.itemsGenerationNumber, () => settings.scale], () => {
-    updateSurface(blueprintModel.items);
+    //on blueprint load reset scroll position
+    const resetScroll = !blueprintModel.itemsGenerationNumber;
+    updateSurface(blueprintModel.items, resetScroll);
 });
 
 function handleScale(event: WheelEvent) {
