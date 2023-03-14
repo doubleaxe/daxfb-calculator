@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {ref, computed, reactive, unref, watch} from 'vue';
+import {ref, computed, reactive, unref, watch, onMounted} from 'vue';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import RecipesMenu from './recipes-menu.vue';
@@ -82,30 +82,42 @@ useEventHook([itemHooks.notifyMove, itemHooks.notifyDrop], (param) => {
     }
 });
 
-const surfaceStyle = computed(() => {
+const scaleStyle = computed(() => {
     return {
         transform: buildTransformStyle({scale: String(settings.scale)}),
     };
 });
 
-watch(() => blueprintModel.itemsGenerationNumber, () => {
+watch([() => blueprintModel.itemsGenerationNumber, () => settings.scale], () => {
     updateSurface(blueprintModel.items);
 });
 
+function handleScale(event: WheelEvent) {
+    if(event.deltaY < 0) {
+        settings.scale = Math.min(settings.scale + 0.1, 2);
+    } else {
+        settings.scale = Math.max(settings.scale - 0.1, 0.5);
+    }
+}
+
 useEventListener('scroll', () => { wasScrolled = true; }, {capture: true, passive: true});
+onMounted(() => {
+    updateSurface(blueprintModel.items);
+});
 </script>
 
 <template>
     <div
         ref="blueprintSurface"
         class="blueprint-surface"
-        :style="surfaceStyle"
         @pointerdown.left="startDragAndScroll($event); wasScrolled = false;"
         @click="processSelected($event)"
+        @wheel.stop.prevent="handleScale"
     >
         <div
             ref="blueprintCollection"
             class="blueprint-collection"
+            :style="scaleStyle"
         >
             <link-draggable />
             <recipes-menu ref="recipesMenuElement" />
@@ -129,8 +141,12 @@ useEventListener('scroll', () => { wasScrolled = true; }, {capture: true, passiv
     transform-origin: 0 0;
     min-width: 100%;
     min-height: 100%;
+    /* border: 1px solid red; */
 }
 .blueprint-collection {
+    transform-origin: 0 0;
     position: relative;
+    overflow: visible;
+    /* border: 1px solid green; */
 }
 </style>

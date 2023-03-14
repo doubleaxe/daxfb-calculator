@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {Values} from './types';
@@ -14,7 +14,7 @@ export const LOG = {
 } as const;
 export type LogSeverity = Values<typeof LOG>;
 
-export const log = (__DEBUG__ && typeof(console.log) == 'function') ? (severity: LogSeverity, ...data: unknown[]) => {
+export const log = (__DEBUG__ && typeof(console?.log) == 'function') ? (severity: LogSeverity, ...data: unknown[]) => {
     try {
         if(severity <= LOG.INFO) {
             console.log(...data);

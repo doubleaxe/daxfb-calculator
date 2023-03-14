@@ -18,6 +18,10 @@ export class LinkDragAndDropItem {
         this.source = source;
     }
 }
-export const useLinkDragAndDrop = createSharedComposable(() => useDragAndDrop<LinkDragAndDropItem>({useDelay: true}));
+export const useLinkDragAndDrop = createSharedComposable(
+    () => useDragAndDrop<LinkDragAndDropItem>({useDelay: true, skipCheckInsideSurface: true}),
+);
 
-export const useItemDragAndDrop = createSharedComposable(() => useDragAndDrop<BlueprintItemModel>());
+export const useItemDragAndDrop = createSharedComposable(
+    () => useDragAndDrop<BlueprintItemModel>({skipCheckInsideSurface: true}),
+);

@@ -37,13 +37,14 @@ export function useBlueprintSurface() {
         }), {} as MinMax);
         const _minItemXY = Point.assign({x: minX, y: minY});
         const _maxItemXY = Point.assign({x: maxX, y: maxY});
+        const scale = settings.scale;
+        const haveScale = (scale && (scale != 1));
 
         const {scrollboxElement, targetElement} = getScrollBox(surfaceElem);
         let visibleRect = Rect.assign();
         if(scrollboxElement) {
             visibleRect = Rect.assign(scrollboxElement.getBoundingClientRect());
-            const scale = settings.scale;
-            if(scale && (scale != 1)) {
+            if(haveScale) {
                 const div = 1 / scale;
                 visibleRect = visibleRect.scalePoint(div).scaleSize(div);
             }
@@ -70,18 +71,27 @@ export function useBlueprintSurface() {
             });
         }
         const {x, y, width, height} = boundingRect;
-        const deltaX = unref(boundingRectRef).x - x;
-        const deltaY = unref(boundingRectRef).y - y;
+        let delta = Point.assign({
+            x: unref(boundingRectRef).x - x,
+            y: unref(boundingRectRef).y - y,
+        });
+        let unscaledRect = boundingRect;
+        if(haveScale) {
+            delta = delta.scalePoint(scale);
+            unscaledRect = unscaledRect.scalePoint(scale).scaleSize(scale);
+        }
 
+        //surface is not slaced, but origin is
+        //this is because scrollbars work incorrectly when surface is scaled
         //adjust surface and scrollbox immediatelly, so it will not flicker and no need to synchronize states
         //we directly manipulate DOM to achieve it
         const surfaceStyle = {
-            width: width ? `${width}px` : '100%',
-            height: height ? `${height}px` : '100%',
+            width: unscaledRect.width ? `${unscaledRect.width}px` : '100%',
+            height: unscaledRect.height ? `${unscaledRect.height}px` : '100%',
         };
         const originStyle = {
-            left: `${-x}px`,
-            top: `${-y}px`,
+            left: `${-unscaledRect.x}px`,
+            top: `${-unscaledRect.y}px`,
             width: `${width + x}px`,
             height: `${height + y}px`,
         };
@@ -89,8 +99,8 @@ export function useBlueprintSurface() {
         applyStyle(unrefElement(originElem), originStyle);
         if(scrollboxElement) {
             //adjusting scrolling the same amount, so screen is left on the same position
-            const scrollX = scrollboxElement.scrollLeft + deltaX;
-            const scrollY = scrollboxElement.scrollTop + deltaY;
+            const scrollX = scrollboxElement.scrollLeft + delta.x;
+            const scrollY = scrollboxElement.scrollTop + delta.y;
             if(scrollX >= 0)
                 scrollboxElement.scrollLeft = scrollX;
             if(scrollY >= 0)

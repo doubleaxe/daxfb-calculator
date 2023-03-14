@@ -23,6 +23,11 @@ export interface UseDragAndDropOptions {
      * and this is true, then dragging starts with delay, to distinct from regular clicks
      */
     useDelay?: boolean;
+    /**
+     * If draggable item is automatically limited to surface (for example blueprint item)
+     * it should be set to true, because mouse position is not always in sync with item position
+     */
+    skipCheckInsideSurface?: boolean;
 }
 
 export interface DraggableListenerParam<ItemType> {
@@ -168,7 +173,10 @@ export function useDragAndDrop<ItemType>(
         },
         onEnd(event?: PointerEvent) {
             const mousePosition = updatePosition(event);
-            if(unref(dropZoneSurfaceElem) && !isPointInsideElement2(dropZoneSurfaceElem, mousePosition)) {
+            if(!options.skipCheckInsideSurface
+                && unref(dropZoneSurfaceElem)
+                && !isPointInsideElement2(dropZoneSurfaceElem, mousePosition)
+            ) {
                 trigger('notifyCancel');
             } else {
                 trigger('notifyDrop');

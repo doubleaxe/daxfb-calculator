@@ -12,6 +12,18 @@ provide(GameDataKey, gameData);
 function provideGameData(_gameData: GameData) {
     gameData.value = _gameData;
 }
+
+window.oncontextmenu = function(event: MouseEvent) {
+    const pointerEvent = event as PointerEvent;
+    //prevent chrome dev tools simulated context menu during long press in device mode
+    if(pointerEvent.pointerType === 'touch') {
+        // context menu was triggerd by long press
+        event.preventDefault();
+        return false;
+    }
+    return true;
+};
+
 </script>
 
 <template>
