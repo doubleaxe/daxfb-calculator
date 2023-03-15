@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {ref, computed, reactive, unref, watch, onMounted} from 'vue';
-import {injectBlueprintModel} from '@/scripts/model/store';
+import {injectBlueprintModel, type BlueprintItemModel} from '@/scripts/model/store';
 import {injectSettings} from '@/scripts/settings';
 import RecipesMenu from './recipes-menu.vue';
 import {syncRefs, useEventListener, type MaybeElement} from '@vueuse/core';
@@ -46,11 +46,11 @@ const {
     dropZoneSurfaceElem: dropZoneSurfaceElem3,
     dropZoneOriginElem: dropZoneOriginElem3,
 } = useItemDragAndDrop();
-const {processSelected, parentElem: dropZoneSurfaceElem4, notifySelected} = usePointAndClick();
+const {processSelected, parentElem: dropZoneOriginElem4, notifySelected} = usePointAndClick();
 const {surfaceElem, originElem, updateSurface, boundingRect} = useSharedBlueprintSurface();
 
-syncRefs(blueprintSurface, [surfaceElem, dropZoneSurfaceElem1, dropZoneSurfaceElem2, dropZoneSurfaceElem3, dropZoneSurfaceElem4]);
-syncRefs(blueprintCollection, [originElem, dropZoneOriginElem1, dropZoneOriginElem2, dropZoneOriginElem3]);
+syncRefs(blueprintSurface, [surfaceElem, dropZoneSurfaceElem1, dropZoneSurfaceElem2, dropZoneSurfaceElem3]);
+syncRefs(blueprintCollection, [originElem, dropZoneOriginElem1, dropZoneOriginElem2, dropZoneOriginElem3, dropZoneOriginElem4]);
 
 function addItem(selected: GameItem, clientPosition: ReadonlyPointType) {
     const item = reactive(blueprintModel.addItem(selected.name));
@@ -69,6 +69,12 @@ useEventHook(notifySelected, (param) => {
     }
     if(param.item.clazz == SelectedClassType.Item) {
         addItem(param.item.item as GameItem, param.clientPosition);
+        param.wasHandled();
+        return;
+    }
+    if(param.item.clazz == SelectedClassType.BlueprintItemModel) {
+        const item = param.item.item as BlueprintItemModel;
+        item.setRect(item.rect.assignPoint(param.clientPosition).limit(unref(boundingRect)));
         param.wasHandled();
         return;
     }

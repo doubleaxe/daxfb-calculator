@@ -17,6 +17,9 @@ export function useBlueprintSurface() {
     //this may be different from surface to support negative scroll
     const originElem = ref<MaybeElement>();
     const marginSize = 500;
+    //should be less than marginSize
+    const marginStep = marginSize >> 1;
+    const initialScrollOffset = 50;
 
     function applyStyle(elem: HTMLElement | SVGElement | null | undefined, style: Record<string, string>) {
         if(!elem)
@@ -24,6 +27,14 @@ export function useBlueprintSurface() {
         Object.entries(style).forEach(([key, value]) => {
             elem.style.setProperty(key, value);
         });
+    }
+
+    function roundToStep(value: number) {
+        if(!value)
+            return value;
+        if(value < 0)
+            return Math.floor((value - Number.EPSILON) / marginStep) * marginStep;
+        return Math.ceil((value + Number.EPSILON) / marginStep) * marginStep;
     }
 
     //there will be glitches, if we drag and expand and scroll simultaneously
@@ -47,8 +58,8 @@ export function useBlueprintSurface() {
         if(!_minItemXY.x && !_minItemXY.y && !_maxItemXY.x && !_maxItemXY.y) {
             boundingRect = Rect.assign();
         } else {
-            const x1 = Math.min(_minItemXY.x - marginSize, 0);
-            const y1 = Math.min(_minItemXY.y - marginSize, 0);
+            const x1 = roundToStep(Math.min(_minItemXY.x - marginSize, 0));
+            const y1 = roundToStep(Math.min(_minItemXY.y - marginSize, 0));
 
             //we need keep scroll position, so it will not suddenly jump somewhere
             //for this we must make bounding rect bigger than visible rect (at offset 0,0)
@@ -59,8 +70,8 @@ export function useBlueprintSurface() {
             boundingRect = Rect.assign({
                 x: x1,
                 y: y1,
-                width: ((x2 - x1) + marginSize),
-                height: ((y2 - y1) + marginSize),
+                width: roundToStep((x2 - x1) + marginSize),
+                height: roundToStep((y2 - y1) + marginSize),
             });
         }
         const {x, y, width, height} = boundingRect;
@@ -92,9 +103,9 @@ export function useBlueprintSurface() {
         applyStyle(unrefElement(originElem), originStyle);
         if(scrollboxElement) {
             if(resetScroll) {
-                scrollboxElement.scrollLeft = marginSize;
-                scrollboxElement.scrollTop = marginSize;
-            } else {
+                scrollboxElement.scrollLeft = marginSize - initialScrollOffset;
+                scrollboxElement.scrollTop = marginSize - initialScrollOffset;
+            } else if(delta.x || delta.x) {
                 //adjusting scrolling the same amount, so screen is left on the same position
                 const scrollX = scrollboxElement.scrollLeft + delta.x;
                 const scrollY = scrollboxElement.scrollTop + delta.y;

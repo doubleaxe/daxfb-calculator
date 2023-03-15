@@ -28,13 +28,10 @@ export function normalizeItemPositions(items: IterableIterator<BlueprintItemMode
     const _items = [...items];
     const {minItemXY} = calculateItemPositions(_items);
 
-    //normalize minimum offset of item to 40 px
-    const minOffset = 40;
-    const deltaPoint = Point.assign({
-        x: minItemXY.x - minOffset,
-        y: minItemXY.y - minOffset,
-    });
+    //normalize minimum offset of item to 0 px
+    //new saves will always be normalized, old ones need to be normalized for nicer first display
+    const offsetBy = minItemXY.scalePoint(-1);
     for(const item of _items) {
-        item.setRect(item.rect.offsetBy(deltaPoint, -1));
+        item.setRect(item.rect.offsetBy(offsetBy));
     }
 }
