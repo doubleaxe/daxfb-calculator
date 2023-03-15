@@ -33,11 +33,11 @@
   "author": "Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)",
   "license": "MIT",
   "dependencies": {
+    "@ellbur/javascript-lp-solver": "^0.4.26",
     "@mdi/js": "^7.1.96",
     "@vueuse/components": "^9.11.1",
     "@vueuse/core": "^9.11.1",
     "d3-shape": "^3.2.0",
-    "javascript-lp-solver": "github:edwardez/jsLPSolver#13d93daeea0bd0b329cc673e72eedcb796201bf0",
     "js-base64": "^3.7.4",
     "pako": "^2.1.0",
     "vue": "^3.2.41",

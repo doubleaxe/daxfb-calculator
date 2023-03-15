@@ -3,8 +3,11 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 */
 import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
-import {Model} from 'javascript-lp-solver';
-import type {Model as Model2, Variable} from './solver-better-types';
+//see https://github.com/ellbur/jsLPSolver
+//this will perform correct setup on Tableau prototype
+import '@ellbur/javascript-lp-solver/src/Tableau/index';
+import Model from '@ellbur/javascript-lp-solver/src/model';
+import type {Variable} from '@ellbur/javascript-lp-solver/src/model';
 
 //this uses linear programming simplex solver to solve max output for multiple flows
 //external library is used for algorithm itself, we just build multiple expressions to solve
@@ -14,7 +17,7 @@ import type {Model as Model2, Variable} from './solver-better-types';
 //we should find max value for item count, which will mean max input/output
 
 export class GraphSolver {
-    private readonly model: Model2;
+    private readonly model: Model;
     private readonly variables = new Map<string, Variable>();
 
     constructor(precision?: number) {
