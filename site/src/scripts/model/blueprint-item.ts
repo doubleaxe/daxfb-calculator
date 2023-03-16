@@ -99,7 +99,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         return true;
     }
     possibleRecipeForIo(sourceIo?: RecipeIOModel | null): string | undefined {
-        if(!sourceIo)
+        if(!sourceIo || (sourceIo.isAbstractClassItem && !sourceIo.isMatherialized))
             return undefined;
         return this.possibleRecipeForItem(sourceIo.name || '', sourceIo.isInput ? 1 : -1);
     }

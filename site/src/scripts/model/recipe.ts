@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameRecipe} from '#types/game-data';
+import type {GameItem, GameRecipe} from '#types/game-data';
 import {RecipeIOModelImpl} from './recipe-io';
 import type {BlueprintItemModel, RecipeIOModel, RecipeModel} from './store';
 
@@ -24,15 +24,17 @@ export class RecipeModelImpl {
     findSimilarIo(sourceIo: RecipeIOModel, reverce: boolean) {
         const isInput = reverce ? !sourceIo.isInput : sourceIo.isInput;
         const targetArray = isInput ? this._input : this._output;
-        return targetArray.find((io) => (
-            (io.name === sourceIo.name)
-            || (
-                (io.isAbstractClassItem !== sourceIo.isAbstractClassItem)
-                && !io.isMatherialized
-                && !sourceIo.isMatherialized
-                && (io.type === sourceIo.type)
-            )
-        ));
+        return targetArray.find((io) => {
+            if(io.isAbstractClassItem && sourceIo.isAbstractClassItem)
+                return false;
+            return (io.name === sourceIo.name)
+                || (
+                    (io.isAbstractClassItem !== sourceIo.isAbstractClassItem)
+                    && !io.isMatherialized
+                    && !sourceIo.isMatherialized
+                    && (io.type === sourceIo.type)
+                );
+        });
     }
     _$copySimilarLinksTo(targetRecipe: RecipeModel) {
         for(const targetItem of targetRecipe.items) {
@@ -45,6 +47,23 @@ export class RecipeModelImpl {
     _$deleteAllLinks() {
         for(const item of this.items) {
             item._$deleteAllLinks();
+        }
+    }
+    _$matherializeAllAbstractItems(item: GameItem | undefined) {
+        const items = [...this._input, ...this._output];
+        if(item) {
+            //link is added, materialize all io
+            for(const io of items) {
+                io._$matherializeAbstractItem(item);
+            }
+        } else {
+            //link is removed, if no links are left - dematerialize all io
+            const haveLinks = items.some((io) => io.linksCount);
+            if(!haveLinks) {
+                for(const io of items) {
+                    io._$matherializeAbstractItem(undefined);
+                }
+            }
         }
     }
 

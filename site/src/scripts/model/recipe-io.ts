@@ -53,6 +53,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isInput() { return this._isInput; }
     get ownerItem() { return this._ownerItem; }
     get links() { return this._links.values(); }
+    get linksCount() { return this._links.size; }
     get isFlipped() { return this._ownerItem?.isFlipped || this._isFlipped; }
 
     get isAbstractClassItem() { return this._item?.isAbstractClassItem || false; }
@@ -76,13 +77,16 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     _$linkAdded(value: LinkModel) {
         this._links.set(value.key, value);
         if(this.isAbstractClassItem && (this._links.size === 1)) {
-            this._matherializeAbstractItem = value.getOtherSide(this)?._$getItem();
+            const item = value.getOtherSide(this)?._$getItem();
+            //dual io abstract items support
+            this._ownerItem?.selectedRecipe?._$matherializeAllAbstractItems(item);
         }
     }
     _$linkDeleted(value: LinkModel) {
         this._links.delete(value.key);
         if(!this._links.size) {
-            this._matherializeAbstractItem = undefined;
+            //dual io abstract items support
+            this._ownerItem?.selectedRecipe?._$matherializeAllAbstractItems(undefined);
         }
     }
     _$copySimilarLinksTo(targetItem: RecipeIOModel) {

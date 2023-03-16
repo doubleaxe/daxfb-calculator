@@ -785,7 +785,11 @@
     "AnyEnergyOut10MW": "cC",
     "AnyEnergyContainer": "cD",
     "AnyFluid": "cE",
-    "AnyEnergy": "cF"
+    "AnyEnergy": "cF",
+    "AnyFluidInOut": "cG",
+    "AnySolidInOut": "cH",
+    "AnyEnergyInOut10kW": "cI",
+    "AnyEnergyInOut10MW": "cJ"
   },
-  "lastKey": 785
+  "lastKey": 789
 }
