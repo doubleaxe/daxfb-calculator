@@ -5,18 +5,20 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {onBeforeMount, ref} from 'vue';
 import {injectGameData} from '@/scripts/data';
-import {provideBlueprintModel} from '@/scripts/model/store';
+import {provideBlueprintModel, type BlueprintModel} from '@/scripts/model/store';
 import {provideFilter} from '@/scripts/filter';
 import {provideSettings} from '@/scripts/settings';
 
 const drawer = ref(true);
 const gameData = injectGameData();
+const blueprintModel = ref<BlueprintModel | undefined>();
 
 onBeforeMount(() => {
-    const blueprintModel = provideBlueprintModel(gameData);
+    const _blueprintModel = provideBlueprintModel(gameData);
     const filter = provideFilter(gameData);
-    provideSettings(gameData, blueprintModel, filter);
+    provideSettings(gameData, _blueprintModel, filter);
     document.title = `${gameData.gameDescription.description} Calculator/Factory Planner by doubleaxe`;
+    blueprintModel.value = _blueprintModel;
 });
 </script>
 
@@ -27,7 +29,7 @@ onBeforeMount(() => {
             <template #prepend>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             </template>
-            <v-app-bar-title>{{ `${gameData.gameDescription.description} Calculator/Factory Planner` }}</v-app-bar-title>
+            <v-app-bar-title>{{ `${blueprintModel?.blueprintName || ''}` }}</v-app-bar-title>
             <template #append>
                 <main-toolbar />
             </template>

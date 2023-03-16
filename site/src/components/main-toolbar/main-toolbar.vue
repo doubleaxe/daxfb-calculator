@@ -22,7 +22,6 @@ const showAboutDialog = ref(false);
     />
     <v-switch v-model="blueprintModel.autoSolveGraph" label="Auto" hide-details class="mr-1" color="primary" />
     <v-divider vertical />
-    <button-save />
     <button-load />
     <button-save-share />
     <button-load-share />

@@ -54,6 +54,7 @@ function isTouchDevice() {
 class Settings {
     private _filter: PublicFilter;
     private _blueprintModel: BlueprintModel;
+    private _isTouchDevice;
 
     constructor(blueprintModel: BlueprintModel, filter: PublicFilter) {
         this._blueprintModel = blueprintModel;
@@ -64,7 +65,10 @@ class Settings {
         this.dragAndScrollEnabled = !touchDevice;
         this.overflowScrollEnabled = !touchDevice;
         this.pointAndClickEnabled = touchDevice;
+        this._isTouchDevice = touchDevice;
     }
+
+    get isTouchDevice() { return this._isTouchDevice; }
 
     iconSize = 32;
     itemStateColor: BlueprintItemStateColorClass = {

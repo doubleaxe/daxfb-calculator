@@ -68,6 +68,19 @@ export class BlueprintEncoder {
         }
         return chunks.join('\n');
     }
+    encodeDescriptionHeader(encodedBlueprint: string, blueprintDescription: string) {
+        if(!blueprintDescription)
+            return encodedBlueprint;
+        const size = this._options.blueprintSplit;
+        let blueprintHeader = '';
+        if((size <= 0) || ((blueprintDescription.length + 8) > size)) {
+            blueprintHeader = `====${blueprintDescription}====\n`;
+        } else {
+            const charsCount = (size - blueprintDescription.length) >> 1;
+            blueprintHeader = `${'='.repeat(charsCount)}${blueprintDescription}${'='.repeat(size - blueprintDescription.length - charsCount)}\n`;
+        }
+        return blueprintHeader + encodedBlueprint;
+    }
 }
 
 export class BlueprintDecoder {

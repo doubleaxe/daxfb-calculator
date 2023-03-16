@@ -31,8 +31,26 @@ export class BlueprintModelImpl {
     //could be used by vue to watch items added/removed
     private _itemsGenerationNumber = 0;
 
+    public fileName = '';
+    resetFileName(force: boolean) {
+        if(!this.fileName || force) {
+            this.fileName = `blueprint-${this._gameData.gameDescription.name}.txt`;
+        }
+    }
+    public blueprintName = '';
+    resetBlueprintName(force: boolean) {
+        if(!this.blueprintName || force) {
+            this.blueprintName = `${this._gameData.gameDescription.description} New Blueprint`;
+        }
+    }
+    resetNames(force: boolean) {
+        this.resetFileName(force);
+        this.resetBlueprintName(force);
+    }
+
     constructor(_gameData: GameData) {
         this._gameData = _gameData;
+        this.resetNames(true);
     }
 
     get gameData() { return this._gameData; }
@@ -115,6 +133,7 @@ export class BlueprintModelImpl {
         this._items.clear();
         this._links.clear();
         this.hasCycles = false;
+        this.resetNames(true);
     }
     save() {
         //normalize positions before saving

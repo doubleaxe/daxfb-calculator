@@ -15,7 +15,6 @@ export interface GameExDataSerialized {
 
 export interface GameDescriptionSerialized {
     name: string;
-    longName?: string;
     shortName: string;
     description: string;
     url?: string;
