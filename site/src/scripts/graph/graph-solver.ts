@@ -6,8 +6,9 @@ import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
 //see https://github.com/ellbur/jsLPSolver
 //this will perform correct setup on Tableau prototype
 import '@ellbur/javascript-lp-solver/src/Tableau/index';
-import Model from '@ellbur/javascript-lp-solver/src/model';
-import type {Variable} from '@ellbur/javascript-lp-solver/src/model';
+//upper case letter in Model!!! otherwise unix systems will not build
+import Model from '@ellbur/javascript-lp-solver/src/Model';
+import type {Variable} from '@ellbur/javascript-lp-solver/src/Model';
 
 //this uses linear programming simplex solver to solve max output for multiple flows
 //external library is used for algorithm itself, we just build multiple expressions to solve
