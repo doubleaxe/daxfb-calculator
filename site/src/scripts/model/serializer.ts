@@ -68,19 +68,6 @@ export class BlueprintEncoder {
         }
         return chunks.join('\n');
     }
-    encodeDescriptionHeader(encodedBlueprint: string, blueprintDescription: string) {
-        if(!blueprintDescription)
-            return encodedBlueprint;
-        const size = this._options.blueprintSplit;
-        let blueprintHeader = '';
-        if((size <= 0) || ((blueprintDescription.length + 8) > size)) {
-            blueprintHeader = `====${blueprintDescription}====\n`;
-        } else {
-            const charsCount = (size - blueprintDescription.length) >> 1;
-            blueprintHeader = `${'='.repeat(charsCount)}${blueprintDescription}${'='.repeat(size - blueprintDescription.length - charsCount)}\n`;
-        }
-        return blueprintHeader + encodedBlueprint;
-    }
 }
 
 export class BlueprintDecoder {
@@ -204,5 +191,64 @@ export class BlueprintDecoder {
 
     private loadEncoded(encoded: string) {
         return decode(encoded);
+    }
+}
+
+type FileNameHandlerOptions = {
+    blueprintSplit: number;
+};
+export class FileNameHandler {
+    private readonly _options;
+    constructor(_options: FileNameHandlerOptions) {
+        this._options = _options;
+    }
+
+    encodeBlueprintNameHeader(encodedBlueprint: string, blueprintName: string) {
+        if(!blueprintName)
+            return encodedBlueprint;
+        const size = this._options.blueprintSplit;
+        let blueprintHeader = '';
+        if((size <= 0) || ((blueprintName.length + 8) > size)) {
+            blueprintHeader = `====${blueprintName}====\n`;
+        } else {
+            const charsCount = (size - blueprintName.length) >> 1;
+            blueprintHeader = `${'='.repeat(charsCount)}${blueprintName}${'='.repeat(size - blueprintName.length - charsCount)}\n`;
+        }
+        return blueprintHeader + encodedBlueprint;
+    }
+    static decodeBlueprintNameHeader(encodedBlueprint: string) {
+        const lineSeparator = encodedBlueprint.indexOf('\n');
+        if(lineSeparator <= 2) {
+            return {
+                blueprintName: undefined,
+                encodedBlueprint,
+            };
+        }
+        const firstLine = encodedBlueprint.substring(0, lineSeparator);
+        const match = /^=+((?:[^=]+=+)*[^=]+)=+$/.exec(firstLine);
+        if(!match) {
+            return {
+                blueprintName: undefined,
+                encodedBlueprint,
+            };
+        }
+        const blueprintName = match[1];
+        return {
+            blueprintName,
+            encodedBlueprint: encodedBlueprint.substring(lineSeparator + 1),
+        };
+    }
+    static fileNameToBlueprintName(fileName: string) {
+        const match = /^(.+?)(?:\(\s*\d+\s*\)\s*)?\.([^.]+)$/.exec(fileName);
+        if(!match)
+            return fileName;
+        const blueprintName0 = match[1].trim().split(/[\s_-]+/);
+        const blueprintName = blueprintName0.map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+        return blueprintName || fileName;
+    }
+    static blueprintNameToFileName(blueprintName: string) {
+        const fileName0 = blueprintName.split(/[\s_-]+/);
+        const fileName = fileName0.map((s) => s.toLowerCase()).join('-') + '.txt';
+        return fileName || blueprintName;
     }
 }

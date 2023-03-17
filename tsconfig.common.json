@@ -9,6 +9,7 @@
     "noImplicitThis": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
     "resolveJsonModule": true,
     "paths": {
       "#types/*": ["./site/data/types/*"]

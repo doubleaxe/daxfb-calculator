@@ -4,3 +4,4 @@ dist
 site/components.d.ts
 site/public/**
 site/docs/**
+tmp

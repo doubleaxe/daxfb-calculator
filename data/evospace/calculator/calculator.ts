@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {Calculator} from '#types/calculator';
-import {GameRecipeDictionary} from '#types/game-data';
+import type {GameRecipeDictionary} from '#types/game-data';
 import {GameItemType} from '#types/contants';
 import {GameRecipeDictionaryExData, GameRecipeIOType} from '../types/custom-game-data';
 

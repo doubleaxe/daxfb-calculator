@@ -7,8 +7,8 @@ import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck, mdiContentSave} fro
 import {injectSettings} from '@/scripts/settings';
 import {useClipboard, useShare, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
-import {nextTick, ref, unref, watch} from 'vue';
-import {BlueprintEncoder} from '@/scripts/model/serializer';
+import {nextTick, ref, unref, watch, computed} from 'vue';
+import {BlueprintEncoder, FileNameHandler} from '@/scripts/model/serializer';
 import {injectGameData} from '@/scripts/data';
 
 const props = defineProps<{
@@ -26,6 +26,10 @@ const fullyEncodedBlueprint = ref('');
 const textArea = ref<HTMLTextAreaElement | undefined>();
 const objectUrl = ref<string | null>(null);
 const objectAnchor = ref<HTMLElement | null>(null);
+const blueprintName = ref('');
+const fileName = computed(() => {
+    return FileNameHandler.blueprintNameToFileName(unref(blueprintName));
+});
 
 const {copy, copied, isSupported: isClipboardSupported} = useClipboard();
 const {share, isSupported: isShareSupported} = useShare();
@@ -47,8 +51,8 @@ function saveBlueprint() {
 }
 
 function updateFullyEncodedBlueprint() {
-    const encoder = new BlueprintEncoder(gameData, settings);
-    fullyEncodedBlueprint.value = encoder.encodeDescriptionHeader(unref(splitBlueprint), blueprintModel.blueprintName);
+    const handler = new FileNameHandler(settings);
+    fullyEncodedBlueprint.value = handler.encodeBlueprintNameHeader(unref(splitBlueprint), unref(blueprintName));
 }
 
 watch(() => props.modelValue, (value) => {
@@ -57,14 +61,19 @@ watch(() => props.modelValue, (value) => {
         const encoded = encoder.encode(blueprintModel.save());
         const split = encoder.split(encoded);
         splitBlueprint.value = split;
+        blueprintName.value = blueprintModel.blueprintName;
         updateFullyEncodedBlueprint();
         nextTick(() => {
             unref(textArea)?.select();
         });
     }
 });
-watch(() => blueprintModel.blueprintName, () => {
+watch(blueprintName, (value) => {
+    if(!value) {
+        blueprintName.value = blueprintModel.getDefaultBlueprintName();
+    }
     updateFullyEncodedBlueprint();
+    blueprintModel.blueprintName = unref(blueprintName);
 });
 </script>
 
@@ -72,7 +81,7 @@ watch(() => blueprintModel.blueprintName, () => {
     <v-dialog v-model="dialog">
         <v-sheet>
             <v-toolbar>
-                <v-toolbar-title>Save / Share</v-toolbar-title>
+                <v-toolbar-title>Save / Share Blueprint</v-toolbar-title>
                 <v-spacer />
                 <v-btn
                     :icon="mdiClose"
@@ -81,24 +90,14 @@ watch(() => blueprintModel.blueprintName, () => {
             </v-toolbar>
             <v-container>
                 <v-row dense>
-                    <v-col cols="6">
+                    <v-col>
                         <v-text-field
-                            v-model="blueprintModel.fileName"
-                            label="File Name"
+                            v-model="blueprintName"
+                            label="Edit Blueprint Description"
                             density="comfortable"
                             hide-details
                             clearable
-                            @click:clear="blueprintModel.resetFileName(true)"
-                        />
-                    </v-col>
-                    <v-col cols="6">
-                        <v-text-field
-                            v-model="blueprintModel.blueprintName"
-                            label="Blueprint Description"
-                            density="comfortable"
-                            hide-details
-                            clearable
-                            @click:clear="blueprintModel.resetBlueprintName(true)"
+                            @click:clear="blueprintName = blueprintModel.getDefaultBlueprintName()"
                         />
                     </v-col>
                 </v-row>
@@ -114,29 +113,44 @@ watch(() => blueprintModel.blueprintName, () => {
                             :model-value="fullyEncodedBlueprint"
                         />
                     </v-col>
-                    <v-col cols="1">
-                        <tooltip-button
+                    <div class="flex-shrink-1">
+                        <v-btn
                             v-if="isClipboardSupported"
-                            :icon="copied ? mdiCheck : mdiContentCopy"
-                            tooltip="Copy To Clipboard"
+                            block
+                            size="small"
+                            class="mb-1"
+                            :prepend-icon="copied ? mdiCheck : mdiContentCopy"
                             @click="copy(fullyEncodedBlueprint)"
-                        />
-                        <tooltip-button
+                        >
+                            Copy To Clipboard
+                        </v-btn>
+                        <v-btn
                             v-if="isShareSupported"
-                            class="mt-1"
-                            :icon="mdiShareVariant"
-                            tooltip="Share"
+                            block
+                            size="small"
+                            class="mb-1"
+                            :prepend-icon="mdiShareVariant"
                             @click="share({title: blueprintModel.blueprintName, text: fullyEncodedBlueprint})"
-                        />
-                        <tooltip-button tooltip="Save" :icon="mdiContentSave" @click="saveBlueprint" />
+                        >
+                            Share
+                        </v-btn>
+                        <v-btn
+                            block
+                            size="small"
+                            color="secondary"
+                            :prepend-icon="mdiContentSave"
+                            @click="saveBlueprint"
+                        >
+                            Save To File
+                        </v-btn>
                         <a
                             v-if="objectUrl"
                             ref="objectAnchor"
-                            :download="blueprintModel.fileName"
+                            :download="fileName"
                             :href="objectUrl"
                             class="d-none"
                         />
-                    </v-col>
+                    </div>
                 </v-row>
             </v-container>
         </v-sheet>

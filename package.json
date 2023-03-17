@@ -11,7 +11,7 @@
     "build-only": "vite build site",
     "lint": "run-p eslint stylelint type-check",
     "eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
-    "stylelint": "stylelint \"**/*.vue\" --fix",
+    "stylelint": "stylelint \"site/**/*.vue\" --fix",
     "type-check": "tsc --noEmit && vue-tsc --noEmit -p site",
     "build-docs": "ts-node render-docs.ts",
     "build-data": "ts-node build-data.ts",
