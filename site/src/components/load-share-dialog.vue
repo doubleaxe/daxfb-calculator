@@ -69,8 +69,8 @@ function loadBlueprintFromFile() {
             showError(ERROR_TITLE, error);
             return;
         }
-        loadedBlueprint.value = fileContents;
         fileName.value = selectedFile.name;
+        load(fileContents);
     };
     reader.onerror = function() {
         showError(ERROR_TITLE, reader.error);
@@ -79,8 +79,10 @@ function loadBlueprintFromFile() {
 }
 
 
-function load() {
-    let encodedBlueprint = unref(loadedBlueprint);
+function load(encodedBlueprint?: string) {
+    if(!encodedBlueprint) {
+        encodedBlueprint = unref(loadedBlueprint);
+    }
     let blueprintName: string | undefined;
     ({blueprintName, encodedBlueprint} = FileNameHandler.decodeBlueprintNameHeader(encodedBlueprint));
     if(!blueprintName && unref(fileName)) {
@@ -134,7 +136,7 @@ function load() {
                             size="small"
                             class="mb-1"
                             :prepend-icon="mdiContentPaste"
-                            @click="paste"
+                            @click="paste()"
                         >
                             Paste From Clipboard
                         </v-btn>
@@ -143,7 +145,7 @@ function load() {
                             size="small"
                             color="secondary"
                             :prepend-icon="mdiFileUploadOutline"
-                            @click="loadingBlueprint"
+                            @click="loadingBlueprint()"
                         >
                             Load From File
                         </v-btn>
@@ -153,7 +155,7 @@ function load() {
                             type="file"
                             class="d-none"
                             accept=".txt,text/plain"
-                            @change="loadBlueprintFromFile"
+                            @change="loadBlueprintFromFile()"
                         >
                     </div>
                 </v-row>
@@ -161,7 +163,7 @@ function load() {
                     <v-btn
                         color="primary"
                         block
-                        @click="load"
+                        @click="load()"
                     >
                         Load Blueprint
                     </v-btn>

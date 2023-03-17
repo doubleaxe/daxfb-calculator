@@ -225,7 +225,7 @@ export class FileNameHandler {
             };
         }
         const firstLine = encodedBlueprint.substring(0, lineSeparator);
-        const match = /^=+((?:[^=]+=+)*[^=]+)=+$/.exec(firstLine);
+        const match = /^=+((?:[^=]+=+)*[^=]+)=+\r?\n?$/.exec(firstLine);
         if(!match) {
             return {
                 blueprintName: undefined,

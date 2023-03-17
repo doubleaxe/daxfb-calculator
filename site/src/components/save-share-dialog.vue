@@ -139,7 +139,7 @@ watch(blueprintName, (value) => {
                             size="small"
                             color="secondary"
                             :prepend-icon="mdiContentSave"
-                            @click="saveBlueprint"
+                            @click="saveBlueprint()"
                         >
                             Save To File
                         </v-btn>
