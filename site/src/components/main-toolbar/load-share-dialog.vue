@@ -119,17 +119,17 @@ function load(encodedBlueprint?: string) {
                 />
             </v-toolbar>
             <v-container>
-                <v-row dense>
-                    <v-col>
+                <div class="my-flex-xs-wrap mb-4">
+                    <div class="flex-grow-1 mr-1 mt-2">
                         <v-textarea
                             v-model="loadedBlueprint"
-                            class="text-monospaced"
+                            class="text-monospaced textarea-overflow-auto"
                             label="Paste Blueprint Data"
                             variant="outlined"
                             hide-details
                         />
-                    </v-col>
-                    <div class="flex-shrink-1">
+                    </div>
+                    <div class="mt-2">
                         <v-btn
                             v-if="isClipboardSupported"
                             block
@@ -158,7 +158,7 @@ function load(encodedBlueprint?: string) {
                             @change="loadBlueprintFromFile()"
                         >
                     </div>
-                </v-row>
+                </div>
                 <v-row dense>
                     <v-btn
                         color="primary"

@@ -5,7 +5,7 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck, mdiContentSave} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
-import {useClipboard, useShare, useVModel} from '@vueuse/core';
+import {useClipboard, useDebounceFn, useShare, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {nextTick, ref, unref, watch, computed} from 'vue';
 import {BlueprintEncoder, FileNameHandler} from '@/scripts/model/serializer';
@@ -54,6 +54,7 @@ function updateFullyEncodedBlueprint() {
     const handler = new FileNameHandler(settings);
     fullyEncodedBlueprint.value = handler.encodeBlueprintNameHeader(unref(splitBlueprint), unref(blueprintName));
 }
+const debouncedUpdateFullyEncodedBlueprint = useDebounceFn(updateFullyEncodedBlueprint, 200);
 
 watch(() => props.modelValue, (value) => {
     if(value) {
@@ -72,7 +73,7 @@ watch(blueprintName, (value) => {
     if(!value) {
         blueprintName.value = blueprintModel.getDefaultBlueprintName();
     }
-    updateFullyEncodedBlueprint();
+    debouncedUpdateFullyEncodedBlueprint();
     blueprintModel.blueprintName = unref(blueprintName);
 });
 </script>
@@ -89,7 +90,7 @@ watch(blueprintName, (value) => {
                 />
             </v-toolbar>
             <v-container>
-                <v-row dense>
+                <v-row dense class="mb-2">
                     <v-col>
                         <v-text-field
                             v-model="blueprintName"
@@ -101,19 +102,20 @@ watch(blueprintName, (value) => {
                         />
                     </v-col>
                 </v-row>
-                <v-row dense class="mt-4">
-                    <v-col>
+                <div class="my-flex-xs-wrap">
+                    <div class="flex-grow-1 mr-1 mt-2">
                         <v-textarea
                             ref="textArea"
                             class="text-monospaced"
+                            :class="settings.blueprintSplit ? 'textarea-overflow-auto' : ''"
                             label="Copy Blueprint Data"
                             variant="outlined"
                             readonly
                             hide-details
                             :model-value="fullyEncodedBlueprint"
                         />
-                    </v-col>
-                    <div class="flex-shrink-1">
+                    </div>
+                    <div class="mt-2">
                         <v-btn
                             v-if="isClipboardSupported"
                             block
@@ -151,7 +153,7 @@ watch(blueprintName, (value) => {
                             class="d-none"
                         />
                     </div>
-                </v-row>
+                </div>
             </v-container>
         </v-sheet>
     </v-dialog>
