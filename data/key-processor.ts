@@ -9,6 +9,7 @@ import type {
     GameRecipeDictionarySerialized,
     GameItemSerialized,
     GameDataSerialized,
+    LogisticSerialized,
 } from '#types/game-data-serialized';
 
 interface KeysJson {
@@ -45,10 +46,12 @@ export class KeyProcessor {
     async processKeys() {
         this.mergeRecipes();
         this.mergeItems();
+        this.mergeLogistic();
         this.mergeImages();
 
         this.fixRecipeReferences();
         this.fixItemReferences();
+        this.fixLogisticReferences();
 
         const reverceKeys = Object.fromEntries(Object.entries(this.keysJson.keys || {}).map(([name, key]) => [key, name]));
         fs.writeFileSync(this.keyStorePath, JSON.stringify(this.keysJson, null, '  '));
@@ -85,6 +88,17 @@ export class KeyProcessor {
         const mappedArray: [string, GameItemSerialized][] = (this.gameData.items || []).map((r) => [r.name, r]);
         const mappedObject = this.mapKeys(mappedArray);
         this.gameData.items = mappedObject?.map(([key, value]) => {
+            if(this.isAttachKeys) {
+                value.longName = value.name;
+            }
+            value.name = key;
+            return value;
+        }) || [];
+    }
+    private mergeLogistic() {
+        const mappedArray: [string, LogisticSerialized][] = (this.gameData.logistic || []).map((r) => [r.name, r]);
+        const mappedObject = this.mapKeys(mappedArray);
+        this.gameData.logistic = mappedObject?.map(([key, value]) => {
             if(this.isAttachKeys) {
                 value.longName = value.name;
             }
@@ -139,6 +153,24 @@ export class KeyProcessor {
                     item.recipe.longRecipeDictionary = item.recipe.recipeDictionary;
                 }
                 item.recipe.recipeDictionary = nameMapping[item.recipe.recipeDictionary] || '';
+            }
+        }
+    }
+
+    private fixLogisticReferences() {
+        const nameMapping = this.keysJson.keys || {};
+        for(const logistic of this.gameData.logistic || []) {
+            for(const item of logistic.items) {
+                if(this.isAttachKeys) {
+                    item.longName = item.name;
+                }
+                item.name = nameMapping[item.name] || '';
+            }
+            for(const transport of logistic.transport) {
+                if(this.isAttachKeys) {
+                    transport.longName = transport.name;
+                }
+                transport.name = nameMapping[transport.name] || '';
             }
         }
     }

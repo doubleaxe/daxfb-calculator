@@ -789,7 +789,10 @@
     "AnyFluidInOut": "cG",
     "AnySolidInOut": "cH",
     "AnyEnergyInOut10kW": "cI",
-    "AnyEnergyInOut10MW": "cJ"
+    "AnyEnergyInOut10MW": "cJ",
+    "RobotArm90": "cK",
+    "RobotArm180": "cL",
+    "Conveyor": "cM"
   },
-  "lastKey": 789
+  "lastKey": 792
 }

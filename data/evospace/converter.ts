@@ -6,6 +6,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {applyPatch} from 'diff';
 import description from './description.json';
+import {logistic} from './static/custom-data';
 import {GameRecipeDictionaryExData, GameRecipeIOType} from './types/custom-game-data';
 import type {ConvertedData} from '../processing';
 
@@ -152,6 +153,18 @@ function convertItems(items: JsonItem[]) {
     });
 }
 
+function convertLogistic() {
+    logistic.forEach((l) => {
+        l.items.forEach((item) => {
+            item.name = itemNameMapper(item.name);
+        });
+        l.transport.forEach((transport) => {
+            transport.name = itemNameMapper(transport.name);
+        });
+    });
+    return logistic;
+}
+
 async function convertGameData() {
     const parsedData: string = fs.readFileSync(path.join(__parsed, 'data.json'), 'utf8');
     let patchData: string | null = null;
@@ -167,6 +180,7 @@ async function convertGameData() {
     const gameData: GameDataSerialized = {
         recipeDictionaries: convertRecipes(patchedDataJson.Recipes),
         items: convertItems(patchedDataJson.Items),
+        logistic: convertLogistic(),
         images: {},
         description,
     };

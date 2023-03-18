@@ -10,6 +10,9 @@ import type {
     GameRecipeReferenceSerialized,
     GameDescriptionSerialized,
     GameImagesSerialized,
+    LogisticItemSerialized,
+    LogisticTransportSerialized,
+    LogisticSerialized,
 } from './game-data-serialized';
 
 export type GameImagesRaw = GameImagesSerialized;
@@ -57,6 +60,15 @@ export interface GameItemRaw extends GameItemSerialized {
     recipeDictionary?: GameRecipeDictionary;
 }
 export type GameItem = Readonly<GameItemRaw>;
+
+export type LogisticItemRaw = LogisticItemSerialized;
+export type LogisticItem = Readonly<LogisticItemRaw>;
+
+export type LogisticTransportRaw = LogisticTransportSerialized;
+export type LogisticTransport = Readonly<LogisticTransportRaw>;
+
+export type LogisticRaw = LogisticSerialized;
+export type Logistic = Readonly<LogisticRaw>;
 
 export interface GameDescriptionRaw extends GameDescriptionSerialized {
     minTier: number;

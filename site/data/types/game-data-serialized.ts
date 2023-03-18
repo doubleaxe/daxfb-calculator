@@ -69,11 +69,35 @@ export interface GameItemSerialized {
     exdata?: GameExDataSerialized;
 }
 
+export interface LogisticItemSerialized {
+    name: string;
+    longName?: string;
+}
+
+export interface LogisticTransportSerialized {
+    name: string;
+    longName?: string;
+    label?: string;
+    count: number;
+    exdata?: GameExDataSerialized;
+}
+
+export interface LogisticSerialized {
+    name: string;
+    longName?: string;
+    items: LogisticItemSerialized[];
+    transport: LogisticTransportSerialized[];
+    time: number;
+    exdata?: GameExDataSerialized;
+}
+
 export interface GameDataSerialized {
     //ordered in natural order
     recipeDictionaries: GameRecipeDictionarySerialized[];
     //ordered in natural order
     items: GameItemSerialized[];
+    //ordered in natural order
+    logistic?: LogisticSerialized[];
     images: GameImagesSerialized;
     description: GameDescriptionSerialized;
 }
