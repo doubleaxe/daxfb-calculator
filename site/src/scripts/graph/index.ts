@@ -1,10 +1,12 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {BlueprintItemModel, BlueprintModel} from '../model/store';
 import {GraphSolver} from './graph-solver';
 import {TarjanGraphWalker} from './graph-walker';
+import {distributeLinksFlow} from './link-solver';
+import {resolveConnections} from './resolve-connections';
 
 function markCycle(arrayCycle: BlueprintItemModel[], partOfCycle: boolean) {
     for(const item of arrayCycle) {
@@ -24,11 +26,12 @@ export function solveGraph(blueprint: BlueprintModel, items: IterableIterator<Bl
         }
         if(hasCycles) {
             blueprintHasCycles = true;
-            arrayScc.flat().forEach((item) => item.setSolvedCount(undefined));
         }
         //DAG = directed acyclic graph (maybe cycles)
         const arrayDag: BlueprintItemModel[] = arrayScc.flat();
-        new GraphSolver(precision).solve(arrayDag);
+        const connections = resolveConnections(arrayDag);
+        new GraphSolver(precision).solve(arrayDag, connections);
+        distributeLinksFlow(connections, precision);
     }
     blueprint.hasCycles = blueprintHasCycles;
 }

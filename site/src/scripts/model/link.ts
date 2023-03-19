@@ -14,6 +14,7 @@ export class LinkModelImpl {
     public readonly output?: RecipeIOModel;
     private _linkShape?: LinkShapeModel;
     private readonly _colorClass;
+    private _flow: number | undefined;
 
     constructor(input?: RecipeIOModel, output?: RecipeIOModel) {
         this.input = input;
@@ -24,6 +25,7 @@ export class LinkModelImpl {
 
     get key() { return this._key; }
     get colorClass() { return this._colorClass; }
+    get flow() { return this._flow; }
     buildShape() {
         const descriptor = new LinkShapeDescriptor(
             this.input?.rect,
@@ -69,5 +71,9 @@ export class LinkModelImpl {
                 output || 0,
             ],
         };
+    }
+
+    setFlow(_flow?: number) {
+        this._flow = _flow;
     }
 }

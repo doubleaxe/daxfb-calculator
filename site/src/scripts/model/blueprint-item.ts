@@ -126,6 +126,14 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     setSolvedCount(solvedCount?: number) {
         this._solvedCount = solvedCount;
     }
+    resetFlow() {
+        //input will reset automatically, because each link has two connected io
+        for(const io of this._selectedRecipe?.output || []) {
+            for(const link of io.links) {
+                link.setFlow(undefined);
+            }
+        }
+    }
     deleteAllLinks() {
         this._selectedRecipe?._$deleteAllLinks();
     }
