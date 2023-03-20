@@ -190,7 +190,10 @@ export class BlueprintModelImpl {
             if(!item1 || !item2) {
                 return;
             }
-            item1._$loadLink(item2, errorCollector);
+            const loadedLink = item1._$loadLink(item2, errorCollector);
+            if(loadedLink) {
+                loadedLink._$load(this._gameData, link, errorCollector);
+            }
         });
         normalizeItemPositions(this.items);
         this.resetBlueprintName();

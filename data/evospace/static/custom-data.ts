@@ -1,6 +1,6 @@
-import type {LogisticSerialized} from '#types/game-data-serialized';
+import type {GameLogisticSerialized} from '#types/game-data-serialized';
 
-export const logistic: LogisticSerialized[] = [{
+export const logistic: GameLogisticSerialized[] = [{
     name: 'RobotArm90',
     items: [{
         name: 'AnySolidStaticItem',
@@ -34,7 +34,8 @@ export const logistic: LogisticSerialized[] = [{
         label: 'Neutronium Robot Arm 90°',
         count: 1800,
     }],
-    time: 3600,
+    time: 3600 / 20,
+    stackable: true,
 }, {
     name: 'RobotArm180',
     items: [{
@@ -69,7 +70,8 @@ export const logistic: LogisticSerialized[] = [{
         label: 'Neutronium Robot Arm 180°',
         count: 1800,
     }],
-    time: 7200,
+    time: 7200 / 20,
+    stackable: true,
 }, {
     name: 'Conveyor',
     items: [{
@@ -97,5 +99,5 @@ export const logistic: LogisticSerialized[] = [{
         name: 'NeutroniumConveyorStaticItem',
         count: 60,
     }],
-    time: 60,
+    time: 60 / 20,
 }];

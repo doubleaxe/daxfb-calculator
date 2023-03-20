@@ -69,12 +69,12 @@ export interface GameItemSerialized {
     exdata?: GameExDataSerialized;
 }
 
-export interface LogisticItemSerialized {
+export interface GameLogisticItemSerialized {
     name: string;
     longName?: string;
 }
 
-export interface LogisticTransportSerialized {
+export interface GameLogisticTransportSerialized {
     name: string;
     longName?: string;
     label?: string;
@@ -82,12 +82,13 @@ export interface LogisticTransportSerialized {
     exdata?: GameExDataSerialized;
 }
 
-export interface LogisticSerialized {
+export interface GameLogisticSerialized {
     name: string;
     longName?: string;
-    items: LogisticItemSerialized[];
-    transport: LogisticTransportSerialized[];
+    items: GameLogisticItemSerialized[];
+    transport: GameLogisticTransportSerialized[];
     time: number;
+    stackable?: boolean;
     exdata?: GameExDataSerialized;
 }
 
@@ -97,7 +98,7 @@ export interface GameDataSerialized {
     //ordered in natural order
     items: GameItemSerialized[];
     //ordered in natural order
-    logistic?: LogisticSerialized[];
+    logistic?: GameLogisticSerialized[];
     images: GameImagesSerialized;
     description: GameDescriptionSerialized;
 }

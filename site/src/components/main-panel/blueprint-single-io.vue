@@ -36,6 +36,8 @@ const border = computed(() => {
         return 'highlight-border';
     return '';
 });
+const cpsSolvedTotal = computed(() => formatIo(props.io.cpsSolvedTotal, props.io) || '?');
+const cpsMaxTotal = computed(() => formatIo(props.io.cpsMaxTotal, props.io));
 
 function filterForIo() {
     if(filter.key != props.io.name) {
@@ -71,9 +73,9 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             :class="[align, border]"
             @click="filterForIo()"
         >
-            {{ formatIo(props.io.cpsSolvedTotal, props.io) || '?' }}
+            {{ cpsSolvedTotal }}
             <br>
-            {{ formatIo(props.io.cpsMaxTotal, props.io) }}
+            {{ cpsMaxTotal }}
         </div>
     </div>
 </template>

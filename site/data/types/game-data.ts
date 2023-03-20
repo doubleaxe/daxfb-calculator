@@ -10,9 +10,9 @@ import type {
     GameRecipeReferenceSerialized,
     GameDescriptionSerialized,
     GameImagesSerialized,
-    LogisticItemSerialized,
-    LogisticTransportSerialized,
-    LogisticSerialized,
+    GameLogisticItemSerialized,
+    GameLogisticTransportSerialized,
+    GameLogisticSerialized,
 } from './game-data-serialized';
 
 export type GameImagesRaw = GameImagesSerialized;
@@ -61,14 +61,21 @@ export interface GameItemRaw extends GameItemSerialized {
 }
 export type GameItem = Readonly<GameItemRaw>;
 
-export type LogisticItemRaw = LogisticItemSerialized;
-export type LogisticItem = Readonly<LogisticItemRaw>;
+export type GameLogisticItemRaw = GameLogisticItemSerialized;
+export type GameLogisticItem = Readonly<GameLogisticItemRaw>;
 
-export type LogisticTransportRaw = LogisticTransportSerialized;
-export type LogisticTransport = Readonly<LogisticTransportRaw>;
+export interface GameLogisticTransportRaw extends GameLogisticTransportSerialized {
+    logistic: GameLogistic;
+    item: GameItem;
+    countPerSecond: number;
+}
+export type GameLogisticTransport = Readonly<GameLogisticTransportRaw>;
 
-export type LogisticRaw = LogisticSerialized;
-export type Logistic = Readonly<LogisticRaw>;
+export interface GameLogisticRaw extends GameLogisticSerialized {
+    //ordered from slowest to fastest
+    transport: GameLogisticTransport[];
+}
+export type GameLogistic = Readonly<GameLogisticRaw>;
 
 export interface GameDescriptionRaw extends GameDescriptionSerialized {
     minTier: number;

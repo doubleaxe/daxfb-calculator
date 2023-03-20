@@ -7,6 +7,7 @@ import {ItemModelImpl} from './item';
 import type {
     BlueprintItemModel,
     BlueprintModel,
+    LinkModel,
     RecipeIOModel,
     RecipeModel,
 } from './store';
@@ -171,18 +172,18 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     _$loadLink(sourceItem: BlueprintItemModel, errorCollector: ErrorCollector) {
         const sourceIoArray = sourceItem.selectedRecipe?.items;
         if(!sourceIoArray)
-            return;
-        let linkLoaded = false;
+            return undefined;
+        let link: LinkModel | undefined;
         for(const sourceIo of sourceIoArray) {
             const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
             if(maybeTarget) {
-                this.owner?._$addLink(sourceIo, maybeTarget);
-                linkLoaded = true;
+                link = this.owner?._$addLink(sourceIo, maybeTarget);
                 break;
             }
         }
-        if(!linkLoaded) {
+        if(!link) {
             errorCollector.collectError(`Cannot load link "${sourceItem.label}" => "${this.label}"`);
         }
+        return link;
     }
 }

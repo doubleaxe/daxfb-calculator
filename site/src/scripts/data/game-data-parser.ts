@@ -9,6 +9,10 @@ import type {
     GameImages,
     GameItem,
     GameItemRaw,
+    GameLogistic,
+    GameLogisticRaw,
+    GameLogisticTransport,
+    GameLogisticTransportRaw,
     GameRecipe,
     GameRecipeDictionary,
     GameRecipeDictionaryRaw,
@@ -23,6 +27,8 @@ import type {
     GameRecipeDictionarySerialized,
     GameRecipeIOSerialized,
     GameRecipeSerialized,
+    GameLogisticSerialized,
+    GameLogisticTransportSerialized,
 } from '#types/game-data-serialized';
 import {inflate} from 'pako';
 import {toUint8Array} from 'js-base64';
@@ -37,6 +43,7 @@ type ParsedRecipesImpl = Map<string, Readonly<RecipeDictionaryImpl>>;
 export type ParsedGameData = {
     parsedItems: ParsedItems;
     parsedRecipes: ParsedRecipes;
+    parsedLogistic: GameLogistic[];
     emptyRecipeDictionary: GameRecipeDictionary;
     images: GameImages;
     description: GameDescription;
@@ -231,6 +238,39 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
     return recipeDictionaryImpl;
 }
 
+function createLogisticTransportImpl(logistic: GameLogistic, _transport: GameLogisticTransportSerialized, item: GameItem) {
+    const transportImpl: GameLogisticTransportRaw = {
+        ..._transport,
+        logistic,
+        item,
+        countPerSecond: _transport.count / logistic.time,
+    };
+    Object.freeze(transportImpl);
+    const transport: GameLogisticTransport = transportImpl;
+    return transport;
+}
+
+function createLogisticImpl(_logistic: GameLogisticSerialized, parsedItems: ParsedItems) {
+    const logisticImpl: GameLogisticRaw = {
+        ..._logistic,
+        transport: [],
+    };
+
+    for(const transport of logisticImpl.transport) {
+        const item = parsedItems.get(transport.name);
+        if(!item)
+            continue;
+        const transportImpl = createLogisticTransportImpl(logisticImpl, transport, item);
+        logisticImpl.transport.push(transportImpl);
+    }
+
+    logisticImpl.transport.sort((a, b) => (a.countPerSecond - b.countPerSecond));
+
+    Object.freeze(logisticImpl);
+    const logistic: GameLogistic = logisticImpl;
+    return logistic;
+}
+
 type DescriptionData = {
     minTier: number;
     maxTier: number;
@@ -298,6 +338,9 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
         recipeDictionaryImpl._postInit(parsedItemsImpl);
     }
 
+    const parsedLogistic = gameData.logistic?.map((logistic) => createLogisticImpl(logistic, parsedItems)) || [];
+    Object.freeze(parsedLogistic);
+
     const description = createDescriptionImpl(gameData.description, {minTier, maxTier});
     const images = gameData.images;
     Object.freeze(images);
@@ -311,6 +354,7 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
     return {
         parsedItems: freezeMap(parsedItems),
         parsedRecipes: freezeMap(parsedRecipes),
+        parsedLogistic,
         emptyRecipeDictionary,
         images,
         description,
