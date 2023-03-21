@@ -15,7 +15,7 @@ function markCycle(arrayCycle: BlueprintItemModel[], partOfCycle: boolean) {
     return partOfCycle;
 }
 
-export function solveGraph(blueprint: BlueprintModel, items: IterableIterator<BlueprintItemModel>, precision?: number) {
+export function resetOrSolveGraph(blueprint: BlueprintModel, items: IterableIterator<BlueprintItemModel>, solve: boolean, precision?: number) {
     let blueprintHasCycles = false;
     const arraySeparateGraphs = new TarjanGraphWalker().walkGraph(items);
 
@@ -30,8 +30,15 @@ export function solveGraph(blueprint: BlueprintModel, items: IterableIterator<Bl
         //DAG = directed acyclic graph (maybe cycles)
         const arrayDag: BlueprintItemModel[] = arrayScc.flat();
         const connections = resolveConnections(arrayDag);
-        new GraphSolver(precision).solve(arrayDag, connections);
-        distributeLinksFlow(connections, precision);
+        if(solve) {
+            new GraphSolver(precision).solve(arrayDag, connections);
+            distributeLinksFlow(connections, precision);
+        } else {
+            for(const item of arrayDag) {
+                item.setSolvedCount(undefined);
+                item.resetFlow();
+            }
+        }
     }
     blueprint.hasCycles = blueprintHasCycles;
 }

@@ -38,13 +38,8 @@ Query string `?gameId=<game>` may be added to quickly open desired game, for exa
 
 - Conveyors/Robotic arms/Pipes/etc.. support for link
 - Color/Icon states for link and item (overflow, underflow, warning, etc..)
-- On load - scroll first factory into view, goto nearest factory
 - Move/Delete entire blueprint, production chain or multiple factories (selection, edit)
-- ~~Infinite item/resource storages to help taking items somewhere and calculating sums~~
 - Apply counts calculated in locked mode to current factories
-- Naming blueprints, remember loaded file name, name saved files according to opened file or blueprint name
 - Use `\R\N` for Windows saved files instead of `\N`
 - Show total energy, heat, items, etc.. for open ends
-- ~~Drag-n-drop flickering fix~~
-- ~~Look into scrollbar expanding bugs~~
 - Use `https://github.com/bcakmakoglu/vue-flow/` for nicer graph display? (will require almost full rewrite)

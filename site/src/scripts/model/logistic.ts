@@ -3,68 +3,116 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 
-import type {GameLogisticTransport} from '#types/game-data';
-import type {InterfaceOf} from '../types';
-import type {LinkModel} from './store';
+import type {GameLogistic, GameLogisticTransport} from '#types/game-data';
+import {binarySearch} from '../util';
+import type {LinkModel, LogisticModel, LogisticSetModel, TransportModel} from './store';
 
-class TransportModelImpl {
+
+export class TransportModelImpl {
     private readonly _transport: GameLogisticTransport;
     private readonly _flow: number;
+    private readonly _count: number;
 
     constructor(transport: GameLogisticTransport, flow: number) {
         this._transport = transport;
         this._flow = flow;
+        this._count = Math.ceil(flow / transport.countPerSecond);
     }
+
+    get flow() { return this._flow; }
+    get transport() { return this._transport; }
+    get count() { return this._count; }
+    get countPerSecond() { return this._transport.countPerSecond; }
 }
 
-export type TransportModel = InterfaceOf<TransportModelImpl>;
 
-/**
- * Return 0 <= i <= array.length such that !pred(array[i - 1]) && pred(array[i]).
- */
-function binarySearch<T>(array: T[], pred: (item: T) => boolean): number {
-    let lo = -1;
-    let hi = array.length;
-    while((1 + lo) < hi) {
-        const mi = lo + ((hi - lo) >> 1);
-        if(pred(array[mi])) {
-            hi = mi;
+export class LogisticModelImpl {
+    private readonly _logistic: GameLogistic;
+    private _selectedTransport?: GameLogisticTransport;
+    private readonly _link: LinkModel;
+    private _cachedTransport?: TransportModel;
+
+    constructor(_logistic: GameLogistic, _link: LinkModel) {
+        this._logistic = _logistic;
+        this._link = _link;
+    }
+
+    selectTransport(transportName: string | undefined) {
+        if(transportName) {
+            const selectedTransport = this._logistic.transport.find((t) => (t.name == transportName));
+            if(!selectedTransport) {
+                throw new Error(`Transport ${transportName} not found, for logistic ${this._logistic.name}`);
+            }
+            this._selectedTransport = selectedTransport;
         } else {
-            lo = mi;
+            this._selectedTransport = undefined;
         }
     }
-    return hi;
+    get selectedTransport() { return this._selectedTransport; }
+    get transport() { return this._logistic.transport; }
+    get name() { return this._logistic.name; }
+
+    calculateTransport() {
+        const flow = this._link.flow;
+        if(!flow)
+            return undefined;
+        if(this._cachedTransport?.flow === flow)
+            return this._cachedTransport;
+
+        let selectedTransport = this._selectedTransport;
+        if(!selectedTransport) {
+            const transport = this._logistic.transport;
+            const index = binarySearch(transport, (t) => (t.countPerSecond >= flow));
+            selectedTransport = (index < transport.length) ? transport[index] : transport[transport.length - 1];
+        }
+        this._cachedTransport = new TransportModelImpl(selectedTransport, flow);
+        return this._cachedTransport;
+    }
 }
 
-export function calculateLogistic(link?: LinkModel): TransportModel[] {
-    if(!link) {
-        return [];
-    }
-    const gameData = link.input?.owner?.gameData;
-    const flow = link.flow;
-    //should be the same input = output
-    const io = gameData?.gameItemsMap?.get(link.input?.key || '');
-    if(!gameData || !flow || !io) {
-        return [];
+
+export class LogisticSetModelImpl {
+    private readonly _logisticMap = new Map<string, LogisticModel>();
+
+    constructor(link?: LinkModel, logistic?: GameLogistic[]) {
+        if(link && logistic) {
+            for(const logisticItem of logistic) {
+                const logisticModel = new LogisticModelImpl(logisticItem, link);
+                this._logisticMap.set(logisticItem.name, logisticModel);
+            }
+        }
     }
 
-    const logistic = gameData.getLogistic(io);
-    if(!logistic.length) {
-        return [];
+    get logistic() { return this._logisticMap.values(); }
+    get logisticCount() { return this._logisticMap.size; }
+    logisticByName(name: string) { return this._logisticMap.get(name); }
+
+    selectTransport(logisticName: string, transportName: string | undefined) {
+        const logisticModel = this._logisticMap.get(logisticName);
+        if(!logisticModel) {
+            throw new Error(`Logistic ${logisticName} not found`);
+        }
+        logisticModel.selectTransport(transportName);
     }
 
-    const transport: TransportModel[] = [];
-    for(const logisticItem of logistic) {
-        let transportItem: GameLogisticTransport | undefined = link.getSelectedTransport(logisticItem.name);
-        if(!transportItem) {
-            const logisticTransport = logisticItem.transport;
-            const index = binarySearch(logisticTransport, (t) => (t.countPerSecond >= flow));
-            transportItem = (index < logisticTransport.length) ? logisticTransport[index] : logisticTransport[logisticTransport.length - 1];
+    private static _emptyLogisticSet = new LogisticSetModelImpl();
+
+    static createLogisticSet(link: LinkModel, isTemporary?: boolean): LogisticSetModel {
+        if(!link || isTemporary) {
+            return this._emptyLogisticSet;
         }
-        if(!transportItem) {
-            continue;
+        const gameData = link.input?.owner?.gameData;
+        //should be the same input = output
+        const io = gameData?.gameItemsMap?.get(link.input?.name || link.output?.name || '');
+        if(!gameData || !io) {
+            return this._emptyLogisticSet;
         }
-        transport.push(new TransportModelImpl(transportItem, flow));
+        const logistic = gameData.getLogistic(io);
+        if(!logistic.length) {
+            return this._emptyLogisticSet;
+        }
+
+        const logisticSet = new LogisticSetModelImpl(link, logistic);
+        return logisticSet;
     }
-    return transport;
 }

@@ -2,13 +2,12 @@
 Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameLogisticTransport} from '#types/game-data';
-import type {GameData} from '../data';
 import type {ErrorCollector} from '../error-collector';
 import {newColorClass, newKey} from './key-store';
 import {LinkShapeDescriptor, LinkShapeModel, LinkShapeModelBuilder} from './link-shape';
+import {LogisticSetModelImpl} from './logistic';
 import type {SavedLink} from './saved-blueprint';
-import type {RecipeIOModel} from './store';
+import type {LogisticSetModel, RecipeIOModel} from './store';
 
 
 export class LinkModelImpl {
@@ -18,18 +17,20 @@ export class LinkModelImpl {
     private _linkShape?: LinkShapeModel;
     private readonly _colorClass;
     private _flow: number | undefined;
-    private readonly _transport = new Map<string, GameLogisticTransport>();
+    private readonly _logistic: LogisticSetModel;
 
-    constructor(input?: RecipeIOModel, output?: RecipeIOModel) {
+    constructor(input?: RecipeIOModel, output?: RecipeIOModel, isTemporary?: boolean) {
         this.input = input;
         this.output = output;
         this._key = newKey();
         this._colorClass = newColorClass();
+        this._logistic = LogisticSetModelImpl.createLogisticSet(this, isTemporary);
     }
 
     get key() { return this._key; }
     get colorClass() { return this._colorClass; }
     get flow() { return this._flow; }
+    get logistic() { return this._logistic; }
     buildShape() {
         const descriptor = new LinkShapeDescriptor(
             this.input?.rect,
@@ -46,17 +47,6 @@ export class LinkModelImpl {
         const owner = (this.input || this.output)?.owner;
         if(owner)
             owner._$deleteLink(this);
-    }
-
-    getSelectedTransport(logistic: string) {
-        return this._transport.get(logistic);
-    }
-    selectTransport(logistic: string, transport: GameLogisticTransport | undefined) {
-        if(!transport) {
-            this._transport.delete(logistic);
-        } else {
-            this._transport.set(logistic, transport);
-        }
     }
 
     _$applyPersistentLink() {
@@ -80,32 +70,33 @@ export class LinkModelImpl {
         return undefined;
     }
     _$save(input?: number, output?: number): SavedLink {
-        const transport = this._transport.size
-            ? Object
-                .fromEntries([...this._transport.entries()]
-                .map(([logisticName, t]) => [logisticName, t.name]))
-            : undefined;
+        let selectedTransport: Record<string, string> | undefined = undefined;
+        if(this._logistic.logisticCount) {
+            const _selectedTransport: Record<string, string> = {};
+            for(const logistic of this._logistic.logistic) {
+                if(logistic.selectedTransport) {
+                    _selectedTransport[logistic.name] = logistic.selectedTransport.name;
+                }
+            }
+            if(Object.keys(_selectedTransport).length) {
+                selectedTransport = _selectedTransport;
+            }
+        }
         return {
             l: [
                 input || 0,
                 output || 0,
             ],
-            t: transport,
+            t: selectedTransport,
         };
     }
-    _$load(gameData: GameData, l: SavedLink, errorCollector: ErrorCollector) {
+    _$load(l: SavedLink, errorCollector: ErrorCollector) {
         for(const [logisticName, transportName] of Object.entries(l.t || {})) {
-            const logisticItem = gameData.gameLogisticByNameMap.get(logisticName);
-            if(!logisticItem) {
-                errorCollector.collectError(`Logistic ${logisticName} not found`);
-                continue;
+            try {
+                this._logistic.selectTransport(logisticName, transportName);
+            } catch(err) {
+                errorCollector.collectError(err);
             }
-            const transportItem = logisticItem.transport.find(t => (t.name == transportName));
-            if(!transportItem) {
-                errorCollector.collectError(`Transport ${transportName} not found, for logistic ${logisticName}`);
-                continue;
-            }
-            this._transport.set(logisticName, transportItem);
         }
     }
 

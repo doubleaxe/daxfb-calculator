@@ -13,7 +13,7 @@ import {
     type RecipeIOModel,
 } from './store';
 import {resetKeyStore} from './key-store';
-import {solveGraph} from '../graph';
+import {resetOrSolveGraph} from '../graph';
 import {useDebounceFn} from '@vueuse/core';
 import {DEFAULT_PRECISION} from '../types';
 import type {ErrorCollector} from '../error-collector';
@@ -64,42 +64,43 @@ export class BlueprintModelImpl {
         if(!item.name)
             return item;
         this._items.set(item.key, item);
-        this._$graphChanged();
+        this._$graphChanged(false, item);
         return item;
     }
     _$itemInitializationCompleted(item: BlueprintItemModel) {
         this._itemsGenerationNumber++;
     }
     _$deleteItem(item: BlueprintItemModel) {
+        //if it is not linked to anything, it will not change graph
+        //if it linked - _$deleteLink will cause graph update
         this._items.delete(item.key);
-        this._$graphChanged();
         this._itemsGenerationNumber++;
     }
     _$addLink(...io: RecipeIOModel[]) {
-        const link = BlueprintModelImpl.newLink(io);
+        const link = BlueprintModelImpl.newLink(io, false);
         this._links.set(link.key, link);
         link._$applyPersistentLink();
-        this._$graphChanged();
+        this._$graphChanged(false, ...io.map((i) => i.ownerItem));
         return link;
     }
     _$deleteLink(link: LinkModel) {
         if(!this._links.delete(link.key))
             return;
         link._$deletePersistentLink();
-        this._$graphChanged();
+        this._$graphChanged(false, link.input?.ownerItem, link.output?.ownerItem);
     }
     _$createTempLink(...io: RecipeIOModel[]) {
         if(this._tempLink) {
             throw new Error('Already have temp link');
         }
-        const link = BlueprintModelImpl.newLink(io);
+        const link = BlueprintModelImpl.newLink(io, true);
         this._tempLink = link;
         return link;
     }
     clearTempLink() {
         this._tempLink = undefined;
     }
-    private static newLink(io: RecipeIOModel[]) {
+    private static newLink(io: RecipeIOModel[], isTemporary: boolean) {
         if(io.length > 2)
             throw new Error(`Expected 2 elements, got ${io.length}`);
         const _io: {input?: RecipeIOModel; output?: RecipeIOModel} = {
@@ -112,7 +113,7 @@ export class BlueprintModelImpl {
                 throw new Error('Expecting 1 input and 1 output, got duplicates');
             _io[target] = i;
         }
-        return new LinkModelImpl(_io.input, _io.output);
+        return new LinkModelImpl(_io.input, _io.output, isTemporary);
     }
 
     clear() {
@@ -192,39 +193,69 @@ export class BlueprintModelImpl {
             }
             const loadedLink = item1._$loadLink(item2, errorCollector);
             if(loadedLink) {
-                loadedLink._$load(this._gameData, link, errorCollector);
+                loadedLink._$load(link, errorCollector);
             }
         });
         normalizeItemPositions(this.items);
         this.resetBlueprintName();
     }
-    solveGraph(items?: IterableIterator<BlueprintItemModel>) {
-        if(!items && !this._items.size)
-            return;
-        if(!items)
+
+    private readonly _dirtyItems = new Set<BlueprintItemModel>();
+    solveGraph(manualExecution: boolean) {
+        if(manualExecution) {
+            this._dirtyItems.clear();
+        }
+        let items: IterableIterator<BlueprintItemModel> | undefined;
+        //filter, because may be already deleted
+        if(this._dirtyItems.size) {
+            const filteredItems = [...this._dirtyItems].filter((item) => this._items.has(item.key));
+            this._dirtyItems.clear();
+            if(!filteredItems.length) {
+                return;
+            }
+            items = filteredItems.values();
+        }
+        if(!items) {
+            if(!this._items.size) {
+                return;
+            }
             items = this._items.values();
+        }
+
         const _bulkUpdate = this._bulkUpdate;
         this._bulkUpdate = true;
         try {
-            solveGraph(this, items, this._solvePrecision);
+            resetOrSolveGraph(this, items, manualExecution || this._autoSolveGraph, this._solvePrecision);
         } finally {
             this._bulkUpdate = _bulkUpdate;
         }
     }
 
     private debouncedSolve: (() => void) | undefined = undefined;
-    _$graphChanged(immediate?: boolean) {
-        if(!this._autoSolveGraph || this._bulkUpdate) {
+    _$graphChanged(immediate?: boolean, ...items: (BlueprintItemModel | undefined)[]) {
+        if(this._bulkUpdate) {
             return;
         }
 
+        let haveItems = false;
+        if(items) {
+            for(const item of items) {
+                if(item) {
+                    this._dirtyItems.add(item);
+                    haveItems = true;
+                }
+            }
+        }
+        if(!haveItems) {
+            this._dirtyItems.clear();
+        }
         if(immediate) {
-            this.solveGraph();
+            this.solveGraph(false);
         } else {
             if(!this.debouncedSolve) {
                 //lazy initialize, because 'this' may be proxy in vue environment
                 this.debouncedSolve = useDebounceFn(() => {
-                    this.solveGraph();
+                    this.solveGraph(false);
                 }, 200, {maxWait: 1000});
             }
 

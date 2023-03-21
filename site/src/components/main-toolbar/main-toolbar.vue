@@ -18,7 +18,7 @@ const showAboutDialog = ref(false);
         tooltip="Solve graph"
         :icon="mdiSigma"
         :disabled="blueprintModel.autoSolveGraph"
-        @click="blueprintModel.solveGraph()"
+        @click="blueprintModel.solveGraph(true)"
     />
     <v-switch v-model="blueprintModel.autoSolveGraph" label="Auto" hide-details class="mr-1" color="primary" />
     <v-divider vertical />

@@ -1,11 +1,10 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {LinkModel} from '@/scripts/model/store';
 import {computed, ref, unref} from 'vue';
-import {mdiLinkOff} from '@mdi/js';
 import {Rect} from '@/scripts/geometry';
 import {injectSettings} from '@/scripts/settings';
 
@@ -31,8 +30,6 @@ const computedStyle = computed(() => {
         top: middlePoint.y + 'px',
     };
 });
-
-const menuOpened = ref(false);
 </script>
 
 <template>
@@ -44,25 +41,13 @@ const menuOpened = ref(false);
         @click.stop
     >
         <icon-component :image="props.link?.input?.image" />
-        <div class="mx-2" />
-        <v-menu v-model="menuOpened" density="compact" activator="parent" :close-on-content-click="false">
-            <v-list>
-                <v-list-item
-                    :prepend-icon="mdiLinkOff"
-                    title="Delete"
-                    @click="props.link?.deleteThis(); menuOpened = false;"
-                />
-            </v-list>
-        </v-menu>
+        <link-menu :link="props.link" />
     </div>
 </template>
 
 <style scoped>
 .link-connector {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     user-select: none;
 }
 </style>

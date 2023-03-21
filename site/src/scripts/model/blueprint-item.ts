@@ -51,7 +51,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get count() { return this._count; }
     get solvedCount() { return this._solvedCount; }
     get isLocked() { return this._isLocked; }
-    setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(); }
+    setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(false, this); }
     initializationCompleted() {
         if(!this._initializationCompleted) {
             this._initializationCompleted = true;
@@ -96,7 +96,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         oldRecipe?._$copySimilarLinksTo(newRecipe);
         oldRecipe?._$deleteAllLinks();
         this._selectedRecipe = newRecipe;
-        this.owner?._$graphChanged();
+        this.owner?._$graphChanged(false, this);
         return true;
     }
     possibleRecipeForIo(sourceIo?: RecipeIOModel | null): string | undefined {
@@ -122,7 +122,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     }
     setCount(count: number) {
         this._count = count;
-        this.owner?._$graphChanged();
+        this.owner?._$graphChanged(false, this);
     }
     setSolvedCount(solvedCount?: number) {
         this._solvedCount = solvedCount;
@@ -139,6 +139,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this._selectedRecipe?._$deleteAllLinks();
     }
     deleteThis() {
+        //if it is not linked to anything, it will not change graph
+        //if it linked - _$deleteLink will cause graph update
         this._selectedRecipe?._$deleteAllLinks();
         this.owner?._$deleteItem(this);
     }
