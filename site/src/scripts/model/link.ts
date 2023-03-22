@@ -70,34 +70,15 @@ export class LinkModelImpl {
         return undefined;
     }
     _$save(input?: number, output?: number): SavedLink {
-        let selectedTransport: Record<string, string> | undefined = undefined;
-        if(this._logistic.logisticCount) {
-            const _selectedTransport: Record<string, string> = {};
-            for(const logistic of this._logistic.logistic) {
-                if(logistic.selectedTransport) {
-                    _selectedTransport[logistic.name] = logistic.selectedTransport.name;
-                }
-            }
-            if(Object.keys(_selectedTransport).length) {
-                selectedTransport = _selectedTransport;
-            }
-        }
         return {
             l: [
                 input || 0,
                 output || 0,
             ],
-            t: selectedTransport,
         };
     }
     _$load(l: SavedLink, errorCollector: ErrorCollector) {
-        for(const [logisticName, transportName] of Object.entries(l.t || {})) {
-            try {
-                this._logistic.selectTransport(logisticName, transportName);
-            } catch(err) {
-                errorCollector.collectError(err);
-            }
-        }
+        //was used to load transport, now empty
     }
 
     setFlow(_flow?: number) {

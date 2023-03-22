@@ -72,7 +72,7 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
 
     const emptyRecipeDictionary = parsedGameData.emptyRecipeDictionary;
 
-    return {
+    const gameData = {
         gameItemsMap,
         gameItemsArray,
         gameAbstractItems: freezeMap(gameAbstractItems),
@@ -91,6 +91,8 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
         getImage: (name: string) => parsedGameData.images[name],
         gameDescription: parsedGameData.description,
     };
+    Object.freeze(gameData);
+    return gameData;
 }
 
 export type GameData = ReturnType<typeof useGameDataHolder>;

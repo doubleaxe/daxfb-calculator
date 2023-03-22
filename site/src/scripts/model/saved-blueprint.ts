@@ -24,5 +24,4 @@ export type SavedItem = {
 
 export type SavedLink = {
     l: number[];
-    t?: Record<string, string>;
 };

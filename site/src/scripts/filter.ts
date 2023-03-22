@@ -2,6 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {GameItemType} from '#types/contants';
 import type {GameItem} from '#types/game-data';
 import {type InjectionKey, provide, reactive, inject} from 'vue';
 import type {GameData} from './data';
@@ -13,6 +14,7 @@ class Filter {
     private _tierEqual = 0;
     private _groupTier = true;
     private _key?: string;
+    private _type?: GameItemType;
     private _direction = 0;
     private _filtered?: GameItem[][];
 
@@ -31,6 +33,9 @@ class Filter {
 
     get key() { return this._key; }
     set key(key: string | undefined) { this._key = key; this._filtered = undefined; }
+
+    get type() { return this._type; }
+    set type(type: GameItemType | undefined) { this._type = type; this._filtered = undefined; }
 
     get direction() { return this._direction; }
     set direction(direction: number) { this._direction = direction; this._filtered = undefined; }

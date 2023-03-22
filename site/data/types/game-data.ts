@@ -68,6 +68,7 @@ export interface GameLogisticTransportRaw extends GameLogisticTransportSerialize
     logistic: GameLogistic;
     item: GameItem;
     countPerSecond: number;
+    formatCountPerSecond: (count: number) => FromatCountPerSecond;
 }
 export type GameLogisticTransport = Readonly<GameLogisticTransportRaw>;
 

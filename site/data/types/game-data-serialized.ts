@@ -85,6 +85,7 @@ export interface GameLogisticTransportSerialized {
 export interface GameLogisticSerialized {
     name: string;
     longName?: string;
+    label?: string;
     items: GameLogisticItemSerialized[];
     transport: GameLogisticTransportSerialized[];
     time: number;

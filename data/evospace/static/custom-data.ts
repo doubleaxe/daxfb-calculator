@@ -2,6 +2,7 @@ import type {GameLogisticSerialized} from '#types/game-data-serialized';
 
 export const logistic: GameLogisticSerialized[] = [{
     name: 'RobotArm90',
+    label: 'Robot Arm 90°',
     items: [{
         name: 'AnySolidStaticItem',
     }],
@@ -38,6 +39,7 @@ export const logistic: GameLogisticSerialized[] = [{
     stackable: true,
 }, {
     name: 'RobotArm180',
+    label: 'Robot Arm 180°',
     items: [{
         name: 'AnySolidStaticItem',
     }],

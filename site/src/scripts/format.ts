@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {RecipeIOModel} from './model/store';
+import type {RecipeIOModel, TransportModel} from './model/store';
 
 const decimals = 3;
 const upperPrefixes = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'R', 'Q'];
@@ -47,5 +47,12 @@ export function formatIo(n: number | undefined, io: RecipeIOModel) {
     if(n === undefined)
         return '';
     const format = io.formatCountPerSecond(n);
+    return formatNumber(format.count, format.unit);
+}
+
+export function formatTransport(n: number | undefined, transport: TransportModel) {
+    if(n === undefined)
+        return '';
+    const format = transport.formatCountPerSecond(n);
     return formatNumber(format.count, format.unit);
 }

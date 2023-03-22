@@ -30,6 +30,7 @@ export class BlueprintModelImpl {
     private _bulkUpdate = false;
     //could be used by vue to watch items added/removed
     private _itemsGenerationNumber = 0;
+    private readonly _lockedTransport = new Map<string, string>();
 
     public blueprintName = '';
     getDefaultBlueprintName() {
@@ -54,7 +55,21 @@ export class BlueprintModelImpl {
     get solvePrecision() { return this._solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
     get autoSolveGraph() { return this._autoSolveGraph; }
-    set autoSolveGraph(autoSolveGraph: boolean) { this._autoSolveGraph = autoSolveGraph; this._$graphChanged(true); }
+    set autoSolveGraph(autoSolveGraph: boolean) {
+        this._autoSolveGraph = autoSolveGraph;
+        if(autoSolveGraph) {
+            this._$graphChanged(true);
+        }
+    }
+
+    getLockedTransport(logisticName: string) { return this._lockedTransport.get(logisticName); }
+    lockTransport(logisticName: string, transportName: string | undefined) {
+        if(!transportName) {
+            this._lockedTransport.delete(logisticName);
+        } else {
+            this._lockedTransport.set(logisticName, transportName);
+        }
+    }
 
     //types are compatible, just don't use instanceof
     //ReactiveBlueprintItemModel, ReactiveLinkModel are too complex and too mess to implement
@@ -201,31 +216,29 @@ export class BlueprintModelImpl {
     }
 
     private readonly _dirtyItems = new Set<BlueprintItemModel>();
+    private _calculateAll = false;
     solveGraph(manualExecution: boolean) {
-        if(manualExecution) {
-            this._dirtyItems.clear();
+        let dirtyItems: BlueprintItemModel[] = [...this._items.values()];
+        if(!manualExecution && !this._calculateAll) {
+            //filter, because may be already deleted
+            dirtyItems = [...this._dirtyItems].filter((item) => this._items.has(item.key));
         }
-        let items: IterableIterator<BlueprintItemModel> | undefined;
-        //filter, because may be already deleted
-        if(this._dirtyItems.size) {
-            const filteredItems = [...this._dirtyItems].filter((item) => this._items.has(item.key));
-            this._dirtyItems.clear();
-            if(!filteredItems.length) {
-                return;
-            }
-            items = filteredItems.values();
+        this._dirtyItems.clear();
+        this._calculateAll = false;
+        if(!dirtyItems.length) {
+            return;
         }
-        if(!items) {
-            if(!this._items.size) {
-                return;
-            }
-            items = this._items.values();
+
+        const mustSolve = manualExecution || this._autoSolveGraph;
+        //if we just need to reset, and all dirty items are already reset, do nothing
+        if(!mustSolve && dirtyItems.every((item) => (item.solvedCount === undefined))) {
+            return;
         }
 
         const _bulkUpdate = this._bulkUpdate;
         this._bulkUpdate = true;
         try {
-            resetOrSolveGraph(this, items, manualExecution || this._autoSolveGraph, this._solvePrecision);
+            resetOrSolveGraph(this, dirtyItems.values(), mustSolve, this._solvePrecision);
         } finally {
             this._bulkUpdate = _bulkUpdate;
         }
@@ -237,18 +250,23 @@ export class BlueprintModelImpl {
             return;
         }
 
-        let haveItems = false;
-        if(items) {
+        //no items = update all
+        if(items && items.length) {
+            let haveItems = false;
             for(const item of items) {
                 if(item) {
                     this._dirtyItems.add(item);
                     haveItems = true;
                 }
             }
+            if(!haveItems) {
+                //array of undefined
+                return;
+            }
+        } else {
+            this._calculateAll = true;
         }
-        if(!haveItems) {
-            this._dirtyItems.clear();
-        }
+
         if(immediate) {
             this.solveGraph(false);
         } else {

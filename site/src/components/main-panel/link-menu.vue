@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {LinkModel} from '@/scripts/model/store';
-import {computed, ref} from 'vue';
+import {computed, ref, watch} from 'vue';
 import {mdiLinkOff} from '@mdi/js';
 import {formatIo} from '@/scripts/format';
 
@@ -23,8 +23,16 @@ const logisticSet = computed(() => {
     }
     return [..._logistic.logistic];
 });
-const flowTotal = computed(() => props.link?.input ? formatIo(props.link.flow, props.link.input) : '');
+const flowTotal = computed(() => {
+    const io = props.link?.input || props.link?.output;
+    return io ? formatIo(props.link.flow, io) : '';
+});
 
+watch(menuOpened, (value, oldValue) => {
+    if(!oldValue && value) {
+        props.link?.logistic?.resetSelectedTransport();
+    }
+});
 </script>
 
 <template>
@@ -41,7 +49,13 @@ const flowTotal = computed(() => props.link?.input ? formatIo(props.link.flow, p
                 @click="props.link?.deleteThis(); menuOpened = false;"
             />
             <template v-if="logisticSet.length">
-                <v-list-item :title="flowTotal" />
+                <v-list-item class="minwidth">
+                    <v-list-item-title>
+                        <div class="transport-menu-item">
+                            <icon-component :image="props.link?.input?.image" /> {{ flowTotal }}
+                        </div>
+                    </v-list-item-title>
+                </v-list-item>
                 <template v-for="logistic in logisticSet" :key="logistic.name">
                     <logistic-panel :logistic="logistic" />
                 </template>
@@ -51,4 +65,8 @@ const flowTotal = computed(() => props.link?.input ? formatIo(props.link.flow, p
 </template>
 
 <style scoped>
+.transport-menu-item {
+    display: flex;
+    align-items: center;
+}
 </style>
