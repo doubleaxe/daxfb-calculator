@@ -9,7 +9,7 @@ import type {
     GameRecipeDictionarySerialized,
     GameItemSerialized,
     GameDataSerialized,
-    LogisticSerialized,
+    GameLogisticSerialized,
 } from '#types/game-data-serialized';
 
 interface KeysJson {
@@ -96,7 +96,7 @@ export class KeyProcessor {
         }) || [];
     }
     private mergeLogistic() {
-        const mappedArray: [string, LogisticSerialized][] = (this.gameData.logistic || []).map((r) => [r.name, r]);
+        const mappedArray: [string, GameLogisticSerialized][] = (this.gameData.logistic || []).map((r) => [r.name, r]);
         const mappedObject = this.mapKeys(mappedArray);
         this.gameData.logistic = mappedObject?.map(([key, value]) => {
             if(this.isAttachKeys) {
