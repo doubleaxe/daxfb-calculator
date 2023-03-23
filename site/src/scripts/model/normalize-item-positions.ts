@@ -30,6 +30,11 @@ export function normalizeItemPositions(items: IterableIterator<BlueprintItemMode
 
     //normalize minimum offset of item to 0 px
     //new saves will always be normalized, old ones need to be normalized for nicer first display
+    if((minItemXY.x == 0) && (minItemXY.y == 0)) {
+        //already normalized
+        return;
+    }
+
     const offsetBy = minItemXY.scalePoint(-1);
     for(const item of _items) {
         item.setRect(item.rect.offsetBy(offsetBy));

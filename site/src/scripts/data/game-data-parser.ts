@@ -32,8 +32,9 @@ import type {
 } from '#types/game-data-serialized';
 import {inflate} from 'pako';
 import {toUint8Array} from 'js-base64';
-import {freezeMap} from '../util';
+import {freezeMap, freezeSet} from '../util';
 import type {Calculator} from '#types/calculator';
+import type {GameItemType} from '#types/contants';
 
 export type ParsedItems = ReadonlyMap<string, GameItem>;
 export type ParsedRecipes = ReadonlyMap<string, GameRecipeDictionary>;
@@ -179,6 +180,7 @@ type RecipeDictionaryImpl = {
 };
 function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: GameRecipeDictionarySerialized) {
     const emptyMap = new Map();
+    const emptySet = new Set<GameItemType>();
     let recipesImpl: RecipeImpl[] = [];
     const recipeDictionary: GameRecipeDictionaryRaw = {
         ..._recipeDictionary,
@@ -189,6 +191,8 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
         //item name => recipe names
         recipesByInputMap: emptyMap,
         recipesByOutputMap: emptyMap,
+        hasInputTypes: emptySet,
+        hasOutputTypes: emptySet,
     };
     //init exdata, keep it writable, it could be used as cache
     if(!recipeDictionary.exdata)
@@ -214,6 +218,7 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
 
             const recipesByProduct = (type: 'input' | 'output') => {
                 const recipesByProductMap = new Map<string, string[]>();
+                const hasIoTypes = new Set<GameItemType>();
                 for(const recipe of recipeDictionary.recipes) {
                     for(const io of recipe[type]) {
                         let byProduct = recipesByProductMap.get(io.name);
@@ -222,12 +227,23 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
                             recipesByProductMap.set(io.name, byProduct);
                         }
                         byProduct.push(recipe.name);
+                        if(io.product.type) {
+                            hasIoTypes.add(io.product.type);
+                        }
                     }
                 }
-                return freezeMap(recipesByProductMap);
+                return {
+                    recipesByProductMap: freezeMap(recipesByProductMap),
+                    hasIoTypes: freezeSet(hasIoTypes),
+                };
             };
-            recipeDictionary.recipesByInputMap = recipesByProduct('input');
-            recipeDictionary.recipesByOutputMap = recipesByProduct('output');
+            const {recipesByProductMap: recipesByInputMap, hasIoTypes: hasInputTypes} = recipesByProduct('input');
+            recipeDictionary.recipesByInputMap = recipesByInputMap;
+            recipeDictionary.hasInputTypes = hasInputTypes;
+
+            const {recipesByProductMap: recipesByOutputMap, hasIoTypes: hasOutputTypes} = recipesByProduct('output');
+            recipeDictionary.recipesByOutputMap = recipesByOutputMap;
+            recipeDictionary.hasOutputTypes = hasOutputTypes;
             Object.freeze(recipeDictionary);
         },
     };

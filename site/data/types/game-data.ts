@@ -2,6 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {GameItemType} from './contants';
 import type {
     GameItemSerialized,
     GameRecipeSerialized,
@@ -49,6 +50,8 @@ export interface GameRecipeDictionaryRaw extends GameRecipeDictionarySerialized 
     //item name => recipe names
     recipesByInputMap: ReadonlyMap<string, string[]>;
     recipesByOutputMap: ReadonlyMap<string, string[]>;
+    hasInputTypes: ReadonlySet<GameItemType>;
+    hasOutputTypes: ReadonlySet<GameItemType>;
 }
 export type GameRecipeDictionary = Readonly<GameRecipeDictionaryRaw>;
 

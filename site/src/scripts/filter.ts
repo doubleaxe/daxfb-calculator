@@ -22,8 +22,9 @@ class Filter {
         this._gameData = _gameData;
     }
 
+    //suddenly may be null
     get tier() { return this._tier; }
-    set tier(tier: number | undefined) { this._tier = tier; this._filtered = undefined; }
+    set tier(tier: number | undefined) { this._tier = tier ?? undefined; this._filtered = undefined; }
 
     get tierEqual() { return this._tierEqual; }
     set tierEqual(tierEqual: number) { this._tierEqual = tierEqual; this._filtered = undefined; }
@@ -32,10 +33,7 @@ class Filter {
     set groupTier(groupTier: boolean) { this._groupTier = groupTier; this._filtered = undefined; }
 
     get key() { return this._key; }
-    set key(key: string | undefined) { this._key = key; this._filtered = undefined; }
-
-    get type() { return this._type; }
-    set type(type: GameItemType | undefined) { this._type = type; this._filtered = undefined; }
+    set key(key: string | undefined) { this._key = key ?? undefined; this._filtered = undefined; }
 
     get direction() { return this._direction; }
     set direction(direction: number) { this._direction = direction; this._filtered = undefined; }
@@ -46,15 +44,27 @@ class Filter {
         let filteredItems = this._gameData.gameFactoriesArray;
 
         //key takes precedence before label
-        if(this._key) {
-            const key = this._key;
+        //support filtering by abstract item class
+        const key = this._key;
+        const filterItem = key ? this._gameData.getGameItem(key) : undefined;
+        if(key && filterItem) {
+            const abstractFilterItemType = filterItem.isAbstractClassItem ? filterItem.type : undefined;
+            const relativeAbsractItem = filterItem.type ? this._gameData.gameAbstractItems.get(filterItem.type) : undefined;
             filteredItems = filteredItems.filter((item) => {
                 if(item.name == key)
                     return true;
                 const recipeDictionary = item.recipeDictionary;
                 if((this._direction <= 0) && recipeDictionary?.recipesByInputMap?.has(key))
                     return true;
+                if(abstractFilterItemType && (this._direction <= 0) && recipeDictionary?.hasInputTypes?.has(abstractFilterItemType))
+                    return true;
+                if(relativeAbsractItem && (this._direction <= 0) && recipeDictionary?.recipesByInputMap?.has(relativeAbsractItem.name))
+                    return true;
                 if((this._direction >= 0) && recipeDictionary?.recipesByOutputMap?.has(key))
+                    return true;
+                if(abstractFilterItemType && (this._direction >= 0) && recipeDictionary?.hasOutputTypes?.has(abstractFilterItemType))
+                    return true;
+                if(relativeAbsractItem && (this._direction >= 0) && recipeDictionary?.recipesByOutputMap?.has(relativeAbsractItem.name))
                     return true;
                 return false;
             });

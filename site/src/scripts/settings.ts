@@ -11,8 +11,7 @@ import {BlueprintItemState, DEFAULT_BLUEPRINT_SPLIT, type BlueprintItemStateValu
 
 type BlueprintItemStateColorClass = Record<BlueprintItemStateValues, string>;
 
-type PossibleKeys = Array<keyof Settings>;
-const SavedKeys: PossibleKeys = [
+const SavedKeys = [
     'colorfulLinks',
     'tier',
     'tierEqual',
@@ -28,10 +27,10 @@ const SavedKeys: PossibleKeys = [
     'blueprintCompress',
     'blueprintEncode',
     'blueprintSplit',
-];
+] as const;
+type SavedKey = typeof SavedKeys[number];
 type SavedObject = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [k: string]: any;
+    [k in SavedKey]: unknown;
 };
 
 function filterSavedKeys(object: SavedObject) {
@@ -51,7 +50,7 @@ function isTouchDevice() {
     }
 }
 
-class Settings {
+class Settings implements SavedObject {
     private _filter: PublicFilter;
     private _blueprintModel: BlueprintModel;
     private _isTouchDevice;
@@ -90,7 +89,7 @@ class Settings {
     blueprintSplit = DEFAULT_BLUEPRINT_SPLIT;
 
     get tier() { return this._filter.tier; }
-    set tier(tier: number | null | undefined) { this._filter.tier = tier ?? undefined; }
+    set tier(tier: number | undefined) { this._filter.tier = tier; }
     get tierEqual() { return this._filter.tierEqual; }
     set tierEqual(tierEqual: number) { this._filter.tierEqual = tierEqual; }
     get groupTier() { return this._filter.groupTier; }
@@ -104,7 +103,14 @@ class Settings {
         return filterSavedKeys(this);
     }
     load(settings: SavedObject) {
-        Object.assign(this, filterSavedKeys(settings));
+        const self = this as SavedObject;
+        for(const [key, value] of Object.entries(settings)) {
+            const _key = key as SavedKey;
+            //prevent unnecessary change events, if corresponding option is not changed
+            if(self[_key] !== value) {
+                self[_key] = value;
+            }
+        }
     }
 }
 

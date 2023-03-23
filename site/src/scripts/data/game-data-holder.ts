@@ -41,11 +41,9 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
     const gameFactoriesArray = gameItemsArray.filter((item) => item.recipeDictionary);
     Object.freeze(gameFactoriesArray);
 
-    const gameLogisticByNameMap = new Map<string, GameLogistic>();
     const gameLogisticByItemMap = new Map<string, GameLogistic[]>();
     const gameLogisticByTypeMap = new Map<GameItemType, GameLogistic[]>();
     for(const logistic of parsedGameData.parsedLogistic) {
-        gameLogisticByNameMap.set(logistic.name, logistic);
         for(const {name} of logistic.items) {
             const item = gameItemsMap.get(name);
             if(item) {
@@ -73,16 +71,12 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
     const emptyRecipeDictionary = parsedGameData.emptyRecipeDictionary;
 
     const gameData = {
-        gameItemsMap,
         gameItemsArray,
         gameAbstractItems: freezeMap(gameAbstractItems),
         gameItemsByType: freezeMap(gameItemsByType),
         getGameItem: (name: string) => gameItemsMap.get(name),
         gameFactoriesArray,
         getItemRecipeDictionary: (item?: GameItem) => (item?.recipeDictionary || emptyRecipeDictionary),
-        gameLogisticByNameMap: freezeMap(gameLogisticByNameMap),
-        gameLogisticByItemMap: freezeMap(gameLogisticByItemMap),
-        gameLogisticByTypeMap: freezeMap(gameLogisticByTypeMap),
         getLogistic: (item: GameItem) => [
             ...(gameLogisticByItemMap.get(item.name) || []),
             ...((item.type && gameLogisticByTypeMap.get(item.type)) || []),

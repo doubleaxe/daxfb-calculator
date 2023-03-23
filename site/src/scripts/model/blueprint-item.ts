@@ -171,20 +171,20 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this.isFlipped = i.f ? true : false;
         this._isLocked = i.l ? true : false;
     }
-    _$loadLink(sourceItem: BlueprintItemModel, errorCollector: ErrorCollector) {
-        const sourceIoArray = sourceItem.selectedRecipe?.items;
-        if(!sourceIoArray)
+    _$loadLink(outputItem: BlueprintItemModel, errorCollector: ErrorCollector) {
+        const outputIoArray = outputItem.selectedRecipe?.output;
+        if(!outputIoArray)
             return undefined;
         let link: LinkModel | undefined;
-        for(const sourceIo of sourceIoArray) {
-            const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
+        for(const outputIo of outputIoArray) {
+            const maybeTarget = this._selectedRecipe?.findSimilarIo(outputIo, true);
             if(maybeTarget) {
-                link = this.owner?._$addLink(sourceIo, maybeTarget);
+                link = this.owner?._$addLink(outputIo, maybeTarget);
                 break;
             }
         }
         if(!link) {
-            errorCollector.collectError(`Cannot load link "${sourceItem.label}" => "${this.label}"`);
+            errorCollector.collectError(`Cannot load link "${outputItem.label}" => "${this.label}"`);
         }
         return link;
     }

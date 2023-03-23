@@ -143,7 +143,7 @@ export class LogisticSetModelImpl {
         }
         const gameData = link.input?.owner?.gameData;
         //should be the same input = output
-        const io = gameData?.gameItemsMap?.get(link.input?.name || link.output?.name || '');
+        const io = gameData?.getGameItem(link.input?.name || link.output?.name || '');
         if(!gameData || !io) {
             return this._emptyLogisticSet;
         }

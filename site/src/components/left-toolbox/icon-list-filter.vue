@@ -7,7 +7,7 @@ import type {GameItem} from '#types/game-data';
 import {injectGameData} from '@/scripts/data';
 import {injectFilter} from '@/scripts/filter';
 import {syncRef, useDebounceFn} from '@vueuse/core';
-import {computed, ref, toRef, unref, watch} from 'vue';
+import {computed, ref, unref, watch} from 'vue';
 
 const gameData = injectGameData();
 
@@ -50,7 +50,11 @@ watch(search, (value, oldValue) => {
 });
 
 syncRef(
-    toRef(filter, 'key'),
+    //use this instead of toRef, because otherwise this assignment is hard to find
+    computed({
+        get: () => filter.key,
+        set: (value) => { filter.key = value; },
+    }),
     computed({
         get: () => unref(select)?.name,
         set: (value?: string) => { select.value = value ? gameData.getGameItem(value) : undefined; },
@@ -58,7 +62,11 @@ syncRef(
 );
 
 syncRef(
-    toRef(filter, 'direction'),
+    //use this instead of toRef, because otherwise this assignment is hard to find
+    computed({
+        get: () => filter.direction,
+        set: (value) => { filter.direction = value; },
+    }),
     computed({
         get: () => Number(unref(direction)),
         set: (value: number) => { direction.value = String(value); },
@@ -66,7 +74,11 @@ syncRef(
 );
 
 syncRef(
-    toRef(filter, 'tierEqual'),
+    //use this instead of toRef, because otherwise this assignment is hard to find
+    computed({
+        get: () => filter.tierEqual,
+        set: (value) => { filter.tierEqual = value; },
+    }),
     computed({
         get: () => Number(unref(tierEqual)),
         set: (value: number) => { tierEqual.value = String(value); },

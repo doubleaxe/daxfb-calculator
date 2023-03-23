@@ -194,19 +194,25 @@ export class BlueprintModelImpl {
             itemIndexes.set(index, item.key);
         });
         savedBlueprint.l.forEach((link) => {
-            const itemKey1 = itemIndexes.get(link.l[0]);
-            const itemKey2 = itemIndexes.get(link.l[1]);
-            if(!itemKey1 || !itemKey2) {
+            //first array item is always input, second is always output
+            //the order is important, because we may connect for example generator to electric engine
+            //in this case we may connect by either end
+            //generator output to electric engine
+            //or electric engine output to generator
+            //which end is connected is determined by io order
+            const inputKey = itemIndexes.get(link.l[0]);
+            const outputKey = itemIndexes.get(link.l[1]);
+            if(!inputKey || !outputKey) {
                 //broken link
                 errorCollector.collectError(`Invalid link "${link.l[0]}" => "${link.l[1]}"`);
                 return;
             }
-            const item1 = this.itemByKey(itemKey1);
-            const item2 = this.itemByKey(itemKey2);
-            if(!item1 || !item2) {
+            const input = this.itemByKey(inputKey);
+            const output = this.itemByKey(outputKey);
+            if(!input || !output) {
                 return;
             }
-            const loadedLink = item1._$loadLink(item2, errorCollector);
+            const loadedLink = input._$loadLink(output, errorCollector);
             if(loadedLink) {
                 loadedLink._$load(link, errorCollector);
             }
