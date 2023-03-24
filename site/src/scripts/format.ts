@@ -2,6 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import type {GameItem} from '#types/game-data';
 import type {RecipeIOModel, TransportModel} from './model/store';
 
 const decimals = 3;
@@ -54,5 +55,12 @@ export function formatTransport(n: number | undefined, transport: TransportModel
     if(n === undefined)
         return '';
     const format = transport.formatCountPerSecond(n);
+    return formatNumber(format.count, format.unit);
+}
+
+export function formatItem(n: number | undefined, item: GameItem) {
+    if(n === undefined)
+        return '';
+    const format = item.formatCountPerSecond(n);
     return formatNumber(format.count, format.unit);
 }

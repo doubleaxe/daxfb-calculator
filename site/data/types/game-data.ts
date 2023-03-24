@@ -28,7 +28,6 @@ export interface GameRecipeIORaw extends GameRecipeIOSerialized {
     product: GameItem;
 
     getCountPerSecond: (item: GameItem) => number;
-    formatCountPerSecond: (count: number) => FromatCountPerSecond;
 }
 export type GameRecipeIO = Readonly<GameRecipeIORaw>;
 
@@ -61,6 +60,9 @@ export type GameRecipeReference = Readonly<GameRecipeReferenceRaw>;
 export interface GameItemRaw extends GameItemSerialized {
     lowerLabel: string;
     recipeDictionary?: GameRecipeDictionary;
+    order: number;
+
+    formatCountPerSecond: (count: number) => FromatCountPerSecond;
 }
 export type GameItem = Readonly<GameItemRaw>;
 
@@ -71,7 +73,6 @@ export interface GameLogisticTransportRaw extends GameLogisticTransportSerialize
     logistic: GameLogistic;
     item: GameItem;
     countPerSecond: number;
-    formatCountPerSecond: (count: number) => FromatCountPerSecond;
 }
 export type GameLogisticTransport = Readonly<GameLogisticTransportRaw>;
 

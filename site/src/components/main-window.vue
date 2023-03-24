@@ -8,8 +8,11 @@ import {injectGameData} from '@/scripts/data';
 import {provideBlueprintModel, type BlueprintModel} from '@/scripts/model/store';
 import {provideFilter} from '@/scripts/filter';
 import {provideSettings} from '@/scripts/settings';
+import {mdiFormatListBulletedType} from '@mdi/js';
 
 const drawer = ref(true);
+const summary = ref(true);
+const summaryRail = ref(true);
 const gameData = injectGameData();
 const blueprintModel = ref<BlueprintModel | undefined>();
 
@@ -31,7 +34,15 @@ onBeforeMount(() => {
             </template>
             <v-app-bar-title>{{ `${blueprintModel?.blueprintName || ''}` }}</v-app-bar-title>
             <template #append>
-                <main-toolbar />
+                <main-toolbar>
+                    <template #append>
+                        <tooltip-button
+                            tooltip="Toggle Summary"
+                            :icon="mdiFormatListBulletedType"
+                            @click="summary = !summary"
+                        />
+                    </template>
+                </main-toolbar>
             </template>
         </v-app-bar>
         <v-navigation-drawer v-model="drawer" permanent>
@@ -40,6 +51,15 @@ onBeforeMount(() => {
         <v-main scrollable>
             <blueprint-panel />
         </v-main>
+        <v-navigation-drawer
+            v-model="summary"
+            permanent
+            location="right"
+            :rail="summaryRail"
+        >
+            <!-- remove completely, so will not recalculate if not shown -->
+            <summary-panel v-if="summary" :compact="summaryRail" />
+        </v-navigation-drawer>
     </v-app>
 </template>
 

@@ -36,6 +36,7 @@ Query string `?gameId=<game>` may be added to quickly open desired game, for exa
 
 # TODO list
 
+- Drag-Scroll Firefox issues
 - Color/Icon states for link and item (overflow, underflow, warning, etc..)
 - Move/Delete entire blueprint, production chain or multiple factories (selection, edit)
 - Apply counts calculated in locked mode to current factories

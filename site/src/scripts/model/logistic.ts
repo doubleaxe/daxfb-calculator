@@ -28,7 +28,7 @@ export class TransportModelImpl {
     }
     get item() { return this._transport.item; }
     get label() { return this._transport.label || this._transport.item.label; }
-    formatCountPerSecond(count: number) { return this._transport.formatCountPerSecond(count); }
+    formatCountPerSecond(count: number) { return this._transport.item.formatCountPerSecond(count); }
 }
 
 

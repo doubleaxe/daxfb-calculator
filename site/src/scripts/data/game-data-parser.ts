@@ -55,11 +55,16 @@ type ItemImpl = {
     item: GameItem;
     _postInit: (parsedRecipes: ParsedRecipesImpl) => void;
 };
-function createItemImpl(_item: GameItemSerialized) {
+function createItemImpl(_item: GameItemSerialized, calculator: Calculator, order: number) {
     const item: GameItemRaw = {
         ..._item,
         lowerLabel: _item.label.toLowerCase(),
         recipeDictionary: undefined,
+        order,
+
+        formatCountPerSecond(count: number) {
+            return calculator.formatCountPerSecond(this, count);
+        },
     };
     if(!item.exdata)
         item.exdata = {};
@@ -100,9 +105,6 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
         getCountPerSecond(item: GameItem) {
             const count = calculator.getCountPerSecond(item, this);
             return count;
-        },
-        formatCountPerSecond(count: number) {
-            return calculator.formatCountPerSecond(this, count);
         },
     };
     //init exdata, keep it writable, it could be used as cache
@@ -255,15 +257,12 @@ function createRecipeDictionaryImpl(calculator: Calculator, _recipeDictionary: G
 }
 
 function createLogisticTransportImpl(logisticImpl: Readonly<GameLogisticImpl>, _transport: GameLogisticTransportSerialized, item: GameItem) {
-    const {calculator, logistic} = logisticImpl;
+    const {logistic} = logisticImpl;
     const transport: GameLogisticTransportRaw = {
         ..._transport,
         logistic,
         item,
         countPerSecond: _transport.count / logistic.time,
-        formatCountPerSecond(count: number) {
-            return calculator.formatTransportFlow(this, count);
-        },
     };
     Object.freeze(transport);
     const transportResult: GameLogisticTransport = transport;
@@ -273,16 +272,14 @@ function createLogisticTransportImpl(logisticImpl: Readonly<GameLogisticImpl>, _
 //package private recipe dictionary
 type GameLogisticImpl = {
     logistic: GameLogistic;
-    calculator: Calculator;
 };
-function createLogisticImpl(_logistic: GameLogisticSerialized, parsedItems: ParsedItems, calculator: Calculator) {
+function createLogisticImpl(_logistic: GameLogisticSerialized, parsedItems: ParsedItems) {
     const logistic: GameLogisticRaw = {
         ..._logistic,
         transport: [],
     };
     const logisticImpl: GameLogisticImpl = {
         logistic,
-        calculator,
     };
 
     for(const transport of _logistic.transport) {
@@ -352,11 +349,11 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
     minTier = minTier ?? 0;
     maxTier = maxTier ?? 0;
 
-    for(const value of gameData.items) {
-        const itemImpl = createItemImpl(value);
+    gameData.items.forEach((value, index) => {
+        const itemImpl = createItemImpl(value, calculator, index);
         parsedItemsImpl.set(value.name, itemImpl);
         parsedItems.set(value.name, itemImpl.item);
-    }
+    });
     for(const value of gameData.recipeDictionaries) {
         const recipeDictionaryImpl = createRecipeDictionaryImpl(calculator, value);
         parsedRecipesImpl.set(value.name, recipeDictionaryImpl);
@@ -369,7 +366,7 @@ export function useGameDataParser(gameImplementation: GameImplementation): Parse
         recipeDictionaryImpl._postInit(parsedItemsImpl);
     }
 
-    const parsedLogistic = gameData.logistic?.map((logistic) => createLogisticImpl(logistic, parsedItems, calculator)) || [];
+    const parsedLogistic = gameData.logistic?.map((logistic) => createLogisticImpl(logistic, parsedItems)) || [];
     Object.freeze(parsedLogistic);
 
     const description = createDescriptionImpl(gameData.description, {minTier, maxTier});

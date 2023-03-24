@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -26,6 +26,7 @@ const showAboutDialog = ref(false);
     <button-save-share />
     <v-divider vertical />
     <button-scale />
+    <slot name="append" />
     <v-menu>
         <template #activator="{ props }">
             <v-btn :icon="mdiDotsVertical" v-bind="props" />

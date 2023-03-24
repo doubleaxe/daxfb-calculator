@@ -104,6 +104,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         }
         this._matherializeAbstractItem = undefined;
     }
+
     isAlreadyLinked(targetItem: RecipeIOModel) {
         for(const link of this._links.values()) {
             //may get proxy, so need to compare keys, not objects
@@ -125,5 +126,5 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get cpsMax() { return this._cpsMax; }
     get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }
     get cpsSolvedTotal() { return (this._ownerItem?.solvedCount !== undefined) ? this._cpsMax * this._ownerItem?.solvedCount : undefined; }
-    formatCountPerSecond(count: number) { return this._io.formatCountPerSecond(count); }
+    formatCountPerSecond(count: number) { return this._io.product.formatCountPerSecond(count); }
 }

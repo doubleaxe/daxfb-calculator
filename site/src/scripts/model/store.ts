@@ -38,3 +38,10 @@ export const injectBlueprintModel = () => {
 };
 
 export * from './normalize-item-positions';
+export type {
+    SummaryItem,
+    SummaryTotal,
+    SummaryIoTotal,
+    SummaryTotals,
+} from './summary';
+export * from './summary';

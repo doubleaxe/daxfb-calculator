@@ -30,6 +30,7 @@ export class BlueprintModelImpl {
     private _bulkUpdate = false;
     //could be used by vue to watch items added/removed
     private _itemsGenerationNumber = 0;
+    private _summaryGenerationNumber = 0;
     private readonly _lockedTransport = new Map<string, string>();
 
     public blueprintName = '';
@@ -51,6 +52,7 @@ export class BlueprintModelImpl {
     get links() { return this._links.values(); }
     get tempLink() { return this._tempLink; }
     get itemsGenerationNumber() { return this._itemsGenerationNumber; }
+    get summaryGenerationNumber() { return this._summaryGenerationNumber; }
 
     get solvePrecision() { return this._solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
@@ -90,6 +92,7 @@ export class BlueprintModelImpl {
         //if it linked - _$deleteLink will cause graph update
         this._items.delete(item.key);
         this._itemsGenerationNumber++;
+        this._summaryGenerationNumber++;
     }
     _$addLink(...io: RecipeIOModel[]) {
         const link = BlueprintModelImpl.newLink(io, false);
@@ -248,6 +251,7 @@ export class BlueprintModelImpl {
         } finally {
             this._bulkUpdate = _bulkUpdate;
         }
+        this._summaryGenerationNumber++;
     }
 
     private debouncedSolve: (() => void) | undefined = undefined;

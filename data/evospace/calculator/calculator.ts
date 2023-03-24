@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {Calculator} from '#types/calculator';
-import type {FromatCountPerSecond, GameItem, GameRecipeDictionary} from '#types/game-data';
+import type {GameRecipeDictionary} from '#types/game-data';
 import {GameItemType} from '#types/contants';
 import {GameRecipeDictionaryExData, GameRecipeIOType} from '../types/custom-game-data';
 
@@ -48,7 +48,7 @@ export function useCalculator(): Calculator {
         return (io.count * unitMul * Math.pow(1.5, tierDiff) * TICKS_PER_SECOND) / io.recipe.time;
     };
 
-    function formatCount(item: GameItem, count: number): FromatCountPerSecond {
+    const formatCountPerSecond: Calculator['formatCountPerSecond'] = (item, count) => {
         const productType = item.type;
         if(productType == GameItemType.Energy) {
             //energy measured in Watts, 1 Resource Item [R] * 20 = 20 Watt
@@ -62,14 +62,6 @@ export function useCalculator(): Calculator {
             count,
             unit: 'ps',
         };
-    }
-
-    const formatCountPerSecond: Calculator['formatCountPerSecond'] = function(io, count) {
-        return formatCount(io.product, count);
-    };
-
-    const formatTransportFlow: Calculator['formatTransportFlow'] = function(transport, flow) {
-        return formatCount(transport.item, flow);
     };
 
     const isCommonIo: Calculator['isCommonIo'] = function(io) {
@@ -81,7 +73,6 @@ export function useCalculator(): Calculator {
     return {
         getCountPerSecond,
         formatCountPerSecond,
-        formatTransportFlow,
         isCommonIo,
     };
 }
