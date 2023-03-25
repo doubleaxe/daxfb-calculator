@@ -1,6 +1,6 @@
 {
   "name": "daxfb-calculator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Calculator/Factory Planner for factory management games",
   "main": "index.js",
   "scripts": {
