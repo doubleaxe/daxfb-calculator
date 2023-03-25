@@ -16,23 +16,27 @@ const totalCountPerSecond = computed(() => formatItem(props.item.totalCountPerSe
 </script>
 
 <template>
-    <v-list-item class="pl-0">
+    <v-list-item :class="props.compact ? 'pl-0' : ''">
         <template #prepend>
             <div class="d-flex flex-column align-start">
                 <icon-component :image="props.item.item.image" />
-                <div class="text-caption">
+                <div v-if="props.compact" class="text-caption">
                     {{ totalCountPerSecond }}
                 </div>
+            </div>
+        </template>
+        <template #title>
+            <div v-if="!props.compact" class="pl-2 text-body-2 details">
+                {{ totalCountPerSecond }}
+                {{ ' ' }}
+                {{ props.item.item.label }}
             </div>
         </template>
     </v-list-item>
 </template>
 
 <style scoped>
-.icon-parent {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+.details {
+    white-space: normal;
 }
 </style>

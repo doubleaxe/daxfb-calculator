@@ -1,5 +1,5 @@
 <!--
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
@@ -96,6 +96,14 @@ const settings = injectSettings();
                     </template>
                     <template #prepend>
                         <v-checkbox v-model="settings.pointAndClickEnabled" />
+                    </template>
+                </v-list-item>
+                <v-list-item title="Enable Scale On Scroll" @click="settings.scrollScaleEnabled = !settings.scrollScaleEnabled">
+                    <template #subtitle>
+                        When enabled blueprint will scale when mouse scroll is rotated.
+                    </template>
+                    <template #prepend>
+                        <v-checkbox v-model="settings.scrollScaleEnabled" />
                     </template>
                 </v-list-item>
                 <v-list-subheader>Save (advanced)</v-list-subheader>

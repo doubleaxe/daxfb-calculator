@@ -24,9 +24,12 @@ const SavedKeys = [
     'dragAndScrollEnabled',
     'overflowScrollEnabled',
     'pointAndClickEnabled',
+    'scrollScaleEnabled',
     'blueprintCompress',
     'blueprintEncode',
     'blueprintSplit',
+    'showSummary',
+    'showSummaryCompact',
 ] as const;
 type SavedKey = typeof SavedKeys[number];
 type SavedObject = {
@@ -64,6 +67,7 @@ class Settings implements SavedObject {
         this.dragAndScrollEnabled = !touchDevice;
         this.overflowScrollEnabled = !touchDevice;
         this.pointAndClickEnabled = touchDevice;
+        this.scrollScaleEnabled = !touchDevice;
         this._isTouchDevice = touchDevice;
     }
 
@@ -83,10 +87,14 @@ class Settings implements SavedObject {
     dragAndScrollEnabled;
     overflowScrollEnabled;
     pointAndClickEnabled;
+    scrollScaleEnabled;
 
     blueprintCompress = true;
     blueprintEncode = true;
     blueprintSplit = DEFAULT_BLUEPRINT_SPLIT;
+
+    showSummary = true;
+    showSummaryCompact = true;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }
@@ -107,7 +115,7 @@ class Settings implements SavedObject {
         for(const [key, value] of Object.entries(settings)) {
             const _key = key as SavedKey;
             //prevent unnecessary change events, if corresponding option is not changed
-            if(self[_key] !== value) {
+            if((value !== undefined) && (self[_key] !== value)) {
                 self[_key] = value;
             }
         }
@@ -125,6 +133,7 @@ export const provideSettings = (gameData: GameData, blueprintModel: BlueprintMod
     settings.load(unref(savedSettings));
     watch(settings, () => Object.assign(savedSettings.value, settings.save()));
     watch(savedSettings, () => settings.load(unref(savedSettings)));
+    return settings;
 };
 export const injectSettings = () => {
     const settings = inject(SettingsKey);

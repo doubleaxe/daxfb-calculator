@@ -35,7 +35,16 @@ onMounted(() => {
 <template>
     <v-list :lines="undefined">
         <template v-for="{isInput, totals} in unref(summary)" :key="isInput">
-            <v-list-item :prepend-icon="isInput ? mdiImport : mdiExport" />
+            <v-list-item :class="props.compact ? 'pl-1' : ''">
+                <template #prepend>
+                    <v-icon :icon="isInput ? mdiImport : mdiExport" color="primary" />
+                </template>
+                <template #title>
+                    <div v-if="!props.compact" class="pl-2 text-body-1 text-primary font-weight-bold">
+                        {{ isInput ? 'Input' : 'Output' }}
+                    </div>
+                </template>
+            </v-list-item>
             <v-divider />
             <template v-for="total in totals" :key="isInput + '#' + total.type">
                 <template v-for="item in total.items" :key="isInput + '#' + total.type + '#' + item.item.name">

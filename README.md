@@ -41,5 +41,4 @@ Query string `?gameId=<game>` may be added to quickly open desired game, for exa
 - Move/Delete entire blueprint, production chain or multiple factories (selection, edit)
 - Apply counts calculated in locked mode to current factories
 - Use `\R\N` for Windows saved files instead of `\N`
-- Show total energy, heat, items, etc.. for open ends
 - Use `https://github.com/bcakmakoglu/vue-flow/` for nicer graph display? (will require almost full rewrite)

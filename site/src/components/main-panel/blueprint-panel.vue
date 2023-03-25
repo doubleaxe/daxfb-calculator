@@ -101,10 +101,14 @@ watch([() => blueprintModel.itemsGenerationNumber, () => settings.scale], () => 
 });
 
 function handleScale(event: WheelEvent) {
-    if(event.deltaY < 0) {
-        settings.scale = Math.min(settings.scale + 0.1, 2);
-    } else {
-        settings.scale = Math.max(settings.scale - 0.1, 0.5);
+    if(settings.scrollScaleEnabled) {
+        if(event.deltaY < 0) {
+            settings.scale = Math.min(settings.scale + 0.1, 2);
+        } else {
+            settings.scale = Math.max(settings.scale - 0.1, 0.5);
+        }
+        event.stopPropagation();
+        event.preventDefault();
     }
 }
 
@@ -120,7 +124,7 @@ onMounted(() => {
         class="blueprint-surface"
         @pointerdown.left="startDragAndScroll($event); wasScrolled = false;"
         @click="processSelected($event)"
-        @wheel.stop.prevent="handleScale"
+        @wheel="handleScale"
     >
         <div
             ref="blueprintCollection"
