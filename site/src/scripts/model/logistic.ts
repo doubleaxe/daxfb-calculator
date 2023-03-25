@@ -72,7 +72,8 @@ export class LogisticModelImpl {
     }
 
     resetSelectedTransport() {
-        const flow = this._link.flow;
+        const _link = this._link;
+        const flow = _link.flow;
         if(!flow)
             return undefined;
 
@@ -83,14 +84,26 @@ export class LogisticModelImpl {
             selectedIndex = transport.findIndex((t) => (t.name == lockedTransportName));
         }
         if(selectedIndex < 0) {
-            const index = binarySearch(transport, (t) => (t.countPerSecond >= flow));
+            let effectiveCount = 1;
+            if(this._logistic.stackable
+                && (_link.input?.linksCount === 1)
+                && (_link.output?.linksCount === 1)) {
+                //only one link and multiple factories
+                const inputCount = _link.input?.ownerItem?.solvedCount || 0;
+                const outputCount = _link.output?.ownerItem?.solvedCount || 0;
+                const count = Math.min(inputCount, outputCount);
+                if(count > 1) {
+                    effectiveCount = Math.ceil(count);
+                }
+            }
+            const index = binarySearch(transport, (t) => ((effectiveCount * t.countPerSecond) >= flow));
             selectedIndex = (index < transport.length) ? index : transport.length - 1;
         }
         const selectedGameTransport = transport[selectedIndex];
         this._selectedTransport = new TransportModelImpl(
             selectedGameTransport,
             selectedIndex,
-            this._link,
+            _link,
         );
         return this._selectedTransport;
     }

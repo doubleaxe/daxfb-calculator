@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {GameDataSerialized} from '#types/game-data-serialized';
@@ -192,5 +192,35 @@ export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
             recipeDictionary: 'M',
             tier: 2,
         },
+    }, {
+        image: 'S',
+        name: 'S',
+        label: 'Logistic S',
+    }, {
+        image: 'T',
+        name: 'T',
+        label: 'Logistic T',
+    }],
+    logistic: [{
+        name: 'S',
+        label: 'Logistic',
+        items: [{
+            name: 'A',
+        }, {
+            name: 'B',
+        }, {
+            name: 'C',
+        }, {
+            name: 'D',
+        }],
+        transport: [{
+            name: 'S',
+            count: 1,
+        }, {
+            name: 'T',
+            count: 2,
+        }],
+        time: 1,
+        stackable: true,
     }],
 };

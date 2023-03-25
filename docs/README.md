@@ -82,6 +82,25 @@ Factory may be rotated to create more pretty looking links.
 ![rotation](./assets/rotation.gif)
 </details>
 
+# Inspection of logistic transport
+
+Logistic transport can be inspected for links, which connects items with known transport (conveyors, pipes, manipulators, robotic arms). When clicking on link menu, logistic info will be shown automatically. Specific transport may be locked, in this case locked transport will be preferred for entire blueprint.
+
+<details><summary>See in action</summary>
+
+![logistic](./assets/logistic.gif)
+</details>
+
+# Summary window
+
+Summary window will show overall consumption / production of blueprint. Because it is calculated while blueprint is updated - it is recommended to turn it off for very large blueprints. Summary window can work in two modes - simple and expanded. Modes are switched sequentially by corresponding button. Summary window will be empty if blueprint is empty or not calculated. Summary window shows production / consumption only for open ends (not connected to anything).
+
+
+<details><summary>See in action</summary>
+
+![summary](./assets/summary.gif)
+</details>
+
 # Filtering
 
 Text filter accepts multiple words, these words are split by space and then applied to filter together.
