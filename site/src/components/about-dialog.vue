@@ -24,17 +24,27 @@ const __BUILD_TIME_STR__ = `${padNumber(btime.getFullYear(), 4)}-${padNumber(bti
 </script>
 
 <template>
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" width="auto">
         <v-card>
             <v-toolbar>
-                <v-toolbar-title>About</v-toolbar-title>
+                <v-toolbar-title>
+                    <div class="d-flex align-center">
+                        <img src="favicon.png">
+                        <div class="pl-2">
+                            About
+                        </div>
+                    </div>
+                </v-toolbar-title>
                 <v-spacer />
                 <v-btn
                     :icon="mdiClose"
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <v-card-title>{{ `${gameDescription.description} Calculator/Factory Planner` }}</v-card-title>
+            <v-card-title>daxfb-calculator</v-card-title>
+            <v-card-subtitle>
+                Calculator/Factory Planner for factory management games.
+            </v-card-subtitle>
             <v-card-subtitle>
                 By doubleaxe (<v-icon :icon="mdiEmail" /><a href="mailto:dax@xdax.ru" target="_blank">dax@xdax.ru</a>,
                 <a href="https://github.com/doubleaxe" target="_blank">https://github.com/doubleaxe</a>)

@@ -106,8 +106,7 @@ watch(blueprintName, (value) => {
                     <div class="flex-grow-1 mr-1 mt-2">
                         <v-textarea
                             ref="textArea"
-                            class="text-monospaced"
-                            :class="settings.blueprintSplit ? 'textarea-overflow-auto' : ''"
+                            class="text-monospaced textarea-overflow-auto"
                             label="Copy Blueprint Data"
                             variant="outlined"
                             readonly

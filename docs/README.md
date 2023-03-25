@@ -1,4 +1,5 @@
-# Calculator/Factory Planner for factory management games
+# daxfb-calculator
+Calculator/Factory Planner for factory management games.
 
 [Link to this page](https://doubleaxe.github.io/daxfb-calculator/docs/).
 

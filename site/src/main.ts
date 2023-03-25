@@ -7,12 +7,9 @@ import {createApp} from 'vue';
 import {createVuetify} from 'vuetify';
 import {aliases, mdi} from 'vuetify/iconsets/mdi-svg';
 import App from './app.vue';
-import {useAnalytics} from './composables/analytics';
 
 import './assets/vuetify.scss';
 import './assets/main.scss';
-
-useAnalytics();
 
 const app = createApp(App);
 

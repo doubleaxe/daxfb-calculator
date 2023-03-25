@@ -5,11 +5,14 @@ Please don't remove this comment if you use unmodified file
 
 import {loadScript} from '@/scripts/load-script-css';
 
+type GoatCounterVars = {
+    path: string | ((path?: string) => string);
+};
 type GoatCounter = {
-    count: () => void;
+    count: (vars?: GoatCounterVars) => void;
 };
 
-export function useAnalytics() {
+export function useAnalytics(gameId: string) {
     //turn on analytics only on global domain
     const hostname = window?.location?.hostname;
     if(!hostname?.toLowerCase()?.includes('doubleaxe.github.io')) {
@@ -30,7 +33,10 @@ export function useAnalytics() {
         },
     })
     .then((goatcounter) => {
-        goatcounter.count();
+        const pathname = window?.location?.pathname || '/daxfb-calculator';
+        goatcounter.count({
+            path: pathname + gameId,
+        });
     })
     .catch((err) => {
         //ignore error here

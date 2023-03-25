@@ -9,6 +9,7 @@ import {provideBlueprintModel, type BlueprintModel} from '@/scripts/model/store'
 import {provideFilter} from '@/scripts/filter';
 import {provideSettings} from '@/scripts/settings';
 import {mdiFormatListBulletedType} from '@mdi/js';
+import {useAnalytics} from '@/composables/analytics';
 
 const drawer = ref(true);
 const showSummary = ref(false);
@@ -38,10 +39,11 @@ function toggleSummary() {
 }
 
 onBeforeMount(() => {
+    useAnalytics(gameData.gameDescription.name);
     const _blueprintModel = provideBlueprintModel(gameData);
     const filter = provideFilter(gameData);
     const _settings = provideSettings(gameData, _blueprintModel, filter);
-    document.title = `${gameData.gameDescription.description} Calculator/Factory Planner by doubleaxe`;
+    document.title = `daxfb-calculator - calculator/factory planner for "${gameData.gameDescription.description}"`;
     blueprintModel.value = _blueprintModel;
 
     //load at start, and don't watch for changes from another tabs

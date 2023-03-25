@@ -42,7 +42,10 @@ export class BlueprintEncoder {
 
     encode(savedBlueprint: SavedBlueprint) {
         const GAME_HEADER = this.GAME_HEADER;
-        const data = JSON.stringify(savedBlueprint);
+        const shouldEncode = this._options.blueprintCompress || this._options.blueprintEncode;
+        const data = shouldEncode
+            ? JSON.stringify(savedBlueprint)
+            : JSON.stringify(savedBlueprint, undefined, '  ');
         let encoded: string | undefined;
         if(this._options.blueprintCompress) {
             const compressed = deflate(data, {level: 9});
@@ -56,7 +59,8 @@ export class BlueprintEncoder {
         return encoded || '';
     }
     split(encoded: string) {
-        if(!this._options.blueprintCompress && !this._options.blueprintEncode)
+        const shouldEncode = this._options.blueprintCompress || this._options.blueprintEncode;
+        if(!shouldEncode)
             return encoded;
         const size = this._options.blueprintSplit;
         if(size <= 0)
@@ -195,6 +199,8 @@ export class BlueprintDecoder {
 }
 
 type FileNameHandlerOptions = {
+    blueprintCompress: boolean;
+    blueprintEncode: boolean;
     blueprintSplit: number;
 };
 export class FileNameHandler {
@@ -206,7 +212,8 @@ export class FileNameHandler {
     encodeBlueprintNameHeader(encodedBlueprint: string, blueprintName: string) {
         if(!blueprintName)
             return encodedBlueprint;
-        const size = this._options.blueprintSplit;
+        const shouldEncode = this._options.blueprintCompress || this._options.blueprintEncode;
+        const size = shouldEncode ? this._options.blueprintSplit : 0;
         let blueprintHeader = '';
         if((size <= 0) || ((blueprintName.length + 8) > size)) {
             blueprintHeader = `====${blueprintName}====\n`;
