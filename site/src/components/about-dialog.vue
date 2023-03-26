@@ -29,7 +29,7 @@ const __BUILD_TIME_STR__ = `${padNumber(btime.getFullYear(), 4)}-${padNumber(bti
             <v-toolbar>
                 <v-toolbar-title>
                     <div class="d-flex align-center">
-                        <img src="./favicon.png" width="48" height="48">
+                        <img src="../assets/logo.png" width="48" height="48">
                         <div class="pl-2">
                             About
                         </div>

@@ -22,6 +22,7 @@ const SavedKeys = [
     'colorfulLinks',
     'dragAndDropEnabled',
     'dragAndScrollEnabled',
+    'dragAndScrollOutsideWindow',
     'overflowScrollEnabled',
     'pointAndClickEnabled',
     'scrollScaleEnabled',
@@ -85,6 +86,7 @@ class Settings implements SavedObject {
     colorfulLinks = true;
     dragAndDropEnabled;
     dragAndScrollEnabled;
+    dragAndScrollOutsideWindow = true;
     overflowScrollEnabled;
     pointAndClickEnabled;
     scrollScaleEnabled;

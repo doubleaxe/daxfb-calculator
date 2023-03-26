@@ -137,6 +137,7 @@ export class BlueprintModelImpl {
     clear() {
         this._clear();
         this._itemsGenerationNumber++;
+        this._summaryGenerationNumber++;
     }
     private _clear() {
         resetKeyStore();

@@ -86,6 +86,19 @@ const settings = injectSettings();
                         <v-checkbox v-model="settings.dragAndScrollEnabled" />
                     </template>
                 </v-list-item>
+                <v-list-item
+                    :disabled="!settings.dragAndScrollEnabled"
+                    title="Continue Drag And Scroll Outside"
+                    @click="settings.dragAndScrollOutsideWindow = !settings.dragAndScrollOutsideWindow"
+                >
+                    <template #subtitle>
+                        When enabled drag and scroll will continue if mouse cursor is dragged outside scrollable window.
+                        Could be disabled to fight some scroll glitches on Firefox.
+                    </template>
+                    <template #prepend>
+                        <v-checkbox v-model="settings.dragAndScrollOutsideWindow" />
+                    </template>
+                </v-list-item>
                 <v-list-item title="Enable Point And Click" @click="settings.pointAndClickEnabled = !settings.pointAndClickEnabled">
                     <template #subtitle>
                         When enabled you select items on left panel, links and then paste them with another click.
@@ -98,9 +111,9 @@ const settings = injectSettings();
                         <v-checkbox v-model="settings.pointAndClickEnabled" />
                     </template>
                 </v-list-item>
-                <v-list-item title="Enable Scale On Scroll" @click="settings.scrollScaleEnabled = !settings.scrollScaleEnabled">
+                <v-list-item title="Enable Scale On Wheel" @click="settings.scrollScaleEnabled = !settings.scrollScaleEnabled">
                     <template #subtitle>
-                        When enabled blueprint will scale when mouse scroll is rotated.
+                        When enabled blueprint will scale when mouse wheel is rotated.
                     </template>
                     <template #prepend>
                         <v-checkbox v-model="settings.scrollScaleEnabled" />

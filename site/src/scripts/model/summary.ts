@@ -39,9 +39,8 @@ export function calculateSummary(model: BlueprintModel) {
                 //summary only takes open ends into account
                 continue;
             }
-            if(io.isAbstractClassItem) {
+            if(io.isAbstractClassItem && !io.isMatherialized) {
                 //summary only takes real items
-                //they never be matherialized, because matherialization means linked io
                 continue;
             }
             const cpsTotal = io.cpsSolvedTotal;

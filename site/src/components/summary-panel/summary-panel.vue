@@ -48,7 +48,7 @@ onMounted(() => {
             <v-divider />
             <template v-for="total in totals" :key="isInput + '#' + total.type">
                 <template v-for="item in total.items" :key="isInput + '#' + total.type + '#' + item.item.name">
-                    <summary-item :item="item" :compact="props.compact" />
+                    <summary-item :item="item" :compact="props.compact" :is-input="isInput" />
                 </template>
                 <v-divider />
                 <template v-if="showTotals[total.type] && (total.items.length > 1)">
