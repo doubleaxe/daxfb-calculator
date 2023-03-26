@@ -70,11 +70,28 @@ export class LinkModelImpl {
         return undefined;
     }
     _$save(input?: number, output?: number): SavedLink {
+        //if we can link by multiple paths for same item - then link is ambiguous
+        //we should store name as well in this case
+        let isAmbiguous = false;
+        if(this.input?.isAbstractClassItem || this.output?.isAbstractClassItem) {
+            isAmbiguous = true;
+        } else {
+            const allInputs = this.input?.ownerItem?.selectedRecipe?.input;
+            const allOutputs = this.output?.ownerItem?.selectedRecipe?.output;
+            const allInputsNames = new Set([...allInputs || []].map((i) => i.name || ''));
+            const similarIo = [...allOutputs || []].reduce((sum, i) => {
+                if(allInputsNames.has(i.name || ''))
+                    sum++;
+                return sum;
+            }, 0);
+            isAmbiguous = similarIo > 1;
+        }
         return {
             l: [
                 input || 0,
                 output || 0,
             ],
+            n: isAmbiguous ? this.input?.name : undefined,
         };
     }
     _$load(l: SavedLink, errorCollector: ErrorCollector) {

@@ -12,7 +12,7 @@ import type {
     RecipeModel,
 } from './store';
 import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
-import type {SavedItem} from './saved-blueprint';
+import type {SavedItem, SavedLink} from './saved-blueprint';
 import {Rect, type PublicRect, type ReadonlyPointType} from '../geometry';
 import type {ErrorCollector} from '../error-collector';
 
@@ -63,7 +63,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         if(!sourceIo) {
             return BlueprintItemState.None;
         }
-        const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
+        const maybeTarget = this._selectedRecipe?._$findSimilarIo(sourceIo, true);
         if(maybeTarget) {
             if(maybeTarget.isAlreadyLinked(sourceIo)) {
                 return BlueprintItemState.LinkAlreadyExists;
@@ -79,7 +79,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this._state = this.calculateLinkState(sourceIo);
     }
     createLink(sourceIo: RecipeIOModel) {
-        const maybeTarget = this._selectedRecipe?.findSimilarIo(sourceIo, true);
+        const maybeTarget = this._selectedRecipe?._$findSimilarIo(sourceIo, true);
         if(!maybeTarget)
             return;
         this.owner?._$addLink(sourceIo, maybeTarget);
@@ -171,15 +171,22 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this.isFlipped = i.f ? true : false;
         this._isLocked = i.l ? true : false;
     }
-    _$loadLink(outputItem: BlueprintItemModel, errorCollector: ErrorCollector) {
-        const outputIoArray = outputItem.selectedRecipe?.output;
-        if(!outputIoArray)
+    _$loadLink(l: SavedLink, outputItem: BlueprintItemModel, errorCollector: ErrorCollector) {
+        let inputIoArray = [...this.selectedRecipe?.input || []];
+        let outputIoArray = [...outputItem.selectedRecipe?.output || []];
+        if(!inputIoArray.length || !outputIoArray.length)
             return undefined;
+        //if we can link by multiple paths for same item - then link is ambiguous
+        //we should restore saved name
+        if(l.n) {
+            inputIoArray = inputIoArray.filter((io) => ((io.name == l.n) || io.isAbstractClassItem));
+            outputIoArray = outputIoArray.filter((io) => ((io.name == l.n) || io.isAbstractClassItem));
+        }
         let link: LinkModel | undefined;
-        for(const outputIo of outputIoArray) {
-            const maybeTarget = this._selectedRecipe?.findSimilarIo(outputIo, true);
+        for(const inputIo of inputIoArray) {
+            const maybeTarget = outputIoArray.find((io) => RecipeModelImpl._$isSimilarIo(inputIo, io));
             if(maybeTarget) {
-                link = this.owner?._$addLink(outputIo, maybeTarget);
+                link = this.owner?._$addLink(inputIo, maybeTarget);
                 break;
             }
         }

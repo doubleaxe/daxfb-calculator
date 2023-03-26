@@ -1,5 +1,5 @@
 /*
-Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 export type SavedBlueprint = {
@@ -24,4 +24,5 @@ export type SavedItem = {
 
 export type SavedLink = {
     l: number[];
+    n?: string;
 };

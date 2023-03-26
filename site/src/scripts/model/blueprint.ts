@@ -216,7 +216,7 @@ export class BlueprintModelImpl {
             if(!input || !output) {
                 return;
             }
-            const loadedLink = input._$loadLink(output, errorCollector);
+            const loadedLink = input._$loadLink(link, output, errorCollector);
             if(loadedLink) {
                 loadedLink._$load(link, errorCollector);
             }

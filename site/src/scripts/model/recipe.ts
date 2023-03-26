@@ -21,24 +21,25 @@ export class RecipeModelImpl {
         this._itemsByKey = new Map(items.map((io) => [io.key, io]));
     }
 
-    findSimilarIo(sourceIo: RecipeIOModel, reverce: boolean) {
+    _$findSimilarIo(sourceIo: RecipeIOModel, reverce: boolean) {
         const isInput = reverce ? !sourceIo.isInput : sourceIo.isInput;
         const targetArray = isInput ? this._input : this._output;
-        return targetArray.find((io) => {
-            if(io.isAbstractClassItem && sourceIo.isAbstractClassItem)
-                return false;
-            return (io.name === sourceIo.name)
-                || (
-                    (io.isAbstractClassItem !== sourceIo.isAbstractClassItem)
-                    && !io.isMatherialized
-                    && !sourceIo.isMatherialized
-                    && (io.type === sourceIo.type)
-                );
-        });
+        return targetArray.find((io) => RecipeModelImpl._$isSimilarIo(sourceIo, io));
+    }
+    static _$isSimilarIo(sourceIo: RecipeIOModel, targetIo: RecipeIOModel) {
+        if(targetIo.isAbstractClassItem && sourceIo.isAbstractClassItem)
+            return false;
+        return (targetIo.name === sourceIo.name)
+        || (
+            (targetIo.isAbstractClassItem !== sourceIo.isAbstractClassItem)
+            && !targetIo.isMatherialized
+            && !sourceIo.isMatherialized
+            && (targetIo.type === sourceIo.type)
+        );
     }
     _$copySimilarLinksTo(targetRecipe: RecipeModel) {
         for(const targetItem of targetRecipe.items) {
-            const similarItem = this.findSimilarIo(targetItem, false);
+            const similarItem = this._$findSimilarIo(targetItem, false);
             if(!similarItem)
                 continue;
             similarItem._$copySimilarLinksTo(targetItem);
