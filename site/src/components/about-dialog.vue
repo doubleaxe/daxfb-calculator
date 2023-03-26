@@ -6,6 +6,7 @@ Please don't remove this comment if you use unmodified file
 import {injectGameData} from '@/scripts/data';
 import {mdiClose, mdiEmail} from '@mdi/js';
 import {useVModel} from '@vueuse/core';
+import logo from '../assets/logo.png';
 
 function padNumber(num: number, padding?: number) {
     return num.toString().padStart(padding || 2, '0');
@@ -29,7 +30,7 @@ const __BUILD_TIME_STR__ = `${padNumber(btime.getFullYear(), 4)}-${padNumber(bti
             <v-toolbar>
                 <v-toolbar-title>
                     <div class="d-flex align-center">
-                        <img src="../assets/logo.png" width="48" height="48">
+                        <img :src="logo" width="48" height="48">
                         <div class="pl-2">
                             About
                         </div>

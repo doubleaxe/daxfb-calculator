@@ -66,5 +66,6 @@ export default defineConfig({
         minify: true,
         sourcemap: true,
         cssCodeSplit: false,
+        assetsInlineLimit: 0,
     },
 });
