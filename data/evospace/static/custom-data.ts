@@ -102,4 +102,33 @@ export const logistic: GameLogisticSerialized[] = [{
         count: 60,
     }],
     time: 60 / 20,
+}, {
+    name: 'Pump',
+    items: [{
+        name: 'AnyFluidStaticItem',
+    }],
+    transport: [{
+        name: 'CopperPumpStaticItem',
+        count: 0.125,
+    }, {
+        name: 'SteelPumpStaticItem',
+        count: 0.25,
+    }, {
+        name: 'AluminiumPumpStaticItem',
+        count: 0.5,
+    }, {
+        name: 'StainlessSteelPumpStaticItem',
+        count: 1,
+    }, {
+        name: 'TitaniumPumpStaticItem',
+        count: 1.25,
+    }, {
+        name: 'HardMetalPumpStaticItem',
+        count: 1.5,
+    }, {
+        name: 'NeutroniumPumpStaticItem',
+        count: 1.5,
+    }],
+    time: 1,
+    stackable: true,
 }];

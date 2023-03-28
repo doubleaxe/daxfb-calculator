@@ -154,7 +154,23 @@ function convertItems(items: JsonItem[]) {
 }
 
 function convertLogistic() {
+    /**
+     * after making some experiments in real game it appeared robotic arms speed is actually 2x slower than written in game hint
+     * example:
+     *
+     * - copper arm is described as 150 degrees per second, which for 180 degrees placement means 360 degrees per item
+     *   which should result 150 / 360 = 0.417 items per second
+     * - actual copper arm makes 10 items for 51.5 seconds, which is 10 / 51.5 = 0.194 items per second
+     *
+     * - stainless steel arm is 450 degrees per second, which for 180 degrees placement results 450 / 360 = 1.25 items per second
+     * - actual stainless steel arm makes 20 items for 34 seconds, which is 20 / 34 = 0.588 items per second
+     *
+     * The experimental number is 2.13 - 2.15 slower, lets assume it is roughly 2x to take measurement errors
+     */
     logistic.forEach((l) => {
+        if((l.name == 'RobotArm90') || (l.name == 'RobotArm180')) {
+            l.time = l.time * 2;
+        }
         l.items.forEach((item) => {
             item.name = itemNameMapper(item.name);
         });

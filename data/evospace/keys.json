@@ -792,7 +792,8 @@
     "AnyEnergyInOut10MW": "cJ",
     "RobotArm90": "cK",
     "RobotArm180": "cL",
-    "Conveyor": "cM"
+    "Conveyor": "cM",
+    "Pump": "cN"
   },
-  "lastKey": 792
+  "lastKey": 793
 }
