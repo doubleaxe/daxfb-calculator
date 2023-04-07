@@ -5,6 +5,5 @@
     "url": "https://store.steampowered.com/app/1013540/Evospace/",
     "version": "0.18.3",
     "saveVersion": 18,
-    "compatibleSaveVersions": [18],
-    "calculatorRef": "evospace"
+    "compatibleSaveVersions": [18]
 }

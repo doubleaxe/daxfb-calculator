@@ -1,0 +1,3 @@
+[submodule "data/coi/grabber/captain-of-data"]
+	path = data/coi/grabber/captain-of-data
+	url = https://github.com/doubleaxe/captain-of-data
