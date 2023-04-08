@@ -1,0 +1,9095 @@
+{
+  "recipeDictionaries": [
+    {
+      "name": "TurbineHighPressT2",
+      "recipes": [
+        {
+          "name": "TurbineHighPressT2",
+          "input": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "MechPower",
+              "count": 2000
+            },
+            {
+              "name": "SteamLP",
+              "count": 8
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "TurbineHighPress",
+      "recipes": [
+        {
+          "name": "TurbineHighPress",
+          "input": [
+            {
+              "name": "SteamHi",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MechPower",
+              "count": 1000
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "TurbineLowPressT2",
+      "recipes": [
+        {
+          "name": "TurbineLowPressT2",
+          "input": [
+            {
+              "name": "SteamLP",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "MechPower",
+              "count": 2000
+            },
+            {
+              "name": "SteamDepleted",
+              "count": 16
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "TurbineLowPress",
+      "recipes": [
+        {
+          "name": "TurbineLowPress",
+          "input": [
+            {
+              "name": "SteamLP",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "MechPower",
+              "count": 1000
+            },
+            {
+              "name": "SteamDepleted",
+              "count": 8
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "PowerGeneratorT1",
+      "recipes": [
+        {
+          "name": "PowerGeneratorT1",
+          "input": [
+            {
+              "name": "MechPower",
+              "count": 500
+            }
+          ],
+          "output": [
+            {
+              "name": "Electricity",
+              "count": 300
+            }
+          ],
+          "time": 0
+        }
+      ]
+    },
+    {
+      "name": "PowerGeneratorT2",
+      "recipes": [
+        {
+          "name": "PowerGeneratorT2",
+          "input": [
+            {
+              "name": "MechPower",
+              "count": 3000
+            }
+          ],
+          "output": [
+            {
+              "name": "Electricity",
+              "count": 2500
+            }
+          ],
+          "time": 0
+        }
+      ]
+    },
+    {
+      "name": "SolarPanel",
+      "recipes": [
+        {
+          "name": "SolarPanel",
+          "output": [
+            {
+              "name": "Electricity",
+              "count": 32
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "SolarPanelMono",
+      "recipes": [
+        {
+          "name": "SolarPanelMono",
+          "output": [
+            {
+              "name": "Electricity",
+              "count": 40
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "DieselGenerator",
+      "recipes": [
+        {
+          "name": "DieselGenerator",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Electricity",
+              "count": 180
+            },
+            {
+              "name": "PollutedAir",
+              "count": 1
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "BasicDieselDistiller",
+      "recipes": [
+        {
+          "name": "DieselDistillationBasic",
+          "input": [
+            {
+              "name": "CrudeOil",
+              "count": 18
+            },
+            {
+              "name": "Coal",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 8
+            },
+            {
+              "name": "WasteWater",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "WaterDesalinationBasic",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 10
+            },
+            {
+              "name": "Coal",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 6
+            },
+            {
+              "name": "Brine",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 2
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "SmokeStackLarge",
+      "recipes": [
+        {
+          "name": "SmokeStackLargeDepletedSteam",
+          "input": [
+            {
+              "name": "SteamDepleted",
+              "count": 200
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLargeHpSteam",
+          "input": [
+            {
+              "name": "SteamHi",
+              "count": 200
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLargeLpSteam",
+          "input": [
+            {
+              "name": "SteamLP",
+              "count": 200
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLargeOxygen",
+          "input": [
+            {
+              "name": "Oxygen",
+              "count": 200
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLargeNitrogen",
+          "input": [
+            {
+              "name": "Nitrogen",
+              "count": 200
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLargeExhaust",
+          "input": [
+            {
+              "name": "Exhaust",
+              "count": 200
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 100
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLargeCarbonDioxide",
+          "input": [
+            {
+              "name": "CarbonDioxide",
+              "count": 200
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 50
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "SmokeStack",
+      "recipes": [
+        {
+          "name": "SmokeStackDepletedSteam",
+          "input": [
+            {
+              "name": "SteamDepleted",
+              "count": 20
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackHpSteam",
+          "input": [
+            {
+              "name": "SteamHi",
+              "count": 20
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackLpSteam",
+          "input": [
+            {
+              "name": "SteamLP",
+              "count": 20
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackOxygen",
+          "input": [
+            {
+              "name": "Oxygen",
+              "count": 20
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackNitrogen",
+          "input": [
+            {
+              "name": "Nitrogen",
+              "count": 20
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackExhaust",
+          "input": [
+            {
+              "name": "Exhaust",
+              "count": 20
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 10
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SmokeStackCarbonDioxide",
+          "input": [
+            {
+              "name": "CarbonDioxide",
+              "count": 20
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 5
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "WasteDump",
+      "recipes": [
+        {
+          "name": "OceanWaterDumping",
+          "input": [
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "BrineDumping",
+          "input": [
+            {
+              "name": "Brine",
+              "count": 2
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "OceanWasteWaterPumping",
+          "input": [
+            {
+              "name": "WasteWater",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 2
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "SourWaterDumping",
+          "input": [
+            {
+              "name": "SourWater",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 4
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "WasteAcidDumping",
+          "input": [
+            {
+              "name": "Acid",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 4
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "ToxicSlurryDumping",
+          "input": [
+            {
+              "name": "ToxicSlurry",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 5
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "SeaWaterDumping",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 2
+            }
+          ],
+          "time": 2
+        },
+        {
+          "name": "FertilizerOrganicDumping",
+          "input": [
+            {
+              "name": "FertilizerOrganic",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 1
+            }
+          ],
+          "time": 4
+        },
+        {
+          "name": "FertilizerChem1Dumping",
+          "input": [
+            {
+              "name": "Fertilizer",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 1
+            }
+          ],
+          "time": 4
+        },
+        {
+          "name": "FertilizerChem2Dumping",
+          "input": [
+            {
+              "name": "Fertilizer2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 2
+            }
+          ],
+          "time": 4
+        }
+      ]
+    },
+    {
+      "name": "Flare",
+      "recipes": [
+        {
+          "name": "FlareDiesel",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 10
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareHeavyOil",
+          "input": [
+            {
+              "name": "HeavyOil",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 10
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareLightOil",
+          "input": [
+            {
+              "name": "LightOil",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareNaphtha",
+          "input": [
+            {
+              "name": "Naphtha",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareEthanol",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareFuelGas",
+          "input": [
+            {
+              "name": "FuelGas",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareAmmonia",
+          "input": [
+            {
+              "name": "Ammonia",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FlareHydrogen",
+          "input": [
+            {
+              "name": "Hydrogen",
+              "count": 16
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "ExhaustScrubber",
+      "recipes": [
+        {
+          "name": "ExhaustFiltering",
+          "input": [
+            {
+              "name": "Exhaust",
+              "count": 30
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Sulfur",
+              "count": 1
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 12
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "PollutedAir",
+              "count": 4
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "WaterTreatmentPlant",
+      "recipes": [
+        {
+          "name": "WaterTreatment",
+          "input": [
+            {
+              "name": "WasteWater",
+              "count": 80
+            },
+            {
+              "name": "Sand",
+              "count": 4
+            },
+            {
+              "name": "Chlorine",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 40
+            },
+            {
+              "name": "Sludge",
+              "count": 12
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "WaterTreatmentT2",
+          "input": [
+            {
+              "name": "WasteWater",
+              "count": 80
+            },
+            {
+              "name": "FilterMedia",
+              "count": 4
+            },
+            {
+              "name": "Chlorine",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 60
+            },
+            {
+              "name": "Sludge",
+              "count": 18
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "ToxicSlurryTreatment",
+          "input": [
+            {
+              "name": "ToxicSlurry",
+              "count": 24
+            },
+            {
+              "name": "FilterMedia",
+              "count": 2
+            },
+            {
+              "name": "Brine",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 18
+            },
+            {
+              "name": "Slag",
+              "count": 6
+            }
+          ],
+          "time": 30
+        }
+      ]
+    },
+    {
+      "name": "AnaerobicDigester",
+      "recipes": [
+        {
+          "name": "SludgeDigestion",
+          "input": [
+            {
+              "name": "Sludge",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 5
+            },
+            {
+              "name": "Compost",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "PotatoDigestion",
+          "input": [
+            {
+              "name": "Potato",
+              "count": 14
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 6
+            },
+            {
+              "name": "Compost",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "VegetablesDigestion",
+          "input": [
+            {
+              "name": "Vegetables",
+              "count": 14
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 6
+            },
+            {
+              "name": "Compost",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FruitDigestion",
+          "input": [
+            {
+              "name": "Fruit",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 10
+            },
+            {
+              "name": "Compost",
+              "count": 1
+            }
+          ],
+          "time": 90
+        },
+        {
+          "name": "PoppyDigestion",
+          "input": [
+            {
+              "name": "Poppy",
+              "count": 14
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 6
+            },
+            {
+              "name": "Compost",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "WheatDigestion",
+          "input": [
+            {
+              "name": "Wheat",
+              "count": 11
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 10
+            },
+            {
+              "name": "Compost",
+              "count": 1
+            }
+          ],
+          "time": 90
+        },
+        {
+          "name": "MeatTrimmingsDigestion",
+          "input": [
+            {
+              "name": "MeatTrimmings",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 4
+            },
+            {
+              "name": "Compost",
+              "count": 2
+            }
+          ],
+          "time": 120
+        }
+      ]
+    },
+    {
+      "name": "Burner",
+      "recipes": [
+        {
+          "name": "LandfillBurning",
+          "input": [
+            {
+              "name": "Waste",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 3
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "BiomassBurning",
+          "input": [
+            {
+              "name": "Biomass",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 2
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "AnimalFeedBurning",
+          "input": [
+            {
+              "name": "AnimalFeed",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 2
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "MeatTrimmingsBurning",
+          "input": [
+            {
+              "name": "MeatTrimmings",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 3
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "ChickenCarcassBurning",
+          "input": [
+            {
+              "name": "ChickenCarcass",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 3
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SulfurBurning",
+          "input": [
+            {
+              "name": "Sulfur",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SludgeBurning",
+          "input": [
+            {
+              "name": "Sludge",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedAir",
+              "count": 6
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "OilPump",
+      "recipes": [
+        {
+          "name": "OilGroundPumping",
+          "output": [
+            {
+              "name": "CrudeOil",
+              "count": 6
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "LandWaterPump",
+      "recipes": [
+        {
+          "name": "LandWaterPumping",
+          "output": [
+            {
+              "name": "Water",
+              "count": 8
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "GasInjectionPump",
+      "recipes": [
+        {
+          "name": "CarbonDioxideInjection",
+          "input": [
+            {
+              "name": "CarbonDioxide",
+              "count": 12
+            },
+            {
+              "name": "Seawater",
+              "count": 4
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "OceanWaterPumpT1",
+      "recipes": [
+        {
+          "name": "OceanWaterPumping",
+          "output": [
+            {
+              "name": "Seawater",
+              "count": 20
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "OceanWaterPumpLarge",
+      "recipes": [
+        {
+          "name": "OceanWaterPumpingT2",
+          "output": [
+            {
+              "name": "Seawater",
+              "count": 20
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "BoilerCoal",
+      "recipes": [
+        {
+          "name": "SteamGenerationCoal",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationBiomass",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Biomass",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationAnimalFeed",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "AnimalFeed",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 4
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "BoilerGas",
+      "recipes": [
+        {
+          "name": "SteamGenerationHeavyOil",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "HeavyOil",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 10
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationMediumOil",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "MediumOil",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 10
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationLightOil",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "LightOil",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationNaphtha",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Naphtha",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationEthanol",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Ethanol",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationFuelGas",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "FuelGas",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamGenerationHydrogen",
+          "input": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Hydrogen",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 8
+            },
+            {
+              "name": "SteamDepleted",
+              "count": 2
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "BoilerElectric",
+      "recipes": [
+        {
+          "name": "SteamGenerationElectric",
+          "input": [
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 4
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "EvaporationPondHeated",
+      "recipes": [
+        {
+          "name": "BrineMakingHeated",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 30
+            }
+          ],
+          "output": [
+            {
+              "name": "Brine",
+              "count": 16
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SaltMakingHeated",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 30
+            }
+          ],
+          "output": [
+            {
+              "name": "Salt",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "SaltMakingFromBrineHeated",
+          "input": [
+            {
+              "name": "Brine",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Salt",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "EvaporationPond",
+      "recipes": [
+        {
+          "name": "BrineMaking",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 30
+            }
+          ],
+          "output": [
+            {
+              "name": "Brine",
+              "count": 16
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "SaltMaking",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 30
+            }
+          ],
+          "output": [
+            {
+              "name": "Salt",
+              "count": 8
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "SaltMakingFromBrine",
+          "input": [
+            {
+              "name": "Brine",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Salt",
+              "count": 8
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "ThermalDesalinator",
+      "recipes": [
+        {
+          "name": "DesalinationFromHP",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 10
+            },
+            {
+              "name": "SteamHi",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Brine",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "DesalinationFromLP",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 7
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 8
+            },
+            {
+              "name": "Brine",
+              "count": 3
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "DesalinationFromDepleted",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 4
+            },
+            {
+              "name": "SteamDepleted",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 10
+            },
+            {
+              "name": "Brine",
+              "count": 2
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "WaterChiller",
+      "recipes": [
+        {
+          "name": "WaterChilling",
+          "input": [
+            {
+              "name": "Water",
+              "count": 10
+            }
+          ],
+          "output": [
+            {
+              "name": "ChilledWater",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "BricksMaker",
+      "recipes": [
+        {
+          "name": "BricksMaking",
+          "input": [
+            {
+              "name": "Dirt",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 2
+            },
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Bricks",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 4
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "ConcreteMixerT3",
+      "recipes": [
+        {
+          "name": "ConcreteMixingSlagT3",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 2
+            },
+            {
+              "name": "Sand",
+              "count": 4
+            },
+            {
+              "name": "SlagCrushed",
+              "count": 12
+            },
+            {
+              "name": "Water",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 16
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "ConcreteMixingGravelT3",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 2
+            },
+            {
+              "name": "Sand",
+              "count": 4
+            },
+            {
+              "name": "Gravel",
+              "count": 12
+            },
+            {
+              "name": "Water",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 16
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "ConcreteMixerT2",
+      "recipes": [
+        {
+          "name": "ConcreteMixingSlagT2",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 1
+            },
+            {
+              "name": "Sand",
+              "count": 2
+            },
+            {
+              "name": "SlagCrushed",
+              "count": 6
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "ConcreteMixingGravelT2",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 1
+            },
+            {
+              "name": "Sand",
+              "count": 2
+            },
+            {
+              "name": "Gravel",
+              "count": 6
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "ConcreteMixer",
+      "recipes": [
+        {
+          "name": "ConcreteMixingSlag",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 1
+            },
+            {
+              "name": "Sand",
+              "count": 2
+            },
+            {
+              "name": "SlagCrushed",
+              "count": 6
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "ConcreteMixingGravel",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 1
+            },
+            {
+              "name": "Sand",
+              "count": 2
+            },
+            {
+              "name": "Gravel",
+              "count": 6
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "ConcreteMixingBasic",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 2
+            },
+            {
+              "name": "SlagCrushed",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "ConcreteMixingBasicGravel",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 2
+            },
+            {
+              "name": "Gravel",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "ConcreteSlab",
+              "count": 4
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "IndustrialMixer",
+      "recipes": [
+        {
+          "name": "GlassMixMixing",
+          "input": [
+            {
+              "name": "Sand",
+              "count": 16
+            },
+            {
+              "name": "Limestone",
+              "count": 4
+            },
+            {
+              "name": "Salt",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "GlassMix",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassMixMixingWithAcid",
+          "input": [
+            {
+              "name": "Sand",
+              "count": 16
+            },
+            {
+              "name": "Limestone",
+              "count": 4
+            },
+            {
+              "name": "Salt",
+              "count": 4
+            },
+            {
+              "name": "Acid",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "GlassMix",
+              "count": 16
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "AcidMixMixing",
+          "input": [
+            {
+              "name": "Sulfur",
+              "count": 2
+            },
+            {
+              "name": "Water",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "Acid",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SulfurNeutralization",
+          "input": [
+            {
+              "name": "Sulfur",
+              "count": 8
+            },
+            {
+              "name": "Limestone",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Slag",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "BrineProduction",
+          "input": [
+            {
+              "name": "Salt",
+              "count": 8
+            },
+            {
+              "name": "Water",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Brine",
+              "count": 16
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FilterMediaMixing",
+          "input": [
+            {
+              "name": "Gravel",
+              "count": 8
+            },
+            {
+              "name": "Sand",
+              "count": 4
+            },
+            {
+              "name": "Coal",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "FilterMedia",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "OrganicFertilizerProduction",
+          "input": [
+            {
+              "name": "Compost",
+              "count": 12
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "FertilizerOrganic",
+              "count": 16
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "Fertilizer2Production",
+          "input": [
+            {
+              "name": "Fertilizer",
+              "count": 8
+            },
+            {
+              "name": "Limestone",
+              "count": 1
+            },
+            {
+              "name": "Sulfur",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Fertilizer2",
+              "count": 10
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "AnimalFeedFromPotato",
+          "input": [
+            {
+              "name": "Potato",
+              "count": 10
+            }
+          ],
+          "output": [
+            {
+              "name": "AnimalFeed",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "AnimalFeedFromWheat",
+          "input": [
+            {
+              "name": "Wheat",
+              "count": 10
+            }
+          ],
+          "output": [
+            {
+              "name": "AnimalFeed",
+              "count": 16
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "AnimalFeedFromCorn",
+          "input": [
+            {
+              "name": "Corn",
+              "count": 10
+            }
+          ],
+          "output": [
+            {
+              "name": "AnimalFeed",
+              "count": 12
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "AnimalFeedFromSoybean",
+          "input": [
+            {
+              "name": "Soybean",
+              "count": 10
+            }
+          ],
+          "output": [
+            {
+              "name": "AnimalFeed",
+              "count": 18
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "AnimalFeedCompost",
+          "input": [
+            {
+              "name": "AnimalFeed",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "Compost",
+              "count": 3
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "BiomassCompost",
+          "input": [
+            {
+              "name": "Biomass",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "Compost",
+              "count": 4
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "MeatTrimmingsCompost",
+          "input": [
+            {
+              "name": "MeatTrimmings",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "Compost",
+              "count": 2
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "AssemblyRoboticT2",
+      "recipes": [
+        {
+          "name": "Cp4AssemblyT2",
+          "input": [
+            {
+              "name": "ConstructionParts3",
+              "count": 4
+            },
+            {
+              "name": "Electronics2",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts4",
+              "count": 2
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "HouseholdAppliancesAssemblyT3",
+          "input": [
+            {
+              "name": "Electronics",
+              "count": 8
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "HouseholdAppliances",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "PCBAssemblyT3",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 2
+            },
+            {
+              "name": "Plastic",
+              "count": 2
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "PCB",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "ElectronicsAssemblyT5",
+          "input": [
+            {
+              "name": "Rubber",
+              "count": 4
+            },
+            {
+              "name": "Copper",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics",
+              "count": 16
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "Electronics2AssemblyT3",
+          "input": [
+            {
+              "name": "PCB",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            },
+            {
+              "name": "PolySilicon",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SolarCellAssemblyT3",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "PolySilicon",
+              "count": 12
+            },
+            {
+              "name": "Glass",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "SolarCell",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "SolarCellMonoAssemblyT1",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "SiliconWafer",
+              "count": 12
+            },
+            {
+              "name": "Glass",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "SolarCellMono",
+              "count": 8
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Electronics3AssemblyT3",
+          "input": [
+            {
+              "name": "Microchips",
+              "count": 2
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics3",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "ServerAssemblyT3",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "Electronics3",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Server",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "ConsumerElectronicsAssemblyT1",
+          "input": [
+            {
+              "name": "Electronics3",
+              "count": 2
+            },
+            {
+              "name": "Plastic",
+              "count": 2
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "ConsumerElectronics",
+              "count": 4
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "AssemblyRoboticT1",
+      "recipes": [
+        {
+          "name": "CpBricksAssemblyT4",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 6
+            },
+            {
+              "name": "Wood",
+              "count": 8
+            },
+            {
+              "name": "Bricks",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "CpAssemblyT4",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 6
+            },
+            {
+              "name": "Wood",
+              "count": 8
+            },
+            {
+              "name": "ConcreteSlab",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "Cp2AssemblyT4",
+          "input": [
+            {
+              "name": "ConstructionParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts2",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "Cp3AssemblyT3",
+          "input": [
+            {
+              "name": "ConstructionParts2",
+              "count": 8
+            },
+            {
+              "name": "Steel",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts3",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "Cp4AssemblyT1",
+          "input": [
+            {
+              "name": "ConstructionParts3",
+              "count": 4
+            },
+            {
+              "name": "Electronics2",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts4",
+              "count": 2
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "MechPartsAssemblyT4",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MechanicalParts",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "VehicleParts1AssemblyT4",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 4
+            },
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "VehicleParts2AssemblyT2",
+          "input": [
+            {
+              "name": "VehicleParts",
+              "count": 4
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            },
+            {
+              "name": "Glass",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts2",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "VehicleParts3AssemblyT2",
+          "input": [
+            {
+              "name": "VehicleParts2",
+              "count": 4
+            },
+            {
+              "name": "Electronics2",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts3",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "LabEquipment1AssemblyT3",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment",
+              "count": 16
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "LabEquipment2AssemblyT3",
+          "input": [
+            {
+              "name": "LabEquipment",
+              "count": 8
+            },
+            {
+              "name": "NitrogenLiquidTank",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment2",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "LabEquipment3AssemblyT2",
+          "input": [
+            {
+              "name": "LabEquipment2",
+              "count": 8
+            },
+            {
+              "name": "Glass",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment3",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "LabEquipment4AssemblyT2",
+          "input": [
+            {
+              "name": "LabEquipment3",
+              "count": 8
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment4",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "HouseholdGoodsAssemblyT3",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 10
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            },
+            {
+              "name": "Wood",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "HouseholdGoods",
+              "count": 8
+            }
+          ],
+          "time": 15
+        },
+        {
+          "name": "HouseholdAppliancesAssemblyT2",
+          "input": [
+            {
+              "name": "Electronics",
+              "count": 8
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "HouseholdAppliances",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "PCBAssemblyT2",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 2
+            },
+            {
+              "name": "Plastic",
+              "count": 2
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "PCB",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "ElectronicsAssemblyT4",
+          "input": [
+            {
+              "name": "Rubber",
+              "count": 2
+            },
+            {
+              "name": "Copper",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "Electronics2AssemblyT2",
+          "input": [
+            {
+              "name": "PCB",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            },
+            {
+              "name": "PolySilicon",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SolarCellAssemblyT2",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "PolySilicon",
+              "count": 12
+            },
+            {
+              "name": "Glass",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "SolarCell",
+              "count": 8
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Electronics3AssemblyT2",
+          "input": [
+            {
+              "name": "Microchips",
+              "count": 2
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics3",
+              "count": 2
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "ServerAssemblyT2",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "Electronics3",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Server",
+              "count": 4
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "MedicalEquipmentAssemblyT2",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 4
+            },
+            {
+              "name": "Plastic",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalEquipment",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MedicalSuppliesAssemblyT2",
+          "input": [
+            {
+              "name": "MedicalEquipment",
+              "count": 4
+            },
+            {
+              "name": "Disinfectant",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalSupplies",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "MedicalSupplies2AssemblyT2",
+          "input": [
+            {
+              "name": "MedicalSupplies",
+              "count": 8
+            },
+            {
+              "name": "Antibiotics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalSupplies2",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "MedicalSupplies3AssemblyT2",
+          "input": [
+            {
+              "name": "MedicalSupplies2",
+              "count": 8
+            },
+            {
+              "name": "Anesthetics",
+              "count": 4
+            },
+            {
+              "name": "Morphine",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalSupplies3",
+              "count": 8
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "AssemblyElectrifiedT2",
+      "recipes": [
+        {
+          "name": "CpBricksAssemblyT3",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 3
+            },
+            {
+              "name": "Wood",
+              "count": 4
+            },
+            {
+              "name": "Bricks",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "CpAssemblyT3",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 3
+            },
+            {
+              "name": "Wood",
+              "count": 4
+            },
+            {
+              "name": "ConcreteSlab",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "Cp2AssemblyT3",
+          "input": [
+            {
+              "name": "ConstructionParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts2",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "Cp3AssemblyT2",
+          "input": [
+            {
+              "name": "ConstructionParts2",
+              "count": 8
+            },
+            {
+              "name": "Steel",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts3",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MechPartsAssemblyT3Iron",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 10
+            }
+          ],
+          "output": [
+            {
+              "name": "MechanicalParts",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MechPartsAssemblyT3",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MechanicalParts",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "VehicleParts1AssemblyT3",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 4
+            },
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "VehicleParts2AssemblyT1",
+          "input": [
+            {
+              "name": "VehicleParts",
+              "count": 4
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            },
+            {
+              "name": "Glass",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts2",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "VehicleParts3AssemblyT1",
+          "input": [
+            {
+              "name": "VehicleParts2",
+              "count": 4
+            },
+            {
+              "name": "Electronics2",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts3",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "LabEquipment1AssemblyT2",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 4
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment",
+              "count": 8
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "LabEquipment2AssemblyT2",
+          "input": [
+            {
+              "name": "LabEquipment",
+              "count": 8
+            },
+            {
+              "name": "NitrogenLiquidTank",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment2",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "LabEquipment3AssemblyT1",
+          "input": [
+            {
+              "name": "LabEquipment2",
+              "count": 8
+            },
+            {
+              "name": "Glass",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment3",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "LabEquipment4AssemblyT1",
+          "input": [
+            {
+              "name": "LabEquipment3",
+              "count": 8
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment4",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "HouseholdGoodsAssemblyT2",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 10
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            },
+            {
+              "name": "Wood",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "HouseholdGoods",
+              "count": 8
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "HouseholdAppliancesAssemblyT1",
+          "input": [
+            {
+              "name": "Electronics",
+              "count": 8
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "HouseholdAppliances",
+              "count": 8
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "PCBAssemblyT1",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 2
+            },
+            {
+              "name": "Plastic",
+              "count": 2
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "PCB",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "ElectronicsAssemblyT3",
+          "input": [
+            {
+              "name": "Rubber",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "Electronics2AssemblyT1",
+          "input": [
+            {
+              "name": "PCB",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            },
+            {
+              "name": "PolySilicon",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "UraniumRodsAssemblyT1",
+          "input": [
+            {
+              "name": "UraniumPellets",
+              "count": 36
+            },
+            {
+              "name": "Steel",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumRod",
+              "count": 6
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "SolarCellAssemblyT1",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "PolySilicon",
+              "count": 12
+            },
+            {
+              "name": "Glass",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "SolarCell",
+              "count": 8
+            }
+          ],
+          "time": 120
+        },
+        {
+          "name": "Electronics3AssemblyT1",
+          "input": [
+            {
+              "name": "Microchips",
+              "count": 2
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics3",
+              "count": 2
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "ServerAssemblyT1",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "Electronics3",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Server",
+              "count": 4
+            }
+          ],
+          "time": 160
+        },
+        {
+          "name": "MedicalEquipmentAssemblyT1",
+          "input": [
+            {
+              "name": "Steel",
+              "count": 4
+            },
+            {
+              "name": "Plastic",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalEquipment",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MedicalSuppliesAssemblyT1",
+          "input": [
+            {
+              "name": "MedicalEquipment",
+              "count": 4
+            },
+            {
+              "name": "Disinfectant",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalSupplies",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MedicalSupplies2AssemblyT1",
+          "input": [
+            {
+              "name": "MedicalSupplies",
+              "count": 8
+            },
+            {
+              "name": "Antibiotics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalSupplies2",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MedicalSupplies3AssemblyT1",
+          "input": [
+            {
+              "name": "MedicalSupplies2",
+              "count": 8
+            },
+            {
+              "name": "Anesthetics",
+              "count": 4
+            },
+            {
+              "name": "Morphine",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MedicalSupplies3",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FoodPackAssemblyMeat",
+          "input": [
+            {
+              "name": "Meat",
+              "count": 2
+            },
+            {
+              "name": "Bread",
+              "count": 4
+            },
+            {
+              "name": "Snack",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "FoodPack",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FoodPackAssemblyEggs",
+          "input": [
+            {
+              "name": "Eggs",
+              "count": 2
+            },
+            {
+              "name": "Bread",
+              "count": 4
+            },
+            {
+              "name": "Snack",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "FoodPack",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "AssemblyElectrified",
+      "recipes": [
+        {
+          "name": "CpBricksAssemblyT2",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 3
+            },
+            {
+              "name": "Wood",
+              "count": 4
+            },
+            {
+              "name": "Bricks",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CpAssemblyT2",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 3
+            },
+            {
+              "name": "Wood",
+              "count": 4
+            },
+            {
+              "name": "ConcreteSlab",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "Cp2AssemblyT2",
+          "input": [
+            {
+              "name": "ConstructionParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts2",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "Cp3AssemblyT1",
+          "input": [
+            {
+              "name": "ConstructionParts2",
+              "count": 8
+            },
+            {
+              "name": "Steel",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts3",
+              "count": 4
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "MechPartsAssemblyT2",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MechanicalParts",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "VehicleParts1AssemblyT2",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 4
+            },
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "LabEquipment1AssemblyT1",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 4
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "LabEquipment",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "HouseholdGoodsAssemblyT1",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 10
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            },
+            {
+              "name": "Wood",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "HouseholdGoods",
+              "count": 8
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "ElectronicsAssemblyT2",
+          "input": [
+            {
+              "name": "Rubber",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "AssemblyManual",
+      "recipes": [
+        {
+          "name": "CpBricksAssemblyT1",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 3
+            },
+            {
+              "name": "Wood",
+              "count": 4
+            },
+            {
+              "name": "Bricks",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "CpAssemblyT1",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 3
+            },
+            {
+              "name": "Wood",
+              "count": 4
+            },
+            {
+              "name": "ConcreteSlab",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "Cp2AssemblyT1",
+          "input": [
+            {
+              "name": "ConstructionParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "ConstructionParts2",
+              "count": 4
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "MechPartsAssemblyT1",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MechanicalParts",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "VehicleParts1AssemblyT1",
+          "input": [
+            {
+              "name": "Iron",
+              "count": 4
+            },
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "VehicleParts",
+              "count": 4
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "ElectronicsAssemblyT1",
+          "input": [
+            {
+              "name": "Rubber",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "AirSeparator",
+      "recipes": [
+        {
+          "name": "AirSeparation",
+          "output": [
+            {
+              "name": "Oxygen",
+              "count": 12
+            },
+            {
+              "name": "Nitrogen",
+              "count": 12
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "MicrochipMachineT2",
+      "recipes": [
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage1A",
+          "input": [
+            {
+              "name": "SiliconWafer",
+              "count": 2
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage1A",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage2A",
+          "input": [
+            {
+              "name": "MicrochipsStage1A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage1B",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage3A",
+          "input": [
+            {
+              "name": "MicrochipsStage1B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage1C",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage1B",
+          "input": [
+            {
+              "name": "MicrochipsStage1C",
+              "count": 1
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage2A",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage2B",
+          "input": [
+            {
+              "name": "MicrochipsStage2A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage2B",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage3B",
+          "input": [
+            {
+              "name": "MicrochipsStage2B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage2C",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage1C",
+          "input": [
+            {
+              "name": "MicrochipsStage2C",
+              "count": 1
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage3A",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage2C",
+          "input": [
+            {
+              "name": "MicrochipsStage3A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage3B",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage3C",
+          "input": [
+            {
+              "name": "MicrochipsStage3B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage3C",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage1D",
+          "input": [
+            {
+              "name": "MicrochipsStage3C",
+              "count": 1
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage4A",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdStage2D",
+          "input": [
+            {
+              "name": "MicrochipsStage4A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage4B",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MicrochipMachineT2_MicrochipProdFinalStage",
+          "input": [
+            {
+              "name": "MicrochipsStage4B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Microchips",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "MicrochipMachine",
+      "recipes": [
+        {
+          "name": "MicrochipMachine_MicrochipProdStage1A",
+          "input": [
+            {
+              "name": "SiliconWafer",
+              "count": 2
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage1A",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage2A",
+          "input": [
+            {
+              "name": "MicrochipsStage1A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage1B",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage3A",
+          "input": [
+            {
+              "name": "MicrochipsStage1B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage1C",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage1B",
+          "input": [
+            {
+              "name": "MicrochipsStage1C",
+              "count": 1
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage2A",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage2B",
+          "input": [
+            {
+              "name": "MicrochipsStage2A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage2B",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage3B",
+          "input": [
+            {
+              "name": "MicrochipsStage2B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage2C",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage1C",
+          "input": [
+            {
+              "name": "MicrochipsStage2C",
+              "count": 1
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage3A",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage2C",
+          "input": [
+            {
+              "name": "MicrochipsStage3A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage3B",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage3C",
+          "input": [
+            {
+              "name": "MicrochipsStage3B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage3C",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage1D",
+          "input": [
+            {
+              "name": "MicrochipsStage3C",
+              "count": 1
+            },
+            {
+              "name": "Acid",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage4A",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdStage2D",
+          "input": [
+            {
+              "name": "MicrochipsStage4A",
+              "count": 1
+            },
+            {
+              "name": "Copper",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MicrochipsStage4B",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MicrochipMachine_MicrochipProdFinalStage",
+          "input": [
+            {
+              "name": "MicrochipsStage4B",
+              "count": 1
+            },
+            {
+              "name": "Gold",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Microchips",
+              "count": 4
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "Electrolyzer",
+      "recipes": [
+        {
+          "name": "BrineElectrolysis",
+          "input": [
+            {
+              "name": "Brine",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "Chlorine",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "WaterElectrolysis",
+          "input": [
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Oxygen",
+              "count": 8
+            },
+            {
+              "name": "Hydrogen",
+              "count": 2
+            }
+          ],
+          "time": 80
+        },
+        {
+          "name": "AmmoniaElectrolysis",
+          "input": [
+            {
+              "name": "Ammonia",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Nitrogen",
+              "count": 8
+            },
+            {
+              "name": "Hydrogen",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "FermentationTank",
+      "recipes": [
+        {
+          "name": "SugarToEthanolFermentation",
+          "input": [
+            {
+              "name": "Sugar",
+              "count": 8
+            },
+            {
+              "name": "Oxygen",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Ethanol",
+              "count": 4
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "CornToEthanolFermentation",
+          "input": [
+            {
+              "name": "CornMash",
+              "count": 6
+            },
+            {
+              "name": "Oxygen",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Ethanol",
+              "count": 3
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 6
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "AntibioticsFermentation",
+          "input": [
+            {
+              "name": "Sugar",
+              "count": 4
+            },
+            {
+              "name": "Ammonia",
+              "count": 1
+            },
+            {
+              "name": "Oxygen",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Antibiotics",
+              "count": 8
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 4
+            }
+          ],
+          "time": 80
+        }
+      ]
+    },
+    {
+      "name": "SettlingTank",
+      "recipes": [
+        {
+          "name": "GoldSettling",
+          "input": [
+            {
+              "name": "GoldOrePowder",
+              "count": 24
+            },
+            {
+              "name": "Acid",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "GoldOreConcentrate",
+              "count": 12
+            },
+            {
+              "name": "ToxicSlurry",
+              "count": 12
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "UraniumLeaching",
+          "input": [
+            {
+              "name": "UraniumOreCrushed",
+              "count": 12
+            },
+            {
+              "name": "Acid",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "YellowCake",
+              "count": 6
+            },
+            {
+              "name": "ToxicSlurry",
+              "count": 6
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FluorideLeaching",
+          "input": [
+            {
+              "name": "Rock",
+              "count": 8
+            },
+            {
+              "name": "Acid",
+              "count": 6
+            }
+          ],
+          "output": [
+            {
+              "name": "HydrogenFluoride",
+              "count": 8
+            },
+            {
+              "name": "Slag",
+              "count": 2
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "CoolingTowerT1",
+      "recipes": [
+        {
+          "name": "SteamHpCondensation",
+          "input": [
+            {
+              "name": "SteamHi",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamLpCondensation",
+          "input": [
+            {
+              "name": "SteamLP",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamDepletedCondensation",
+          "input": [
+            {
+              "name": "SteamDepleted",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "CoolingTowerT2",
+      "recipes": [
+        {
+          "name": "SteamHpCondensationT2",
+          "input": [
+            {
+              "name": "SteamHi",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 12
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamLpCondensationT2",
+          "input": [
+            {
+              "name": "SteamLP",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 12
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "SteamDepletedCondensationT2",
+          "input": [
+            {
+              "name": "SteamDepleted",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 12
+            }
+          ],
+          "time": 10
+        }
+      ]
+    },
+    {
+      "name": "UraniumEnrichmentPlant",
+      "recipes": [
+        {
+          "name": "UraniumEnrichment",
+          "input": [
+            {
+              "name": "YellowCake",
+              "count": 3
+            },
+            {
+              "name": "HydrogenFluoride",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumPellets",
+              "count": 3
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "CharcoalMaker",
+      "recipes": [
+        {
+          "name": "CharcoalBurning",
+          "input": [
+            {
+              "name": "Wood",
+              "count": 20
+            }
+          ],
+          "output": [
+            {
+              "name": "Coal",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 16
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "Crusher",
+      "recipes": [
+        {
+          "name": "IronOreCrushing",
+          "input": [
+            {
+              "name": "IronOre",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "IronOreCrushed",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperOreCrushing",
+          "input": [
+            {
+              "name": "CopperOre",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "CopperOreCrushed",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SlagCrushing",
+          "input": [
+            {
+              "name": "Slag",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "SlagCrushed",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "RockCrushing",
+          "input": [
+            {
+              "name": "Rock",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Gravel",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GravelCrushing",
+          "input": [
+            {
+              "name": "Gravel",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Sand",
+              "count": 8
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "UraniumCrushing",
+          "input": [
+            {
+              "name": "UraniumOre",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumOreCrushed",
+              "count": 12
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "GoldOreCrushing",
+          "input": [
+            {
+              "name": "GoldOre",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "GoldOreCrushed",
+              "count": 12
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "GoldMilling",
+          "input": [
+            {
+              "name": "GoldOreCrushed",
+              "count": 24
+            }
+          ],
+          "output": [
+            {
+              "name": "GoldOrePowder",
+              "count": 24
+            }
+          ],
+          "time": 30
+        }
+      ]
+    },
+    {
+      "name": "RotaryKilnGas",
+      "recipes": [
+        {
+          "name": "CementProductionGas",
+          "input": [
+            {
+              "name": "Limestone",
+              "count": 12
+            },
+            {
+              "name": "FuelGas",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Cement",
+              "count": 4
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 12
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "CementProductionHydrogen",
+          "input": [
+            {
+              "name": "Limestone",
+              "count": 12
+            },
+            {
+              "name": "Hydrogen",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Cement",
+              "count": 4
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 8
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "RotaryKiln",
+      "recipes": [
+        {
+          "name": "CementProduction",
+          "input": [
+            {
+              "name": "Limestone",
+              "count": 6
+            },
+            {
+              "name": "Coal",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Cement",
+              "count": 2
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "ArcFurnace2",
+      "recipes": [
+        {
+          "name": "IronSmeltingArcScrap",
+          "input": [
+            {
+              "name": "IronScrap",
+              "count": 16
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenIron",
+              "count": 16
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "IronSmeltingArc",
+          "input": [
+            {
+              "name": "IronOreCrushed",
+              "count": 12
+            },
+            {
+              "name": "Limestone",
+              "count": 1
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenIron",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 6
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperSmeltingArcScrap",
+          "input": [
+            {
+              "name": "CopperScrap",
+              "count": 16
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenCopper",
+              "count": 16
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperSmeltingArc",
+          "input": [
+            {
+              "name": "CopperOreCrushed",
+              "count": 12
+            },
+            {
+              "name": "Sand",
+              "count": 2
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenCopper",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 6
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassSmeltingArc",
+          "input": [
+            {
+              "name": "GlassMix",
+              "count": 16
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenGlass",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 4
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassSmeltingArcWithBroken",
+          "input": [
+            {
+              "name": "BrokenGlass",
+              "count": 24
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenGlass",
+              "count": 16
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SiliconSmeltingArc2",
+          "input": [
+            {
+              "name": "Quartz",
+              "count": 16
+            },
+            {
+              "name": "Coal",
+              "count": 2
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenSilicon",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 6
+            },
+            {
+              "name": "SteamLP",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 12
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "ArcFurnace",
+      "recipes": [
+        {
+          "name": "SiliconSmeltingArc",
+          "input": [
+            {
+              "name": "Quartz",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 2
+            },
+            {
+              "name": "Graphite",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenSilicon",
+              "count": 8
+            },
+            {
+              "name": "Slag",
+              "count": 3
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "SmeltingFurnaceT2",
+      "recipes": [
+        {
+          "name": "IronSmeltingT2Scrap",
+          "input": [
+            {
+              "name": "IronScrap",
+              "count": 16
+            },
+            {
+              "name": "Coal",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenIron",
+              "count": 16
+            },
+            {
+              "name": "Exhaust",
+              "count": 10
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "IronSmeltingT2",
+          "input": [
+            {
+              "name": "IronOreCrushed",
+              "count": 12
+            },
+            {
+              "name": "Limestone",
+              "count": 1
+            },
+            {
+              "name": "Coal",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenIron",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 6
+            },
+            {
+              "name": "Exhaust",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperSmeltingT2Scrap",
+          "input": [
+            {
+              "name": "CopperScrap",
+              "count": 16
+            },
+            {
+              "name": "Coal",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenCopper",
+              "count": 16
+            },
+            {
+              "name": "Exhaust",
+              "count": 10
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperSmeltingT2",
+          "input": [
+            {
+              "name": "CopperOreCrushed",
+              "count": 12
+            },
+            {
+              "name": "Sand",
+              "count": 2
+            },
+            {
+              "name": "Coal",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenCopper",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 6
+            },
+            {
+              "name": "Exhaust",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassSmeltingT2",
+          "input": [
+            {
+              "name": "GlassMix",
+              "count": 16
+            },
+            {
+              "name": "Coal",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenGlass",
+              "count": 16
+            },
+            {
+              "name": "Slag",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 12
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassSmeltingT2WithBroken",
+          "input": [
+            {
+              "name": "BrokenGlass",
+              "count": 24
+            },
+            {
+              "name": "Coal",
+              "count": 5
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenGlass",
+              "count": 16
+            },
+            {
+              "name": "Exhaust",
+              "count": 10
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "SmeltingFurnaceT1",
+      "recipes": [
+        {
+          "name": "IronSmeltingT1Scrap",
+          "input": [
+            {
+              "name": "IronScrap",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenIron",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "IronSmeltingT1Coal",
+          "input": [
+            {
+              "name": "IronOre",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenIron",
+              "count": 8
+            },
+            {
+              "name": "Slag",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperSmeltingT1Scrap",
+          "input": [
+            {
+              "name": "CopperScrap",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenCopper",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperSmeltingT1",
+          "input": [
+            {
+              "name": "CopperOre",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenCopper",
+              "count": 8
+            },
+            {
+              "name": "Slag",
+              "count": 4
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassSmelting",
+          "input": [
+            {
+              "name": "GlassMix",
+              "count": 8
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenGlass",
+              "count": 8
+            },
+            {
+              "name": "Slag",
+              "count": 3
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GlassSmeltingWithBroken",
+          "input": [
+            {
+              "name": "BrokenGlass",
+              "count": 12
+            },
+            {
+              "name": "Coal",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenGlass",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "CasterCooledT2",
+      "recipes": [
+        {
+          "name": "SteelCastingCooledT2",
+          "input": [
+            {
+              "name": "MoltenSteel",
+              "count": 8
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Steel",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "CasterCooled",
+      "recipes": [
+        {
+          "name": "SteelCastingCooled",
+          "input": [
+            {
+              "name": "MoltenSteel",
+              "count": 8
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Steel",
+              "count": 8
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "CasterT2",
+      "recipes": [
+        {
+          "name": "IronCastingCooled",
+          "input": [
+            {
+              "name": "MoltenIron",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Iron",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "CopperCastingCooled",
+          "input": [
+            {
+              "name": "MoltenCopper",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "ImpureCopper",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "Caster",
+      "recipes": [
+        {
+          "name": "IronCasting",
+          "input": [
+            {
+              "name": "MoltenIron",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Iron",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "CopperCasting",
+          "input": [
+            {
+              "name": "MoltenCopper",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "ImpureCopper",
+              "count": 8
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "CopperElectrolysis",
+      "recipes": [
+        {
+          "name": "CopperElectrolysisProcess",
+          "input": [
+            {
+              "name": "ImpureCopper",
+              "count": 16
+            },
+            {
+              "name": "Acid",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Copper",
+              "count": 16
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "CopperElectrolysisWithWater",
+          "input": [
+            {
+              "name": "ImpureCopper",
+              "count": 16
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Copper",
+              "count": 13
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "OxygenFurnaceT2",
+      "recipes": [
+        {
+          "name": "SteelSmeltingT2",
+          "input": [
+            {
+              "name": "MoltenIron",
+              "count": 32
+            },
+            {
+              "name": "Oxygen",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenSteel",
+              "count": 16
+            },
+            {
+              "name": "Exhaust",
+              "count": 24
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "OxygenFurnace",
+      "recipes": [
+        {
+          "name": "SteelSmelting",
+          "input": [
+            {
+              "name": "MoltenIron",
+              "count": 16
+            },
+            {
+              "name": "Oxygen",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "MoltenSteel",
+              "count": 8
+            },
+            {
+              "name": "Exhaust",
+              "count": 16
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "GlassMakerT2",
+      "recipes": [
+        {
+          "name": "GlassCastingT2",
+          "input": [
+            {
+              "name": "MoltenGlass",
+              "count": 16
+            }
+          ],
+          "output": [
+            {
+              "name": "Glass",
+              "count": 24
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "GlassMakerT1",
+      "recipes": [
+        {
+          "name": "GlassCastingT1",
+          "input": [
+            {
+              "name": "MoltenGlass",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Glass",
+              "count": 8
+            },
+            {
+              "name": "Slag",
+              "count": 2
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "SiliconCrystallizer",
+      "recipes": [
+        {
+          "name": "SiliconCrystallization",
+          "input": [
+            {
+              "name": "PolySilicon",
+              "count": 18
+            },
+            {
+              "name": "Water",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "SiliconWafer",
+              "count": 6
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "SiliconReactor",
+      "recipes": [
+        {
+          "name": "SiliconTreatment",
+          "input": [
+            {
+              "name": "MoltenSilicon",
+              "count": 4
+            },
+            {
+              "name": "Hydrogen",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "PolySilicon",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "GoldFurnace",
+      "recipes": [
+        {
+          "name": "GoldSmelting",
+          "input": [
+            {
+              "name": "GoldOreConcentrate",
+              "count": 6
+            },
+            {
+              "name": "Sand",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Gold",
+              "count": 3
+            },
+            {
+              "name": "Exhaust",
+              "count": 6
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "GoldScrapSmelting",
+          "input": [
+            {
+              "name": "GoldScrap",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "Gold",
+              "count": 3
+            },
+            {
+              "name": "Exhaust",
+              "count": 3
+            }
+          ],
+          "time": 30
+        }
+      ]
+    },
+    {
+      "name": "ChemicalPlant2",
+      "recipes": [
+        {
+          "name": "FertilizerProductionT2",
+          "input": [
+            {
+              "name": "Ammonia",
+              "count": 4
+            },
+            {
+              "name": "Nitrogen",
+              "count": 12
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Fertilizer",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "AmmoniaSynthesisT2",
+          "input": [
+            {
+              "name": "Hydrogen",
+              "count": 4
+            },
+            {
+              "name": "Nitrogen",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Ammonia",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "LiquidNitrogenT2",
+          "input": [
+            {
+              "name": "Nitrogen",
+              "count": 6
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "NitrogenLiquidTank",
+              "count": 4
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "EthanolCookingOilReformingT2",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 5
+            },
+            {
+              "name": "CookingOil",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 18
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FuelGasSynthesis",
+          "input": [
+            {
+              "name": "Hydrogen",
+              "count": 8
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "GraphiteProduction",
+          "input": [
+            {
+              "name": "Coal",
+              "count": 4
+            },
+            {
+              "name": "Chlorine",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Graphite",
+              "count": 8
+            },
+            {
+              "name": "SourWater",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "GraphiteProductionCo2",
+          "input": [
+            {
+              "name": "CarbonDioxide",
+              "count": 24
+            }
+          ],
+          "output": [
+            {
+              "name": "Graphite",
+              "count": 1
+            }
+          ],
+          "time": 10
+        },
+        {
+          "name": "DisinfectantProductionT2",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 3
+            },
+            {
+              "name": "Plastic",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Disinfectant",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "AnestheticsProduction",
+          "input": [
+            {
+              "name": "Ammonia",
+              "count": 2
+            },
+            {
+              "name": "HydrogenFluoride",
+              "count": 4
+            },
+            {
+              "name": "Steel",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Anesthetics",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MorphineProduction",
+          "input": [
+            {
+              "name": "Poppy",
+              "count": 4
+            },
+            {
+              "name": "Acid",
+              "count": 2
+            },
+            {
+              "name": "Glass",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Morphine",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "ChemicalPlant",
+      "recipes": [
+        {
+          "name": "FertilizerProduction",
+          "input": [
+            {
+              "name": "Ammonia",
+              "count": 4
+            },
+            {
+              "name": "Nitrogen",
+              "count": 12
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Fertilizer",
+              "count": 8
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "AmmoniaSynthesis",
+          "input": [
+            {
+              "name": "Hydrogen",
+              "count": 4
+            },
+            {
+              "name": "Nitrogen",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Ammonia",
+              "count": 4
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "LiquidNitrogen",
+          "input": [
+            {
+              "name": "Nitrogen",
+              "count": 6
+            },
+            {
+              "name": "Steel",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "NitrogenLiquidTank",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "EthanolCookingOilReforming",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 5
+            },
+            {
+              "name": "CookingOil",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 18
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "DisinfectantProduction",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 3
+            },
+            {
+              "name": "Plastic",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Disinfectant",
+              "count": 8
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "DistillationTowerT1",
+      "recipes": [
+        {
+          "name": "CrudeOilRefiningT1",
+          "input": [
+            {
+              "name": "CrudeOil",
+              "count": 18
+            },
+            {
+              "name": "SteamHi",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "MediumOil",
+              "count": 16
+            },
+            {
+              "name": "HeavyOil",
+              "count": 2
+            },
+            {
+              "name": "SourWater",
+              "count": 6
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "DistillationTowerT2",
+      "recipes": [
+        {
+          "name": "CrudeOilRefiningT2",
+          "input": [
+            {
+              "name": "MediumOil",
+              "count": 16
+            },
+            {
+              "name": "SteamHi",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 12
+            },
+            {
+              "name": "LightOil",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "DistillationTowerT3",
+      "recipes": [
+        {
+          "name": "HeavyDistillateRefining",
+          "input": [
+            {
+              "name": "LightOil",
+              "count": 4
+            },
+            {
+              "name": "SteamHi",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Naphtha",
+              "count": 4
+            },
+            {
+              "name": "FuelGas",
+              "count": 6
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "VacuumDistillationTower",
+      "recipes": [
+        {
+          "name": "RubberProductionNaphtha",
+          "input": [
+            {
+              "name": "Naphtha",
+              "count": 4
+            },
+            {
+              "name": "Sulfur",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Rubber",
+              "count": 6
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "RubberProductionNaphthaAlt",
+          "input": [
+            {
+              "name": "Naphtha",
+              "count": 4
+            },
+            {
+              "name": "Coal",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Rubber",
+              "count": 6
+            },
+            {
+              "name": "WasteWater",
+              "count": 1
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "RubberProductionEthanol",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 4
+            },
+            {
+              "name": "Sulfur",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Rubber",
+              "count": 6
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "RubberProductionDiesel",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 4
+            },
+            {
+              "name": "Sulfur",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Rubber",
+              "count": 6
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "RubberProductionDieselWithCoal",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 4
+            },
+            {
+              "name": "Coal",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Rubber",
+              "count": 6
+            },
+            {
+              "name": "WasteWater",
+              "count": 2
+            }
+          ],
+          "time": 30
+        }
+      ]
+    },
+    {
+      "name": "HydroCrackerT1",
+      "recipes": [
+        {
+          "name": "HeavyOilCracking",
+          "input": [
+            {
+              "name": "HeavyOil",
+              "count": 4
+            },
+            {
+              "name": "Hydrogen",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 8
+            },
+            {
+              "name": "FuelGas",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "HeavyOilCrackingToNaphtha",
+          "input": [
+            {
+              "name": "HeavyOil",
+              "count": 4
+            },
+            {
+              "name": "Hydrogen",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Naphtha",
+              "count": 6
+            },
+            {
+              "name": "FuelGas",
+              "count": 4
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "NaphthaReforming",
+          "input": [
+            {
+              "name": "Naphtha",
+              "count": 6
+            },
+            {
+              "name": "Hydrogen",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 8
+            },
+            {
+              "name": "FuelGas",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "DieselReforming",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 8
+            },
+            {
+              "name": "SteamHi",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Naphtha",
+              "count": 6
+            },
+            {
+              "name": "SourWater",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "NaphthaReformingToGas",
+          "input": [
+            {
+              "name": "Naphtha",
+              "count": 8
+            },
+            {
+              "name": "SteamHi",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 10
+            },
+            {
+              "name": "SourWater",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "FuelGasReforming",
+          "input": [
+            {
+              "name": "FuelGas",
+              "count": 12
+            },
+            {
+              "name": "Oxygen",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Diesel",
+              "count": 6
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 12
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "HydrogenReformer",
+      "recipes": [
+        {
+          "name": "HydrogenReforming",
+          "input": [
+            {
+              "name": "FuelGas",
+              "count": 12
+            },
+            {
+              "name": "SteamHi",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Hydrogen",
+              "count": 12
+            },
+            {
+              "name": "CarbonDioxide",
+              "count": 12
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "SourWaterStripper",
+      "recipes": [
+        {
+          "name": "SourWaterStripping",
+          "input": [
+            {
+              "name": "SourWater",
+              "count": 12
+            },
+            {
+              "name": "SteamHi",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Sulfur",
+              "count": 4
+            },
+            {
+              "name": "Ammonia",
+              "count": 4
+            },
+            {
+              "name": "Water",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "PolymerizationPlant",
+      "recipes": [
+        {
+          "name": "PlasticMaking",
+          "input": [
+            {
+              "name": "Naphtha",
+              "count": 4
+            },
+            {
+              "name": "Chlorine",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Plastic",
+              "count": 16
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "PlasticMakingEthanol",
+          "input": [
+            {
+              "name": "Ethanol",
+              "count": 4
+            },
+            {
+              "name": "Chlorine",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Plastic",
+              "count": 16
+            },
+            {
+              "name": "Exhaust",
+              "count": 8
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "MaintenanceDepotT3",
+      "recipes": [
+        {
+          "name": "MaintenanceT3Recipe",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics3",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT3",
+              "count": 60
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "MaintenanceT3Recycling",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics3",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT3",
+              "count": 60
+            },
+            {
+              "name": "Recyclables",
+              "count": 4
+            }
+          ],
+          "time": 30
+        }
+      ]
+    },
+    {
+      "name": "MaintenanceDepotT2",
+      "recipes": [
+        {
+          "name": "MaintenanceT2Recipe",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 4
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT2",
+              "count": 80
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MaintenanceT2Recycling",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 4
+            },
+            {
+              "name": "Electronics2",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT2",
+              "count": 80
+            },
+            {
+              "name": "Recyclables",
+              "count": 4
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "MaintenanceDepotT1",
+      "recipes": [
+        {
+          "name": "MaintenanceT1Recipe",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT1",
+              "count": 160
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MaintenanceT1Recycling",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 8
+            },
+            {
+              "name": "Electronics",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT1",
+              "count": 160
+            },
+            {
+              "name": "Recyclables",
+              "count": 5
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "MaintenanceDepotT0",
+      "recipes": [
+        {
+          "name": "MaintenanceT0Recipe",
+          "input": [
+            {
+              "name": "MechanicalParts",
+              "count": 2
+            },
+            {
+              "name": "Electronics",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "MaintenanceT1",
+              "count": 35
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "FoodMill",
+      "recipes": [
+        {
+          "name": "WheatMilling",
+          "input": [
+            {
+              "name": "Wheat",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "Flour",
+              "count": 8
+            },
+            {
+              "name": "AnimalFeed",
+              "count": 1
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "SoybeanMilling",
+          "input": [
+            {
+              "name": "Soybean",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "CookingOil",
+              "count": 3
+            },
+            {
+              "name": "AnimalFeed",
+              "count": 4
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "CanolaMilling",
+          "input": [
+            {
+              "name": "Canola",
+              "count": 8
+            }
+          ],
+          "output": [
+            {
+              "name": "CookingOil",
+              "count": 6
+            },
+            {
+              "name": "AnimalFeed",
+              "count": 2
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "CornMilling",
+          "input": [
+            {
+              "name": "Corn",
+              "count": 8
+            },
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "CornMash",
+              "count": 6
+            },
+            {
+              "name": "AnimalFeed",
+              "count": 2
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "FoodProcessor",
+      "recipes": [
+        {
+          "name": "TofuProduction",
+          "input": [
+            {
+              "name": "Soybean",
+              "count": 6
+            },
+            {
+              "name": "Water",
+              "count": 4
+            },
+            {
+              "name": "Sulfur",
+              "count": 1
+            },
+            {
+              "name": "Limestone",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Tofu",
+              "count": 8
+            },
+            {
+              "name": "AnimalFeed",
+              "count": 3
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "MeatProcessing",
+          "input": [
+            {
+              "name": "ChickenCarcass",
+              "count": 10
+            },
+            {
+              "name": "Water",
+              "count": 3
+            },
+            {
+              "name": "Salt",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Meat",
+              "count": 5
+            },
+            {
+              "name": "MeatTrimmings",
+              "count": 2
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SausageProduction",
+          "input": [
+            {
+              "name": "MeatTrimmings",
+              "count": 8
+            },
+            {
+              "name": "Flour",
+              "count": 2
+            },
+            {
+              "name": "Salt",
+              "count": 3
+            }
+          ],
+          "output": [
+            {
+              "name": "Sausage",
+              "count": 8
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "MeatGrinding",
+          "input": [
+            {
+              "name": "Meat",
+              "count": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "MeatTrimmings",
+              "count": 16
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SnackProductionPotato",
+          "input": [
+            {
+              "name": "Potato",
+              "count": 8
+            },
+            {
+              "name": "Salt",
+              "count": 2
+            },
+            {
+              "name": "CookingOil",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Snack",
+              "count": 12
+            },
+            {
+              "name": "Biomass",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SnackProductionCorn",
+          "input": [
+            {
+              "name": "Corn",
+              "count": 8
+            },
+            {
+              "name": "Salt",
+              "count": 2
+            },
+            {
+              "name": "CookingOil",
+              "count": 1
+            },
+            {
+              "name": "Plastic",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Snack",
+              "count": 16
+            },
+            {
+              "name": "Biomass",
+              "count": 1
+            }
+          ],
+          "time": 20
+        },
+        {
+          "name": "SugarRefiningCane",
+          "input": [
+            {
+              "name": "SugarCane",
+              "count": 10
+            },
+            {
+              "name": "Water",
+              "count": 2
+            }
+          ],
+          "output": [
+            {
+              "name": "Sugar",
+              "count": 8
+            },
+            {
+              "name": "Biomass",
+              "count": 2
+            }
+          ],
+          "time": 40
+        }
+      ]
+    },
+    {
+      "name": "BakingUnit",
+      "recipes": [
+        {
+          "name": "BreadProduction",
+          "input": [
+            {
+              "name": "Flour",
+              "count": 8
+            },
+            {
+              "name": "Water",
+              "count": 4
+            }
+          ],
+          "output": [
+            {
+              "name": "Bread",
+              "count": 12
+            }
+          ],
+          "time": 30
+        },
+        {
+          "name": "CakeProduction",
+          "input": [
+            {
+              "name": "Flour",
+              "count": 5
+            },
+            {
+              "name": "Sugar",
+              "count": 2
+            },
+            {
+              "name": "CookingOil",
+              "count": 1
+            },
+            {
+              "name": "Eggs",
+              "count": 1
+            },
+            {
+              "name": "Fruit",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Cake",
+              "count": 7
+            }
+          ],
+          "time": 30
+        }
+      ]
+    },
+    {
+      "name": "ResearchLab5",
+      "recipes": [
+        {
+          "name": "ResearchLab5",
+          "input": [
+            {
+              "name": "LabEquipment4",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Recyclables",
+              "count": 4
+            }
+          ],
+          "time": 15
+        }
+      ]
+    },
+    {
+      "name": "ResearchLab4",
+      "recipes": [
+        {
+          "name": "ResearchLab4",
+          "input": [
+            {
+              "name": "LabEquipment3",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Recyclables",
+              "count": 3
+            }
+          ],
+          "time": 15
+        }
+      ]
+    },
+    {
+      "name": "ResearchLab3",
+      "recipes": [
+        {
+          "name": "ResearchLab3",
+          "input": [
+            {
+              "name": "LabEquipment2",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Recyclables",
+              "count": 2
+            }
+          ],
+          "time": 15
+        }
+      ]
+    },
+    {
+      "name": "ResearchLab2",
+      "recipes": [
+        {
+          "name": "ResearchLab2",
+          "input": [
+            {
+              "name": "LabEquipment",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "Recyclables",
+              "count": 1
+            }
+          ],
+          "time": 15
+        }
+      ]
+    },
+    {
+      "name": "NuclearReactor",
+      "recipes": [
+        {
+          "name": "NuclearReactor",
+          "input": [
+            {
+              "name": "Water",
+              "count": 288
+            },
+            {
+              "name": "UraniumRod",
+              "count": 1
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 288
+            },
+            {
+              "name": "SpentFuel",
+              "count": 1
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "WasteSortingPlant",
+      "recipes": [
+        {
+          "name": "WasteSortingPlant",
+          "input": [
+            {
+              "name": "Recyclables",
+              "count": 48
+            }
+          ],
+          "output": [
+            {
+              "name": "IronScrap",
+              "count": 0
+            },
+            {
+              "name": "CopperScrap",
+              "count": 0
+            },
+            {
+              "name": "GoldScrap",
+              "count": 0
+            },
+            {
+              "name": "BrokenGlass",
+              "count": 0
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "BasicServerRack",
+      "recipes": [
+        {
+          "name": "Create Computing Power",
+          "input": [
+            {
+              "name": "ChilledWater",
+              "count": 0.5
+            }
+          ],
+          "output": [
+            {
+              "name": "Water",
+              "count": 0.5
+            }
+          ],
+          "time": 60
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "name": "Acid",
+      "label": "Acid",
+      "image": "Acid"
+    },
+    {
+      "name": "PollutedAir",
+      "label": "Air pollution",
+      "image": "PollutedAir"
+    },
+    {
+      "name": "AirSeparator",
+      "label": "Air separator",
+      "image": "AirSeparator",
+      "recipe": {
+        "recipeDictionary": "AirSeparator"
+      }
+    },
+    {
+      "name": "Ammonia",
+      "label": "Ammonia",
+      "image": "Ammonia"
+    },
+    {
+      "name": "AnaerobicDigester",
+      "label": "Anaerobic digester",
+      "image": "AnaerobicDigester",
+      "recipe": {
+        "recipeDictionary": "AnaerobicDigester"
+      }
+    },
+    {
+      "name": "Anesthetics",
+      "label": "Anesthetics",
+      "image": "Anesthetics"
+    },
+    {
+      "name": "AnimalFeed",
+      "label": "Animal feed",
+      "image": "AnimalFeed"
+    },
+    {
+      "name": "Antibiotics",
+      "label": "Antibiotics",
+      "image": "Antibiotics"
+    },
+    {
+      "name": "ArcFurnace",
+      "label": "Arc furnace",
+      "image": "ArcFurnace",
+      "recipe": {
+        "recipeDictionary": "ArcFurnace"
+      }
+    },
+    {
+      "name": "ArcFurnace2",
+      "label": "Arc furnace II",
+      "image": "ArcFurnace2",
+      "recipe": {
+        "recipeDictionary": "ArcFurnace2"
+      }
+    },
+    {
+      "name": "AssemblyElectrified",
+      "label": "Assembly (electric)",
+      "image": "AssemblyElectrified",
+      "recipe": {
+        "recipeDictionary": "AssemblyElectrified"
+      }
+    },
+    {
+      "name": "AssemblyElectrifiedT2",
+      "label": "Assembly (electric) II",
+      "image": "AssemblyElectrifiedT2",
+      "recipe": {
+        "recipeDictionary": "AssemblyElectrifiedT2"
+      }
+    },
+    {
+      "name": "AssemblyManual",
+      "label": "Assembly (manual)",
+      "image": "AssemblyManual",
+      "recipe": {
+        "recipeDictionary": "AssemblyManual"
+      }
+    },
+    {
+      "name": "AssemblyRoboticT1",
+      "label": "Assembly (robotic)",
+      "image": "AssemblyRoboticT1",
+      "recipe": {
+        "recipeDictionary": "AssemblyRoboticT1"
+      }
+    },
+    {
+      "name": "AssemblyRoboticT2",
+      "label": "Assembly (robotic) II",
+      "image": "AssemblyRoboticT2",
+      "recipe": {
+        "recipeDictionary": "AssemblyRoboticT2"
+      }
+    },
+    {
+      "name": "BakingUnit",
+      "label": "Baking unit",
+      "image": "BakingUnit",
+      "recipe": {
+        "recipeDictionary": "BakingUnit"
+      }
+    },
+    {
+      "name": "BasicDieselDistiller",
+      "label": "Basic distiller",
+      "image": "BasicDieselDistiller",
+      "recipe": {
+        "recipeDictionary": "BasicDieselDistiller"
+      }
+    },
+    {
+      "name": "BasicServerRack",
+      "label": "Basic rack",
+      "image": "BasicServerRack",
+      "recipe": {
+        "recipeDictionary": "BasicServerRack"
+      }
+    },
+    {
+      "name": "Biomass",
+      "label": "Biomass",
+      "image": "Biomass"
+    },
+    {
+      "name": "SmeltingFurnaceT1",
+      "label": "Blast furnace",
+      "image": "SmeltingFurnaceT1",
+      "recipe": {
+        "recipeDictionary": "SmeltingFurnaceT1"
+      }
+    },
+    {
+      "name": "SmeltingFurnaceT2",
+      "label": "Blast furnace II",
+      "image": "SmeltingFurnaceT2",
+      "recipe": {
+        "recipeDictionary": "SmeltingFurnaceT2"
+      }
+    },
+    {
+      "name": "BoilerCoal",
+      "label": "Boiler (coal)",
+      "image": "BoilerCoal",
+      "recipe": {
+        "recipeDictionary": "BoilerCoal"
+      }
+    },
+    {
+      "name": "BoilerElectric",
+      "label": "Boiler (electric)",
+      "image": "BoilerElectric",
+      "recipe": {
+        "recipeDictionary": "BoilerElectric"
+      }
+    },
+    {
+      "name": "BoilerGas",
+      "label": "Boiler (gas)",
+      "image": "BoilerGas",
+      "recipe": {
+        "recipeDictionary": "BoilerGas"
+      }
+    },
+    {
+      "name": "Bread",
+      "label": "Bread",
+      "image": "Bread"
+    },
+    {
+      "name": "Bricks",
+      "label": "Bricks",
+      "image": "Bricks"
+    },
+    {
+      "name": "BricksMaker",
+      "label": "Brickworks",
+      "image": "BricksMaker",
+      "recipe": {
+        "recipeDictionary": "BricksMaker"
+      }
+    },
+    {
+      "name": "Brine",
+      "label": "Brine",
+      "image": "Brine"
+    },
+    {
+      "name": "BrokenGlass",
+      "label": "Broken glass",
+      "image": "BrokenGlass"
+    },
+    {
+      "name": "Burner",
+      "label": "Burner (solid)",
+      "image": "Burner",
+      "recipe": {
+        "recipeDictionary": "Burner"
+      }
+    },
+    {
+      "name": "Cake",
+      "label": "Cake",
+      "image": "Cake"
+    },
+    {
+      "name": "Canola",
+      "label": "Canola",
+      "image": "Canola"
+    },
+    {
+      "name": "CarbonDioxide",
+      "label": "Carbon dioxide",
+      "image": "CarbonDioxide"
+    },
+    {
+      "name": "Cement",
+      "label": "Cement",
+      "image": "Cement"
+    },
+    {
+      "name": "ChemicalPlant",
+      "label": "Chemical plant",
+      "image": "ChemicalPlant",
+      "recipe": {
+        "recipeDictionary": "ChemicalPlant"
+      }
+    },
+    {
+      "name": "ChemicalPlant2",
+      "label": "Chemical plant II",
+      "image": "ChemicalPlant2",
+      "recipe": {
+        "recipeDictionary": "ChemicalPlant2"
+      }
+    },
+    {
+      "name": "ChickenCarcass",
+      "label": "Chicken carcass",
+      "image": "ChickenCarcass"
+    },
+    {
+      "name": "ChilledWater",
+      "label": "Chilled water",
+      "image": "ChilledWater"
+    },
+    {
+      "name": "Chlorine",
+      "label": "Chlorine",
+      "image": "Chlorine"
+    },
+    {
+      "name": "Coal",
+      "label": "Coal",
+      "image": "Coal"
+    },
+    {
+      "name": "CharcoalMaker",
+      "label": "Coal maker",
+      "image": "CharcoalMaker",
+      "recipe": {
+        "recipeDictionary": "CharcoalMaker"
+      }
+    },
+    {
+      "name": "Compost",
+      "label": "Compost",
+      "image": "Compost"
+    },
+    {
+      "name": "ConcreteMixer",
+      "label": "Concrete Mixer",
+      "image": "ConcreteMixer",
+      "recipe": {
+        "recipeDictionary": "ConcreteMixer"
+      }
+    },
+    {
+      "name": "ConcreteMixerT2",
+      "label": "Concrete Mixer II",
+      "image": "ConcreteMixerT2",
+      "recipe": {
+        "recipeDictionary": "ConcreteMixerT2"
+      }
+    },
+    {
+      "name": "ConcreteMixerT3",
+      "label": "Concrete Mixer III",
+      "image": "ConcreteMixerT3",
+      "recipe": {
+        "recipeDictionary": "ConcreteMixerT3"
+      }
+    },
+    {
+      "name": "ConcreteSlab",
+      "label": "Concrete slab",
+      "image": "ConcreteSlab"
+    },
+    {
+      "name": "ConstructionParts",
+      "label": "Construction Parts",
+      "image": "ConstructionParts"
+    },
+    {
+      "name": "ConstructionParts2",
+      "label": "Construction Parts II",
+      "image": "ConstructionParts2"
+    },
+    {
+      "name": "ConstructionParts3",
+      "label": "Construction Parts III",
+      "image": "ConstructionParts3"
+    },
+    {
+      "name": "ConstructionParts4",
+      "label": "Construction Parts IV",
+      "image": "ConstructionParts4"
+    },
+    {
+      "name": "ConsumerElectronics",
+      "label": "Consumer electronics",
+      "image": "ConsumerElectronics"
+    },
+    {
+      "name": "CookingOil",
+      "label": "Cooking oil",
+      "image": "CookingOil"
+    },
+    {
+      "name": "CasterCooled",
+      "label": "Cooled caster",
+      "image": "CasterCooled",
+      "recipe": {
+        "recipeDictionary": "CasterCooled"
+      }
+    },
+    {
+      "name": "CasterCooledT2",
+      "label": "Cooled caster II",
+      "image": "CasterCooledT2",
+      "recipe": {
+        "recipeDictionary": "CasterCooledT2"
+      }
+    },
+    {
+      "name": "CoolingTowerT1",
+      "label": "Cooling tower",
+      "image": "CoolingTowerT1",
+      "recipe": {
+        "recipeDictionary": "CoolingTowerT1"
+      }
+    },
+    {
+      "name": "CoolingTowerT2",
+      "label": "Cooling tower (large)",
+      "image": "CoolingTowerT2",
+      "recipe": {
+        "recipeDictionary": "CoolingTowerT2"
+      }
+    },
+    {
+      "name": "Copper",
+      "label": "Copper",
+      "image": "Copper"
+    },
+    {
+      "name": "CopperElectrolysis",
+      "label": "Copper electrolysis",
+      "image": "CopperElectrolysis",
+      "recipe": {
+        "recipeDictionary": "CopperElectrolysis"
+      }
+    },
+    {
+      "name": "CopperOre",
+      "label": "Copper ore",
+      "image": "CopperOre"
+    },
+    {
+      "name": "CopperOreCrushed",
+      "label": "Copper ore crushed",
+      "image": "CopperOreCrushed"
+    },
+    {
+      "name": "CopperScrap",
+      "label": "Copper scrap",
+      "image": "CopperScrap"
+    },
+    {
+      "name": "Corn",
+      "label": "Corn",
+      "image": "Corn"
+    },
+    {
+      "name": "CornMash",
+      "label": "Corn mash",
+      "image": "CornMash"
+    },
+    {
+      "name": "HydroCrackerT1",
+      "label": "Cracking unit",
+      "image": "HydroCrackerT1",
+      "recipe": {
+        "recipeDictionary": "HydroCrackerT1"
+      }
+    },
+    {
+      "name": "CrudeOil",
+      "label": "Crude oil",
+      "image": "CrudeOil"
+    },
+    {
+      "name": "Crusher",
+      "label": "Crusher",
+      "image": "Crusher",
+      "recipe": {
+        "recipeDictionary": "Crusher"
+      }
+    },
+    {
+      "name": "Diesel",
+      "label": "Diesel",
+      "image": "Diesel"
+    },
+    {
+      "name": "DieselGenerator",
+      "label": "Diesel generator",
+      "image": "DieselGenerator",
+      "recipe": {
+        "recipeDictionary": "DieselGenerator"
+      }
+    },
+    {
+      "name": "Dirt",
+      "label": "Dirt",
+      "image": "Dirt"
+    },
+    {
+      "name": "Disinfectant",
+      "label": "Disinfectant",
+      "image": "Disinfectant"
+    },
+    {
+      "name": "DistillationTowerT1",
+      "label": "Distillation (stage I)",
+      "image": "DistillationTowerT1",
+      "recipe": {
+        "recipeDictionary": "DistillationTowerT1"
+      }
+    },
+    {
+      "name": "DistillationTowerT2",
+      "label": "Distillation (stage II)",
+      "image": "DistillationTowerT2",
+      "recipe": {
+        "recipeDictionary": "DistillationTowerT2"
+      }
+    },
+    {
+      "name": "DistillationTowerT3",
+      "label": "Distillation (stage III)",
+      "image": "DistillationTowerT3",
+      "recipe": {
+        "recipeDictionary": "DistillationTowerT3"
+      }
+    },
+    {
+      "name": "Eggs",
+      "label": "Eggs",
+      "image": "Eggs"
+    },
+    {
+      "name": "Electricity",
+      "label": "Electricity",
+      "image": "Electricity"
+    },
+    {
+      "name": "Electrolyzer",
+      "label": "Electrolyzer",
+      "image": "Electrolyzer",
+      "recipe": {
+        "recipeDictionary": "Electrolyzer"
+      }
+    },
+    {
+      "name": "Electronics",
+      "label": "Electronics",
+      "image": "Electronics"
+    },
+    {
+      "name": "Electronics2",
+      "label": "Electronics II",
+      "image": "Electronics2"
+    },
+    {
+      "name": "Electronics3",
+      "label": "Electronics III",
+      "image": "Electronics3"
+    },
+    {
+      "name": "UraniumEnrichmentPlant",
+      "label": "Enrichment plant",
+      "image": "UraniumEnrichmentPlant",
+      "recipe": {
+        "recipeDictionary": "UraniumEnrichmentPlant"
+      }
+    },
+    {
+      "name": "Ethanol",
+      "label": "Ethanol",
+      "image": "Ethanol"
+    },
+    {
+      "name": "EvaporationPond",
+      "label": "Evaporation pond",
+      "image": "EvaporationPond",
+      "recipe": {
+        "recipeDictionary": "EvaporationPond"
+      }
+    },
+    {
+      "name": "EvaporationPondHeated",
+      "label": "Evaporation pond (heated)",
+      "image": "EvaporationPondHeated",
+      "recipe": {
+        "recipeDictionary": "EvaporationPondHeated"
+      }
+    },
+    {
+      "name": "Exhaust",
+      "label": "Exhaust",
+      "image": "Exhaust"
+    },
+    {
+      "name": "ExhaustScrubber",
+      "label": "Exhaust scrubber",
+      "image": "ExhaustScrubber",
+      "recipe": {
+        "recipeDictionary": "ExhaustScrubber"
+      }
+    },
+    {
+      "name": "FermentationTank",
+      "label": "Fermentation tank",
+      "image": "FermentationTank",
+      "recipe": {
+        "recipeDictionary": "FermentationTank"
+      }
+    },
+    {
+      "name": "FertilizerOrganic",
+      "label": "Fertilizer (organic)",
+      "image": "FertilizerOrganic"
+    },
+    {
+      "name": "Fertilizer",
+      "label": "Fertilizer I",
+      "image": "Fertilizer"
+    },
+    {
+      "name": "Fertilizer2",
+      "label": "Fertilizer II",
+      "image": "Fertilizer2"
+    },
+    {
+      "name": "FilterMedia",
+      "label": "Filter media",
+      "image": "FilterMedia"
+    },
+    {
+      "name": "Flare",
+      "label": "Flare",
+      "image": "Flare",
+      "recipe": {
+        "recipeDictionary": "Flare"
+      }
+    },
+    {
+      "name": "Flour",
+      "label": "Flour",
+      "image": "Flour"
+    },
+    {
+      "name": "FoodPack",
+      "label": "Food pack",
+      "image": "FoodPack"
+    },
+    {
+      "name": "FoodProcessor",
+      "label": "Food processor",
+      "image": "FoodProcessor",
+      "recipe": {
+        "recipeDictionary": "FoodProcessor"
+      }
+    },
+    {
+      "name": "Fruit",
+      "label": "Fruit",
+      "image": "Fruit"
+    },
+    {
+      "name": "FuelGas",
+      "label": "Fuel gas",
+      "image": "FuelGas"
+    },
+    {
+      "name": "GasInjectionPump",
+      "label": "Gas injection pump",
+      "image": "GasInjectionPump",
+      "recipe": {
+        "recipeDictionary": "GasInjectionPump"
+      }
+    },
+    {
+      "name": "Glass",
+      "label": "Glass",
+      "image": "Glass"
+    },
+    {
+      "name": "GlassMakerT1",
+      "label": "Glass maker",
+      "image": "GlassMakerT1",
+      "recipe": {
+        "recipeDictionary": "GlassMakerT1"
+      }
+    },
+    {
+      "name": "GlassMakerT2",
+      "label": "Glass maker II",
+      "image": "GlassMakerT2",
+      "recipe": {
+        "recipeDictionary": "GlassMakerT2"
+      }
+    },
+    {
+      "name": "GlassMix",
+      "label": "Glass mix",
+      "image": "GlassMix"
+    },
+    {
+      "name": "Gold",
+      "label": "Gold",
+      "image": "Gold"
+    },
+    {
+      "name": "GoldFurnace",
+      "label": "Gold furnace",
+      "image": "GoldFurnace",
+      "recipe": {
+        "recipeDictionary": "GoldFurnace"
+      }
+    },
+    {
+      "name": "GoldOre",
+      "label": "Gold ore",
+      "image": "GoldOre"
+    },
+    {
+      "name": "GoldOreConcentrate",
+      "label": "Gold ore concentrate",
+      "image": "GoldOreConcentrate"
+    },
+    {
+      "name": "GoldOreCrushed",
+      "label": "Gold ore crushed",
+      "image": "GoldOreCrushed"
+    },
+    {
+      "name": "GoldOrePowder",
+      "label": "Gold ore powder",
+      "image": "GoldOrePowder"
+    },
+    {
+      "name": "GoldScrap",
+      "label": "Gold scrap",
+      "image": "GoldScrap"
+    },
+    {
+      "name": "Graphite",
+      "label": "Graphite",
+      "image": "Graphite"
+    },
+    {
+      "name": "Gravel",
+      "label": "Gravel",
+      "image": "Gravel"
+    },
+    {
+      "name": "LandWaterPump",
+      "label": "Groundwater pump",
+      "image": "LandWaterPump",
+      "recipe": {
+        "recipeDictionary": "LandWaterPump"
+      }
+    },
+    {
+      "name": "HeavyOil",
+      "label": "Heavy oil",
+      "image": "HeavyOil"
+    },
+    {
+      "name": "TurbineHighPress",
+      "label": "High-pressure turbine",
+      "image": "TurbineHighPress",
+      "recipe": {
+        "recipeDictionary": "TurbineHighPress"
+      }
+    },
+    {
+      "name": "TurbineHighPressT2",
+      "label": "High-pressure turbine II",
+      "image": "TurbineHighPressT2",
+      "recipe": {
+        "recipeDictionary": "TurbineHighPressT2"
+      }
+    },
+    {
+      "name": "HouseholdAppliances",
+      "label": "Household appliances",
+      "image": "HouseholdAppliances"
+    },
+    {
+      "name": "HouseholdGoods",
+      "label": "Household goods",
+      "image": "HouseholdGoods"
+    },
+    {
+      "name": "Hydrogen",
+      "label": "Hydrogen",
+      "image": "Hydrogen"
+    },
+    {
+      "name": "HydrogenFluoride",
+      "label": "Hydrogen fluoride",
+      "image": "HydrogenFluoride"
+    },
+    {
+      "name": "HydrogenReformer",
+      "label": "Hydrogen reformer",
+      "image": "HydrogenReformer",
+      "recipe": {
+        "recipeDictionary": "HydrogenReformer"
+      }
+    },
+    {
+      "name": "ImpureCopper",
+      "label": "Impure copper",
+      "image": "ImpureCopper"
+    },
+    {
+      "name": "Iron",
+      "label": "Iron",
+      "image": "Iron"
+    },
+    {
+      "name": "IronOre",
+      "label": "Iron ore",
+      "image": "IronOre"
+    },
+    {
+      "name": "IronOreCrushed",
+      "label": "Iron ore crushed",
+      "image": "IronOreCrushed"
+    },
+    {
+      "name": "IronScrap",
+      "label": "Iron scrap",
+      "image": "IronScrap"
+    },
+    {
+      "name": "LabEquipment",
+      "label": "Lab Equipment",
+      "image": "LabEquipment"
+    },
+    {
+      "name": "LabEquipment2",
+      "label": "Lab Equipment II",
+      "image": "LabEquipment2"
+    },
+    {
+      "name": "LabEquipment3",
+      "label": "Lab Equipment III",
+      "image": "LabEquipment3"
+    },
+    {
+      "name": "LabEquipment4",
+      "label": "Lab Equipment IV",
+      "image": "LabEquipment4"
+    },
+    {
+      "name": "LightOil",
+      "label": "Light oil",
+      "image": "LightOil"
+    },
+    {
+      "name": "Limestone",
+      "label": "Limestone",
+      "image": "Limestone"
+    },
+    {
+      "name": "WasteDump",
+      "label": "Liquid dump",
+      "image": "WasteDump",
+      "recipe": {
+        "recipeDictionary": "WasteDump"
+      }
+    },
+    {
+      "name": "TurbineLowPress",
+      "label": "Low-pressure turbine",
+      "image": "TurbineLowPress",
+      "recipe": {
+        "recipeDictionary": "TurbineLowPress"
+      }
+    },
+    {
+      "name": "TurbineLowPressT2",
+      "label": "Low-pressure turbine II",
+      "image": "TurbineLowPressT2",
+      "recipe": {
+        "recipeDictionary": "TurbineLowPressT2"
+      }
+    },
+    {
+      "name": "MaintenanceDepotT1",
+      "label": "Maintenance depot",
+      "image": "MaintenanceDepotT1",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT1"
+      }
+    },
+    {
+      "name": "MaintenanceDepotT0",
+      "label": "Maintenance depot (basic)",
+      "image": "MaintenanceDepotT0",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT0"
+      }
+    },
+    {
+      "name": "MaintenanceT1",
+      "label": "Maintenance I",
+      "image": "MaintenanceT1"
+    },
+    {
+      "name": "MaintenanceT2",
+      "label": "Maintenance II",
+      "image": "MaintenanceT2"
+    },
+    {
+      "name": "MaintenanceDepotT2",
+      "label": "Maintenance II depot",
+      "image": "MaintenanceDepotT2",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT2"
+      }
+    },
+    {
+      "name": "MaintenanceT3",
+      "label": "Maintenance III",
+      "image": "MaintenanceT3"
+    },
+    {
+      "name": "MaintenanceDepotT3",
+      "label": "Maintenance III depot",
+      "image": "MaintenanceDepotT3",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT3"
+      }
+    },
+    {
+      "name": "Meat",
+      "label": "Meat",
+      "image": "Meat"
+    },
+    {
+      "name": "MeatTrimmings",
+      "label": "Meat trimmings",
+      "image": "MeatTrimmings"
+    },
+    {
+      "name": "MechanicalParts",
+      "label": "Mechanical Parts",
+      "image": "MechanicalParts"
+    },
+    {
+      "name": "MechPower",
+      "label": "Mechanical power",
+      "image": "MechPower"
+    },
+    {
+      "name": "MedicalEquipment",
+      "label": "Medical equipment",
+      "image": "MedicalEquipment"
+    },
+    {
+      "name": "MedicalSupplies",
+      "label": "Medical Supplies",
+      "image": "MedicalSupplies"
+    },
+    {
+      "name": "MedicalSupplies2",
+      "label": "Medical Supplies II",
+      "image": "MedicalSupplies2"
+    },
+    {
+      "name": "MedicalSupplies3",
+      "label": "Medical Supplies III",
+      "image": "MedicalSupplies3"
+    },
+    {
+      "name": "MediumOil",
+      "label": "Medium oil",
+      "image": "MediumOil"
+    },
+    {
+      "name": "Caster",
+      "label": "Metal caster",
+      "image": "Caster",
+      "recipe": {
+        "recipeDictionary": "Caster"
+      }
+    },
+    {
+      "name": "CasterT2",
+      "label": "Metal caster II",
+      "image": "CasterT2",
+      "recipe": {
+        "recipeDictionary": "CasterT2"
+      }
+    },
+    {
+      "name": "MicrochipMachine",
+      "label": "Microchip machine",
+      "image": "MicrochipMachine",
+      "recipe": {
+        "recipeDictionary": "MicrochipMachine"
+      }
+    },
+    {
+      "name": "MicrochipMachineT2",
+      "label": "Microchip machine II",
+      "image": "MicrochipMachineT2",
+      "recipe": {
+        "recipeDictionary": "MicrochipMachineT2"
+      }
+    },
+    {
+      "name": "Microchips",
+      "label": "Microchips",
+      "image": "Microchips"
+    },
+    {
+      "name": "MicrochipsStage1A",
+      "label": "Microchips stage 1 a",
+      "image": "MicrochipsStage1A"
+    },
+    {
+      "name": "MicrochipsStage1B",
+      "label": "Microchips stage 1 b",
+      "image": "MicrochipsStage1B"
+    },
+    {
+      "name": "MicrochipsStage1C",
+      "label": "Microchips stage 1 c",
+      "image": "MicrochipsStage1C"
+    },
+    {
+      "name": "MicrochipsStage2A",
+      "label": "Microchips stage 2 a",
+      "image": "MicrochipsStage2A"
+    },
+    {
+      "name": "MicrochipsStage2B",
+      "label": "Microchips stage 2 b",
+      "image": "MicrochipsStage2B"
+    },
+    {
+      "name": "MicrochipsStage2C",
+      "label": "Microchips stage 2 c",
+      "image": "MicrochipsStage2C"
+    },
+    {
+      "name": "MicrochipsStage3A",
+      "label": "Microchips stage 3 a",
+      "image": "MicrochipsStage3A"
+    },
+    {
+      "name": "MicrochipsStage3B",
+      "label": "Microchips stage 3 b",
+      "image": "MicrochipsStage3B"
+    },
+    {
+      "name": "MicrochipsStage3C",
+      "label": "Microchips stage 3 c",
+      "image": "MicrochipsStage3C"
+    },
+    {
+      "name": "MicrochipsStage4A",
+      "label": "Microchips stage 4 a",
+      "image": "MicrochipsStage4A"
+    },
+    {
+      "name": "MicrochipsStage4B",
+      "label": "Microchips stage 4 b",
+      "image": "MicrochipsStage4B"
+    },
+    {
+      "name": "FoodMill",
+      "label": "Mill",
+      "image": "FoodMill",
+      "recipe": {
+        "recipeDictionary": "FoodMill"
+      }
+    },
+    {
+      "name": "IndustrialMixer",
+      "label": "Mixer",
+      "image": "IndustrialMixer",
+      "recipe": {
+        "recipeDictionary": "IndustrialMixer"
+      }
+    },
+    {
+      "name": "MoltenCopper",
+      "label": "Molten copper",
+      "image": "MoltenCopper"
+    },
+    {
+      "name": "MoltenGlass",
+      "label": "Molten glass",
+      "image": "MoltenGlass"
+    },
+    {
+      "name": "MoltenIron",
+      "label": "Molten iron",
+      "image": "MoltenIron"
+    },
+    {
+      "name": "MoltenSilicon",
+      "label": "Molten silicon",
+      "image": "MoltenSilicon"
+    },
+    {
+      "name": "MoltenSteel",
+      "label": "Molten steel",
+      "image": "MoltenSteel"
+    },
+    {
+      "name": "Morphine",
+      "label": "Morphine",
+      "image": "Morphine"
+    },
+    {
+      "name": "Naphtha",
+      "label": "Naphtha",
+      "image": "Naphtha"
+    },
+    {
+      "name": "Nitrogen",
+      "label": "Nitrogen",
+      "image": "Nitrogen"
+    },
+    {
+      "name": "NitrogenLiquidTank",
+      "label": "Nitrogen Tank",
+      "image": "NitrogenLiquidTank"
+    },
+    {
+      "name": "NuclearReactor",
+      "label": "Nuclear reactor",
+      "image": "NuclearReactor",
+      "recipe": {
+        "recipeDictionary": "NuclearReactor"
+      }
+    },
+    {
+      "name": "OilPump",
+      "label": "Oil pump",
+      "image": "OilPump",
+      "recipe": {
+        "recipeDictionary": "OilPump"
+      }
+    },
+    {
+      "name": "Oxygen",
+      "label": "Oxygen",
+      "image": "Oxygen"
+    },
+    {
+      "name": "OxygenFurnace",
+      "label": "Oxygen furnace",
+      "image": "OxygenFurnace",
+      "recipe": {
+        "recipeDictionary": "OxygenFurnace"
+      }
+    },
+    {
+      "name": "OxygenFurnaceT2",
+      "label": "Oxygen furnace II",
+      "image": "OxygenFurnaceT2",
+      "recipe": {
+        "recipeDictionary": "OxygenFurnaceT2"
+      }
+    },
+    {
+      "name": "PCB",
+      "label": "PCB",
+      "image": "PCB"
+    },
+    {
+      "name": "Plastic",
+      "label": "Plastic",
+      "image": "Plastic"
+    },
+    {
+      "name": "PolymerizationPlant",
+      "label": "Polymerization plant",
+      "image": "PolymerizationPlant",
+      "recipe": {
+        "recipeDictionary": "PolymerizationPlant"
+      }
+    },
+    {
+      "name": "Poppy",
+      "label": "Poppy",
+      "image": "Poppy"
+    },
+    {
+      "name": "Potato",
+      "label": "Potato",
+      "image": "Potato"
+    },
+    {
+      "name": "PowerGeneratorT1",
+      "label": "Power generator",
+      "image": "PowerGeneratorT1",
+      "recipe": {
+        "recipeDictionary": "PowerGeneratorT1"
+      }
+    },
+    {
+      "name": "PowerGeneratorT2",
+      "label": "Power generator II",
+      "image": "PowerGeneratorT2",
+      "recipe": {
+        "recipeDictionary": "PowerGeneratorT2"
+      }
+    },
+    {
+      "name": "Quartz",
+      "label": "Quartz",
+      "image": "Quartz"
+    },
+    {
+      "name": "Recyclables",
+      "label": "Recyclables",
+      "image": "Recyclables"
+    },
+    {
+      "name": "ResearchLab2",
+      "label": "Research lab II",
+      "image": "ResearchLab2",
+      "recipe": {
+        "recipeDictionary": "ResearchLab2"
+      }
+    },
+    {
+      "name": "ResearchLab3",
+      "label": "Research lab III",
+      "image": "ResearchLab3",
+      "recipe": {
+        "recipeDictionary": "ResearchLab3"
+      }
+    },
+    {
+      "name": "ResearchLab4",
+      "label": "Research lab IV",
+      "image": "ResearchLab4",
+      "recipe": {
+        "recipeDictionary": "ResearchLab4"
+      }
+    },
+    {
+      "name": "ResearchLab5",
+      "label": "Research lab V",
+      "image": "ResearchLab5",
+      "recipe": {
+        "recipeDictionary": "ResearchLab5"
+      }
+    },
+    {
+      "name": "Rock",
+      "label": "Rock",
+      "image": "Rock"
+    },
+    {
+      "name": "RotaryKiln",
+      "label": "Rotary Kiln",
+      "image": "RotaryKiln",
+      "recipe": {
+        "recipeDictionary": "RotaryKiln"
+      }
+    },
+    {
+      "name": "RotaryKilnGas",
+      "label": "Rotary Kiln (gas)",
+      "image": "RotaryKilnGas",
+      "recipe": {
+        "recipeDictionary": "RotaryKilnGas"
+      }
+    },
+    {
+      "name": "Rubber",
+      "label": "Rubber",
+      "image": "Rubber"
+    },
+    {
+      "name": "VacuumDistillationTower",
+      "label": "Rubber maker",
+      "image": "VacuumDistillationTower",
+      "recipe": {
+        "recipeDictionary": "VacuumDistillationTower"
+      }
+    },
+    {
+      "name": "Salt",
+      "label": "Salt",
+      "image": "Salt"
+    },
+    {
+      "name": "Sand",
+      "label": "Sand",
+      "image": "Sand"
+    },
+    {
+      "name": "Sausage",
+      "label": "Sausage",
+      "image": "Sausage"
+    },
+    {
+      "name": "Seawater",
+      "label": "Seawater",
+      "image": "Seawater"
+    },
+    {
+      "name": "OceanWaterPumpT1",
+      "label": "Seawater pump",
+      "image": "OceanWaterPumpT1",
+      "recipe": {
+        "recipeDictionary": "OceanWaterPumpT1"
+      }
+    },
+    {
+      "name": "OceanWaterPumpLarge",
+      "label": "Seawater pump (tall)",
+      "image": "OceanWaterPumpLarge",
+      "recipe": {
+        "recipeDictionary": "OceanWaterPumpLarge"
+      }
+    },
+    {
+      "name": "Server",
+      "label": "Server",
+      "image": "Server"
+    },
+    {
+      "name": "SettlingTank",
+      "label": "Settling tank",
+      "image": "SettlingTank",
+      "recipe": {
+        "recipeDictionary": "SettlingTank"
+      }
+    },
+    {
+      "name": "PolySilicon",
+      "label": "Silicon (poly)",
+      "image": "PolySilicon"
+    },
+    {
+      "name": "SiliconCrystallizer",
+      "label": "Silicon crystallizer",
+      "image": "SiliconCrystallizer",
+      "recipe": {
+        "recipeDictionary": "SiliconCrystallizer"
+      }
+    },
+    {
+      "name": "SiliconReactor",
+      "label": "Silicon reactor",
+      "image": "SiliconReactor",
+      "recipe": {
+        "recipeDictionary": "SiliconReactor"
+      }
+    },
+    {
+      "name": "SiliconWafer",
+      "label": "Silicon wafer",
+      "image": "SiliconWafer"
+    },
+    {
+      "name": "Slag",
+      "label": "Slag",
+      "image": "Slag"
+    },
+    {
+      "name": "SlagCrushed",
+      "label": "Slag crushed",
+      "image": "SlagCrushed"
+    },
+    {
+      "name": "Sludge",
+      "label": "Sludge",
+      "image": "Sludge"
+    },
+    {
+      "name": "SmokeStack",
+      "label": "Smoke stack",
+      "image": "SmokeStack",
+      "recipe": {
+        "recipeDictionary": "SmokeStack"
+      }
+    },
+    {
+      "name": "SmokeStackLarge",
+      "label": "Smoke stack (large)",
+      "image": "SmokeStackLarge",
+      "recipe": {
+        "recipeDictionary": "SmokeStackLarge"
+      }
+    },
+    {
+      "name": "Snack",
+      "label": "Snack",
+      "image": "Snack"
+    },
+    {
+      "name": "SolarCell",
+      "label": "Solar cell",
+      "image": "SolarCell"
+    },
+    {
+      "name": "SolarCellMono",
+      "label": "Solar cell mono",
+      "image": "SolarCellMono"
+    },
+    {
+      "name": "SolarPanel",
+      "label": "Solar panel",
+      "image": "SolarPanel",
+      "recipe": {
+        "recipeDictionary": "SolarPanel"
+      }
+    },
+    {
+      "name": "SolarPanelMono",
+      "label": "Solar panel (mono)",
+      "image": "SolarPanelMono",
+      "recipe": {
+        "recipeDictionary": "SolarPanelMono"
+      }
+    },
+    {
+      "name": "SourWater",
+      "label": "Sour water",
+      "image": "SourWater"
+    },
+    {
+      "name": "SourWaterStripper",
+      "label": "Sour water stripper",
+      "image": "SourWaterStripper",
+      "recipe": {
+        "recipeDictionary": "SourWaterStripper"
+      }
+    },
+    {
+      "name": "Soybean",
+      "label": "Soybean",
+      "image": "Soybean"
+    },
+    {
+      "name": "SpentFuel",
+      "label": "Spent fuel",
+      "image": "SpentFuel"
+    },
+    {
+      "name": "SteamDepleted",
+      "label": "Steam depleted",
+      "image": "SteamDepleted"
+    },
+    {
+      "name": "SteamHi",
+      "label": "Steam hi",
+      "image": "SteamHi"
+    },
+    {
+      "name": "SteamLP",
+      "label": "Steam lo",
+      "image": "SteamLP"
+    },
+    {
+      "name": "Steel",
+      "label": "Steel",
+      "image": "Steel"
+    },
+    {
+      "name": "Sugar",
+      "label": "Sugar",
+      "image": "Sugar"
+    },
+    {
+      "name": "SugarCane",
+      "label": "Sugar cane",
+      "image": "SugarCane"
+    },
+    {
+      "name": "Sulfur",
+      "label": "Sulfur",
+      "image": "Sulfur"
+    },
+    {
+      "name": "ThermalDesalinator",
+      "label": "Thermal desalinator",
+      "image": "ThermalDesalinator",
+      "recipe": {
+        "recipeDictionary": "ThermalDesalinator"
+      }
+    },
+    {
+      "name": "Tofu",
+      "label": "Tofu",
+      "image": "Tofu"
+    },
+    {
+      "name": "ToxicSlurry",
+      "label": "Toxic slurry",
+      "image": "ToxicSlurry"
+    },
+    {
+      "name": "UraniumOre",
+      "label": "Uranium ore",
+      "image": "UraniumOre"
+    },
+    {
+      "name": "UraniumOreCrushed",
+      "label": "Uranium ore crushed",
+      "image": "UraniumOreCrushed"
+    },
+    {
+      "name": "UraniumPellets",
+      "label": "Uranium pellets",
+      "image": "UraniumPellets"
+    },
+    {
+      "name": "UraniumRod",
+      "label": "Uranium rod",
+      "image": "UraniumRod"
+    },
+    {
+      "name": "Vegetables",
+      "label": "Vegetables",
+      "image": "Vegetables"
+    },
+    {
+      "name": "VehicleParts",
+      "label": "Vehicle Parts",
+      "image": "VehicleParts"
+    },
+    {
+      "name": "VehicleParts2",
+      "label": "Vehicle Parts II",
+      "image": "VehicleParts2"
+    },
+    {
+      "name": "VehicleParts3",
+      "label": "Vehicle Parts III",
+      "image": "VehicleParts3"
+    },
+    {
+      "name": "Waste",
+      "label": "Waste",
+      "image": "Waste"
+    },
+    {
+      "name": "WasteSortingPlant",
+      "label": "Waste sorting plant",
+      "image": "WasteSortingPlant",
+      "recipe": {
+        "recipeDictionary": "WasteSortingPlant"
+      }
+    },
+    {
+      "name": "WasteWater",
+      "label": "Waste water",
+      "image": "WasteWater"
+    },
+    {
+      "name": "WaterTreatmentPlant",
+      "label": "Wastewater treatment",
+      "image": "WaterTreatmentPlant",
+      "recipe": {
+        "recipeDictionary": "WaterTreatmentPlant"
+      }
+    },
+    {
+      "name": "Water",
+      "label": "Water",
+      "image": "Water"
+    },
+    {
+      "name": "WaterChiller",
+      "label": "Water chiller",
+      "image": "WaterChiller",
+      "recipe": {
+        "recipeDictionary": "WaterChiller"
+      }
+    },
+    {
+      "name": "PollutedWater",
+      "label": "Water pollution",
+      "image": "PollutedWater"
+    },
+    {
+      "name": "Wheat",
+      "label": "Wheat",
+      "image": "Wheat"
+    },
+    {
+      "name": "Wood",
+      "label": "Wood",
+      "image": "Wood"
+    },
+    {
+      "name": "YellowCake",
+      "label": "Yellowcake",
+      "image": "YellowCake"
+    }
+  ]
+}
