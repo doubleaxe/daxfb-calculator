@@ -2,6 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
+import {GameRecipeIOFlags} from '#types/contants';
 import type {GameItem, GameRecipeIO} from '#types/game-data';
 import {Rect, type PublicRect} from '../geometry';
 import {ItemModelImpl} from './item';
@@ -62,6 +63,9 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get name() { return this._matherializeAbstractItem?.name || this._item?.name; }
     get label() { return this._matherializeAbstractItem?.label || this._item?.label; }
     get image() { return this._matherializeAbstractItem?.image || this._item?.image || ''; }
+
+    get hasProbability() { return (this._io.flags & GameRecipeIOFlags.HasProbability); }
+    get hideOnWindow() { return (this._io.flags & GameRecipeIOFlags.HideOnWindow); }
 
     setFlipped(isFlipped: boolean) {
         if(this._ownerItem)

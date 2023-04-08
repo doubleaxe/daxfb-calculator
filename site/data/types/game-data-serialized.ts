@@ -27,8 +27,10 @@ export interface GameRecipeIOSerialized {
     name: string;
     longName?: string;
     count: number;
-    hasProbability?: boolean;
-    type?: number;
+    //common flags used in global code
+    flags?: number;
+    //custom flags separate for every game
+    flags2?: number;
     exdata?: GameExDataSerialized;
 }
 

@@ -2,7 +2,6 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameItemType} from '#types/contants';
 import type {GameItem} from '#types/game-data';
 import {type InjectionKey, provide, reactive, inject} from 'vue';
 import type {GameData} from './data';
@@ -14,7 +13,6 @@ class Filter {
     private _tierEqual = 0;
     private _groupTier = true;
     private _key?: string;
-    private _type?: GameItemType;
     private _direction = 0;
     private _filtered?: GameItem[][];
 

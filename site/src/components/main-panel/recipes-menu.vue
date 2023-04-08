@@ -3,7 +3,8 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import type {GameRecipe} from '#types/game-data';
+import {GameRecipeIOFlags} from '#types/contants';
+import type {GameRecipe, GameRecipeIO} from '#types/game-data';
 import {injectGameData} from '@/scripts/data';
 import {injectFilter} from '@/scripts/filter';
 import type {BlueprintItemModel} from '@/scripts/model/store';
@@ -113,6 +114,9 @@ function pasteSearchValue() {
         search.value = newSearch;
 }
 
+function filterShownRecipeIo(io: GameRecipeIO[]) {
+    return io.filter((i) => !(i.flags & GameRecipeIOFlags.HideInMenu));
+}
 
 watch(active, (value, oldValue) => {
     if(oldValue && !value) {
@@ -154,9 +158,9 @@ defineExpose({
                 >
                     <v-list-item-title>
                         <div class="io-menu-item">
-                            <recipes-menu-io :ioarray="recipe.input.filter((i) => !i.isCommon)" />
+                            <recipes-menu-io :ioarray="filterShownRecipeIo(recipe.input)" />
                             <v-icon class="d-block" :icon="mdiArrowRight" />
-                            <recipes-menu-io :ioarray="recipe.output.filter((i) => !i.isCommon)" />
+                            <recipes-menu-io :ioarray="filterShownRecipeIo(recipe.output)" />
                         </div>
                     </v-list-item-title>
                 </v-list-item>

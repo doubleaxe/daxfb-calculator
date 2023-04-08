@@ -18,13 +18,8 @@ export function useCalculator(): Calculator {
         };
     };
 
-    const isCommonIo: Calculator['isCommonIo'] = function(io) {
-        return false;
-    };
-
     return {
         getCountPerSecond,
         formatCountPerSecond,
-        isCommonIo,
     };
 }

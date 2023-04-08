@@ -21,6 +21,9 @@ const typeLables: Record<GameItemType, string> = {
     [GameItemType.Liquid]: 'Liquid',
     [GameItemType.Gas]: 'Gas',
     [GameItemType.Fluid]: 'Fluid',
+    [GameItemType.Countable]: 'Countable',
+    [GameItemType.Loose]: 'Loose',
+    [GameItemType.Molten]: 'Molten',
     [GameItemType.Energy]: 'Energy',
     [GameItemType.Special]: 'Special',
 };

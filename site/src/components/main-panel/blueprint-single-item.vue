@@ -85,22 +85,24 @@ function updateIoRects() {
 
 const leftSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
-    return props.item.isFlipped ? {
-        io: () => _recipe?.output,
-        count: _recipe?.outputCount,
-    } : {
-        io: () => _recipe?.input,
-        count: _recipe?.inputCount,
+    let io = [...(props.item.isFlipped ? _recipe?.output : _recipe?.input) || []];
+    if(io.length) {
+        io = io.filter(item => !item.hideOnWindow);
+    }
+    return {
+        io: () => io,
+        count: io.length,
     };
 });
 const rightSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
-    return props.item.isFlipped ? {
-        io: () => _recipe?.input,
-        count: _recipe?.inputCount,
-    } : {
-        io: () => _recipe?.output,
-        count: _recipe?.outputCount,
+    let io = [...(props.item.isFlipped ? _recipe?.input : _recipe?.output) || []];
+    if(io.length) {
+        io = io.filter(item => !item.hideOnWindow);
+    }
+    return {
+        io: () => io,
+        count: io.length,
     };
 });
 const icon = computed(() => (props.item.isFlipped ? mdiArrowLeft : mdiArrowRight));

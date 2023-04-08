@@ -9,6 +9,16 @@ export enum GameItemType {
     Liquid,
     Gas,
     Fluid,
+    Countable,
+    Loose,
+    Molten,
     Energy,
     Special,
+}
+
+export enum GameRecipeIOFlags {
+    None = 0,
+    HasProbability = 1,
+    HideInMenu = 4,
+    HideOnWindow = 8,
 }

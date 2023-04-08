@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import {applyPatch} from 'diff';
 import description from './description.json';
 import {logistic} from './static/custom-data';
-import {GameRecipeDictionaryExData, GameRecipeIOType} from './types/custom-game-data';
+import {GameRecipeDictionaryExData, GameRecipeIOFlags2} from './types/custom-game-data';
 import type {ConvertedData} from '../processing';
 
 import type {
@@ -27,7 +27,7 @@ import type {
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
 //using relative path, without #types, because it is compiled into js, and not handled by typescript only
-import {GameItemType} from '../../site/data/types/contants';
+import {GameItemType, GameRecipeIOFlags} from '../../site/data/types/contants';
 import {ImageProcessor} from '../image-processor';
 
 const _dirname = __dirname;
@@ -49,9 +49,9 @@ function imageNameMapper(name: string) {
 
 function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
     interface RecipeIOOptions {
-        type?: number;
+        flags2?: number;
     }
-    const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {type}: RecipeIOOptions) => {
+    const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {flags2}: RecipeIOOptions) => {
         if(!item)
             return [];
         const itemArray = Array.isArray(item) ? item : [item];
@@ -61,17 +61,26 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
         for(const i of itemArray) {
             const count = i.Probability ? (i.Count * i.Probability) : i.Count;
             const i0 = mappedMergedIO.get(i.Name);
+            let _flags = 0;
+            let _flags2 = flags2 || 0;
+            if(i.Probability === 0) {
+                _flags2 |= GameRecipeIOFlags2.NotConsumed;
+            } else if(i.Probability) {
+                _flags |= GameRecipeIOFlags.HasProbability;
+            }
             if(!i0) {
                 mappedMergedIO.set(i.Name, {
                     name: itemNameMapper(i.Name),
                     count: count,
-                    hasProbability: i.Probability ? true : undefined,
-                    type: type,
+                    flags: _flags ? _flags : undefined,
+                    flags2: _flags2 ? _flags2 : undefined,
                 });
             } else {
                 i0.count += count;
-                if(i.Probability)
-                    i0.hasProbability = true;
+                if(_flags)
+                    i0.flags = (i0.flags || 0) | _flags;
+                if(_flags2)
+                    i0.flags2 = (i0.flags2 || 0) | _flags2;
             }
         }
 
@@ -81,11 +90,11 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
         const mappedRecipes = recipes.map((recipe) => {
             const input = [
                 ...mapIO(recipe.Input, {}),
-                ...mapIO(recipe.ResourceInput, {type: GameRecipeIOType.Resource}),
+                ...mapIO(recipe.ResourceInput, {flags2: GameRecipeIOFlags2.Resource}),
             ];
             const output = [
                 ...mapIO(recipe.Output, {}),
-                ...mapIO(recipe.ResourceOutput, {type: GameRecipeIOType.Resource}),
+                ...mapIO(recipe.ResourceOutput, {flags2: GameRecipeIOFlags2.Resource}),
             ];
 
             const mappedRecipe = {

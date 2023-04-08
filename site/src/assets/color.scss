@@ -67,6 +67,10 @@ $dragging-elevation: 10;
     background-color: get-color('grey', 'lighten-2');
 }
 
+.bg-has-probability {
+    background-color: get-color('cyan', 'lighten-4');
+}
+
 .link-stroke-black {
     stroke: black;
 }

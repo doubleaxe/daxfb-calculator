@@ -4,8 +4,8 @@ Please don't remove this comment if you use unmodified file
 */
 import type {Calculator} from '#types/calculator';
 import type {GameRecipeDictionary} from '#types/game-data';
-import {GameItemType} from '#types/contants';
-import {GameRecipeDictionaryExData, GameRecipeIOType} from '../types/custom-game-data';
+import {GameItemType, GameRecipeIOFlags} from '#types/contants';
+import {GameRecipeDictionaryExData, GameRecipeIOFlags2} from '../types/custom-game-data';
 
 export function useCalculator(): Calculator {
     const TICKS_PER_SECOND = 20;
@@ -25,6 +25,8 @@ export function useCalculator(): Calculator {
         return exdata.startingTier;
     }
     const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
+        if(io.flags2 & GameRecipeIOFlags2.NotConsumed)
+            return 0;
         const recipeDictionary: GameRecipeDictionary = io.recipe.recipeDictionary;
         const exdata = recipeDictionary.exdata as GameRecipeDictionaryExData;
         const startingTier = getStartingTier(recipeDictionary, exdata);
@@ -37,7 +39,7 @@ export function useCalculator(): Calculator {
         if(exdata.isPump) {
             return pumpTierList[tierDiff] || pumpTierList[pumpTierList.length - 1] || 0;
         }
-        if(io.type == GameRecipeIOType.Resource) {
+        if(io.flags2 & GameRecipeIOFlags2.Resource) {
             //1 Resource Item [R] * 20 = 20 Watt, time doesn't matter
             //each resource tier doubles energy consuption/production (cumulative)
             return io.count * Math.pow(2, tierDiff);
@@ -64,15 +66,16 @@ export function useCalculator(): Calculator {
         };
     };
 
-    const isCommonIo: Calculator['isCommonIo'] = function(io) {
+    const dynamicFlags: Calculator['dynamicFlags'] = function(io) {
         const items = io.isInput ? io.recipe.input : io.recipe.output;
-        return (io.type == GameRecipeIOType.Resource)
-            && (items.length > 1);
+        if((io.flags2 & GameRecipeIOFlags2.Resource) && (items.length > 1))
+            return GameRecipeIOFlags.HideInMenu;
+        return GameRecipeIOFlags.None;
     };
 
     return {
         getCountPerSecond,
         formatCountPerSecond,
-        isCommonIo,
+        dynamicFlags,
     };
 }

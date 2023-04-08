@@ -70,9 +70,7 @@ export class RecipeModelImpl {
 
     get name() { return this._recipe.name; }
     get input() { return this._input[Symbol.iterator](); }
-    get inputCount() { return this._input.length; }
     get output() { return this._output[Symbol.iterator](); }
-    get outputCount() { return this._output.length; }
     itemByKey(key: string) { return this._itemsByKey.get(key); }
     get items() { return this._itemsByKey.values(); }
 }

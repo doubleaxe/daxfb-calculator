@@ -12,5 +12,5 @@ import type {
 export interface Calculator {
     getCountPerSecond: (item: GameItem, io: GameRecipeIO) => number;
     formatCountPerSecond: (item: GameItem, count: number) => FromatCountPerSecond;
-    isCommonIo: (io: GameRecipeIO) => boolean;
+    dynamicFlags?: (io: GameRecipeIO) => number;
 }

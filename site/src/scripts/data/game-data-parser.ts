@@ -34,7 +34,7 @@ import {inflate} from 'pako';
 import {toUint8Array} from 'js-base64';
 import {freezeMap, freezeSet} from '../util';
 import type {Calculator} from '#types/calculator';
-import type {GameItemType} from '#types/contants';
+import {GameRecipeIOFlags, type GameItemType} from '#types/contants';
 
 export type ParsedItems = ReadonlyMap<string, GameItem>;
 export type ParsedRecipes = ReadonlyMap<string, GameRecipeDictionary>;
@@ -99,7 +99,8 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
     const io: GameRecipeIORaw = {
         ..._io,
         isInput: options.isInput,
-        isCommon: false,
+        flags: _io.flags || GameRecipeIOFlags.None,
+        flags2: _io.flags2 || 0,
         recipe: recipeImpl.recipe,
         product: {} as GameItem,
         getCountPerSecond(item: GameItem) {
@@ -119,7 +120,9 @@ function createRecipeIOImpl(recipeImpl: Readonly<RecipeImpl>, _io: GameRecipeIOS
                 io.product = itemImpl.item;
             }
             //almost initialized
-            io.isCommon = calculator.isCommonIo(io);
+            const flags = calculator.dynamicFlags && calculator.dynamicFlags(io);
+            if(flags)
+                io.flags |= flags;
             Object.freeze(io);
         },
     };

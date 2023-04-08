@@ -1,4 +1,5 @@
 {
+  "exclude": ["./data/**/captain-of-data"],
   "compilerOptions": {
     "baseUrl": ".",
     "lib": ["ES2022"],

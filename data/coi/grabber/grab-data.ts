@@ -13,6 +13,7 @@ import type {
     GameRecipeDictionarySerialized,
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
+import {GameItemType} from '#types/contants';
 
 //npx ts-node grab-data.ts
 //node --loader ts-node/esm --inspect-brk grab-data.ts
@@ -39,6 +40,20 @@ type IODef = {
     name: string;
     quantity: number;
 };
+
+const classTypes: {[key: string]: GameItemType} = {
+    Virtual: GameItemType.Special,
+    Countable: GameItemType.Countable,
+    Loose: GameItemType.Loose,
+    Molten: GameItemType.Molten,
+    Fluid: GameItemType.Fluid,
+};
+
+const energyTypes: {[key: string]: GameItemType} = {
+    Electricity: GameItemType.Energy,
+    MechPower: GameItemType.Energy,
+};
+
 
 (async function() {
     const productNamesToDefs = new Map<string, ProductDef>(products.products.map((p) => [p.name, {...p, id: cleanProductId(p.id)}]));
@@ -177,6 +192,7 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>) {
             name: def.id,
             label: def.name,
             image: def.id,
+            type: energyTypes[def.id] || classTypes[def.type],
         };
         items.push(item);
     }

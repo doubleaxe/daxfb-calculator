@@ -36,6 +36,11 @@ const border = computed(() => {
         return 'highlight-border';
     return '';
 });
+const backgroud = computed(() => {
+    if(props.io.hasProbability)
+        return 'bg-has-probability';
+    return '';
+});
 const cpsSolvedTotal = computed(() => formatIo(props.io.cpsSolvedTotal, props.io) || '?');
 const cpsMaxTotal = computed(() => formatIo(props.io.cpsMaxTotal, props.io));
 
@@ -70,7 +75,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
         />
         <div
             class="io-description-row text-caption hover-border"
-            :class="[align, border]"
+            :class="[align, border, backgroud]"
             @click="filterForIo()"
         >
             {{ cpsSolvedTotal }}
