@@ -62,6 +62,7 @@ const classTypes: {[key: string]: GameItemType} = {
 
 const itemTypes: {[key: string]: GameItemType} = {
     Electricity: GameItemType.Energy,
+    MechPower: GameItemType.Energy,
 };
 
 const itemExTypes: {[key: string]: GameItemExType} = {
@@ -76,6 +77,23 @@ const itemExTypes: {[key: string]: GameItemExType} = {
     PollutedAir: GameItemExType.Pollution,
     Worker: GameItemExType.Worker,
 };
+
+const whiteImages: Set<string> = new Set([
+    'Anesthetics',
+    'Antibiotics',
+    'BasicServerRack',
+    'Computing',
+    'ConstructionParts',
+    'LabEquipment',
+    'MaintenanceT1',
+    'MechPower',
+    'MedicalSupplies',
+    'Salt',
+    'SiliconWafer',
+    'Upoints',
+    'VehicleParts',
+    'Worker',
+]);
 
 
 (async function() {
@@ -134,7 +152,10 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
                     throw err;
                 imageBuffer = fs.readFileSync(path.join(_static, image.name + '.png'));
             }
-            await imageProcessor.addImageBuffer(imageBuffer, image.id);
+            const img = await imageProcessor.addImageBuffer(imageBuffer, image.id);
+            if(whiteImages.has(image.id)) {
+                img.color([{apply: 'shade', params: [40]}]);
+            }
         } catch(err) {
             if((err as NodeJS.ErrnoException).code != 'ENOENT')
                 throw err;
@@ -161,6 +182,7 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
         electricity?: number;
         computing?: number;
         unity?: number;
+        isInput: boolean;
     };
 
     const mapIo = function(io: IODef[] | undefined, resources: AdditionalResources) {
@@ -203,7 +225,7 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
         for(const i of _io) {
             productsUsedInRecipes.add(i.name);
             const hasOriginalIo = originalItems.has(i.name);
-            if(!hasOriginalIo && (_io.length > 1)) {
+            if(!hasOriginalIo && ((_io.length > 1) || resources.isInput)) {
                 i.flags = GameRecipeIOFlags.HideInMenu | GameRecipeIOFlags.HideOnWindow;
             }
             if(hasOriginalIo) {
@@ -227,12 +249,15 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
             electricity: building.electricity_consumed,
             computing: building.computing_consumed,
             unity: building.unity_cost,
+            isInput: true,
         });
         let output = mapIo(recipe.outputs, {
             electricity: building.electricity_generated,
             computing: building.computing_generated,
+            isInput: false,
         });
         if(!input?.hasCustomIo && !output?.io?.length) {
+            //remove insignificant factories
             input = undefined;
             output = undefined;
         }

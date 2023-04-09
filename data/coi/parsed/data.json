@@ -9,6 +9,16 @@
             {
               "name": "SteamHi",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -34,6 +44,16 @@
             {
               "name": "SteamHi",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -59,6 +79,16 @@
             {
               "name": "SteamLP",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -84,6 +114,16 @@
             {
               "name": "SteamLP",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -109,6 +149,11 @@
             {
               "name": "MechPower",
               "count": 500
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -130,6 +175,11 @@
             {
               "name": "MechPower",
               "count": 3000
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -147,6 +197,13 @@
       "recipes": [
         {
           "name": "SolarPanel",
+          "input": [
+            {
+              "name": "MaintenanceT2",
+              "count": 0.5996094,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "Electricity",
@@ -162,6 +219,13 @@
       "recipes": [
         {
           "name": "SolarPanelMono",
+          "input": [
+            {
+              "name": "MaintenanceT2",
+              "count": 0.5996094,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "Electricity",
@@ -181,6 +245,16 @@
             {
               "name": "Diesel",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -210,6 +284,11 @@
             {
               "name": "Coal",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -238,6 +317,11 @@
             {
               "name": "Coal",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -441,6 +525,11 @@
             {
               "name": "Water",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "time": 2
@@ -451,6 +540,11 @@
             {
               "name": "Brine",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "time": 2
@@ -461,6 +555,11 @@
             {
               "name": "WasteWater",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -477,6 +576,11 @@
             {
               "name": "SourWater",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -493,6 +597,11 @@
             {
               "name": "Acid",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -509,6 +618,11 @@
             {
               "name": "ToxicSlurry",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -525,6 +639,11 @@
             {
               "name": "Seawater",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "time": 2
@@ -535,6 +654,11 @@
             {
               "name": "FertilizerOrganic",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -551,6 +675,11 @@
             {
               "name": "Fertilizer",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -567,6 +696,11 @@
             {
               "name": "Fertilizer2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -588,6 +722,11 @@
             {
               "name": "Diesel",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -604,6 +743,11 @@
             {
               "name": "HeavyOil",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -620,6 +764,11 @@
             {
               "name": "LightOil",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -636,6 +785,11 @@
             {
               "name": "Naphtha",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -652,6 +806,11 @@
             {
               "name": "Ethanol",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -668,6 +827,11 @@
             {
               "name": "FuelGas",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -684,6 +848,11 @@
             {
               "name": "Ammonia",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -700,6 +869,11 @@
             {
               "name": "Hydrogen",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "time": 20
@@ -719,6 +893,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
             }
           ],
           "output": [
@@ -760,6 +949,21 @@
             {
               "name": "Chlorine",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 26,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 180,
+              "flags": 12
             }
           ],
           "output": [
@@ -788,6 +992,21 @@
             {
               "name": "Chlorine",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 26,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 180,
+              "flags": 12
             }
           ],
           "output": [
@@ -816,6 +1035,21 @@
             {
               "name": "Brine",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 26,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 180,
+              "flags": 12
             }
           ],
           "output": [
@@ -841,6 +1075,21 @@
             {
               "name": "Sludge",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -861,6 +1110,21 @@
             {
               "name": "Potato",
               "count": 14
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -881,6 +1145,21 @@
             {
               "name": "Vegetables",
               "count": 14
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -901,6 +1180,21 @@
             {
               "name": "Fruit",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -921,6 +1215,21 @@
             {
               "name": "Poppy",
               "count": 14
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -941,6 +1250,21 @@
             {
               "name": "Wheat",
               "count": 11
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -961,6 +1285,21 @@
             {
               "name": "MeatTrimmings",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 10,
+              "flags": 12
             }
           ],
           "output": [
@@ -986,6 +1325,11 @@
             {
               "name": "Waste",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1002,6 +1346,11 @@
             {
               "name": "Biomass",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1018,6 +1367,11 @@
             {
               "name": "AnimalFeed",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1034,6 +1388,11 @@
             {
               "name": "MeatTrimmings",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1050,6 +1409,11 @@
             {
               "name": "ChickenCarcass",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1066,6 +1430,11 @@
             {
               "name": "Sulfur",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1082,6 +1451,11 @@
             {
               "name": "Sludge",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
             }
           ],
           "output": [
@@ -1099,6 +1473,23 @@
       "recipes": [
         {
           "name": "OilGroundPumping",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "CrudeOil",
@@ -1114,6 +1505,23 @@
       "recipes": [
         {
           "name": "LandWaterPumping",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "Water",
@@ -1137,6 +1545,21 @@
             {
               "name": "Seawater",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "time": 10
@@ -1148,6 +1571,23 @@
       "recipes": [
         {
           "name": "OceanWaterPumping",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "Seawater",
@@ -1163,6 +1603,23 @@
       "recipes": [
         {
           "name": "OceanWaterPumpingT2",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "Seawater",
@@ -1186,6 +1643,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1210,6 +1672,11 @@
             {
               "name": "Biomass",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1234,6 +1701,11 @@
             {
               "name": "AnimalFeed",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1263,6 +1735,11 @@
             {
               "name": "HeavyOil",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1287,6 +1764,11 @@
             {
               "name": "MediumOil",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1311,6 +1793,11 @@
             {
               "name": "LightOil",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1335,6 +1822,11 @@
             {
               "name": "Naphtha",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1359,6 +1851,11 @@
             {
               "name": "Ethanol",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1383,6 +1880,11 @@
             {
               "name": "FuelGas",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1407,6 +1909,11 @@
             {
               "name": "Hydrogen",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1432,6 +1939,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1300,
+              "flags": 12
             }
           ],
           "output": [
@@ -1453,6 +1975,21 @@
             {
               "name": "Seawater",
               "count": 30
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -1469,6 +2006,21 @@
             {
               "name": "Seawater",
               "count": 30
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -1485,6 +2037,21 @@
             {
               "name": "Brine",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -1506,6 +2073,16 @@
             {
               "name": "Seawater",
               "count": 30
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -1522,6 +2099,16 @@
             {
               "name": "Seawater",
               "count": 30
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -1538,6 +2125,16 @@
             {
               "name": "Brine",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -1563,6 +2160,21 @@
             {
               "name": "SteamHi",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -1587,6 +2199,21 @@
             {
               "name": "SteamLP",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -1611,6 +2238,21 @@
             {
               "name": "SteamDepleted",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -1636,6 +2278,21 @@
             {
               "name": "Water",
               "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -1665,6 +2322,16 @@
             {
               "name": "Water",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -1702,6 +2369,21 @@
             {
               "name": "Water",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -1730,6 +2412,21 @@
             {
               "name": "Water",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -1763,6 +2460,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 7,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -1791,6 +2503,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 7,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -1824,6 +2551,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1852,6 +2594,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1876,6 +2633,21 @@
             {
               "name": "Water",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1900,6 +2672,21 @@
             {
               "name": "Water",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1929,6 +2716,21 @@
             {
               "name": "Salt",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1957,6 +2759,21 @@
             {
               "name": "Acid",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1977,6 +2794,21 @@
             {
               "name": "Water",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -1997,6 +2829,21 @@
             {
               "name": "Limestone",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2017,6 +2864,21 @@
             {
               "name": "Water",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2041,6 +2903,21 @@
             {
               "name": "Coal",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2061,6 +2938,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2085,6 +2977,21 @@
             {
               "name": "Sulfur",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2101,6 +3008,21 @@
             {
               "name": "Potato",
               "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2117,6 +3039,21 @@
             {
               "name": "Wheat",
               "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2133,6 +3070,21 @@
             {
               "name": "Corn",
               "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2149,6 +3101,21 @@
             {
               "name": "Soybean",
               "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2165,6 +3132,21 @@
             {
               "name": "AnimalFeed",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2181,6 +3163,21 @@
             {
               "name": "Biomass",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2197,6 +3194,21 @@
             {
               "name": "MeatTrimmings",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -2222,6 +3234,26 @@
             {
               "name": "Electronics2",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2246,6 +3278,26 @@
             {
               "name": "Steel",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2270,6 +3322,26 @@
             {
               "name": "Copper",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2290,6 +3362,26 @@
             {
               "name": "Copper",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2314,6 +3406,26 @@
             {
               "name": "PolySilicon",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2338,6 +3450,26 @@
             {
               "name": "Glass",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2362,6 +3494,26 @@
             {
               "name": "Glass",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2382,6 +3534,26 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2402,6 +3574,26 @@
             {
               "name": "Electronics3",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2426,6 +3618,26 @@
             {
               "name": "Steel",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -2455,6 +3667,26 @@
             {
               "name": "Bricks",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2479,6 +3711,26 @@
             {
               "name": "ConcreteSlab",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2499,6 +3751,26 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2519,6 +3791,26 @@
             {
               "name": "Steel",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2539,6 +3831,26 @@
             {
               "name": "Electronics2",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2555,6 +3867,26 @@
             {
               "name": "Steel",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2579,6 +3911,26 @@
             {
               "name": "Electronics",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2603,6 +3955,26 @@
             {
               "name": "Glass",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2623,6 +3995,26 @@
             {
               "name": "Electronics2",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2643,6 +4035,26 @@
             {
               "name": "Electronics",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2663,6 +4075,26 @@
             {
               "name": "NitrogenLiquidTank",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2683,6 +4115,26 @@
             {
               "name": "Glass",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2703,6 +4155,26 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2727,6 +4199,26 @@
             {
               "name": "Wood",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2751,6 +4243,26 @@
             {
               "name": "Steel",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2775,6 +4287,26 @@
             {
               "name": "Copper",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2795,6 +4327,26 @@
             {
               "name": "Copper",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2819,6 +4371,26 @@
             {
               "name": "PolySilicon",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2843,6 +4415,26 @@
             {
               "name": "Glass",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2863,6 +4455,26 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2883,6 +4495,26 @@
             {
               "name": "Electronics3",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2903,6 +4535,26 @@
             {
               "name": "Plastic",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2923,6 +4575,26 @@
             {
               "name": "Disinfectant",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2943,6 +4615,26 @@
             {
               "name": "Antibiotics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2967,6 +4659,26 @@
             {
               "name": "Morphine",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -2996,6 +4708,21 @@
             {
               "name": "Bricks",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3020,6 +4747,21 @@
             {
               "name": "ConcreteSlab",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3040,6 +4782,21 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3060,6 +4817,21 @@
             {
               "name": "Steel",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3076,6 +4848,21 @@
             {
               "name": "Iron",
               "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3092,6 +4879,21 @@
             {
               "name": "Steel",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3116,6 +4918,21 @@
             {
               "name": "Electronics",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3140,6 +4957,21 @@
             {
               "name": "Glass",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3160,6 +4992,21 @@
             {
               "name": "Electronics2",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3180,6 +5027,21 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3200,6 +5062,21 @@
             {
               "name": "NitrogenLiquidTank",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3220,6 +5097,21 @@
             {
               "name": "Glass",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3240,6 +5132,21 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3264,6 +5171,21 @@
             {
               "name": "Wood",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3288,6 +5210,21 @@
             {
               "name": "Steel",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3312,6 +5249,21 @@
             {
               "name": "Copper",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3332,6 +5284,21 @@
             {
               "name": "Copper",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3356,6 +5323,21 @@
             {
               "name": "PolySilicon",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3376,6 +5358,21 @@
             {
               "name": "Steel",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3400,6 +5397,21 @@
             {
               "name": "Glass",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3420,6 +5432,21 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3440,6 +5467,21 @@
             {
               "name": "Electronics3",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3460,6 +5502,21 @@
             {
               "name": "Plastic",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3480,6 +5537,21 @@
             {
               "name": "Disinfectant",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3500,6 +5572,21 @@
             {
               "name": "Antibiotics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3524,6 +5611,21 @@
             {
               "name": "Morphine",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3548,6 +5650,21 @@
             {
               "name": "Snack",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3572,6 +5689,21 @@
             {
               "name": "Snack",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -3601,6 +5733,21 @@
             {
               "name": "Bricks",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3625,6 +5772,21 @@
             {
               "name": "ConcreteSlab",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3645,6 +5807,21 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3665,6 +5842,21 @@
             {
               "name": "Steel",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3681,6 +5873,21 @@
             {
               "name": "Iron",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3705,6 +5912,21 @@
             {
               "name": "Electronics",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3725,6 +5947,21 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3749,6 +5986,21 @@
             {
               "name": "Wood",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3769,6 +6021,21 @@
             {
               "name": "Copper",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -3798,6 +6065,11 @@
             {
               "name": "Bricks",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -3822,6 +6094,11 @@
             {
               "name": "ConcreteSlab",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -3842,6 +6119,11 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -3858,6 +6140,11 @@
             {
               "name": "Iron",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -3882,6 +6169,11 @@
             {
               "name": "Electronics",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -3902,6 +6194,11 @@
             {
               "name": "Copper",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -3919,6 +6216,23 @@
       "recipes": [
         {
           "name": "AirSeparation",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            }
+          ],
           "output": [
             {
               "name": "Oxygen",
@@ -3950,6 +6264,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -3974,6 +6308,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -3994,6 +6348,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4018,6 +6392,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4042,6 +6436,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4062,6 +6476,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4086,6 +6520,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4110,6 +6564,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4130,6 +6604,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4154,6 +6648,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4178,6 +6692,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4198,6 +6732,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -4227,6 +6781,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4251,6 +6825,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4271,6 +6865,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4295,6 +6909,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4319,6 +6953,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4339,6 +6993,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4363,6 +7037,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4387,6 +7081,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4407,6 +7121,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4431,6 +7165,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4455,6 +7209,26 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4475,6 +7249,26 @@
             {
               "name": "Gold",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4496,6 +7290,21 @@
             {
               "name": "Brine",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -4512,6 +7321,21 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -4532,6 +7356,21 @@
             {
               "name": "Ammonia",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -4561,6 +7400,21 @@
             {
               "name": "Oxygen",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -4585,6 +7439,21 @@
             {
               "name": "Oxygen",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -4613,6 +7482,21 @@
             {
               "name": "Oxygen",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -4642,6 +7526,21 @@
             {
               "name": "Acid",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4666,6 +7565,21 @@
             {
               "name": "Acid",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4690,6 +7604,21 @@
             {
               "name": "Acid",
               "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4715,6 +7644,11 @@
             {
               "name": "SteamHi",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -4731,6 +7665,11 @@
             {
               "name": "SteamLP",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -4747,6 +7686,11 @@
             {
               "name": "SteamDepleted",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -4768,6 +7712,11 @@
             {
               "name": "SteamHi",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4784,6 +7733,11 @@
             {
               "name": "SteamLP",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4800,6 +7754,11 @@
             {
               "name": "SteamDepleted",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -4825,6 +7784,21 @@
             {
               "name": "HydrogenFluoride",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 14,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 200,
+              "flags": 12
             }
           ],
           "output": [
@@ -4846,6 +7820,11 @@
             {
               "name": "Wood",
               "count": 20
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -4871,6 +7850,16 @@
             {
               "name": "IronOre",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4887,6 +7876,16 @@
             {
               "name": "CopperOre",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4903,6 +7902,16 @@
             {
               "name": "Slag",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4919,6 +7928,16 @@
             {
               "name": "Rock",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4935,6 +7954,16 @@
             {
               "name": "Gravel",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4951,6 +7980,16 @@
             {
               "name": "UraniumOre",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4967,6 +8006,16 @@
             {
               "name": "GoldOre",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -4983,6 +8032,16 @@
             {
               "name": "GoldOreCrushed",
               "count": 24
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -5008,6 +8067,21 @@
             {
               "name": "FuelGas",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -5032,6 +8106,21 @@
             {
               "name": "Hydrogen",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -5061,6 +8150,21 @@
             {
               "name": "Coal",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -5094,6 +8198,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5130,6 +8254,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5166,6 +8310,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5202,6 +8366,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5238,6 +8422,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5274,6 +8478,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5310,6 +8534,26 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 1400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5351,6 +8595,21 @@
             {
               "name": "Graphite",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 750,
+              "flags": 12
             }
           ],
           "output": [
@@ -5384,6 +8643,16 @@
             {
               "name": "Coal",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -5412,6 +8681,16 @@
             {
               "name": "Coal",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -5440,6 +8719,16 @@
             {
               "name": "Coal",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -5468,6 +8757,16 @@
             {
               "name": "Coal",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -5496,6 +8795,16 @@
             {
               "name": "Coal",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -5524,6 +8833,16 @@
             {
               "name": "Coal",
               "count": 5
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
@@ -5553,6 +8872,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -5577,6 +8901,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -5605,6 +8934,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -5629,6 +8963,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -5657,6 +8996,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -5685,6 +9029,11 @@
             {
               "name": "Coal",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
             }
           ],
           "output": [
@@ -5714,6 +9063,11 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
             }
           ],
           "output": [
@@ -5739,6 +9093,11 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -5760,6 +9119,11 @@
             {
               "name": "MoltenIron",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -5776,6 +9140,11 @@
             {
               "name": "MoltenCopper",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -5797,6 +9166,11 @@
             {
               "name": "MoltenIron",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -5813,6 +9187,11 @@
             {
               "name": "MoltenCopper",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
             }
           ],
           "output": [
@@ -5838,6 +9217,21 @@
             {
               "name": "Acid",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -5858,6 +9252,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -5883,6 +9292,21 @@
             {
               "name": "Oxygen",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -5912,6 +9336,21 @@
             {
               "name": "Oxygen",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -5937,6 +9376,21 @@
             {
               "name": "MoltenGlass",
               "count": 16
+            },
+            {
+              "name": "Worker",
+              "count": 14,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 200,
+              "flags": 12
             }
           ],
           "output": [
@@ -5958,6 +9412,21 @@
             {
               "name": "MoltenGlass",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -5987,6 +9456,26 @@
             {
               "name": "Water",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 4,
+              "flags": 12
             }
           ],
           "output": [
@@ -6012,6 +9501,21 @@
             {
               "name": "Hydrogen",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -6037,6 +9541,21 @@
             {
               "name": "Sand",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 120,
+              "flags": 12
             }
           ],
           "output": [
@@ -6057,6 +9576,21 @@
             {
               "name": "GoldScrap",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 120,
+              "flags": 12
             }
           ],
           "output": [
@@ -6090,6 +9624,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6110,6 +9659,21 @@
             {
               "name": "Nitrogen",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6130,6 +9694,21 @@
             {
               "name": "Steel",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6150,6 +9729,21 @@
             {
               "name": "CookingOil",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6170,6 +9764,21 @@
             {
               "name": "CarbonDioxide",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6190,6 +9799,21 @@
             {
               "name": "Chlorine",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6210,6 +9834,21 @@
             {
               "name": "CarbonDioxide",
               "count": 24
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6230,6 +9869,21 @@
             {
               "name": "Plastic",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6254,6 +9908,21 @@
             {
               "name": "Steel",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6278,6 +9947,21 @@
             {
               "name": "Glass",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6307,6 +9991,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -6327,6 +10026,21 @@
             {
               "name": "Nitrogen",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -6347,6 +10061,21 @@
             {
               "name": "Steel",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -6367,6 +10096,21 @@
             {
               "name": "CookingOil",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -6387,6 +10131,21 @@
             {
               "name": "Plastic",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -6412,6 +10171,16 @@
             {
               "name": "SteamHi",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -6445,6 +10214,16 @@
             {
               "name": "SteamHi",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -6474,6 +10253,16 @@
             {
               "name": "SteamHi",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 3,
+              "flags": 12
             }
           ],
           "output": [
@@ -6503,6 +10292,21 @@
             {
               "name": "Sulfur",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -6523,6 +10327,21 @@
             {
               "name": "Coal",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -6547,6 +10366,21 @@
             {
               "name": "Sulfur",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -6567,6 +10401,21 @@
             {
               "name": "Sulfur",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -6587,6 +10436,21 @@
             {
               "name": "Coal",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 80,
+              "flags": 12
             }
           ],
           "output": [
@@ -6616,6 +10480,21 @@
             {
               "name": "Hydrogen",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6640,6 +10519,21 @@
             {
               "name": "Hydrogen",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6664,6 +10558,21 @@
             {
               "name": "Hydrogen",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6688,6 +10597,21 @@
             {
               "name": "SteamHi",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6712,6 +10636,21 @@
             {
               "name": "SteamHi",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6736,6 +10675,21 @@
             {
               "name": "Oxygen",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6765,6 +10719,21 @@
             {
               "name": "SteamHi",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6794,6 +10763,21 @@
             {
               "name": "SteamHi",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -6827,6 +10811,21 @@
             {
               "name": "Chlorine",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6851,6 +10850,21 @@
             {
               "name": "Chlorine",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6880,6 +10894,16 @@
             {
               "name": "Electronics3",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 32,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 140,
+              "flags": 12
             }
           ],
           "output": [
@@ -6900,6 +10924,16 @@
             {
               "name": "Electronics3",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 32,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 140,
+              "flags": 12
             }
           ],
           "output": [
@@ -6929,6 +10963,16 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 28,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6949,6 +10993,16 @@
             {
               "name": "Electronics2",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 28,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 100,
+              "flags": 12
             }
           ],
           "output": [
@@ -6978,6 +11032,16 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 20,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -6998,6 +11062,16 @@
             {
               "name": "Electronics",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 20,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 60,
+              "flags": 12
             }
           ],
           "output": [
@@ -7027,6 +11101,16 @@
             {
               "name": "Electronics",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7048,6 +11132,21 @@
             {
               "name": "Wheat",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -7068,6 +11167,21 @@
             {
               "name": "Soybean",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -7088,6 +11202,21 @@
             {
               "name": "Canola",
               "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -7112,6 +11241,21 @@
             {
               "name": "Water",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 5,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 30,
+              "flags": 12
             }
           ],
           "output": [
@@ -7149,6 +11293,21 @@
             {
               "name": "Limestone",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7177,6 +11336,21 @@
             {
               "name": "Salt",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7205,6 +11379,21 @@
             {
               "name": "Salt",
               "count": 3
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7221,6 +11410,21 @@
             {
               "name": "Meat",
               "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7249,6 +11453,21 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7281,6 +11500,21 @@
             {
               "name": "Plastic",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7305,6 +11539,21 @@
             {
               "name": "Water",
               "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7334,6 +11583,21 @@
             {
               "name": "Water",
               "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
             }
           ],
           "output": [
@@ -7366,6 +11630,21 @@
             {
               "name": "Fruit",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
             }
           ],
           "output": [
@@ -7387,6 +11666,31 @@
             {
               "name": "LabEquipment4",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 48,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 250,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "Upoints",
+              "count": 0.2001953,
+              "flags": 12
             }
           ],
           "output": [
@@ -7408,6 +11712,26 @@
             {
               "name": "LabEquipment3",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 30,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 150,
+              "flags": 12
+            },
+            {
+              "name": "Upoints",
+              "count": 0.2001953,
+              "flags": 12
             }
           ],
           "output": [
@@ -7429,6 +11753,26 @@
             {
               "name": "LabEquipment2",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 16,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 12,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 90,
+              "flags": 12
+            },
+            {
+              "name": "Upoints",
+              "count": 0.2001953,
+              "flags": 12
             }
           ],
           "output": [
@@ -7450,6 +11794,26 @@
             {
               "name": "LabEquipment",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            },
+            {
+              "name": "Upoints",
+              "count": 0.25,
+              "flags": 12
             }
           ],
           "output": [
@@ -7475,6 +11839,16 @@
             {
               "name": "UraniumRod",
               "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 80,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 32,
+              "flags": 12
             }
           ],
           "output": [
@@ -7500,6 +11874,16 @@
             {
               "name": "Recyclables",
               "count": 48
+            },
+            {
+              "name": "Worker",
+              "count": 45,
+              "flags": 12
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 20,
+              "flags": 12
             }
           ],
           "output": [
@@ -7533,12 +11917,27 @@
             {
               "name": "ChilledWater",
               "count": 0.5
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 0.5800781,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 5,
+              "flags": 12
             }
           ],
           "output": [
             {
               "name": "Water",
               "count": 0.5
+            },
+            {
+              "name": "Computing",
+              "count": 1,
+              "flags": 12
             }
           ],
           "time": 60
@@ -7550,12 +11949,17 @@
     {
       "name": "Acid",
       "label": "Acid",
-      "image": "Acid"
+      "image": "Acid",
+      "type": 4
     },
     {
       "name": "PollutedAir",
       "label": "Air pollution",
-      "image": "PollutedAir"
+      "image": "PollutedAir",
+      "type": 9,
+      "exdata": {
+        "exType": 6
+      }
     },
     {
       "name": "AirSeparator",
@@ -7568,7 +11972,8 @@
     {
       "name": "Ammonia",
       "label": "Ammonia",
-      "image": "Ammonia"
+      "image": "Ammonia",
+      "type": 4
     },
     {
       "name": "AnaerobicDigester",
@@ -7581,17 +11986,20 @@
     {
       "name": "Anesthetics",
       "label": "Anesthetics",
-      "image": "Anesthetics"
+      "image": "Anesthetics",
+      "type": 5
     },
     {
       "name": "AnimalFeed",
       "label": "Animal feed",
-      "image": "AnimalFeed"
+      "image": "AnimalFeed",
+      "type": 6
     },
     {
       "name": "Antibiotics",
       "label": "Antibiotics",
-      "image": "Antibiotics"
+      "image": "Antibiotics",
+      "type": 5
     },
     {
       "name": "ArcFurnace",
@@ -7676,7 +12084,8 @@
     {
       "name": "Biomass",
       "label": "Biomass",
-      "image": "Biomass"
+      "image": "Biomass",
+      "type": 6
     },
     {
       "name": "SmeltingFurnaceT1",
@@ -7721,12 +12130,14 @@
     {
       "name": "Bread",
       "label": "Bread",
-      "image": "Bread"
+      "image": "Bread",
+      "type": 5
     },
     {
       "name": "Bricks",
       "label": "Bricks",
-      "image": "Bricks"
+      "image": "Bricks",
+      "type": 5
     },
     {
       "name": "BricksMaker",
@@ -7739,12 +12150,14 @@
     {
       "name": "Brine",
       "label": "Brine",
-      "image": "Brine"
+      "image": "Brine",
+      "type": 4
     },
     {
       "name": "BrokenGlass",
       "label": "Broken glass",
-      "image": "BrokenGlass"
+      "image": "BrokenGlass",
+      "type": 6
     },
     {
       "name": "Burner",
@@ -7757,22 +12170,26 @@
     {
       "name": "Cake",
       "label": "Cake",
-      "image": "Cake"
+      "image": "Cake",
+      "type": 5
     },
     {
       "name": "Canola",
       "label": "Canola",
-      "image": "Canola"
+      "image": "Canola",
+      "type": 6
     },
     {
       "name": "CarbonDioxide",
       "label": "Carbon dioxide",
-      "image": "CarbonDioxide"
+      "image": "CarbonDioxide",
+      "type": 4
     },
     {
       "name": "Cement",
       "label": "Cement",
-      "image": "Cement"
+      "image": "Cement",
+      "type": 5
     },
     {
       "name": "ChemicalPlant",
@@ -7793,22 +12210,26 @@
     {
       "name": "ChickenCarcass",
       "label": "Chicken carcass",
-      "image": "ChickenCarcass"
+      "image": "ChickenCarcass",
+      "type": 5
     },
     {
       "name": "ChilledWater",
       "label": "Chilled water",
-      "image": "ChilledWater"
+      "image": "ChilledWater",
+      "type": 4
     },
     {
       "name": "Chlorine",
       "label": "Chlorine",
-      "image": "Chlorine"
+      "image": "Chlorine",
+      "type": 4
     },
     {
       "name": "Coal",
       "label": "Coal",
-      "image": "Coal"
+      "image": "Coal",
+      "type": 6
     },
     {
       "name": "CharcoalMaker",
@@ -7821,7 +12242,17 @@
     {
       "name": "Compost",
       "label": "Compost",
-      "image": "Compost"
+      "image": "Compost",
+      "type": 6
+    },
+    {
+      "name": "Computing",
+      "label": "Computing",
+      "image": "Computing",
+      "type": 9,
+      "exdata": {
+        "exType": 3
+      }
     },
     {
       "name": "ConcreteMixer",
@@ -7850,37 +12281,44 @@
     {
       "name": "ConcreteSlab",
       "label": "Concrete slab",
-      "image": "ConcreteSlab"
+      "image": "ConcreteSlab",
+      "type": 5
     },
     {
       "name": "ConstructionParts",
       "label": "Construction Parts",
-      "image": "ConstructionParts"
+      "image": "ConstructionParts",
+      "type": 5
     },
     {
       "name": "ConstructionParts2",
       "label": "Construction Parts II",
-      "image": "ConstructionParts2"
+      "image": "ConstructionParts2",
+      "type": 5
     },
     {
       "name": "ConstructionParts3",
       "label": "Construction Parts III",
-      "image": "ConstructionParts3"
+      "image": "ConstructionParts3",
+      "type": 5
     },
     {
       "name": "ConstructionParts4",
       "label": "Construction Parts IV",
-      "image": "ConstructionParts4"
+      "image": "ConstructionParts4",
+      "type": 5
     },
     {
       "name": "ConsumerElectronics",
       "label": "Consumer electronics",
-      "image": "ConsumerElectronics"
+      "image": "ConsumerElectronics",
+      "type": 5
     },
     {
       "name": "CookingOil",
       "label": "Cooking oil",
-      "image": "CookingOil"
+      "image": "CookingOil",
+      "type": 4
     },
     {
       "name": "CasterCooled",
@@ -7917,7 +12355,8 @@
     {
       "name": "Copper",
       "label": "Copper",
-      "image": "Copper"
+      "image": "Copper",
+      "type": 5
     },
     {
       "name": "CopperElectrolysis",
@@ -7930,27 +12369,32 @@
     {
       "name": "CopperOre",
       "label": "Copper ore",
-      "image": "CopperOre"
+      "image": "CopperOre",
+      "type": 6
     },
     {
       "name": "CopperOreCrushed",
       "label": "Copper ore crushed",
-      "image": "CopperOreCrushed"
+      "image": "CopperOreCrushed",
+      "type": 6
     },
     {
       "name": "CopperScrap",
       "label": "Copper scrap",
-      "image": "CopperScrap"
+      "image": "CopperScrap",
+      "type": 6
     },
     {
       "name": "Corn",
       "label": "Corn",
-      "image": "Corn"
+      "image": "Corn",
+      "type": 6
     },
     {
       "name": "CornMash",
       "label": "Corn mash",
-      "image": "CornMash"
+      "image": "CornMash",
+      "type": 4
     },
     {
       "name": "HydroCrackerT1",
@@ -7963,7 +12407,8 @@
     {
       "name": "CrudeOil",
       "label": "Crude oil",
-      "image": "CrudeOil"
+      "image": "CrudeOil",
+      "type": 4
     },
     {
       "name": "Crusher",
@@ -7976,7 +12421,8 @@
     {
       "name": "Diesel",
       "label": "Diesel",
-      "image": "Diesel"
+      "image": "Diesel",
+      "type": 4
     },
     {
       "name": "DieselGenerator",
@@ -7989,12 +12435,14 @@
     {
       "name": "Dirt",
       "label": "Dirt",
-      "image": "Dirt"
+      "image": "Dirt",
+      "type": 6
     },
     {
       "name": "Disinfectant",
       "label": "Disinfectant",
-      "image": "Disinfectant"
+      "image": "Disinfectant",
+      "type": 5
     },
     {
       "name": "DistillationTowerT1",
@@ -8023,12 +12471,17 @@
     {
       "name": "Eggs",
       "label": "Eggs",
-      "image": "Eggs"
+      "image": "Eggs",
+      "type": 5
     },
     {
       "name": "Electricity",
       "label": "Electricity",
-      "image": "Electricity"
+      "image": "Electricity",
+      "type": 8,
+      "exdata": {
+        "exType": 1
+      }
     },
     {
       "name": "Electrolyzer",
@@ -8041,17 +12494,20 @@
     {
       "name": "Electronics",
       "label": "Electronics",
-      "image": "Electronics"
+      "image": "Electronics",
+      "type": 5
     },
     {
       "name": "Electronics2",
       "label": "Electronics II",
-      "image": "Electronics2"
+      "image": "Electronics2",
+      "type": 5
     },
     {
       "name": "Electronics3",
       "label": "Electronics III",
-      "image": "Electronics3"
+      "image": "Electronics3",
+      "type": 5
     },
     {
       "name": "UraniumEnrichmentPlant",
@@ -8064,7 +12520,8 @@
     {
       "name": "Ethanol",
       "label": "Ethanol",
-      "image": "Ethanol"
+      "image": "Ethanol",
+      "type": 4
     },
     {
       "name": "EvaporationPond",
@@ -8085,7 +12542,8 @@
     {
       "name": "Exhaust",
       "label": "Exhaust",
-      "image": "Exhaust"
+      "image": "Exhaust",
+      "type": 4
     },
     {
       "name": "ExhaustScrubber",
@@ -8106,22 +12564,26 @@
     {
       "name": "FertilizerOrganic",
       "label": "Fertilizer (organic)",
-      "image": "FertilizerOrganic"
+      "image": "FertilizerOrganic",
+      "type": 4
     },
     {
       "name": "Fertilizer",
       "label": "Fertilizer I",
-      "image": "Fertilizer"
+      "image": "Fertilizer",
+      "type": 4
     },
     {
       "name": "Fertilizer2",
       "label": "Fertilizer II",
-      "image": "Fertilizer2"
+      "image": "Fertilizer2",
+      "type": 4
     },
     {
       "name": "FilterMedia",
       "label": "Filter media",
-      "image": "FilterMedia"
+      "image": "FilterMedia",
+      "type": 6
     },
     {
       "name": "Flare",
@@ -8134,12 +12596,14 @@
     {
       "name": "Flour",
       "label": "Flour",
-      "image": "Flour"
+      "image": "Flour",
+      "type": 5
     },
     {
       "name": "FoodPack",
       "label": "Food pack",
-      "image": "FoodPack"
+      "image": "FoodPack",
+      "type": 5
     },
     {
       "name": "FoodProcessor",
@@ -8152,12 +12616,14 @@
     {
       "name": "Fruit",
       "label": "Fruit",
-      "image": "Fruit"
+      "image": "Fruit",
+      "type": 5
     },
     {
       "name": "FuelGas",
       "label": "Fuel gas",
-      "image": "FuelGas"
+      "image": "FuelGas",
+      "type": 4
     },
     {
       "name": "GasInjectionPump",
@@ -8170,7 +12636,8 @@
     {
       "name": "Glass",
       "label": "Glass",
-      "image": "Glass"
+      "image": "Glass",
+      "type": 5
     },
     {
       "name": "GlassMakerT1",
@@ -8191,12 +12658,14 @@
     {
       "name": "GlassMix",
       "label": "Glass mix",
-      "image": "GlassMix"
+      "image": "GlassMix",
+      "type": 6
     },
     {
       "name": "Gold",
       "label": "Gold",
-      "image": "Gold"
+      "image": "Gold",
+      "type": 5
     },
     {
       "name": "GoldFurnace",
@@ -8209,37 +12678,44 @@
     {
       "name": "GoldOre",
       "label": "Gold ore",
-      "image": "GoldOre"
+      "image": "GoldOre",
+      "type": 6
     },
     {
       "name": "GoldOreConcentrate",
       "label": "Gold ore concentrate",
-      "image": "GoldOreConcentrate"
+      "image": "GoldOreConcentrate",
+      "type": 6
     },
     {
       "name": "GoldOreCrushed",
       "label": "Gold ore crushed",
-      "image": "GoldOreCrushed"
+      "image": "GoldOreCrushed",
+      "type": 6
     },
     {
       "name": "GoldOrePowder",
       "label": "Gold ore powder",
-      "image": "GoldOrePowder"
+      "image": "GoldOrePowder",
+      "type": 6
     },
     {
       "name": "GoldScrap",
       "label": "Gold scrap",
-      "image": "GoldScrap"
+      "image": "GoldScrap",
+      "type": 6
     },
     {
       "name": "Graphite",
       "label": "Graphite",
-      "image": "Graphite"
+      "image": "Graphite",
+      "type": 5
     },
     {
       "name": "Gravel",
       "label": "Gravel",
-      "image": "Gravel"
+      "image": "Gravel",
+      "type": 6
     },
     {
       "name": "LandWaterPump",
@@ -8252,7 +12728,8 @@
     {
       "name": "HeavyOil",
       "label": "Heavy oil",
-      "image": "HeavyOil"
+      "image": "HeavyOil",
+      "type": 4
     },
     {
       "name": "TurbineHighPress",
@@ -8273,22 +12750,26 @@
     {
       "name": "HouseholdAppliances",
       "label": "Household appliances",
-      "image": "HouseholdAppliances"
+      "image": "HouseholdAppliances",
+      "type": 5
     },
     {
       "name": "HouseholdGoods",
       "label": "Household goods",
-      "image": "HouseholdGoods"
+      "image": "HouseholdGoods",
+      "type": 5
     },
     {
       "name": "Hydrogen",
       "label": "Hydrogen",
-      "image": "Hydrogen"
+      "image": "Hydrogen",
+      "type": 4
     },
     {
       "name": "HydrogenFluoride",
       "label": "Hydrogen fluoride",
-      "image": "HydrogenFluoride"
+      "image": "HydrogenFluoride",
+      "type": 4
     },
     {
       "name": "HydrogenReformer",
@@ -8301,57 +12782,68 @@
     {
       "name": "ImpureCopper",
       "label": "Impure copper",
-      "image": "ImpureCopper"
+      "image": "ImpureCopper",
+      "type": 5
     },
     {
       "name": "Iron",
       "label": "Iron",
-      "image": "Iron"
+      "image": "Iron",
+      "type": 5
     },
     {
       "name": "IronOre",
       "label": "Iron ore",
-      "image": "IronOre"
+      "image": "IronOre",
+      "type": 6
     },
     {
       "name": "IronOreCrushed",
       "label": "Iron ore crushed",
-      "image": "IronOreCrushed"
+      "image": "IronOreCrushed",
+      "type": 6
     },
     {
       "name": "IronScrap",
       "label": "Iron scrap",
-      "image": "IronScrap"
+      "image": "IronScrap",
+      "type": 6
     },
     {
       "name": "LabEquipment",
       "label": "Lab Equipment",
-      "image": "LabEquipment"
+      "image": "LabEquipment",
+      "type": 5
     },
     {
       "name": "LabEquipment2",
       "label": "Lab Equipment II",
-      "image": "LabEquipment2"
+      "image": "LabEquipment2",
+      "type": 5
     },
     {
       "name": "LabEquipment3",
       "label": "Lab Equipment III",
-      "image": "LabEquipment3"
+      "image": "LabEquipment3",
+      "type": 5
     },
     {
       "name": "LabEquipment4",
       "label": "Lab Equipment IV",
-      "image": "LabEquipment4"
+      "image": "LabEquipment4",
+      "type": 5
     },
     {
       "name": "LightOil",
       "label": "Light oil",
-      "image": "LightOil"
+      "image": "LightOil",
+      "type": 4
     },
     {
       "name": "Limestone",
       "label": "Limestone",
-      "image": "Limestone"
+      "image": "Limestone",
+      "type": 6
     },
     {
       "name": "WasteDump",
@@ -8396,12 +12888,20 @@
     {
       "name": "MaintenanceT1",
       "label": "Maintenance I",
-      "image": "MaintenanceT1"
+      "image": "MaintenanceT1",
+      "type": 9,
+      "exdata": {
+        "exType": 5
+      }
     },
     {
       "name": "MaintenanceT2",
       "label": "Maintenance II",
-      "image": "MaintenanceT2"
+      "image": "MaintenanceT2",
+      "type": 9,
+      "exdata": {
+        "exType": 5
+      }
     },
     {
       "name": "MaintenanceDepotT2",
@@ -8414,7 +12914,11 @@
     {
       "name": "MaintenanceT3",
       "label": "Maintenance III",
-      "image": "MaintenanceT3"
+      "image": "MaintenanceT3",
+      "type": 9,
+      "exdata": {
+        "exType": 5
+      }
     },
     {
       "name": "MaintenanceDepotT3",
@@ -8427,47 +12931,59 @@
     {
       "name": "Meat",
       "label": "Meat",
-      "image": "Meat"
+      "image": "Meat",
+      "type": 5
     },
     {
       "name": "MeatTrimmings",
       "label": "Meat trimmings",
-      "image": "MeatTrimmings"
+      "image": "MeatTrimmings",
+      "type": 6
     },
     {
       "name": "MechanicalParts",
       "label": "Mechanical Parts",
-      "image": "MechanicalParts"
+      "image": "MechanicalParts",
+      "type": 5
     },
     {
       "name": "MechPower",
       "label": "Mechanical power",
-      "image": "MechPower"
+      "image": "MechPower",
+      "type": 8,
+      "exdata": {
+        "exType": 2
+      }
     },
     {
       "name": "MedicalEquipment",
       "label": "Medical equipment",
-      "image": "MedicalEquipment"
+      "image": "MedicalEquipment",
+      "type": 5
     },
     {
       "name": "MedicalSupplies",
       "label": "Medical Supplies",
-      "image": "MedicalSupplies"
+      "image": "MedicalSupplies",
+      "type": 5
     },
     {
       "name": "MedicalSupplies2",
       "label": "Medical Supplies II",
-      "image": "MedicalSupplies2"
+      "image": "MedicalSupplies2",
+      "type": 5
     },
     {
       "name": "MedicalSupplies3",
       "label": "Medical Supplies III",
-      "image": "MedicalSupplies3"
+      "image": "MedicalSupplies3",
+      "type": 5
     },
     {
       "name": "MediumOil",
       "label": "Medium oil",
-      "image": "MediumOil"
+      "image": "MediumOil",
+      "type": 4
     },
     {
       "name": "Caster",
@@ -8504,62 +13020,74 @@
     {
       "name": "Microchips",
       "label": "Microchips",
-      "image": "Microchips"
+      "image": "Microchips",
+      "type": 5
     },
     {
       "name": "MicrochipsStage1A",
       "label": "Microchips stage 1 a",
-      "image": "MicrochipsStage1A"
+      "image": "MicrochipsStage1A",
+      "type": 5
     },
     {
       "name": "MicrochipsStage1B",
       "label": "Microchips stage 1 b",
-      "image": "MicrochipsStage1B"
+      "image": "MicrochipsStage1B",
+      "type": 5
     },
     {
       "name": "MicrochipsStage1C",
       "label": "Microchips stage 1 c",
-      "image": "MicrochipsStage1C"
+      "image": "MicrochipsStage1C",
+      "type": 5
     },
     {
       "name": "MicrochipsStage2A",
       "label": "Microchips stage 2 a",
-      "image": "MicrochipsStage2A"
+      "image": "MicrochipsStage2A",
+      "type": 5
     },
     {
       "name": "MicrochipsStage2B",
       "label": "Microchips stage 2 b",
-      "image": "MicrochipsStage2B"
+      "image": "MicrochipsStage2B",
+      "type": 5
     },
     {
       "name": "MicrochipsStage2C",
       "label": "Microchips stage 2 c",
-      "image": "MicrochipsStage2C"
+      "image": "MicrochipsStage2C",
+      "type": 5
     },
     {
       "name": "MicrochipsStage3A",
       "label": "Microchips stage 3 a",
-      "image": "MicrochipsStage3A"
+      "image": "MicrochipsStage3A",
+      "type": 5
     },
     {
       "name": "MicrochipsStage3B",
       "label": "Microchips stage 3 b",
-      "image": "MicrochipsStage3B"
+      "image": "MicrochipsStage3B",
+      "type": 5
     },
     {
       "name": "MicrochipsStage3C",
       "label": "Microchips stage 3 c",
-      "image": "MicrochipsStage3C"
+      "image": "MicrochipsStage3C",
+      "type": 5
     },
     {
       "name": "MicrochipsStage4A",
       "label": "Microchips stage 4 a",
-      "image": "MicrochipsStage4A"
+      "image": "MicrochipsStage4A",
+      "type": 5
     },
     {
       "name": "MicrochipsStage4B",
       "label": "Microchips stage 4 b",
-      "image": "MicrochipsStage4B"
+      "image": "MicrochipsStage4B",
+      "type": 5
     },
     {
       "name": "FoodMill",
@@ -8580,47 +13108,56 @@
     {
       "name": "MoltenCopper",
       "label": "Molten copper",
-      "image": "MoltenCopper"
+      "image": "MoltenCopper",
+      "type": 7
     },
     {
       "name": "MoltenGlass",
       "label": "Molten glass",
-      "image": "MoltenGlass"
+      "image": "MoltenGlass",
+      "type": 7
     },
     {
       "name": "MoltenIron",
       "label": "Molten iron",
-      "image": "MoltenIron"
+      "image": "MoltenIron",
+      "type": 7
     },
     {
       "name": "MoltenSilicon",
       "label": "Molten silicon",
-      "image": "MoltenSilicon"
+      "image": "MoltenSilicon",
+      "type": 7
     },
     {
       "name": "MoltenSteel",
       "label": "Molten steel",
-      "image": "MoltenSteel"
+      "image": "MoltenSteel",
+      "type": 7
     },
     {
       "name": "Morphine",
       "label": "Morphine",
-      "image": "Morphine"
+      "image": "Morphine",
+      "type": 5
     },
     {
       "name": "Naphtha",
       "label": "Naphtha",
-      "image": "Naphtha"
+      "image": "Naphtha",
+      "type": 4
     },
     {
       "name": "Nitrogen",
       "label": "Nitrogen",
-      "image": "Nitrogen"
+      "image": "Nitrogen",
+      "type": 4
     },
     {
       "name": "NitrogenLiquidTank",
       "label": "Nitrogen Tank",
-      "image": "NitrogenLiquidTank"
+      "image": "NitrogenLiquidTank",
+      "type": 5
     },
     {
       "name": "NuclearReactor",
@@ -8641,7 +13178,8 @@
     {
       "name": "Oxygen",
       "label": "Oxygen",
-      "image": "Oxygen"
+      "image": "Oxygen",
+      "type": 4
     },
     {
       "name": "OxygenFurnace",
@@ -8662,12 +13200,14 @@
     {
       "name": "PCB",
       "label": "PCB",
-      "image": "PCB"
+      "image": "PCB",
+      "type": 5
     },
     {
       "name": "Plastic",
       "label": "Plastic",
-      "image": "Plastic"
+      "image": "Plastic",
+      "type": 5
     },
     {
       "name": "PolymerizationPlant",
@@ -8680,12 +13220,14 @@
     {
       "name": "Poppy",
       "label": "Poppy",
-      "image": "Poppy"
+      "image": "Poppy",
+      "type": 6
     },
     {
       "name": "Potato",
       "label": "Potato",
-      "image": "Potato"
+      "image": "Potato",
+      "type": 6
     },
     {
       "name": "PowerGeneratorT1",
@@ -8706,12 +13248,14 @@
     {
       "name": "Quartz",
       "label": "Quartz",
-      "image": "Quartz"
+      "image": "Quartz",
+      "type": 6
     },
     {
       "name": "Recyclables",
       "label": "Recyclables",
-      "image": "Recyclables"
+      "image": "Recyclables",
+      "type": 6
     },
     {
       "name": "ResearchLab2",
@@ -8748,7 +13292,8 @@
     {
       "name": "Rock",
       "label": "Rock",
-      "image": "Rock"
+      "image": "Rock",
+      "type": 6
     },
     {
       "name": "RotaryKiln",
@@ -8769,7 +13314,8 @@
     {
       "name": "Rubber",
       "label": "Rubber",
-      "image": "Rubber"
+      "image": "Rubber",
+      "type": 5
     },
     {
       "name": "VacuumDistillationTower",
@@ -8782,22 +13328,26 @@
     {
       "name": "Salt",
       "label": "Salt",
-      "image": "Salt"
+      "image": "Salt",
+      "type": 6
     },
     {
       "name": "Sand",
       "label": "Sand",
-      "image": "Sand"
+      "image": "Sand",
+      "type": 6
     },
     {
       "name": "Sausage",
       "label": "Sausage",
-      "image": "Sausage"
+      "image": "Sausage",
+      "type": 5
     },
     {
       "name": "Seawater",
       "label": "Seawater",
-      "image": "Seawater"
+      "image": "Seawater",
+      "type": 4
     },
     {
       "name": "OceanWaterPumpT1",
@@ -8818,7 +13368,8 @@
     {
       "name": "Server",
       "label": "Server",
-      "image": "Server"
+      "image": "Server",
+      "type": 5
     },
     {
       "name": "SettlingTank",
@@ -8831,7 +13382,8 @@
     {
       "name": "PolySilicon",
       "label": "Silicon (poly)",
-      "image": "PolySilicon"
+      "image": "PolySilicon",
+      "type": 5
     },
     {
       "name": "SiliconCrystallizer",
@@ -8852,22 +13404,26 @@
     {
       "name": "SiliconWafer",
       "label": "Silicon wafer",
-      "image": "SiliconWafer"
+      "image": "SiliconWafer",
+      "type": 5
     },
     {
       "name": "Slag",
       "label": "Slag",
-      "image": "Slag"
+      "image": "Slag",
+      "type": 6
     },
     {
       "name": "SlagCrushed",
       "label": "Slag crushed",
-      "image": "SlagCrushed"
+      "image": "SlagCrushed",
+      "type": 6
     },
     {
       "name": "Sludge",
       "label": "Sludge",
-      "image": "Sludge"
+      "image": "Sludge",
+      "type": 6
     },
     {
       "name": "SmokeStack",
@@ -8888,17 +13444,20 @@
     {
       "name": "Snack",
       "label": "Snack",
-      "image": "Snack"
+      "image": "Snack",
+      "type": 5
     },
     {
       "name": "SolarCell",
       "label": "Solar cell",
-      "image": "SolarCell"
+      "image": "SolarCell",
+      "type": 5
     },
     {
       "name": "SolarCellMono",
       "label": "Solar cell mono",
-      "image": "SolarCellMono"
+      "image": "SolarCellMono",
+      "type": 5
     },
     {
       "name": "SolarPanel",
@@ -8919,7 +13478,8 @@
     {
       "name": "SourWater",
       "label": "Sour water",
-      "image": "SourWater"
+      "image": "SourWater",
+      "type": 4
     },
     {
       "name": "SourWaterStripper",
@@ -8932,47 +13492,56 @@
     {
       "name": "Soybean",
       "label": "Soybean",
-      "image": "Soybean"
+      "image": "Soybean",
+      "type": 6
     },
     {
       "name": "SpentFuel",
       "label": "Spent fuel",
-      "image": "SpentFuel"
+      "image": "SpentFuel",
+      "type": 5
     },
     {
       "name": "SteamDepleted",
       "label": "Steam depleted",
-      "image": "SteamDepleted"
+      "image": "SteamDepleted",
+      "type": 4
     },
     {
       "name": "SteamHi",
       "label": "Steam hi",
-      "image": "SteamHi"
+      "image": "SteamHi",
+      "type": 4
     },
     {
       "name": "SteamLP",
       "label": "Steam lo",
-      "image": "SteamLP"
+      "image": "SteamLP",
+      "type": 4
     },
     {
       "name": "Steel",
       "label": "Steel",
-      "image": "Steel"
+      "image": "Steel",
+      "type": 5
     },
     {
       "name": "Sugar",
       "label": "Sugar",
-      "image": "Sugar"
+      "image": "Sugar",
+      "type": 6
     },
     {
       "name": "SugarCane",
       "label": "Sugar cane",
-      "image": "SugarCane"
+      "image": "SugarCane",
+      "type": 6
     },
     {
       "name": "Sulfur",
       "label": "Sulfur",
-      "image": "Sulfur"
+      "image": "Sulfur",
+      "type": 6
     },
     {
       "name": "ThermalDesalinator",
@@ -8985,57 +13554,77 @@
     {
       "name": "Tofu",
       "label": "Tofu",
-      "image": "Tofu"
+      "image": "Tofu",
+      "type": 5
     },
     {
       "name": "ToxicSlurry",
       "label": "Toxic slurry",
-      "image": "ToxicSlurry"
+      "image": "ToxicSlurry",
+      "type": 4
+    },
+    {
+      "name": "Upoints",
+      "label": "Unity",
+      "image": "Upoints",
+      "type": 9,
+      "exdata": {
+        "exType": 4
+      }
     },
     {
       "name": "UraniumOre",
       "label": "Uranium ore",
-      "image": "UraniumOre"
+      "image": "UraniumOre",
+      "type": 6
     },
     {
       "name": "UraniumOreCrushed",
       "label": "Uranium ore crushed",
-      "image": "UraniumOreCrushed"
+      "image": "UraniumOreCrushed",
+      "type": 6
     },
     {
       "name": "UraniumPellets",
       "label": "Uranium pellets",
-      "image": "UraniumPellets"
+      "image": "UraniumPellets",
+      "type": 5
     },
     {
       "name": "UraniumRod",
       "label": "Uranium rod",
-      "image": "UraniumRod"
+      "image": "UraniumRod",
+      "type": 5
     },
     {
       "name": "Vegetables",
       "label": "Vegetables",
-      "image": "Vegetables"
+      "image": "Vegetables",
+      "type": 5
     },
     {
       "name": "VehicleParts",
       "label": "Vehicle Parts",
-      "image": "VehicleParts"
+      "image": "VehicleParts",
+      "type": 5
     },
     {
       "name": "VehicleParts2",
       "label": "Vehicle Parts II",
-      "image": "VehicleParts2"
+      "image": "VehicleParts2",
+      "type": 5
     },
     {
       "name": "VehicleParts3",
       "label": "Vehicle Parts III",
-      "image": "VehicleParts3"
+      "image": "VehicleParts3",
+      "type": 5
     },
     {
       "name": "Waste",
       "label": "Waste",
-      "image": "Waste"
+      "image": "Waste",
+      "type": 6
     },
     {
       "name": "WasteSortingPlant",
@@ -9048,7 +13637,8 @@
     {
       "name": "WasteWater",
       "label": "Waste water",
-      "image": "WasteWater"
+      "image": "WasteWater",
+      "type": 4
     },
     {
       "name": "WaterTreatmentPlant",
@@ -9061,7 +13651,8 @@
     {
       "name": "Water",
       "label": "Water",
-      "image": "Water"
+      "image": "Water",
+      "type": 4
     },
     {
       "name": "WaterChiller",
@@ -9074,22 +13665,38 @@
     {
       "name": "PollutedWater",
       "label": "Water pollution",
-      "image": "PollutedWater"
+      "image": "PollutedWater",
+      "type": 9,
+      "exdata": {
+        "exType": 6
+      }
     },
     {
       "name": "Wheat",
       "label": "Wheat",
-      "image": "Wheat"
+      "image": "Wheat",
+      "type": 6
     },
     {
       "name": "Wood",
       "label": "Wood",
-      "image": "Wood"
+      "image": "Wood",
+      "type": 5
+    },
+    {
+      "name": "Worker",
+      "label": "Worker",
+      "image": "Worker",
+      "type": 9,
+      "exdata": {
+        "exType": 7
+      }
     },
     {
       "name": "YellowCake",
       "label": "Yellowcake",
-      "image": "YellowCake"
+      "image": "YellowCake",
+      "type": 6
     }
   ]
 }

@@ -6,6 +6,7 @@ import type {
     Calculator,
 } from '#types/calculator';
 import {GameItemType, GameRecipeIOFlags} from '#types/constants';
+import {type GameItemExData, GameItemExType} from '../types/custom-game-data';
 
 export function useCalculator(): Calculator {
     const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
@@ -15,14 +16,28 @@ export function useCalculator(): Calculator {
         return io.count * 60 / io.recipe.time;
     };
 
+    const unitsForType: {[K in GameItemExType]: string} = {
+        [GameItemExType.Unknown]: '',
+        [GameItemExType.Electricity]: 'W',
+        [GameItemExType.MechPower]: 'W',
+        [GameItemExType.Computing]: 'Flops',
+        [GameItemExType.Upoints]: 'month',
+        [GameItemExType.Maintenance]: 'pm',
+        [GameItemExType.Pollution]: '',
+        [GameItemExType.Worker]: '',
+    };
     const formatCountPerSecond: Calculator['formatCountPerSecond'] = (item, count) => {
-        let unit = 'pm';
+        const itemExdata = item.exdata as GameItemExData;
+        let unit = itemExdata.exType ? unitsForType[itemExdata.exType] : 'pm';
         if(item.type === GameItemType.Energy) {
-            unit = 'W';
             count *= 1000;
-        }
-        if(item.type === GameItemType.Special) {
-            unit = '';
+        } else if(itemExdata.exType === GameItemExType.Computing) {
+            //TFlops by default
+            if(count < 1000) {
+                unit = 'TFlops';
+            } else {
+                count *= 1e12;
+            }
         }
         return {
             count,

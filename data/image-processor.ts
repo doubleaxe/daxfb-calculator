@@ -81,6 +81,7 @@ export class ImageProcessor {
             imageObject.resize(this.RESOLUTION, this.RESOLUTION, Jimp.RESIZE_BEZIER);
         }
         this._images.set(imageName, imageObject);
+        return imageObject;
     }
     async addPlaceholderImage(letters: string, imageName: string) {
         const letterSize = Math.floor(this.RESOLUTION / letters.length);
@@ -100,7 +101,7 @@ export class ImageProcessor {
 
         const placeholderImage = new Jimp(this.RESOLUTION, this.RESOLUTION, 0xffffff00);
         placeholderImage.print(font, xoffset, yoffset, letters);
-        await this.addImageObject(placeholderImage, imageName);
+        return await this.addImageObject(placeholderImage, imageName);
     }
     async composeImage() {
         const width = (this.RESOLUTION * this.COLUMNS);
