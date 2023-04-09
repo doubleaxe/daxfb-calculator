@@ -16,9 +16,9 @@ export enum GameItemType {
     Special,
 }
 
-export enum GameRecipeIOFlags {
-    None = 0,
-    HasProbability = 1,
-    HideInMenu = 4,
-    HideOnWindow = 8,
-}
+export const GameRecipeIOFlags = {
+    None: 0,
+    HasProbability: 1,
+    HideInMenu: 4,
+    HideOnWindow: 8,
+} as const;

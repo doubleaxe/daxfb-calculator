@@ -6,7 +6,7 @@ Please don't remove this comment if you use unmodified file
 import {calculateSummary, injectBlueprintModel, type SummaryTotals} from '@/scripts/model/store';
 import {onMounted, shallowRef, unref, watch} from 'vue';
 import {mdiImport, mdiExport} from '@mdi/js';
-import {GameItemType} from '#types/contants';
+import {GameItemType} from '#types/constants';
 
 const blueprintModel = injectBlueprintModel();
 const summary = shallowRef<SummaryTotals>([]);

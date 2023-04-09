@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameItemType} from './contants';
+import type {GameItemType} from './constants';
 
 //this is used for storage inside json
 export interface GameImagesSerialized {
@@ -28,9 +28,8 @@ export interface GameRecipeIOSerialized {
     longName?: string;
     count: number;
     //common flags used in global code
+    //see GameRecipeIOFlags
     flags?: number;
-    //custom flags separate for every game
-    flags2?: number;
     exdata?: GameExDataSerialized;
 }
 

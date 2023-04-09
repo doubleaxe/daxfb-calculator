@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {GameItemType} from '#types/contants';
+import {GameItemType} from '#types/constants';
 import {formatItem} from '@/scripts/format';
 import type {SummaryTotal} from '@/scripts/model/store';
 import {computed} from 'vue';

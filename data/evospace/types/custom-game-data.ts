@@ -2,10 +2,10 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-export const GameRecipeIOFlags2 = {
-    Resource: 1,
-    NotConsumed: 2,
-} as const;
+export type GameRecipeIoExData = {
+    isResource?: boolean;
+    isNotConsumed?: boolean;
+};
 
 export type GameRecipeDictionaryExData = {
     isPump?: boolean;

@@ -107,7 +107,9 @@ export default gameImplementation;
         file: calculatorTargetPath,
         format: 'iife',
         name: 'gameImplementation',
-        sourcemap: true,
+        //virtual plugin doesn't support source maps
+        //TODO - move to real temp files instead of virtual plugin, then turn on sourcemaps
+        //sourcemap: true,
     };
 
     const bundle = await rollup(inputOptions);

@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {GameRecipeIOFlags} from '#types/contants';
+import {GameRecipeIOFlags} from '#types/constants';
 import type {GameRecipe, GameRecipeIO} from '#types/game-data';
 import {injectGameData} from '@/scripts/data';
 import {injectFilter} from '@/scripts/filter';

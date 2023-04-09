@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import {applyPatch} from 'diff';
 import description from './description.json';
 import {logistic} from './static/custom-data';
-import {GameRecipeDictionaryExData, GameRecipeIOFlags2} from './types/custom-game-data';
+import type {GameRecipeDictionaryExData, GameRecipeIoExData} from './types/custom-game-data';
 import type {ConvertedData} from '../processing';
 
 import type {
@@ -27,7 +27,7 @@ import type {
     GameRecipeIOSerialized,
 } from '#types/game-data-serialized';
 //using relative path, without #types, because it is compiled into js, and not handled by typescript only
-import {GameItemType, GameRecipeIOFlags} from '../../site/data/types/contants';
+import {GameItemType, GameRecipeIOFlags} from '../../site/data/types/constants';
 import {ImageProcessor} from '../image-processor';
 
 const _dirname = __dirname;
@@ -49,9 +49,9 @@ function imageNameMapper(name: string) {
 
 function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
     interface RecipeIOOptions {
-        flags2?: number;
+        isResource?: boolean;
     }
-    const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {flags2}: RecipeIOOptions) => {
+    const mapIO = (item: JsonRecipeIO[] | JsonRecipeIO | undefined, {isResource}: RecipeIOOptions) => {
         if(!item)
             return [];
         const itemArray = Array.isArray(item) ? item : [item];
@@ -61,26 +61,30 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
         for(const i of itemArray) {
             const count = i.Probability ? (i.Count * i.Probability) : i.Count;
             const i0 = mappedMergedIO.get(i.Name);
-            let _flags = 0;
-            let _flags2 = flags2 || 0;
+            let _flags = GameRecipeIOFlags.None;
+            let isNotConsumed: boolean | undefined = undefined;
             if(i.Probability === 0) {
-                _flags2 |= GameRecipeIOFlags2.NotConsumed;
+                isNotConsumed = true;
             } else if(i.Probability) {
                 _flags |= GameRecipeIOFlags.HasProbability;
             }
+            const exdata: GameRecipeIoExData | undefined = (isResource || isNotConsumed) ? {
+                ...(isResource ? {isResource} : {}),
+                ...(isNotConsumed ? {isNotConsumed} : {}),
+            } : undefined;
             if(!i0) {
                 mappedMergedIO.set(i.Name, {
                     name: itemNameMapper(i.Name),
                     count: count,
                     flags: _flags ? _flags : undefined,
-                    flags2: _flags2 ? _flags2 : undefined,
+                    exdata,
                 });
             } else {
                 i0.count += count;
                 if(_flags)
                     i0.flags = (i0.flags || 0) | _flags;
-                if(_flags2)
-                    i0.flags2 = (i0.flags2 || 0) | _flags2;
+                if(exdata)
+                    i0.exdata = {...i0.exdata, ...exdata};
             }
         }
 
@@ -90,11 +94,11 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
         const mappedRecipes = recipes.map((recipe) => {
             const input = [
                 ...mapIO(recipe.Input, {}),
-                ...mapIO(recipe.ResourceInput, {flags2: GameRecipeIOFlags2.Resource}),
+                ...mapIO(recipe.ResourceInput, {isResource: true}),
             ];
             const output = [
                 ...mapIO(recipe.Output, {}),
-                ...mapIO(recipe.ResourceOutput, {flags2: GameRecipeIOFlags2.Resource}),
+                ...mapIO(recipe.ResourceOutput, {isResource: true}),
             ];
 
             const mappedRecipe = {

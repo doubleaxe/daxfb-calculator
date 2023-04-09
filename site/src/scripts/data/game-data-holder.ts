@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import {GameItemType} from '#types/contants';
+import {GameItemType} from '#types/constants';
 import type {GameItem, GameLogistic} from '#types/game-data';
 import type {GameImplementation} from '#types/game-implementation';
 import {LOG, log} from '../debug';

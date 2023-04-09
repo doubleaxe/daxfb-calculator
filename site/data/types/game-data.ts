@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {GameItemType} from './contants';
+import type {GameItemType} from './constants';
 import type {
     GameItemSerialized,
     GameRecipeSerialized,
@@ -23,8 +23,9 @@ export type GameImages = Readonly<GameImagesRaw>;
 //used for easier lookups and calculations
 export interface GameRecipeIORaw extends GameRecipeIOSerialized {
     isInput: boolean;
+    //common flags used in global code
+    //see GameRecipeIOFlags
     flags: number;
-    flags2: number;
     recipe: GameRecipe;
     product: GameItem;
 

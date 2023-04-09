@@ -4,8 +4,8 @@ Please don't remove this comment if you use unmodified file
 */
 import type {Calculator} from '#types/calculator';
 import type {GameRecipeDictionary} from '#types/game-data';
-import {GameItemType, GameRecipeIOFlags} from '#types/contants';
-import {GameRecipeDictionaryExData, GameRecipeIOFlags2} from '../types/custom-game-data';
+import {GameItemType, GameRecipeIOFlags} from '#types/constants';
+import type {GameRecipeDictionaryExData, GameRecipeIoExData} from '../types/custom-game-data';
 
 export function useCalculator(): Calculator {
     const TICKS_PER_SECOND = 20;
@@ -25,21 +25,22 @@ export function useCalculator(): Calculator {
         return exdata.startingTier;
     }
     const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
-        if(io.flags2 & GameRecipeIOFlags2.NotConsumed)
+        const ioExdata = io.exdata as GameRecipeIoExData;
+        if(ioExdata.isNotConsumed)
             return 0;
         const recipeDictionary: GameRecipeDictionary = io.recipe.recipeDictionary;
-        const exdata = recipeDictionary.exdata as GameRecipeDictionaryExData;
-        const startingTier = getStartingTier(recipeDictionary, exdata);
+        const dictionaryExdata = recipeDictionary.exdata as GameRecipeDictionaryExData;
+        const startingTier = getStartingTier(recipeDictionary, dictionaryExdata);
         const factoryTier = item.recipe?.tier || startingTier;
         let tierDiff = factoryTier - startingTier;
         if(tierDiff < 0) {
             console.error(`Something wrong, item tier ${factoryTier} < starting tier ${startingTier} => ${io.recipe.name}`);
             tierDiff = 0;
         }
-        if(exdata.isPump) {
+        if(dictionaryExdata.isPump) {
             return pumpTierList[tierDiff] || pumpTierList[pumpTierList.length - 1] || 0;
         }
-        if(io.flags2 & GameRecipeIOFlags2.Resource) {
+        if(ioExdata.isResource) {
             //1 Resource Item [R] * 20 = 20 Watt, time doesn't matter
             //each resource tier doubles energy consuption/production (cumulative)
             return io.count * Math.pow(2, tierDiff);
@@ -66,9 +67,10 @@ export function useCalculator(): Calculator {
         };
     };
 
-    const dynamicFlags: Calculator['dynamicFlags'] = function(io) {
+    const calculateIoFlags: Calculator['calculateIoFlags'] = function(io) {
         const items = io.isInput ? io.recipe.input : io.recipe.output;
-        if((io.flags2 & GameRecipeIOFlags2.Resource) && (items.length > 1))
+        const ioExdata = io.exdata as GameRecipeIoExData;
+        if((ioExdata.isResource) && (items.length > 1))
             return GameRecipeIOFlags.HideInMenu;
         return GameRecipeIOFlags.None;
     };
@@ -76,6 +78,6 @@ export function useCalculator(): Calculator {
     return {
         getCountPerSecond,
         formatCountPerSecond,
-        dynamicFlags,
+        calculateIoFlags,
     };
 }
