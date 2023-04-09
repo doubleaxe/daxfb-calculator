@@ -5,11 +5,11 @@ Please don't remove this comment if you use unmodified file
 import type {
     Calculator,
 } from '#types/calculator';
-import {GameItemType, GameRecipeIOFlags} from '#types/contants';
+import {GameItemType, GameRecipeIOFlags} from '#types/constants';
 
 export function useCalculator(): Calculator {
     const getCountPerSecond: Calculator['getCountPerSecond'] = function(item, io) {
-        if((item.type === GameItemType.Energy) || (item.type === GameItemType.Special)) {
+        if((io.product.type === GameItemType.Energy) || (io.product.type === GameItemType.Special)) {
             return io.count;
         }
         return io.count * 60 / io.recipe.time;
@@ -30,13 +30,13 @@ export function useCalculator(): Calculator {
         };
     };
 
-    const dynamicFlags: Calculator['dynamicFlags'] = function(io) {
+    const calculateIoFlags: Calculator['calculateIoFlags'] = function(io) {
         return GameRecipeIOFlags.None;
     };
 
     return {
         getCountPerSecond,
         formatCountPerSecond,
-        dynamicFlags,
+        calculateIoFlags,
     };
 }

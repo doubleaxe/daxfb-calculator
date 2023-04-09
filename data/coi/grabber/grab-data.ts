@@ -12,8 +12,11 @@ import type {
     GameItemSerialized,
     GameRecipeDictionarySerialized,
     GameRecipeIOSerialized,
+    GameRecipeSerialized,
 } from '#types/game-data-serialized';
-import {GameItemType} from '#types/contants';
+//using relative path, without #types, because it is compiled into js, and not handled by typescript only
+import {GameItemType, GameRecipeIOFlags} from '../../../site/data/types/constants';
+import {GameItemExData, GameItemExType} from '../types/custom-game-data';
 
 //npx ts-node grab-data.ts
 //node --loader ts-node/esm --inspect-brk grab-data.ts
@@ -40,6 +43,14 @@ type IODef = {
     name: string;
     quantity: number;
 };
+type RecipeDef = {
+    id: string;
+    name: string;
+    duration: number;
+    inputs: IODef[];
+    outputs: IODef[];
+};
+type BuildingDef = typeof machines.machines_and_buildings[number];
 
 const classTypes: {[key: string]: GameItemType} = {
     Virtual: GameItemType.Special,
@@ -49,41 +60,68 @@ const classTypes: {[key: string]: GameItemType} = {
     Fluid: GameItemType.Fluid,
 };
 
-const energyTypes: {[key: string]: GameItemType} = {
+const itemTypes: {[key: string]: GameItemType} = {
     Electricity: GameItemType.Energy,
-    MechPower: GameItemType.Energy,
+};
+
+const itemExTypes: {[key: string]: GameItemExType} = {
+    Electricity: GameItemExType.Electricity,
+    MechPower: GameItemExType.MechPower,
+    Computing: GameItemExType.Computing,
+    Upoints: GameItemExType.Upoints,
+    MaintenanceT1: GameItemExType.Maintenance,
+    MaintenanceT2: GameItemExType.Maintenance,
+    MaintenanceT3: GameItemExType.Maintenance,
+    PollutedWater: GameItemExType.Pollution,
+    PollutedAir: GameItemExType.Pollution,
+    Worker: GameItemExType.Worker,
 };
 
 
 (async function() {
+    //add our custom products
+    products.products.push({
+        id: 'Worker',
+        name: 'Worker',
+        icon: 'Worker',
+        type: 'Virtual',
+    });
+
     const productNamesToDefs = new Map<string, ProductDef>(products.products.map((p) => [p.name, {...p, id: cleanProductId(p.id)}]));
-    console.log('Processing images...');
-    await prepareImages(productNamesToDefs);
+    const productIdsToDefs = new Map<string, ProductDef>([...productNamesToDefs.values()].map((p) => [p.id, p]));
     console.log('Processing game data...');
-    await prepareGameData(productNamesToDefs);
+    const gameData = await prepareGameData(productNamesToDefs, productIdsToDefs);
+    console.log('Processing images...');
+    await prepareImages(productIdsToDefs, gameData.items || []);
 })().catch((err) => {
     console.error(err.stack);
     process.exit(1);
 });
 
-async function prepareImages(productNamesToDefs: Map<string, ProductDef>) {
-    const images = new Map<string, ImageDef>();
-    for(const building of machines.machines_and_buildings) {
-        images.set(building.id, {id: building.id, name: building.id, icon: 'buildings/' + building.id + '.png'});
-        for(const recipe of building.recipes) {
-            for(const io of recipe.inputs.concat(recipe.outputs)) {
-                const def = productNamesToDefs.get(io.name);
-                if(!def)
-                    throw new Error(`unknown product name: (${io.name})`);
-                const iconName = def.icon;
-                const id = def.id;
-                images.set(id, {id: id, name: iconName, icon: 'products/' + iconName + '.png'});
+async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: GameItemSerialized[]) {
+    const imagesPaths: ImageDef[] = [];
+    for(const item of items) {
+        if(item.recipe) {
+            imagesPaths.push({
+                id: item.name,
+                name: item.name,
+                icon: 'buildings/' + item.name + '.png',
+            });
+        } else {
+            const def = productIdsToDefs.get(item.name);
+            if(!def) {
+                throw new Error(`Unknown product: ${item.name}`);
             }
+            const iconName = def.icon;
+            imagesPaths.push({
+                id: item.name,
+                name: iconName,
+                icon: 'products/' + iconName + '.png',
+            });
         }
     }
 
     const imageProcessor = new ImageProcessor(32);
-    const imagesPaths = [...images.values()];
     imagesPaths.sort((a, b) => a.id.localeCompare(b.id));
     for(const image of imagesPaths) {
         const imagePath = path.join(_images, image.icon);
@@ -108,28 +146,103 @@ async function prepareImages(productNamesToDefs: Map<string, ProductDef>) {
     fs.writeFileSync(path.join(_target, 'images.json'), JSON.stringify(references));
 }
 
-async function prepareGameData(productNamesToDefs: Map<string, ProductDef>) {
-    const productIds = new Set<string>([...productNamesToDefs.values()].map((p) => p.id));
+async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, productIdsToDefs: Map<string, ProductDef>) {
+    const productIds = new Set<string>(productIdsToDefs.keys());
     const buildingIds = new Set<string>();
 
     const recipeDictionaries: GameRecipeDictionarySerialized[] = [];
     const items: GameItemSerialized[] = [];
     const productsUsedInRecipes = new Set<string>();
 
-    const mapIo = function(io: IODef[] | undefined): GameRecipeIOSerialized[] | undefined {
-        if(!io || !io.length) {
-            return undefined;
-        }
-        return io.map((i) => {
+    type AdditionalResources = {
+        workers?: number;
+        maintenanceType?: string;
+        maintenance?: number;
+        electricity?: number;
+        computing?: number;
+        unity?: number;
+    };
+
+    const mapIo = function(io: IODef[] | undefined, resources: AdditionalResources) {
+        const originalItems = new Set<string>();
+        const _io = (io || []).map((i) => {
             const def = productNamesToDefs.get(i.name);
             if(!def)
                 throw new Error(`unknown product name: (${i.name})`);
-            productsUsedInRecipes.add(i.name);
-            return {
+            originalItems.add(def.id);
+            const _i: GameRecipeIOSerialized = {
                 name: def.id,
                 count: i.quantity,
             };
+            return _i;
         });
+
+        if(resources.workers) {
+            _io.push({name: 'Worker', count: resources.workers});
+        }
+        if(resources.maintenance) {
+            const maintenanceDef = productNamesToDefs.get(resources.maintenanceType || '');
+            if(!maintenanceDef)
+                throw new Error(`unknown maintenance type: (${resources.maintenanceType})`);
+            if(!originalItems.has(maintenanceDef.id)) {
+                _io.push({name: maintenanceDef.id, count: resources.maintenance});
+            }
+        }
+        if(resources.electricity && !originalItems.has('Electricity'))
+            _io.push({name: 'Electricity', count: resources.electricity});
+        if(resources.computing && !originalItems.has('Computing'))
+            _io.push({name: 'Computing', count: resources.computing});
+        if(resources.unity && !originalItems.has('Upoints'))
+            _io.push({name: 'Upoints', count: resources.unity});
+
+        if(!_io.length) {
+            return undefined;
+        }
+        let hasCustomIo = false;
+        let hasCommonIo = false;
+        for(const i of _io) {
+            productsUsedInRecipes.add(i.name);
+            const hasOriginalIo = originalItems.has(i.name);
+            if(!hasOriginalIo && (_io.length > 1)) {
+                i.flags = GameRecipeIOFlags.HideInMenu | GameRecipeIOFlags.HideOnWindow;
+            }
+            if(hasOriginalIo) {
+                hasCustomIo = true;
+            } else {
+                hasCommonIo = true;
+            }
+        }
+        return {
+            io: _io,
+            hasCustomIo,
+            hasCommonIo,
+        };
+    };
+
+    const mapRecipe = function(building: BuildingDef, recipe: RecipeDef): GameRecipeSerialized {
+        let input = mapIo(recipe.inputs, {
+            workers: building.workers,
+            maintenanceType: building.maintenance_cost_units,
+            maintenance: building.maintenance_cost_quantity,
+            electricity: building.electricity_consumed,
+            computing: building.computing_consumed,
+            unity: building.unity_cost,
+        });
+        let output = mapIo(recipe.outputs, {
+            electricity: building.electricity_generated,
+            computing: building.computing_generated,
+        });
+        if(!input?.hasCustomIo && !output?.io?.length) {
+            input = undefined;
+            output = undefined;
+        }
+        const _recipe: GameRecipeSerialized = {
+            name: recipe.id,
+            input: input?.io,
+            output: output?.io,
+            time: recipe.duration,
+        };
+        return _recipe;
     };
 
     for(const building of machines.machines_and_buildings) {
@@ -141,35 +254,23 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>) {
             continue;
         }
         buildingIds.add(building.id);
-        let recipes = building.recipes;
-        if(!recipes || !recipes.length) {
-            //solar panel
-            if(building.electricity_generated) {
-                recipes = [{
-                    id: building.id,
-                    name: building.name,
-                    duration: 20,
-                    inputs: [],
-                    outputs: [{
-                        name: 'Electricity',
-                        quantity: building.electricity_generated,
-                    }],
-                }];
-            } else {
-                console.log(`No recipes for building ${building.id}`);
-                continue;
-            }
+
+        let recipes = ((building.recipes && building.recipes.length) ? building.recipes : [{
+            id: building.id,
+            name: building.name,
+            duration: 20,
+            inputs: [],
+            outputs: [],
+        }]).map((recipe) => mapRecipe(building, recipe));
+        recipes = recipes.filter((r) => (r.input?.length || r.output?.length));
+        if(!recipes.length) {
+            console.log(`No recipes for building ${building.id}`);
+            continue;
         }
+
         const recipeDictionary: GameRecipeDictionarySerialized = {
             name: building.id,
-            recipes: recipes.map((recipe) => {
-                return {
-                    name: recipe.id,
-                    input: mapIo(recipe.inputs),
-                    output: mapIo(recipe.outputs),
-                    time: recipe.duration,
-                };
-            }),
+            recipes,
         };
         recipeDictionaries.push(recipeDictionary);
 
@@ -185,15 +286,23 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>) {
     }
 
     for(const product of productsUsedInRecipes) {
-        const def = productNamesToDefs.get(product);
+        const def = productIdsToDefs.get(product);
         if(!def)
             throw new Error(`unknown product name: (${product})`);
         const item: GameItemSerialized = {
             name: def.id,
             label: def.name,
             image: def.id,
-            type: energyTypes[def.id] || classTypes[def.type],
+            type: itemTypes[def.id] || classTypes[def.type],
         };
+        const exType = itemExTypes[def.id];
+        if(exType) {
+            //item id will be lost after key processing, so we keep exType
+            const exdata: GameItemExData = {
+                exType,
+            };
+            item.exdata = exdata;
+        }
         items.push(item);
     }
     items.sort((a, b) => a.label.localeCompare(b.label));
@@ -203,4 +312,5 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>) {
         items,
     };
     fs.writeFileSync(path.join(_target, 'data.json'), JSON.stringify(gameData, null, 2));
+    return gameData;
 }
