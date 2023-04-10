@@ -85,6 +85,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
             //dual io abstract items support
             this._ownerItem?.selectedRecipe?._$matherializeAllAbstractItems(item);
         }
+        this._ownerItem?._$linkAdded(value);
     }
     _$linkDeleted(value: LinkModel) {
         this._links.delete(value.key);
@@ -92,6 +93,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
             //dual io abstract items support
             this._ownerItem?.selectedRecipe?._$matherializeAllAbstractItems(undefined);
         }
+        this._ownerItem?._$linkDeleted(value);
     }
     _$copySimilarLinksTo(targetItem: RecipeIOModel) {
         for(const link of this._links.values()) {
@@ -128,7 +130,21 @@ export class RecipeIOModelImpl extends ItemModelImpl {
         };
     }
     get cpsMax() { return this._cpsMax; }
-    get cpsMaxTotal() { return this._cpsMax * (this._ownerItem?.count || 1); }
-    get cpsSolvedTotal() { return (this._ownerItem?.solvedCount !== undefined) ? this._cpsMax * this._ownerItem?.solvedCount : undefined; }
+    get cpsMaxTotal() {
+        let count = (this._ownerItem?.count || 1);
+        if(this._io.flags & GameRecipeIOFlags.RoundToCeil)
+            count = Math.ceil(count);
+        return this._cpsMax * count;
+    }
+    get cpsSolvedTotal() {
+        let count = this._ownerItem?.solvedCount;
+        if(count === undefined) {
+            return undefined;
+        }
+        if(this._io.flags & GameRecipeIOFlags.RoundToCeil) {
+            count = Math.ceil(count);
+        }
+        return this._cpsMax * count;
+    }
     formatCountPerSecond(count: number) { return this._io.product.formatCountPerSecond(count); }
 }

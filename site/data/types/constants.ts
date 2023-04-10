@@ -21,4 +21,5 @@ export const GameRecipeIOFlags = {
     HasProbability: 1,
     HideInMenu: 4,
     HideOnWindow: 8,
+    RoundToCeil: 16,
 } as const;

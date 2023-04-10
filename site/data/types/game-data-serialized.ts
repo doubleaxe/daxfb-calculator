@@ -21,6 +21,7 @@ export interface GameDescriptionSerialized {
     version: string;
     saveVersion: number;
     compatibleSaveVersions: number[];
+    groupTier?: boolean;
 }
 
 export interface GameRecipeIOSerialized {

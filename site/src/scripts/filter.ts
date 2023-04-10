@@ -11,13 +11,14 @@ class Filter {
     private readonly _gameData: GameData;
     private _tier?: number;
     private _tierEqual = 0;
-    private _groupTier = true;
+    private _groupTier;
     private _key?: string;
     private _direction = 0;
     private _filtered?: GameItem[][];
 
     constructor(_gameData: GameData) {
         this._gameData = _gameData;
+        this._groupTier = _gameData.gameDescription.groupTier || false;
     }
 
     //suddenly may be null

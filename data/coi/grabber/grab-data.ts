@@ -127,10 +127,7 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
             });
         } else {
             const def = productIdsToDefs.get(item.name);
-            if(!def) {
-                throw new Error(`Unknown product: ${item.name}`);
-            }
-            const iconName = def.icon;
+            const iconName = def?.icon || item.name;
             imagesPaths.push({
                 id: item.name,
                 name: iconName,
@@ -186,12 +183,12 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
     };
 
     const mapIo = function(io: IODef[] | undefined, resources: AdditionalResources) {
-        const originalItems = new Set<string>();
+        const exisingItems = new Set<string>();
         const _io = (io || []).map((i) => {
             const def = productNamesToDefs.get(i.name);
             if(!def)
                 throw new Error(`unknown product name: (${i.name})`);
-            originalItems.add(def.id);
+            exisingItems.add(def.id);
             const _i: GameRecipeIOSerialized = {
                 name: def.id,
                 count: i.quantity,
@@ -206,15 +203,15 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
             const maintenanceDef = productNamesToDefs.get(resources.maintenanceType || '');
             if(!maintenanceDef)
                 throw new Error(`unknown maintenance type: (${resources.maintenanceType})`);
-            if(!originalItems.has(maintenanceDef.id)) {
+            if(!exisingItems.has(maintenanceDef.id)) {
                 _io.push({name: maintenanceDef.id, count: resources.maintenance});
             }
         }
-        if(resources.electricity && !originalItems.has('Electricity'))
+        if(resources.electricity && !exisingItems.has('Electricity'))
             _io.push({name: 'Electricity', count: resources.electricity});
-        if(resources.computing && !originalItems.has('Computing'))
+        if(resources.computing && !exisingItems.has('Computing'))
             _io.push({name: 'Computing', count: resources.computing});
-        if(resources.unity && !originalItems.has('Upoints'))
+        if(resources.unity && !exisingItems.has('Upoints'))
             _io.push({name: 'Upoints', count: resources.unity});
 
         if(!_io.length) {
@@ -222,16 +219,32 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
         }
         let hasCustomIo = false;
         let hasCommonIo = false;
+        const commonIo = new Set([
+            'Electricity',
+            'Computing',
+            'Upoints',
+            'MaintenanceT1',
+            'MaintenanceT2',
+            'MaintenanceT3',
+            'Worker',
+        ]);
         for(const i of _io) {
             productsUsedInRecipes.add(i.name);
-            const hasOriginalIo = originalItems.has(i.name);
-            if(!hasOriginalIo && ((_io.length > 1) || resources.isInput)) {
-                i.flags = GameRecipeIOFlags.HideInMenu | GameRecipeIOFlags.HideOnWindow;
+            const isCommonIo = commonIo.has(i.name);
+            let flags = GameRecipeIOFlags.None;
+            if(isCommonIo && resources.isInput) {
+                flags |= (GameRecipeIOFlags.HideInMenu | GameRecipeIOFlags.HideOnWindow);
             }
-            if(hasOriginalIo) {
-                hasCustomIo = true;
-            } else {
+            if(i.name === 'Worker') {
+                flags |= GameRecipeIOFlags.RoundToCeil;
+            }
+            if(flags) {
+                i.flags = flags;
+            }
+            if(isCommonIo) {
                 hasCommonIo = true;
+            } else {
+                hasCustomIo = true;
             }
         }
         return {

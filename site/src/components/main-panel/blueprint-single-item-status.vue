@@ -3,14 +3,29 @@ Author: Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/dou
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import type {BlueprintItemModel} from '@/scripts/model/store';
+import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
 import {mdiSync, mdiLock} from '@mdi/js';
-import {formatNumber} from '@/scripts/format';
+import {formatIo, formatNumber} from '@/scripts/format';
 import {__DEBUG__} from '@/scripts/debug';
+import {computed} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
 }>();
+
+const hiddenIo = computed(() => {
+    const _recipe = props.item?.selectedRecipe;
+    let io = [...(_recipe?.input || []), ...(_recipe?.output || [])];
+    if(io.length) {
+        io = io.filter(item => item.hideOnWindow);
+    }
+    return io;
+});
+
+function hiddenIoTooltip(io: RecipeIOModel) {
+    return `${io.label} ${formatIo(io.cpsSolvedTotal, io)}/${formatIo(io.cpsMaxTotal, io)}`;
+}
+
 </script>
 
 <template>
@@ -31,6 +46,13 @@ const props = defineProps<{
         <div v-if="__DEBUG__" class="float-right mr-1 text-caption">
             {{ props.item.key }}
         </div>
+        <div class="float-right mr-1 mt-1 d-flex hidden-io">
+            <template v-for="io in hiddenIo" :key="io.key">
+                <div class="mr-1">
+                    <icon-component-tooltip :image="io.image" :tooltip="hiddenIoTooltip(io)" />
+                </div>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -40,5 +62,9 @@ const props = defineProps<{
     position: relative;
     height: 1.2rem;
     overflow: hidden;
+}
+.hidden-io {
+    transform: scale(0.4);
+    transform-origin: top right;
 }
 </style>

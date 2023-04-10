@@ -12,12 +12,11 @@ Later it turned out this project is quite universal and could be used for other 
 
 #### Direct links for specific games
 
-- Sample - demo game to build help pages.
-Calculator link: [https://doubleaxe.github.io/daxfb-calculator/?gameId=sample](https://doubleaxe.github.io/daxfb-calculator/?gameId=sample).
-- [Evospace](https://store.steampowered.com/app/1013540/Evospace/).
-Calculator link: [https://doubleaxe.github.io/daxfb-calculator/?gameId=evospace](https://doubleaxe.github.io/daxfb-calculator/?gameId=evospace).
-- [Captain of Industry](https://www.captain-of-industry.com/).
-Calculator link: [https://doubleaxe.github.io/daxfb-calculator/?gameId=coi](https://doubleaxe.github.io/daxfb-calculator/?gameId=coi).
+| Game | Calculator link |
+|---|---|
+| Sample | [https://doubleaxe.github.io/daxfb-calculator/?gameId=sample](https://doubleaxe.github.io/daxfb-calculator/?gameId=sample) |
+| [Evospace](https://store.steampowered.com/app/1013540/Evospace/) | [https://doubleaxe.github.io/daxfb-calculator/?gameId=evospace](https://doubleaxe.github.io/daxfb-calculator/?gameId=evospace) |
+| [Captain of Industry](https://www.captain-of-industry.com/) | [https://doubleaxe.github.io/daxfb-calculator/?gameId=coi](https://doubleaxe.github.io/daxfb-calculator/?gameId=coi) |
 
 # How to use
 

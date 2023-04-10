@@ -87,7 +87,7 @@ const leftSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
     let io = [...(props.item.isFlipped ? _recipe?.output : _recipe?.input) || []];
     if(io.length) {
-        io = io.filter(item => !item.hideOnWindow);
+        io = io.filter(item => (!item.hideOnWindow || item.linksCount));
     }
     return {
         io: () => io,
@@ -98,7 +98,7 @@ const rightSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
     let io = [...(props.item.isFlipped ? _recipe?.input : _recipe?.output) || []];
     if(io.length) {
-        io = io.filter(item => !item.hideOnWindow);
+        io = io.filter(item => (!item.hideOnWindow || item.linksCount));
     }
     return {
         io: () => io,
@@ -115,6 +115,7 @@ onMounted(updateIoRects);
 watch([
     () => props.item.selectedRecipe,
     () => props.item.isFlipped,
+    () => props.item.linksGenerationNumber,
 ], updateIoRects);
 watch(() => props.item.rect, (value, oldValue) => {
     //size is updated by function updateIoRects

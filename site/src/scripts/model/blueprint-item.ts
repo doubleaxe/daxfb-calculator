@@ -28,6 +28,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     public isFlipped = false;
     private _isLocked = false;
     private _initializationCompleted = false;
+    private _linksGenerationNumber = 0;
 
     constructor(owner: BlueprintModel, name: string) {
         super(owner, owner.gameData.getGameItem(name));
@@ -58,6 +59,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             this.owner?._$itemInitializationCompleted(this);
         }
     }
+    get linksGenerationNumber() { return this._linksGenerationNumber; }
 
     calculateLinkState(sourceIo?: RecipeIOModel | null): BlueprintItemStateValues {
         if(!sourceIo) {
@@ -194,5 +196,16 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             errorCollector.collectError(`Cannot load link "${outputItem.label}" => "${this.label}"`);
         }
         return link;
+    }
+
+    _$linkAdded(value: LinkModel) {
+        if(this._initializationCompleted) {
+            this._linksGenerationNumber++;
+        }
+    }
+    _$linkDeleted(value: LinkModel) {
+        if(this._initializationCompleted) {
+            this._linksGenerationNumber++;
+        }
     }
 }
