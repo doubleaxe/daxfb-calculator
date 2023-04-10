@@ -164,12 +164,43 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
     fs.writeFileSync(path.join(_target, 'images.json'), JSON.stringify(references));
 }
 
+type NextTier = {
+    name: string;
+    nextTier: string;
+};
+
 async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, productIdsToDefs: Map<string, ProductDef>) {
     const productIds = new Set<string>(productIdsToDefs.keys());
+
+    const {
+        productsUsedInRecipes,
+        recipeDictionaries,
+        simpleFactories,
+        nextTier,
+    } = prepareFactories(productNamesToDefs, productIds);
+
+    const tierFactoriesArray = splitFactoriesToTiers(simpleFactories, nextTier);
+    const productsArray = await prepareProducts(productIdsToDefs, productsUsedInRecipes);
+
+    //sort by name, but take tier chains into account
+    const resultItems = tierFactoriesArray.concat(productsArray.map((p) => [p]));
+
+    resultItems.sort((a, b) => (a[0]?.label?.localeCompare(b[0]?.label || '') || 0));
+
+    const items: GameItemSerialized[] = resultItems.flat();
+
+    const gameData: Partial<GameDataSerialized> = {
+        recipeDictionaries,
+        items,
+    };
+    fs.writeFileSync(path.join(_target, 'data.json'), JSON.stringify(gameData, null, 2));
+    return gameData;
+}
+
+function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productIds: Set<string>) {
     const buildingIds = new Set<string>();
 
     const recipeDictionaries: GameRecipeDictionarySerialized[] = [];
-    const items: GameItemSerialized[] = [];
     const productsUsedInRecipes = new Set<string>();
 
     type AdditionalResources = {
@@ -283,6 +314,24 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
         return _recipe;
     };
 
+    const simpleFactories = new Map<string, GameItemSerialized>();
+    const nextTier: NextTier[] = [];
+    const brokenTiers: Record<string, string> = {
+        SmeltingFurnaceT2: 'ArcFurnace',
+        CoolingTowerT1: 'CoolingTowerT2',
+        DistillationTowerT1: 'DistillationTowerT2',
+        DistillationTowerT2: 'DistillationTowerT3',
+        GlassMakerT1: 'GlassMakerT2',
+        TurbineLowPress: 'TurbineLowPressT2',
+        TurbineHighPress: 'TurbineHighPressT2',
+        MaintenanceDepotT1: 'MaintenanceDepotT2',
+        MaintenanceDepotT2: 'MaintenanceDepotT3',
+        PowerGeneratorT1: 'PowerGeneratorT2',
+        ResearchLab2: 'ResearchLab3',
+        ResearchLab3: 'ResearchLab4',
+        ResearchLab4: 'ResearchLab5',
+    };
+
     for(const building of machines.machines_and_buildings) {
         if(productIds.has(building.id)) {
             throw new Error(`conflict of product/building id: (${building.id})`);
@@ -320,9 +369,105 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
                 recipeDictionary: building.id,
             },
         };
-        items.push(factory);
+        simpleFactories.set(factory.name, factory);
+
+        //fix broken data
+        let nextTierName = building.next_tier;
+        const nextBrokenTier = brokenTiers[factory.name];
+        if(nextBrokenTier) {
+            nextTierName = nextBrokenTier;
+        }
+        if(nextTierName) {
+            nextTier.push({
+                name: factory.name,
+                nextTier: nextTierName,
+            });
+        }
     }
 
+    return {
+        productsUsedInRecipes,
+        recipeDictionaries,
+        simpleFactories,
+        nextTier,
+    };
+}
+
+function splitFactoriesToTiers(simpleFactories: Map<string, GameItemSerialized>, nextTier: NextTier[]) {
+    type TierFactory = {
+        name: string;
+        next?: TierFactory;
+        prev?: TierFactory;
+    };
+
+    const tierFactories = new Map<string, TierFactory>();
+    for(const tier of nextTier) {
+        let thisFactory = tierFactories.get(tier.name);
+        if(!thisFactory) {
+            thisFactory = {
+                name: tier.name,
+            };
+            tierFactories.set(tier.name, thisFactory);
+        }
+        let nextFactory = tierFactories.get(tier.nextTier);
+        if(!nextFactory) {
+            nextFactory = {
+                name: tier.nextTier,
+            };
+            tierFactories.set(tier.nextTier, nextFactory);
+        }
+        if(thisFactory.next) {
+            console.error(`broken tier chain: (${tier.name}) -> (${tier.nextTier})`);
+        }
+        thisFactory.next = nextFactory;
+        if(nextFactory.prev) {
+            console.error(`broken tier chain: (${tier.name}) -> (${tier.nextTier})`);
+        }
+        nextFactory.prev = thisFactory;
+    }
+
+    const tierFactoriesArray: GameItemSerialized[][] = [];
+    for(const tierFactory of tierFactories.values()) {
+        //only roots
+        if(tierFactory.prev) {
+            continue;
+        }
+        if(!tierFactory.next) {
+            console.warn(`broken tier chain for factory: (${tierFactory.name})`);
+            continue;
+        }
+
+        //will be sorted by tier
+        const tierChainArray: GameItemSerialized[] = [];
+        let tier = 0;
+        for(let factory: TierFactory | undefined = tierFactory; factory; factory = factory.next) {
+            const _factory = simpleFactories.get(factory.name);
+            if(_factory) {
+                simpleFactories.delete(factory.name);
+                tierChainArray.push(_factory);
+                //factory name will be lost when keys are applied
+                _factory.longName = factory.name;
+                const exdata: GameItemExData = {
+                    ...(factory.next ? {nextTier: factory.next.name} : {}),
+                    ...(factory.prev ? {prevTier: factory.prev.name} : {}),
+                    tier,
+                };
+                _factory.exdata = exdata;
+            }
+            tier++;
+        }
+        tierFactoriesArray.push(tierChainArray);
+    }
+
+    //push all untiered factories
+    for(const factory of simpleFactories.values()) {
+        tierFactoriesArray.push([factory]);
+    }
+    return tierFactoriesArray;
+}
+
+function prepareProducts(productIdsToDefs: Map<string, ProductDef>, productsUsedInRecipes: Set<string>) {
+    const items: GameItemSerialized[] = [];
     for(const product of productsUsedInRecipes) {
         const def = productIdsToDefs.get(product);
         if(!def)
@@ -343,12 +488,5 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
         }
         items.push(item);
     }
-    items.sort((a, b) => a.label.localeCompare(b.label));
-
-    const gameData: Partial<GameDataSerialized> = {
-        recipeDictionaries,
-        items,
-    };
-    fs.writeFileSync(path.join(_target, 'data.json'), JSON.stringify(gameData, null, 2));
-    return gameData;
+    return items;
 }

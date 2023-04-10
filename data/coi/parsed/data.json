@@ -12001,19 +12001,16 @@
       "type": 5
     },
     {
-      "name": "ArcFurnace",
-      "label": "Arc furnace",
-      "image": "ArcFurnace",
+      "name": "AssemblyManual",
+      "label": "Assembly (manual)",
+      "image": "AssemblyManual",
       "recipe": {
-        "recipeDictionary": "ArcFurnace"
-      }
-    },
-    {
-      "name": "ArcFurnace2",
-      "label": "Arc furnace II",
-      "image": "ArcFurnace2",
-      "recipe": {
-        "recipeDictionary": "ArcFurnace2"
+        "recipeDictionary": "AssemblyManual"
+      },
+      "longName": "AssemblyManual",
+      "exdata": {
+        "nextTier": "AssemblyElectrified",
+        "tier": 0
       }
     },
     {
@@ -12022,6 +12019,12 @@
       "image": "AssemblyElectrified",
       "recipe": {
         "recipeDictionary": "AssemblyElectrified"
+      },
+      "longName": "AssemblyElectrified",
+      "exdata": {
+        "nextTier": "AssemblyElectrifiedT2",
+        "prevTier": "AssemblyManual",
+        "tier": 1
       }
     },
     {
@@ -12030,14 +12033,12 @@
       "image": "AssemblyElectrifiedT2",
       "recipe": {
         "recipeDictionary": "AssemblyElectrifiedT2"
-      }
-    },
-    {
-      "name": "AssemblyManual",
-      "label": "Assembly (manual)",
-      "image": "AssemblyManual",
-      "recipe": {
-        "recipeDictionary": "AssemblyManual"
+      },
+      "longName": "AssemblyElectrifiedT2",
+      "exdata": {
+        "nextTier": "AssemblyRoboticT1",
+        "prevTier": "AssemblyElectrified",
+        "tier": 2
       }
     },
     {
@@ -12046,6 +12047,12 @@
       "image": "AssemblyRoboticT1",
       "recipe": {
         "recipeDictionary": "AssemblyRoboticT1"
+      },
+      "longName": "AssemblyRoboticT1",
+      "exdata": {
+        "nextTier": "AssemblyRoboticT2",
+        "prevTier": "AssemblyElectrifiedT2",
+        "tier": 3
       }
     },
     {
@@ -12054,6 +12061,11 @@
       "image": "AssemblyRoboticT2",
       "recipe": {
         "recipeDictionary": "AssemblyRoboticT2"
+      },
+      "longName": "AssemblyRoboticT2",
+      "exdata": {
+        "prevTier": "AssemblyRoboticT1",
+        "tier": 4
       }
     },
     {
@@ -12092,6 +12104,11 @@
       "image": "SmeltingFurnaceT1",
       "recipe": {
         "recipeDictionary": "SmeltingFurnaceT1"
+      },
+      "longName": "SmeltingFurnaceT1",
+      "exdata": {
+        "nextTier": "SmeltingFurnaceT2",
+        "tier": 0
       }
     },
     {
@@ -12100,6 +12117,39 @@
       "image": "SmeltingFurnaceT2",
       "recipe": {
         "recipeDictionary": "SmeltingFurnaceT2"
+      },
+      "longName": "SmeltingFurnaceT2",
+      "exdata": {
+        "nextTier": "ArcFurnace",
+        "prevTier": "SmeltingFurnaceT1",
+        "tier": 1
+      }
+    },
+    {
+      "name": "ArcFurnace",
+      "label": "Arc furnace",
+      "image": "ArcFurnace",
+      "recipe": {
+        "recipeDictionary": "ArcFurnace"
+      },
+      "longName": "ArcFurnace",
+      "exdata": {
+        "nextTier": "ArcFurnace2",
+        "prevTier": "SmeltingFurnaceT2",
+        "tier": 2
+      }
+    },
+    {
+      "name": "ArcFurnace2",
+      "label": "Arc furnace II",
+      "image": "ArcFurnace2",
+      "recipe": {
+        "recipeDictionary": "ArcFurnace2"
+      },
+      "longName": "ArcFurnace2",
+      "exdata": {
+        "prevTier": "ArcFurnace",
+        "tier": 3
       }
     },
     {
@@ -12196,6 +12246,11 @@
       "image": "ChemicalPlant",
       "recipe": {
         "recipeDictionary": "ChemicalPlant"
+      },
+      "longName": "ChemicalPlant",
+      "exdata": {
+        "nextTier": "ChemicalPlant2",
+        "tier": 0
       }
     },
     {
@@ -12204,6 +12259,11 @@
       "image": "ChemicalPlant2",
       "recipe": {
         "recipeDictionary": "ChemicalPlant2"
+      },
+      "longName": "ChemicalPlant2",
+      "exdata": {
+        "prevTier": "ChemicalPlant",
+        "tier": 1
       }
     },
     {
@@ -12259,6 +12319,11 @@
       "image": "ConcreteMixer",
       "recipe": {
         "recipeDictionary": "ConcreteMixer"
+      },
+      "longName": "ConcreteMixer",
+      "exdata": {
+        "nextTier": "ConcreteMixerT2",
+        "tier": 0
       }
     },
     {
@@ -12267,6 +12332,12 @@
       "image": "ConcreteMixerT2",
       "recipe": {
         "recipeDictionary": "ConcreteMixerT2"
+      },
+      "longName": "ConcreteMixerT2",
+      "exdata": {
+        "nextTier": "ConcreteMixerT3",
+        "prevTier": "ConcreteMixer",
+        "tier": 1
       }
     },
     {
@@ -12275,6 +12346,11 @@
       "image": "ConcreteMixerT3",
       "recipe": {
         "recipeDictionary": "ConcreteMixerT3"
+      },
+      "longName": "ConcreteMixerT3",
+      "exdata": {
+        "prevTier": "ConcreteMixerT2",
+        "tier": 2
       }
     },
     {
@@ -12325,6 +12401,11 @@
       "image": "CasterCooled",
       "recipe": {
         "recipeDictionary": "CasterCooled"
+      },
+      "longName": "CasterCooled",
+      "exdata": {
+        "nextTier": "CasterCooledT2",
+        "tier": 0
       }
     },
     {
@@ -12333,6 +12414,11 @@
       "image": "CasterCooledT2",
       "recipe": {
         "recipeDictionary": "CasterCooledT2"
+      },
+      "longName": "CasterCooledT2",
+      "exdata": {
+        "prevTier": "CasterCooled",
+        "tier": 1
       }
     },
     {
@@ -12341,6 +12427,11 @@
       "image": "CoolingTowerT1",
       "recipe": {
         "recipeDictionary": "CoolingTowerT1"
+      },
+      "longName": "CoolingTowerT1",
+      "exdata": {
+        "nextTier": "CoolingTowerT2",
+        "tier": 0
       }
     },
     {
@@ -12349,6 +12440,11 @@
       "image": "CoolingTowerT2",
       "recipe": {
         "recipeDictionary": "CoolingTowerT2"
+      },
+      "longName": "CoolingTowerT2",
+      "exdata": {
+        "prevTier": "CoolingTowerT1",
+        "tier": 1
       }
     },
     {
@@ -12449,6 +12545,11 @@
       "image": "DistillationTowerT1",
       "recipe": {
         "recipeDictionary": "DistillationTowerT1"
+      },
+      "longName": "DistillationTowerT1",
+      "exdata": {
+        "nextTier": "DistillationTowerT2",
+        "tier": 0
       }
     },
     {
@@ -12457,6 +12558,12 @@
       "image": "DistillationTowerT2",
       "recipe": {
         "recipeDictionary": "DistillationTowerT2"
+      },
+      "longName": "DistillationTowerT2",
+      "exdata": {
+        "nextTier": "DistillationTowerT3",
+        "prevTier": "DistillationTowerT1",
+        "tier": 1
       }
     },
     {
@@ -12465,6 +12572,11 @@
       "image": "DistillationTowerT3",
       "recipe": {
         "recipeDictionary": "DistillationTowerT3"
+      },
+      "longName": "DistillationTowerT3",
+      "exdata": {
+        "prevTier": "DistillationTowerT2",
+        "tier": 2
       }
     },
     {
@@ -12528,6 +12640,11 @@
       "image": "EvaporationPond",
       "recipe": {
         "recipeDictionary": "EvaporationPond"
+      },
+      "longName": "EvaporationPond",
+      "exdata": {
+        "nextTier": "EvaporationPondHeated",
+        "tier": 0
       }
     },
     {
@@ -12536,6 +12653,11 @@
       "image": "EvaporationPondHeated",
       "recipe": {
         "recipeDictionary": "EvaporationPondHeated"
+      },
+      "longName": "EvaporationPondHeated",
+      "exdata": {
+        "prevTier": "EvaporationPond",
+        "tier": 1
       }
     },
     {
@@ -12644,6 +12766,11 @@
       "image": "GlassMakerT1",
       "recipe": {
         "recipeDictionary": "GlassMakerT1"
+      },
+      "longName": "GlassMakerT1",
+      "exdata": {
+        "nextTier": "GlassMakerT2",
+        "tier": 0
       }
     },
     {
@@ -12652,6 +12779,11 @@
       "image": "GlassMakerT2",
       "recipe": {
         "recipeDictionary": "GlassMakerT2"
+      },
+      "longName": "GlassMakerT2",
+      "exdata": {
+        "prevTier": "GlassMakerT1",
+        "tier": 1
       }
     },
     {
@@ -12736,6 +12868,11 @@
       "image": "TurbineHighPress",
       "recipe": {
         "recipeDictionary": "TurbineHighPress"
+      },
+      "longName": "TurbineHighPress",
+      "exdata": {
+        "nextTier": "TurbineHighPressT2",
+        "tier": 0
       }
     },
     {
@@ -12744,6 +12881,11 @@
       "image": "TurbineHighPressT2",
       "recipe": {
         "recipeDictionary": "TurbineHighPressT2"
+      },
+      "longName": "TurbineHighPressT2",
+      "exdata": {
+        "prevTier": "TurbineHighPress",
+        "tier": 1
       }
     },
     {
@@ -12858,6 +13000,11 @@
       "image": "TurbineLowPress",
       "recipe": {
         "recipeDictionary": "TurbineLowPress"
+      },
+      "longName": "TurbineLowPress",
+      "exdata": {
+        "nextTier": "TurbineLowPressT2",
+        "tier": 0
       }
     },
     {
@@ -12866,14 +13013,11 @@
       "image": "TurbineLowPressT2",
       "recipe": {
         "recipeDictionary": "TurbineLowPressT2"
-      }
-    },
-    {
-      "name": "MaintenanceDepotT1",
-      "label": "Maintenance depot",
-      "image": "MaintenanceDepotT1",
-      "recipe": {
-        "recipeDictionary": "MaintenanceDepotT1"
+      },
+      "longName": "TurbineLowPressT2",
+      "exdata": {
+        "prevTier": "TurbineLowPress",
+        "tier": 1
       }
     },
     {
@@ -12882,6 +13026,52 @@
       "image": "MaintenanceDepotT0",
       "recipe": {
         "recipeDictionary": "MaintenanceDepotT0"
+      },
+      "longName": "MaintenanceDepotT0",
+      "exdata": {
+        "nextTier": "MaintenanceDepotT1",
+        "tier": 0
+      }
+    },
+    {
+      "name": "MaintenanceDepotT1",
+      "label": "Maintenance depot",
+      "image": "MaintenanceDepotT1",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT1"
+      },
+      "longName": "MaintenanceDepotT1",
+      "exdata": {
+        "nextTier": "MaintenanceDepotT2",
+        "prevTier": "MaintenanceDepotT0",
+        "tier": 1
+      }
+    },
+    {
+      "name": "MaintenanceDepotT2",
+      "label": "Maintenance II depot",
+      "image": "MaintenanceDepotT2",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT2"
+      },
+      "longName": "MaintenanceDepotT2",
+      "exdata": {
+        "nextTier": "MaintenanceDepotT3",
+        "prevTier": "MaintenanceDepotT1",
+        "tier": 2
+      }
+    },
+    {
+      "name": "MaintenanceDepotT3",
+      "label": "Maintenance III depot",
+      "image": "MaintenanceDepotT3",
+      "recipe": {
+        "recipeDictionary": "MaintenanceDepotT3"
+      },
+      "longName": "MaintenanceDepotT3",
+      "exdata": {
+        "prevTier": "MaintenanceDepotT2",
+        "tier": 3
       }
     },
     {
@@ -12903,28 +13093,12 @@
       }
     },
     {
-      "name": "MaintenanceDepotT2",
-      "label": "Maintenance II depot",
-      "image": "MaintenanceDepotT2",
-      "recipe": {
-        "recipeDictionary": "MaintenanceDepotT2"
-      }
-    },
-    {
       "name": "MaintenanceT3",
       "label": "Maintenance III",
       "image": "MaintenanceT3",
       "type": 9,
       "exdata": {
         "exType": 5
-      }
-    },
-    {
-      "name": "MaintenanceDepotT3",
-      "label": "Maintenance III depot",
-      "image": "MaintenanceDepotT3",
-      "recipe": {
-        "recipeDictionary": "MaintenanceDepotT3"
       }
     },
     {
@@ -12990,6 +13164,11 @@
       "image": "Caster",
       "recipe": {
         "recipeDictionary": "Caster"
+      },
+      "longName": "Caster",
+      "exdata": {
+        "nextTier": "CasterT2",
+        "tier": 0
       }
     },
     {
@@ -12998,6 +13177,11 @@
       "image": "CasterT2",
       "recipe": {
         "recipeDictionary": "CasterT2"
+      },
+      "longName": "CasterT2",
+      "exdata": {
+        "prevTier": "Caster",
+        "tier": 1
       }
     },
     {
@@ -13006,6 +13190,11 @@
       "image": "MicrochipMachine",
       "recipe": {
         "recipeDictionary": "MicrochipMachine"
+      },
+      "longName": "MicrochipMachine",
+      "exdata": {
+        "nextTier": "MicrochipMachineT2",
+        "tier": 0
       }
     },
     {
@@ -13014,6 +13203,11 @@
       "image": "MicrochipMachineT2",
       "recipe": {
         "recipeDictionary": "MicrochipMachineT2"
+      },
+      "longName": "MicrochipMachineT2",
+      "exdata": {
+        "prevTier": "MicrochipMachine",
+        "tier": 1
       }
     },
     {
@@ -13186,6 +13380,11 @@
       "image": "OxygenFurnace",
       "recipe": {
         "recipeDictionary": "OxygenFurnace"
+      },
+      "longName": "OxygenFurnace",
+      "exdata": {
+        "nextTier": "OxygenFurnaceT2",
+        "tier": 0
       }
     },
     {
@@ -13194,6 +13393,11 @@
       "image": "OxygenFurnaceT2",
       "recipe": {
         "recipeDictionary": "OxygenFurnaceT2"
+      },
+      "longName": "OxygenFurnaceT2",
+      "exdata": {
+        "prevTier": "OxygenFurnace",
+        "tier": 1
       }
     },
     {
@@ -13234,6 +13438,11 @@
       "image": "PowerGeneratorT1",
       "recipe": {
         "recipeDictionary": "PowerGeneratorT1"
+      },
+      "longName": "PowerGeneratorT1",
+      "exdata": {
+        "nextTier": "PowerGeneratorT2",
+        "tier": 0
       }
     },
     {
@@ -13242,6 +13451,11 @@
       "image": "PowerGeneratorT2",
       "recipe": {
         "recipeDictionary": "PowerGeneratorT2"
+      },
+      "longName": "PowerGeneratorT2",
+      "exdata": {
+        "prevTier": "PowerGeneratorT1",
+        "tier": 1
       }
     },
     {
@@ -13262,6 +13476,11 @@
       "image": "ResearchLab2",
       "recipe": {
         "recipeDictionary": "ResearchLab2"
+      },
+      "longName": "ResearchLab2",
+      "exdata": {
+        "nextTier": "ResearchLab3",
+        "tier": 0
       }
     },
     {
@@ -13270,6 +13489,12 @@
       "image": "ResearchLab3",
       "recipe": {
         "recipeDictionary": "ResearchLab3"
+      },
+      "longName": "ResearchLab3",
+      "exdata": {
+        "nextTier": "ResearchLab4",
+        "prevTier": "ResearchLab2",
+        "tier": 1
       }
     },
     {
@@ -13278,6 +13503,12 @@
       "image": "ResearchLab4",
       "recipe": {
         "recipeDictionary": "ResearchLab4"
+      },
+      "longName": "ResearchLab4",
+      "exdata": {
+        "nextTier": "ResearchLab5",
+        "prevTier": "ResearchLab3",
+        "tier": 2
       }
     },
     {
@@ -13286,6 +13517,11 @@
       "image": "ResearchLab5",
       "recipe": {
         "recipeDictionary": "ResearchLab5"
+      },
+      "longName": "ResearchLab5",
+      "exdata": {
+        "prevTier": "ResearchLab4",
+        "tier": 3
       }
     },
     {
@@ -13300,6 +13536,11 @@
       "image": "RotaryKiln",
       "recipe": {
         "recipeDictionary": "RotaryKiln"
+      },
+      "longName": "RotaryKiln",
+      "exdata": {
+        "nextTier": "RotaryKilnGas",
+        "tier": 0
       }
     },
     {
@@ -13308,6 +13549,11 @@
       "image": "RotaryKilnGas",
       "recipe": {
         "recipeDictionary": "RotaryKilnGas"
+      },
+      "longName": "RotaryKilnGas",
+      "exdata": {
+        "prevTier": "RotaryKiln",
+        "tier": 1
       }
     },
     {

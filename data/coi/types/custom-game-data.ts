@@ -15,4 +15,8 @@ export enum GameItemExType {
 
 export type GameItemExData = {
     exType?: GameItemExType;
+    nextTier?: string;
+    prevTier?: string;
+    //keep tier in custom data, so tier group menu doesn't appear
+    tier?: number;
 };
