@@ -5,8 +5,6 @@ Please don't remove this comment if you use unmodified file
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import {ImageProcessor} from '../../image-processor';
-import machines from './captain-of-data/data/machines_and_buildings.json';
-import products from './captain-of-data/data/products.json';
 import type {
     GameDataSerialized,
     GameItemSerialized,
@@ -17,6 +15,14 @@ import type {
 //using relative path, without #types, because it is compiled into js, and not handled by typescript only
 import {GameItemType, GameRecipeIOFlags} from '../../../site/data/types/constants';
 import {GameItemExData, GameItemExType} from '../types/custom-game-data';
+import type {
+    MachinesAndBuildingsJson,
+    IODef,
+    ProductsJson,
+    ProductDef,
+    BuildingDef,
+    RecipeDef,
+} from './coi-types';
 
 //npx ts-node grab-data.ts
 //node --loader ts-node/esm --inspect-brk grab-data.ts
@@ -24,6 +30,10 @@ const _dirname = __dirname;
 const _target = path.join(_dirname, '../parsed');
 const _static = path.join(_dirname, '../static/images');
 const _images = path.join(_dirname, './captain-of-data/images');
+const _coi = path.join(_dirname, './captain-of-data/data');
+
+const machines = JSON.parse(fs.readFileSync(path.join(_coi, 'machines_and_buildings.json'), 'utf8')) as MachinesAndBuildingsJson;
+const products = JSON.parse(fs.readFileSync(path.join(_coi, 'products.json'), 'utf8')) as ProductsJson;
 
 function cleanProductId(id: string) {
     if(id.indexOf('Product_') == 0)
@@ -38,19 +48,6 @@ type ImageDef = {
     name: string;
     icon: string;
 };
-type ProductDef = typeof products.products[number];
-type IODef = {
-    name: string;
-    quantity: number;
-};
-type RecipeDef = {
-    id: string;
-    name: string;
-    duration: number;
-    inputs: IODef[];
-    outputs: IODef[];
-};
-type BuildingDef = typeof machines.machines_and_buildings[number];
 
 const classTypes: {[key: string]: GameItemType} = {
     Virtual: GameItemType.Special,
