@@ -11658,6 +11658,2502 @@
       ]
     },
     {
+      "name": "FarmT4",
+      "recipes": [
+        {
+          "name": "Crop_Potato_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 135
+            },
+            {
+              "name": "Fertilizer",
+              "count": 19.6875
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 87
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Potato_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 135
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 19.6875
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 87
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Potato_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 135
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 39.37793
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 87
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Corn_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 199.5703
+            },
+            {
+              "name": "Fertilizer",
+              "count": 29.99902
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 99
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Corn_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 199.5703
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 29.99902
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 99
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Corn_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 199.5703
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 60
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 99
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Wheat_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 238.3594
+            },
+            {
+              "name": "Fertilizer",
+              "count": 39.37598
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 87
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Wheat_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 238.3594
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 39.37598
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 87
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Wheat_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 238.3594
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 78.75488
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 87
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Soybeans_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 180
+            },
+            {
+              "name": "Fertilizer",
+              "count": 37.49512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 33
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Soybeans_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 180
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 37.49512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 33
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Soybeans_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 180
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 74.99316
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 33
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_SugarCane_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 540
+            },
+            {
+              "name": "Fertilizer",
+              "count": 84.36328
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SugarCane",
+              "count": 264
+            }
+          ],
+          "time": 540
+        },
+        {
+          "name": "Crop_SugarCane_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 540
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 84.36328
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SugarCane",
+              "count": 264
+            }
+          ],
+          "time": 540
+        },
+        {
+          "name": "Crop_SugarCane_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 540
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 168.7344
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SugarCane",
+              "count": 264
+            }
+          ],
+          "time": 540
+        },
+        {
+          "name": "Crop_Vegetables_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 160.5469
+            },
+            {
+              "name": "Fertilizer",
+              "count": 26.25098
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 90
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 160.5469
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 26.25098
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 90
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 160.5469
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 52.50391
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 90
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Fruits_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 399.1406
+            },
+            {
+              "name": "Fertilizer",
+              "count": 44.99023
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Fruit",
+              "count": 120
+            }
+          ],
+          "time": 480
+        },
+        {
+          "name": "Crop_Fruits_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 399.1406
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 44.99023
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Fruit",
+              "count": 120
+            }
+          ],
+          "time": 480
+        },
+        {
+          "name": "Crop_Fruits_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 399.1406
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 89.98535
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Fruit",
+              "count": 120
+            }
+          ],
+          "time": 480
+        },
+        {
+          "name": "Crop_Canola_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 104.5898
+            },
+            {
+              "name": "Fertilizer",
+              "count": 16.87109
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 39
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Canola_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 104.5898
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 16.87109
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 39
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Canola_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 104.5898
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 33.74512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 39
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Poppy_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 135.1172
+            },
+            {
+              "name": "Fertilizer",
+              "count": 22.49512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Poppy",
+              "count": 30
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Poppy_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 135.1172
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 22.49512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Poppy",
+              "count": 30
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Poppy_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 135.1172
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 44.99316
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Poppy",
+              "count": 30
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Flowers_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 225
+            },
+            {
+              "name": "Fertilizer",
+              "count": 37.49512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Flowers",
+              "count": 36
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Flowers_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 225
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 37.49512
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Flowers",
+              "count": 36
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Flowers_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 225
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 74.99316
+            },
+            {
+              "name": "Worker",
+              "count": 24,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 8,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Flowers",
+              "count": 36
+            }
+          ],
+          "time": 240
+        }
+      ]
+    },
+    {
+      "name": "FarmT3",
+      "recipes": [
+        {
+          "name": "Crop_Potato_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 121.5527
+            },
+            {
+              "name": "Fertilizer",
+              "count": 17.71875
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 73
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Potato_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 121.5527
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 17.71875
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 73
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Potato_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 121.5527
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 35.43945
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 73
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Corn_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 179.5313
+            },
+            {
+              "name": "Fertilizer",
+              "count": 26.99902
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 83
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Corn_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 179.5313
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 26.99902
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 83
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Corn_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 179.5313
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 54
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 83
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Wheat_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 214.6289
+            },
+            {
+              "name": "Fertilizer",
+              "count": 35.43848
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 73
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Wheat_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 214.6289
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 35.43848
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 73
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Wheat_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 214.6289
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 70.87988
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 73
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Soybeans_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 162.0703
+            },
+            {
+              "name": "Fertilizer",
+              "count": 33.74512
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 28
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Soybeans_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 162.0703
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 33.74512
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 28
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Soybeans_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 162.0703
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 67.49316
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 28
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_SugarCane_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 485.9473
+            },
+            {
+              "name": "Fertilizer",
+              "count": 75.92676
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SugarCane",
+              "count": 220
+            }
+          ],
+          "time": 540
+        },
+        {
+          "name": "Crop_SugarCane_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 485.9473
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 75.92676
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SugarCane",
+              "count": 220
+            }
+          ],
+          "time": 540
+        },
+        {
+          "name": "Crop_SugarCane_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 485.9473
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 151.8604
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SugarCane",
+              "count": 220
+            }
+          ],
+          "time": 540
+        },
+        {
+          "name": "Crop_Vegetables_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 144.4922
+            },
+            {
+              "name": "Fertilizer",
+              "count": 23.625
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 75
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 144.4922
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 23.625
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 75
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 144.4922
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 47.25293
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 75
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Fruits_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 359.0625
+            },
+            {
+              "name": "Fertilizer",
+              "count": 40.49121
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Fruit",
+              "count": 100
+            }
+          ],
+          "time": 480
+        },
+        {
+          "name": "Crop_Fruits_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 359.0625
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 40.49121
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Fruit",
+              "count": 100
+            }
+          ],
+          "time": 480
+        },
+        {
+          "name": "Crop_Fruits_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 359.0625
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 80.9873
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Fruit",
+              "count": 100
+            }
+          ],
+          "time": 480
+        },
+        {
+          "name": "Crop_Canola_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 94.13086
+            },
+            {
+              "name": "Fertilizer",
+              "count": 15.18457
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 33
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Canola_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 94.13086
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 15.18457
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 33
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Canola_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 94.13086
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 30.37012
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 33
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Poppy_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 121.5234
+            },
+            {
+              "name": "Fertilizer",
+              "count": 20.24609
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Poppy",
+              "count": 25
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Poppy_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 121.5234
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 20.24609
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Poppy",
+              "count": 25
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Poppy_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 121.5234
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 40.49316
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Poppy",
+              "count": 25
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Flowers_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 202.5
+            },
+            {
+              "name": "Fertilizer",
+              "count": 33.74512
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Flowers",
+              "count": 30
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Flowers_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 202.5
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 33.74512
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Flowers",
+              "count": 30
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Flowers_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 202.5
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 67.49316
+            },
+            {
+              "name": "Worker",
+              "count": 18,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Flowers",
+              "count": 30
+            }
+          ],
+          "time": 240
+        }
+      ]
+    },
+    {
+      "name": "FarmT2",
+      "recipes": [
+        {
+          "name": "Crop_Potato_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 108.0176
+            },
+            {
+              "name": "Fertilizer",
+              "count": 15.75
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 58
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Potato_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 108.0176
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 15.75
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 58
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Potato_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 108.0176
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 31.50195
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 58
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Corn_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 159.6094
+            },
+            {
+              "name": "Fertilizer",
+              "count": 23.99902
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 66
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Corn_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 159.6094
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 23.99902
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 66
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Corn_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 159.6094
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 48
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 66
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Wheat_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 190.7227
+            },
+            {
+              "name": "Fertilizer",
+              "count": 31.50098
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 58
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Wheat_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 190.7227
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 31.50098
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 58
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Wheat_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 190.7227
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 63.00391
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 58
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Soybeans_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 144.0234
+            },
+            {
+              "name": "Fertilizer",
+              "count": 29.99609
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 22
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Soybeans_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 144.0234
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 29.99609
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 22
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Soybeans_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 144.0234
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 59.99414
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 22
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 128.4375
+            },
+            {
+              "name": "Fertilizer",
+              "count": 21
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 60
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 128.4375
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 21
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 60
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 128.4375
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 42.00293
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 60
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Canola_Product_Fertilizer",
+          "input": [
+            {
+              "name": "Water",
+              "count": 83.67188
+            },
+            {
+              "name": "Fertilizer",
+              "count": 13.49707
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 26
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Canola_Product_Fertilizer2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 83.67188
+            },
+            {
+              "name": "Fertilizer2",
+              "count": 13.49707
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 26
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Canola_Product_FertilizerOrganic",
+          "input": [
+            {
+              "name": "Water",
+              "count": 83.67188
+            },
+            {
+              "name": "FertilizerOrganic",
+              "count": 26.99609
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 26
+            }
+          ],
+          "time": 180
+        }
+      ]
+    },
+    {
+      "name": "FarmT1",
+      "recipes": [
+        {
+          "name": "Crop_Potato",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Potato",
+              "count": 58
+            }
+          ],
+          "time": 180
+        },
+        {
+          "name": "Crop_Corn",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Corn",
+              "count": 66
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Wheat",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Wheat",
+              "count": 58
+            }
+          ],
+          "time": 360
+        },
+        {
+          "name": "Crop_Soybeans",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Soybean",
+              "count": 22
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Vegetables",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Vegetables",
+              "count": 60
+            }
+          ],
+          "time": 240
+        },
+        {
+          "name": "Crop_Canola",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Canola",
+              "count": 26
+            }
+          ],
+          "time": 180
+        }
+      ]
+    },
+    {
+      "name": "ChickenFarm",
+      "recipes": [
+        {
+          "name": "ChickenFarm",
+          "input": [
+            {
+              "name": "AnimalFeed",
+              "count": 15.13672
+            },
+            {
+              "name": "Water",
+              "count": 18.06641
+            },
+            {
+              "name": "Worker",
+              "count": 12,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "Eggs",
+              "count": 7.324219
+            },
+            {
+              "name": "ChickenCarcass",
+              "count": 10
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
       "name": "ResearchLab5",
       "recipes": [
         {
@@ -11697,6 +14193,10 @@
             {
               "name": "Recyclables",
               "count": 4
+            },
+            {
+              "name": "Research",
+              "count": 6.398438
             }
           ],
           "time": 15
@@ -11738,6 +14238,10 @@
             {
               "name": "Recyclables",
               "count": 3
+            },
+            {
+              "name": "Research",
+              "count": 5.601563
             }
           ],
           "time": 15
@@ -11779,6 +14283,10 @@
             {
               "name": "Recyclables",
               "count": 2
+            },
+            {
+              "name": "Research",
+              "count": 4.800781
             }
           ],
           "time": 15
@@ -11820,9 +14328,183 @@
             {
               "name": "Recyclables",
               "count": 1
+            },
+            {
+              "name": "Research",
+              "count": 4
             }
           ],
           "time": 15
+        }
+      ]
+    },
+    {
+      "name": "ResearchLab1",
+      "recipes": [
+        {
+          "name": "ResearchLab1",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 28
+            },
+            {
+              "name": "Upoints",
+              "count": 0.25,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Research",
+              "count": 3.199219
+            }
+          ],
+          "time": 20
+        }
+      ]
+    },
+    {
+      "name": "StorageUnit",
+      "recipes": [
+        {
+          "name": "StorageUnitIn",
+          "input": [
+            {
+              "name": "AnyCountableProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "StorageUnitOut",
+          "output": [
+            {
+              "name": "AnyCountableProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "StorageUnitInOut",
+          "input": [
+            {
+              "name": "AnyCountableProduct",
+              "count": 100
+            }
+          ],
+          "output": [
+            {
+              "name": "AnyCountableProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "StorageLoose",
+      "recipes": [
+        {
+          "name": "StorageLooseIn",
+          "input": [
+            {
+              "name": "AnyLooseProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "StorageLooseOut",
+          "output": [
+            {
+              "name": "AnyLooseProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "StorageLooseInOut",
+          "input": [
+            {
+              "name": "AnyLooseProduct",
+              "count": 100
+            }
+          ],
+          "output": [
+            {
+              "name": "AnyLooseProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "StorageFluid",
+      "recipes": [
+        {
+          "name": "StorageFluidIn",
+          "input": [
+            {
+              "name": "AnyFluidProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "StorageFluidOut",
+          "output": [
+            {
+              "name": "AnyFluidProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "StorageFluidInOut",
+          "input": [
+            {
+              "name": "AnyFluidProduct",
+              "count": 100
+            }
+          ],
+          "output": [
+            {
+              "name": "AnyFluidProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "NuclearWasteStorage",
+      "recipes": [
+        {
+          "name": "NuclearWasteStorageIn",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 10,
+              "flags": 28
+            },
+            {
+              "name": "SpentFuel",
+              "count": 100
+            }
+          ],
+          "time": 60
         }
       ]
     },
@@ -11909,34 +14591,607 @@
       ]
     },
     {
-      "name": "BasicServerRack",
+      "name": "RainwaterHarvester",
       "recipes": [
         {
-          "name": "Create Computing Power",
+          "name": "RainwaterHarvester",
+          "output": [
+            {
+              "name": "Water",
+              "count": 37
+            }
+          ],
+          "time": 720
+        }
+      ]
+    },
+    {
+      "name": "DataCenter",
+      "recipes": [
+        {
+          "name": "BasicServerRack",
           "input": [
             {
               "name": "ChilledWater",
-              "count": 0.5
+              "count": 24
             },
             {
               "name": "MaintenanceT3",
-              "count": 0.5800781,
+              "count": 31.84375,
               "flags": 12
             },
             {
               "name": "Electricity",
-              "count": 5,
+              "count": 240,
               "flags": 12
+            },
+            {
+              "name": "Worker",
+              "count": 6,
+              "flags": 28
             }
           ],
           "output": [
             {
               "name": "Water",
-              "count": 0.5
+              "count": 24
             },
             {
               "name": "Computing",
-              "count": 1
+              "count": 48
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "AnyVirtualStorage",
+      "recipes": [
+        {
+          "name": "AnyVirtualStorageIn",
+          "input": [
+            {
+              "name": "AnyVirtualProduct",
+              "count": 100
+            }
+          ],
+          "output": [],
+          "time": 60
+        },
+        {
+          "name": "AnyVirtualStorageOut",
+          "input": [],
+          "output": [
+            {
+              "name": "AnyVirtualProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "AnyVirtualStorageInOut",
+          "input": [
+            {
+              "name": "AnyVirtualProduct",
+              "count": 100
+            }
+          ],
+          "output": [
+            {
+              "name": "AnyVirtualProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "AnyMoltenStorage",
+      "recipes": [
+        {
+          "name": "AnyMoltenStorageIn",
+          "input": [
+            {
+              "name": "AnyMoltenProduct",
+              "count": 100
+            }
+          ],
+          "output": [],
+          "time": 60
+        },
+        {
+          "name": "AnyMoltenStorageOut",
+          "input": [],
+          "output": [
+            {
+              "name": "AnyMoltenProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "AnyMoltenStorageInOut",
+          "input": [
+            {
+              "name": "AnyMoltenProduct",
+              "count": 100
+            }
+          ],
+          "output": [
+            {
+              "name": "AnyMoltenProduct",
+              "count": 100
+            }
+          ],
+          "time": 60
+        }
+      ]
+    },
+    {
+      "name": "Contract",
+      "recipes": [
+        {
+          "name": "Contract_Product_Coal_For_Product_Cement",
+          "input": [
+            {
+              "name": "Cement",
+              "count": 25
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1103516,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Coal",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_CopperOre_For_Product_HouseholdAppliances",
+          "input": [
+            {
+              "name": "HouseholdAppliances",
+              "count": 22.22222222222222
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1298828,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "CopperOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Coal_For_Product_Glass",
+          "input": [
+            {
+              "name": "Glass",
+              "count": 57.142857142857146
+            },
+            {
+              "name": "Upoints",
+              "count": 0.09960938,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Coal",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Limestone_For_Product_ConstructionParts2",
+          "input": [
+            {
+              "name": "ConstructionParts2",
+              "count": 16.666666666666668
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Limestone",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_IronOre_For_Product_VehicleParts2",
+          "input": [
+            {
+              "name": "VehicleParts2",
+              "count": 18.51851851851852
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1103516,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "IronOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_SourWater_For_Product_Slag",
+          "input": [
+            {
+              "name": "Slag",
+              "count": 247.70642201834863
+            },
+            {
+              "name": "Upoints",
+              "count": 0.2001953,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SourWater",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Limestone_For_Product_Diesel",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 150
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Limestone",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Quartz_For_Product_Diesel",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 171.42857142857142
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1396484,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Quartz",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_GoldOre_For_Product_Diesel",
+          "input": [
+            {
+              "name": "Diesel",
+              "count": 200
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1601563,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "GoldOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Limestone_For_Product_Coal",
+          "input": [
+            {
+              "name": "Coal",
+              "count": 120
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Limestone",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Quartz_For_Product_Coal",
+          "input": [
+            {
+              "name": "Coal",
+              "count": 100
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1396484,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Quartz",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_GoldOre_For_Product_Coal",
+          "input": [
+            {
+              "name": "Coal",
+              "count": 200
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1601563,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "GoldOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_CrudeOil_For_Product_FoodPack",
+          "input": [
+            {
+              "name": "FoodPack",
+              "count": 30
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1503906,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "CrudeOil",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_CrudeOil_For_Product_VehicleParts2",
+          "input": [
+            {
+              "name": "VehicleParts2",
+              "count": 6.666666666666667
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1503906,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "CrudeOil",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_CrudeOil_For_Product_Gold",
+          "input": [
+            {
+              "name": "Gold",
+              "count": 10
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1699219,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "CrudeOil",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_UraniumOre_For_Product_FoodPack",
+          "input": [
+            {
+              "name": "FoodPack",
+              "count": 375
+            },
+            {
+              "name": "Upoints",
+              "count": 0.2998047,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_UraniumOre_For_Product_VehicleParts2",
+          "input": [
+            {
+              "name": "VehicleParts2",
+              "count": 83.33333333333333
+            },
+            {
+              "name": "Upoints",
+              "count": 0.2998047,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_UraniumOre_For_Product_Gold",
+          "input": [
+            {
+              "name": "Gold",
+              "count": 125
+            },
+            {
+              "name": "Upoints",
+              "count": 0.4003906,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_IronOre_For_Product_Server",
+          "input": [
+            {
+              "name": "Server",
+              "count": 3.8461538461538463
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "IronOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_CopperOre_For_Product_MedicalSupplies3",
+          "input": [
+            {
+              "name": "MedicalSupplies3",
+              "count": 33.333333333333336
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "CopperOre",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Quartz_For_Product_SolarCell",
+          "input": [
+            {
+              "name": "SolarCell",
+              "count": 22.22222222222222
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Quartz",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "Contract_Product_Quartz_For_Product_ConsumerElectronics",
+          "input": [
+            {
+              "name": "ConsumerElectronics",
+              "count": 5.555555555555555
+            },
+            {
+              "name": "Upoints",
+              "count": 0.1201172,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Quartz",
+              "count": 100
             }
           ],
           "time": 60
@@ -11999,6 +15254,57 @@
       "label": "Antibiotics",
       "image": "Antibiotics",
       "type": 5
+    },
+    {
+      "name": "AnyCountableProduct",
+      "label": "Any Countable Product",
+      "image": "AnyCountableProduct",
+      "type": 5,
+      "isAbstractClassItem": true
+    },
+    {
+      "name": "AnyFluidProduct",
+      "label": "Any Fluid Product",
+      "image": "AnyFluidProduct",
+      "type": 4,
+      "isAbstractClassItem": true
+    },
+    {
+      "name": "AnyLooseProduct",
+      "label": "Any Loose Product",
+      "image": "AnyLooseProduct",
+      "type": 6,
+      "isAbstractClassItem": true
+    },
+    {
+      "name": "AnyMoltenProduct",
+      "label": "Any Molten Product",
+      "image": "AnyMoltenProduct",
+      "type": 7,
+      "isAbstractClassItem": true
+    },
+    {
+      "name": "AnyMoltenStorage",
+      "label": "Any Molten Product Storage",
+      "image": "AnyMoltenStorage",
+      "recipe": {
+        "recipeDictionary": "AnyMoltenStorage"
+      }
+    },
+    {
+      "name": "AnyVirtualProduct",
+      "label": "Any Virtual Product",
+      "image": "AnyVirtualProduct",
+      "type": 9,
+      "isAbstractClassItem": true
+    },
+    {
+      "name": "AnyVirtualStorage",
+      "label": "Any Virtual Product Storage",
+      "image": "AnyVirtualStorage",
+      "recipe": {
+        "recipeDictionary": "AnyVirtualStorage"
+      }
     },
     {
       "name": "AssemblyManual",
@@ -12082,14 +15388,6 @@
       "image": "BasicDieselDistiller",
       "recipe": {
         "recipeDictionary": "BasicDieselDistiller"
-      }
-    },
-    {
-      "name": "BasicServerRack",
-      "label": "Basic rack",
-      "image": "BasicServerRack",
-      "recipe": {
-        "recipeDictionary": "BasicServerRack"
       }
     },
     {
@@ -12273,6 +15571,14 @@
       "type": 5
     },
     {
+      "name": "ChickenFarm",
+      "label": "Chicken farm",
+      "image": "ChickenFarm",
+      "recipe": {
+        "recipeDictionary": "ChickenFarm"
+      }
+    },
+    {
       "name": "ChilledWater",
       "label": "Chilled water",
       "image": "ChilledWater",
@@ -12388,6 +15694,14 @@
       "label": "Consumer electronics",
       "image": "ConsumerElectronics",
       "type": 5
+    },
+    {
+      "name": "Contract",
+      "label": "Contract",
+      "image": "Contract",
+      "recipe": {
+        "recipeDictionary": "Contract"
+      }
     },
     {
       "name": "CookingOil",
@@ -12514,6 +15828,14 @@
       }
     },
     {
+      "name": "DataCenter",
+      "label": "Data center",
+      "image": "DataCenter",
+      "recipe": {
+        "recipeDictionary": "DataCenter"
+      }
+    },
+    {
       "name": "Diesel",
       "label": "Diesel",
       "image": "Diesel",
@@ -12589,7 +15911,7 @@
       "name": "Electricity",
       "label": "Electricity",
       "image": "Electricity",
-      "type": 8,
+      "type": 9,
       "exdata": {
         "exType": 1
       }
@@ -12675,6 +15997,60 @@
       }
     },
     {
+      "name": "FarmT1",
+      "label": "Farm",
+      "image": "FarmT1",
+      "recipe": {
+        "recipeDictionary": "FarmT1"
+      },
+      "longName": "FarmT1",
+      "exdata": {
+        "nextTier": "FarmT2",
+        "tier": 0
+      }
+    },
+    {
+      "name": "FarmT2",
+      "label": "Irrigated Farm",
+      "image": "FarmT2",
+      "recipe": {
+        "recipeDictionary": "FarmT2"
+      },
+      "longName": "FarmT2",
+      "exdata": {
+        "nextTier": "FarmT3",
+        "prevTier": "FarmT1",
+        "tier": 1
+      }
+    },
+    {
+      "name": "FarmT3",
+      "label": "Greenhouse",
+      "image": "FarmT3",
+      "recipe": {
+        "recipeDictionary": "FarmT3"
+      },
+      "longName": "FarmT3",
+      "exdata": {
+        "nextTier": "FarmT4",
+        "prevTier": "FarmT2",
+        "tier": 2
+      }
+    },
+    {
+      "name": "FarmT4",
+      "label": "Greenhouse II",
+      "image": "FarmT4",
+      "recipe": {
+        "recipeDictionary": "FarmT4"
+      },
+      "longName": "FarmT4",
+      "exdata": {
+        "prevTier": "FarmT3",
+        "tier": 3
+      }
+    },
+    {
       "name": "FermentationTank",
       "label": "Fermentation tank",
       "image": "FermentationTank",
@@ -12715,10 +16091,44 @@
       }
     },
     {
+      "name": "FlatConveyorT1",
+      "label": "Flat conveyor",
+      "image": "FlatConveyorT1"
+    },
+    {
+      "name": "FlatConveyorT2",
+      "label": "Flat conveyor II",
+      "image": "FlatConveyorT2"
+    },
+    {
+      "name": "FlatConveyorT3",
+      "label": "Flat conveyor III",
+      "image": "FlatConveyorT3"
+    },
+    {
       "name": "Flour",
       "label": "Flour",
       "image": "Flour",
       "type": 5
+    },
+    {
+      "name": "Flowers",
+      "label": "Flowers",
+      "image": "Flowers",
+      "type": 5
+    },
+    {
+      "name": "StorageFluid",
+      "label": "Fluid storage",
+      "image": "StorageFluid",
+      "recipe": {
+        "recipeDictionary": "StorageFluid"
+      },
+      "longName": "StorageFluid",
+      "exdata": {
+        "nextTier": "StorageFluidT2",
+        "tier": 0
+      }
     },
     {
       "name": "FoodPack",
@@ -12995,6 +16405,19 @@
       }
     },
     {
+      "name": "StorageLoose",
+      "label": "Loose storage",
+      "image": "StorageLoose",
+      "recipe": {
+        "recipeDictionary": "StorageLoose"
+      },
+      "longName": "StorageLoose",
+      "exdata": {
+        "nextTier": "StorageLooseT2",
+        "tier": 0
+      }
+    },
+    {
       "name": "TurbineLowPress",
       "label": "Low-pressure turbine",
       "image": "TurbineLowPress",
@@ -13123,7 +16546,7 @@
       "name": "MechPower",
       "label": "Mechanical power",
       "image": "MechPower",
-      "type": 8,
+      "type": 9,
       "exdata": {
         "exType": 2
       }
@@ -13407,6 +16830,21 @@
       "type": 5
     },
     {
+      "name": "PipeT1",
+      "label": "Pipe",
+      "image": "PipeT1"
+    },
+    {
+      "name": "PipeT2",
+      "label": "Pipe II",
+      "image": "PipeT2"
+    },
+    {
+      "name": "PipeT3",
+      "label": "Pipe III",
+      "image": "PipeT3"
+    },
+    {
       "name": "Plastic",
       "label": "Plastic",
       "image": "Plastic",
@@ -13465,10 +16903,37 @@
       "type": 6
     },
     {
+      "name": "RainwaterHarvester",
+      "label": "Rainwater harvester",
+      "image": "RainwaterHarvester",
+      "recipe": {
+        "recipeDictionary": "RainwaterHarvester"
+      }
+    },
+    {
       "name": "Recyclables",
       "label": "Recyclables",
       "image": "Recyclables",
       "type": 6
+    },
+    {
+      "name": "Research",
+      "label": "Research",
+      "image": "Research",
+      "type": 9
+    },
+    {
+      "name": "ResearchLab1",
+      "label": "Research lab",
+      "image": "ResearchLab1",
+      "recipe": {
+        "recipeDictionary": "ResearchLab1"
+      },
+      "longName": "ResearchLab1",
+      "exdata": {
+        "nextTier": "ResearchLab2",
+        "tier": 0
+      }
     },
     {
       "name": "ResearchLab2",
@@ -13480,7 +16945,8 @@
       "longName": "ResearchLab2",
       "exdata": {
         "nextTier": "ResearchLab3",
-        "tier": 0
+        "prevTier": "ResearchLab1",
+        "tier": 1
       }
     },
     {
@@ -13494,7 +16960,7 @@
       "exdata": {
         "nextTier": "ResearchLab4",
         "prevTier": "ResearchLab2",
-        "tier": 1
+        "tier": 2
       }
     },
     {
@@ -13508,7 +16974,7 @@
       "exdata": {
         "nextTier": "ResearchLab5",
         "prevTier": "ResearchLab3",
-        "tier": 2
+        "tier": 3
       }
     },
     {
@@ -13521,7 +16987,7 @@
       "longName": "ResearchLab5",
       "exdata": {
         "prevTier": "ResearchLab4",
-        "tier": 3
+        "tier": 4
       }
     },
     {
@@ -13747,6 +17213,14 @@
       "type": 5
     },
     {
+      "name": "NuclearWasteStorage",
+      "label": "Spent fuel storage",
+      "image": "NuclearWasteStorage",
+      "recipe": {
+        "recipeDictionary": "NuclearWasteStorage"
+      }
+    },
+    {
       "name": "SteamDepleted",
       "label": "Steam depleted",
       "image": "SteamDepleted",
@@ -13807,6 +17281,34 @@
       "label": "Toxic slurry",
       "image": "ToxicSlurry",
       "type": 4
+    },
+    {
+      "name": "LooseMaterialConveyor",
+      "label": "U-shape conveyor",
+      "image": "LooseMaterialConveyor"
+    },
+    {
+      "name": "LooseMaterialConveyorT2",
+      "label": "U-shape conveyor II",
+      "image": "LooseMaterialConveyorT2"
+    },
+    {
+      "name": "LooseMaterialConveyorT3",
+      "label": "U-shape conveyor III",
+      "image": "LooseMaterialConveyorT3"
+    },
+    {
+      "name": "StorageUnit",
+      "label": "Unit storage",
+      "image": "StorageUnit",
+      "recipe": {
+        "recipeDictionary": "StorageUnit"
+      },
+      "longName": "StorageUnit",
+      "exdata": {
+        "nextTier": "StorageUnitT2",
+        "tier": 0
+      }
     },
     {
       "name": "Upoints",
@@ -13942,6 +17444,106 @@
       "label": "Yellowcake",
       "image": "YellowCake",
       "type": 6
+    }
+  ],
+  "logistic": [
+    {
+      "name": "FlatConveyor",
+      "label": "Flat conveyor",
+      "items": [
+        {
+          "name": "AnyCountableProduct"
+        }
+      ],
+      "transport": [
+        {
+          "name": "FlatConveyorT1",
+          "label": "Flat conveyor",
+          "count": 0.9960938
+        },
+        {
+          "name": "FlatConveyorT2",
+          "label": "Flat conveyor II",
+          "count": 3.330078
+        },
+        {
+          "name": "FlatConveyorT3",
+          "label": "Flat conveyor III",
+          "count": 7.5
+        }
+      ],
+      "time": 1
+    },
+    {
+      "name": "LooseMaterialConveyor",
+      "label": "U-shape conveyor",
+      "items": [
+        {
+          "name": "AnyLooseProduct"
+        }
+      ],
+      "transport": [
+        {
+          "name": "LooseMaterialConveyor",
+          "label": "U-shape conveyor",
+          "count": 0.9960938
+        },
+        {
+          "name": "LooseMaterialConveyorT2",
+          "label": "U-shape conveyor II",
+          "count": 3.330078
+        },
+        {
+          "name": "LooseMaterialConveyorT3",
+          "label": "U-shape conveyor III",
+          "count": 7.5
+        }
+      ],
+      "time": 1
+    },
+    {
+      "name": "MoltenMetalChannel",
+      "label": "Molten channel",
+      "items": [
+        {
+          "name": "AnyMoltenProduct"
+        }
+      ],
+      "transport": [
+        {
+          "name": "MoltenMetalChannel",
+          "label": "Molten channel",
+          "count": 2.001953
+        }
+      ],
+      "time": 1
+    },
+    {
+      "name": "Pipe",
+      "label": "Pipe",
+      "items": [
+        {
+          "name": "AnyFluidProduct"
+        }
+      ],
+      "transport": [
+        {
+          "name": "PipeT1",
+          "label": "Pipe",
+          "count": 0.9960938
+        },
+        {
+          "name": "PipeT2",
+          "label": "Pipe II",
+          "count": 3.330078
+        },
+        {
+          "name": "PipeT3",
+          "label": "Pipe III",
+          "count": 7.5
+        }
+      ],
+      "time": 1
     }
   ]
 }

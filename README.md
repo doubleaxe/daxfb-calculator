@@ -39,8 +39,13 @@ Query string `?gameId=<game>` may be added to quickly open desired game, for exa
 # TODO list
 
 - Color/Icon states for link and item (overflow, underflow, warning, etc..)
-- Move/Delete entire blueprint, production chain or multiple factories (selection, edit)
 - Apply counts calculated in locked mode to current factories
 - Allow manual editing mode without auto-solver, check graph is balanced and show results
+- Group by custom category, group by building type for CoI
+- Multiselect / Move multi-selected factories
+- Cut / Copy / Paste individual and multi-selected factories
+- Undo / Redo
+- Automatically sort nodes
 - Use `\R\N` for Windows saved files instead of `\N`
 - Use `https://github.com/bcakmakoglu/vue-flow/` for nicer graph display? (will require almost full rewrite)
+- Use `https://github.com/dagrejs/dagre` to automatically lay out graphs.

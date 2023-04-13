@@ -15,6 +15,7 @@ export interface BuildingDef {
     electricity_generated: number;
     computing_consumed: number;
     computing_generated: number;
+    product_type: string;
     storage_capacity: number;
     unity_cost: number;
     research_speed: number;
@@ -50,4 +51,39 @@ export interface ProductDef {
     name: string;
     icon: string;
     type: string;
+}
+
+export interface ContractsJson {
+    game_version: string;
+    contracts: Contract[];
+}
+
+export interface Contract {
+    id: string;
+    product_to_buy_name: string;
+    product_to_buy_quantity: number;
+    product_to_pay_with_name: string;
+    product_to_pay_with_quantity: number;
+    unity_per_month: number;
+    unity_per_100_bought: number;
+    unity_to_establish: number;
+    min_reputation_required: number;
+}
+
+export interface TransportsJson {
+    game_version: string;
+    transports: Transport[];
+}
+
+export interface Transport {
+    id: string;
+    name: string;
+    category: string;
+    next_tier: string;
+    maintenance_cost_units: string;
+    maintenance_cost_quantity: number;
+    electricity_consumed: number;
+    throughput_per_second: number;
+    length_per_cost: number;
+    build_costs: BuildCost[];
 }
