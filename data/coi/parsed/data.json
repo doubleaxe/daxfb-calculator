@@ -16722,6 +16722,11 @@
       }
     },
     {
+      "name": "MoltenMetalChannel",
+      "label": "Molten channel",
+      "image": "MoltenMetalChannel"
+    },
+    {
       "name": "MoltenCopper",
       "label": "Molten copper",
       "image": "MoltenCopper",
@@ -17459,20 +17464,21 @@
         {
           "name": "FlatConveyorT1",
           "label": "Flat conveyor",
-          "count": 0.9960938
+          "count": 59.765628
         },
         {
           "name": "FlatConveyorT2",
           "label": "Flat conveyor II",
-          "count": 3.330078
+          "count": 199.80468
         },
         {
           "name": "FlatConveyorT3",
           "label": "Flat conveyor III",
-          "count": 7.5
+          "count": 450
         }
       ],
-      "time": 1
+      "time": 1,
+      "stackable": true
     },
     {
       "name": "LooseMaterialConveyor",
@@ -17486,20 +17492,21 @@
         {
           "name": "LooseMaterialConveyor",
           "label": "U-shape conveyor",
-          "count": 0.9960938
+          "count": 59.765628
         },
         {
           "name": "LooseMaterialConveyorT2",
           "label": "U-shape conveyor II",
-          "count": 3.330078
+          "count": 199.80468
         },
         {
           "name": "LooseMaterialConveyorT3",
           "label": "U-shape conveyor III",
-          "count": 7.5
+          "count": 450
         }
       ],
-      "time": 1
+      "time": 1,
+      "stackable": true
     },
     {
       "name": "MoltenMetalChannel",
@@ -17513,10 +17520,11 @@
         {
           "name": "MoltenMetalChannel",
           "label": "Molten channel",
-          "count": 2.001953
+          "count": 120.11717999999999
         }
       ],
-      "time": 1
+      "time": 1,
+      "stackable": true
     },
     {
       "name": "Pipe",
@@ -17530,20 +17538,21 @@
         {
           "name": "PipeT1",
           "label": "Pipe",
-          "count": 0.9960938
+          "count": 59.765628
         },
         {
           "name": "PipeT2",
           "label": "Pipe II",
-          "count": 3.330078
+          "count": 199.80468
         },
         {
           "name": "PipeT3",
           "label": "Pipe III",
-          "count": 7.5
+          "count": 450
         }
       ],
-      "time": 1
+      "time": 1,
+      "stackable": true
     }
   ]
 }

@@ -313,6 +313,8 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
             _io.push({name: 'Worker', count: resources.workers});
         }
         if(resources.maintenance) {
+            //wiki says idle buildings consume 30% of maintenance.
+            //it is too hard to solve, so we just assume maintenance is scaled with building count
             const maintenanceDef = productNamesToDefs.get(resources.maintenanceType || '');
             if(!maintenanceDef)
                 throw new Error(`unknown maintenance type: (${resources.maintenanceType})`);
@@ -341,6 +343,8 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
                 flags |= (GameRecipeIOFlags.HideInMenu | GameRecipeIOFlags.HideOnWindow);
             }
             if(isCommonIo && (i.name === 'Worker')) {
+                //just for not showing 3.5 workers when building count is not integer
+                //workers don't scale with partial (idle) building count
                 flags |= GameRecipeIOFlags.RoundToCeil;
             }
             if(flags) {
@@ -772,6 +776,8 @@ function prepareProducts(productIdsToDefs: Map<string, ProductDef>, productsUsed
 
 function prepareLogistic() {
     type LogisticGroup = 'FlatConveyor' | 'LooseMaterialConveyor' | 'MoltenMetalChannel' | 'Pipe';
+    //our calculator solves everything in items per minute, so we should correct here accordingly
+    //we set time to 1 and multipy counts by 60 to get per minute
     const logisticGroups: Record<LogisticGroup, GameLogisticSerialized> = {
         FlatConveyor: {
             name: 'FlatConveyor',
@@ -781,6 +787,7 @@ function prepareLogistic() {
             }],
             transport: [],
             time: 1,
+            stackable: true,
         },
         LooseMaterialConveyor: {
             name: 'LooseMaterialConveyor',
@@ -790,6 +797,7 @@ function prepareLogistic() {
             }],
             transport: [],
             time: 1,
+            stackable: true,
         },
         MoltenMetalChannel: {
             name: 'MoltenMetalChannel',
@@ -799,6 +807,7 @@ function prepareLogistic() {
             }],
             transport: [],
             time: 1,
+            stackable: true,
         },
         Pipe: {
             name: 'Pipe',
@@ -808,6 +817,7 @@ function prepareLogistic() {
             }],
             transport: [],
             time: 1,
+            stackable: true,
         },
     };
     const conveyorToProductType: {[key: string]: LogisticGroup} = {
@@ -822,6 +832,16 @@ function prepareLogistic() {
         PipeT2: 'Pipe',
         PipeT3: 'Pipe',
     };
+
+    const mapTransportToItem = function(transport: GameLogisticTransportSerialized) {
+        const item: GameItemSerialized = {
+            name: transport.name,
+            label: transport.label || '',
+            image: transport.name,
+        };
+        return item;
+    };
+
     const nextTier: NextTier[] = [];
     for(const transport of transports.transports) {
         const group = conveyorToProductType[transport.id];
@@ -833,7 +853,7 @@ function prepareLogistic() {
         const _transport: GameLogisticTransportSerialized = {
             name: transport.id,
             label: transport.name,
-            count: transport.throughput_per_second,
+            count: transport.throughput_per_second * 60,
         };
         _logistic.transport.push(_transport);
 
@@ -851,6 +871,7 @@ function prepareLogistic() {
     for(const item of logistic) {
         //sort each logistic by tier
         if(item.transport.length <= 1) {
+            logisticItemsArray.push(item.transport.map(t => mapTransportToItem(t)));
             continue;
         }
         const transportMap = new Map<string, GameLogisticTransportSerialized>(
@@ -859,11 +880,7 @@ function prepareLogistic() {
         const splitTransports = splitItemsToTiers(transportMap, nextTier);
         splitTransports.sort((a, b) => (a[0]?.label?.localeCompare(b[0]?.label || '') || 0));
         item.transport = splitTransports.flat();
-        logisticItemsArray.push(item.transport.map(t => ({
-            name: t.name,
-            label: t.label || '',
-            image: t.name,
-        })));
+        logisticItemsArray.push(item.transport.map(t => mapTransportToItem(t)));
     }
     return {
         logistic,
