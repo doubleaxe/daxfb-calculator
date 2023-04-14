@@ -41,6 +41,14 @@ const settings = injectSettings();
                         <v-checkbox v-model="settings.colorfulLinks" />
                     </template>
                 </v-list-item>
+                <v-list-item title="Count Controls" @click="settings.showCountControlsOnWindow = !settings.showCountControlsOnWindow">
+                    <template #subtitle>
+                        Show Plus/Minus buttons on factory card window.
+                    </template>
+                    <template #prepend>
+                        <v-checkbox v-model="settings.showCountControlsOnWindow" />
+                    </template>
+                </v-list-item>
                 <v-list-subheader>Calculations</v-list-subheader>
                 <v-list-item title="Solve Precision">
                     <template #subtitle>

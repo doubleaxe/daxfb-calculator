@@ -31,6 +31,7 @@ const SavedKeys = [
     'blueprintSplit',
     'showSummary',
     'showSummaryCompact',
+    'showCountControlsOnWindow',
 ] as const;
 type SavedKey = typeof SavedKeys[number];
 type SavedObject = {
@@ -97,6 +98,7 @@ class Settings implements SavedObject {
 
     showSummary = true;
     showSummaryCompact = true;
+    showCountControlsOnWindow = true;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }

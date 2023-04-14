@@ -73,4 +73,11 @@ export class RecipeModelImpl {
     get output() { return this._output[Symbol.iterator](); }
     itemByKey(key: string) { return this._itemsByKey.get(key); }
     get items() { return this._itemsByKey.values(); }
+
+    visibleInput() {
+        return this._input.filter(item => (!item.hideOnWindow || item.linksCount));
+    }
+    visibleOutput() {
+        return this._output.filter(item => (!item.hideOnWindow || item.linksCount));
+    }
 }

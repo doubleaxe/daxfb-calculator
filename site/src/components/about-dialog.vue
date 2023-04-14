@@ -61,6 +61,13 @@ const __BUILD_TIME_STR__ = `${padNumber(btime.getFullYear(), 4)}-${padNumber(bti
                     <v-list-item title="Game version" :subtitle="gameDescription.version" />
                     <v-list-item title="Build version" :subtitle="__VERSION__" />
                     <v-list-item title="Build time" :subtitle="__BUILD_TIME_STR__" />
+                    <v-list-item title="Change log">
+                        <v-list-item-subtitle>
+                            <a href="https://github.com/doubleaxe/daxfb-calculator/releases" target="_blank">
+                                https://github.com/doubleaxe/daxfb-calculator/releases
+                            </a>
+                        </v-list-item-subtitle>
+                    </v-list-item>
                     <v-list-item title="Bug reports">
                         <v-list-item-subtitle>
                             <a href="https://github.com/doubleaxe/daxfb-calculator/issues" target="_blank">

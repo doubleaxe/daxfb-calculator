@@ -5,7 +5,7 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiArrowLeft, mdiArrowRight, mdiCursorMove} from '@mdi/js';
+import {mdiCursorMove} from '@mdi/js';
 import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
 import {Rect, type ReadonlyRectType} from '@/scripts/geometry';
@@ -85,10 +85,7 @@ function updateIoRects() {
 
 const leftSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
-    let io = [...(props.item.isFlipped ? _recipe?.output : _recipe?.input) || []];
-    if(io.length) {
-        io = io.filter(item => (!item.hideOnWindow || item.linksCount));
-    }
+    const io = (props.item.isFlipped ? _recipe?.visibleOutput() : _recipe?.visibleInput()) || [];
     return {
         io: () => io,
         count: io.length,
@@ -96,20 +93,12 @@ const leftSide = computed(() => {
 });
 const rightSide = computed(() => {
     const _recipe = props.item?.selectedRecipe;
-    let io = [...(props.item.isFlipped ? _recipe?.input : _recipe?.output) || []];
-    if(io.length) {
-        io = io.filter(item => (!item.hideOnWindow || item.linksCount));
-    }
+    const io = (props.item.isFlipped ? _recipe?.visibleInput() : _recipe?.visibleOutput()) || [];
     return {
         io: () => io,
         count: io.length,
     };
 });
-const icon = computed(() => (props.item.isFlipped ? mdiArrowLeft : mdiArrowRight));
-function flip() {
-    // eslint-disable-next-line vue/no-mutating-props
-    props.item.isFlipped = !props.item.isFlipped;
-}
 
 onMounted(updateIoRects);
 watch([
@@ -162,22 +151,10 @@ watch(() => props.item.rect, (value, oldValue) => {
                     />
                 </template>
             </div>
-            <div class="align-self-center d-flex flex-column align-center" @pointerdown.left.stop @click.stop>
-                <icon-component
-                    class="main-icon-row rounded hover-border"
-                    :image="props.item?.image"
-                    :tooltip="props.item?.label"
-                    @click="emit('recipes-menu-activate', props.item, $event.currentTarget)"
-                />
-                <v-btn
-                    variant="outlined"
-                    rounded="pill"
-                    size="x-small"
-                    @click="flip"
-                >
-                    <v-icon class="align-self-center" :icon="icon" />
-                </v-btn>
-            </div>
+            <blueprint-single-factory
+                :item="props.item"
+                @recipes-menu-activate="(activator: Element) => emit('recipes-menu-activate', props.item, activator)"
+            />
             <div>
                 <template v-for="io in rightSide.io()" :key="io.key">
                     <blueprint-single-io
@@ -208,8 +185,5 @@ watch(() => props.item.rect, (value, oldValue) => {
     display: flex;
     flex-direction: row;
     align-items: start;
-}
-.main-icon-row {
-    display: block;
 }
 </style>
