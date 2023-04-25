@@ -9,7 +9,7 @@ import {provideBlueprintModel, type BlueprintModel} from '@/scripts/model/store'
 import {provideFilter} from '@/scripts/filter';
 import {provideSettings} from '@/scripts/settings';
 import {mdiFormatListBulletedType} from '@mdi/js';
-import {useAnalytics} from '@/composables/analytics';
+import {useAnalytics, loadBlueprint} from '@/composables';
 
 const drawer = ref(true);
 const showSummary = ref(false);
@@ -44,6 +44,11 @@ onBeforeMount(() => {
     const filter = provideFilter(gameData);
     const _settings = provideSettings(gameData, _blueprintModel, filter);
     document.title = `daxfb-calculator - calculator/factory planner for "${gameData.gameDescription.description}"`;
+
+    if(gameData.preloadBlueprint) {
+        loadBlueprint(gameData, _blueprintModel, gameData.preloadBlueprint, undefined);
+        gameData.initPreloadBlueprint('');
+    }
     blueprintModel.value = _blueprintModel;
 
     //load at start, and don't watch for changes from another tabs

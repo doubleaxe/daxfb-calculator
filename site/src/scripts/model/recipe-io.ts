@@ -65,7 +65,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get image() { return this._matherializeAbstractItem?.image || this._item?.image || ''; }
 
     get hasProbability() { return (this._io.flags & GameRecipeIOFlags.HasProbability); }
-    get hideOnWindow() { return (this._io.flags & GameRecipeIOFlags.HideOnWindow); }
+    get isHidden() { return (this._io.flags & GameRecipeIOFlags.HideOnWindow) && !this.linksCount; }
 
     setFlipped(isFlipped: boolean) {
         if(this._ownerItem)

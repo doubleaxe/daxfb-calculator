@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck, mdiContentSave} from '@mdi/js';
+import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck, mdiContentSave, mdiLinkVariantPlus} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {useClipboard, useDebounceFn, useShare, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
@@ -30,6 +30,7 @@ const blueprintName = ref('');
 const fileName = computed(() => {
     return FileNameHandler.blueprintNameToFileName(unref(blueprintName));
 });
+const showGenerateLinkDialog = ref(false);
 
 const {copy, copied, isSupported: isClipboardSupported} = useClipboard();
 const {share, isSupported: isShareSupported} = useShare();
@@ -138,11 +139,21 @@ watch(blueprintName, (value) => {
                         <v-btn
                             block
                             size="small"
+                            class="mb-1"
                             color="secondary"
                             :prepend-icon="mdiContentSave"
                             @click="saveBlueprint()"
                         >
                             Save To File
+                        </v-btn>
+                        <v-btn
+                            block
+                            size="small"
+                            color="secondary"
+                            :prepend-icon="mdiLinkVariantPlus"
+                            @click="showGenerateLinkDialog = true"
+                        >
+                            Generate Link
                         </v-btn>
                         <a
                             v-if="objectUrl"
@@ -156,4 +167,7 @@ watch(blueprintName, (value) => {
             </v-container>
         </v-sheet>
     </v-dialog>
+    <div class="d-none">
+        <generate-link-dialog v-model="showGenerateLinkDialog" :blueprint-data="fullyEncodedBlueprint" />
+    </div>
 </template>

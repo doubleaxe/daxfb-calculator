@@ -75,9 +75,9 @@ export class RecipeModelImpl {
     get items() { return this._itemsByKey.values(); }
 
     visibleInput() {
-        return this._input.filter(item => (!item.hideOnWindow || item.linksCount));
+        return this._input.filter(item => !item.isHidden);
     }
     visibleOutput() {
-        return this._output.filter(item => (!item.hideOnWindow || item.linksCount));
+        return this._output.filter(item => !item.isHidden);
     }
 }

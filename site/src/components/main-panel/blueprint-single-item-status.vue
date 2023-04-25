@@ -17,7 +17,7 @@ const hiddenIo = computed(() => {
     const _recipe = props.item?.selectedRecipe;
     let io = [...(_recipe?.input || []), ...(_recipe?.output || [])];
     if(io.length) {
-        io = io.filter(item => item.hideOnWindow);
+        io = io.filter(item => item.isHidden);
     }
     return io;
 });

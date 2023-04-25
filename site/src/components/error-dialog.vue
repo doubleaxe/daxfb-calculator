@@ -5,7 +5,7 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {mdiClose} from '@mdi/js';
 import {ref} from 'vue';
-import {useErrorHandler} from '@/composables/error-handler';
+import {useErrorHandler} from '@/composables';
 import {ErrorCollector} from '@/scripts/error-collector';
 
 const dialog = ref(false);

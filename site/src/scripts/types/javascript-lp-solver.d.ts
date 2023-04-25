@@ -2,7 +2,7 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-//overall javascript-lp-solver d.ts is full of any and other dirty stuff
+//overall javascript-lp-solver.d.ts is full of any and other dirty stuff
 //we import Model alone
 //it doesn't have ts exports, so we need to make ourselves
 declare module '@ellbur/javascript-lp-solver/src/Model' {

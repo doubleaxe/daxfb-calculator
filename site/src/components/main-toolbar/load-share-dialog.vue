@@ -7,9 +7,7 @@ import {mdiClose, mdiContentPaste, mdiFileUploadOutline} from '@mdi/js';
 import {useClipboard, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {nextTick, ref, unref, watch} from 'vue';
-import {BlueprintDecoder, FileNameHandler} from '@/scripts/model/serializer';
-import {ErrorCollector} from '@/scripts/error-collector';
-import {useErrorHandler} from '@/composables/error-handler';
+import {useErrorHandler, loadBlueprint} from '@/composables';
 import {injectGameData} from '@/scripts/data';
 
 const props = defineProps<{
@@ -83,26 +81,7 @@ function load(encodedBlueprint?: string) {
     if(!encodedBlueprint) {
         encodedBlueprint = unref(loadedBlueprint);
     }
-    let blueprintName: string | undefined;
-    ({blueprintName, encodedBlueprint} = FileNameHandler.decodeBlueprintNameHeader(encodedBlueprint));
-    if(!blueprintName && unref(fileName)) {
-        blueprintName = FileNameHandler.fileNameToBlueprintName(unref(fileName));
-    }
-
-    const errorCollector = new ErrorCollector();
-    const decoder = new BlueprintDecoder(gameData, errorCollector);
-    const decoded = decoder.decode(encodedBlueprint);
-    if(!decoded || errorCollector.haveErrors) {
-        showError(ERROR_TITLE, errorCollector);
-        return;
-    }
-    blueprintModel.load(decoded, errorCollector);
-    if(blueprintName) {
-        blueprintModel.blueprintName = blueprintName;
-    }
-    if(errorCollector.haveErrors) {
-        showError('Blueprint possibly wasn\'t loaded correctly', errorCollector, true);
-    }
+    loadBlueprint(gameData, blueprintModel, encodedBlueprint, fileName);
     dialog.value = false;
 }
 </script>

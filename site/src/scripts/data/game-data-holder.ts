@@ -70,6 +70,8 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
 
     const emptyRecipeDictionary = parsedGameData.emptyRecipeDictionary;
 
+    let preloadBlueprint = '';
+
     const gameData = {
         gameItemsArray,
         gameAbstractItems: freezeMap(gameAbstractItems),
@@ -84,6 +86,10 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
         gameImages: parsedGameData.images,
         getImage: (name: string) => parsedGameData.images[name],
         gameDescription: parsedGameData.description,
+        get preloadBlueprint() { return preloadBlueprint; },
+        initPreloadBlueprint: (_preloadBlueprint: string) => {
+            preloadBlueprint = _preloadBlueprint;
+        },
     };
     Object.freeze(gameData);
     return gameData;
