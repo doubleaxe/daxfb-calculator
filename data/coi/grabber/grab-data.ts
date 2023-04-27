@@ -16,7 +16,7 @@ import type {
 } from '#types/game-data-serialized';
 //using relative path, without #types, because it is compiled into js, and not handled by typescript only
 import {GameItemType, GameRecipeIOFlags} from '../../../site/data/types/constants';
-import {GameItemExData, GameItemExType} from '../types/custom-game-data';
+import {type GameItemExData, GameItemExType} from '../types/custom-game-data';
 import type {
     MachinesAndBuildingsJson,
     IODef,
@@ -27,6 +27,7 @@ import type {
     ContractsJson,
     TransportsJson,
 } from './coi-types';
+import {ColorActionName} from '@jimp/plugin-color';
 
 //npx ts-node grab-data.ts
 //npx ts-node data/coi/grabber/grab-data.ts
@@ -207,7 +208,7 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
             }
             const img = await imageProcessor.addImageBuffer(imageBuffer, image.id);
             if(whiteImages.has(image.id)) {
-                img.color([{apply: 'shade', params: [40]}]);
+                img.color([{apply: ColorActionName.SHADE, params: [40]}]);
             }
         } catch(err) {
             if((err as NodeJS.ErrnoException).code != 'ENOENT')

@@ -4,7 +4,8 @@ Please don't remove this comment if you use unmodified file
 */
 import type {ErrorCollector} from '../error-collector';
 import {newColorClass, newKey} from './key-store';
-import {LinkShapeDescriptor, LinkShapeModel, LinkShapeModelBuilder} from './link-shape';
+import type {LinkShapeModel} from './link-shape';
+import {LinkShapeDescriptor, LinkShapeModelBuilder} from './link-shape';
 import {LogisticSetModelImpl} from './logistic';
 import type {SavedLink} from './saved-blueprint';
 import type {LogisticSetModel, RecipeIOModel} from './store';

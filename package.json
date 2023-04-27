@@ -2,8 +2,8 @@
   "name": "daxfb-calculator",
   "version": "1.0.14",
   "description": "Calculator/Factory Planner for factory management games",
-  "main": "index.js",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "run-s build-data-debug build-docs site",
     "build": "run-s type-check build-data build-docs build-only",
     "site": "vite site",
@@ -17,6 +17,7 @@
     "build-data": "ts-node build-data.ts",
     "build-data-debug": "ts-node build-data.ts debug"
   },
+  "packageManager": "pnpm@8.3.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/doubleaxe/daxfb-calculator"
@@ -30,20 +31,27 @@
     "node": ">=18"
   },
   "type": "commonjs",
-  "author": "Alexey Usov (dax@xdax.ru, https://t.me/doubleaxe, https://github.com/doubleaxe)",
+  "author": "Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doubleaxe/daxfb-calculator/issues"
+  },
+  "homepage": "https://doubleaxe.github.io/daxfb-calculator/",
   "dependencies": {
     "@ellbur/javascript-lp-solver": "^0.4.26",
     "@mdi/js": "^7.1.96",
     "@vueuse/components": "^9.11.1",
     "@vueuse/core": "^9.11.1",
     "d3-shape": "^3.2.0",
+    "elkjs": "^0.8.2",
     "js-base64": "^3.7.4",
     "pako": "^2.1.0",
     "vue": "^3.2.41",
     "vuetify": "^3.1.7"
   },
   "devDependencies": {
+    "@jimp/plugin-color": "^0.22.7",
+    "@jimp/plugin-print": "^0.22.7",
     "@rollup/plugin-typescript": "^11.0.0",
     "@rollup/plugin-virtual": "^3.0.1",
     "@types/d3-shape": "^3.1.1",
@@ -62,7 +70,7 @@
     "eslint": "^8.32.0",
     "eslint-plugin-vue": "^9.9.0",
     "github-markdown-css": "^5.2.0",
-    "jimp": "^0.16.2",
+    "jimp": "^0.22.7",
     "marked": "^4.2.12",
     "npm-run-all": "^4.1.5",
     "postcss-html": "^1.5.0",
