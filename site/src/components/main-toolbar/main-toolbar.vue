@@ -24,6 +24,7 @@ const showAboutDialog = ref(false);
     <v-divider vertical />
     <button-load-share />
     <button-save-share />
+    <button-generate-link />
     <v-divider vertical />
     <button-scale />
     <slot name="append" />

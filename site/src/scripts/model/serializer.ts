@@ -9,6 +9,13 @@ import type {Values} from '../types';
 import type {ErrorCollector} from '../error-collector';
 import type {GameData} from '../data';
 
+export const ExportTarget = {
+    DEFAULT: 'Default',
+    STEAM: 'Steam',
+    REDDIT: 'Reddit',
+    DISCORD: 'Discord',
+} as const;
+
 const HEADER_HEADER = 'DAXFB';
 
 const HEADER_FOOTER = {
@@ -27,9 +34,9 @@ function buildHeader(GAME_HEADER: string, footer: Values<typeof HEADER_FOOTER>) 
 const HEADER_LENGTH = buildHeader('AA', HEADER_FOOTER.JSON).length;
 
 type EncoderOptions = {
-    blueprintCompress: boolean;
-    blueprintEncode: boolean;
-    blueprintSplit: number;
+    blueprintCompress?: boolean;
+    blueprintEncode?: boolean;
+    blueprintSplit?: number;
 };
 
 export class BlueprintEncoder {
@@ -62,7 +69,7 @@ export class BlueprintEncoder {
         const shouldEncode = this._options.blueprintCompress || this._options.blueprintEncode;
         if(!shouldEncode)
             return encoded;
-        const size = this._options.blueprintSplit;
+        const size = this._options.blueprintSplit ?? 0;
         if(size <= 0)
             return encoded;
         const numChunks = Math.ceil(encoded.length / size);
@@ -122,7 +129,7 @@ export class BlueprintDecoder {
         };
     }
     private _decode(encoded: string) {
-        encoded = encoded.replace(/\n/g, '');
+        encoded = encoded.replace(/\s|\n/g, '');
         let rawEncoded = '';
         try {
             const header = BlueprintDecoder._parseHeader(this.GAME_HEADER, encoded);
@@ -199,9 +206,9 @@ export class BlueprintDecoder {
 }
 
 type FileNameHandlerOptions = {
-    blueprintCompress: boolean;
-    blueprintEncode: boolean;
-    blueprintSplit: number;
+    blueprintCompress?: boolean;
+    blueprintEncode?: boolean;
+    blueprintSplit?: number;
 };
 export class FileNameHandler {
     private readonly _options;
@@ -213,7 +220,7 @@ export class FileNameHandler {
         if(!blueprintName)
             return encodedBlueprint;
         const shouldEncode = this._options.blueprintCompress || this._options.blueprintEncode;
-        const size = shouldEncode ? this._options.blueprintSplit : 0;
+        const size = shouldEncode ? (this._options.blueprintSplit ?? 0) : 0;
         let blueprintHeader = '';
         if((size <= 0) || ((blueprintName.length + 8) > size)) {
             blueprintHeader = `====${blueprintName}====\n`;
@@ -224,25 +231,25 @@ export class FileNameHandler {
         return blueprintHeader + encodedBlueprint;
     }
     static decodeBlueprintNameHeader(encodedBlueprint: string) {
-        const lineSeparator = encodedBlueprint.indexOf('\n');
-        if(lineSeparator <= 2) {
+        let noiseMatch = /^(?:\[code\]|```|[\r\n\s]+)[\r\n\s]*/.exec(encodedBlueprint);
+        if(noiseMatch) {
+            encodedBlueprint = encodedBlueprint.substring(noiseMatch[0].length);
+        }
+        noiseMatch = /(?:\[\/code\]|```)[\r\n\s]*$/.exec(encodedBlueprint);
+        if(noiseMatch) {
+            encodedBlueprint = encodedBlueprint.substring(0, encodedBlueprint.length - noiseMatch[0].length);
+        }
+        const headerMatch = /^=+((?:[^=]+=+)*[^=]+)=+\r?\n?/.exec(encodedBlueprint);
+        if(!headerMatch) {
             return {
                 blueprintName: undefined,
                 encodedBlueprint,
             };
         }
-        const firstLine = encodedBlueprint.substring(0, lineSeparator);
-        const match = /^=+((?:[^=]+=+)*[^=]+)=+\r?\n?$/.exec(firstLine);
-        if(!match) {
-            return {
-                blueprintName: undefined,
-                encodedBlueprint,
-            };
-        }
-        const blueprintName = match[1];
+        const blueprintName = headerMatch[1];
         return {
             blueprintName,
-            encodedBlueprint: encodedBlueprint.substring(lineSeparator + 1),
+            encodedBlueprint: encodedBlueprint.substring(headerMatch[0].length),
         };
     }
     static fileNameToBlueprintName(fileName: string) {
@@ -257,5 +264,16 @@ export class FileNameHandler {
         const fileName0 = blueprintName.split(/[\s_-]+/);
         const fileName = fileName0.map((s) => s.toLowerCase()).join('-') + '.txt';
         return fileName || blueprintName;
+    }
+    static encodeToTarget(encodedBlueprint: string, exportTarget: string) {
+        switch(exportTarget) {
+            case ExportTarget.STEAM:
+                return '[code]' + encodedBlueprint + '[/code]';
+            case ExportTarget.DISCORD:
+                return '```' + encodedBlueprint + '```';
+            case ExportTarget.REDDIT:
+                return encodedBlueprint.split('\n').map((s) => '    ' + s).join('\n');
+        }
+        return encodedBlueprint;
     }
 }

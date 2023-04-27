@@ -3,12 +3,12 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck, mdiContentSave, mdiLinkVariantPlus} from '@mdi/js';
+import {mdiClose, mdiContentCopy, mdiShareVariant, mdiCheck, mdiContentSave} from '@mdi/js';
 import {injectSettings} from '@/scripts/settings';
 import {useClipboard, useDebounceFn, useShare, useVModel} from '@vueuse/core';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {nextTick, ref, unref, watch, computed} from 'vue';
-import {BlueprintEncoder, FileNameHandler} from '@/scripts/model/serializer';
+import {BlueprintEncoder, FileNameHandler, ExportTarget} from '@/scripts/model/serializer';
 import {injectGameData} from '@/scripts/data';
 
 const props = defineProps<{
@@ -23,14 +23,15 @@ const blueprintModel = injectBlueprintModel();
 
 const splitBlueprint = ref('');
 const fullyEncodedBlueprint = ref('');
+const targetedBlueprint = ref('');
 const textArea = ref<HTMLTextAreaElement | undefined>();
 const objectUrl = ref<string | null>(null);
 const objectAnchor = ref<HTMLElement | null>(null);
 const blueprintName = ref('');
+const exportTarget = ref<string>(ExportTarget.DEFAULT);
 const fileName = computed(() => {
     return FileNameHandler.blueprintNameToFileName(unref(blueprintName));
 });
-const showGenerateLinkDialog = ref(false);
 
 const {copy, copied, isSupported: isClipboardSupported} = useClipboard();
 const {share, isSupported: isShareSupported} = useShare();
@@ -53,7 +54,13 @@ function saveBlueprint() {
 
 function updateFullyEncodedBlueprint() {
     const handler = new FileNameHandler(settings);
-    fullyEncodedBlueprint.value = handler.encodeBlueprintNameHeader(unref(splitBlueprint), unref(blueprintName));
+    let blueprintData = handler.encodeBlueprintNameHeader(
+        unref(splitBlueprint),
+        unref(blueprintName),
+    );
+    fullyEncodedBlueprint.value = blueprintData;
+    blueprintData = FileNameHandler.encodeToTarget(blueprintData, unref(exportTarget));
+    targetedBlueprint.value = blueprintData;
 }
 const debouncedUpdateFullyEncodedBlueprint = useDebounceFn(updateFullyEncodedBlueprint, 200);
 
@@ -77,6 +84,7 @@ watch(blueprintName, (value) => {
     debouncedUpdateFullyEncodedBlueprint();
     blueprintModel.blueprintName = unref(blueprintName);
 });
+watch(exportTarget, debouncedUpdateFullyEncodedBlueprint);
 </script>
 
 <template>
@@ -102,6 +110,15 @@ watch(blueprintName, (value) => {
                             @click:clear="blueprintName = blueprintModel.getDefaultBlueprintName()"
                         />
                     </v-col>
+                    <v-col cols="4">
+                        <v-select
+                            v-model="exportTarget"
+                            density="comfortable"
+                            hide-details
+                            label="Target"
+                            :items="Object.values(ExportTarget)"
+                        />
+                    </v-col>
                 </v-row>
                 <div class="my-flex-xs-wrap">
                     <div class="flex-grow-1 mr-1 mt-2">
@@ -112,7 +129,7 @@ watch(blueprintName, (value) => {
                             variant="outlined"
                             readonly
                             hide-details
-                            :model-value="fullyEncodedBlueprint"
+                            :model-value="targetedBlueprint"
                         />
                     </div>
                     <div class="mt-2">
@@ -122,7 +139,7 @@ watch(blueprintName, (value) => {
                             size="small"
                             class="mb-1"
                             :prepend-icon="copied ? mdiCheck : mdiContentCopy"
-                            @click="copy(fullyEncodedBlueprint)"
+                            @click="copy(targetedBlueprint)"
                         >
                             Copy To Clipboard
                         </v-btn>
@@ -132,7 +149,7 @@ watch(blueprintName, (value) => {
                             size="small"
                             class="mb-1"
                             :prepend-icon="mdiShareVariant"
-                            @click="share({title: blueprintModel.blueprintName, text: fullyEncodedBlueprint})"
+                            @click="share({title: blueprintModel.blueprintName, text: targetedBlueprint})"
                         >
                             Share
                         </v-btn>
@@ -146,15 +163,6 @@ watch(blueprintName, (value) => {
                         >
                             Save To File
                         </v-btn>
-                        <v-btn
-                            block
-                            size="small"
-                            color="secondary"
-                            :prepend-icon="mdiLinkVariantPlus"
-                            @click="showGenerateLinkDialog = true"
-                        >
-                            Generate Link
-                        </v-btn>
                         <a
                             v-if="objectUrl"
                             ref="objectAnchor"
@@ -167,7 +175,4 @@ watch(blueprintName, (value) => {
             </v-container>
         </v-sheet>
     </v-dialog>
-    <div class="d-none">
-        <generate-link-dialog v-model="showGenerateLinkDialog" :blueprint-data="fullyEncodedBlueprint" />
-    </div>
 </template>
