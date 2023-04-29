@@ -5,11 +5,13 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {useErrorHandler, useLinkApi} from '@/composables';
 import {injectGameData} from '@/scripts/data';
-import {BlueprintEncoder} from '@/scripts/model/serializer';
+import {BlueprintEncoder, FileNameHandler} from '@/scripts/model/serializer';
 import {injectBlueprintModel} from '@/scripts/model/store';
 import {mdiClose, mdiContentCopy, mdiCheck} from '@mdi/js';
 import {useClipboard, useLocalStorage, useVModel} from '@vueuse/core';
 import {computed, onUnmounted, ref, unref, watch} from 'vue';
+import {__DEBUG__} from '@/scripts/debug';
+import {injectSettings} from '@/scripts/settings';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -20,6 +22,7 @@ const {copy, copied, isSupported: isClipboardSupported} = useClipboard();
 const {showError} = useErrorHandler();
 const {exec, abortController} = useLinkApi();
 const gameData = injectGameData();
+const settings = injectSettings();
 const blueprintModel = injectBlueprintModel();
 
 const generatedLink = ref('');
@@ -31,6 +34,7 @@ const copyIcon = computed(() => {
 });
 const isLoading = ref(false);
 const blueprintName = ref('');
+let linkId = '';
 
 function buildBlueprintData() {
     const encoder = new BlueprintEncoder(gameData, {
@@ -38,6 +42,27 @@ function buildBlueprintData() {
     });
     const encoded = encoder.encode(blueprintModel.save());
     return encoded;
+}
+
+function regenerateLinkText() {
+    if(!linkId)
+        return;
+
+    //you don't want to share your file:/// address, do you?
+    const baseUrl = __DEBUG__ ?
+        [location.protocol, '//', location.host, location.pathname].join('') :
+        'https://doubleaxe.github.io/daxfb-calculator/';
+
+    let _generatedLink = `${baseUrl}?link=${encodeURIComponent(linkId)}`;
+    if(settings.appendFileNameToLink) {
+        let fileName = FileNameHandler.blueprintNameToFileName(unref(blueprintName));
+        const match = /^(.*)\.txt$/i.exec(fileName);
+        if(match) {
+            fileName = match[1];
+        }
+        _generatedLink += `&name=${encodeURIComponent(fileName)}`;
+    }
+    generatedLink.value = _generatedLink;
 }
 
 const linkSession = useLocalStorage('linkapi-session', {sessionId: ''});
@@ -69,10 +94,9 @@ async function generateLink() {
                     name: _blueprintName,
                     data: blueprintData,
                 });
-                //you don't want to share your file:/// address, do you?
-                //const baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
-                const baseUrl = 'https://doubleaxe.github.io/daxfb-calculator/';
-                generatedLink.value = `${baseUrl}?link=${encodeURIComponent(link)}`;
+
+                linkId = link;
+                regenerateLinkText();
                 break;
             } catch(err) {
                 if(attempts >= 1) {
@@ -102,6 +126,7 @@ watch(() => props.modelValue, (value, oldValue) => {
     if(!value) {
         unref(abortController)?.abort();
     } else if(value && !oldValue) {
+        linkId = '';
         generatedLink.value = '';
         blueprintName.value = blueprintModel.blueprintName;
     }
@@ -111,7 +136,9 @@ watch(blueprintName, (value) => {
         blueprintName.value = blueprintModel.getDefaultBlueprintName();
     }
     blueprintModel.blueprintName = unref(blueprintName);
+    regenerateLinkText();
 });
+watch(() => settings.appendFileNameToLink, regenerateLinkText);
 </script>
 
 <template>
@@ -130,7 +157,7 @@ watch(blueprintName, (value) => {
                     Links are intended to be used for sharing blueprints with other people.
                     They were not designed as local file storage replacement.
                     In order to generate link, blueprint data will be uploaded to remote (my) server.
-                    I will try to keep this server online as long as possible, but in the event of failure, all shared blueprints may be lost.
+                    I will keep this server online as long as possible, but in the event of failure, all shared blueprints may be lost.
                 </v-alert>
                 <v-row dense class="mt-2">
                     <v-col>
@@ -141,6 +168,14 @@ watch(blueprintName, (value) => {
                             hide-details
                             clearable
                             @click:clear="blueprintName = blueprintModel.getDefaultBlueprintName()"
+                        />
+                    </v-col>
+                    <v-col cols="4">
+                        <v-checkbox
+                            v-model="settings.appendFileNameToLink"
+                            label="Embed file name (as a hint) inside generated link"
+                            density="compact"
+                            hide-details
                         />
                     </v-col>
                 </v-row>

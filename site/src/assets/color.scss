@@ -1,6 +1,11 @@
 @use 'vuetify/styles/settings/colors';
 @use 'vuetify/styles/tools/elevation';
 
+.anchor-plain {
+    color: inherit;
+    text-decoration: none;
+}
+
 @function get-color($main, $variant) {
     @return map-get(colors.$colors, $main, $variant);
 }

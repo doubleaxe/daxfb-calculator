@@ -70,7 +70,10 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
 
     const emptyRecipeDictionary = parsedGameData.emptyRecipeDictionary;
 
-    let preloadBlueprint = '';
+    let preloadBlueprint: {
+        name: string;
+        data: string;
+    } | undefined = undefined;
 
     const gameData = {
         gameItemsArray,
@@ -87,7 +90,7 @@ export function useGameDataHolder(gameImplementation: GameImplementation) {
         getImage: (name: string) => parsedGameData.images[name],
         gameDescription: parsedGameData.description,
         get preloadBlueprint() { return preloadBlueprint; },
-        initPreloadBlueprint: (_preloadBlueprint: string) => {
+        initPreloadBlueprint: (_preloadBlueprint: typeof preloadBlueprint) => {
             preloadBlueprint = _preloadBlueprint;
         },
     };

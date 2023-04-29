@@ -5,15 +5,18 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {useLinkApi, useErrorHandler} from '@/composables';
 import {useGameDataProvider} from '@/scripts/data';
+import {FileNameHandler} from '@/scripts/model/serializer';
 import {computed, onMounted, ref, unref, watch} from 'vue';
 
 const emit = defineEmits(['ready']);
 
+let blueprintName = '';
 let blueprintData = '';
 const loadGameId = ref('');
 const gameId = ref('');
 const {showError} = useErrorHandler();
 const {gameList, gameDataRef, isReady, isLoading: isGameDataLoading, isAutomatic} = useGameDataProvider(gameId, (err: unknown) => {
+    blueprintName = '';
     blueprintData = '';
     gameId.value = '';
     isAutomatic.value = false;
@@ -26,7 +29,10 @@ watch(gameDataRef, () => {
     const gameData = unref(gameDataRef);
     if(gameData) {
         if(blueprintData) {
-            gameData.initPreloadBlueprint(blueprintData);
+            gameData.initPreloadBlueprint({
+                name: blueprintName,
+                data: blueprintData,
+            });
         }
         emit('ready', gameData);
     }
@@ -43,10 +49,11 @@ function loadGameDataManual() {
     isAutomatic.value = false;
 }
 
-function fetchLink(_gameId: string | null | undefined, link: string) {
+function fetchLink(_gameId: string | null | undefined, link: string, name: string | null | undefined) {
     type LoadLinkResponse = {
         gameId: string;
         data: string;
+        name?: string | null;
     };
     exec<LoadLinkResponse>('load', {link})
         .then((loadedLink: LoadLinkResponse) => {
@@ -57,6 +64,7 @@ function fetchLink(_gameId: string | null | undefined, link: string) {
             if(_gameId && (loadedLink.gameId !== _gameId)) {
                 throw new Error(`gameId mismatch: ${loadedLink.gameId} != ${_gameId}`);
             }
+            blueprintName = name || loadedLink.name || '';
             blueprintData = loadedLink.data;
             loadGameData(loadedLink.gameId);
         })
@@ -69,8 +77,12 @@ onMounted(() => {
     const seacrhParams = new URLSearchParams(window.location.search);
     const _gameId = seacrhParams.get('gameId');
     const link = seacrhParams.get('link');
+    let name = seacrhParams.get('name');
     if(link) {
-        fetchLink(_gameId, link);
+        if(name) {
+            name = FileNameHandler.fileNameToBlueprintName(name + '.txt');
+        }
+        fetchLink(_gameId, link, name);
     }
     if(_gameId) {
         loadGameData(_gameId);

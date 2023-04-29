@@ -4,13 +4,18 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {injectBlueprintModel} from '@/scripts/model/store';
-import {mdiDotsVertical, mdiDelete, mdiSigma} from '@mdi/js';
+import {autoLayoutGraph} from '@/scripts/graph';
+import {mdiDotsVertical, mdiDelete, mdiSigma, mdiHome} from '@mdi/js';
 import {ref} from 'vue';
+import { injectGameData } from '@/scripts/data';
 
+const gameData = injectGameData();
 const blueprintModel = injectBlueprintModel();
 const showSettingsDialog = ref(false);
 const showHelpDialog = ref(false);
 const showAboutDialog = ref(false);
+const homeReference = [location.protocol, '//', location.host, location.pathname].join('')
+    + `?gameId=${gameData.gameDescription.name}`;
 </script>
 
 <template>
@@ -22,6 +27,12 @@ const showAboutDialog = ref(false);
     />
     <v-switch v-model="blueprintModel.autoSolveGraph" label="Auto" hide-details class="mr-1" color="primary" />
     <v-divider vertical />
+    <a :href="homeReference" target="_blank" class="anchor-plain">
+        <tooltip-button
+            tooltip="Open Another Window"
+            :icon="mdiHome"
+        />
+    </a>
     <button-load-share />
     <button-save-share />
     <button-generate-link />
@@ -37,6 +48,11 @@ const showAboutDialog = ref(false);
                 :prepend-icon="mdiDelete"
                 title="Clear All"
                 @click="blueprintModel.clear()"
+            />
+            <v-list-item
+                :prepend-icon="mdiSigma"
+                title="Auto Layout Graph"
+                @click="autoLayoutGraph(blueprintModel)"
             />
             <v-divider horizontal />
             <button-settings is-menu @show-dialog="showSettingsDialog = true" />

@@ -45,9 +45,10 @@ onBeforeMount(() => {
     const _settings = provideSettings(gameData, _blueprintModel, filter);
     document.title = `daxfb-calculator - calculator/factory planner for "${gameData.gameDescription.description}"`;
 
-    if(gameData.preloadBlueprint) {
-        loadBlueprint(gameData, _blueprintModel, gameData.preloadBlueprint, undefined);
-        gameData.initPreloadBlueprint('');
+    const preloadBlueprint = gameData.preloadBlueprint;
+    if(preloadBlueprint) {
+        loadBlueprint(gameData, _blueprintModel, preloadBlueprint.data, preloadBlueprint.name);
+        gameData.initPreloadBlueprint(undefined);
     }
     blueprintModel.value = _blueprintModel;
 

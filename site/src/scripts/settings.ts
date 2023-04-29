@@ -32,6 +32,7 @@ const SavedKeys = [
     'showSummary',
     'showSummaryCompact',
     'showCountControlsOnWindow',
+    'appendFileNameToLink',
 ] as const;
 type SavedKey = typeof SavedKeys[number];
 type SavedObject = {
@@ -99,6 +100,8 @@ class Settings implements SavedObject {
     showSummary = true;
     showSummaryCompact = true;
     showCountControlsOnWindow = true;
+
+    appendFileNameToLink = true;
 
     get tier() { return this._filter.tier; }
     set tier(tier: number | undefined) { this._filter.tier = tier; }
