@@ -6,6 +6,7 @@ import type {IndexHtmlTransformHook} from 'vite';
 import vue from '@vitejs/plugin-vue';
 //import analyze from 'rollup-plugin-analyzer';
 import {visualizer} from 'rollup-plugin-visualizer';
+import systemJSLoader from 'rollup-plugin-systemjs-loader';
 import Components from 'unplugin-vue-components/vite';
 import {
     Vuetify3Resolver,
@@ -55,11 +56,19 @@ export default defineConfig({
         outDir: path.join(_dirname, '../dist'),
         emptyOutDir: true,
         rollupOptions: {
-            plugins: [visualizer({
-                filename: path.join(_dirname, '../tmp/stats.html'),
-            })],
+            plugins: [
+                visualizer({
+                    filename: path.join(_dirname, '../tmp/stats.html'),
+                }),
+                systemJSLoader({
+                    baseURL: './',
+                    include: [
+                        path.resolve(_dirname, '../node_modules', 'systemjs/dist/s.js'),
+                    ],
+                }),
+            ],
             output: {
-                format: 'iife',
+                format: 'system',
             },
         },
         target: 'es2018',

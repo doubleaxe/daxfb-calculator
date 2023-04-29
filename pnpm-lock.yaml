@@ -25,6 +25,9 @@ dependencies:
   pako:
     specifier: ^2.1.0
     version: 2.1.0
+  systemjs:
+    specifier: ^6.14.1
+    version: 6.14.1
   vue:
     specifier: ^3.2.41
     version: 3.2.47
@@ -111,6 +114,9 @@ devDependencies:
   rollup-plugin-esbuild:
     specifier: ^5.0.0
     version: 5.0.0(esbuild@0.17.8)(rollup@3.17.1)
+  rollup-plugin-systemjs-loader:
+    specifier: ^1.0.1
+    version: 1.0.1
   rollup-plugin-visualizer:
     specifier: ^5.9.0
     version: 5.9.0(rollup@3.17.1)
@@ -3568,6 +3574,13 @@ packages:
       - supports-color
     dev: true
 
+  /rollup-plugin-systemjs-loader@1.0.1:
+    resolution: {integrity: sha512-0QNfIJ+hxLKcr4/p5bDRtlfjjzfFfjmX9nuBNa7AGUEryidWtLt5Hb9vSCqLIJUxUj5+EVq6loPidbxHnt1Prg==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      magic-string: 0.25.9
+    dev: true
+
   /rollup-plugin-visualizer@5.9.0(rollup@3.17.1):
     resolution: {integrity: sha512-bbDOv47+Bw4C/cgs0czZqfm8L82xOZssk4ayZjG40y9zbXclNk7YikrZTDao6p7+HDiGxrN0b65SgZiVm9k1Cg==}
     engines: {node: '>=14'}
@@ -3930,6 +3943,10 @@ packages:
   /svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
     dev: true
+
+  /systemjs@6.14.1:
+    resolution: {integrity: sha512-8ftwWd+XnQtZ/aGbatrN4QFNGrKJzmbtixW+ODpci7pyoTajg4sonPP8aFLESAcuVxaC1FyDESt+SpfFCH9rZQ==}
+    dev: false
 
   /table@6.8.1:
     resolution: {integrity: sha512-Y4X9zqrCftUhMeH2EptSSERdVKt/nEdijTOacGD/97EKjhQ/Qs8RTlEGABSJNNN8lac9kheH+af7yAkEWlgneA==}
