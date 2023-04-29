@@ -18,11 +18,11 @@ export function useLinkApi() {
     };
 
     function exec<T>(command: string, body: unknown) {
+        const _abortController = new AbortController();
+        const signal = _abortController.signal;
         return Promise.resolve()
             .then(() => {
                 isLoading.value = true;
-                const _abortController = new AbortController();
-                const signal = _abortController.signal;
                 abortController.value = _abortController;
                 return fetch(`${linkApiAddress}${command}`, {
                     method: 'POST',
@@ -35,6 +35,11 @@ export function useLinkApi() {
                 });
             })
             .then((response) => {
+                if(signal.aborted) {
+                    const err = new Error('aborted');
+                    err.name = 'AbortError';
+                    throw err;
+                }
                 if(response.ok || (response.status == 500)) {
                     return response.json()
                         .then((jsonData: ErrorResponse | unknown) => {
@@ -56,6 +61,7 @@ export function useLinkApi() {
             })
             .finally(() => {
                 isLoading.value = false;
+                abortController.value = undefined;
             });
     }
 

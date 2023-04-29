@@ -64,6 +64,10 @@ export class BlueprintModelImpl {
         }
     }
 
+    layoutChanged() {
+        this._itemsGenerationNumber++;
+    }
+
     getLockedTransport(logisticName: string) { return this._lockedTransport.get(logisticName); }
     lockTransport(logisticName: string, transportName: string | undefined) {
         if(!transportName) {

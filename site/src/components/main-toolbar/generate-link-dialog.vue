@@ -129,6 +129,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         linkId = '';
         generatedLink.value = '';
         blueprintName.value = blueprintModel.blueprintName;
+        isLoading.value = false;
     }
 });
 watch(blueprintName, (value) => {
@@ -204,6 +205,7 @@ watch(() => settings.appendFileNameToLink, regenerateLinkText);
                 <v-overlay
                     v-model="isLoading"
                     contained
+                    persistent
                     class="d-flex align-center"
                 >
                     <div class="d-flex justify-center">

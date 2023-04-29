@@ -105,6 +105,7 @@ onMounted(() => {
         <v-overlay
             v-model="isLoading"
             contained
+            persistent
             class="align-center justify-center"
         >
             <v-progress-circular indeterminate color="primary" />

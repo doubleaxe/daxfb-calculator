@@ -42,3 +42,5 @@ export function resetOrSolveGraph(blueprint: BlueprintModel, items: IterableIter
     }
     blueprint.hasCycles = blueprintHasCycles;
 }
+
+export {autoLayoutGraph} from './graph-auto-layout-elk';
