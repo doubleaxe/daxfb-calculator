@@ -43,4 +43,4 @@ export function resetOrSolveGraph(blueprint: BlueprintModel, items: IterableIter
     blueprint.hasCycles = blueprintHasCycles;
 }
 
-export {autoLayoutGraph} from './graph-auto-layout-elk';
+export {LayoutType, layoutFactory, type CommonLayoutOptions} from './graph-auto-layout';

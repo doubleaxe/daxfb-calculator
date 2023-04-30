@@ -59,3 +59,11 @@ export function binarySearch<T>(array: T[], pred: (item: T) => boolean): number 
     }
     return hi;
 }
+
+export function checkAborted(signal?: AbortSignal) {
+    if(signal?.aborted) {
+        const err = new Error('aborted');
+        err.name = 'AbortError';
+        throw err;
+    }
+}

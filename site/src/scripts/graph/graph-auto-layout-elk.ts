@@ -1,16 +1,13 @@
-import type {ElkExtendedEdge, ElkNode, ElkPort, LayoutOptions} from 'elkjs';
-import type {BlueprintModel} from '../model/store';
+/*
+Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
+Please don't remove this comment if you use unmodified file
+*/
+import type {ElkExtendedEdge, ElkNode, ElkPort} from 'elkjs';
+import {checkAborted} from '../util';
+import type {AutoLayoutGraph} from './graph-auto-layout';
 import {resolveConnections} from './resolve-connections';
 
-function checkAborted(signal: AbortSignal) {
-    if(signal.aborted) {
-        const err = new Error('aborted');
-        err.name = 'AbortError';
-        throw err;
-    }
-}
-
-export async function autoLayoutGraph(blueprint: BlueprintModel, layoutOptions: LayoutOptions, signal: AbortSignal) {
+export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOptions, signal) => {
     const ELK = (await import('elkjs/lib/elk.bundled.js')).default;
     checkAborted(signal);
 
@@ -77,16 +74,30 @@ export async function autoLayoutGraph(blueprint: BlueprintModel, layoutOptions: 
         children: nodes,
         edges,
     };
-    //considerModelOrder
-    //optimizationGoal
     //aspectRatio
     //nodeFlexibility
     //adaptPortPositions
-    layoutOptions = {
-        ...layoutOptions,
+    const elkLayoutOptions = {
+        ...layoutOptions?.customOptions,
+        ...(layoutOptions?.nodeSpacing ? {
+            'org.eclipse.elk.spacing.nodeNode': String(layoutOptions.nodeSpacing),
+        } : {}),
+        ...(layoutOptions?.connectedNodeSpacing ? {
+            'org.eclipse.elk.spacing.componentComponent': String(layoutOptions.connectedNodeSpacing),
+        } : {}),
+        ...(layoutOptions?.edgeSpacing ? {
+            'org.eclipse.elk.spacing.edgeEdge': String(layoutOptions.edgeSpacing),
+        } : {}),
+        ...(layoutOptions?.edgeWidth ? {
+            'org.eclipse.elk.edge.thickness': String(layoutOptions.edgeWidth),
+        } : {}),
+        ...(layoutOptions?.preserveLayoutOrder ? {
+            'org.eclipse.elk.layered.considerModelOrder.strategy': 'PREFER_NODES',
+            'org.eclipse.elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
+        } : {}),
     };
 
-    const root = await elk.layout(rootElement, {layoutOptions});
+    const root = await elk.layout(rootElement, {layoutOptions: elkLayoutOptions});
     checkAborted(signal);
 
     for(const node of (root.children || [])) {
@@ -96,4 +107,4 @@ export async function autoLayoutGraph(blueprint: BlueprintModel, layoutOptions: 
         }
     }
     blueprint.layoutChanged();
-}
+};
