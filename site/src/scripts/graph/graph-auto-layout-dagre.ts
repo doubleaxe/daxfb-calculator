@@ -22,6 +22,9 @@ export const autoLayoutGraphDagre: AutoLayoutGraph = async(blueprint, layoutOpti
         ...((layoutOptions?.edgeSpacing || layoutOptions?.edgeWidth) ? {
             edgesep: (layoutOptions?.edgeSpacing || 0) + (layoutOptions?.edgeWidth || 0),
         } : {}),
+        ...(layoutOptions?.algorithms ? {
+            ranker: layoutOptions?.algorithms,
+        } : {}),
     };
 
     const g = new dagre.graphlib.Graph();
@@ -56,4 +59,15 @@ export const autoLayoutGraphDagre: AutoLayoutGraph = async(blueprint, layoutOpti
         }
     }
     blueprint.layoutChanged();
+};
+
+export const knownLayoutAlgorithmsDagre = () => {
+    return {
+        algorithms: [
+            'network-simplex',
+            'tight-tree',
+            'longest-path',
+        ],
+        default: 'network-simplex',
+    };
 };

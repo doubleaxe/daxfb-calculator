@@ -9,7 +9,7 @@ import {mdiClose} from '@mdi/js';
 import {useLocalStorage, useVModel} from '@vueuse/core';
 import {computed, onUnmounted, ref, unref, watch} from 'vue';
 import {injectSettings} from '@/scripts/settings';
-import {layoutFactory, LayoutType, type CommonLayoutOptions} from '@/scripts/graph';
+import {knownLayoutAlgorithms, layoutFactory, LayoutType, type CommonLayoutOptions} from '@/scripts/graph';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -33,13 +33,16 @@ const layoutSettings = useLocalStorage('layout-settings', {
     layoutFactory: LayoutType.ELK,
     layoutOptions: {
         nodeSpacing: 100,
-        connectedNodeSpacing: 50,
+        connectedNodeSpacing: 100,
         edgeSpacing: 10,
-        preserveLayoutOrder: false,
     },
+    layoutAlgorithmElk: knownLayoutAlgorithms(LayoutType.ELK).default,
+    layoutAlgorithmDagre: knownLayoutAlgorithms(LayoutType.DAGRE).default,
 } as {
     layoutFactory: LayoutType;
     layoutOptions: CommonLayoutOptions;
+    layoutAlgorithmElk: string;
+    layoutAlgorithmDagre: string;
 }, {mergeDefaults: true});
 
 const selectedLayoutFactory = computed({
@@ -52,11 +55,16 @@ function performAutoLayoutGraph() {
     isProcessing.value = true;
     abortController = new AbortController();
     const signal = abortController.signal;
+    const _layoutSettings = unref(layoutSettings);
+    const layoutType = _layoutSettings.layoutFactory;
     const layoutOptions: CommonLayoutOptions = {
         edgeWidth: settings.iconSize,
-        ...unref(layoutSettings).layoutOptions,
+        ..._layoutSettings.layoutOptions,
+        algorithms: (layoutType === LayoutType.DAGRE) ?
+            _layoutSettings.layoutAlgorithmDagre :
+            _layoutSettings.layoutAlgorithmElk,
     };
-    layoutFactory(unref(layoutSettings).layoutFactory)
+    layoutFactory(layoutType)
         .then((autoLayoutGraph) => autoLayoutGraph(blueprintModel, layoutOptions, signal))
         .then(() => {
             dialog.value = false;
@@ -114,7 +122,7 @@ watch(() => props.modelValue, (value, oldValue) => {
                             v-model="layoutSettings.layoutOptions.connectedNodeSpacing"
                             label="Horizontal Node Spacing"
                             :min="0"
-                            :default-value="50"
+                            :default-value="100"
                         />
                     </v-col>
                 </v-row>
@@ -128,11 +136,13 @@ watch(() => props.modelValue, (value, oldValue) => {
                         />
                     </v-col>
                     <v-col>
-                        <v-checkbox
-                            v-model="layoutSettings.layoutOptions.preserveLayoutOrder"
-                            label="Try To Preserve Current Layout Order"
-                            density="compact"
-                            hide-details
+                        <algorithm-selector-elk
+                            v-if="layoutSettings.layoutFactory === LayoutType.ELK"
+                            v-model="layoutSettings.layoutAlgorithmElk"
+                        />
+                        <algorithm-selector-dagre
+                            v-if="layoutSettings.layoutFactory === LayoutType.DAGRE"
+                            v-model="layoutSettings.layoutAlgorithmDagre"
                         />
                     </v-col>
                 </v-row>

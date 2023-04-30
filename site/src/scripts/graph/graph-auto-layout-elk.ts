@@ -2,16 +2,36 @@
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
-import type {ElkExtendedEdge, ElkNode, ElkPort} from 'elkjs';
+import type {ELKConstructorArguments, ElkExtendedEdge, ElkNode, ElkPort} from 'elkjs';
 import {checkAborted} from '../util';
 import type {AutoLayoutGraph} from './graph-auto-layout';
 import {resolveConnections} from './resolve-connections';
+
+
+export const knownLayoutAlgorithmsElk = () => {
+    return {
+        algorithms: [
+            'disco',
+            'force',
+            'layered',
+            'mrtree',
+            'radial',
+            'sporeCompaction',
+            'sporeOverlap',
+            'stress',
+        ],
+        default: 'layered',
+    };
+};
 
 export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOptions, signal) => {
     const ELK = (await import('elkjs/lib/elk.bundled.js')).default;
     checkAborted(signal);
 
-    const elk = new ELK();
+    const args: ELKConstructorArguments = {
+        algorithms: knownLayoutAlgorithmsElk().algorithms,
+    };
+    const elk = new ELK(args);
     const items = [...blueprint.items];
     const nodes: ElkNode[] = [];
     for(const item of items) {
@@ -24,6 +44,7 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
             const iorect = io.rect;
             //port coordinates are relative to parent
             const relativeRect = iorect.offsetBy(rect, -1);
+            const isLeftSide = item.isFlipped ? !io.isInput : io.isInput;
             ports.push({
                 id: io.key,
                 x: relativeRect.x,
@@ -32,6 +53,7 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
                 height: relativeRect.height,
                 layoutOptions: {
                     'org.eclipse.elk.portConstraints': 'FIXED_POS',
+                    'org.eclipse.elk.port.side': isLeftSide ? 'WEST' : 'EAST',
                 },
             });
         }
@@ -69,11 +91,12 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
     console.log(knownLayoutAlgorithms);
     */
 
-    const rootElement = {
+    let rootElement: ElkNode = {
         id: 'root',
         children: nodes,
         edges,
     };
+    //forceNodeModelOrder
     //aspectRatio
     //nodeFlexibility
     //adaptPortPositions
@@ -91,16 +114,28 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
         ...(layoutOptions?.edgeWidth ? {
             'org.eclipse.elk.edge.thickness': String(layoutOptions.edgeWidth),
         } : {}),
-        ...(layoutOptions?.preserveLayoutOrder ? {
-            'org.eclipse.elk.layered.considerModelOrder.strategy': 'PREFER_NODES',
-            'org.eclipse.elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
-        } : {}),
     };
 
-    const root = await elk.layout(rootElement, {layoutOptions: elkLayoutOptions});
-    checkAborted(signal);
+    let algorithms: (string | undefined)[] = [];
+    if(layoutOptions?.algorithms) {
+        algorithms = layoutOptions.algorithms.split(/[\s,;]+/).filter((s) => s);
+    }
+    if(!algorithms.length) {
+        algorithms = [undefined];
+    }
 
-    for(const node of (root.children || [])) {
+    for(const algorithm of algorithms) {
+        const currentLayoutOptions = {
+            ...elkLayoutOptions,
+            ...(algorithm ? {
+                'elk.algorithm': algorithm,
+            } : {}),
+        };
+        rootElement = await elk.layout(rootElement, {layoutOptions: currentLayoutOptions});
+        checkAborted(signal);
+    }
+
+    for(const node of (rootElement.children || [])) {
         const item = blueprint.itemByKey(node.id);
         if(item) {
             item.setRect(item.rect.assign({x: node.x, y: node.y}));
