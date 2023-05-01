@@ -107,6 +107,7 @@ watch(() => props.modelValue, (value, oldValue) => {
                 <v-alert type="warning">
                     Automatic layout algorithm is not perfect, it can make blueprint even worse.
                     Currently there is no undo functionality, it is highly recommended to backup blueprint before performing auto layout.
+                    Layout libraries are huge, make sure you have enough memory before executing.
                 </v-alert>
                 <v-row dense class="mt-2">
                     <v-col>
