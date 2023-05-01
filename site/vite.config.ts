@@ -69,6 +69,14 @@ export default defineConfig({
             ],
             output: {
                 format: 'system',
+                chunkFileNames: (chunkInfo) => {
+                    if(chunkInfo.name === 'index') {
+                        if(chunkInfo.moduleIds.some((m) => (m.indexOf('dagre') >= 0))) {
+                            return 'assets/dagre.[hash].js';
+                        }
+                    }
+                    return 'assets/[name].[hash].js';
+                },
             },
         },
         target: 'es2018',
