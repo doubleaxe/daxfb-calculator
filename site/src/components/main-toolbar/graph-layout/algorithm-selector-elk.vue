@@ -22,7 +22,7 @@ const selectedAlgorithm = useVModel(props, 'modelValue', emit);
     >
         <template #details>
             Default - {{ knownLayoutAlgorithms(LayoutType.ELK).default }}, see&nbsp;
-            <a href="https://www.eclipse.org/elk/reference.html">https://www.eclipse.org/elk/reference.html</a>.
+            <a href="https://www.eclipse.org/elk/reference.html" target="_blank">https://www.eclipse.org/elk/reference.html</a>.
         </template>
     </v-select>
 </template>

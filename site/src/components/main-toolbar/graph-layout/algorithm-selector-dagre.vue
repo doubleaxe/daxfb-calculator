@@ -22,7 +22,7 @@ const selectedAlgorithm = useVModel(props, 'modelValue', emit);
     >
         <template #details>
             Default - {{ knownLayoutAlgorithms(LayoutType.DAGRE).default }}, see&nbsp;
-            <a href="https://github.com/dagrejs/dagre/wiki">https://github.com/dagrejs/dagre/wiki</a>.
+            <a href="https://github.com/dagrejs/dagre/wiki" target="_blank">https://github.com/dagrejs/dagre/wiki</a>.
         </template>
     </v-select>
 </template>

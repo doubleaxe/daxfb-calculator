@@ -110,6 +110,25 @@ watch(() => props.modelValue, (value, oldValue) => {
                 </v-alert>
                 <v-row dense class="mt-2">
                     <v-col>
+                        <v-select
+                            v-model="selectedLayoutFactory"
+                            :items="[...layoutFactories.values()]"
+                            label="Layout processor"
+                            density="compact"
+                            hide-details
+                        />
+                    </v-col>
+                    <v-col>
+                        <input-number
+                            v-model="layoutSettings.layoutOptions.edgeSpacing"
+                            label="Edge Spacing"
+                            :min="0"
+                            :default-value="10"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row dense class="mt-2">
+                    <v-col>
                         <input-number
                             v-model="layoutSettings.layoutOptions.nodeSpacing"
                             label="Vertical Node Spacing"
@@ -128,14 +147,6 @@ watch(() => props.modelValue, (value, oldValue) => {
                 </v-row>
                 <v-row dense class="mt-2">
                     <v-col>
-                        <input-number
-                            v-model="layoutSettings.layoutOptions.edgeSpacing"
-                            label="Edge Spacing"
-                            :min="0"
-                            :default-value="10"
-                        />
-                    </v-col>
-                    <v-col>
                         <algorithm-selector-elk
                             v-if="layoutSettings.layoutFactory === LayoutType.ELK"
                             v-model="layoutSettings.layoutAlgorithmElk"
@@ -143,17 +154,6 @@ watch(() => props.modelValue, (value, oldValue) => {
                         <algorithm-selector-dagre
                             v-if="layoutSettings.layoutFactory === LayoutType.DAGRE"
                             v-model="layoutSettings.layoutAlgorithmDagre"
-                        />
-                    </v-col>
-                </v-row>
-                <v-row dense class="mt-2">
-                    <v-col>
-                        <v-select
-                            v-model="selectedLayoutFactory"
-                            :items="[...layoutFactories.values()]"
-                            label="Layout processor"
-                            density="compact"
-                            hide-details
                         />
                     </v-col>
                     <v-col>
