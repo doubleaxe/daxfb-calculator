@@ -5,6 +5,7 @@ Please don't remove this comment if you use unmodified file
 <script setup lang="ts">
 import {mdiClose} from '@mdi/js';
 import {useVModel} from '@vueuse/core';
+import {useTheme} from 'vuetify';
 
 const props = defineProps<{
     modelValue: boolean;
@@ -12,6 +13,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 const dialog = useVModel(props, 'modelValue', emit);
 const __VERSION__ = 'v=' + encodeURIComponent(import.meta.env.VITE_VERSION);
+const theme = useTheme();
 </script>
 
 <template>
@@ -25,7 +27,7 @@ const __VERSION__ = 'v=' + encodeURIComponent(import.meta.env.VITE_VERSION);
                     @click="dialog = false"
                 />
             </v-toolbar>
-            <iframe class="help-iframe" :src="`./docs/index.html?${__VERSION__}`" />
+            <iframe class="help-iframe" :src="`./docs/index.html?${__VERSION__}&theme=${encodeURIComponent(theme.global.name.value)}`" />
         </v-sheet>
     </v-dialog>
 </template>

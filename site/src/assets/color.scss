@@ -17,8 +17,13 @@
 $hover-elevation: 5;
 $dragging-elevation: 10;
 
-.hover-background {
+.v-theme--light .hover-background,
+.v-theme--light.hover-background {
     background-color: get-color('grey', 'lighten-2');
+}
+.v-theme--dark .hover-background,
+.v-theme--dark.hover-background {
+    background-color: get-color('grey', 'base');
 }
 
 .hover-border {
@@ -26,12 +31,18 @@ $dragging-elevation: 10;
     border: 2px solid transparent;
 }
 
-.hover-border:hover {
+.v-theme--light .hover-border:hover {
     border: 2px solid get-color('grey', 'darken-2');
 }
+.v-theme--dark .hover-border:hover {
+    border: 2px solid get-color('grey', 'lighten-2');
+}
 
-.highlight-border {
+.v-theme--light .highlight-border {
     border: 2px solid get-color('purple', 'darken-2');
+}
+.v-theme--dark .highlight-border {
+    border: 2px solid get-color('purple', 'lighten-2');
 }
 
 .hover-elevation {
@@ -47,8 +58,11 @@ $dragging-elevation: 10;
     border: 2px solid transparent;
 }
 
-.selected-border {
+.v-theme--light .selected-border {
     border: 2px solid get-color('green', 'darken-2');
+}
+.v-theme--dark .selected-border {
+    border: 2px solid get-color('green', 'lighten-2');
 }
 
 .hover-elevation-static {
@@ -64,20 +78,32 @@ $dragging-elevation: 10;
     @include elevation.elevation($dragging-elevation, false);
 }
 
-.bg-window-idle {
+.v-theme--light .bg-window-idle {
     background-color: get-color('grey', 'lighten-4');
 }
+.v-theme--dark .bg-window-idle {
+    background-color: get-color('grey', 'darken-1');
+}
 
-.bg-window-statusbar {
+.v-theme--light .bg-window-statusbar {
     background-color: get-color('grey', 'lighten-2');
 }
-
-.bg-has-probability {
-    background-color: get-color('cyan', 'lighten-4');
+.v-theme--dark .bg-window-statusbar {
+    background-color: get-color('grey', 'darken-3');
 }
 
-.link-stroke-black {
+.v-theme--light .bg-has-probability {
+    background-color: get-color('cyan', 'lighten-4');
+}
+.v-theme--dark .bg-has-probability {
+    background-color: get-color('cyan', 'darken-4');
+}
+
+.v-theme--light .link-stroke-black {
     stroke: black;
+}
+.v-theme--dark .link-stroke-black {
+    stroke: get-color('grey', 'lighten-1');
 }
 .link-stroke-red {
     stroke: get-color('red', 'base');

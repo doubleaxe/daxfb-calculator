@@ -50,6 +50,8 @@ export default defineConfig({
         alias: {
             '@': path.join(_dirname, 'src'),
             '#types': path.join(_dirname, 'data/types'),
+            //faster build, less mdules. works nice, if we don't use 'lodash', produces +10Kb bundle
+            dagre: path.join(_dirname, '../node_modules/dagre/dist/dagre.js'),
         },
     },
     build: {

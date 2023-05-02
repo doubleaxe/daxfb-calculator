@@ -33,7 +33,7 @@ export function useAnalytics(gameId: string) {
         },
     })
     .then((goatcounter) => {
-        const pathname = window?.location?.pathname || '/daxfb-calculator';
+        const pathname = window?.location?.pathname || '/daxfb-calculator/';
         goatcounter.count({
             path: pathname + gameId,
         });

@@ -121,6 +121,10 @@ Because filtered recipe is selected automatically, this way long production line
 ![factory-filtering](./assets/factory-filtering.gif)
 </details>
 
+## Filtering on summary window
+
+Filter can also be applied by clicking icon on summary window.
+
 # Solving graph
 
 Graph is solved by clicking on ![solve](./assets/solve.png) toolbar button.

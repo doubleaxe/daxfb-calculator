@@ -18,13 +18,21 @@ const scalePercent = computed({
 <template>
     <v-menu density="compact" :close-on-content-click="false">
         <template #activator="{ props }">
-            <tooltip-button tooltip="Scale" :icon="mdiMagnify" v-bind="props" />
+            <v-tooltip text="Scale" location="bottom">
+                <template #activator="{ props: _props }">
+                    <v-btn v-bind="{..._props, ...props}" icon>
+                        <v-badge :content="scalePercent">
+                            <v-icon :icon="mdiMagnify" />
+                        </v-badge>
+                    </v-btn>
+                </template>
+            </v-tooltip>
         </template>
         <v-sheet min-width="300">
             <v-slider
                 v-model="scalePercent"
                 class="scale-slider"
-                :min="50"
+                :min="20"
                 :max="200"
                 :step="10"
             >

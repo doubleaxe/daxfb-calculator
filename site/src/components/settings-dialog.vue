@@ -33,6 +33,14 @@ const settings = injectSettings();
             </v-toolbar>
             <v-list subheader density="compact" :lines="false">
                 <v-list-subheader>Appearance</v-list-subheader>
+                <v-list-item title="Dark Theme" @click="settings.darkTheme = !settings.darkTheme">
+                    <template #subtitle>
+                        Toggle between dark and light theme.
+                    </template>
+                    <template #prepend>
+                        <v-checkbox v-model="settings.darkTheme" />
+                    </template>
+                </v-list-item>
                 <v-list-item title="Colorful Links" @click="settings.colorfulLinks = !settings.colorfulLinks">
                     <template #subtitle>
                         Draw links in color or black.

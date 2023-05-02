@@ -105,7 +105,7 @@ function handleScale(event: WheelEvent) {
         if(event.deltaY < 0) {
             settings.scale = Math.min(settings.scale + 0.1, 2);
         } else {
-            settings.scale = Math.max(settings.scale - 0.1, 0.5);
+            settings.scale = Math.max(settings.scale - 0.1, 0.2);
         }
         event.stopPropagation();
         event.preventDefault();

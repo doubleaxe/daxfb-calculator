@@ -3,13 +3,14 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import {onBeforeMount, ref, unref} from 'vue';
+import {nextTick, onBeforeMount, ref, unref, watch} from 'vue';
 import {injectGameData} from '@/scripts/data';
 import {provideBlueprintModel, type BlueprintModel} from '@/scripts/model/store';
 import {provideFilter} from '@/scripts/filter';
 import {provideSettings} from '@/scripts/settings';
 import {mdiFormatListBulletedType} from '@mdi/js';
 import {useAnalytics, loadBlueprint} from '@/composables';
+import {useTheme} from 'vuetify';
 
 const drawer = ref(true);
 const showSummary = ref(false);
@@ -17,6 +18,7 @@ const showSummaryCompact = ref(false);
 const gameData = injectGameData();
 const blueprintModel = ref<BlueprintModel | undefined>();
 const settings = ref<ReturnType<typeof provideSettings> | undefined>();
+const theme = useTheme();
 
 function toggleSummary() {
     //toggle in curcular way - hidden -> compact -> full
@@ -46,22 +48,37 @@ onBeforeMount(() => {
     document.title = `daxfb-calculator - calculator/factory planner for "${gameData.gameDescription.description}"`;
 
     const preloadBlueprint = gameData.preloadBlueprint;
-    if(preloadBlueprint) {
-        loadBlueprint(gameData, _blueprintModel, preloadBlueprint.data, preloadBlueprint.name);
-        gameData.initPreloadBlueprint(undefined);
-    }
-    blueprintModel.value = _blueprintModel;
+    Promise.resolve()
+        .then(() => new Promise((resolve) => { nextTick(() => resolve(undefined)); }))
+        .then(() => new Promise((resolve) => {
+            if(preloadBlueprint) {
+                setTimeout(() => {
+                    loadBlueprint(gameData, _blueprintModel, preloadBlueprint.data, preloadBlueprint.name);
+                    gameData.initPreloadBlueprint(undefined);
+                    resolve(undefined);
+                }, 50);
+            } else {
+                resolve(undefined);
+            }
+        }))
+        .then(() => {
+            blueprintModel.value = _blueprintModel;
 
-    //load at start, and don't watch for changes from another tabs
-    showSummary.value = _settings.showSummary;
-    showSummaryCompact.value = _settings.showSummaryCompact;
-    settings.value = _settings;
+            //load at start, and don't watch for changes from another tabs
+            showSummary.value = _settings.showSummary;
+            showSummaryCompact.value = _settings.showSummaryCompact;
+            settings.value = _settings;
+        });
+});
+
+watch(() => unref(settings)?.darkTheme, () => {
+    theme.global.name.value = unref(settings)?.darkTheme ? 'dark' : 'light';
 });
 </script>
 
 <template>
-    <icon-draggable />
-    <v-app v-if="gameData" class="main-window">
+    <icon-draggable v-if="blueprintModel" />
+    <v-app v-if="blueprintModel" class="main-window">
         <v-app-bar density="compact">
             <template #prepend>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -96,6 +113,14 @@ onBeforeMount(() => {
             <summary-panel v-if="showSummary" :compact="showSummaryCompact" />
         </v-navigation-drawer>
     </v-app>
+    <v-overlay
+        v-if="!blueprintModel"
+        model-value
+        persistent
+        class="align-center justify-center"
+    >
+        <v-progress-circular indeterminate color="primary" />
+    </v-overlay>
 </template>
 
 <style scoped>

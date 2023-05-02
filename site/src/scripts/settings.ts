@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import {useLocalStorage} from '@vueuse/core';
-import {type InjectionKey, provide, reactive, inject, watch, unref} from 'vue';
+import {type InjectionKey, provide, reactive, inject, watch, watchEffect, unref} from 'vue';
 import type {GameData} from './data';
 import type {PublicFilter} from './filter';
 import type {BlueprintModel} from './model/store';
@@ -12,6 +12,7 @@ import {BlueprintItemState, DEFAULT_BLUEPRINT_SPLIT, type BlueprintItemStateValu
 type BlueprintItemStateColorClass = Record<BlueprintItemStateValues, string>;
 
 const SavedKeys = [
+    'darkTheme',
     'colorfulLinks',
     'tier',
     'tierEqual',
@@ -85,6 +86,7 @@ class Settings implements SavedObject {
         [BlueprintItemState.CanLinkWithRecipeChange]: 'bg-info',
     };
     scale = 1;
+    darkTheme = false;
     colorfulLinks = true;
     dragAndDropEnabled;
     dragAndScrollEnabled;
@@ -138,7 +140,7 @@ export const provideSettings = (gameData: GameData, blueprintModel: BlueprintMod
         mergeDefaults: true,
     });
     settings.load(unref(savedSettings));
-    watch(settings, () => Object.assign(savedSettings.value, settings.save()));
+    watchEffect(() => Object.assign(savedSettings.value, settings.save()));
     watch(savedSettings, () => settings.load(unref(savedSettings)));
     return settings;
 };
