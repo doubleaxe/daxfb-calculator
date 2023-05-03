@@ -28,6 +28,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private readonly _cpsMax;
     private _isFlipped = false;
     private _matherializeAbstractItem: GameItem | undefined;
+    //1 - upper border, -1 - lower border
+    private _highlightBorder: -1 | 0 | 1 = 0;
 
     constructor(
         io: GameRecipeIO,
@@ -67,10 +69,15 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get hasProbability() { return (this._io.flags & GameRecipeIOFlags.HasProbability); }
     get isHidden() { return (this._io.flags & GameRecipeIOFlags.HideOnWindow) && !this.linksCount; }
 
+    get highlightBorder() { return this._highlightBorder; }
+
     setFlipped(isFlipped: boolean) {
         if(this._ownerItem)
             throw new Error('Cannot set flipped');
         this._isFlipped = isFlipped;
+    }
+    setHighlightBorder(border: -1 | 0 | 1) {
+        this._highlightBorder = border;
     }
 
     _$matherializeAbstractItem(item: GameItem | undefined) {

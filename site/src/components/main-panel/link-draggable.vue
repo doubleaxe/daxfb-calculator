@@ -9,13 +9,23 @@ import {
     type BlueprintItemModel,
     type RecipeIOModel,
 } from '@/scripts/model/store';
-import type {ReadonlyPointType} from '@/scripts/geometry';
+import {Rect, type ReadonlyPointType} from '@/scripts/geometry';
 import {BlueprintItemState, type BlueprintItemStateValues} from '@/scripts/types';
-import {SelectedClassType, useLinkDragAndDrop, usePointAndClick, useSharedBlueprintSurface} from '@/composables/drag-helpers';
+import {screenToClient, SelectedClassType, useLinkDragAndDrop, usePointAndClick, useSharedBlueprintSurface} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
+import {injectSettings} from '@/scripts/settings';
+
+type BetweenSelfIo = {
+    upper?: RecipeIOModel;
+    upperIndex?: number;
+    lower?: RecipeIOModel;
+    lowerIndex?: number;
+};
 
 const blueprintModel = injectBlueprintModel();
+const settings = injectSettings();
 let hoveringItem: BlueprintItemModel | undefined = undefined;
+let hoveringBetweenIo: BetweenSelfIo | undefined = undefined;
 
 const {hooks, isDragging, currentItem, movableElem} = useLinkDragAndDrop();
 const {notifySelected} = usePointAndClick();
@@ -54,34 +64,105 @@ function clearHoveringItem() {
     }
 }
 
+function clearHoveringBetweenIo() {
+    if(hoveringBetweenIo) {
+        if(hoveringBetweenIo.lower) {
+            hoveringBetweenIo.lower.setHighlightBorder(0);
+        }
+        if(hoveringBetweenIo.upper) {
+            hoveringBetweenIo.upper.setHighlightBorder(0);
+        }
+        hoveringBetweenIo = undefined;
+    }
+}
+
+type BlueprintItemWithElement = {
+    item: BlueprintItemModel;
+    element: HTMLElement;
+};
 function detectItemFromPoint(screenPoint: ReadonlyPointType) {
     const elements = document.elementsFromPoint(screenPoint.x, screenPoint.y);
-    let item: BlueprintItemModel | undefined;
+    let item: Partial<BlueprintItemWithElement> = {};
     elements.find((element) => {
         const itemId = element.getAttribute('data-item-id');
         if(itemId) {
-            item = blueprintModel.itemByKey(itemId);
-            if(item)
+            const blueprintItem = blueprintModel.itemByKey(itemId);
+            if(blueprintItem) {
+                item = {item: blueprintItem, element: element as HTMLElement};
                 return true;
+            }
         }
         return false;
     });
     return item;
 }
 
-function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOModel, screenPoint: ReadonlyPointType) {
-    const item = detectItemFromPoint(screenPoint);
-    if(!item) {
-        clearHoveringItem();
+function processSelfLinkInsertionPoint({item: sourceItem, element: sourceElem}: BlueprintItemWithElement, sourceIo: RecipeIOModel, screenPoint: ReadonlyPointType) {
+    const clientPoint = screenToClient(sourceElem, Rect.assign(screenPoint), settings.scale).offsetBy(sourceItem.rect);
+    //check if mouse point is between io rects
+    const neighbourIo = (sourceIo.isInput ?
+        sourceItem.selectedRecipe?.visibleInput() :
+        sourceItem.selectedRecipe?.visibleOutput()) || [];
+
+    const betweenIo: BetweenSelfIo = {};
+    for(let i = 0; i < neighbourIo.length; i++) {
+        const io1 = neighbourIo[i];
+        const midPoint1 = io1.rect.middleRectPoint();
+        //if midpoint is above client rect, then mouse is in between this io and previous io
+        if(midPoint1.y > clientPoint.y) {
+            betweenIo.lowerIndex = i;
+            betweenIo.lower = io1;
+            if(i > 0) {
+                betweenIo.upperIndex = i - 1;
+                betweenIo.upper = neighbourIo[betweenIo.upperIndex];
+            }
+            break;
+        }
+    }
+    //if lower is found, then mouse is below last io
+    if(!betweenIo.lower) {
+        betweenIo.upperIndex = neighbourIo.length - 1;
+        betweenIo.upper = neighbourIo[betweenIo.upperIndex];
+    }
+    if(!betweenIo.upper && !betweenIo.lower) {
+        //impossible, maybe exactly midpoint
+        clearHoveringBetweenIo();
         return;
     }
-    if((toRaw(item) === toRaw(hoveringItem)) || (toRaw(item) === toRaw(sourceItem?.ownerItem))) {
+    if((betweenIo.lowerIndex === hoveringBetweenIo?.lowerIndex) && (betweenIo.upperIndex === hoveringBetweenIo?.upperIndex)) {
+        return;
+    }
+    clearHoveringBetweenIo();
+    //on lower io highlight upper border
+    betweenIo.lower?.setHighlightBorder(1);
+    betweenIo.upper?.setHighlightBorder(-1);
+    hoveringBetweenIo = betweenIo;
+}
+
+function processOtherFactoryLink(sourceIo: RecipeIOModel, draggingIo: RecipeIOModel, targetItem: BlueprintItemModel) {
+    hoveringItem = targetItem;
+    hoveringItem.updateLinkState(sourceIo);
+    draggingIo.setFlipped(targetItem.isFlipped);
+}
+
+function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOModel, screenPoint: ReadonlyPointType) {
+    const {item, element} = detectItemFromPoint(screenPoint);
+    if(!item || !element) {
+        clearHoveringItem();
+        clearHoveringBetweenIo();
+        return;
+    }
+    if(toRaw(item) === toRaw(sourceItem?.ownerItem)) {
+        clearHoveringItem();
+        processSelfLinkInsertionPoint({item, element}, sourceItem, screenPoint);
+        return;
+    }
+    if(toRaw(item) === toRaw(hoveringItem)) {
         return;
     }
     clearHoveringItem();
-    hoveringItem = item;
-    hoveringItem.updateLinkState(sourceItem);
-    draggingItem.setFlipped(hoveringItem.isFlipped);
+    clearHoveringBetweenIo();
+    processOtherFactoryLink(sourceItem, draggingItem, item);
 }
 
 function processLink(sourceItem: RecipeIOModel, _hoveringItem: BlueprintItemModel, hoveringState: BlueprintItemStateValues) {
@@ -113,6 +194,7 @@ useEventHook(hooks.notifyDrop, (param) => {
         processLink(sourceItem, hoveringItem, hoveringItem.state);
     }
     clearHoveringItem();
+    clearHoveringBetweenIo();
     blueprintModel.clearTempLink();
 });
 
@@ -131,7 +213,7 @@ useEventHook(notifySelected, (param) => {
         return;
     }
     const sourceItem = param.item.item as RecipeIOModel;
-    const _hoveringItem = detectItemFromPoint(param.screenPosition);
+    const {item: _hoveringItem} = detectItemFromPoint(param.screenPosition);
     if(!_hoveringItem || (toRaw(_hoveringItem) === toRaw(sourceItem?.ownerItem))) {
         return;
     }

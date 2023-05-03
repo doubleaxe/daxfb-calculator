@@ -23,7 +23,7 @@ function computedItemClass(item: GameItem) {
 <template>
     <div>
         <icon-list-filter />
-        <div class="icon-div-parent">
+        <div class="icon-div-parent bg-window-idle">
             <optimized-tooltip>
                 <template v-for="(group, _index1) in filter.buildFilter()" :key="_index1">
                     <v-divider v-if="_index1" />

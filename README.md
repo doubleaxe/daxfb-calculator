@@ -32,7 +32,9 @@ Help sources are located inside `docs` folder in this repository.
 # Offline usage
 
 Released packages can be downloaded from 'release' page or self-built.
-Then it is possible to just open `index.html` included in release archive locally in browser.
+~~Then it is possible to just open `index.html` included in release archive locally in browser.~~
+It is impossible now to just open file in modern browsers, "thanks" to new CORS policy for `file://` protocol.
+Http server (or old browser) is now required to run locally, all built files can be just placed on http server directory.
 The only remote dependency is `https://polyfill.io/` which is used to make it work inside unsupported browsers.
 Query string `?gameId=<game>` may be added to quickly open desired game, for example `daxfb-calculator/dist/index.html?gameId=evospace`.
 
@@ -53,3 +55,4 @@ Query string `?gameId=<game>` may be added to quickly open desired game, for exa
 - Set link priority, set final goal
 - Find errors in chain by placing virtual sink in each error-prone building
 - Calculate building costs
+- Upgrade/downgrade factory

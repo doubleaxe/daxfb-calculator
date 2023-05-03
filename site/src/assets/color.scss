@@ -45,6 +45,19 @@ $dragging-elevation: 10;
     border: 2px solid get-color('purple', 'lighten-2');
 }
 
+.v-theme--light .highlight-upper-border {
+    border-top: 2px solid get-color('deep-orange', 'darken-2');
+}
+.v-theme--dark .highlight-upper-border {
+    border-top: 2px solid get-color('deep-orange', 'lighten-2');
+}
+.v-theme--light .highlight-lower-border {
+    border-bottom: 2px solid get-color('deep-orange', 'darken-2');
+}
+.v-theme--dark .highlight-lower-border {
+    border-bottom: 2px solid get-color('deep-orange', 'lighten-2');
+}
+
 .hover-elevation {
     padding: 1px;
     border: 2px solid transparent;
@@ -82,7 +95,7 @@ $dragging-elevation: 10;
     background-color: get-color('grey', 'lighten-4');
 }
 .v-theme--dark .bg-window-idle {
-    background-color: get-color('grey', 'darken-1');
+    background-color: get-color('grey', 'darken-2');
 }
 
 .v-theme--light .bg-window-statusbar {

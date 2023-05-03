@@ -20,27 +20,34 @@ const filter = injectFilter();
 const {dragStart} = useLinkDragAndDrop();
 const {selectedItem, selectItem} = usePointAndClick();
 
+const highlightBorderSide = computed(() => {
+    switch(props.io.highlightBorder) {
+        case 1: return 'highlight-upper-border';
+        case -1: return 'highlight-lower-border';
+        default: return undefined;
+    }
+});
 const computedIconClass = computed(() => {
-    if(unref(selectedItem)?.isSelected(props.io))
-        return ['selected-border'];
-    return [];
+    const _highlightBorder = unref(highlightBorderSide);
+    const cls = [
+        _highlightBorder || (unref(selectedItem)?.isSelected(props.io) ? 'selected-border' : undefined),
+    ].filter(Boolean);
+    return cls;
+});
+const computedDescriptionClass = computed(() => {
+    const _highlightBorder = unref(highlightBorderSide);
+    const cls = [
+        isLtr() ? 'text-left' : 'text-right',
+        props.io.hasProbability ? 'bg-has-probability' : undefined,
+        _highlightBorder || ((filter.key == props.io.name) ? 'highlight-border' : undefined),
+    ].filter(Boolean);
+    return cls;
 });
 
 function isLtr() {
     return props.io.isFlipped ? !props.io.isInput : props.io.isInput;
 }
 const direction = computed(() => isLtr() ? 'flex-row' : 'flex-row-reverse');
-const align = computed(() => isLtr() ? 'text-left' : 'text-right');
-const border = computed(() => {
-    if(filter.key == props.io.name)
-        return 'highlight-border';
-    return '';
-});
-const backgroud = computed(() => {
-    if(props.io.hasProbability)
-        return 'bg-has-probability';
-    return '';
-});
 const cpsSolvedTotal = computed(() => formatIo(props.io.cpsSolvedTotal, props.io) || '?');
 const cpsMaxTotal = computed(() => formatIo(props.io.cpsMaxTotal, props.io));
 
@@ -75,7 +82,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
         />
         <div
             class="io-description-row text-caption hover-border"
-            :class="[align, border, backgroud]"
+            :class="computedDescriptionClass"
             @click="filterForIo()"
         >
             {{ cpsSolvedTotal }}

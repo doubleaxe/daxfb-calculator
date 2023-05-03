@@ -152,6 +152,9 @@ export class Rect extends PointBase<Rect> implements ReadonlyRectType {
             y,
         });
     }
+    middleRectPoint() {
+        return this.middlePoint({x: this.x1, y: this.y1});
+    }
 
     isEqual(rect: ReadonlyRectType) {
         return super.isEqual(rect) && (this.width === rect.width) && (this.height === rect.height);
