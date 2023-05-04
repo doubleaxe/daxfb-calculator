@@ -97,7 +97,11 @@ function detectItemFromPoint(screenPoint: ReadonlyPointType) {
     return item;
 }
 
-function processSelfLinkInsertionPoint({item: sourceItem, element: sourceElem}: BlueprintItemWithElement, sourceIo: RecipeIOModel, screenPoint: ReadonlyPointType) {
+type SourceItemWithElement = {
+    sourceItem: BlueprintItemModel;
+    sourceElem: HTMLElement;
+};
+function getSelfLinkNeighbourIo({sourceItem, sourceElem}: SourceItemWithElement, sourceIo: RecipeIOModel, screenPoint: ReadonlyPointType) {
     const clientPoint = screenToClient(sourceElem, Rect.assign(screenPoint), settings.scale).offsetBy(sourceItem.rect);
     //check if mouse point is between io rects
     const neighbourIo = (sourceIo.isInput ?
@@ -124,6 +128,10 @@ function processSelfLinkInsertionPoint({item: sourceItem, element: sourceElem}: 
         betweenIo.upperIndex = neighbourIo.length - 1;
         betweenIo.upper = neighbourIo[betweenIo.upperIndex];
     }
+    return betweenIo;
+}
+
+function processSelfLinkInsertionPoint(betweenIo: BetweenSelfIo) {
     if(!betweenIo.upper && !betweenIo.lower) {
         //impossible, maybe exactly midpoint
         clearHoveringBetweenIo();
@@ -154,7 +162,8 @@ function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOMode
     }
     if(toRaw(item) === toRaw(sourceItem?.ownerItem)) {
         clearHoveringItem();
-        processSelfLinkInsertionPoint({item, element}, sourceItem, screenPoint);
+        const betweenIo = getSelfLinkNeighbourIo({sourceItem: item, sourceElem: element}, sourceItem, screenPoint);
+        processSelfLinkInsertionPoint(betweenIo);
         return;
     }
     if(toRaw(item) === toRaw(hoveringItem)) {
@@ -163,6 +172,21 @@ function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOMode
     clearHoveringItem();
     clearHoveringBetweenIo();
     processOtherFactoryLink(sourceItem, draggingItem, item);
+}
+
+function processSwapIo(betweenIo: BetweenSelfIo, sourceIo: RecipeIOModel) {
+    if(!betweenIo.upper && !betweenIo.lower) {
+        return false;
+    }
+    if((toRaw(betweenIo.lower) === toRaw(sourceIo)) || (toRaw(betweenIo.upper) === toRaw(sourceIo))) {
+        return false;
+    }
+    const selectedRecipe = sourceIo.ownerItem?.selectedRecipe;
+    if(!selectedRecipe) {
+        return false;
+    }
+    selectedRecipe.swapIo(sourceIo.key, [betweenIo.upperIndex, betweenIo.lowerIndex]);
+    return true;
 }
 
 function processLink(sourceItem: RecipeIOModel, _hoveringItem: BlueprintItemModel, hoveringState: BlueprintItemStateValues) {
@@ -192,6 +216,8 @@ useEventHook(hooks.notifyDrop, (param) => {
     const sourceItem = param.item.source;
     if(sourceItem && hoveringItem) {
         processLink(sourceItem, hoveringItem, hoveringItem.state);
+    } else if(sourceItem && hoveringBetweenIo) {
+        processSwapIo(hoveringBetweenIo, sourceItem);
     }
     clearHoveringItem();
     clearHoveringBetweenIo();
@@ -213,8 +239,15 @@ useEventHook(notifySelected, (param) => {
         return;
     }
     const sourceItem = param.item.item as RecipeIOModel;
-    const {item: _hoveringItem} = detectItemFromPoint(param.screenPosition);
-    if(!_hoveringItem || (toRaw(_hoveringItem) === toRaw(sourceItem?.ownerItem))) {
+    const {item: _hoveringItem, element} = detectItemFromPoint(param.screenPosition);
+    if(!_hoveringItem || !element) {
+        return;
+    }
+    if(toRaw(_hoveringItem) === toRaw(sourceItem?.ownerItem)) {
+        const betweenIo = getSelfLinkNeighbourIo({sourceItem: _hoveringItem, sourceElem: element}, sourceItem, param.screenPosition);
+        if(processSwapIo(betweenIo, sourceItem)) {
+            param.wasHandled();
+        }
         return;
     }
     const linkState = _hoveringItem.calculateLinkState(sourceItem);

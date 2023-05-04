@@ -4,6 +4,7 @@ Please don't remove this comment if you use unmodified file
 */
 import type {GameItem, GameRecipe} from '#types/game-data';
 import {RecipeIOModelImpl} from './recipe-io';
+import type {SavedItem} from './saved-blueprint';
 import type {BlueprintItemModel, RecipeIOModel, RecipeModel} from './store';
 
 export class RecipeModelImpl {
@@ -79,5 +80,95 @@ export class RecipeModelImpl {
     }
     visibleOutput() {
         return this._output.filter(item => !item.isHidden);
+    }
+
+    swapIo(sourceIoKey: string, betweenIndex: [number | undefined, number | undefined]) {
+        const sourceIo = this._itemsByKey.get(sourceIoKey);
+        if(!sourceIo) {
+            return;
+        }
+        const sourceArray = sourceIo.isInput ? this._input : this._output;
+        let inserted = false;
+        const newArray = sourceArray.reduce((array, io, index) => {
+            if(io.key === sourceIo.key)
+                return array;
+            if(!inserted) {
+                if(((betweenIndex[0] !== undefined) && (index > betweenIndex[0]))
+                    || ((betweenIndex[1] !== undefined) && (index === betweenIndex[1]))) {
+                    array.push(sourceIo);
+                    array.push(io);
+                    inserted = true;
+                    return array;
+                }
+                if(index === (sourceArray.length - 1)) {
+                    array.push(io);
+                    array.push(sourceIo);
+                    inserted = true;
+                    return array;
+                }
+            }
+            array.push(io);
+            return array;
+        }, [] as RecipeIOModel[]);
+
+        //apply updates in place
+        newArray.forEach((io, index) => { if(sourceArray[index] !== io) sourceArray[index] = io; });
+        sourceIo.ownerItem?._$ioSwapped();
+    }
+
+    _$saveIoOrder() {
+        const order = {
+            input: {
+                original: this._recipe.input,
+                user: this._input,
+            },
+            output: {
+                original: this._recipe.output,
+                user: this._output,
+            },
+        };
+        const savedOrder: Partial<SavedItem> = {};
+        for(const [key, value] of Object.entries(order)) {
+            const hasOriginalOrder = value.original.every((io, index) => (value.user[index].name === io.name));
+            if(!hasOriginalOrder) {
+                const originalIndexes = new Map<string, number>(
+                    value.original.map((io, index) => [io.name, index]),
+                );
+                const customOrder = value.user.map((io, index) => {
+                    const originalIndex = originalIndexes.get(io.name || '');
+                    if(originalIndex !== undefined)
+                        return originalIndex;
+                    return index;
+                });
+                if(key == 'input') {
+                    savedOrder.o1 = customOrder;
+                } else {
+                    savedOrder.o2 = customOrder;
+                }
+            }
+        }
+        return savedOrder;
+    }
+    _$loadIoOrder(savedOrder: SavedItem) {
+        const order = [{
+            original: this._recipe.input,
+            user: this._input,
+            order: savedOrder.o1,
+        }, {
+            original: this._recipe.output,
+            user: this._output,
+            order: savedOrder.o2,
+        },
+        ];
+        for(const value of order) {
+            if(!value.order)
+                continue;
+            const customOrder = new Map<string, number>(
+                value.order.map((originalIndex, customIndex) => [value.original[originalIndex]?.name || '', customIndex]),
+            );
+            [...value.user].forEach((io) => {
+                value.user[customOrder.get(io.name || '') || 0] = io;
+            });
+        }
     }
 }

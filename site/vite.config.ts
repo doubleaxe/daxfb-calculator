@@ -73,7 +73,7 @@ export default defineConfig({
                 format: 'system',
                 chunkFileNames: (chunkInfo) => {
                     if(chunkInfo.name === 'index') {
-                        if(chunkInfo.moduleIds.some((m) => (m.indexOf('dagre') >= 0))) {
+                        if(chunkInfo.moduleIds.some((m) => /node_modules.*dagre/.test(m))) {
                             return 'assets/dagre.[hash].js';
                         }
                     }

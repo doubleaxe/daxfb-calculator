@@ -14,12 +14,22 @@ export type Header = {
 };
 
 export type SavedItem = {
+    //name
     n: string;
+    //position [x, y]
     p: number[];
+    //recipe key
     r: string;
+    //count
     c?: number;
+    //is flipped
     f?: 1;
+    //is locked
     l?: 1;
+    //custom order of inputs
+    o1?: number[];
+    //custom order of outputs
+    o2?: number[];
 };
 
 export type SavedLink = {

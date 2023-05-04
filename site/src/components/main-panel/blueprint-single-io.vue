@@ -70,7 +70,7 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
 </script>
 
 <template>
-    <div class="io-parent" :class="direction" @pointerdown.left.stop @click.stop>
+    <div class="io-parent" :class="direction">
         <icon-component-tooltip
             class="io-icon-row rounded hover-elevation"
             :class="computedIconClass"
@@ -78,11 +78,13 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
             :tooltip="props.io.label"
             :data-io-id="props.io.key"
             @click="selectItem(SelectedClassType.RecipeIOModel, props.io)"
-            @pointerdown.left="dragStart($event, newLinkDragAndDropItem())"
+            @pointerdown.left.stop="dragStart($event, newLinkDragAndDropItem())"
+            @click.stop
         />
         <div
             class="io-description-row text-caption hover-border"
             :class="computedDescriptionClass"
+            @pointerdown.left.stop
             @click="filterForIo()"
         >
             {{ cpsSolvedTotal }}

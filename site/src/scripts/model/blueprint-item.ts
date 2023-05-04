@@ -158,6 +158,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             c: (this._count == 1) ? undefined : this._count,
             f: this.isFlipped ? 1 : undefined,
             l: this._isLocked ? 1 : undefined,
+            ...this._selectedRecipe?._$saveIoOrder(),
         };
     }
     _$loadItem(i: SavedItem, errorCollector: ErrorCollector) {
@@ -172,6 +173,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this.setCount(i.c || 1);
         this.isFlipped = i.f ? true : false;
         this._isLocked = i.l ? true : false;
+        this._selectedRecipe?._$loadIoOrder(i);
     }
     _$loadLink(l: SavedLink, outputItem: BlueprintItemModel, errorCollector: ErrorCollector) {
         let inputIoArray = [...this.selectedRecipe?.input || []];
@@ -204,6 +206,11 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         }
     }
     _$linkDeleted(value: LinkModel) {
+        if(this._initializationCompleted) {
+            this._linksGenerationNumber++;
+        }
+    }
+    _$ioSwapped() {
         if(this._initializationCompleted) {
             this._linksGenerationNumber++;
         }
