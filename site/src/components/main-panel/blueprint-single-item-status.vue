@@ -15,10 +15,7 @@ const props = defineProps<{
 
 const hiddenIo = computed(() => {
     const _recipe = props.item?.selectedRecipe;
-    let io = [...(_recipe?.input || []), ...(_recipe?.output || [])];
-    if(io.length) {
-        io = io.filter(item => item.isHidden);
-    }
+    const io = [...(_recipe?.invisibleInput() || []), ...(_recipe?.invisibleOutput() || [])];
     return io;
 });
 

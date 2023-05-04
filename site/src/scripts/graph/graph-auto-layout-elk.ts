@@ -52,7 +52,7 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
                 width: relativeRect.width,
                 height: relativeRect.height,
                 layoutOptions: {
-                    'org.eclipse.elk.portConstraints': 'FIXED_POS',
+                    'org.eclipse.elk.portConstraints': 'FIXED_SIDE',
                     'org.eclipse.elk.port.side': isLeftSide ? 'WEST' : 'EAST',
                 },
             });
@@ -107,6 +107,7 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
         } : {}),
         ...(layoutOptions?.connectedNodeSpacing ? {
             'org.eclipse.elk.spacing.componentComponent': String(layoutOptions.connectedNodeSpacing),
+            'org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers': String(layoutOptions.connectedNodeSpacing),
         } : {}),
         ...(layoutOptions?.edgeSpacing ? {
             'org.eclipse.elk.spacing.edgeEdge': String(layoutOptions.edgeSpacing),
@@ -139,6 +140,13 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
         const item = blueprint.itemByKey(node.id);
         if(item) {
             item.setRect(item.rect.assign({x: node.x, y: node.y}));
+        }
+        const ports = node.ports;
+        const recipe = item?.selectedRecipe;
+        if(ports && recipe) {
+            ports.sort((a, b) => (a.y ?? 0) - (b.y ?? 0));
+            const visibleIoPriority = ports.map((port) => port.id);
+            recipe.batchSwapIo(visibleIoPriority);
         }
     }
     blueprint.layoutChanged();

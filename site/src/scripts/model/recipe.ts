@@ -78,8 +78,14 @@ export class RecipeModelImpl {
     visibleInput() {
         return this._input.filter(item => !item.isHidden);
     }
+    invisibleInput() {
+        return this._input.filter(item => item.isHidden);
+    }
     visibleOutput() {
         return this._output.filter(item => !item.isHidden);
+    }
+    invisibleOutput() {
+        return this._output.filter(item => item.isHidden);
     }
 
     swapIo(sourceIoKey: string, betweenIndex: [number | undefined, number | undefined]) {
@@ -114,6 +120,13 @@ export class RecipeModelImpl {
         //apply updates in place
         newArray.forEach((io, index) => { if(sourceArray[index] !== io) sourceArray[index] = io; });
         sourceIo.ownerItem?._$ioSwapped();
+    }
+    batchSwapIo(visibleKeyOrder: string[]) {
+        const orderMap = new Map<string, number>(visibleKeyOrder.map((key, index) => [key, index]));
+        for(const array of [this._input, this._output]) {
+            //invisible items at the end
+            array.sort((a, b) => (orderMap.get(a.key) ?? array.length) - (orderMap.get(b.key) ?? array.length));
+        }
     }
 
     _$saveIoOrder() {
