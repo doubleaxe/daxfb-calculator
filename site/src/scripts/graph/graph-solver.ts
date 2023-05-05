@@ -57,7 +57,7 @@ export class GraphSolver {
                 addTerm(constraint, connectedItem);
             }
             //see https://github.com/doubleaxe/daxfb-calculator/issues/2
-            //for many to many connections we should add constraint for each item, otherwise we will get wrong results
+            //for many to many connections we should add constraint for each standalone item, otherwise we will get wrong results
             //incorrect
             /*
 DAXFBESC$eNptkLsOwjAMRf_Fs4faSXGVnR-AASSUoTAAUoGqPDpU-XfcNol
