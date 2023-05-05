@@ -100,6 +100,7 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
     //aspectRatio
     //nodeFlexibility
     //adaptPortPositions
+    //edgeRouting
     const elkLayoutOptions = {
         ...layoutOptions?.customOptions,
         ...(layoutOptions?.nodeSpacing ? {
@@ -115,6 +116,7 @@ export const autoLayoutGraphElk: AutoLayoutGraph = async(blueprint, layoutOption
         ...(layoutOptions?.edgeWidth ? {
             'org.eclipse.elk.edge.thickness': String(layoutOptions.edgeWidth),
         } : {}),
+        'org.eclipse.elk.edgeRouting': 'SPLINES',
     };
 
     let algorithms: (string | undefined)[] = [];

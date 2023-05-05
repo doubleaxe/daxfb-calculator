@@ -46,16 +46,16 @@ $dragging-elevation: 10;
 }
 
 .v-theme--light .highlight-upper-border {
-    border-top: 2px solid get-color('deep-orange', 'darken-2');
+    border-top: 8px solid get-color('deep-orange', 'darken-2');
 }
 .v-theme--dark .highlight-upper-border {
-    border-top: 2px solid get-color('deep-orange', 'lighten-2');
+    border-top: 8px solid get-color('deep-orange', 'lighten-2');
 }
 .v-theme--light .highlight-lower-border {
-    border-bottom: 2px solid get-color('deep-orange', 'darken-2');
+    border-bottom: 8px solid get-color('deep-orange', 'darken-2');
 }
 .v-theme--dark .highlight-lower-border {
-    border-bottom: 2px solid get-color('deep-orange', 'lighten-2');
+    border-bottom: 8px solid get-color('deep-orange', 'lighten-2');
 }
 
 .hover-elevation {

@@ -61,6 +61,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
 
     get isAbstractClassItem() { return this._item?.isAbstractClassItem || false; }
     get isMatherialized() { return !!this._matherializeAbstractItem; }
+    get rawName() { return this._item?.name; }
 
     get name() { return this._matherializeAbstractItem?.name || this._item?.name; }
     get label() { return this._matherializeAbstractItem?.label || this._item?.label; }

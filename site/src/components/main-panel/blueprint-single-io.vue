@@ -20,26 +20,25 @@ const filter = injectFilter();
 const {dragStart} = useLinkDragAndDrop();
 const {selectedItem, selectItem} = usePointAndClick();
 
-const highlightBorderSide = computed(() => {
+const highlightBorderSide = () => {
     switch(props.io.highlightBorder) {
         case 1: return 'highlight-upper-border';
         case -1: return 'highlight-lower-border';
         default: return undefined;
     }
-});
+};
 const computedIconClass = computed(() => {
-    const _highlightBorder = unref(highlightBorderSide);
+    const _highlightBorder = highlightBorderSide();
     const cls = [
         _highlightBorder || (unref(selectedItem)?.isSelected(props.io) ? 'selected-border' : undefined),
     ].filter(Boolean);
     return cls;
 });
 const computedDescriptionClass = computed(() => {
-    const _highlightBorder = unref(highlightBorderSide);
     const cls = [
         isLtr() ? 'text-left' : 'text-right',
         props.io.hasProbability ? 'bg-has-probability' : undefined,
-        _highlightBorder || ((filter.key == props.io.name) ? 'highlight-border' : undefined),
+        ((filter.key == props.io.name) ? 'highlight-border' : undefined),
     ].filter(Boolean);
     return cls;
 });

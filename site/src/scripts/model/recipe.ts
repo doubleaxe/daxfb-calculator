@@ -142,13 +142,13 @@ export class RecipeModelImpl {
         };
         const savedOrder: Partial<SavedItem> = {};
         for(const [key, value] of Object.entries(order)) {
-            const hasOriginalOrder = value.original.every((io, index) => (value.user[index].name === io.name));
+            const hasOriginalOrder = value.original.every((io, index) => (value.user[index].rawName === io.name));
             if(!hasOriginalOrder) {
                 const originalIndexes = new Map<string, number>(
                     value.original.map((io, index) => [io.name, index]),
                 );
                 const customOrder = value.user.map((io, index) => {
-                    const originalIndex = originalIndexes.get(io.name || '');
+                    const originalIndex = originalIndexes.get(io.rawName || '');
                     if(originalIndex !== undefined)
                         return originalIndex;
                     return index;
@@ -180,7 +180,7 @@ export class RecipeModelImpl {
                 value.order.map((originalIndex, customIndex) => [value.original[originalIndex]?.name || '', customIndex]),
             );
             [...value.user].forEach((io) => {
-                value.user[customOrder.get(io.name || '') || 0] = io;
+                value.user[customOrder.get(io.rawName || '') || 0] = io;
             });
         }
     }

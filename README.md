@@ -48,7 +48,6 @@ Query string `?gameId=<game>` may be added to quickly open desired game, for exa
 - Cut / Copy / Paste individual and multi-selected factories, also global Copy / Paste for importing one into another.
 - Undo / Redo
 - Use `\R\N` for Windows saved files instead of `\N`
-- Reorder input/output vertical position
 - Use `https://github.com/bcakmakoglu/vue-flow/` for nicer graph display? (will require almost full rewrite)
 - Use `https://github.com/d0sboots/dyson-sphere-program`, `https://github.com/Martin-Pitt/dsp-parser/` `https://github.com/xunyinzhe/dsp-calculator/tree/gh-pages/icons`
 - Use `https://github.com/greeny/SatisfactoryTools/blob/dev/bin/parseDocs.ts`
