@@ -4,14 +4,37 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {BlueprintItemModel} from '@/scripts/model/store';
-import {mdiDelete, mdiLinkOff, mdiMenu} from '@mdi/js';
-import {ref} from 'vue';
+import {DEFAULT_PRIORITY, LOWER_PRIORITY, LOWEST_PRIORITY, type PriorityType} from '@/scripts/types';
+import {mdiDelete, mdiLinkOff, mdiMenu, mdiLock, mdiArrowDownBold, mdiTransferDown} from '@mdi/js';
+import {computed, ref} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
 }>();
 
 const menuOpened = ref(false);
+
+type OptionType = 'lock' | 'lower' | 'lowest';
+const itemOptions = computed(() => {
+    const options: OptionType[] = [];
+    if(props.item.isLocked) {
+        options.push('lock');
+    }
+    if(props.item.priority === LOWER_PRIORITY) {
+        options.push('lower');
+    } else if(props.item.priority === LOWEST_PRIORITY) {
+        options.push('lowest');
+    }
+    return options;
+});
+function changePriority(priority: PriorityType) {
+    const oldPriority = props.item.priority;
+    if(oldPriority === priority) {
+        props.item.setPriority(DEFAULT_PRIORITY);
+    } else {
+        props.item.setPriority(priority);
+    }
+}
 </script>
 
 <template>
@@ -29,13 +52,12 @@ const menuOpened = ref(false);
                         @update:model-value="props.item.setCount($event);"
                     />
                 </v-list-item>
-                <v-list-item title="Lock" @click="props.item.setLocked(!props.item.isLocked)">
-                    <template #prepend>
-                        <v-list-item-action start>
-                            <!-- eslint-disable-next-line vue/no-mutating-props -->
-                            <v-checkbox v-model="props.item.isLocked" hide-details />
-                        </v-list-item-action>
-                    </template>
+                <v-list-item class="d-flex justify-center">
+                    <v-btn-toggle color="primary" multiple :model-value="itemOptions">
+                        <tooltip-button tooltip="Lock" :icon="mdiLock" value="lock" @click="props.item.setLocked(!props.item.isLocked)" />
+                        <tooltip-button tooltip="Lower Priority" :icon="mdiArrowDownBold" value="lower" @click="changePriority(LOWER_PRIORITY)" />
+                        <tooltip-button tooltip="Lowest Priority" :icon="mdiTransferDown" value="lowest" @click="changePriority(LOWEST_PRIORITY)" />
+                    </v-btn-toggle>
                 </v-list-item>
                 <v-divider />
                 <v-list-item

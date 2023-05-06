@@ -134,16 +134,18 @@ onMounted(() => {
             <link-draggable />
             <recipes-menu ref="recipesMenuElement" />
             <blueprint-links />
-            <template
-                v-for="item in blueprintModel.items"
-                :key="item.key"
-            >
-                <blueprint-single-item
-                    :item="item"
-                    :parent="blueprintCollection"
-                    @recipes-menu-activate="recipesMenuElement?.activate"
-                />
-            </template>
+            <optimized-tooltip>
+                <template
+                    v-for="item in blueprintModel.items"
+                    :key="item.key"
+                >
+                    <blueprint-single-item
+                        :item="item"
+                        :parent="blueprintCollection"
+                        @recipes-menu-activate="recipesMenuElement?.activate"
+                    />
+                </template>
+            </optimized-tooltip>
         </div>
     </div>
 </template>

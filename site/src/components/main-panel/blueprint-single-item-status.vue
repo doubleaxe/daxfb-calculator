@@ -4,10 +4,11 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiSync, mdiLock} from '@mdi/js';
+import {mdiSync, mdiLock, mdiArrowDownBold, mdiTransferDown} from '@mdi/js';
 import {formatIo, formatNumber} from '@/scripts/format';
 import {__DEBUG__} from '@/scripts/debug';
 import {computed} from 'vue';
+import {DEFAULT_PRIORITY, LOWER_PRIORITY, LOWEST_PRIORITY} from '@/scripts/types';
 
 const props = defineProps<{
     item: BlueprintItemModel;
@@ -17,6 +18,15 @@ const hiddenIo = computed(() => {
     const _recipe = props.item?.selectedRecipe;
     const io = [...(_recipe?.invisibleInput() || []), ...(_recipe?.invisibleOutput() || [])];
     return io;
+});
+const priorityIcon = computed(() => {
+    if(props.item.priority === LOWER_PRIORITY) {
+        return mdiArrowDownBold;
+    }
+    if(props.item.priority === LOWEST_PRIORITY) {
+        return mdiTransferDown;
+    }
+    return '';
 });
 
 function hiddenIoTooltip(io: RecipeIOModel) {
@@ -29,7 +39,10 @@ function hiddenIoTooltip(io: RecipeIOModel) {
     <div class="status-row bg-window-statusbar">
         <div class="title-text text-caption">
             <template v-if="props.item.isLocked">
-                <v-icon :icon="mdiLock" />
+                <v-icon :icon="mdiLock" color="info" />
+            </template>
+            <template v-if="props.item.priority !== DEFAULT_PRIORITY">
+                <v-icon :icon="priorityIcon" color="info" />
             </template>
             <template v-if="props.item.partOfCycle">
                 <v-icon :icon="mdiSync" color="warning" />
@@ -46,7 +59,7 @@ function hiddenIoTooltip(io: RecipeIOModel) {
         <div class="float-right mr-1 mt-1 d-flex hidden-io">
             <template v-for="io in hiddenIo" :key="io.key">
                 <div class="mr-1">
-                    <icon-component-tooltip :image="io.image" :tooltip="hiddenIoTooltip(io)" />
+                    <icon-component :image="io.image" :data-tooltip="hiddenIoTooltip(io)" />
                 </div>
             </template>
         </div>

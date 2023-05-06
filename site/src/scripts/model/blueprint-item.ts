@@ -11,7 +11,7 @@ import type {
     RecipeIOModel,
     RecipeModel,
 } from './store';
-import {BlueprintItemState, type BlueprintItemStateValues} from '../types';
+import {BlueprintItemState, DEFAULT_PRIORITY, type BlueprintItemStateValues, type PriorityType} from '../types';
 import type {SavedItem, SavedLink} from './saved-blueprint';
 import {Rect, type PublicRect, type ReadonlyPointType} from '../geometry';
 import type {ErrorCollector} from '../error-collector';
@@ -27,6 +27,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     public partOfCycle = false;
     public isFlipped = false;
     private _isLocked = false;
+    private _priority: PriorityType = DEFAULT_PRIORITY;
     private _initializationCompleted = false;
     private _linksGenerationNumber = 0;
 
@@ -53,6 +54,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get solvedCount() { return this._solvedCount; }
     get isLocked() { return this._isLocked; }
     setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(false, this); }
+    get priority() { return this._priority; }
+    setPriority(priority: PriorityType) { this._priority = priority; this.owner?._$graphChanged(false, this); }
     initializationCompleted() {
         if(!this._initializationCompleted) {
             this._initializationCompleted = true;

@@ -3,6 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
+import {DEFAULT_PRIORITY, LOWER_PRIORITY, LOWEST_PRIORITY} from '../types';
 import {Model, type Variable} from './javascript-lp-solver';
 import type {Connections} from './resolve-connections';
 
@@ -22,19 +23,28 @@ export class GraphSolver {
     }
 
     solve(arrayItems: BlueprintItemModel[], connections: Connections) {
-        const hasLockedItems = arrayItems.some((item) => item.isLocked);
-        this.prepareModel(arrayItems, connections, hasLockedItems);
+        this.prepareModel(arrayItems, connections);
         this.model.solve();
-        this.applySolution(arrayItems, hasLockedItems);
+        this.applySolution(arrayItems);
     }
 
-    private prepareModel(arrayItems: BlueprintItemModel[], connections: Connections, hasLockedItems: boolean) {
+    private prepareModel(arrayItems: BlueprintItemModel[], connections: Connections) {
+        const hasLockedItems = arrayItems.some((item) => item.isLocked);
         const {
             model,
             variables,
         } = this;
         for(const item of arrayItems) {
-            const variable = model.addVariable(1, item.key);
+            let priority = 0;
+            switch(item.priority) {
+                case LOWER_PRIORITY:
+                    priority = 1;
+                    break;
+                case LOWEST_PRIORITY:
+                    priority = 2;
+                    break;
+            }
+            const variable = model.addVariable(1, item.key, false, false, priority);
             variables.set(item.key, variable);
             if(!hasLockedItems || item.isLocked) {
                 model.smallerThan(item.count).addTerm(1, variable);
@@ -92,7 +102,7 @@ j9_507iqEP4ivXdQ
         }
     }
 
-    private applySolution(arrayItems: BlueprintItemModel[], hasLockedItems: boolean) {
+    private applySolution(arrayItems: BlueprintItemModel[]) {
         for(const item of arrayItems) {
             const itemVariable = this.variables.get(item.key);
             if(!itemVariable)

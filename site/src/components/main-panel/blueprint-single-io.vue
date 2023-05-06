@@ -70,11 +70,11 @@ watch([() => props.io.cpsSolvedTotal, () => props.io.cpsMaxTotal], () => emit('t
 
 <template>
     <div class="io-parent" :class="direction">
-        <icon-component-tooltip
+        <icon-component
             class="io-icon-row rounded hover-elevation"
             :class="computedIconClass"
             :image="props.io.image"
-            :tooltip="props.io.label"
+            :data-tooltip="props.io.label"
             :data-io-id="props.io.key"
             @click="selectItem(SelectedClassType.RecipeIOModel, props.io)"
             @pointerdown.left.stop="dragStart($event, newLinkDragAndDropItem())"
