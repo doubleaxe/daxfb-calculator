@@ -4,8 +4,8 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {BlueprintItemModel} from '@/scripts/model/store';
-import {DEFAULT_PRIORITY, LOWER_PRIORITY, LOWEST_PRIORITY, type PriorityType} from '@/scripts/types';
-import {mdiDelete, mdiLinkOff, mdiMenu, mdiLock, mdiArrowDownBold, mdiTransferDown} from '@mdi/js';
+import {Objective, type ObjectiveType} from '@/scripts/types';
+import {mdiDelete, mdiLinkOff, mdiMenu, mdiLock, mdiBullseye, mdiBullseyeArrow, mdiTransferDown} from '@mdi/js';
 import {computed, ref} from 'vue';
 
 const props = defineProps<{
@@ -14,25 +14,25 @@ const props = defineProps<{
 
 const menuOpened = ref(false);
 
-type OptionType = 'lock' | 'lower' | 'lowest';
+type OptionType = 'lock' | keyof typeof Objective;
 const itemOptions = computed(() => {
     const options: OptionType[] = [];
     if(props.item.isLocked) {
         options.push('lock');
     }
-    if(props.item.priority === LOWER_PRIORITY) {
-        options.push('lower');
-    } else if(props.item.priority === LOWEST_PRIORITY) {
-        options.push('lowest');
+    for(const [key, value] of Object.entries(Objective)) {
+        if(value === props.item.objective) {
+            options.push(key as keyof typeof Objective);
+        }
     }
     return options;
 });
-function changePriority(priority: PriorityType) {
-    const oldPriority = props.item.priority;
-    if(oldPriority === priority) {
-        props.item.setPriority(DEFAULT_PRIORITY);
+function changeObjective(objective: ObjectiveType) {
+    const oldObjective = props.item.objective;
+    if(oldObjective === objective) {
+        props.item.setObjective(undefined);
     } else {
-        props.item.setPriority(priority);
+        props.item.setObjective(objective);
     }
 }
 </script>
@@ -55,8 +55,24 @@ function changePriority(priority: PriorityType) {
                 <v-list-item class="d-flex justify-center">
                     <v-btn-toggle color="primary" multiple :model-value="itemOptions">
                         <tooltip-button tooltip="Lock" :icon="mdiLock" value="lock" @click="props.item.setLocked(!props.item.isLocked)" />
-                        <tooltip-button tooltip="Lower Priority" :icon="mdiArrowDownBold" value="lower" @click="changePriority(LOWER_PRIORITY)" />
-                        <tooltip-button tooltip="Lowest Priority" :icon="mdiTransferDown" value="lowest" @click="changePriority(LOWEST_PRIORITY)" />
+                        <tooltip-button
+                            tooltip="Primary Objective"
+                            :icon="mdiBullseyeArrow"
+                            value="Primary"
+                            @click="changeObjective(Objective.Primary)"
+                        />
+                        <tooltip-button
+                            tooltip="Secondary Objective"
+                            :icon="mdiBullseye"
+                            value="Secondary"
+                            @click="changeObjective(Objective.Secondary)"
+                        />
+                        <tooltip-button
+                            tooltip="Low Priority Objective"
+                            :icon="mdiTransferDown"
+                            value="LowPriority"
+                            @click="changeObjective(Objective.LowPriority)"
+                        />
                     </v-btn-toggle>
                 </v-list-item>
                 <v-divider />

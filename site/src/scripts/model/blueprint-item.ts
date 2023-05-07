@@ -11,7 +11,7 @@ import type {
     RecipeIOModel,
     RecipeModel,
 } from './store';
-import {BlueprintItemState, DEFAULT_PRIORITY, type BlueprintItemStateValues, type PriorityType} from '../types';
+import {BlueprintItemState, type BlueprintItemStateValues, type ObjectiveType} from '../types';
 import type {SavedItem, SavedLink} from './saved-blueprint';
 import {Rect, type PublicRect, type ReadonlyPointType} from '../geometry';
 import type {ErrorCollector} from '../error-collector';
@@ -27,7 +27,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     public partOfCycle = false;
     public isFlipped = false;
     private _isLocked = false;
-    private _priority: PriorityType = DEFAULT_PRIORITY;
+    private _objective: ObjectiveType;
     private _initializationCompleted = false;
     private _linksGenerationNumber = 0;
 
@@ -54,8 +54,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     get solvedCount() { return this._solvedCount; }
     get isLocked() { return this._isLocked; }
     setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(false, this); }
-    get priority() { return this._priority; }
-    setPriority(priority: PriorityType) { this._priority = priority; this.owner?._$graphChanged(false, this); }
+    get objective() { return this._objective; }
+    setObjective(objective: ObjectiveType) { this._objective = objective; this.owner?._$graphChanged(false, this); }
     initializationCompleted() {
         if(!this._initializationCompleted) {
             this._initializationCompleted = true;
@@ -161,11 +161,11 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
             c: (this._count == 1) ? undefined : this._count,
             f: this.isFlipped ? 1 : undefined,
             l: this._isLocked ? 1 : undefined,
+            o: this._objective,
             ...this._selectedRecipe?._$saveIoOrder(),
         };
     }
     _$loadItem(i: SavedItem, errorCollector: ErrorCollector) {
-        //TODO - show errors and status for invalid recipe
         if(!this.selectRecipe(i.r)) {
             errorCollector.collectError(`Cannot select recipe ${i.r} for item ${this.label}`);
         }
@@ -176,6 +176,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this.setCount(i.c || 1);
         this.isFlipped = i.f ? true : false;
         this._isLocked = i.l ? true : false;
+        this._objective = i.o;
         this._selectedRecipe?._$loadIoOrder(i);
     }
     _$loadLink(l: SavedLink, outputItem: BlueprintItemModel, errorCollector: ErrorCollector) {

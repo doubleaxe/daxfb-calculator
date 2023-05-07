@@ -3,7 +3,7 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 */
 import type {BlueprintItemModel, RecipeIOModel} from '../model/store';
-import {DEFAULT_PRIORITY, LOWER_PRIORITY, LOWEST_PRIORITY} from '../types';
+import {Objective} from '../types';
 import {Model, type Variable} from './javascript-lp-solver';
 import type {Connections} from './resolve-connections';
 
@@ -30,23 +30,26 @@ export class GraphSolver {
 
     private prepareModel(arrayItems: BlueprintItemModel[], connections: Connections) {
         const hasLockedItems = arrayItems.some((item) => item.isLocked);
+        const hasObjective = arrayItems.some((item) => item.objective !== undefined);
         const {
             model,
             variables,
         } = this;
         for(const item of arrayItems) {
+            const cost = (hasObjective && (item.objective === undefined)) ? 0 : 1;
             let priority = 0;
-            switch(item.priority) {
-                case LOWER_PRIORITY:
+            switch(item.objective) {
+                case Objective.Secondary:
                     priority = 1;
                     break;
-                case LOWEST_PRIORITY:
+                case Objective.LowPriority:
                     priority = 2;
                     break;
             }
-            const variable = model.addVariable(1, item.key, false, false, priority);
+            const variable = model.addVariable(cost, item.key, false, false, priority);
             variables.set(item.key, variable);
-            if(!hasLockedItems || item.isLocked) {
+            if(!hasLockedItems || item.isLocked || (item.objective !== undefined)) {
+                //if item has objective - we must also set its limit
                 model.smallerThan(item.count).addTerm(1, variable);
             }
         }

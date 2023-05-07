@@ -4,16 +4,11 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {injectBlueprintModel} from '@/scripts/model/store';
-import {mdiDotsVertical, mdiDelete, mdiSigma, mdiHome, mdiArrangeSendToBack} from '@mdi/js';
-import {ref} from 'vue';
+import {mdiSigma, mdiHome} from '@mdi/js';
 import {injectGameData} from '@/scripts/data';
 
 const gameData = injectGameData();
 const blueprintModel = injectBlueprintModel();
-const showSettingsDialog = ref(false);
-const showHelpDialog = ref(false);
-const showAboutDialog = ref(false);
-const showAutoLayoutDialog = ref(false);
 const homeReference = [location.protocol, '//', location.host, location.pathname].join('')
     + `?gameId=${gameData.gameDescription.name}`;
 </script>
@@ -39,31 +34,5 @@ const homeReference = [location.protocol, '//', location.host, location.pathname
     <v-divider vertical />
     <button-scale />
     <slot name="append" />
-    <v-menu>
-        <template #activator="{ props }">
-            <v-btn :icon="mdiDotsVertical" v-bind="props" />
-        </template>
-        <v-list>
-            <v-list-item
-                :prepend-icon="mdiDelete"
-                title="Clear All"
-                @click="blueprintModel.clear()"
-            />
-            <v-list-item
-                :prepend-icon="mdiArrangeSendToBack"
-                title="Auto Layout Graph"
-                @click="showAutoLayoutDialog = true"
-            />
-            <v-divider horizontal />
-            <button-settings is-menu @show-dialog="showSettingsDialog = true" />
-            <button-help is-menu @show-dialog="showHelpDialog = true" />
-            <button-about is-menu @show-dialog="showAboutDialog = true" />
-        </v-list>
-    </v-menu>
-    <div class="d-none">
-        <settings-dialog v-model="showSettingsDialog" />
-        <help-dialog v-model="showHelpDialog" />
-        <about-dialog v-model="showAboutDialog" />
-        <graph-layout-dialog v-model="showAutoLayoutDialog" />
-    </div>
+    <main-toolbar-menu />
 </template>

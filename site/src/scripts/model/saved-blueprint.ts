@@ -1,3 +1,5 @@
+import type {ObjectiveType} from '../types';
+
 /*
 Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
@@ -26,6 +28,8 @@ export type SavedItem = {
     f?: 1;
     //is locked
     l?: 1;
+    //objective
+    o?: ObjectiveType;
     //custom order of inputs
     o1?: number[];
     //custom order of outputs

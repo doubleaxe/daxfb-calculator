@@ -22,7 +22,9 @@ export const MIN_PRECISION = 1e-8;
 
 export const DEFAULT_BLUEPRINT_SPLIT = 60;
 
-export const LOWEST_PRIORITY = 1 as const;
-export const LOWER_PRIORITY = 3 as const;
-export const DEFAULT_PRIORITY = 5 as const;
-export type PriorityType = typeof LOWEST_PRIORITY | typeof LOWER_PRIORITY | typeof DEFAULT_PRIORITY;
+export const Objective = {
+    Primary: 7,
+    Secondary: 5,
+    LowPriority: 3,
+} as const;
+export type ObjectiveType = typeof Objective[keyof typeof Objective] | undefined;
