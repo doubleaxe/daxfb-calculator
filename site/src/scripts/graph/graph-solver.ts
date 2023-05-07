@@ -14,26 +14,66 @@ import type {Connections} from './resolve-connections';
 //model variables are item count, which can vary from 0 to max
 //we should find max value for item count, which will mean max input/output
 
+type VirtualSink = {
+    output: RecipeIOModel;
+    variable: Variable;
+};
 export class GraphSolver {
-    private readonly model: Model;
-    private readonly variables = new Map<string, Variable>();
+    private readonly precision: number;
+    private model: Model;
+    private variables;
+    private virtualSinks;
+    private errorCorrectionMode;
 
     constructor(precision?: number) {
-        this.model = new Model(precision || .001).maximize();
+        this.precision = precision || .001;
+        this.model = new Model(this.precision).maximize();
+        this.variables = new Map<string, Variable>();
+        this.virtualSinks = new Map<string, VirtualSink>();
+        this.errorCorrectionMode = false;
+    }
+
+    private reset() {
+        this.model = new Model(this.precision).maximize();
+        this.variables = new Map<string, Variable>();
+        this.virtualSinks = new Map<string, VirtualSink>();
+        this.errorCorrectionMode = false;
     }
 
     solve(arrayItems: BlueprintItemModel[], connections: Connections) {
         this.prepareModel(arrayItems, connections);
-        this.model.solve();
-        this.applySolution(arrayItems);
+        let solution = this.model.solve();
+        let solved = !!(solution.feasible && solution.evaluation && Number.isFinite(solution.evaluation));
+        if(!solved) {
+            this.reset();
+            this.errorCorrectionMode = true;
+            this.prepareModel(arrayItems, connections);
+            solution = this.model.solve();
+            solved = !!(solution.feasible && solution.evaluation && Number.isFinite(solution.evaluation));
+        }
+        this.applySolution(solved, arrayItems);
     }
 
     private prepareModel(arrayItems: BlueprintItemModel[], connections: Connections) {
-        const hasLockedItems = arrayItems.some((item) => item.isLocked);
-        const hasObjective = arrayItems.some((item) => item.objective !== undefined);
+        this.prepareVariables(arrayItems);
+        this.prepareConstraints(connections);
+    }
+
+    private prepareVariables(arrayItems: BlueprintItemModel[]) {
+        let hasLockedItems = false;
+        let hasObjective = false;
+        for(const item of arrayItems) {
+            hasLockedItems = hasLockedItems || item.isLocked;
+            if(!hasObjective && (item.objective !== undefined)) {
+                hasObjective = true;
+            }
+        }
+
         const {
             model,
             variables,
+            virtualSinks,
+            errorCorrectionMode,
         } = this;
         for(const item of arrayItems) {
             const cost = (hasObjective && (item.objective === undefined)) ? 0 : 1;
@@ -52,7 +92,40 @@ export class GraphSolver {
                 //if item has objective - we must also set its limit
                 model.smallerThan(item.count).addTerm(1, variable);
             }
+
+            if(errorCorrectionMode && GraphSolver.itemShouldBeCheckedForErrors(item)) {
+                //try to find errors by adding virtual sink to each output
+                //we can check only items with two connected outputs or cycles, because other items should not cause errors
+                for(const io of item.selectedRecipe?.output || []) {
+                    if(!io.linksCount) {
+                        continue;
+                    }
+                    const sinkVariable = model.addVariable(0, 'sink_' + io.key);
+                    virtualSinks.set(io.key, {
+                        output: io,
+                        variable: sinkVariable,
+                    });
+                }
+            }
         }
+    }
+
+    private static itemShouldBeCheckedForErrors(item: BlueprintItemModel) {
+        if(item.partOfCycle)
+            return true;
+        const output = [...item.selectedRecipe?.output || []];
+        if(output.length <= 1)
+            return false;
+        const outputConnections = output.reduce((acc, io) => (acc + (io.linksCount ? 1 : 0)), 0);
+        return outputConnections > 1;
+    }
+
+    private prepareConstraints(connections: Connections) {
+        const {
+            model,
+            variables,
+            virtualSinks,
+        } = this;
 
         const addTerm = function(constraint: Model.Constraint, io?: RecipeIOModel) {
             const itemVariable = variables.get(io?.ownerItem?.key || '');
@@ -68,6 +141,13 @@ export class GraphSolver {
             const constraint = model.equal(0);
             for(const connectedItem of connection.connections) {
                 addTerm(constraint, connectedItem);
+                const sink = virtualSinks.get(connectedItem.key);
+                if(sink) {
+                    //sink is input
+                    constraint.addTerm(-1, sink.variable);
+                    const constraint1 = model.smallerThan(connectedItem.cpsMax);
+                    constraint1.addTerm(1, sink.variable);
+                }
             }
             //see https://github.com/doubleaxe/daxfb-calculator/issues/2
             //for many to many connections we should add constraint for each standalone item, otherwise we will get wrong results
@@ -105,13 +185,22 @@ j9_507iqEP4ivXdQ
         }
     }
 
-    private applySolution(arrayItems: BlueprintItemModel[]) {
+    private applySolution(solved: boolean, arrayItems: BlueprintItemModel[]) {
         for(const item of arrayItems) {
             const itemVariable = this.variables.get(item.key);
             if(!itemVariable)
                 continue;
             item.setSolvedCount(itemVariable.value);
-            item.resetFlow();
+            item.resetSolutionStatus();
+        }
+
+        if(solved && this.errorCorrectionMode) {
+            for(const {output, variable} of this.virtualSinks.values()) {
+                //if sink has value, then output is not balanced
+                if(variable.value) {
+                    output.setCausesSolvingError(true);
+                }
+            }
         }
     }
 }

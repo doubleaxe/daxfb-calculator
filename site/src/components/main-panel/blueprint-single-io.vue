@@ -35,9 +35,10 @@ const computedIconClass = computed(() => {
     return cls;
 });
 const computedDescriptionClass = computed(() => {
+    const causesSolvingError = props.io.causesSolvingError ? 'bg-has-solving-error' : '';
     const cls = [
         isLtr() ? 'text-left' : 'text-right',
-        props.io.hasProbability ? 'bg-has-probability' : undefined,
+        causesSolvingError || (props.io.hasProbability ? 'bg-has-probability' : undefined),
         ((filter.key == props.io.name) ? 'highlight-border' : undefined),
     ].filter(Boolean);
     return cls;

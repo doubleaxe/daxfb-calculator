@@ -30,6 +30,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     private _matherializeAbstractItem: GameItem | undefined;
     //1 - upper border, -1 - lower border
     private _highlightBorder: -1 | 0 | 1 = 0;
+    private _causesSolvingError = false;
 
     constructor(
         io: GameRecipeIO,
@@ -71,6 +72,7 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     get isHidden() { return (this._io.flags & GameRecipeIOFlags.HideOnWindow) && !this.linksCount; }
 
     get highlightBorder() { return this._highlightBorder; }
+    get causesSolvingError() { return this._causesSolvingError; }
 
     setFlipped(isFlipped: boolean) {
         if(this._ownerItem)
@@ -79,6 +81,9 @@ export class RecipeIOModelImpl extends ItemModelImpl {
     }
     setHighlightBorder(border: -1 | 0 | 1) {
         this._highlightBorder = border;
+    }
+    setCausesSolvingError(causesSolvingError: boolean) {
+        this._causesSolvingError = causesSolvingError;
     }
 
     _$matherializeAbstractItem(item: GameItem | undefined) {

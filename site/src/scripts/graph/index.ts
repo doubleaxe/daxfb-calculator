@@ -36,7 +36,7 @@ export function resetOrSolveGraph(blueprint: BlueprintModel, items: IterableIter
         } else {
             for(const item of arrayDag) {
                 item.setSolvedCount(undefined);
-                item.resetFlow();
+                item.resetSolutionStatus();
             }
         }
     }
