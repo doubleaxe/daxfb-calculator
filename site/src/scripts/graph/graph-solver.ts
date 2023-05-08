@@ -43,15 +43,24 @@ export class GraphSolver {
     solve(arrayItems: BlueprintItemModel[], connections: Connections) {
         this.prepareModel(arrayItems, connections);
         let solution = this.model.solve();
-        let solved = !!(solution.feasible && solution.evaluation && Number.isFinite(solution.evaluation));
+        let solved = this.isSolved(solution);
         if(!solved) {
             this.reset();
             this.errorCorrectionMode = true;
             this.prepareModel(arrayItems, connections);
             solution = this.model.solve();
-            solved = !!(solution.feasible && solution.evaluation && Number.isFinite(solution.evaluation));
+            solved = this.isSolved(solution);
         }
         this.applySolution(solved, arrayItems);
+    }
+
+    private isSolved(solution: Model.Solution) {
+        if(!solution.feasible)
+            return false;
+        if(solution.evaluation && Number.isFinite(solution.evaluation))
+            return true;
+        //all zeros mean unsolved
+        return ![...this.variables.values()].every((v) => !v.value);
     }
 
     private prepareModel(arrayItems: BlueprintItemModel[], connections: Connections) {
@@ -132,6 +141,7 @@ export class GraphSolver {
             if(io && itemVariable) {
                 constraint.addTerm((io.isInput ? -1 : 1) * io.cpsMax, itemVariable);
             }
+            return itemVariable;
         };
 
         //variables are added, now we add terms (io flow distribution)
@@ -140,13 +150,14 @@ export class GraphSolver {
         for(const connection of connections) {
             const constraint = model.equal(0);
             for(const connectedItem of connection.connections) {
-                addTerm(constraint, connectedItem);
+                const itemVariable = addTerm(constraint, connectedItem);
                 const sink = virtualSinks.get(connectedItem.key);
-                if(sink) {
+                if(itemVariable && sink) {
                     //sink is input
-                    constraint.addTerm(-1, sink.variable);
-                    const constraint1 = model.smallerThan(connectedItem.cpsMax);
-                    constraint1.addTerm(1, sink.variable);
+                    constraint.addTerm(-1 * connectedItem.cpsMax, sink.variable);
+                    const constraint1 = model.greaterThan(0);
+                    constraint1.addTerm(-1 * connectedItem.cpsMax, sink.variable);
+                    constraint1.addTerm(1 * connectedItem.cpsMax, itemVariable);
                 }
             }
             //see https://github.com/doubleaxe/daxfb-calculator/issues/2
@@ -186,12 +197,16 @@ j9_507iqEP4ivXdQ
     }
 
     private applySolution(solved: boolean, arrayItems: BlueprintItemModel[]) {
+        const chainContainsError = !solved || this.errorCorrectionMode;
         for(const item of arrayItems) {
             const itemVariable = this.variables.get(item.key);
             if(!itemVariable)
                 continue;
             item.setSolvedCount(itemVariable.value);
             item.resetSolutionStatus();
+            if(chainContainsError) {
+                item.chainContainsError = true;
+            }
         }
 
         if(solved && this.errorCorrectionMode) {

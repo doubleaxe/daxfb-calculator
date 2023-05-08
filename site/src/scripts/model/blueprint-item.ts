@@ -25,6 +25,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     private _solvedCount: number | undefined = undefined;
     private _state: BlueprintItemStateValues = BlueprintItemState.None;
     public partOfCycle = false;
+    public chainContainsError = false;
     public isFlipped = false;
     private _isLocked = false;
     private _objective: ObjectiveType;
@@ -133,6 +134,8 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this._solvedCount = solvedCount;
     }
     resetSolutionStatus() {
+        if(this.chainContainsError)
+            this.chainContainsError = false;
         for(const io of this._selectedRecipe?.output || []) {
             if(io.causesSolvingError) {
                 io.setCausesSolvingError(false);

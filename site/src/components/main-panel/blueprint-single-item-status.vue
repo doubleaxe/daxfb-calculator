@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiSync, mdiLock, mdiBullseye, mdiBullseyeArrow, mdiTransferDown} from '@mdi/js';
+import {mdiSync, mdiLock, mdiAlert, mdiBullseye, mdiBullseyeArrow, mdiTransferDown} from '@mdi/js';
 import {formatIo, formatNumber} from '@/scripts/format';
 import {__DEBUG__} from '@/scripts/debug';
 import {computed} from 'vue';
@@ -40,6 +40,9 @@ function hiddenIoTooltip(io: RecipeIOModel) {
 <template>
     <div class="status-row bg-window-statusbar">
         <div class="title-text text-caption">
+            <template v-if="props.item.chainContainsError">
+                <v-icon :icon="mdiAlert" color="error" />
+            </template>
             <template v-if="props.item.isLocked">
                 <v-icon :icon="mdiLock" color="info" />
             </template>

@@ -35,7 +35,7 @@ const computedIconClass = computed(() => {
     return cls;
 });
 const computedDescriptionClass = computed(() => {
-    const causesSolvingError = props.io.causesSolvingError ? 'bg-has-solving-error' : '';
+    const causesSolvingError = props.io.causesSolvingError ? 'bg-error' : '';
     const cls = [
         isLtr() ? 'text-left' : 'text-right',
         causesSolvingError || (props.io.hasProbability ? 'bg-has-probability' : undefined),

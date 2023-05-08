@@ -112,13 +112,6 @@ $dragging-elevation: 10;
     background-color: get-color('cyan', 'darken-4');
 }
 
-.v-theme--light .bg-has-solving-error {
-    background-color: get-color('red', 'lighten-1');
-}
-.v-theme--dark .bg-has-solving-error {
-    background-color: get-color('red', 'darken-1');
-}
-
 .v-theme--light .link-stroke-black {
     stroke: black;
 }
