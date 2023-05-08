@@ -67,6 +67,23 @@ export class BlueprintModelImpl {
     layoutChanged() {
         this._itemsGenerationNumber++;
     }
+    applyCalculatedFactoryCount(roundToCeil: boolean) {
+        this._bulkUpdate = true;
+        try {
+            for(const item of this._items.values()) {
+                const count = item.count;
+                const solvedCount = item.solvedCount;
+                if(solvedCount !== undefined) {
+                    const setCount = roundToCeil ? Math.ceil(solvedCount) : solvedCount;
+                    if(setCount !== count) {
+                        item.setCount(setCount);
+                    }
+                }
+            }
+        } finally {
+            this._bulkUpdate = false;
+        }
+    }
 
     getLockedTransport(logisticName: string) { return this._lockedTransport.get(logisticName); }
     lockTransport(logisticName: string, transportName: string | undefined) {

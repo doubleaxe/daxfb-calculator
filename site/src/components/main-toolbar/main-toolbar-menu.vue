@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {injectBlueprintModel} from '@/scripts/model/store';
-import {mdiDotsVertical, mdiDelete, mdiCog, mdiHelpCircle, mdiArrangeSendToBack, mdiInformationOutline} from '@mdi/js';
+import {mdiDotsVertical, mdiDelete, mdiCog, mdiHelpCircle, mdiArrangeSendToBack, mdiCounter, mdiInformationOutline} from '@mdi/js';
 import {ref} from 'vue';
 
 const blueprintModel = injectBlueprintModel();
@@ -12,6 +12,7 @@ const showSettingsDialog = ref(false);
 const showHelpDialog = ref(false);
 const showAboutDialog = ref(false);
 const showAutoLayoutDialog = ref(false);
+const showApplyCountDialog = ref(false);
 </script>
 
 <template>
@@ -29,6 +30,11 @@ const showAutoLayoutDialog = ref(false);
                 :prepend-icon="mdiArrangeSendToBack"
                 title="Auto Layout Graph"
                 @click="showAutoLayoutDialog = true"
+            />
+            <v-list-item
+                :prepend-icon="mdiCounter"
+                title="Mass Apply Counts"
+                @click="showApplyCountDialog = true"
             />
             <v-divider horizontal />
             <v-list-item
@@ -50,6 +56,7 @@ const showAutoLayoutDialog = ref(false);
     </v-menu>
     <div class="d-none">
         <graph-layout-dialog v-model="showAutoLayoutDialog" />
+        <apply-count-dialog v-model="showApplyCountDialog" />
         <settings-dialog v-model="showSettingsDialog" />
         <help-dialog v-model="showHelpDialog" />
         <about-dialog v-model="showAboutDialog" />
