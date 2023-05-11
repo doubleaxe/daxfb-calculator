@@ -436,9 +436,10 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
     const nextTier: NextTier[] = [];
     const brokenTiers: Record<string, string> = {
         SmeltingFurnaceT2: 'ArcFurnace',
+        ArcFurnace: 'ArcFurnace2',
         CoolingTowerT1: 'CoolingTowerT2',
-        DistillationTowerT1: 'DistillationTowerT2',
-        DistillationTowerT2: 'DistillationTowerT3',
+        //DistillationTowerT1: 'DistillationTowerT2',
+        //DistillationTowerT2: 'DistillationTowerT3',
         GlassMakerT1: 'GlassMakerT2',
         MaintenanceDepotT1: 'MaintenanceDepotT2',
         MaintenanceDepotT2: 'MaintenanceDepotT3',
@@ -501,7 +502,7 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
         //fix broken data
         let nextTierName = building.next_tier;
         const nextBrokenTier = brokenTiers[factory.name];
-        if(nextBrokenTier) {
+        if(nextBrokenTier !== undefined) {
             nextTierName = nextBrokenTier;
         }
         if(nextTierName) {
@@ -652,11 +653,13 @@ type TierChainDef = {
 
 function splitFactoriesToTiers(simpleFactories: Map<string, GameItemSerialized>, nextTier: NextTier[]) {
     return splitItemsToTiers(simpleFactories, nextTier, (_factory, factory, tier) => {
-        //factory name will be lost when keys are applied
-        _factory.longName = factory.name;
+        if(factory.prev) {
+            _factory.prevTier = factory.prev.name;
+        }
+        if(factory.next) {
+            _factory.nextTier = factory.next.name;
+        }
         const exdata: GameItemExData = {
-            ...(factory.next ? {nextTier: factory.next.name} : {}),
-            ...(factory.prev ? {prevTier: factory.prev.name} : {}),
             tier,
         };
         _factory.exdata = exdata;

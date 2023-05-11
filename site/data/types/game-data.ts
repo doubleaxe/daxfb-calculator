@@ -64,7 +64,7 @@ export interface GameItemRaw extends GameItemSerialized {
     recipeDictionary?: GameRecipeDictionary;
     order: number;
 
-    formatCountPerSecond: (count: number) => FromatCountPerSecond;
+    formatCountPerSecond: (count: number) => FormatCountPerSecond;
 }
 export type GameItem = Readonly<GameItemRaw>;
 
@@ -90,7 +90,10 @@ export interface GameDescriptionRaw extends GameDescriptionSerialized {
 }
 export type GameDescription = Readonly<GameDescriptionRaw>;
 
-export type FromatCountPerSecond = {
+export type FormatCountPerSecond = {
     count: number;
     unit: string;
 };
+
+export type ParsedItems = ReadonlyMap<string, GameItem>;
+export type ParsedRecipes = ReadonlyMap<string, GameRecipeDictionary>;

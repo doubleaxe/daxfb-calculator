@@ -4,13 +4,13 @@ Please don't remove this comment if you use unmodified file
 */
 
 import type {
-    FromatCountPerSecond,
+    FormatCountPerSecond,
     GameItem,
     GameRecipeIO,
 } from './game-data';
 
 export interface Calculator {
     getCountPerSecond: (item: GameItem, io: GameRecipeIO) => number;
-    formatCountPerSecond: (item: GameItem, count: number) => FromatCountPerSecond;
+    formatCountPerSecond: (item: GameItem, count: number) => FormatCountPerSecond;
     calculateIoFlags?: (io: GameRecipeIO) => number;
 }

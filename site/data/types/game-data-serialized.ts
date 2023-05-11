@@ -68,6 +68,8 @@ export interface GameItemSerialized {
     recipe?: GameRecipeReferenceSerialized;
     type?: GameItemType;
     isAbstractClassItem?: boolean;
+    nextTier?: string;
+    prevTier?: string;
     exdata?: GameExDataSerialized;
 }
 

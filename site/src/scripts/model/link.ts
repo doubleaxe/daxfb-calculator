@@ -8,7 +8,7 @@ import type {LinkShapeModel} from './link-shape';
 import {LinkShapeDescriptor, LinkShapeModelBuilder} from './link-shape';
 import {LogisticSetModelImpl} from './logistic';
 import type {SavedLink} from './saved-blueprint';
-import type {LogisticSetModel, RecipeIOModel} from './store';
+import type {LinkModel, LogisticSetModel, RecipeIOModel} from './store';
 
 
 export class LinkModelImpl {
@@ -16,7 +16,7 @@ export class LinkModelImpl {
     public readonly input?: RecipeIOModel;
     public readonly output?: RecipeIOModel;
     private _linkShape?: LinkShapeModel;
-    private readonly _colorClass;
+    private _colorClass;
     private _flow: number | undefined;
     private readonly _logistic: LogisticSetModel;
 
@@ -50,6 +50,9 @@ export class LinkModelImpl {
             owner._$deleteLink(this);
     }
 
+    _$copyColorClass(link: LinkModel) {
+        this._colorClass = link.colorClass;
+    }
     _$applyPersistentLink() {
         if(this.input)
             this.input._$linkAdded(this);

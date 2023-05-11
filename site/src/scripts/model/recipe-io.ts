@@ -113,7 +113,8 @@ export class RecipeIOModelImpl extends ItemModelImpl {
             const otherSide = link.getOtherSide(this);
             if(!otherSide)
                 continue;
-            this.owner?._$addLink(targetItem, otherSide);
+            const newLink = this.owner?._$addLink(targetItem, otherSide);
+            newLink?._$copyColorClass(link);
         }
     }
     _$deleteAllLinks() {

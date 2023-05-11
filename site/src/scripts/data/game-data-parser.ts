@@ -19,6 +19,8 @@ import type {
     GameRecipeIO,
     GameRecipeIORaw,
     GameRecipeRaw,
+    ParsedItems,
+    ParsedRecipes,
 } from '#types/game-data';
 import type {
     GameDataSerialized,
@@ -36,8 +38,6 @@ import {freezeMap, freezeSet} from '../util';
 import type {Calculator} from '#types/calculator';
 import {GameRecipeIOFlags, type GameItemType} from '#types/constants';
 
-export type ParsedItems = ReadonlyMap<string, GameItem>;
-export type ParsedRecipes = ReadonlyMap<string, GameRecipeDictionary>;
 type ParsedItemsImpl = Map<string, Readonly<ItemImpl>>;
 type ParsedRecipesImpl = Map<string, Readonly<RecipeDictionaryImpl>>;
 

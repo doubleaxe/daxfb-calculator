@@ -160,6 +160,7 @@ export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
             recipeDictionary: 'W',
             tier: 1,
         },
+        nextTier: '3',
     }, {
         image: '3',
         name: '3',
@@ -168,6 +169,7 @@ export const gameData: Omit<GameDataSerialized, 'description' | 'images'> = {
             recipeDictionary: 'W',
             tier: 2,
         },
+        prevTier: '2',
     }, {
         image: '4',
         name: '4',

@@ -26,6 +26,7 @@ const showApplyCountDialog = ref(false);
                 title="Clear All"
                 @click="blueprintModel.clear()"
             />
+            <v-divider horizontal />
             <v-list-item
                 :prepend-icon="mdiArrangeSendToBack"
                 title="Auto Layout Graph"
@@ -33,7 +34,7 @@ const showApplyCountDialog = ref(false);
             />
             <v-list-item
                 :prepend-icon="mdiCounter"
-                title="Mass Apply Counts"
+                title="Mass Update Counts"
                 @click="showApplyCountDialog = true"
             />
             <v-divider horizontal />

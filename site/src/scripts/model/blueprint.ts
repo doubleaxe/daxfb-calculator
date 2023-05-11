@@ -32,6 +32,7 @@ export class BlueprintModelImpl {
     private _itemsGenerationNumber = 0;
     private _summaryGenerationNumber = 0;
     private readonly _lockedTransport = new Map<string, string>();
+    private _isUpgradeMode = false;
 
     public blueprintName = '';
     getDefaultBlueprintName() {
@@ -53,6 +54,8 @@ export class BlueprintModelImpl {
     get tempLink() { return this._tempLink; }
     get itemsGenerationNumber() { return this._itemsGenerationNumber; }
     get summaryGenerationNumber() { return this._summaryGenerationNumber; }
+    get isUpgradeMode() { return this._isUpgradeMode; }
+    setUpgradeMode(isUpgradeMode: boolean) { this._isUpgradeMode = isUpgradeMode; }
 
     get solvePrecision() { return this._solvePrecision; }
     set solvePrecision(solvePrecision: number) { this._solvePrecision = solvePrecision; this._$graphChanged(true); }
@@ -67,14 +70,14 @@ export class BlueprintModelImpl {
     layoutChanged() {
         this._itemsGenerationNumber++;
     }
-    applyCalculatedFactoryCount(roundToCeil: boolean) {
+    applyCalculatedFactoryCount(rouunder: (count: number) => number) {
         this._bulkUpdate = true;
         try {
             for(const item of this._items.values()) {
                 const count = item.count;
                 const solvedCount = item.solvedCount;
                 if(solvedCount !== undefined) {
-                    const setCount = roundToCeil ? Math.ceil(solvedCount) : solvedCount;
+                    const setCount = rouunder(solvedCount);
                     if(setCount !== count) {
                         item.setCount(setCount);
                     }
@@ -83,6 +86,7 @@ export class BlueprintModelImpl {
         } finally {
             this._bulkUpdate = false;
         }
+        this._$graphChanged(true);
     }
 
     getLockedTransport(logisticName: string) { return this._lockedTransport.get(logisticName); }

@@ -152,6 +152,19 @@ function convertItems(items: JsonItem[]) {
         };
     };
 
+    const itemRecipes = new Map<string, string[]>();
+    for(const item of items) {
+        const recipeReference = item.Recipe;
+        if(recipeReference) {
+            let recipes = itemRecipes.get(recipeReference.RecipeDictionary);
+            if(!recipes) {
+                recipes = [];
+                itemRecipes.set(recipeReference.RecipeDictionary, recipes);
+            }
+            recipes[recipeReference.Tier] = itemNameMapper(item.Name);
+        }
+    }
+
     return items.map((item) => {
         const mappedItem: GameItemSerialized = {
             name: itemNameMapper(item.Name),
@@ -162,6 +175,16 @@ function convertItems(items: JsonItem[]) {
             isAbstractClassItem: AbstractClassItems.has(item.Name) || undefined,
         };
         mappedItem.type = itemClassTypes[mappedItem.name] || classTypes[item.Class];
+        const tierList = item.Recipe && itemRecipes.get(item.Recipe.RecipeDictionary);
+        if(tierList) {
+            const thisTier = item.Recipe?.Tier || 0;
+            if((thisTier > 0) && (tierList[thisTier - 1])) {
+                mappedItem.prevTier = tierList[thisTier - 1];
+            }
+            if(tierList[thisTier + 1]) {
+                mappedItem.nextTier = tierList[thisTier + 1];
+            }
+        }
         return mappedItem;
     });
 }

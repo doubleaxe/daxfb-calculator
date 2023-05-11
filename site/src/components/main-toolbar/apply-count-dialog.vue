@@ -18,7 +18,16 @@ const blueprintModel = injectBlueprintModel();
 
 function applyFactoryCounts() {
     const roundToCeil = unref(roundingMode) === 'ceil';
-    blueprintModel.applyCalculatedFactoryCount(roundToCeil);
+    const setOne = unref(roundingMode) === 'one';
+    blueprintModel.applyCalculatedFactoryCount((solvedCount) => {
+        if(roundToCeil) {
+            return Math.ceil(solvedCount);
+        }
+        if(setOne) {
+            return 1;
+        }
+        return solvedCount;
+    });
     dialog.value = false;
 }
 </script>
@@ -49,6 +58,10 @@ function applyFactoryCounts() {
                             <v-radio
                                 label="Set fractional counts"
                                 value="fractional"
+                            />
+                            <v-radio
+                                label="Set all counts to 1"
+                                value="one"
                             />
                         </v-radio-group>
                     </v-col>

@@ -154,6 +154,12 @@ export class KeyProcessor {
                 }
                 item.recipe.recipeDictionary = nameMapping[item.recipe.recipeDictionary] || '';
             }
+            if(item.prevTier) {
+                item.prevTier = nameMapping[item.prevTier];
+            }
+            if(item.nextTier) {
+                item.nextTier = nameMapping[item.nextTier];
+            }
         }
     }
 

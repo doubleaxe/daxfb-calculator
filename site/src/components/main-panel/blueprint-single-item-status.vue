@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
-import {mdiSync, mdiLock, mdiAlert, mdiBullseye, mdiBullseyeArrow, mdiTransferDown} from '@mdi/js';
+import {mdiSync, mdiLock, mdiAlert, mdiBullseye, mdiBullseyeArrow, mdiPriorityLow} from '@mdi/js';
 import {formatIo, formatNumber} from '@/scripts/format';
 import {__DEBUG__} from '@/scripts/debug';
 import {computed} from 'vue';
@@ -26,7 +26,7 @@ const objectiveIcon = computed(() => {
         case Objective.Secondary:
             return mdiBullseye;
         case Objective.LowPriority:
-            return mdiTransferDown;
+            return mdiPriorityLow;
     }
     return '';
 });

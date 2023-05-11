@@ -3,15 +3,16 @@ Author: Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)
 Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
-import type {BlueprintItemModel} from '@/scripts/model/store';
+import {injectBlueprintModel, type BlueprintItemModel} from '@/scripts/model/store';
 import {Objective, type ObjectiveType} from '@/scripts/types';
-import {mdiDelete, mdiLinkOff, mdiMenu, mdiLock, mdiBullseye, mdiBullseyeArrow, mdiTransferDown} from '@mdi/js';
+import {mdiDelete, mdiLinkOff, mdiMenu, mdiLock, mdiBullseye, mdiBullseyeArrow, mdiPriorityLow} from '@mdi/js';
 import {computed, ref} from 'vue';
 
 const props = defineProps<{
     item: BlueprintItemModel;
 }>();
 
+const blueprintModel = injectBlueprintModel();
 const menuOpened = ref(false);
 
 type OptionType = 'lock' | keyof typeof Objective;
@@ -34,6 +35,9 @@ function changeObjective(objective: ObjectiveType) {
     } else {
         props.item.setObjective(objective);
     }
+}
+function changeUpgradeMode(isUpgradeMode?: boolean) {
+    blueprintModel.setUpgradeMode((isUpgradeMode === undefined) ? !blueprintModel.isUpgradeMode : isUpgradeMode);
 }
 </script>
 
@@ -69,11 +73,24 @@ function changeObjective(objective: ObjectiveType) {
                         />
                         <tooltip-button
                             tooltip="Low Priority Objective"
-                            :icon="mdiTransferDown"
+                            :icon="mdiPriorityLow"
                             value="LowPriority"
                             @click="changeObjective(Objective.LowPriority)"
                         />
                     </v-btn-toggle>
+                </v-list-item>
+                <v-divider />
+                <v-list-item title="Upgrade Mode" @click.stop="changeUpgradeMode();">
+                    <template #prepend>
+                        <v-switch
+                            class="mr-5"
+                            color="primary"
+                            :model-value="blueprintModel.isUpgradeMode"
+                            hide-details
+                            @update:model-value="changeUpgradeMode"
+                            @click.stop
+                        />
+                    </template>
                 </v-list-item>
                 <v-divider />
                 <v-list-item

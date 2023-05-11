@@ -57,6 +57,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     setLocked(isLocked: boolean) { this._isLocked = isLocked; this.owner?._$graphChanged(false, this); }
     get objective() { return this._objective; }
     setObjective(objective: ObjectiveType) { this._objective = objective; this.owner?._$graphChanged(false, this); }
+
     initializationCompleted() {
         if(!this._initializationCompleted) {
             this._initializationCompleted = true;
@@ -186,7 +187,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         this._selectedRecipe?._$loadIoOrder(i);
     }
     _$loadLink(l: SavedLink, outputItem: BlueprintItemModel, errorCollector: ErrorCollector) {
-        let inputIoArray = [...this.selectedRecipe?.input || []];
+        let inputIoArray = [...this._selectedRecipe?.input || []];
         let outputIoArray = [...outputItem.selectedRecipe?.output || []];
         if(!inputIoArray.length || !outputIoArray.length)
             return undefined;
@@ -223,6 +224,73 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     _$ioSwapped() {
         if(this._initializationCompleted) {
             this._linksGenerationNumber++;
+        }
+    }
+
+    isUpgradable(direction?: -1 | 1): boolean {
+        if(!this.owner?.isUpgradeMode || !(this._item?.nextTier || this._item?.prevTier))
+            return false;
+        if(direction === undefined)
+            return true;
+        if((direction < 0) && this._item?.prevTier)
+            return true;
+        if((direction > 0) && this._item?.nextTier)
+            return true;
+        return false;
+    }
+    upgrade(direction: -1 | 1) {
+        //tricky. will recreate new item, and place it instead of old one
+        const nextTier = ((direction > 0) && this._item?.nextTier)
+            || ((direction < 0) && this._item?.prevTier);
+        if(!nextTier) {
+            return;
+        }
+        const newItem = this.owner?.addItem(nextTier);
+        if(!newItem) {
+            return;
+        }
+
+        newItem.setRect(this._rect);
+        newItem.setCount(this._count);
+        newItem.isFlipped = this.isFlipped;
+        newItem.setLocked(this._isLocked);
+        newItem.setObjective(this._objective);
+
+        if(this._selectedRecipe) {
+            newItem._$selectSimilarRecipe(this._selectedRecipe);
+        }
+
+        this.deleteThis();
+    }
+
+    _$selectSimilarRecipe(otherRecipe: RecipeModel) {
+        //try to select similar recipe
+        //next tier may not have same recipe, we must just check all io, and select most appropriate
+        const recipeWeight = new Map<string, number>();
+        const calcWeight = (ioArray: IterableIterator<RecipeIOModel> | undefined, recipeMap: ReadonlyMap<string, string[]>) => {
+            if(!ioArray) {
+                return;
+            }
+            for(const io of ioArray) {
+                const recipe = recipeMap.get(io.name || '') || [];
+                for(const recipeItem of recipe) {
+                    let weight = recipeWeight.get(recipeItem);
+                    if(!weight) {
+                        weight = 0;
+                    }
+                    recipeWeight.set(recipeItem, weight + 1);
+                }
+            }
+        };
+        calcWeight(otherRecipe.input, this._recipesDictionary.recipesByInputMap);
+        calcWeight(otherRecipe.output, this._recipesDictionary.recipesByOutputMap);
+        const selectedRecipe = [...recipeWeight.entries()].sort((a, b) => b[1] - a[1])?.[0]?.[0];
+
+        if(selectedRecipe) {
+            this.selectRecipe(selectedRecipe);
+            if(this._selectedRecipe) {
+                otherRecipe._$copySimilarLinksTo(this._selectedRecipe);
+            }
         }
     }
 }
