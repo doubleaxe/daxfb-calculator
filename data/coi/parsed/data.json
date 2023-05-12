@@ -15221,7 +15221,13 @@
       "image": "AirSeparator",
       "recipe": {
         "recipeDictionary": "AirSeparator"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 100
+        }
+      ]
     },
     {
       "name": "Ammonia",
@@ -15235,7 +15241,13 @@
       "image": "AnaerobicDigester",
       "recipe": {
         "recipeDictionary": "AnaerobicDigester"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "Anesthetics",
@@ -15313,6 +15325,12 @@
       "recipe": {
         "recipeDictionary": "AssemblyManual"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 25
+        }
+      ],
       "nextTier": "AssemblyElectrified",
       "exdata": {
         "tier": 0
@@ -15325,6 +15343,12 @@
       "recipe": {
         "recipeDictionary": "AssemblyElectrified"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 30
+        }
+      ],
       "prevTier": "AssemblyManual",
       "nextTier": "AssemblyElectrifiedT2",
       "exdata": {
@@ -15338,6 +15362,12 @@
       "recipe": {
         "recipeDictionary": "AssemblyElectrifiedT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ],
       "prevTier": "AssemblyElectrified",
       "nextTier": "AssemblyRoboticT1",
       "exdata": {
@@ -15351,6 +15381,16 @@
       "recipe": {
         "recipeDictionary": "AssemblyRoboticT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 60
+        },
+        {
+          "name": "Electronics2",
+          "count": 30
+        }
+      ],
       "prevTier": "AssemblyElectrifiedT2",
       "nextTier": "AssemblyRoboticT2",
       "exdata": {
@@ -15364,6 +15404,12 @@
       "recipe": {
         "recipeDictionary": "AssemblyRoboticT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 60
+        }
+      ],
       "prevTier": "AssemblyRoboticT1",
       "exdata": {
         "tier": 4
@@ -15375,7 +15421,13 @@
       "image": "BakingUnit",
       "recipe": {
         "recipeDictionary": "BakingUnit"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "BasicDieselDistiller",
@@ -15383,7 +15435,13 @@
       "image": "BasicDieselDistiller",
       "recipe": {
         "recipeDictionary": "BasicDieselDistiller"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "Biomass",
@@ -15398,6 +15456,12 @@
       "recipe": {
         "recipeDictionary": "SmeltingFurnaceT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 60
+        }
+      ],
       "nextTier": "SmeltingFurnaceT2",
       "exdata": {
         "tier": 0
@@ -15410,8 +15474,14 @@
       "recipe": {
         "recipeDictionary": "SmeltingFurnaceT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 180
+        }
+      ],
       "prevTier": "SmeltingFurnaceT1",
-      "nextTier": "ArcFurnace",
+      "nextTier": "ArcFurnace2",
       "exdata": {
         "tier": 1
       }
@@ -15423,8 +15493,12 @@
       "recipe": {
         "recipeDictionary": "ArcFurnace"
       },
-      "prevTier": "SmeltingFurnaceT2",
-      "nextTier": "ArcFurnace2",
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 160
+        }
+      ],
       "exdata": {
         "tier": 2
       }
@@ -15436,7 +15510,13 @@
       "recipe": {
         "recipeDictionary": "ArcFurnace2"
       },
-      "prevTier": "ArcFurnace",
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 140
+        }
+      ],
+      "prevTier": "SmeltingFurnaceT2",
       "exdata": {
         "tier": 3
       }
@@ -15447,7 +15527,13 @@
       "image": "BoilerCoal",
       "recipe": {
         "recipeDictionary": "BoilerCoal"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "BoilerElectric",
@@ -15455,7 +15541,17 @@
       "image": "BoilerElectric",
       "recipe": {
         "recipeDictionary": "BoilerElectric"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 60
+        },
+        {
+          "name": "Electronics2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "BoilerGas",
@@ -15463,7 +15559,13 @@
       "image": "BoilerGas",
       "recipe": {
         "recipeDictionary": "BoilerGas"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "Bread",
@@ -15483,7 +15585,13 @@
       "image": "BricksMaker",
       "recipe": {
         "recipeDictionary": "BricksMaker"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 60
+        }
+      ]
     },
     {
       "name": "Brine",
@@ -15503,7 +15611,13 @@
       "image": "Burner",
       "recipe": {
         "recipeDictionary": "Burner"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 15
+        }
+      ]
     },
     {
       "name": "Cake",
@@ -15536,6 +15650,12 @@
       "recipe": {
         "recipeDictionary": "ChemicalPlant"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ],
       "nextTier": "ChemicalPlant2",
       "exdata": {
         "tier": 0
@@ -15548,6 +15668,12 @@
       "recipe": {
         "recipeDictionary": "ChemicalPlant2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 120
+        }
+      ],
       "prevTier": "ChemicalPlant",
       "exdata": {
         "tier": 1
@@ -15565,7 +15691,13 @@
       "image": "ChickenFarm",
       "recipe": {
         "recipeDictionary": "ChickenFarm"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "ChilledWater",
@@ -15591,7 +15723,13 @@
       "image": "CharcoalMaker",
       "recipe": {
         "recipeDictionary": "CharcoalMaker"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 20
+        }
+      ]
     },
     {
       "name": "Compost",
@@ -15615,6 +15753,16 @@
       "recipe": {
         "recipeDictionary": "ConcreteMixer"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 40
+        },
+        {
+          "name": "Electronics",
+          "count": 10
+        }
+      ],
       "nextTier": "ConcreteMixerT2",
       "exdata": {
         "tier": 0
@@ -15627,6 +15775,12 @@
       "recipe": {
         "recipeDictionary": "ConcreteMixerT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ],
       "prevTier": "ConcreteMixer",
       "nextTier": "ConcreteMixerT3",
       "exdata": {
@@ -15640,6 +15794,12 @@
       "recipe": {
         "recipeDictionary": "ConcreteMixerT3"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 40
+        }
+      ],
       "prevTier": "ConcreteMixerT2",
       "exdata": {
         "tier": 2
@@ -15702,6 +15862,12 @@
       "recipe": {
         "recipeDictionary": "CasterCooled"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 30
+        }
+      ],
       "nextTier": "CasterCooledT2",
       "exdata": {
         "tier": 0
@@ -15714,6 +15880,12 @@
       "recipe": {
         "recipeDictionary": "CasterCooledT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ],
       "prevTier": "CasterCooled",
       "exdata": {
         "tier": 1
@@ -15726,6 +15898,16 @@
       "recipe": {
         "recipeDictionary": "CoolingTowerT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 30
+        },
+        {
+          "name": "ConcreteSlab",
+          "count": 40
+        }
+      ],
       "nextTier": "CoolingTowerT2",
       "exdata": {
         "tier": 0
@@ -15738,6 +15920,16 @@
       "recipe": {
         "recipeDictionary": "CoolingTowerT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 80
+        },
+        {
+          "name": "ConcreteSlab",
+          "count": 200
+        }
+      ],
       "prevTier": "CoolingTowerT1",
       "exdata": {
         "tier": 1
@@ -15755,7 +15947,13 @@
       "image": "CopperElectrolysis",
       "recipe": {
         "recipeDictionary": "CopperElectrolysis"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "CopperOre",
@@ -15793,7 +15991,13 @@
       "image": "HydroCrackerT1",
       "recipe": {
         "recipeDictionary": "HydroCrackerT1"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 100
+        }
+      ]
     },
     {
       "name": "CrudeOil",
@@ -15807,7 +16011,13 @@
       "image": "Crusher",
       "recipe": {
         "recipeDictionary": "Crusher"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "DataCenter",
@@ -15815,7 +16025,21 @@
       "image": "DataCenter",
       "recipe": {
         "recipeDictionary": "DataCenter"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 100
+        },
+        {
+          "name": "Electronics2",
+          "count": 120
+        },
+        {
+          "name": "Electronics3",
+          "count": 20
+        }
+      ]
     },
     {
       "name": "Diesel",
@@ -15829,7 +16053,17 @@
       "image": "DieselGenerator",
       "recipe": {
         "recipeDictionary": "DieselGenerator"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 20
+        },
+        {
+          "name": "Electronics",
+          "count": 20
+        }
+      ]
     },
     {
       "name": "Dirt",
@@ -15849,7 +16083,13 @@
       "image": "DistillationTowerT1",
       "recipe": {
         "recipeDictionary": "DistillationTowerT1"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "DistillationTowerT2",
@@ -15857,7 +16097,13 @@
       "image": "DistillationTowerT2",
       "recipe": {
         "recipeDictionary": "DistillationTowerT2"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 70
+        }
+      ]
     },
     {
       "name": "DistillationTowerT3",
@@ -15865,7 +16111,13 @@
       "image": "DistillationTowerT3",
       "recipe": {
         "recipeDictionary": "DistillationTowerT3"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 70
+        }
+      ]
     },
     {
       "name": "Eggs",
@@ -15888,7 +16140,13 @@
       "image": "Electrolyzer",
       "recipe": {
         "recipeDictionary": "Electrolyzer"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "Electronics",
@@ -15914,7 +16172,17 @@
       "image": "UraniumEnrichmentPlant",
       "recipe": {
         "recipeDictionary": "UraniumEnrichmentPlant"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 150
+        },
+        {
+          "name": "Electronics2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "Ethanol",
@@ -15929,6 +16197,12 @@
       "recipe": {
         "recipeDictionary": "EvaporationPond"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 30
+        }
+      ],
       "nextTier": "EvaporationPondHeated",
       "exdata": {
         "tier": 0
@@ -15941,6 +16215,12 @@
       "recipe": {
         "recipeDictionary": "EvaporationPondHeated"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        }
+      ],
       "prevTier": "EvaporationPond",
       "exdata": {
         "tier": 1
@@ -15958,7 +16238,13 @@
       "image": "ExhaustScrubber",
       "recipe": {
         "recipeDictionary": "ExhaustScrubber"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 80
+        }
+      ]
     },
     {
       "name": "FarmT1",
@@ -15967,6 +16253,12 @@
       "recipe": {
         "recipeDictionary": "FarmT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ],
       "nextTier": "FarmT2",
       "exdata": {
         "tier": 0
@@ -15979,6 +16271,12 @@
       "recipe": {
         "recipeDictionary": "FarmT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 60
+        }
+      ],
       "prevTier": "FarmT1",
       "nextTier": "FarmT3",
       "exdata": {
@@ -15992,6 +16290,16 @@
       "recipe": {
         "recipeDictionary": "FarmT3"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 100
+        },
+        {
+          "name": "Glass",
+          "count": 320
+        }
+      ],
       "prevTier": "FarmT2",
       "nextTier": "FarmT4",
       "exdata": {
@@ -16005,6 +16313,16 @@
       "recipe": {
         "recipeDictionary": "FarmT4"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 200
+        },
+        {
+          "name": "Glass",
+          "count": 640
+        }
+      ],
       "prevTier": "FarmT3",
       "exdata": {
         "tier": 3
@@ -16016,7 +16334,13 @@
       "image": "FermentationTank",
       "recipe": {
         "recipeDictionary": "FermentationTank"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "FertilizerOrganic",
@@ -16048,7 +16372,13 @@
       "image": "Flare",
       "recipe": {
         "recipeDictionary": "Flare"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 10
+        }
+      ]
     },
     {
       "name": "FlatConveyorT1",
@@ -16084,6 +16414,12 @@
       "recipe": {
         "recipeDictionary": "StorageFluid"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ],
       "nextTier": "StorageFluidT2",
       "exdata": {
         "tier": 0
@@ -16101,7 +16437,13 @@
       "image": "FoodProcessor",
       "recipe": {
         "recipeDictionary": "FoodProcessor"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "Fruit",
@@ -16121,7 +16463,13 @@
       "image": "GasInjectionPump",
       "recipe": {
         "recipeDictionary": "GasInjectionPump"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "Glass",
@@ -16136,6 +16484,12 @@
       "recipe": {
         "recipeDictionary": "GlassMakerT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        }
+      ],
       "nextTier": "GlassMakerT2",
       "exdata": {
         "tier": 0
@@ -16148,6 +16502,12 @@
       "recipe": {
         "recipeDictionary": "GlassMakerT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 120
+        }
+      ],
       "prevTier": "GlassMakerT1",
       "exdata": {
         "tier": 1
@@ -16171,7 +16531,13 @@
       "image": "GoldFurnace",
       "recipe": {
         "recipeDictionary": "GoldFurnace"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 70
+        }
+      ]
     },
     {
       "name": "GoldOre",
@@ -16221,7 +16587,13 @@
       "image": "LandWaterPump",
       "recipe": {
         "recipeDictionary": "LandWaterPump"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "HeavyOil",
@@ -16236,6 +16608,12 @@
       "recipe": {
         "recipeDictionary": "TurbineHighPress"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 50
+        }
+      ],
       "nextTier": "TurbineHighPressT2",
       "exdata": {
         "tier": 0
@@ -16248,6 +16626,12 @@
       "recipe": {
         "recipeDictionary": "TurbineHighPressT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 80
+        }
+      ],
       "prevTier": "TurbineHighPress",
       "exdata": {
         "tier": 1
@@ -16283,7 +16667,13 @@
       "image": "HydrogenReformer",
       "recipe": {
         "recipeDictionary": "HydrogenReformer"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 80
+        }
+      ]
     },
     {
       "name": "ImpureCopper",
@@ -16357,7 +16747,13 @@
       "image": "WasteDump",
       "recipe": {
         "recipeDictionary": "WasteDump"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 20
+        }
+      ]
     },
     {
       "name": "StorageLoose",
@@ -16366,6 +16762,12 @@
       "recipe": {
         "recipeDictionary": "StorageLoose"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ],
       "nextTier": "StorageLooseT2",
       "exdata": {
         "tier": 0
@@ -16378,6 +16780,12 @@
       "recipe": {
         "recipeDictionary": "TurbineLowPress"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 60
+        }
+      ],
       "nextTier": "TurbineLowPressT2",
       "exdata": {
         "tier": 0
@@ -16390,6 +16798,12 @@
       "recipe": {
         "recipeDictionary": "TurbineLowPressT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 140
+        }
+      ],
       "prevTier": "TurbineLowPress",
       "exdata": {
         "tier": 1
@@ -16402,6 +16816,12 @@
       "recipe": {
         "recipeDictionary": "MaintenanceDepotT0"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 40
+        }
+      ],
       "nextTier": "MaintenanceDepotT1",
       "exdata": {
         "tier": 0
@@ -16414,6 +16834,12 @@
       "recipe": {
         "recipeDictionary": "MaintenanceDepotT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 50
+        }
+      ],
       "prevTier": "MaintenanceDepotT0",
       "nextTier": "MaintenanceDepotT2",
       "exdata": {
@@ -16427,6 +16853,16 @@
       "recipe": {
         "recipeDictionary": "MaintenanceDepotT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        },
+        {
+          "name": "Electronics2",
+          "count": 20
+        }
+      ],
       "prevTier": "MaintenanceDepotT1",
       "nextTier": "MaintenanceDepotT3",
       "exdata": {
@@ -16440,6 +16876,16 @@
       "recipe": {
         "recipeDictionary": "MaintenanceDepotT3"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        },
+        {
+          "name": "Electronics3",
+          "count": 20
+        }
+      ],
       "prevTier": "MaintenanceDepotT2",
       "exdata": {
         "tier": 3
@@ -16536,6 +16982,12 @@
       "recipe": {
         "recipeDictionary": "Caster"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ],
       "nextTier": "CasterT2",
       "exdata": {
         "tier": 0
@@ -16548,6 +17000,16 @@
       "recipe": {
         "recipeDictionary": "CasterT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 40
+        },
+        {
+          "name": "Steel",
+          "count": 20
+        }
+      ],
       "prevTier": "Caster",
       "exdata": {
         "tier": 1
@@ -16560,6 +17022,12 @@
       "recipe": {
         "recipeDictionary": "MicrochipMachine"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 80
+        }
+      ],
       "nextTier": "MicrochipMachineT2",
       "exdata": {
         "tier": 0
@@ -16572,6 +17040,12 @@
       "recipe": {
         "recipeDictionary": "MicrochipMachineT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 160
+        }
+      ],
       "prevTier": "MicrochipMachine",
       "exdata": {
         "tier": 1
@@ -16655,7 +17129,13 @@
       "image": "FoodMill",
       "recipe": {
         "recipeDictionary": "FoodMill"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "IndustrialMixer",
@@ -16663,7 +17143,13 @@
       "image": "IndustrialMixer",
       "recipe": {
         "recipeDictionary": "IndustrialMixer"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "MoltenMetalChannel",
@@ -16730,7 +17216,17 @@
       "image": "NuclearReactor",
       "recipe": {
         "recipeDictionary": "NuclearReactor"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 800
+        },
+        {
+          "name": "Electronics2",
+          "count": 80
+        }
+      ]
     },
     {
       "name": "OilPump",
@@ -16738,7 +17234,13 @@
       "image": "OilPump",
       "recipe": {
         "recipeDictionary": "OilPump"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "Oxygen",
@@ -16753,6 +17255,12 @@
       "recipe": {
         "recipeDictionary": "OxygenFurnace"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 60
+        }
+      ],
       "nextTier": "OxygenFurnaceT2",
       "exdata": {
         "tier": 0
@@ -16765,6 +17273,12 @@
       "recipe": {
         "recipeDictionary": "OxygenFurnaceT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 70
+        }
+      ],
       "prevTier": "OxygenFurnace",
       "exdata": {
         "tier": 1
@@ -16803,7 +17317,13 @@
       "image": "PolymerizationPlant",
       "recipe": {
         "recipeDictionary": "PolymerizationPlant"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 100
+        }
+      ]
     },
     {
       "name": "Poppy",
@@ -16824,6 +17344,16 @@
       "recipe": {
         "recipeDictionary": "PowerGeneratorT1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 20
+        },
+        {
+          "name": "Electronics",
+          "count": 20
+        }
+      ],
       "nextTier": "PowerGeneratorT2",
       "exdata": {
         "tier": 0
@@ -16836,6 +17366,16 @@
       "recipe": {
         "recipeDictionary": "PowerGeneratorT2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 80
+        },
+        {
+          "name": "Electronics",
+          "count": 180
+        }
+      ],
       "prevTier": "PowerGeneratorT1",
       "exdata": {
         "tier": 1
@@ -16853,7 +17393,17 @@
       "image": "RainwaterHarvester",
       "recipe": {
         "recipeDictionary": "RainwaterHarvester"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 20
+        },
+        {
+          "name": "Wood",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "Recyclables",
@@ -16874,6 +17424,12 @@
       "recipe": {
         "recipeDictionary": "ResearchLab1"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ],
       "nextTier": "ResearchLab2",
       "exdata": {
         "tier": 0
@@ -16886,6 +17442,16 @@
       "recipe": {
         "recipeDictionary": "ResearchLab2"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 60
+        },
+        {
+          "name": "LabEquipment",
+          "count": 10
+        }
+      ],
       "prevTier": "ResearchLab1",
       "nextTier": "ResearchLab3",
       "exdata": {
@@ -16899,6 +17465,16 @@
       "recipe": {
         "recipeDictionary": "ResearchLab3"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 120
+        },
+        {
+          "name": "LabEquipment2",
+          "count": 20
+        }
+      ],
       "prevTier": "ResearchLab2",
       "nextTier": "ResearchLab4",
       "exdata": {
@@ -16912,6 +17488,20 @@
       "recipe": {
         "recipeDictionary": "ResearchLab4"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 220
+        },
+        {
+          "name": "Glass",
+          "count": 60
+        },
+        {
+          "name": "LabEquipment3",
+          "count": 20
+        }
+      ],
       "prevTier": "ResearchLab3",
       "nextTier": "ResearchLab5",
       "exdata": {
@@ -16925,6 +17515,20 @@
       "recipe": {
         "recipeDictionary": "ResearchLab5"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 200
+        },
+        {
+          "name": "Glass",
+          "count": 160
+        },
+        {
+          "name": "LabEquipment4",
+          "count": 20
+        }
+      ],
       "prevTier": "ResearchLab4",
       "exdata": {
         "tier": 4
@@ -16943,6 +17547,12 @@
       "recipe": {
         "recipeDictionary": "RotaryKiln"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 60
+        }
+      ],
       "nextTier": "RotaryKilnGas",
       "exdata": {
         "tier": 0
@@ -16955,6 +17565,12 @@
       "recipe": {
         "recipeDictionary": "RotaryKilnGas"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 60
+        }
+      ],
       "prevTier": "RotaryKiln",
       "exdata": {
         "tier": 1
@@ -16972,7 +17588,13 @@
       "image": "VacuumDistillationTower",
       "recipe": {
         "recipeDictionary": "VacuumDistillationTower"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 60
+        }
+      ]
     },
     {
       "name": "Salt",
@@ -17004,7 +17626,13 @@
       "image": "OceanWaterPumpT1",
       "recipe": {
         "recipeDictionary": "OceanWaterPumpT1"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts2",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "OceanWaterPumpLarge",
@@ -17012,7 +17640,13 @@
       "image": "OceanWaterPumpLarge",
       "recipe": {
         "recipeDictionary": "OceanWaterPumpLarge"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 50
+        }
+      ]
     },
     {
       "name": "Server",
@@ -17026,7 +17660,13 @@
       "image": "SettlingTank",
       "recipe": {
         "recipeDictionary": "SettlingTank"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 80
+        }
+      ]
     },
     {
       "name": "PolySilicon",
@@ -17040,7 +17680,13 @@
       "image": "SiliconCrystallizer",
       "recipe": {
         "recipeDictionary": "SiliconCrystallizer"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts4",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "SiliconReactor",
@@ -17048,7 +17694,13 @@
       "image": "SiliconReactor",
       "recipe": {
         "recipeDictionary": "SiliconReactor"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 20
+        }
+      ]
     },
     {
       "name": "SiliconWafer",
@@ -17080,7 +17732,13 @@
       "image": "SmokeStack",
       "recipe": {
         "recipeDictionary": "SmokeStack"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 10
+        }
+      ]
     },
     {
       "name": "SmokeStackLarge",
@@ -17088,7 +17746,17 @@
       "image": "SmokeStackLarge",
       "recipe": {
         "recipeDictionary": "SmokeStackLarge"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 10
+        },
+        {
+          "name": "ConcreteSlab",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "Snack",
@@ -17114,7 +17782,21 @@
       "image": "SolarPanel",
       "recipe": {
         "recipeDictionary": "SolarPanel"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 20
+        },
+        {
+          "name": "Electronics2",
+          "count": 10
+        },
+        {
+          "name": "SolarCell",
+          "count": 120
+        }
+      ]
     },
     {
       "name": "SolarPanelMono",
@@ -17122,7 +17804,21 @@
       "image": "SolarPanelMono",
       "recipe": {
         "recipeDictionary": "SolarPanelMono"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 20
+        },
+        {
+          "name": "Electronics2",
+          "count": 10
+        },
+        {
+          "name": "SolarCellMono",
+          "count": 120
+        }
+      ]
     },
     {
       "name": "SourWater",
@@ -17136,7 +17832,13 @@
       "image": "SourWaterStripper",
       "recipe": {
         "recipeDictionary": "SourWaterStripper"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "Soybean",
@@ -17156,7 +17858,17 @@
       "image": "NuclearWasteStorage",
       "recipe": {
         "recipeDictionary": "NuclearWasteStorage"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 150
+        },
+        {
+          "name": "ConcreteSlab",
+          "count": 500
+        }
+      ]
     },
     {
       "name": "SteamDepleted",
@@ -17206,7 +17918,17 @@
       "image": "ThermalDesalinator",
       "recipe": {
         "recipeDictionary": "ThermalDesalinator"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 30
+        },
+        {
+          "name": "Steel",
+          "count": 30
+        }
+      ]
     },
     {
       "name": "Tofu",
@@ -17242,6 +17964,12 @@
       "recipe": {
         "recipeDictionary": "StorageUnit"
       },
+      "cost": [
+        {
+          "name": "ConstructionParts",
+          "count": 30
+        }
+      ],
       "nextTier": "StorageUnitT2",
       "exdata": {
         "tier": 0
@@ -17316,7 +18044,13 @@
       "image": "WasteSortingPlant",
       "recipe": {
         "recipeDictionary": "WasteSortingPlant"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 400
+        }
+      ]
     },
     {
       "name": "WasteWater",
@@ -17330,7 +18064,13 @@
       "image": "WaterTreatmentPlant",
       "recipe": {
         "recipeDictionary": "WaterTreatmentPlant"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 140
+        }
+      ]
     },
     {
       "name": "Water",
@@ -17344,7 +18084,13 @@
       "image": "WaterChiller",
       "recipe": {
         "recipeDictionary": "WaterChiller"
-      }
+      },
+      "cost": [
+        {
+          "name": "ConstructionParts3",
+          "count": 40
+        }
+      ]
     },
     {
       "name": "PollutedWater",

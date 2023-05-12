@@ -14,6 +14,7 @@ import type {
     GameLogisticItemSerialized,
     GameLogisticTransportSerialized,
     GameLogisticSerialized,
+    GameItemCostSerialized,
 } from './game-data-serialized';
 
 export type GameImagesRaw = GameImagesSerialized;
@@ -59,9 +60,13 @@ export type GameRecipeDictionary = Readonly<GameRecipeDictionaryRaw>;
 export type GameRecipeReferenceRaw = GameRecipeReferenceSerialized;
 export type GameRecipeReference = Readonly<GameRecipeReferenceRaw>;
 
+export type GameItemCostRaw = GameItemCostSerialized;
+export type GameItemCost = Readonly<GameItemCostRaw>;
+
 export interface GameItemRaw extends GameItemSerialized {
     lowerLabel: string;
     recipeDictionary?: GameRecipeDictionary;
+    cost?: GameItemCost[];
     order: number;
 
     formatCountPerSecond: (count: number) => FormatCountPerSecond;

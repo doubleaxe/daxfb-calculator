@@ -11,9 +11,13 @@ import {computed} from 'vue';
 const props = defineProps<{
     total: SummaryTotal;
     compact?: boolean;
+    format?: boolean;
 }>();
 
-const totalCountPerSecond = computed(() => formatItem(props.total.totalCountPerSecond, props.total.sampleItem) || '');
+const totalCountPerSecond = computed(() => (props.format
+    ? formatItem(props.total.totalCountPerSecond, props.total.sampleItem)
+    : props.total.totalCountPerSecond)
+    || '');
 
 const typeLables: Record<GameItemType, string> = {
     [GameItemType.Unknown]: '',

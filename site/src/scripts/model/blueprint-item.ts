@@ -41,6 +41,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
         }
     }
 
+    get cost() { return this._item?.cost?.[Symbol.iterator](); }
     get rect(): PublicRect { return this._rect; }
     setRect(rect: PublicRect) {
         if(!this._rect.isEqual(rect)) {

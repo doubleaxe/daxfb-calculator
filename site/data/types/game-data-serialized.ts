@@ -59,6 +59,13 @@ export interface GameRecipeReferenceSerialized {
     tier?: number;
 }
 
+export interface GameItemCostSerialized {
+    name: string;
+    longName?: string;
+    count: number;
+    exdata?: GameExDataSerialized;
+}
+
 export interface GameItemSerialized {
     name: string;
     longName?: string;
@@ -66,6 +73,7 @@ export interface GameItemSerialized {
     image: string;
     unitMul?: number;
     recipe?: GameRecipeReferenceSerialized;
+    cost?: GameItemCostSerialized[];
     type?: GameItemType;
     isAbstractClassItem?: boolean;
     nextTier?: string;

@@ -7,6 +7,12 @@ import {GameItemType} from '#types/constants';
 import type {GameItem} from '#types/game-data';
 import type {BlueprintModel} from './store';
 
+export enum SummaryType {
+    Input = 1,
+    Output,
+    Cost,
+}
+
 export type SummaryItem = {
     item: GameItem;
     totalCountPerSecond: number;
@@ -20,7 +26,7 @@ export type SummaryTotal = {
 };
 
 export type SummaryIoTotal = {
-    isInput: boolean;
+    summaryType: SummaryType;
     totals: SummaryTotal[];
 };
 
@@ -33,6 +39,7 @@ export function calculateSummary(model: BlueprintModel) {
     const gameData = model.gameData;
     const inputByType: SummaryTempMap = new Map();
     const outputByType: SummaryTempMap = new Map();
+    const costByItem: SummaryItemMap = new Map();
     for(const blueprintItem of model.items) {
         for(const io of blueprintItem.selectedRecipe?.items || []) {
             if(io.linksCount) {
@@ -70,11 +77,36 @@ export function calculateSummary(model: BlueprintModel) {
                 summary.totalCountPerSecond += cpsTotal;
             }
         }
+
+        if(blueprintItem.cost) {
+            for(const cost of blueprintItem.cost) {
+                let summary = costByItem.get(cost.name);
+                if(!summary) {
+                    const item = gameData.getGameItem(cost.name);
+                    if(item) {
+                        summary = {
+                            item,
+                            totalCountPerSecond: 0,
+                        };
+                        costByItem.set(cost.name, summary);
+                    }
+                }
+                if(summary) {
+                    summary.totalCountPerSecond += cost.count;
+                }
+            }
+        }
     }
+
+    const costByType: SummaryTempMap = new Map(costByItem.size ? [[GameItemType.Unknown, costByItem]] : []);
 
     //sorted map
     const summaryResult: SummaryTotals = [];
-    for(const {io: ioByType, isInput} of [{io: inputByType, isInput: true}, {io: outputByType, isInput: false}]) {
+    for(const {io: ioByType, summaryType} of [
+        {io: inputByType, summaryType: SummaryType.Input},
+        {io: outputByType, summaryType: SummaryType.Output},
+        {io: costByType, summaryType: SummaryType.Cost},
+    ]) {
         if(!ioByType.size) {
             continue;
         }
@@ -107,7 +139,7 @@ export function calculateSummary(model: BlueprintModel) {
         totals.sort((a, b) => b.type - a.type);
 
         summaryResult.push({
-            isInput,
+            summaryType,
             totals,
         });
     }

@@ -160,6 +160,12 @@ export class KeyProcessor {
             if(item.nextTier) {
                 item.nextTier = nameMapping[item.nextTier];
             }
+            item.cost?.forEach((cost) => {
+                if(this.isAttachKeys) {
+                    cost.longName = cost.name;
+                }
+                cost.name = nameMapping[cost.name] || '';
+            });
         }
     }
 

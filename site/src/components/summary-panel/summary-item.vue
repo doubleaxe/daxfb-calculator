@@ -10,12 +10,15 @@ import {computed} from 'vue';
 
 const props = defineProps<{
     item: SummaryItem;
-    isInput: boolean;
     compact?: boolean;
+    format?: boolean;
 }>();
 
 const filter = injectFilter();
-const totalCountPerSecond = computed(() => formatItem(props.item.totalCountPerSecond, props.item.item) || '');
+const totalCountPerSecond = computed(() => (props.format
+    ? formatItem(props.item.totalCountPerSecond, props.item.item)
+    : props.item.totalCountPerSecond)
+    || '');
 const border = computed(() => {
     if(filter.key == props.item.item.name)
         return 'highlight-border';
@@ -24,7 +27,6 @@ const border = computed(() => {
 function filterForSummary() {
     if(filter.key != props.item.item.name) {
         filter.key = props.item.item.name;
-        filter.direction = props.isInput ? -1 : 1;
     } else {
         filter.key = undefined;
     }

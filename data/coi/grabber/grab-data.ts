@@ -7,6 +7,7 @@ import * as fs from 'node:fs';
 import {ImageProcessor} from '../../image-processor';
 import type {
     GameDataSerialized,
+    GameItemCostSerialized,
     GameItemSerialized,
     GameLogisticSerialized,
     GameLogisticTransportSerialized,
@@ -26,6 +27,7 @@ import type {
     RecipeDef,
     ContractsJson,
     TransportsJson,
+    BuildCost,
 } from './coi-types';
 import {ColorActionName} from '@jimp/plugin-color';
 
@@ -237,14 +239,19 @@ async function prepareGameData(productNamesToDefs: Map<string, ProductDef>, prod
 
     addSpecialBuildings(productNamesToDefs, simpleFactories, recipeDictionaries);
 
-    const productsUsedInRecipes = new Set<string>(recipeDictionaries.map(({recipes}) => (
+    const productsUsedInRecipes = recipeDictionaries.map(({recipes}) => (
         recipes.map(({input, output}) => (
             (input?.map(({name}) => name) || []).concat(output?.map(({name}) => name) || [])
         ))
-    )).flat(3));
+    )).flat(3);
+    const productsUsedInBuildings = [...simpleFactories.values()].map(
+        ({cost}) => (cost?.map(({name}) => name) || []),
+    ).flat();
+
+    const productsUsedInEverything = new Set<string>(productsUsedInRecipes.concat(productsUsedInBuildings));
 
     const tierFactoriesArray = splitFactoriesToTiers(simpleFactories, nextTier);
-    const productsArray = prepareProducts(productIdsToDefs, productsUsedInRecipes);
+    const productsArray = prepareProducts(productIdsToDefs, productsUsedInEverything);
     const {
         logistic,
         logisticItemsArray,
@@ -432,6 +439,16 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
         return [_recipe];
     };
 
+    const mapCost = function(cost: BuildCost): GameItemCostSerialized {
+        const def = productNamesToDefs.get(cost.product);
+        if(!def)
+            throw new Error(`unknown product name: (${cost.product})`);
+        return {
+            name: def.id,
+            count: cost.quantity,
+        };
+    };
+
     const simpleFactories = new Map<string, GameItemSerialized>();
     const nextTier: NextTier[] = [];
     const brokenTiers: Record<string, string> = {
@@ -489,6 +506,7 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
         };
         recipeDictionaries.push(recipeDictionary);
 
+        const costs = building.build_costs.map(mapCost);
         const factory: GameItemSerialized = {
             name: building.id,
             label: building.name,
@@ -496,6 +514,7 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
             recipe: {
                 recipeDictionary: building.id,
             },
+            cost: costs.length ? costs : undefined,
         };
         simpleFactories.set(factory.name, factory);
 
@@ -652,12 +671,34 @@ type TierChainDef = {
 };
 
 function splitFactoriesToTiers(simpleFactories: Map<string, GameItemSerialized>, nextTier: NextTier[]) {
+    //this fix is for some strange building, which should be sorted according to tiers
+    //but should be upgraded other ways, because of recipes in them
+    const fixFactoryTiers: Record<string, {nextTier?: string | false; prevTier?: string | false}> = {
+        SmeltingFurnaceT2: {
+            nextTier: 'ArcFurnace2',
+        },
+        ArcFurnace: {
+            prevTier: false,
+            nextTier: false,
+        },
+        ArcFurnace2: {
+            prevTier: 'SmeltingFurnaceT2',
+        },
+    };
     return splitItemsToTiers(simpleFactories, nextTier, (_factory, factory, tier) => {
-        if(factory.prev) {
-            _factory.prevTier = factory.prev.name;
+        let prev = fixFactoryTiers[_factory.name]?.prevTier;
+        if(prev === undefined) {
+            prev = factory.prev?.name;
         }
-        if(factory.next) {
-            _factory.nextTier = factory.next.name;
+        if(prev) {
+            _factory.prevTier = prev;
+        }
+        let next = fixFactoryTiers[_factory.name]?.nextTier;
+        if(next === undefined) {
+            next = factory.next?.name;
+        }
+        if(next) {
+            _factory.nextTier = next;
         }
         const exdata: GameItemExData = {
             tier,

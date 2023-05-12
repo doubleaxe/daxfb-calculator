@@ -79,6 +79,8 @@ function createItemImpl(_item: GameItemSerialized, calculator: Calculator, order
             }
             if(item.recipe)
                 Object.freeze(item.recipe);
+            if(item.cost)
+                Object.freeze(item.cost);
             Object.freeze(item);
         },
     };
