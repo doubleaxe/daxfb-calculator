@@ -79,8 +79,8 @@ function changeUpgradeMode(isUpgradeMode?: boolean) {
                         />
                     </v-btn-toggle>
                 </v-list-item>
-                <v-divider />
-                <v-list-item title="Upgrade Mode" @click.stop="changeUpgradeMode();">
+                <v-divider v-if="props.item.isUpgradable()" />
+                <v-list-item v-if="props.item.isUpgradable()" title="Upgrade Mode" @click.stop="changeUpgradeMode();">
                     <template #prepend>
                         <v-switch
                             class="mr-5"

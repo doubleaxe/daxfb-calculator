@@ -4,7 +4,7 @@ Please don't remove this comment if you use unmodified file
 -->
 <script setup lang="ts">
 import {ref, unref, computed, onMounted, watch, nextTick} from 'vue';
-import type {BlueprintItemModel, RecipeIOModel} from '@/scripts/model/store';
+import {injectBlueprintModel, type BlueprintItemModel, type RecipeIOModel} from '@/scripts/model/store';
 import {mdiCursorMove, mdiTransferDown, mdiTransferUp} from '@mdi/js';
 import {useElementHover, type MaybeElement} from '@vueuse/core';
 import {injectSettings} from '@/scripts/settings';
@@ -21,6 +21,7 @@ const emit = defineEmits<{
 }>();
 
 const settings = injectSettings();
+const blueprintModel = injectBlueprintModel();
 const mainDivElement = ref<HTMLElement | null>(null);
 //separate state, because useItemDragAndDrop is shared between all items
 const isDragging = ref(false);
@@ -141,7 +142,7 @@ watch(() => props.item.rect, (value, oldValue) => {
                     <v-icon :icon="mdiCursorMove" />
                 </v-btn>
             </div>
-            <div v-if="props.item.isUpgradable()" class="float-right mr-1">
+            <div v-if="blueprintModel.isUpgradeMode && props.item.isUpgradable()" class="float-right mr-1">
                 <v-btn
                     size="x-small"
                     color="secondary"

@@ -228,7 +228,7 @@ export class BlueprintItemModelImpl extends ItemModelImpl {
     }
 
     isUpgradable(direction?: -1 | 1): boolean {
-        if(!this.owner?.isUpgradeMode || !(this._item?.nextTier || this._item?.prevTier))
+        if(!this._item?.nextTier && !this._item?.prevTier)
             return false;
         if(direction === undefined)
             return true;
