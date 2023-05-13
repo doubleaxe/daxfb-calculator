@@ -22,6 +22,7 @@ import type {
 
 import type {
     GameDataSerialized,
+    GameItemCostSerialized,
     GameItemSerialized,
     GameRecipeDictionarySerialized,
     GameRecipeIOSerialized,
@@ -127,6 +128,62 @@ function convertRecipes(recipeDictionaries: JsonRecipeDictionary[]) {
     });
 }
 
+function computeBuildingCosts(recipeDictionaries: JsonRecipeDictionary[]) {
+    //we take constructor, and determine building costs from its recipe
+    const buildingCosts = new Map<string, GameItemCostSerialized[]>();
+    const constructor = recipeDictionaries.find((d) => d.Name == 'ConstructorBaseRecipeDictionary');
+    if(!constructor) {
+        return buildingCosts;
+    }
+
+    for(const recipe of constructor.Recipes) {
+        const item = recipe.Output?.[0];
+        if(!item || !recipe.Input?.length)
+            continue;
+        const itemName = itemNameMapper(item.Name);
+        const itemCost: GameItemCostSerialized[] = recipe.Input.map((i) => {
+            return {
+                name: itemNameMapper(i.Name),
+                count: i.Count,
+            };
+        });
+        buildingCosts.set(itemName, itemCost);
+    }
+
+    //recursively decompose costs to simplest items
+    const rawBuildingCosts = new Map<string, GameItemCostSerialized[]>();
+    const recursiveCalculateRawCosts = (itemName: string, itemCost: GameItemCostSerialized[]) => {
+        const rawCost = new Map<string, number>();
+        for(const product of itemCost) {
+            let rawProductCost = [product];
+            const productCanBeConstructed = buildingCosts.get(product.name);
+            if(productCanBeConstructed) {
+                rawProductCost = recursiveCalculateRawCosts(product.name, productCanBeConstructed);
+            }
+            for(const cost of rawProductCost) {
+                const count = rawCost.get(cost.name);
+                if(!count) {
+                    rawCost.set(cost.name, cost.count);
+                } else {
+                    rawCost.set(cost.name, count + cost.count);
+                }
+            }
+        }
+
+        const rawCostArray = [...rawCost.entries()].map(([name, count]) => ({
+            name,
+            count,
+        }));
+        rawBuildingCosts.set(itemName, rawCostArray);
+        return rawCostArray;
+    };
+
+    for(const [itemName, itemCost] of buildingCosts) {
+        recursiveCalculateRawCosts(itemName, itemCost);
+    }
+    return rawBuildingCosts;
+}
+
 const classTypes: {[key: string]: GameItemType} = {
     SolidStaticItem: GameItemType.Solid,
     FluidStaticItem: GameItemType.Fluid,
@@ -142,7 +199,7 @@ const AbstractClassItems = new Set([
     'AnyEnergyStaticItem',
 ]);
 
-function convertItems(items: JsonItem[]) {
+function convertItems(items: JsonItem[], recipeDictionaries: JsonRecipeDictionary[]) {
     const mapRecipe = (recipe?: JsonRecipeReference) => {
         if(!recipe)
             return undefined;
@@ -151,6 +208,8 @@ function convertItems(items: JsonItem[]) {
             tier: recipe.Tier,
         };
     };
+
+    const buildingCosts = computeBuildingCosts(recipeDictionaries);
 
     const itemRecipes = new Map<string, string[]>();
     for(const item of items) {
@@ -175,6 +234,11 @@ function convertItems(items: JsonItem[]) {
             isAbstractClassItem: AbstractClassItems.has(item.Name) || undefined,
         };
         mappedItem.type = itemClassTypes[mappedItem.name] || classTypes[item.Class];
+        const cost = buildingCosts.get(mappedItem.name);
+        if(cost && mappedItem.recipe) {
+            //no need for cost for non-factory items
+            mappedItem.cost = cost;
+        }
         const tierList = item.Recipe && itemRecipes.get(item.Recipe.RecipeDictionary);
         if(tierList) {
             const thisTier = item.Recipe?.Tier || 0;
@@ -231,7 +295,7 @@ async function convertGameData() {
 
     const gameData: GameDataSerialized = {
         recipeDictionaries: convertRecipes(patchedDataJson.Recipes),
-        items: convertItems(patchedDataJson.Items),
+        items: convertItems(patchedDataJson.Items, patchedDataJson.Recipes),
         logistic: convertLogistic(),
         images: {},
         description,

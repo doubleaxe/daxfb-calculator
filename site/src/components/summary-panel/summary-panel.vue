@@ -26,7 +26,7 @@ const summaryTitle: Record<SummaryType, {icon: string; title: string}> = {
     },
     [SummaryType.Cost]: {
         icon: mdiWrench,
-        title: 'Cost',
+        title: 'Build Cost',
     },
 };
 
