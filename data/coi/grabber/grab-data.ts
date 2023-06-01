@@ -53,12 +53,6 @@ function cleanProductId(id: string) {
     return id;
 }
 
-type ImageDef = {
-    id: string;
-    name: string;
-    icon: string;
-};
-
 const classTypes: {[key: string]: GameItemType} = {
     VirtualProductProto: GameItemType.Special,
     CountableProductProto: GameItemType.Countable,
@@ -115,17 +109,21 @@ const whiteImages: Set<string> = new Set([
     'Anesthetics',
     'Antibiotics',
     'BasicServerRack',
-    'Computing',
+    //'Computing',
     'ConstructionParts',
+    'ChickenCarcass',
     'LabEquipment',
     'MaintenanceT1',
     'MechPower',
+    'MedicalEquipment',
     'MedicalSupplies',
+    'Morphine',
+    'Paper',
     'Salt',
-    'SiliconWafer',
+    //'SiliconWafer',
     'Upoints',
     'VehicleParts',
-    'Worker',
+    //'Worker',
 
     'AnyCountableProduct',
     'AnyFluidProduct',
@@ -175,39 +173,134 @@ function applyCustomProducts() {
     }
 }
 
+function dirToMapCaseInsensitive(dir: string) {
+    const files = fs.readdirSync(dir);
+    const map = new Map<string, string>();
+    if(!files || !files.length)
+        return {dir, map};
+    for(const file of files) {
+        map.set(file.toLowerCase(), file);
+    }
+    return {dir, map};
+}
+
 async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: GameItemSerialized[]) {
+    type ImageDef = {
+        id: string;
+        icon: string;
+        alt: string[];
+        dir: ReturnType<typeof dirToMapCaseInsensitive>;
+    };
+
+    const buildingsDir = dirToMapCaseInsensitive(path.join(_images, 'buildings'));
+    const productsDir = dirToMapCaseInsensitive(path.join(_images, 'products'));
+    const staticDir = dirToMapCaseInsensitive(_static);
     const imagesPaths: ImageDef[] = [];
+    const overrides: Record<string, string> = {
+        Antibiotics: 'Penicillin',
+        ChilledWater: 'WaterChilled',
+        Compost: 'Digestate',
+        ConstructionParts: 'ConstructionParts1',
+        Electronics: 'Electronics1',
+        Fruit: 'Fruits',
+        HeavyOil: 'OilHeavy',
+        ImpureCopper: 'CopperImpure',
+        IronOreCrushed: 'IronCrushed',
+        LabEquipment: 'LabEquipment1',
+        LightOil: 'OilLight',
+        MechPower: 'MechanicalPower',
+        MediumOil: 'OilMedium',
+        Microchips: 'Microchip',
+        MicrochipsStage1A: 'MicrochipWafer1A',
+        MicrochipsStage1B: 'MicrochipWafer1B',
+        MicrochipsStage1C: 'MicrochipWafer1C',
+        MicrochipsStage2A: 'MicrochipWafer2A',
+        MicrochipsStage2B: 'MicrochipWafer2B',
+        MicrochipsStage2C: 'MicrochipWafer2C',
+        MicrochipsStage3A: 'MicrochipWafer3A',
+        MicrochipsStage3B: 'MicrochipWafer3B',
+        MicrochipsStage3C: 'MicrochipWafer3C',
+        MicrochipsStage4A: 'MicrochipWafer4A',
+        MicrochipsStage4B: 'MicrochipWafer4B',
+        MoltenCopper: 'CopperMolten',
+        MoltenGlass: 'GlassMolten',
+        MoltenIron: 'IronMolten',
+        MoltenSilicon: 'SiliconMolten',
+        MoltenSteel: 'SteelMolten',
+        Potato: 'Potato128',
+        PolySilicon: 'Silicon',
+        Recyclables: 'MetalScrap128',
+        SiliconWafer: 'MonoWafer',
+        SteamDepleted: 'SteamDepleated',
+        SteamHi: 'SteamHp',
+        UraniumDepleted: 'DepletedUranium',
+        UraniumEnriched: 'UraniumEnriched4Perc',
+        UraniumEnriched20: 'UraniumEnriched20Perc',
+        UraniumReprocessed: 'ReprocessedUranium',
+        VehicleParts: 'VehicleParts1',
+    };
+
     for(const item of items) {
         if(item.recipe) {
             imagesPaths.push({
                 id: item.name,
-                name: item.name,
-                icon: 'buildings/' + item.name + '.png',
+                icon: item.name + '.png',
+                alt: [],
+                dir: buildingsDir,
             });
         } else {
+            //TODO - migrate icons to internal game asset names
+            const iconName = item.name;
+            const alt = [];
+            const overrideName = overrides[item.name];
+            if(overrideName) {
+                alt.push(overrideName + '.png');
+            }
             const def = productIdsToDefs.get(item.name);
-            const iconName = def?.icon || item.name;
+            if(def?.icon) {
+                alt.push(def.icon + '.png');
+            }
             imagesPaths.push({
                 id: item.name,
-                name: iconName,
-                icon: 'products/' + iconName + '.png',
+                icon: iconName + '.png',
+                alt,
+                dir: productsDir,
             });
         }
     }
 
+    const usedImages = new Set<string>();
     const imageProcessor = new ImageProcessor(32);
     imagesPaths.sort((a, b) => a.id.localeCompare(b.id));
     for(const image of imagesPaths) {
-        const imagePath = path.join(_images, image.icon);
-        try {
-            let imageBuffer;
-            try {
-                imageBuffer = fs.readFileSync(imagePath);
-            } catch(err) {
-                if((err as NodeJS.ErrnoException).code != 'ENOENT')
-                    throw err;
-                imageBuffer = fs.readFileSync(path.join(_static, image.name + '.png'));
+        let realImageName = image.dir.map.get(image.icon.toLowerCase());
+        let imagePath: string | undefined;
+        if(realImageName) {
+            imagePath = path.join(image.dir.dir, realImageName);
+        } else {
+            for(const altName of image.alt) {
+                realImageName = image.dir.map.get(altName.toLowerCase());
+                if(realImageName) {
+                    imagePath = path.join(image.dir.dir, realImageName);
+                    break;
+                }
             }
+        }
+        if(realImageName) {
+            usedImages.add(realImageName);
+        }
+        if(!imagePath) {
+            realImageName = staticDir.map.get(image.icon.toLowerCase());
+            if(realImageName) {
+                imagePath = path.join(staticDir.dir, realImageName);
+            }
+        }
+        if(!imagePath) {
+            console.warn(`Image not found: ${path.join(image.dir.dir, image.icon)}`);
+            continue;
+        }
+        try {
+            const imageBuffer = fs.readFileSync(imagePath);
             const img = await imageProcessor.addImageBuffer(imageBuffer, image.id);
             if(whiteImages.has(image.id)) {
                 img.color([{apply: ColorActionName.SHADE, params: [40]}]);
