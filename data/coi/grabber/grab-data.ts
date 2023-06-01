@@ -120,7 +120,7 @@ const whiteImages: Set<string> = new Set([
     'Morphine',
     'Paper',
     'Salt',
-    //'SiliconWafer',
+    'SiliconWafer',
     'Upoints',
     'VehicleParts',
     //'Worker',
