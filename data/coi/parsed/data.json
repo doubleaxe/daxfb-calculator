@@ -17563,6 +17563,11 @@
               "name": "MaintenanceT2",
               "count": 36,
               "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
             }
           ],
           "output": [
@@ -17597,6 +17602,11 @@
               "name": "MaintenanceT2",
               "count": 36,
               "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
             }
           ],
           "output": [
@@ -17610,6 +17620,84 @@
             }
           ],
           "time": 30
+        },
+        {
+          "name": "NuclearReactorT22",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "MoxRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 110,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 36,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentMox",
+              "count": 1
+            }
+          ],
+          "time": 120
+        },
+        {
+          "name": "NuclearReactorT23",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "UraniumRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 110,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 36,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentFuel",
+              "count": 1
+            }
+          ],
+          "time": 120
         }
       ]
     },
@@ -17649,6 +17737,40 @@
             }
           ],
           "time": 40
+        },
+        {
+          "name": "NuclearReactor1",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "UraniumRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 80,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 24,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentFuel",
+              "count": 1
+            }
+          ],
+          "time": 120
         }
       ]
     },
@@ -17660,7 +17782,7 @@
           "input": [
             {
               "name": "Water",
-              "count": 64
+              "count": 96
             },
             {
               "name": "CoreFuel",
@@ -17675,12 +17797,17 @@
               "name": "MaintenanceT3",
               "count": 36,
               "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
             }
           ],
           "output": [
             {
               "name": "SteamSp",
-              "count": 64
+              "count": 96
             },
             {
               "name": "CoreFuelDirty",
@@ -17694,7 +17821,7 @@
           "input": [
             {
               "name": "BlanketFuel",
-              "count": 0
+              "count": 1.200195
             },
             {
               "name": "Worker",
@@ -17705,15 +17832,90 @@
               "name": "MaintenanceT3",
               "count": 36,
               "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
             }
           ],
           "output": [
             {
               "name": "BlanketFuelEnriched",
-              "count": 0
+              "count": 1.200195
             }
           ],
           "time": 15
+        },
+        {
+          "name": "FastBreederReactor2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 96
+            },
+            {
+              "name": "CoreFuel",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 36,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 96
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor3",
+          "input": [
+            {
+              "name": "BlanketFuel",
+              "count": 1.200195
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 36,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 1.200195
+            }
+          ],
+          "time": 60
         }
       ]
     },

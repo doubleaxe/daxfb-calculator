@@ -109,7 +109,7 @@ const whiteImages: Set<string> = new Set([
     'Anesthetics',
     'Antibiotics',
     'BasicServerRack',
-    //'Computing',
+    'Computing',
     'ConstructionParts',
     'ChickenCarcass',
     'LabEquipment',
@@ -123,7 +123,7 @@ const whiteImages: Set<string> = new Set([
     'SiliconWafer',
     'Upoints',
     'VehicleParts',
-    //'Worker',
+    'Worker',
 
     'AnyCountableProduct',
     'AnyFluidProduct',
@@ -188,7 +188,6 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
     type ImageDef = {
         id: string;
         icon: string;
-        alt: string[];
         dir: ReturnType<typeof dirToMapCaseInsensitive>;
     };
 
@@ -196,6 +195,12 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
     const productsDir = dirToMapCaseInsensitive(path.join(_images, 'products'));
     const staticDir = dirToMapCaseInsensitive(_static);
     const imagesPaths: ImageDef[] = [];
+    const getIconName = (iconPath: string | undefined, itemId: string) => {
+        if(!iconPath)
+            return itemId;
+        return path.basename(iconPath, path.extname(iconPath));
+    };
+    /*
     const overrides: Record<string, string> = {
         Antibiotics: 'Penicillin',
         ChilledWater: 'WaterChilled',
@@ -239,31 +244,22 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
         UraniumReprocessed: 'ReprocessedUranium',
         VehicleParts: 'VehicleParts1',
     };
+    */
 
+    const machineDefs = new Map<string, BuildingDef>(machines.machines_and_buildings.map((p) => [p.id, p]));
     for(const item of items) {
         if(item.recipe) {
+            const def = machineDefs.get(item.name);
             imagesPaths.push({
                 id: item.name,
-                icon: item.name + '.png',
-                alt: [],
+                icon: getIconName(def?.icon_path, item.name) + '.png',
                 dir: buildingsDir,
             });
         } else {
-            //TODO - migrate icons to internal game asset names
-            const iconName = item.name;
-            const alt = [];
-            const overrideName = overrides[item.name];
-            if(overrideName) {
-                alt.push(overrideName + '.png');
-            }
             const def = productIdsToDefs.get(item.name);
-            if(def?.icon) {
-                alt.push(def.icon + '.png');
-            }
             imagesPaths.push({
                 id: item.name,
-                icon: iconName + '.png',
-                alt,
+                icon: getIconName(def?.icon_path, item.name) + '.png',
                 dir: productsDir,
             });
         }
@@ -277,16 +273,6 @@ async function prepareImages(productIdsToDefs: Map<string, ProductDef>, items: G
         let imagePath: string | undefined;
         if(realImageName) {
             imagePath = path.join(image.dir.dir, realImageName);
-        } else {
-            for(const altName of image.alt) {
-                realImageName = image.dir.map.get(altName.toLowerCase());
-                if(realImageName) {
-                    imagePath = path.join(image.dir.dir, realImageName);
-                    break;
-                }
-            }
-        }
-        if(realImageName) {
             usedImages.add(realImageName);
         }
         if(!imagePath) {

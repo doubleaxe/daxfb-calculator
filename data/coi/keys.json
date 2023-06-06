@@ -828,7 +828,12 @@
     "TreeSapling": "dj",
     "WastePressed": "dk",
     "Woodchips": "dl",
-    "Yellowcake": "dm"
+    "Yellowcake": "dm",
+    "NuclearReactorT22": "dn",
+    "NuclearReactorT23": "do",
+    "NuclearReactor1": "dp",
+    "FastBreederReactor2": "dq",
+    "FastBreederReactor3": "dr"
   },
-  "lastKey": 828
+  "lastKey": 833
 }

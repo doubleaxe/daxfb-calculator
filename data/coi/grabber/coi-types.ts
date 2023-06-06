@@ -19,6 +19,7 @@ export interface BuildingDef {
     storage_capacity: number;
     unity_cost: number;
     research_speed: number;
+    icon_path?: string;
     build_costs: BuildCost[];
     recipes: RecipeDef[];
 }
@@ -51,6 +52,7 @@ export interface ProductDef {
     name: string;
     icon: string;
     type: string;
+    icon_path?: string;
 }
 
 export interface ContractsJson {
