@@ -17820,6 +17820,14 @@
           "name": "FastBreederReactor1",
           "input": [
             {
+              "name": "Water",
+              "count": 96
+            },
+            {
+              "name": "CoreFuel",
+              "count": 1
+            },
+            {
               "name": "BlanketFuel",
               "count": 1.200195
             },
@@ -17840,6 +17848,14 @@
             }
           ],
           "output": [
+            {
+              "name": "SteamSp",
+              "count": 96
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 1
+            },
             {
               "name": "BlanketFuelEnriched",
               "count": 1.200195
@@ -17890,6 +17906,14 @@
           "name": "FastBreederReactor3",
           "input": [
             {
+              "name": "Water",
+              "count": 96
+            },
+            {
+              "name": "CoreFuel",
+              "count": 1
+            },
+            {
               "name": "BlanketFuel",
               "count": 1.200195
             },
@@ -17910,6 +17934,14 @@
             }
           ],
           "output": [
+            {
+              "name": "SteamSp",
+              "count": 96
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 1
+            },
             {
               "name": "BlanketFuelEnriched",
               "count": 1.200195
