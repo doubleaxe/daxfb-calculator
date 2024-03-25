@@ -16,15 +16,16 @@ export class ImagesList {
     async addImageFileAsync(imagePath) {
         const imageFile = path.basename(imagePath);
         const imageName = path.basename(imageFile, path.extname(imageFile));
+        let imageObject;
         try {
-            const imageObject = await Jimp.read(imagePath);
+            imageObject = await Jimp.read(imagePath);
             this.#images.set(imageName, imageObject);
         } catch(err) {
             let error = err;
             if(this.imagesBackup) {
                 const imagePath2 = path.join(this.imagesBackup, imageFile);
                 try {
-                    const imageObject = await Jimp.read(imagePath2);
+                    imageObject = await Jimp.read(imagePath2);
                     this.#images.set(imageName, imageObject);
                     error = undefined;
                 } catch(err0) {}
@@ -33,14 +34,15 @@ export class ImagesList {
                 console.warn(`Error reading image ${imageName}: ${error.message}`);
             }
         }
+        if(imageObject &&
+            ((imageObject.bitmap.height != ImagesList.RESOLUTION) || (imageObject.bitmap.width != ImagesList.RESOLUTION))) {
+            console.warn(`Invalid image resolution: ${imageObject.bitmap.width} x ${imageObject.bitmap.height} => ${imageName}`);
+            imageObject.resize(ImagesList.RESOLUTION, ImagesList.RESOLUTION, Jimp.RESIZE_BEZIER);
+        }
     }
     addImageObject(imageName, imageObject) {
         if(this.#images.has(imageName))
             console.warn(`Duplicate image name: ${imageName}`);
-        if((imageObject.bitmap.height != ImagesList.RESOLUTION) || (imageObject.bitmap.width != ImagesList.RESOLUTION)) {
-            console.warn(`Invalid image resolution: ${imageObject.bitmap.width} x ${imageObject.bitmap.height} => ${imageName}`);
-            imageObject.resize(ImagesList.RESOLUTION, ImagesList.RESOLUTION, Jimp.RESIZE_BEZIER);
-        }
         this.#images.set(imageName, imageObject);
     }
     getImageObject(imageName) {
