@@ -235,11 +235,11 @@ export class ItemsList {
         StaticItem: {
             destObject: (item, objects) => {
                 //also fix class for backward compatibility
-                if(item.type == 'Fluid') {
+                if(item.Type == 'Fluid') {
                     item.Class = 'FluidStaticItem';
                     return objects.fluidStaticItem;
                 }
-                if(item.type == 'Abstract') {
+                if(item.Type == 'Abstract') {
                     item.Class = 'AbstractStaticItem';
                     return objects.abstractStaticItem;
                 }

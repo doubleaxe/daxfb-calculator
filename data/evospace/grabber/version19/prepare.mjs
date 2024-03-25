@@ -37,7 +37,7 @@ async function walkFilesAsync(dir, functionAsync, ...args) {
 }
 
 async function processImagesAsync(basePath, usableImages) {
-    const baseImages = new ImagesList();
+    const baseImages = new ImagesList(path.join(__dirname, 'images'));
     await walkFilesAsync(path.join(basePath, '..', 'Icons'), baseImages.addImageFileAsync.bind(baseImages));
 
     const derivedImagesArray = [];

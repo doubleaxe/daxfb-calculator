@@ -3,8 +3,8 @@
     "shortName": "ES",
     "description": "Evospace",
     "url": "https://store.steampowered.com/app/1013540/Evospace/",
-    "version": "0.18.3",
-    "saveVersion": 18,
-    "compatibleSaveVersions": [18],
+    "version": "0.19",
+    "saveVersion": 19,
+    "compatibleSaveVersions": [19],
     "groupTier": true
 }

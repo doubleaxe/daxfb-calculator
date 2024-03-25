@@ -2,7 +2,7 @@ Index: data.json
 ===================================================================
 --- data.json
 +++ data.json
-@@ -24807,20 +24807,38 @@
+@@ -28020,20 +28020,38 @@
      {
        "Name": "PumpBaseRecipeDictionary",
        "Recipes": [
@@ -46,7 +46,7 @@ Index: data.json
        "Name": "SeparatorBaseRecipeDictionary",
        "Recipes": [
          {
-@@ -28265,15 +28283,15 @@
+@@ -31824,15 +31842,15 @@
        "Recipes": [
          {
            "Category_T": "misc",
@@ -63,7 +63,7 @@ Index: data.json
              "Count": 10,
              "Name": "ElectricityStaticItem"
            },
-@@ -30706,14 +30724,202 @@
+@@ -35209,14 +35227,202 @@
            "Name": "Helium",
            "Output": [],
            "Ticks": 1
@@ -266,7 +266,7 @@ Index: data.json
            "Input": [
              {
                "Count": 1000,
-@@ -30853,14 +31059,200 @@
+@@ -35468,14 +35674,200 @@
            "ResourceOutput": {
              "Count": 20,
              "Name": "HeatStaticItem"
@@ -467,7 +467,7 @@ Index: data.json
        "Category": "Copper",
        "Class": "SolidStaticItem",
        "Image": "T_CopperMacerator",
-@@ -31827,77 +32219,109 @@
+@@ -36442,77 +36834,109 @@
      {
        "Category": "Stone",
        "Class": "SolidStaticItem",
@@ -577,7 +577,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperItemRack",
        "MaxCount": 32,
-@@ -32238,68 +32662,96 @@
+@@ -36853,68 +37277,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -674,7 +674,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_SteelPress",
        "MaxCount": 32,
-@@ -34183,68 +34635,96 @@
+@@ -39093,68 +39545,96 @@
      {
        "Category": "Copper",
        "Class": "SolidStaticItem",
@@ -771,7 +771,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperAssembler",
        "MaxCount": 32,
-@@ -34597,14 +35077,18 @@
+@@ -39507,14 +39987,18 @@
      {
        "Category": "Steel",
        "Class": "SolidStaticItem",
@@ -790,7 +790,7 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_CopperLamp",
        "MaxCount": 32,
-@@ -35571,50 +36055,70 @@
+@@ -40571,50 +41055,70 @@
      {
        "Category": "Aluminium",
        "Class": "SolidStaticItem",
@@ -861,12 +861,12 @@ Index: data.json
        "Class": "SolidStaticItem",
        "Image": "T_StainlessSteelIndustrialSmelter",
        "MaxCount": 32,
-@@ -37656,10 +38160,47 @@
-       "Class": "FluidStaticItem",
+@@ -43087,10 +43591,47 @@
        "Image": "T_Mercury",
        "MaxCount": 1,
        "Name": "MercuryStaticItem",
        "Tag": "Misc",
+       "Type": "Fluid",
        "UnitMul": 0.001,
        "Label": "Mercury"
 +    },

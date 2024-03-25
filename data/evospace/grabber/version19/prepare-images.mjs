@@ -7,17 +7,31 @@ import path from 'node:path';
 import Jimp from 'jimp';
 
 export class ImagesList {
+    #imagesBackup;
     #images = new Map();
 
-    constructor() {
+    constructor(imagesBackup) {
+        this.imagesBackup = imagesBackup;
     }
     async addImageFileAsync(imagePath) {
-        const imageName = path.basename(imagePath, path.extname(imagePath));
+        const imageFile = path.basename(imagePath);
+        const imageName = path.basename(imageFile, path.extname(imageFile));
         try {
             const imageObject = await Jimp.read(imagePath);
             this.#images.set(imageName, imageObject);
         } catch(err) {
-            console.warn(`Error reading image ${imageName}: ${err.message}`);
+            let error = err;
+            if(this.imagesBackup) {
+                const imagePath2 = path.join(this.imagesBackup, imageFile);
+                try {
+                    const imageObject = await Jimp.read(imagePath2);
+                    this.#images.set(imageName, imageObject);
+                    error = undefined;
+                } catch(err0) {}
+            }
+            if(error) {
+                console.warn(`Error reading image ${imageName}: ${error.message}`);
+            }
         }
     }
     addImageObject(imageName, imageObject) {
