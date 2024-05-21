@@ -7566,6 +7566,11 @@
               "name": "Worker",
               "count": 4,
               "flags": 28
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -7595,6 +7600,11 @@
               "name": "Worker",
               "count": 4,
               "flags": 28
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -7620,6 +7630,11 @@
               "name": "Worker",
               "count": 4,
               "flags": 28
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -7641,6 +7656,11 @@
               "name": "Worker",
               "count": 4,
               "flags": 28
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -7670,6 +7690,11 @@
               "name": "Worker",
               "count": 4,
               "flags": 28
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -7695,6 +7720,11 @@
               "name": "Worker",
               "count": 4,
               "flags": 28
+            },
+            {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
             }
           ],
           "output": [
@@ -17382,6 +17412,11 @@
               "flags": 28
             },
             {
+              "name": "Electricity",
+              "count": 40,
+              "flags": 12
+            },
+            {
               "name": "Upoints",
               "count": 0.25,
               "flags": 12
@@ -18846,7 +18881,7 @@
     },
     {
       "name": "AssemblyManual",
-      "label": "Assembly (manual)",
+      "label": "Assembly I",
       "image": "AssemblyManual",
       "recipe": {
         "recipeDictionary": "AssemblyManual"
@@ -18864,7 +18899,7 @@
     },
     {
       "name": "AssemblyElectrified",
-      "label": "Assembly (electric)",
+      "label": "Assembly II",
       "image": "AssemblyElectrified",
       "recipe": {
         "recipeDictionary": "AssemblyElectrified"
@@ -18883,7 +18918,7 @@
     },
     {
       "name": "AssemblyElectrifiedT2",
-      "label": "Assembly (electric) II",
+      "label": "Assembly III",
       "image": "AssemblyElectrifiedT2",
       "recipe": {
         "recipeDictionary": "AssemblyElectrifiedT2"
@@ -21643,6 +21678,12 @@
       "type": 5
     },
     {
+      "name": "SteamDepleted",
+      "label": "Steam (depleted)",
+      "image": "SteamDepleted",
+      "type": 4
+    },
+    {
       "name": "SteamHi",
       "label": "Steam (high)",
       "image": "SteamHi",
@@ -21658,12 +21699,6 @@
       "name": "SteamSp",
       "label": "Steam (super)",
       "image": "SteamSp",
-      "type": 4
-    },
-    {
-      "name": "SteamDepleted",
-      "label": "Steam depleted",
-      "image": "SteamDepleted",
       "type": 4
     },
     {
