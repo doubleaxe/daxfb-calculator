@@ -1,6 +1,6 @@
 {
   "name": "daxfb-calculator",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Calculator/Factory Planner for factory management games",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
