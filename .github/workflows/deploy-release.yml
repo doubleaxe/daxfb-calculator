@@ -28,7 +28,7 @@ jobs:
         run: |
           pnpm run build
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           name: daxfb-calculator-pages
           path: dist
@@ -37,7 +37,7 @@ jobs:
           zip -r daxfb-calculator.zip *
         working-directory: dist
       - name: Upload release artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: daxfb-calculator-release
           path: dist/daxfb-calculator.zip
@@ -54,7 +54,7 @@ jobs:
     steps:
       - name: Deploy GitHub pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
         with:
           artifact_name: daxfb-calculator-pages
   deploy-release:
@@ -70,7 +70,7 @@ jobs:
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - name: Download release artifact
         id: download_artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: daxfb-calculator-release
       - name: Check artifact
