@@ -955,6 +955,7 @@ function prepareLogistic() {
         PipeT1: 'Pipe',
         PipeT2: 'Pipe',
         PipeT3: 'Pipe',
+        PipeT4: 'Pipe',
     };
 
     const mapTransportToItem = function(transport: GameLogisticTransportSerialized) {
