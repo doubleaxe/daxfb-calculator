@@ -1012,7 +1012,9 @@
     "TitaniumOre": "gh",
     "TitaniumOreCrushed": "gi",
     "TitaniumSlag": "gj",
-    "TitaniumSponge": "gk"
+    "TitaniumSponge": "gk",
+    "UraniumRodsAssemblyT3": "gl",
+    "EggsDigestion": "gm"
   },
-  "lastKey": 1012
+  "lastKey": 1014
 }

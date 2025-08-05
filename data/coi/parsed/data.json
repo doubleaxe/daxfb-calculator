@@ -197,7 +197,7 @@
               "count": 2000
             }
           ],
-          "time": 0
+          "time": 0.09960938
         }
       ]
     },
@@ -223,7 +223,7 @@
               "count": 15000
             }
           ],
-          "time": 0
+          "time": 0.09960938
         }
       ]
     },
@@ -2011,7 +2011,7 @@
             },
             {
               "name": "ConcreteSlab",
-              "count": 16
+              "count": 12
             },
             {
               "name": "MaintenanceT3",
@@ -2237,7 +2237,7 @@
               "count": 8
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "VehicleParts2AssemblyT3",
@@ -2276,7 +2276,7 @@
               "count": 2
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "VehicleParts3AssemblyT3",
@@ -2311,7 +2311,7 @@
               "count": 2
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "LabEquipment1AssemblyT4",
@@ -2346,7 +2346,7 @@
               "count": 12
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "LabEquipment2AssemblyT4",
@@ -2385,7 +2385,7 @@
               "count": 6
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "LabEquipment3AssemblyT3",
@@ -2420,7 +2420,7 @@
               "count": 6
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "LabEquipment4AssemblyT3",
@@ -2529,7 +2529,7 @@
               "count": 8
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "HouseholdAppliancesAssemblyT3",
@@ -2717,6 +2717,41 @@
             }
           ],
           "time": 10
+        },
+        {
+          "name": "UraniumRodsAssemblyT3",
+          "input": [
+            {
+              "name": "UraniumEnriched",
+              "count": 2
+            },
+            {
+              "name": "Steel",
+              "count": 1
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 400,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 6,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "UraniumRod",
+              "count": 2
+            }
+          ],
+          "time": 15
         },
         {
           "name": "SolarCellAssemblyT3",
@@ -3121,7 +3156,7 @@
               "count": 4
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "FoodPackAssemblyEggsT3",
@@ -3156,7 +3191,7 @@
               "count": 4
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "FoodPackAssemblyTofuT3",
@@ -3191,7 +3226,7 @@
               "count": 4
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "OfficeSuppliesAssemblyT3",
@@ -3230,7 +3265,7 @@
               "count": 6
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "CompositePanelAssemblyT3",
@@ -3645,7 +3680,7 @@
             },
             {
               "name": "ConcreteSlab",
-              "count": 8
+              "count": 6
             },
             {
               "name": "Worker",
@@ -3906,7 +3941,7 @@
               "count": 4
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "VehicleParts2AssemblyT2",
@@ -4030,7 +4065,7 @@
               "count": 6
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "LabEquipment2AssemblyT3",
@@ -5217,7 +5252,7 @@
             },
             {
               "name": "ConcreteSlab",
-              "count": 4
+              "count": 3
             },
             {
               "name": "Worker",
@@ -5443,7 +5478,7 @@
               "count": 2
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "VehicleParts2AssemblyT1",
@@ -8784,7 +8819,7 @@
               "count": 2
             }
           ],
-          "time": 7
+          "time": 7.5
         },
         {
           "name": "AmmoniaElectrolysisT2",
@@ -16398,11 +16433,11 @@
           "input": [
             {
               "name": "Exhaust",
-              "count": 40
+              "count": 160
             },
             {
               "name": "Water",
-              "count": 4
+              "count": 16
             },
             {
               "name": "Worker",
@@ -16423,22 +16458,22 @@
           "output": [
             {
               "name": "Sulfur",
-              "count": 1
+              "count": 4
             },
             {
               "name": "CarbonDioxide",
-              "count": 16
+              "count": 64
             },
             {
               "name": "SteamLP",
-              "count": 4
+              "count": 16
             },
             {
               "name": "PollutedAir",
-              "count": 4
+              "count": 16
             }
           ],
-          "time": 10
+          "time": 40
         },
         {
           "name": "ExhaustFilteringLime",
@@ -17801,6 +17836,41 @@
             {
               "name": "Compost",
               "count": 2
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "EggsDigestion",
+          "input": [
+            {
+              "name": "Eggs",
+              "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 4,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 1,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 50,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 12
+            },
+            {
+              "name": "Compost",
+              "count": 1
             }
           ],
           "time": 60

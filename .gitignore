@@ -10,3 +10,4 @@ site/public/games
 site/public/docs
 data/evospace/static/data.json
 tmp
+.DS_Store

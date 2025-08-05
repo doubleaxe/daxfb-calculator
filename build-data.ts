@@ -86,7 +86,7 @@ async function packageGameData(gameDir: string, targetGameDir: string, gameData:
             //this is written in javascript, and it should be checked whenever GameImplementation interface changes
             virtual({
                 entry: `
-import {useCalculator} from '${calculatorPath}';
+import {useCalculator} from '${calculatorPath.replace(/\\/g, '/')}';
 const gameData = ${gameDataString};
 const debugKeys = ${isDebug ? reverceKeysString : 'undefined'};
 const gameImplementation = {
