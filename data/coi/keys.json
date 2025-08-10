@@ -1014,7 +1014,20 @@
     "TitaniumSlag": "gj",
     "TitaniumSponge": "gk",
     "UraniumRodsAssemblyT3": "gl",
-    "EggsDigestion": "gm"
+    "EggsDigestion": "gm",
+    "NuclearReactorT2-Fuel1-PowerLevel3": "gn",
+    "NuclearReactorT2-Fuel2-PowerLevel3": "go",
+    "NuclearReactorT2-Fuel1-PowerLevel2": "gp",
+    "NuclearReactorT2-Fuel2-PowerLevel2": "gq",
+    "NuclearReactor-Fuel1-PowerLevel2": "gr",
+    "FastBreederReactor-PowerLevel4-Enrichment3": "gs",
+    "FastBreederReactor-Fuel1-PowerLevel3": "gt",
+    "FastBreederReactor-PowerLevel3-Enrichment2": "gu",
+    "FastBreederReactor-PowerLevel3-Enrichment3": "gv",
+    "FastBreederReactor-Fuel1-PowerLevel2": "gw",
+    "FastBreederReactor-PowerLevel2-Enrichment2": "gx",
+    "FastBreederReactor-PowerLevel2-Enrichment3": "gy",
+    "FastBreederReactor-PowerLevel1-Enrichment3": "gz"
   },
-  "lastKey": 1014
+  "lastKey": 1027
 }

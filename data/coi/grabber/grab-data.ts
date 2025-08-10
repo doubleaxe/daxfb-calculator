@@ -455,7 +455,7 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
             workers: building.workers,
             maintenanceType: building.maintenance_cost_units,
             maintenance: building.maintenance_cost_quantity,
-            electricity: building.electricity_consumed,
+            electricity: building.electricity_consumed * recipe.power_multiplier,
             computing: building.computing_consumed,
             unity: building.unity_cost,
             isInput: true,
@@ -573,6 +573,7 @@ function prepareFactories(productNamesToDefs: Map<string, ProductDef>, productId
             duration: 20,
             inputs: [],
             outputs: [],
+            power_multiplier: 1,
         }]).map((recipe) => mapRecipe(building, recipe)).flat();
         if(!recipes.length) {
             console.log(`No recipes for building ${building.id}`);

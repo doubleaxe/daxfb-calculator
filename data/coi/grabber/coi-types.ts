@@ -35,6 +35,7 @@ export interface RecipeDef {
     duration: number;
     inputs: IODef[];
     outputs: IODef[];
+    power_multiplier: number;
 }
 
 export interface IODef {

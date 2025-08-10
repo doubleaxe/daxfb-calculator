@@ -1459,7 +1459,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4500,
+              "count": 9000,
               "flags": 12
             }
           ],
@@ -1521,7 +1521,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4500,
+              "count": 9000,
               "flags": 12
             }
           ],
@@ -8805,7 +8805,7 @@
             },
             {
               "name": "Electricity",
-              "count": 1100,
+              "count": 4400,
               "flags": 12
             }
           ],
@@ -8911,7 +8911,7 @@
             },
             {
               "name": "Electricity",
-              "count": 300,
+              "count": 1200,
               "flags": 12
             }
           ],
@@ -9555,7 +9555,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4000,
+              "count": 2000,
               "flags": 12
             }
           ],
@@ -10670,7 +10670,7 @@
             },
             {
               "name": "Electricity",
-              "count": 6000,
+              "count": 3600,
               "flags": 12
             }
           ],
@@ -10772,7 +10772,7 @@
             },
             {
               "name": "Electricity",
-              "count": 6000,
+              "count": 3600,
               "flags": 12
             }
           ],
@@ -10925,7 +10925,7 @@
             },
             {
               "name": "Electricity",
-              "count": 6000,
+              "count": 3600,
               "flags": 12
             }
           ],
@@ -11027,7 +11027,7 @@
             },
             {
               "name": "Electricity",
-              "count": 6000,
+              "count": 3600,
               "flags": 12
             }
           ],
@@ -11173,7 +11173,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4000,
+              "count": 2400,
               "flags": 12
             }
           ],
@@ -11259,7 +11259,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4000,
+              "count": 2400,
               "flags": 12
             }
           ],
@@ -11388,7 +11388,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4000,
+              "count": 2400,
               "flags": 12
             }
           ],
@@ -11474,7 +11474,7 @@
             },
             {
               "name": "Electricity",
-              "count": 4000,
+              "count": 2400,
               "flags": 12
             }
           ],
@@ -12638,7 +12638,7 @@
             },
             {
               "name": "Electricity",
-              "count": 800,
+              "count": 480,
               "flags": 12
             }
           ],
@@ -14022,7 +14022,7 @@
             },
             {
               "name": "Electricity",
-              "count": 400,
+              "count": 800,
               "flags": 12
             }
           ],
@@ -14170,7 +14170,7 @@
             },
             {
               "name": "Electricity",
-              "count": 400,
+              "count": 800,
               "flags": 12
             }
           ],
@@ -14435,7 +14435,7 @@
             },
             {
               "name": "Electricity",
-              "count": 400,
+              "count": 800,
               "flags": 12
             }
           ],
@@ -14478,7 +14478,7 @@
             },
             {
               "name": "Electricity",
-              "count": 400,
+              "count": 800,
               "flags": 12
             }
           ],
@@ -14884,7 +14884,7 @@
             },
             {
               "name": "Electricity",
-              "count": 250,
+              "count": 500,
               "flags": 12
             }
           ],
@@ -14993,7 +14993,7 @@
             },
             {
               "name": "Electricity",
-              "count": 250,
+              "count": 500,
               "flags": 12
             }
           ],
@@ -21529,6 +21529,162 @@
           "time": 30
         },
         {
+          "name": "NuclearReactorT2-Fuel1-PowerLevel3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "MoxRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 110,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 90,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentMox",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "NuclearReactorT2-Fuel2-PowerLevel3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "UraniumRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 110,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 90,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentFuel",
+              "count": 1
+            }
+          ],
+          "time": 40
+        },
+        {
+          "name": "NuclearReactorT2-Fuel1-PowerLevel2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "MoxRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 110,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 90,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentMox",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "NuclearReactorT2-Fuel2-PowerLevel2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "UraniumRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 110,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 90,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 12,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentFuel",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
           "name": "NuclearReactorT22",
           "input": [
             {
@@ -21646,6 +21802,40 @@
           "time": 40
         },
         {
+          "name": "NuclearReactor-Fuel1-PowerLevel2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "UraniumRod",
+              "count": 1
+            },
+            {
+              "name": "Worker",
+              "count": 80,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT2",
+              "count": 60,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamHi",
+              "count": 192
+            },
+            {
+              "name": "SpentFuel",
+              "count": 1
+            }
+          ],
+          "time": 60
+        },
+        {
           "name": "NuclearReactor1",
           "input": [
             {
@@ -21693,7 +21883,7 @@
             },
             {
               "name": "CoreFuel",
-              "count": 16
+              "count": 8
             },
             {
               "name": "Worker",
@@ -21718,7 +21908,7 @@
             },
             {
               "name": "CoreFuelDirty",
-              "count": 16
+              "count": 8
             }
           ],
           "time": 60
@@ -21736,7 +21926,7 @@
             },
             {
               "name": "BlanketFuel",
-              "count": 1
+              "count": 16
             },
             {
               "name": "Worker",
@@ -21765,56 +21955,17 @@
             },
             {
               "name": "BlanketFuelEnriched",
-              "count": 1
-            }
-          ],
-          "time": 15
-        },
-        {
-          "name": "FastBreederReactor2",
-          "input": [
-            {
-              "name": "Water",
-              "count": 384
-            },
-            {
-              "name": "CoreFuel",
-              "count": 16
-            },
-            {
-              "name": "Worker",
-              "count": 200,
-              "flags": 28
-            },
-            {
-              "name": "MaintenanceT3",
-              "count": 60,
-              "flags": 12
-            },
-            {
-              "name": "Computing",
-              "count": 18,
-              "flags": 12
-            }
-          ],
-          "output": [
-            {
-              "name": "SteamSp",
-              "count": 384
-            },
-            {
-              "name": "CoreFuelDirty",
               "count": 16
             }
           ],
-          "time": 240
+          "time": 60
         },
         {
-          "name": "FastBreederReactor3",
+          "name": "FastBreederReactor-PowerLevel4-Enrichment3",
           "input": [
             {
               "name": "Water",
-              "count": 384
+              "count": 96
             },
             {
               "name": "CoreFuel",
@@ -21822,7 +21973,7 @@
             },
             {
               "name": "BlanketFuel",
-              "count": 1
+              "count": 48
             },
             {
               "name": "Worker",
@@ -21843,7 +21994,7 @@
           "output": [
             {
               "name": "SteamSp",
-              "count": 384
+              "count": 96
             },
             {
               "name": "CoreFuelDirty",
@@ -21851,7 +22002,406 @@
             },
             {
               "name": "BlanketFuelEnriched",
-              "count": 1
+              "count": 48
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-Fuel1-PowerLevel3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 288
+            },
+            {
+              "name": "CoreFuel",
+              "count": 6
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 288
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 6
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-PowerLevel3-Enrichment2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 288
+            },
+            {
+              "name": "CoreFuel",
+              "count": 12
+            },
+            {
+              "name": "BlanketFuel",
+              "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 288
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 12
+            },
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 12
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-PowerLevel3-Enrichment3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 72
+            },
+            {
+              "name": "CoreFuel",
+              "count": 12
+            },
+            {
+              "name": "BlanketFuel",
+              "count": 36
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 72
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 12
+            },
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 36
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-Fuel1-PowerLevel2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "CoreFuel",
+              "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 192
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 4
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-PowerLevel2-Enrichment2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 192
+            },
+            {
+              "name": "CoreFuel",
+              "count": 8
+            },
+            {
+              "name": "BlanketFuel",
+              "count": 8
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 192
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 8
+            },
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 8
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-PowerLevel2-Enrichment3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 48
+            },
+            {
+              "name": "CoreFuel",
+              "count": 8
+            },
+            {
+              "name": "BlanketFuel",
+              "count": 24
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 48
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 8
+            },
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 24
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor2",
+          "input": [
+            {
+              "name": "Water",
+              "count": 96
+            },
+            {
+              "name": "CoreFuel",
+              "count": 2
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 96
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 2
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 96
+            },
+            {
+              "name": "CoreFuel",
+              "count": 4
+            },
+            {
+              "name": "BlanketFuel",
+              "count": 4
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 96
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 4
+            },
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 4
+            }
+          ],
+          "time": 60
+        },
+        {
+          "name": "FastBreederReactor-PowerLevel1-Enrichment3",
+          "input": [
+            {
+              "name": "Water",
+              "count": 24
+            },
+            {
+              "name": "CoreFuel",
+              "count": 4
+            },
+            {
+              "name": "BlanketFuel",
+              "count": 12
+            },
+            {
+              "name": "Worker",
+              "count": 200,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT3",
+              "count": 60,
+              "flags": 12
+            },
+            {
+              "name": "Computing",
+              "count": 18,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "SteamSp",
+              "count": 24
+            },
+            {
+              "name": "CoreFuelDirty",
+              "count": 4
+            },
+            {
+              "name": "BlanketFuelEnriched",
+              "count": 12
             }
           ],
           "time": 60
