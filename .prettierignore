@@ -1,0 +1,7 @@
+.git
+node_modules
+dist
+tmp
+pnpm-lock.yaml
+**/submodules/
+**/generated/
