@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@doubleaxe/typescript-config/web.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "importHelpers": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "styled-system/*": ["./generated/styled-system/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

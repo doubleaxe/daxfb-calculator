@@ -1,13 +1,14 @@
 {
-  "name": "daxfb-calculator-v2",
-  "version": "0.0.0",
-  "description": "Calculator/Factory Planner for factory management games (v2 react rewrite)",
+  "name": "@doubleaxe/daxfb-calculator-workspace",
+  "version": "2.0.0",
+  "description": "Factory planner for management games - v2 react rewrite",
   "keywords": [
     "game",
     "calculator",
     "factory planner"
   ],
-  "author": "Alexey Usov (dax@xdax.ru, https://github.com/doubleaxe)",
+  "author": "Alexey Usov (dax@xdax.ru)",
+  "homepage": "https://github.com/doubleaxe/daxfb-calculator",
   "license": "MIT",
   "packageManager": "pnpm@10.16.1",
   "engines": {
@@ -21,6 +22,7 @@
     "@doubleaxe/eslint-config": "^2.0.2",
     "@doubleaxe/prettier-config": "^1.0.4",
     "@doubleaxe/typescript-config": "^1.0.4",
+    "@types/node": "^24.5.0",
     "eslint": "^9.35.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -32,6 +34,5 @@
     "tslib": "^2.8.1",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.43.0"
-  },
-  "dependencies": {}
+  }
 }
