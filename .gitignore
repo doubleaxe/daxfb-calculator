@@ -4,3 +4,6 @@ tmp
 *.code-workspace
 *.log
 styled-system
+.nx
+generated/styled-system
+generated/styled-system-studio

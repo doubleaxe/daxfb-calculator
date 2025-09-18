@@ -1,1 +1,2 @@
-export { default } from "@doubleaxe/prettier-config";
+import prettier from '@doubleaxe/prettier-config';
+export default prettier;

@@ -1,21 +1,36 @@
 import reactTs from '@doubleaxe/eslint-config/react-ts';
 import { defineConfig } from 'eslint/config';
 
+const extendFiles = reactTs.utils.extendFiles;
+const patterns = reactTs.patterns;
+const configs = reactTs.configs;
+
 export default defineConfig([
-    reactTs.configs.esNextTools,
+    extendFiles(configs.esNextRoot, [...patterns.esFilter, ...patterns.tsFilter]),
+    {
+        name: 'ts',
+        files: patterns.tsFilter,
+        extends: [configs.tsRoot],
+        rules: {
+            '@typescript-eslint/no-shadow': [
+                'error',
+                {
+                    builtinGlobals: true,
+                    allow: ['Text'],
+                },
+            ],
+        },
+    },
+    extendFiles(configs.reactTsRoot, patterns.tsxFilter),
     {
         name: 'web',
-        basePath: 'packages/calculator',
-        extends: [reactTs.configs.reactTs, reactTs.configs.browser],
-    },
-    {
-        name: 'shared',
-        basePath: 'packages/shared',
-        extends: [reactTs.configs.ts],
+        files: ['packages/calculator-ui/**'],
+        ignores: [...patterns.toolsEs, ...patterns.toolsTs, '**/panda.config.ts', '**/postcss.config.js'],
+        extends: [configs.browser],
     },
     {
         name: 'node',
-        basePath: 'packages/gamedata',
-        extends: [reactTs.configs.ts, reactTs.configs.node],
+        files: ['packages/gamedata/**', ...patterns.toolsEs, ...patterns.toolsTs],
+        extends: [reactTs.configs.node],
     },
 ]);

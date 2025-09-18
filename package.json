@@ -19,7 +19,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@doubleaxe/eslint-config": "^2.0.2",
+    "@doubleaxe/eslint-config": "^2.0.4",
     "@doubleaxe/prettier-config": "^1.0.4",
     "@doubleaxe/typescript-config": "^1.0.4",
     "@types/node": "^24.5.0",
