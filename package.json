@@ -15,6 +15,9 @@
     "node": ">=22"
   },
   "type": "module",
+  "workspaces": [
+    "packages/**"
+  ],
   "scripts": {
     "lint": "eslint ."
   },

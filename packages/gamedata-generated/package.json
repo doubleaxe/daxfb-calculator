@@ -1,0 +1,17 @@
+{
+  "name": "@doubleaxe/daxfb-gamedata-generated",
+  "private": true,
+  "version": "2.0.0-alpha.1",
+  "license": "MIT",
+  "packageManager": "pnpm@10.16.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "imports": {
+    "#daxfb-shared/*": "./node_modules/@doubleaxe/daxfb-shared/src/*"
+  },
+  "dependencies": {
+    "@doubleaxe/daxfb-shared": "workspace:*"
+  }
+}

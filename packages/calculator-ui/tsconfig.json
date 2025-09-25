@@ -7,6 +7,8 @@
     "jsx": "react-jsx",
     "importHelpers": true,
     "paths": {
+      "#daxfb-gamedata-generated/*": ["./node_modules/@doubleaxe/daxfb-gamedata-generated/src/*"],
+      "#daxfb-shared/*": ["./node_modules/@doubleaxe/daxfb-shared/src/*"],
       "#core-ui/*": ["./src/core-ui/*"],
       "#types/*": ["./src/types/*"],
       "styled-system/*": ["./generated/styled-system/*"]

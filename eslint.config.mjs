@@ -6,6 +6,9 @@ const patterns = reactTs.patterns;
 const configs = reactTs.configs;
 
 export default defineConfig([
+    {
+        ignores: ['**/gamedata-generated/src/*/'],
+    },
     extendFiles(configs.esNextRoot, [...patterns.esFilter, ...patterns.tsFilter]),
     {
         name: 'ts',

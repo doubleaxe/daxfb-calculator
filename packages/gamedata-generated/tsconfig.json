@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@doubleaxe/typescript-config/base.json",
+  "compilerOptions": {
+    "importHelpers": true,
+    "paths": {
+      "#daxfb-shared/*": ["./node_modules/@doubleaxe/daxfb-shared/src/*"]
+    }
+  },
+  "include": ["src"]
+}

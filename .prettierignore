@@ -5,3 +5,5 @@ tmp
 pnpm-lock.yaml
 **/submodules/
 **/generated/
+.nx
+**/gamedata-generated/src/*/
