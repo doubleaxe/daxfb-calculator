@@ -19,9 +19,13 @@
     "packages/**"
   ],
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "changeset-add": "@changesets/cli add",
+    "changeset-release": "@changesets/cli version",
+    "changeset-snapshot": "@changesets/cli version --snapshot"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.7",
     "@doubleaxe/eslint-config": "^2.0.4",
     "@doubleaxe/prettier-config": "^1.0.4",
     "@doubleaxe/typescript-config": "^1.0.4",
@@ -30,7 +34,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "lerna": "^8.2.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
