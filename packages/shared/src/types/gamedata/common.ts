@@ -20,49 +20,48 @@ export type GameRecipeIOBaseJson = {
     flags?: number;
 } & GameItemRefBaseJson;
 
-export type GameRecipeBaseJson = {
+export type GameRecipeBaseJson<IO extends GameRecipeIOBaseJson = GameRecipeIOBaseJson> = {
     // ordered in natural order
-    input?: GameRecipeIOBaseJson[];
+    input?: IO[];
     key: string;
     // ordered in natural order
-    output?: GameRecipeIOBaseJson[];
+    output?: IO[];
     time: number;
 };
 
-export type GameRecipeDictionaryBaseJson = {
+export type GameRecipeDictionaryBaseJson<REC extends GameRecipeBaseJson = GameRecipeBaseJson> = {
     key: string;
     name: string;
     // ordered in natural order
-    recipes: GameRecipeBaseJson[];
+    recipes: REC[];
 };
 
 export type GameRecipeDictionaryReferenceBaseJson = {
     key: string;
 };
 
-export type GameItemImageJson = [number, number];
-
 export const GameItemFlags = {
     None: 0,
     AbstractTypePlaceholderItem: 1,
 } as const;
 
-export type GameItemBaseJson = {
-    cost?: GameItemRefBaseJson[];
+export type GameItemBaseJson<
+    ITM extends GameItemRefBaseJson = GameItemRefBaseJson,
+    DIC extends GameRecipeDictionaryReferenceBaseJson = GameRecipeDictionaryReferenceBaseJson,
+> = {
+    cost?: ITM[];
     flags?: number;
     image?: GameItemImageJson;
     key: string;
     name: string;
     nextTier?: string;
     prevTier?: string;
-    recipe?: GameRecipeDictionaryReferenceBaseJson;
+    recipe?: DIC;
     tier?: number;
     type?: number;
 };
 
-export type GameItemLocaleJson = [string, string][];
-
-export type GameDescriptionJson = {
+export type GameDescriptionBaseJson = {
     compatibleSaveVersions: number[];
     description: string;
     name: string;
@@ -72,43 +71,6 @@ export type GameDescriptionJson = {
     version: string;
 };
 
-/**
- * loaded and parsed
- */
-export type GameItemRefBase = GameItemRefBaseJson;
+export type GameItemImageJson = [number, number];
 
-export type GameRecipeIOBase = {
-    isInput: boolean;
-    product: GameItemBase;
-    recipe: GameRecipeBase;
-} & GameRecipeIOBaseJson;
-
-export type GameRecipeBase = {
-    // ordered in natural order
-    input: GameRecipeIOBase[];
-    // ordered in natural order
-    output: GameRecipeIOBase[];
-    recipeDictionary: GameRecipeDictionaryBase;
-} & GameRecipeBaseJson;
-
-export type GameRecipeDictionaryBase = {
-    hasInputTypes: ReadonlySet<number>;
-    hasOutputTypes: ReadonlySet<number>;
-
-    items: GameItemBase[];
-    // ordered in natural order
-    recipes: GameRecipeBase[];
-    // item name => recipe names
-    recipesByInputMap: ReadonlyMap<string, string[]>;
-    recipesByOutputMap: ReadonlyMap<string, string[]>;
-    recipesMap: ReadonlyMap<string, GameRecipeBase>;
-} & GameRecipeDictionaryBaseJson;
-
-export type GameItemBase = {
-    label: string;
-    lowerLabel: string;
-    order: number;
-    recipeDictionary?: GameRecipeDictionaryBase;
-} & GameItemBaseJson;
-
-export type GameItemLocale = ReadonlyMap<string, string>;
+export type GameItemLocaleJson = [string, string][];

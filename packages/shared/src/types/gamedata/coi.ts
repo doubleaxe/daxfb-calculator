@@ -1,19 +1,16 @@
 import type {
-    GameDescriptionJson,
-    GameItemBase,
+    GameDescriptionBaseJson,
     GameItemBaseJson,
+    GameItemImageJson,
     GameItemLocaleJson,
-    GameItemRefBase,
     GameItemRefBaseJson,
-    GameRecipeBase,
     GameRecipeBaseJson,
-    GameRecipeDictionaryBase,
     GameRecipeDictionaryBaseJson,
     GameRecipeDictionaryReferenceBaseJson,
-    GameRecipeIOBase,
     GameRecipeIOBaseJson,
 } from './common.js';
 
+export type { GameItemImageJson, GameItemLocaleJson };
 export { GameItemFlags, GameRecipeIOFlags } from './common.js';
 
 /**
@@ -42,34 +39,17 @@ export const GameItemSpecialType = {
 
 export type GameItemRefCoiJson = GameItemRefBaseJson;
 
-export type GameRecipeIOCoiJson = GameRecipeIOBaseJson;
+export type GameRecipeIOCoiJson = GameItemRefCoiJson & GameRecipeIOBaseJson;
 
-export type GameRecipeCoiJson = GameRecipeBaseJson;
+export type GameRecipeCoiJson = GameRecipeBaseJson<GameRecipeIOCoiJson>;
 
-export type GameRecipeDictionaryCoiJson = GameRecipeDictionaryBaseJson;
+export type GameRecipeDictionaryCoiJson = GameRecipeDictionaryBaseJson<GameRecipeCoiJson>;
 
 export type GameRecipeDictionaryReferenceCoiJson = GameRecipeDictionaryReferenceBaseJson;
 
 export type GameItemCoiJson = {
     type?: number;
     type2?: number;
-} & GameItemBaseJson;
+} & GameItemBaseJson<GameItemRefCoiJson, GameRecipeDictionaryReferenceCoiJson>;
 
-export type GameItemLocaleCoiJson = GameItemLocaleJson;
-
-export type GameDescriptionCoiJson = GameDescriptionJson;
-
-/**
- * loaded and parsed
- */
-export type GameItemRefCoi = GameItemRefBase;
-
-export type GameRecipeIOCoi = GameRecipeIOBase;
-
-export type GameRecipeCoi = GameRecipeBase;
-
-export type GameRecipeDictionaryCoi = GameRecipeDictionaryBase;
-
-export type GameRecipeDictionaryReferenceCoi = GameRecipeDictionaryReferenceBaseJson;
-
-export type GameItemCoi = GameItemBase & GameItemCoiJson;
+export type GameDescriptionCoiJson = GameDescriptionBaseJson;

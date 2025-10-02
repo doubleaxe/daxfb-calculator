@@ -9,8 +9,10 @@
     "paths": {
       "#daxfb-gamedata-generated/*": ["./node_modules/@doubleaxe/daxfb-gamedata-generated/src/*"],
       "#daxfb-shared/*": ["./node_modules/@doubleaxe/daxfb-shared/src/*"],
+      "#core/*": ["./src/core/*"],
       "#core-ui/*": ["./src/core-ui/*"],
       "#types/*": ["./src/types/*"],
+      "#utils/*": ["./src/utils/*"],
       "styled-system/*": ["./generated/styled-system/*"]
     }
   },
