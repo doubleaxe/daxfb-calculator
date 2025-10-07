@@ -14,11 +14,11 @@ export type GameItemRefBaseJson = {
     name: string;
 };
 
-export type GameRecipeIOBaseJson = {
+export type GameRecipeIOBaseJson<REF extends GameItemRefBaseJson = GameItemRefBaseJson> = {
     // common flags used in global code
     // see GameRecipeIOFlags
     flags?: number;
-} & GameItemRefBaseJson;
+} & REF;
 
 export type GameRecipeBaseJson<IO extends GameRecipeIOBaseJson = GameRecipeIOBaseJson> = {
     // ordered in natural order

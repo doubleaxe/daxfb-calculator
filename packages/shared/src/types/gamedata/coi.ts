@@ -39,7 +39,7 @@ export const GameItemSpecialType = {
 
 export type GameItemRefCoiJson = GameItemRefBaseJson;
 
-export type GameRecipeIOCoiJson = GameItemRefCoiJson & GameRecipeIOBaseJson;
+export type GameRecipeIOCoiJson = GameRecipeIOBaseJson<GameItemRefCoiJson>;
 
 export type GameRecipeCoiJson = GameRecipeBaseJson<GameRecipeIOCoiJson>;
 
@@ -48,7 +48,6 @@ export type GameRecipeDictionaryCoiJson = GameRecipeDictionaryBaseJson<GameRecip
 export type GameRecipeDictionaryReferenceCoiJson = GameRecipeDictionaryReferenceBaseJson;
 
 export type GameItemCoiJson = {
-    type?: number;
     type2?: number;
 } & GameItemBaseJson<GameItemRefCoiJson, GameRecipeDictionaryReferenceCoiJson>;
 
