@@ -1,7 +1,7 @@
 /**
  * JSON serialized
  */
-export const GameRecipeIOFlags = {
+export const GameRecipeIOFlagsBase = {
     None: 0,
     HasProbability: 1,
     Hidden: 4,
@@ -40,11 +40,13 @@ export type GameRecipeDictionaryReferenceBaseJson = {
     key: string;
 };
 
-export const GameItemFlags = {
+export const GameItemFlagsBase = {
     None: 0,
     AbstractTypePlaceholderItem: 1,
 } as const;
-
+export const GameItemTypeBase = {
+    Unknown: 0,
+} as const;
 export type GameItemBaseJson<
     ITM extends GameItemRefBaseJson = GameItemRefBaseJson,
     DIC extends GameRecipeDictionaryReferenceBaseJson = GameRecipeDictionaryReferenceBaseJson,
@@ -74,3 +76,14 @@ export type GameDescriptionBaseJson = {
 export type GameItemImageJson = [number, number];
 
 export type GameItemLocaleJson = [string, string][];
+
+export type GameDataBaseJson<
+    D extends GameDescriptionBaseJson = GameDescriptionBaseJson,
+    I extends GameItemBaseJson = GameItemBaseJson,
+    R extends GameRecipeDictionaryBaseJson = GameRecipeDictionaryBaseJson,
+> = {
+    description: D;
+    items: I[];
+    locale: GameItemLocaleJson;
+    recipes: R[];
+};

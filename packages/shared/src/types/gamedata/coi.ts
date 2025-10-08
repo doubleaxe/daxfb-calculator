@@ -1,4 +1,5 @@
 import type {
+    GameDataBaseJson,
     GameDescriptionBaseJson,
     GameItemBaseJson,
     GameItemImageJson,
@@ -9,15 +10,23 @@ import type {
     GameRecipeDictionaryReferenceBaseJson,
     GameRecipeIOBaseJson,
 } from './common.js';
+import { GameItemFlagsBase, GameItemTypeBase, GameRecipeIOFlagsBase } from './common.js';
 
 export type { GameItemImageJson, GameItemLocaleJson };
-export { GameItemFlags, GameRecipeIOFlags } from './common.js';
 
 /**
  * JSON serialized
  */
-export const GameItemType = {
-    Unknown: 0,
+export const GameItemFlagsCoi = {
+    ...GameItemFlagsBase,
+} as const;
+
+export const GameRecipeIOFlagsCoi = {
+    ...GameRecipeIOFlagsBase,
+};
+
+export const GameItemTypeCoi = {
+    ...GameItemTypeBase,
     Fluid: 1,
     Countable: 2,
     Loose: 3,
@@ -26,7 +35,7 @@ export const GameItemType = {
     Special: 6,
 } as const;
 
-export const GameItemSpecialType = {
+export const GameItemSpecialTypeCoi = {
     Unknown: 0,
     Electricity: 1,
     MechPower: 2,
@@ -52,3 +61,5 @@ export type GameItemCoiJson = {
 } & GameItemBaseJson<GameItemRefCoiJson, GameRecipeDictionaryReferenceCoiJson>;
 
 export type GameDescriptionCoiJson = GameDescriptionBaseJson;
+
+export type GameDataCoiJson = GameDataBaseJson<GameDescriptionCoiJson, GameItemCoiJson, GameRecipeDictionaryCoiJson>;
