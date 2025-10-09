@@ -1,4 +1,4 @@
-import type { GameItemLocale, ReadonlyInterfaceOf } from '#core/game/parser/ParsedGameData';
+import type { GameItemLocale, ReadonlyInterfaceOf, RecipeIOOptions } from '#core/game/parser/ParsedGameData';
 import {
     GameDataBaseImpl,
     GameItemBaseImpl,
@@ -38,6 +38,13 @@ export type GameItemCoi = ReadonlyInterfaceOf<GameItemCoiImpl>;
 export class GameRecipeIOCoiImpl extends GameRecipeIOBaseImpl implements GameRecipeIOCoiJson {
     declare product: GameItemCoi;
     declare recipe: GameRecipeCoi;
+
+    constructor(_recipe: GameRecipeCoi, _io: GameRecipeIOCoiJson, options: RecipeIOOptions) {
+        super(_recipe, _io, options);
+
+        // not useless constuctor
+        this.recipe = _recipe;
+    }
 }
 export type GameRecipeIOCoi = ReadonlyInterfaceOf<GameRecipeIOCoiImpl>;
 
@@ -48,10 +55,11 @@ export class GameRecipeCoiImpl extends GameRecipeBaseImpl implements GameRecipeC
     declare recipeDictionary: GameRecipeDictionaryCoi;
 
     constructor(_recipeDictionary: GameRecipeDictionaryCoi, _recipe: GameRecipeCoiJson) {
+        // Must call super constructor in derived class before accessing 'this' or returning from derived constructor
         super(
             _recipeDictionary,
             _recipe,
-            (io, options) => new GameRecipeIOCoiImpl(this, io as GameRecipeIOCoiJson, options)
+            (recipe, io, options) => new GameRecipeIOCoiImpl(recipe as GameRecipeCoi, io, options)
         );
     }
 }
@@ -63,7 +71,11 @@ export class GameRecipeDictionaryCoiImpl extends GameRecipeDictionaryBaseImpl im
     declare recipesMap: ReadonlyMap<string, GameRecipeCoi>;
 
     constructor(_recipeDictionary: GameRecipeDictionaryCoiJson) {
-        super(_recipeDictionary, (recipe) => new GameRecipeCoiImpl(this, recipe as GameRecipeCoiJson));
+        // Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+        super(
+            _recipeDictionary,
+            (recipeDictionary, recipe) => new GameRecipeCoiImpl(recipeDictionary as GameRecipeDictionaryCoi, recipe)
+        );
     }
 }
 export type GameRecipeDictionaryCoi = ReadonlyInterfaceOf<GameRecipeDictionaryCoiImpl>;

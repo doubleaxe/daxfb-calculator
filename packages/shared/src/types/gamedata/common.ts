@@ -84,6 +84,6 @@ export type GameDataBaseJson<
 > = {
     description: D;
     items: I[];
-    locale: GameItemLocaleJson;
+    locale?: GameItemLocaleJson;
     recipes: R[];
 };

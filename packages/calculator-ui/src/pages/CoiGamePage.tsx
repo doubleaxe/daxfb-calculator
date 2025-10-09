@@ -1,7 +1,5 @@
+import MainPage from '../games/coi/MainPage';
+
 export default function CoiGamePage() {
-    return (
-        <div>
-            <h1>COI</h1>
-        </div>
-    );
+    return <MainPage />;
 }

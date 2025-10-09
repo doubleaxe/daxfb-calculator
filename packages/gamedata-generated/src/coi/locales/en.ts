@@ -1,5 +1,5 @@
-import type { GameItemLocaleCoiJson } from '#daxfb-shared/types/gamedata/coi.js';
-export const localeJson: GameItemLocaleCoiJson = [
+import type { GameItemLocaleJson } from '#daxfb-shared/types/gamedata/coi.js';
+export const localeJson: GameItemLocaleJson = [
   [
     "6I",
     "Acid"

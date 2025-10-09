@@ -1,3 +1,5 @@
+export { useGameContext } from './GameContext';
+export { default as GameContextProvider } from './GameContextProvider';
 export type {
     GameDataCoi,
     GameItemCoi,

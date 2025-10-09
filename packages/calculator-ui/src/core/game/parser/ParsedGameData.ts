@@ -66,7 +66,11 @@ export type GameItemBase = ReadonlyInterfaceOf<GameItemBaseImpl>;
 export type RecipeIOOptions = {
     isInput: boolean;
 };
-export type CreateGameRecipeIO = (io: GameRecipeIOBaseJson, options: RecipeIOOptions) => GameRecipeIOBase;
+export type CreateGameRecipeIO = (
+    recipe: GameRecipeBase,
+    io: GameRecipeIOBaseJson,
+    options: RecipeIOOptions
+) => GameRecipeIOBase;
 export abstract class GameRecipeIOBaseImpl implements GameRecipeIOBaseJson {
     count!: number;
     key!: string;
@@ -94,7 +98,10 @@ export abstract class GameRecipeIOBaseImpl implements GameRecipeIOBaseJson {
 }
 export type GameRecipeIOBase = ReadonlyInterfaceOf<GameRecipeIOBaseImpl>;
 
-export type CreateGameRecipe = (recipe: GameRecipeBaseJson) => GameRecipeBase;
+export type CreateGameRecipe = (
+    recipeDictionary: GameRecipeDictionaryBase,
+    recipe: GameRecipeBaseJson
+) => GameRecipeBase;
 export abstract class GameRecipeBaseImpl implements GameRecipeBaseJson {
     input: GameRecipeIOBase[];
     key!: string;
@@ -111,17 +118,17 @@ export abstract class GameRecipeBaseImpl implements GameRecipeBaseJson {
         Object.assign(this, _recipe);
 
         this.recipeDictionary = _recipeDictionary;
-        this.input = GameRecipeBaseImpl.#mapIO(_recipe.input, { isInput: true }, createGameRecipeIO);
-        this.output = GameRecipeBaseImpl.#mapIO(_recipe.output, { isInput: false }, createGameRecipeIO);
+        this.input = this.#mapIO(_recipe.input, { isInput: true }, createGameRecipeIO);
+        this.output = this.#mapIO(_recipe.output, { isInput: false }, createGameRecipeIO);
     }
 
-    static #mapIO(
+    #mapIO(
         itemArray: GameRecipeIOBaseJson[] | undefined,
         options: RecipeIOOptions,
         createGameRecipeIO: CreateGameRecipeIO
     ) {
         if (!itemArray) return [];
-        return itemArray.map((i) => createGameRecipeIO(i, options));
+        return itemArray.map((i) => createGameRecipeIO(this, i, options));
     }
 
     freeze() {
@@ -143,30 +150,21 @@ export abstract class GameRecipeDictionaryBaseImpl implements GameRecipeDictiona
     name!: string;
     recipes: GameRecipeBase[];
 
-    hasInputTypes: ReadonlySet<number>;
-    hasOutputTypes: ReadonlySet<number>;
+    hasInputTypes!: ReadonlySet<number>;
+    hasOutputTypes!: ReadonlySet<number>;
 
     items: GameItemBase[];
     // item name => recipe names
-    recipesByInputMap: ReadonlyMap<string, string[]>;
-    recipesByOutputMap: ReadonlyMap<string, string[]>;
+    recipesByInputMap!: ReadonlyMap<string, string[]>;
+    recipesByOutputMap!: ReadonlyMap<string, string[]>;
     recipesMap: ReadonlyMap<string, GameRecipeBase>;
 
     constructor(_recipeDictionary: GameRecipeDictionaryBaseJson, createGameRecipe: CreateGameRecipe) {
         Object.assign(this, _recipeDictionary);
 
-        this.recipes = _recipeDictionary.recipes.map((r) => createGameRecipe(r));
+        this.recipes = _recipeDictionary.recipes.map((r) => createGameRecipe(this, r));
         this.items = [];
         this.recipesMap = freezeMap(new Map<string, GameRecipeBase>(this.recipes.map((r) => [r.key, r])));
-
-        const { recipesByProductMap: recipesByInputMap, hasIoTypes: hasInputTypes } = this.#recipesByProduct('input');
-        this.recipesByInputMap = recipesByInputMap;
-        this.hasInputTypes = hasInputTypes;
-
-        const { recipesByProductMap: recipesByOutputMap, hasIoTypes: hasOutputTypes } =
-            this.#recipesByProduct('output');
-        this.recipesByOutputMap = recipesByOutputMap;
-        this.hasOutputTypes = hasOutputTypes;
     }
 
     #recipesByProduct(type: 'input' | 'output') {
@@ -191,8 +189,27 @@ export abstract class GameRecipeDictionaryBaseImpl implements GameRecipeDictiona
         };
     }
 
-    postInit(_item: GameItemBase) {
+    postInitItem(_item: GameItemBase) {
         this.items.push(_item);
+    }
+    postInit(items: Map<string, GameItemBase>) {
+        for (const recipe of this.recipes) {
+            for (const io of [...recipe.input, ...recipe.output]) {
+                const item = items.get(io.key);
+                if (item) {
+                    io.postInit(item);
+                }
+            }
+        }
+
+        const { recipesByProductMap: recipesByInputMap, hasIoTypes: hasInputTypes } = this.#recipesByProduct('input');
+        this.recipesByInputMap = recipesByInputMap;
+        this.hasInputTypes = hasInputTypes;
+
+        const { recipesByProductMap: recipesByOutputMap, hasIoTypes: hasOutputTypes } =
+            this.#recipesByProduct('output');
+        this.recipesByOutputMap = recipesByOutputMap;
+        this.hasOutputTypes = hasOutputTypes;
     }
     freeze() {
         this.recipes.forEach((r) => r.freeze());
@@ -224,7 +241,8 @@ export abstract class ParsedGameDataBaseImpl<
         const parsedItems = new Map<string, ITM>();
         const parsedRecipes = new Map<string, REC>();
 
-        const locale: GameItemLocale = new Map<string, string>(gameData.locale.map(([key, value]) => [key, value]));
+        const localeJson = gameData.locale ?? [];
+        const locale: GameItemLocale = new Map<string, string>(localeJson.map(([key, value]) => [key, value]));
         gameData.items.forEach((value, index) => {
             const item = createGameItem(value, locale, index);
             parsedItems.set(value.key, item);
@@ -239,7 +257,7 @@ export abstract class ParsedGameDataBaseImpl<
             if (item.recipe) {
                 const recipeDictionary = parsedRecipes.get(item.recipe.key);
                 if (recipeDictionary) {
-                    recipeDictionary.postInit(item);
+                    recipeDictionary.postInitItem(item);
                     item.postInit(recipeDictionary);
                 }
             }
@@ -247,14 +265,7 @@ export abstract class ParsedGameDataBaseImpl<
         }
 
         for (const recipeDictionary of parsedRecipes.values()) {
-            for (const recipe of recipeDictionary.recipes) {
-                for (const io of [...recipe.input, ...recipe.output]) {
-                    const item = parsedItems.get(io.key);
-                    if (item) {
-                        io.postInit(item);
-                    }
-                }
-            }
+            recipeDictionary.postInit(parsedItems);
             recipeDictionary.freeze();
         }
 
