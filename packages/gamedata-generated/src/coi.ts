@@ -11,6 +11,7 @@ const descriptionJson: GameDescriptionCoiJson = {
     version: '0.6.0a(B315) - Update 2',
     saveVersion: 6,
     compatibleSaveVersions: [5, 6],
+    imageSize: 32,
 };
 
 export const gameDataJson: GameDataCoiJson = {

@@ -1,11 +1,10 @@
+import PageInitializer from './PageInitializer';
 import { GameContextProvider } from './parser';
 
-export default function MainPage() {
+export default function GameContextLoader() {
     return (
         <GameContextProvider>
-            <div>
-                <h1>COI</h1>
-            </div>
+            <PageInitializer />
         </GameContextProvider>
     );
 }

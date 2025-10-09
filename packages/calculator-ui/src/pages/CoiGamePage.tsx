@@ -1,5 +1,5 @@
-import MainPage from '../games/coi/MainPage';
+import GameContextLoader from '../games/coi/GameContextLoader';
 
 export default function CoiGamePage() {
-    return <MainPage />;
+    return <GameContextLoader />;
 }

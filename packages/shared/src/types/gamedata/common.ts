@@ -66,6 +66,7 @@ export type GameItemBaseJson<
 export type GameDescriptionBaseJson = {
     compatibleSaveVersions: number[];
     description: string;
+    imageSize: number;
     name: string;
     saveVersion: number;
     shortName: string;
