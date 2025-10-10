@@ -4,7 +4,7 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { initApplication } from '#core-ui/init';
+import { initApplication } from '#core/ui/init';
 
 import App from './App';
 

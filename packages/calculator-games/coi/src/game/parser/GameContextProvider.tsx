@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import type { BaseProps } from '#types/props';
+import type { BaseProps } from '#core/types/props';
 
 import { GameContext } from './GameContext';
 import { GameDataCoiImpl } from './ParsedGameData';

@@ -1,8 +1,14 @@
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 import pkg from './package.json' with { type: 'json' };
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 process.env['VITE_VERSION'] = pkg.version;
 process.env['VITE_BUILD_TIME'] = new Date().toISOString();
@@ -15,7 +21,11 @@ export default defineConfig({
     build: {
         emptyOutDir: true,
         rollupOptions: {
-            plugins: [],
+            plugins: [
+                visualizer({
+                    filename: path.join(__dirname, './dist/stats.html'),
+                }),
+            ],
         },
     },
 });

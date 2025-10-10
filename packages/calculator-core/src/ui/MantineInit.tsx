@@ -1,7 +1,7 @@
 import type { CSSVariablesResolver } from '@mantine/core';
 import { MantineProvider } from '@mantine/core';
 
-import type { BaseProps } from '#types/props';
+import type { BaseProps } from '#core/types/props';
 
 const resolver: CSSVariablesResolver = () => ({
     variables: {},

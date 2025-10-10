@@ -1,0 +1,41 @@
+{
+  "name": "@doubleaxe/daxfb-calculator-styles",
+  "private": true,
+  "version": "2.0.0-alpha.1",
+  "license": "MIT",
+  "packageManager": "pnpm@10.16.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "scripts": {
+    "prepare": "panda codegen --clean",
+    "emit": "panda emit-pkg"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "^1.3.0"
+  },
+  "exports": {
+    "./css": {
+      "types": "./generated/styled-system/css/index.d.ts",
+      "import": "./generated/styled-system/css/index.mjs"
+    },
+    "./tokens": {
+      "types": "./generated/styled-system/tokens/index.d.ts",
+      "import": "./generated/styled-system/tokens/index.mjs"
+    },
+    "./types": {
+      "types": "./generated/styled-system/types/index.d.ts",
+      "import": "./generated/styled-system/types/index.mjs"
+    },
+    "./patterns": {
+      "types": "./generated/styled-system/patterns/index.d.ts",
+      "import": "./generated/styled-system/patterns/index.mjs"
+    },
+    "./jsx": {
+      "types": "./generated/styled-system/jsx/index.d.ts",
+      "import": "./generated/styled-system/jsx/index.mjs"
+    },
+    "./styles.css": "./generated/styled-system/styles.css"
+  }
+}

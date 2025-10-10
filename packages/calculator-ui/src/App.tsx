@@ -1,9 +1,10 @@
+import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { Center, Loader } from '@mantine/core';
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { css } from 'styled-system/css';
 
-import MantineInit from '#core-ui/MantineInit';
-import { GameIds } from '#types/constants';
+import MantineInit from '#core/ui/MantineInit';
+
+import { GameIds } from './GameIds';
 
 const LandingPage = lazy(() => import(`./pages/LandingPage`));
 const CoiGamePage = lazy(() => import('./pages/CoiGamePage'));

@@ -7,7 +7,7 @@ const configs = reactTs.configs;
 
 export default defineConfig([
     {
-        ignores: ['**/gamedata-generated/src/*/'],
+        ignores: ['**/gamedata-generated/src/*/', '**/generated/styled-system'],
     },
     extendFiles(configs.esNextRoot, [...patterns.esFilter, ...patterns.tsFilter]),
     {

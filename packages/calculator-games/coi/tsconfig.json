@@ -10,9 +10,8 @@
       "#core/*": ["./node_modules/@doubleaxe/daxfb-calculator-core/src/*"],
       "#daxfb-gamedata-generated/*": ["./node_modules/@doubleaxe/daxfb-gamedata-generated/src/*"],
       "#daxfb-shared/*": ["./node_modules/@doubleaxe/daxfb-shared/src/*"],
-      "#game-ui-coi/*": ["./node_modules/@doubleaxe/daxfb-calculator-games.coi/src/*"]
+      "#game-ui-coi/*": ["./src/*"]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"]
 }

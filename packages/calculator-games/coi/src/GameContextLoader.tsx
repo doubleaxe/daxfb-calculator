@@ -1,5 +1,5 @@
-import PageInitializer from './PageInitializer';
-import { GameContextProvider } from './parser';
+import { GameContextProvider } from './game/parser';
+import PageInitializer from './ui/PageInitializer';
 
 export default function GameContextLoader() {
     return (

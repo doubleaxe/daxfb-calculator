@@ -1,30 +1,17 @@
-import { defineConfig, definePattern } from '@pandacss/dev';
-
-const patterns = {
-    // remove gap
-    // https://github.com/chakra-ui/panda/discussions/810
-    stack: definePattern({
-        defaultValues: { direction: 'column', gap: undefined },
-    }),
-    vstack: definePattern({
-        defaultValues: { gap: undefined },
-    }),
-    hstack: definePattern({
-        defaultValues: { gap: undefined },
-    }),
-};
+import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
-    include: ['./src/**/*.{ts,tsx}'],
-    exclude: ['src/generated/**'],
+    include: [
+        './node_modules/@doubleaxe/daxfb-calculator-core/src/**/*.{ts,tsx}',
+        './node_modules/@doubleaxe/daxfb-calculator-games.coi/src/**/*.{ts,tsx}',
+        './src/**/*.{ts,tsx}',
+    ],
     outdir: 'generated/styled-system',
+    importMap: '@doubleaxe/daxfb-calculator-styles',
 
     presets: [],
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: true },
     jsxFramework: 'react',
-    patterns: {
-        extend: patterns,
-    },
 });
