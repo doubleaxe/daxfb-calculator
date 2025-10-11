@@ -1,8 +1,8 @@
 import { lazy } from 'react';
 
+import { GameContextBase } from '#core/game/parser';
 import type { BaseProps } from '#core/types/props';
 
-import { GameContext } from './GameContext';
 import { GameDataCoiImpl } from './ParsedGameData';
 
 const GameContextProvider = lazy(async () => {
@@ -15,7 +15,7 @@ const GameContextProvider = lazy(async () => {
     const gameData = new GameDataCoiImpl(gameDataJson);
 
     function GameContextProviderComponent({ children }: BaseProps) {
-        return <GameContext value={gameData}>{children}</GameContext>;
+        return <GameContextBase value={gameData}>{children}</GameContextBase>;
     }
     return {
         default: GameContextProviderComponent,

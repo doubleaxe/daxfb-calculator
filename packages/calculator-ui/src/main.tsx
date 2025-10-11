@@ -1,7 +1,7 @@
 import '@xyflow/react/dist/style.css';
 import './index.css';
 
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { initApplication } from '#core/ui/init';
@@ -11,7 +11,7 @@ import App from './App';
 initApplication();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+    <StrictMode>
         <App />
-    </React.StrictMode>
+    </StrictMode>
 );

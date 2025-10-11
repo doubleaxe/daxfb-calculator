@@ -1,3 +1,4 @@
+export * from './GameContextBase';
 export type {
     GameDataBase,
     GameItemBase,
