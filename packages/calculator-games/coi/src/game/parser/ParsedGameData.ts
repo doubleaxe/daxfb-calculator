@@ -1,4 +1,4 @@
-import type { GameItemLocale, ReadonlyInterfaceOf, RecipeIOOptions } from '#core/game/parser/ParsedGameData';
+import type { GameItemLocale, RecipeIOOptions } from '#core/game/parser/ParsedGameData';
 import {
     GameDataBaseImpl,
     GameItemBaseImpl,
@@ -18,6 +18,7 @@ import type {
     GameRecipeIOCoiJson,
 } from '#daxfb-shared/types/gamedata/coi';
 import { GameItemSpecialTypeCoi } from '#daxfb-shared/types/gamedata/coi';
+import type { ReadonlyInterfaceOf } from '#daxfb-shared/types/UtilityTypes';
 
 export class GameItemCoiImpl extends GameItemBaseImpl implements GameItemCoiJson {
     declare cost?: GameItemRefCoiJson[];

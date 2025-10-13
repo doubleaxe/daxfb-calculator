@@ -1,4 +1,4 @@
-import { freezeMap, freezeSet } from '#core/utils/CollectionUtils';
+import { freezeMap, freezeSet } from '#daxfb-shared/common-utils/CollectionUtils';
 import type {
     GameDataBaseJson,
     GameDescriptionBaseJson,
@@ -11,8 +11,7 @@ import type {
     GameRecipeIOBaseJson,
 } from '#daxfb-shared/types/gamedata/common';
 import { GameItemFlagsBase, GameItemTypeBase, GameRecipeIOFlagsBase } from '#daxfb-shared/types/gamedata/common';
-
-export type ReadonlyInterfaceOf<T> = Readonly<Pick<T, keyof T>>;
+import type { ReadonlyInterfaceOf } from '#daxfb-shared/types/UtilityTypes';
 
 export type CreateGameItem<ITMJ extends GameItemBaseJson, ITM extends GameItemBase> = (
     _item: ITMJ,

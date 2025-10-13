@@ -1,6 +1,6 @@
-import { lazy } from 'react';
+import { lazy, useRef } from 'react';
 
-import { GameContextBase } from '#core/game/parser';
+import { GameContext } from '#core/game/parser';
 import type { BaseProps } from '#core/types/props';
 
 import { GameDataCoiImpl } from './ParsedGameData';
@@ -12,10 +12,11 @@ const GameContextProvider = lazy(async () => {
     ]);
 
     gameDataJson.locale = localeJson;
-    const gameData = new GameDataCoiImpl(gameDataJson);
+    const initialGameData = new GameDataCoiImpl(gameDataJson);
 
     function GameContextProviderComponent({ children }: BaseProps) {
-        return <GameContextBase value={gameData}>{children}</GameContextBase>;
+        const gameData = useRef(initialGameData).current;
+        return <GameContext value={gameData}>{children}</GameContext>;
     }
     return {
         default: GameContextProviderComponent,

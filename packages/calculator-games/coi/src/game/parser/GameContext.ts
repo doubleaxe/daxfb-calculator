@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 
-import { GameContextBase } from '#core/game/parser';
+import { GameContext } from '#core/game/parser';
 
 import type { GameDataCoi } from './ParsedGameData';
 
-export function useGameContext() {
-    const gameContext = useContext(GameContextBase);
-    if (!gameContext) {
+export function useGameData() {
+    const gameData = useContext(GameContext);
+    if (!gameData) {
         throw new Error('GameContext was not found');
     }
-    return gameContext as GameDataCoi;
+    return gameData as GameDataCoi;
 }

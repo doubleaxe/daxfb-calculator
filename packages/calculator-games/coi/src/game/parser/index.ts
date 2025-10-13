@@ -1,4 +1,4 @@
-export { useGameContext } from './GameContext';
+export { useGameData } from './GameContext';
 export { default as GameContextProvider } from './GameContextProvider';
 export type {
     GameDataCoi,

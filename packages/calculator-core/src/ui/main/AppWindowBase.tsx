@@ -55,11 +55,4 @@ function AppWindowBase({ children }: BaseProps) {
 AppWindowBase.FactoryPalette = AppWindowBaseFactoryPalette;
 AppWindowBase.FlowChart = AppWindowBaseFlowChart;
 
-/*
-type AppWidnowType = {
-    FactoryPalette: typeof AppWindowFactoryPalette;
-    FlowChart: typeof AppWindowFlowChart;
-} & FunctionComponent;
-*/
-
 export default AppWindowBase;
