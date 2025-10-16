@@ -1,4 +1,7 @@
-import { useRef } from 'react';
+import type { Context } from 'react';
+import { createElement, useRef } from 'react';
+
+import type { BaseProps } from '#core/types/props';
 
 const initRefSymbol = Symbol('initRef');
 
@@ -8,4 +11,12 @@ export function useInitRef<T>(init: () => T) {
         ref.current = init();
     }
     return ref.current;
+}
+
+export function createUniversalProvider<T>(context: Context<T>, init: () => T) {
+    return function UniversalProvider({ children }: BaseProps) {
+        const value = useInitRef(init);
+
+        return createElement(context, { value }, children);
+    };
 }

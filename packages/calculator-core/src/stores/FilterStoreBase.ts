@@ -86,7 +86,7 @@ export class FilterStoreBaseImpl {
 export type FilterStoreBase = InterfaceOf<FilterStoreBaseImpl>;
 
 export const FilterStoreContext = createContext(null as FilterStoreBase | null);
-export function useFilterStoreContextBase() {
+export function useFilterStoreBase() {
     const filterStore = useContext(FilterStoreContext);
     if (!filterStore) {
         throw new Error('FilterStoreContext was not found');

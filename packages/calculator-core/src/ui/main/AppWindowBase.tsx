@@ -1,9 +1,11 @@
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { AppShell, Burger, Tooltip } from '@mantine/core';
+import { AppShell, Burger, ScrollArea, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { observer } from 'mobx-react-lite';
 import type { ReactNode } from 'react';
 import { Children, isValidElement } from 'react';
 
+import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
 import type { BaseProps } from '#core/types/props';
 
 function AppWindowBaseFactoryPalette({ children }: BaseProps) {
@@ -12,6 +14,18 @@ function AppWindowBaseFactoryPalette({ children }: BaseProps) {
 function AppWindowBaseFlowChart({ children }: BaseProps) {
     return children;
 }
+
+const ScrollAreaAutoHide = observer((props: Record<string, unknown>) => {
+    const factoryPaletteState = useFactoryPaletteState();
+    return (
+        <ScrollArea
+            offsetScrollbars
+            scrollbars='y'
+            type={factoryPaletteState.itemSearchOpened ? 'never' : 'auto'}
+            {...props}
+        />
+    );
+});
 
 function AppWindowBase({ children }: BaseProps) {
     const [openedPalette, { toggle: togglePalette }] = useDisclosure(true);
@@ -45,7 +59,11 @@ function AppWindowBase({ children }: BaseProps) {
                 </Tooltip>
             </AppShell.Header>
 
-            <AppShell.Navbar>{factoryPalette}</AppShell.Navbar>
+            <AppShell.Navbar>
+                <AppShell.Section grow renderRoot={(props) => <ScrollAreaAutoHide {...props} />}>
+                    {factoryPalette}
+                </AppShell.Section>
+            </AppShell.Navbar>
 
             <AppShell.Main className={css({ width: '100%', height: '100%' })}>{flowChart}</AppShell.Main>
         </AppShell>
