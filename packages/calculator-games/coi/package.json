@@ -9,6 +9,12 @@
   },
   "type": "module",
   "scripts": {},
+  "imports": {
+    "#core/*": "./node_modules/@doubleaxe/daxfb-calculator-core/src/*",
+    "#daxfb-gamedata-generated/*": "./node_modules/@doubleaxe/daxfb-gamedata-generated/src/*",
+    "#daxfb-shared/*": "./node_modules/@doubleaxe/daxfb-shared/src/*",
+    "#game-ui-coi/*": "./src/*"
+  },
   "dependencies": {
     "@doubleaxe/daxfb-calculator-core": "workspace:*",
     "@doubleaxe/daxfb-calculator-styles": "workspace:*",

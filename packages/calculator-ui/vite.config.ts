@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 import pkg from './package.json' with { type: 'json' };
 
@@ -16,7 +15,7 @@ process.env['VITE_BUILD_TIME'] = new Date().toISOString();
 // node --inspect-brk node_modules/vite/bin/vite.js
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), tsconfigPaths()],
+    plugins: [react()],
     esbuild: { legalComments: 'none' },
     build: {
         emptyOutDir: true,
