@@ -49,7 +49,7 @@ const FactoryPaletteItemList = observer(() => {
     return (
         <>
             <Group
-                gap='0'
+                gap='2'
                 onClick={(e) => handleItemClick(factoryFromEvent(e.target))}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {

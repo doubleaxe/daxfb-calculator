@@ -36,6 +36,10 @@
       "types": "./generated/styled-system/jsx/index.d.ts",
       "import": "./generated/styled-system/jsx/index.mjs"
     },
-    "./styles.css": "./generated/styled-system/styles.css"
+    "./styles.css": "./generated/styled-system/styles.css",
+    "./panda.config": {
+      "types": "./panda.config.d.ts",
+      "import": "./panda.config.js"
+    }
   }
 }

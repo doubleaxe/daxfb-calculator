@@ -7,7 +7,11 @@ const configs = reactTs.configs;
 
 export default defineConfig([
     {
-        ignores: ['**/gamedata-generated/src/*/', '**/generated/styled-system'],
+        ignores: [
+            '**/gamedata-generated/src/*/',
+            '**/generated/styled-system',
+            'packages/calculator-styles/panda.config.d.ts',
+        ],
     },
     extendFiles(configs.esNextRoot, [...patterns.esFilter, ...patterns.tsFilter]),
     {

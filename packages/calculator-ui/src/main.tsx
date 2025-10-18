@@ -1,5 +1,5 @@
-import '@xyflow/react/dist/style.css';
 import './index.css';
+import './panda.css';
 
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';

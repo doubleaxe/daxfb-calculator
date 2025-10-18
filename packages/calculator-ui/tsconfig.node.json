@@ -5,5 +5,5 @@
     "composite": true,
     "declaration": true
   },
-  "include": ["vite.config.ts", "panda.config.ts"]
+  "include": ["vite.config.ts", "panda.config.ts", "package.json"]
 }

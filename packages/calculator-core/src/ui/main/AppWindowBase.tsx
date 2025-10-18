@@ -1,3 +1,5 @@
+import '@xyflow/react/dist/style.css';
+
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { AppShell, Burger, ScrollArea, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
