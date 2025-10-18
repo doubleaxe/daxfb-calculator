@@ -23,8 +23,15 @@ export const baseConfig = defineConfig({
     eject: true,
     shorthands: false,
     prefix: 'panda',
-    hash: { cssVar: false, className: false },
+    hash: { cssVar: false, className: true },
     jsxFramework: 'react',
+
+    conditions: {
+        extend: {
+            light: '[data-mantine-color-scheme="light"] &',
+            dark: '[data-mantine-color-scheme="dark"] &',
+        },
+    },
 });
 
 export default defineConfig({

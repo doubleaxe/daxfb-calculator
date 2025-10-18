@@ -1,9 +1,9 @@
 import { useDraggable } from '@dnd-kit/core';
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 
 import type { GameItemBase } from '#core/game/parser';
 
 import GameIcon from '../components/GameIcon';
+import iconStyles from '../styles/DraggableAndSelectable';
 
 type Props = {
     isSelected?: boolean;
@@ -13,6 +13,9 @@ type Props = {
 export default function GameIconDraggableAndSelectable({ item, isSelected }: Props) {
     const { attributes, listeners, setNodeRef } = useDraggable({
         id: item.key,
+        attributes: {
+            role: 'img',
+        },
     });
 
     return (
@@ -21,11 +24,9 @@ export default function GameIconDraggableAndSelectable({ item, isSelected }: Pro
             {...listeners}
             {...attributes}
             aria-pressed={isSelected}
-            className={css({
-                cursor: 'pointer',
-                touchAction: 'none',
-            })}
+            className={iconStyles}
             data-item={item.key}
+            data-selected={isSelected}
             tabIndex={0}
         >
             <GameIcon image={item.image} />

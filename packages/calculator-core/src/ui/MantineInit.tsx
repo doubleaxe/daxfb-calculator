@@ -1,15 +1,15 @@
 import type { CSSVariablesResolver } from '@mantine/core';
-import { MantineProvider } from '@mantine/core';
+import { alpha, DEFAULT_THEME, MantineProvider } from '@mantine/core';
 
 import type { BaseProps } from '#core/types/props';
 
 const resolver: CSSVariablesResolver = () => ({
     variables: {},
     light: {
-        '--mantine-color-primary-shadow': 'var(--mantine-color-blue-2)',
+        '--daxfb-shadow-hover-color': alpha(DEFAULT_THEME.colors.blue[2] ?? '', 0.4),
     },
     dark: {
-        '--mantine-color-primary-shadow': 'var(--mantine-color-blue-7)',
+        '--daxfb-shadow-hover-color': alpha(DEFAULT_THEME.colors.blue[6] ?? '', 0.4),
     },
 });
 

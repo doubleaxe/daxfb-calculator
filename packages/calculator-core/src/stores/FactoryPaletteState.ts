@@ -1,22 +1,21 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
 
 import type { GameItemBase } from '#core/game/parser';
 import type { InterfaceOf } from '#daxfb-shared/types/UtilityTypes';
 
 export class FactoryPaletteStateImpl {
+    factoryPaletteOpened = true;
     itemSearchOpened = false;
     selectedFactory: GameItemBase | undefined;
 
     constructor() {
-        makeObservable(this, {
-            itemSearchOpened: observable,
-            selectedFactory: observable,
-            setItemSearchOpened: action,
-            setSelectedFactory: action,
-        });
+        makeAutoObservable(this);
     }
 
+    toggleFactoryPalette() {
+        this.factoryPaletteOpened = !this.factoryPaletteOpened;
+    }
     setItemSearchOpened(itemSearchOpened: boolean) {
         this.itemSearchOpened = itemSearchOpened;
     }

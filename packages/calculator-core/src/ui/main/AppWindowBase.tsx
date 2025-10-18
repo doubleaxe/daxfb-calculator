@@ -1,8 +1,7 @@
 import '@xyflow/react/dist/style.css';
 
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { AppShell, Burger, ScrollArea, Tooltip } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { AppShell, ScrollArea } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
 import type { ReactNode } from 'react';
 import { Children, isValidElement } from 'react';
@@ -10,6 +9,9 @@ import { Children, isValidElement } from 'react';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
 import type { BaseProps } from '#core/types/props';
 
+function AppWindowBaseToolBar({ children }: BaseProps) {
+    return children;
+}
 function AppWindowBaseFactoryPalette({ children }: BaseProps) {
     return children;
 }
@@ -30,13 +32,17 @@ const ScrollAreaAutoHide = observer((props: Record<string, unknown>) => {
 });
 
 function AppWindowBase({ children }: BaseProps) {
-    const [openedPalette, { toggle: togglePalette }] = useDisclosure(true);
+    const factoryPaletteState = useFactoryPaletteState();
 
+    let toolBar: ReactNode | undefined;
     let factoryPalette: ReactNode | undefined;
     let flowChart: ReactNode | undefined;
 
     Children.forEach(children, (child) => {
         if (!isValidElement(child)) return;
+        if (child.type === AppWindowBaseToolBar) {
+            toolBar = child;
+        }
         if (child.type === AppWindowBaseFactoryPalette) {
             factoryPalette = child;
         } else if (child.type === AppWindowBaseFlowChart) {
@@ -51,15 +57,14 @@ function AppWindowBase({ children }: BaseProps) {
             navbar={{
                 width: { sm: 200, lg: 300 },
                 breakpoint: 'xs',
-                collapsed: { desktop: !openedPalette, mobile: !openedPalette },
+                collapsed: {
+                    desktop: !factoryPaletteState.factoryPaletteOpened,
+                    mobile: !factoryPaletteState.factoryPaletteOpened,
+                },
             }}
             padding='md'
         >
-            <AppShell.Header>
-                <Tooltip label='Collapse palette'>
-                    <Burger onClick={togglePalette} opened={openedPalette} size='sm' />
-                </Tooltip>
-            </AppShell.Header>
+            <AppShell.Header>{toolBar}</AppShell.Header>
 
             <AppShell.Navbar>
                 <AppShell.Section grow renderRoot={(props) => <ScrollAreaAutoHide {...props} />}>
@@ -72,7 +77,9 @@ function AppWindowBase({ children }: BaseProps) {
     );
 }
 
+AppWindowBase.ToolBar = AppWindowBaseToolBar;
 AppWindowBase.FactoryPalette = AppWindowBaseFactoryPalette;
 AppWindowBase.FlowChart = AppWindowBaseFlowChart;
 
-export default AppWindowBase;
+const AppWindowBaseObserved = observer(AppWindowBase);
+export default AppWindowBaseObserved;
