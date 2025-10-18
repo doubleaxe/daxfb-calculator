@@ -20,7 +20,6 @@ export const baseConfig = defineConfig({
 
     clean: true,
     presets: [],
-    eject: true,
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: true },

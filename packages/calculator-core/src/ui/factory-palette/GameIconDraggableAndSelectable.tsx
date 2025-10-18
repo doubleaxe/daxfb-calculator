@@ -23,10 +23,10 @@ export default function GameIconDraggableAndSelectable({ item, isSelected }: Pro
             ref={setNodeRef}
             {...listeners}
             {...attributes}
-            aria-pressed={isSelected}
+            aria-selected={isSelected}
             className={iconStyles}
             data-item={item.key}
-            data-selected={isSelected}
+            data-selected={isSelected ? true : undefined}
             tabIndex={0}
         >
             <GameIcon image={item.image} />

@@ -1,5 +1,5 @@
-import { Burger, Group, Tooltip, useMantineColorScheme } from '@mantine/core';
-import { MoonIcon, SunIcon } from '@phosphor-icons/react';
+import { Group, useMantineColorScheme } from '@mantine/core';
+import { ListIcon, MoonIcon, SunIcon, XIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
@@ -13,13 +13,11 @@ const ToolBarBase = observer(() => {
     return (
         <Group align='center' justify='space-between'>
             <Group>
-                <Tooltip label='Toggle palette'>
-                    <Burger
-                        onClick={() => factoryPaletteState.toggleFactoryPalette()}
-                        opened={factoryPaletteState.factoryPaletteOpened}
-                        size='md'
-                    />
-                </Tooltip>
+                <ActionButton
+                    icon={factoryPaletteState.factoryPaletteOpened ? <XIcon /> : <ListIcon />}
+                    onClick={() => factoryPaletteState.toggleFactoryPalette()}
+                    title='Toggle palette'
+                />
             </Group>
             <Group>
                 <ActionButton
