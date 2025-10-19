@@ -1,16 +1,23 @@
 import type { CSSVariablesResolver } from '@mantine/core';
-import { alpha, DEFAULT_THEME, MantineProvider } from '@mantine/core';
+import { DEFAULT_THEME, MantineProvider, toRgba } from '@mantine/core';
 
 import type { BaseProps } from '#core/types/props';
 
+const mantineColorsMix = Object.entries(DEFAULT_THEME.colors)
+    .map(([color, array]) =>
+        array.map((c, i) => {
+            const { r, g, b } = toRgba(c);
+            return [`--mantine-color-mix-${color}-${i}`, `${r} ${g} ${b}`];
+        })
+    )
+    .flat();
+
 const resolver: CSSVariablesResolver = () => ({
-    variables: {},
-    light: {
-        '--daxfb-shadow-hover-color': alpha(DEFAULT_THEME.colors.blue[2] ?? '', 0.4),
+    variables: {
+        ...(Object.fromEntries(mantineColorsMix) as Record<string, string>),
     },
-    dark: {
-        '--daxfb-shadow-hover-color': alpha(DEFAULT_THEME.colors.blue[6] ?? '', 0.4),
-    },
+    light: {},
+    dark: {},
 });
 
 export default function MantineInit({ children }: BaseProps) {
