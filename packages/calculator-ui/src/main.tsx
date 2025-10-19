@@ -1,5 +1,5 @@
 import './index.css';
-import './panda.css';
+import '../generated/styled-system/styles.css';
 
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';

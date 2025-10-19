@@ -13,7 +13,7 @@
     "emit": "panda emit-pkg"
   },
   "devDependencies": {
-    "@pandacss/dev": "^1.3.0"
+    "@pandacss/dev": "^1.4.3"
   },
   "exports": {
     "./css": {

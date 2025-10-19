@@ -15,7 +15,7 @@ const patterns = {
     }),
 };
 
-export const baseConfig = defineConfig({
+export default defineConfig({
     outdir: 'generated/styled-system',
 
     clean: true,
@@ -31,10 +31,7 @@ export const baseConfig = defineConfig({
             dark: '[data-mantine-color-scheme="dark"] &',
         },
     },
-});
 
-export default defineConfig({
-    ...baseConfig,
     patterns: {
         extend: patterns,
     },
