@@ -55,7 +55,7 @@ function AppWindowBase({ children }: BaseProps) {
             className={css({ width: '100%', height: '100%' })}
             header={{ height: 60 }}
             navbar={{
-                width: { sm: 200, lg: 300 },
+                width: { sm: 190, lg: 260 },
                 breakpoint: 'xs',
                 collapsed: {
                     desktop: !factoryPaletteState.factoryPaletteOpened,
