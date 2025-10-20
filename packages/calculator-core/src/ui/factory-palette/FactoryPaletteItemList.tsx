@@ -10,22 +10,22 @@ import type { GameItemBase } from '#core/game/parser';
 import { useGameDataBase } from '#core/game/parser';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
 import { useFilterStoreBase } from '#core/stores/FilterStoreBase';
-import type { GameItemImageJson } from '#daxfb-shared/types/gamedata/common';
 
-import GameIcon from '../components/GameIcon';
-import GameIconDraggableAndSelectable from './GameIconDraggableAndSelectable';
+import GameIconDraggableAndSelectable from '../components/GameIconDraggableAndSelectable';
+import GameIconDragging from '../components/GameIconDragging';
 
 const FactoryPaletteItemList = observer(() => {
     const gameData = useGameDataBase();
     const filterStore = useFilterStoreBase();
     const factoryPaletteState = useFactoryPaletteState();
 
-    const [dragItem, setDragItem] = useState<GameItemImageJson | undefined>(undefined);
+    const [dragItem, setDragItem] = useState<GameItemBase | undefined>(undefined);
 
     useDndMonitor({
         onDragStart(event) {
             if (typeof event.active.id === 'string') {
-                setDragItem(gameData.getGameItem(event.active.id)?.image);
+                setDragItem(gameData.getGameItem(event.active.id));
+                factoryPaletteState.setSelectedFactory(undefined);
             }
         },
         onDragEnd() {
@@ -49,7 +49,7 @@ const FactoryPaletteItemList = observer(() => {
     return (
         <>
             <Group
-                gap='0.1875rem'
+                gap='2px'
                 onClick={(e) => handleItemClick(factoryFromEvent(e.target))}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -57,6 +57,7 @@ const FactoryPaletteItemList = observer(() => {
                         handleItemClick(factoryFromEvent(e.target));
                     }
                 }}
+                p='xs'
             >
                 {filterStore.filter.map((group, index) => (
                     <Fragment key={index}>
@@ -73,7 +74,7 @@ const FactoryPaletteItemList = observer(() => {
             </Group>
             {createPortal(
                 <DragOverlay dropAnimation={null}>
-                    <GameIcon image={dragItem} />
+                    <GameIconDragging item={dragItem} />
                 </DragOverlay>,
                 document.body
             )}

@@ -7,7 +7,7 @@ const mantineColorsMix = Object.entries(DEFAULT_THEME.colors)
     .map(([color, array]) =>
         array.map((c, i) => {
             const { r, g, b } = toRgba(c);
-            return [`--mantine-color-mix-${color}-${i}`, `${r} ${g} ${b}`];
+            return [`--mantine-color-rgb-${color}-${i}`, `${r} ${g} ${b}`];
         })
     )
     .flat();
