@@ -1,8 +1,8 @@
 import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import { WarningIcon } from '@phosphor-icons/react';
 
+import type { GameItemImageJson } from '#core/game/parser';
 import { useGameDataBase } from '#core/game/parser';
-import type { GameItemImageJson } from '#daxfb-shared/types/gamedata/common';
 
 type Props = {
     className?: string;

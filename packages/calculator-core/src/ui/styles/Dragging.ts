@@ -2,7 +2,7 @@ import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 
 const styles = css({
     cursor: 'grab!',
-    borderRadius: '8px',
+    borderRadius: 'var(--mantine-radius-md)',
     transform: 'scale(1.02) rotate(2deg)',
     opacity: 0.8,
     backgroundColor: 'var(--mantine-color-body)',

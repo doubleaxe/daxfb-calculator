@@ -7,3 +7,5 @@ export type {
     GameRecipeDictionaryCoi,
     GameRecipeIOCoi,
 } from './ParsedGameData';
+export type { GameDescriptionCoiJson, GameItemImageJson } from '#daxfb-shared/types/gamedata/coi';
+export { GameItemFlagsCoi, GameItemTypeCoi, GameRecipeIOFlagsCoi } from '#daxfb-shared/types/gamedata/coi';
