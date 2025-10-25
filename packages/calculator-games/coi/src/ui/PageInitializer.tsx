@@ -3,6 +3,7 @@ import InternalStoresInitializer from '#core/ui/main/InternalStoresInitializer';
 import useStylesInitializer from '#core/ui/main/StylesInitializer';
 import iconsPath from '#daxfb-gamedata-generated/coi/images.png';
 
+import { flowChartModelCoiFactory } from '../game/model';
 import { useGameData } from '../game/parser';
 import AppWindow from './AppWindow';
 
@@ -12,7 +13,7 @@ export default function PageInitializer() {
 
     return (
         <DragAndDropInitializer>
-            <InternalStoresInitializer>
+            <InternalStoresInitializer flowChartModel={() => flowChartModelCoiFactory(gameData)}>
                 <AppWindow />
             </InternalStoresInitializer>
         </DragAndDropInitializer>

@@ -1,5 +1,6 @@
-import type { Context } from 'react';
-import { createElement, useRef } from 'react';
+import type { IReactionDisposer } from 'mobx';
+import type { Context, DependencyList } from 'react';
+import { createElement, useEffect, useRef } from 'react';
 
 import type { BaseProps } from '#core/types/props';
 
@@ -19,4 +20,13 @@ export function createUniversalProvider<T>(context: Context<T>, init: () => T) {
 
         return createElement(context, { value }, children);
     };
+}
+
+export function useReaction(reactionInstance: () => IReactionDisposer, deps?: DependencyList) {
+    useEffect(() => {
+        const disposer = reactionInstance();
+        return () => {
+            disposer();
+        };
+    }, deps);
 }

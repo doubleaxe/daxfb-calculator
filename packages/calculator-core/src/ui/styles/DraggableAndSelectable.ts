@@ -6,6 +6,8 @@ const styles = css({
     border: '2px solid transparent',
     borderRadius: 'var(--mantine-radius-md)',
     boxSizing: 'border-box',
+    touchAction: 'none',
+    userSelect: 'none',
 
     _light: {
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
