@@ -16,6 +16,9 @@ export class ItemModelBaseImpl {
     get key() {
         return this.__item?.key;
     }
+    get name() {
+        return this.__item?.name;
+    }
     get label() {
         return this.__item?.label;
     }

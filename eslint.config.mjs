@@ -28,7 +28,14 @@ export default defineConfig([
             ],
         },
     },
-    extendFiles(configs.reactTsRoot, patterns.tsxFilter),
+    {
+        name: 'tsx',
+        files: patterns.tsxFilter,
+        extends: [configs.reactTsRoot],
+        rules: {
+            'perfectionist/sort-jsx-props': 'off',
+        },
+    },
     {
         name: 'web',
         files: ['packages/calculator-ui/**'],

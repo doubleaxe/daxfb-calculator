@@ -30,9 +30,9 @@ export abstract class FlowChartModelBaseImpl {
             __items: observable,
             __links: observable,
             resetChartName: action,
-            __addItem: action,
+            addItem: action,
             __deleteItem: action,
-            __createLink: action,
+            createLink: action,
         });
     }
 
@@ -54,7 +54,7 @@ export abstract class FlowChartModelBaseImpl {
         this.chartName = this.defaultChartName;
     }
 
-    __addItem(key: string) {
+    addItem(key: string): FactoryModelBase {
         const item = this.__factoryConstructor(this, key);
         // invalid item
         if (!item.key) return item;
@@ -66,7 +66,7 @@ export abstract class FlowChartModelBaseImpl {
         this.__items.delete(item.itemId);
     }
 
-    __createLink(connection: FactoryConnection): IOLinkModelBaseImpl | undefined {
+    createLink(connection: FactoryConnection): IOLinkModelBase | undefined {
         const sourceItem = this.__items.get(connection.sourceId);
         const sourceIO = sourceItem?.__getIO(connection.sourceIOId);
         const targetItem = this.__items.get(connection.targetId);
