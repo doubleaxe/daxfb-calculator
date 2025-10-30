@@ -3,7 +3,7 @@ import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import type { GameItemBase } from '#core/game/parser';
 
 import GameIcon from '../components/GameIcon';
-import draggingStyles from '../styles/Dragging';
+import { draggingStyle } from '../styles/Dragging';
 
 type Props = {
     item: GameItemBase | undefined;
@@ -14,7 +14,7 @@ export default function GameIconDragging({ item }: Props) {
         <div
             className={cx(
                 css({ backgroundColor: 'var(--mantine-color-body)', borderRadius: 'var(--mantine-radius-md)' }),
-                draggingStyles
+                draggingStyle
             )}
             data-dragging
         >

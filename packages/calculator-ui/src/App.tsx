@@ -1,5 +1,5 @@
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { Center, Loader } from '@mantine/core';
+import { center } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { Loader } from '@mantine/core';
 import { lazy, Suspense, useEffect, useState } from 'react';
 
 import MantineInit from '#core/ui/MantineInit';
@@ -39,9 +39,9 @@ export default function App() {
         <MantineInit>
             <Suspense
                 fallback={
-                    <Center className={css({ width: '100%', height: '100%' })}>
+                    <div className={center({ width: '100%', height: '100%' })}>
                         <Loader />
-                    </Center>
+                    </div>
                 }
             >
                 <PageComponent />

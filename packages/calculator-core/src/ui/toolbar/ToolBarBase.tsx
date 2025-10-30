@@ -1,4 +1,5 @@
-import { Group, useMantineColorScheme } from '@mantine/core';
+import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { useMantineColorScheme } from '@mantine/core';
 import { ListIcon, MoonIcon, SunIcon, XIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 
@@ -11,23 +12,23 @@ const ToolBarBase = observer(() => {
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
     return (
-        <Group align='center' justify='space-between'>
-            <Group>
+        <div className={hstack({ alignItems: 'center', justify: 'space-between' })}>
+            <div className={hstack()}>
                 <ActionButton
                     icon={factoryPaletteState.factoryPaletteOpened ? <XIcon /> : <ListIcon />}
                     onClick={() => factoryPaletteState.toggleFactoryPalette()}
                     title='Toggle palette'
                 />
-            </Group>
-            <Group>
+            </div>
+            <div className={hstack()}>
                 <ActionButton
                     color={colorScheme === 'dark' ? 'yellow.3' : 'blue.6'}
                     icon={colorScheme === 'dark' ? <SunIcon /> : <MoonIcon />}
                     onClick={() => toggleColorScheme()}
                     title='Toggle color scheme'
                 />
-            </Group>
-        </Group>
+            </div>
+        </div>
     );
 });
 

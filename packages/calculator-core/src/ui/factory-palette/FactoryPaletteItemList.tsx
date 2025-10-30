@@ -11,7 +11,7 @@ import { useGameDataBase } from '#core/game/parser';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
 import { useFilterStoreBase } from '#core/stores/FilterStoreBase';
 
-import GameIconDraggableAndSelectable from '../components/GameIconDraggableAndSelectable';
+import GameIconDraggableSelectable from '../components/GameIconDraggableSelectable';
 import GameIconDragging from '../components/GameIconDragging';
 
 const FactoryPaletteItemList = observer(() => {
@@ -63,7 +63,8 @@ const FactoryPaletteItemList = observer(() => {
                     <Fragment key={index}>
                         {index ? <Divider /> : undefined}
                         {group.map((item) => (
-                            <GameIconDraggableAndSelectable
+                            <GameIconDraggableSelectable
+                                borderStyle={'plain'}
                                 isSelected={factoryPaletteState.selectedFactory === item}
                                 item={item}
                                 key={item.key}

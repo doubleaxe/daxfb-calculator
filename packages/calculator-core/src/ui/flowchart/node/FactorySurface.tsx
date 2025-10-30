@@ -1,5 +1,5 @@
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { Group, Stack } from '@mantine/core';
+import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
@@ -18,19 +18,19 @@ const FactorySurface = observer(({ data }: FactoryNodeProps) => {
         return io;
     }).get();
     return (
-        <Group className={css({ alignItems: 'start' })}>
+        <div className={hstack({ alignItems: 'start' })}>
             <div>
                 {leftSide.map((io) => (
                     <FactoryIO io={io} key={io.itemId} />
                 ))}
             </div>
-            <Stack className={css({ alignSelf: 'center' })}></Stack>
+            <div className={css({ alignSelf: 'center' })}></div>
             <div>
                 {rightSide.map((io) => (
                     <FactoryIO io={io} key={io.itemId} />
                 ))}
             </div>
-        </Group>
+        </div>
     );
 });
 

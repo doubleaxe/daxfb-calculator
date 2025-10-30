@@ -9,7 +9,7 @@ import { useReaction } from '#core/utils/hooks';
 
 import FactoryNode from './node/FactoryNode';
 import type { FactoryNodeType } from './node/types';
-import { FactoryNodeTypeName } from './node/types';
+import { FactoryNodeTypeName, NodeDragHandleClass } from './node/types';
 import { FlowChartDroppable } from './types';
 
 const nodeTypes = {
@@ -25,7 +25,7 @@ function syncNodes(nds: FactoryNodeType[], items: FactoryModelBase[]) {
             type: FactoryNodeTypeName,
             position: factory.position,
             data: factory,
-            dragHandle: '[data-drag-handle]',
+            dragHandle: `.${NodeDragHandleClass}`,
         };
         return node;
     });

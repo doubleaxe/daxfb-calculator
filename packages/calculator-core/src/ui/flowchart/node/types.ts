@@ -8,3 +8,5 @@ export type FactoryNodeType = FlowNode<FactoryModelBase, typeof FactoryNodeTypeN
 export type FactoryNodeProps = {
     data: FactoryModelBase;
 };
+
+export const NodeDragHandleClass = 'node-drag-handle';

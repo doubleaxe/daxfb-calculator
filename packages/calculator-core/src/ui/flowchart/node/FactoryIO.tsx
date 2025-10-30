@@ -1,5 +1,5 @@
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { Flex } from '@mantine/core';
+import { stack } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import { Handle, Position } from '@xyflow/react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
@@ -34,7 +34,7 @@ const IOConnectionPoint = observer(({ io }: Props) => {
 const FactoryIO = observer(({ io }: Props) => {
     const isLtr = computed(() => (io.isFlipped ? !io.isInput : io.isInput)).get();
     return (
-        <Flex align='center' direction={isLtr ? 'row' : 'row-reverse'}>
+        <div className={stack({ alignItems: 'center', direction: isLtr ? 'row' : 'row-reverse' })}>
             <IOConnectionPoint io={io} />
             <div
                 className={css({
@@ -46,7 +46,7 @@ const FactoryIO = observer(({ io }: Props) => {
             >
                 {io.label}
             </div>
-        </Flex>
+        </div>
     );
 });
 
