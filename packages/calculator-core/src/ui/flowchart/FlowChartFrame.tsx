@@ -1,3 +1,5 @@
+import './flow.css';
+
 import { useDroppable } from '@dnd-kit/core';
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { ReactFlowProvider } from '@xyflow/react';

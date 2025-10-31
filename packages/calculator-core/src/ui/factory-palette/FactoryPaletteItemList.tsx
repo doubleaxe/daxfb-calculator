@@ -11,8 +11,8 @@ import { useGameDataBase } from '#core/game/parser';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
 import { useFilterStoreBase } from '#core/stores/FilterStoreBase';
 
-import GameIconDraggableSelectable from '../components/GameIconDraggableSelectable';
 import GameIconDragging from '../components/GameIconDragging';
+import GameIconDraggableSelectable from './GameIconDraggableSelectable';
 
 const FactoryPaletteItemList = observer(() => {
     const gameData = useGameDataBase();

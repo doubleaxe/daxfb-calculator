@@ -55,7 +55,7 @@ const FactoryNode = observer((props: NodeProps<FactoryNodeType>) => {
                                 'linear-gradient(135deg, var(--mantine-color-gray-9) 0%, var(--mantine-color-gray-7) 100%)',
                         },
                     }),
-                    draggableSelectableStyles({ hover: 'child', transition: 'glow' }),
+                    draggableSelectableStyles({ hover: 'child', transition: 'none' }),
                     draggingStyle
                 )}
                 data-dragging={props.dragging || undefined}

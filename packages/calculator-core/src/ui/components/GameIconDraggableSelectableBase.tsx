@@ -1,8 +1,8 @@
-import { useDraggable } from '@dnd-kit/core';
 import type { RecipeVariantProps } from '@doubleaxe/daxfb-calculator-styles/css';
 import { cva, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import type { HTMLAttributes, Ref } from 'react';
 
-import type { GameItemBase } from '#core/game/parser';
+import type { GameItemImageJson } from '#core/game/parser';
 
 import GameIcon from '../components/GameIcon';
 import { draggableSelectableStyles } from '../styles/DraggableSelectable';
@@ -10,15 +10,6 @@ import { draggableSelectableStyles } from '../styles/DraggableSelectable';
 const iconStyles = cva({
     base: {
         borderRadius: 'var(--mantine-radius-md)',
-        _hover: {
-            transform: 'translateY(-2px)',
-            _selected: {
-                transform: 'translateY(-2px) scale(1.05)',
-            },
-        },
-        _selected: {
-            transform: 'scale(1.05)',
-        },
     },
     variants: {
         borderStyle: {
@@ -35,36 +26,29 @@ const iconStyles = cva({
     },
 });
 
-type IconVariants = RecipeVariantProps<typeof iconStyles>;
+export type IconVariants = RecipeVariantProps<typeof iconStyles>;
 
 type Props = {
+    image?: GameItemImageJson;
     isSelected?: boolean;
-    item: GameItemBase;
-} & IconVariants;
+    ref?: Ref<HTMLInputElement>;
+} & HTMLAttributes<HTMLDivElement> &
+    IconVariants;
 
-export default function GameIconDraggableSelectable({ item, isSelected, borderStyle }: Props) {
-    const { attributes, listeners, setNodeRef } = useDraggable({
-        id: item.key,
-        attributes: {
-            role: 'img',
-        },
-    });
-
+export default function GameIconDraggableSelectableBase({ image, isSelected, borderStyle, ref, ...htmlProps }: Props) {
     return (
         <div
-            ref={setNodeRef}
-            {...listeners}
-            {...attributes}
+            ref={ref}
+            {...htmlProps}
             aria-selected={isSelected}
             className={cx(
                 iconStyles({ borderStyle }),
-                draggableSelectableStyles({ hover: 'cursor', transition: 'lift' })
+                draggableSelectableStyles({ hover: 'cursor', transition: 'lift', select: 'data' }),
+                htmlProps.className
             )}
-            data-item={item.key}
             data-selected={isSelected ? true : undefined}
-            tabIndex={0}
         >
-            <GameIcon image={item.image} />
+            <GameIcon image={image} />
         </div>
     );
 }

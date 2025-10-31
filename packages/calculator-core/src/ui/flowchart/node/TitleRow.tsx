@@ -15,7 +15,7 @@ const TitleRow = observer(({ data, dragging }: { dragging?: boolean } & FactoryN
                 css({
                     'fontSize': 'var(--mantine-font-size-sm)',
                     'lineHeight': 'var(--mantine-line-height-sm)',
-                    'height': '1.55em',
+                    'height': '1.7rem',
                     'color': 'var(--mantine-primary-color-contrast)',
                     '_light': {
                         background:
@@ -43,6 +43,7 @@ const TitleRow = observer(({ data, dragging }: { dragging?: boolean } & FactoryN
                         'cursor': 'grab',
                         'flex': 1,
                         'minWidth': 0,
+                        'width': 0,
                         'overflow': 'hidden',
                         'textOverflow': 'ellipsis',
                         'whiteSpace': 'nowrap',

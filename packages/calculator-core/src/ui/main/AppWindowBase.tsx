@@ -1,5 +1,3 @@
-import '@xyflow/react/dist/style.css';
-
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { AppShell, ScrollArea } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
