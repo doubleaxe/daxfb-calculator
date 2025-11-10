@@ -41,6 +41,10 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         });
     }
 
+    get upgradable() {
+        return !!this.__item?.prevTier || !!this.__item?.nextTier;
+    }
+
     get position() {
         return this.__position;
     }

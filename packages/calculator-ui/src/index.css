@@ -1,6 +1,6 @@
-@layer reset, base, tokens, recipes, utilities;
+@layer reset, base, baseui, tokens, recipes, utilities;
 
-@import '@mantine/core/styles.css';
+@import '@mantine/core/styles.css' layer(baseui);
 
 html,
 body,

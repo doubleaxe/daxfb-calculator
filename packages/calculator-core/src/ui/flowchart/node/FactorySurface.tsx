@@ -4,6 +4,7 @@ import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import FactoryIO from './FactoryIO';
+import MainIconActions from './MainIconActions';
 import type { FactoryNodeProps } from './types';
 
 const FactorySurface = observer(({ data }: FactoryNodeProps) => {
@@ -24,7 +25,9 @@ const FactorySurface = observer(({ data }: FactoryNodeProps) => {
                     <FactoryIO io={io} key={io.itemId} />
                 ))}
             </div>
-            <div className={css({ alignSelf: 'center' })}></div>
+            <div className={css({ alignSelf: 'center' })}>
+                <MainIconActions data={data} />
+            </div>
             <div>
                 {rightSide.map((io) => (
                     <FactoryIO io={io} key={io.itemId} />
