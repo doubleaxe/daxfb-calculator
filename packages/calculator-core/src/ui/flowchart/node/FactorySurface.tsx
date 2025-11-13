@@ -8,6 +8,10 @@ import MainIconActions from './MainIconActions';
 import type { FactoryNodeProps } from './types';
 
 const FactorySurface = observer(({ data }: FactoryNodeProps) => {
+    const isFat = computed(() => {
+        const recipe = data.selectedRecipe;
+        return (recipe?.visibleInput?.length ?? 0) > 1 || (recipe?.visibleOutput?.length ?? 0) > 1;
+    }).get();
     const leftSide = computed(() => {
         const recipe = data.selectedRecipe;
         const io = (data.isFlipped ? recipe?.visibleOutput : recipe?.visibleInput) ?? [];
@@ -19,7 +23,7 @@ const FactorySurface = observer(({ data }: FactoryNodeProps) => {
         return io;
     }).get();
     return (
-        <div className={hstack({ alignItems: 'start' })}>
+        <div className={hstack({ alignItems: isFat ? 'start' : 'center' })}>
             <div>
                 {leftSide.map((io) => (
                     <FactoryIO io={io} key={io.itemId} />

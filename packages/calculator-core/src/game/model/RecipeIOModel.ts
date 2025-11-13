@@ -14,6 +14,8 @@ export type CreateRecipeIOModel<
 > = (__recipe: REC, __io: IOJ) => IO;
 
 export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
+    selected = false;
+
     readonly isInput;
 
     protected readonly __io;
@@ -29,6 +31,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         this.isInput = __io.isInput;
 
         makeObservable<RecipeIOModelBaseImpl, '__materializedAbstractItem'>(this, {
+            selected: observable,
             __materializedAbstractItem: observable,
             __addLink: action,
             __materializeAbstractItem: action,

@@ -131,7 +131,7 @@ const MainIconActions = observer(({ data }: FactoryNodeProps) => {
                             backgroundColor: 'var(--mantine-color-gray-1)',
                         },
                         _dark: {
-                            backgroundColor: 'var(--mantine-color-gray-7)',
+                            backgroundColor: 'var(--mantine-color-dark-7)',
                         },
                     })
                 )}

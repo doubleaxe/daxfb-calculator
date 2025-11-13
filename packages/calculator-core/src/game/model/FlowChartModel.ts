@@ -3,7 +3,7 @@ import { action, makeObservable, observable } from 'mobx';
 import type { GameDataBase } from '../parser';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel';
-import type { FactoryConnection, FactoryModelBase, IOLinkModelBase } from './types';
+import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types';
 
 export abstract class FlowChartModelBaseImpl {
     chartName = '';
@@ -48,6 +48,14 @@ export abstract class FlowChartModelBaseImpl {
 
     itemByKey(key: string): FactoryModelBase | undefined {
         return this.__items.get(key);
+    }
+    findIo(itemId: string, ioId: string): RecipeIOModelBase | undefined {
+        const factory = this.__items.get(itemId);
+        if (factory) {
+            const io = factory.__getIO(ioId);
+            return io;
+        }
+        return undefined;
     }
 
     resetChartName() {
