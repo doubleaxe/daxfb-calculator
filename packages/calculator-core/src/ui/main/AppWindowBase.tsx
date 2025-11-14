@@ -40,8 +40,7 @@ function AppWindowBase({ children }: BaseProps) {
         if (!isValidElement(child)) return;
         if (child.type === AppWindowBaseToolBar) {
             toolBar = child;
-        }
-        if (child.type === AppWindowBaseFactoryPalette) {
+        } else if (child.type === AppWindowBaseFactoryPalette) {
             factoryPalette = child;
         } else if (child.type === AppWindowBaseFlowChart) {
             flowChart = child;

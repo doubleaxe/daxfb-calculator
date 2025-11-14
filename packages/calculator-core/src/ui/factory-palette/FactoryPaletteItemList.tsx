@@ -1,5 +1,6 @@
 import { DragOverlay, useDndMonitor } from '@dnd-kit/core';
-import { Divider, Group } from '@mantine/core';
+import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { Divider } from '@mantine/core';
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -48,8 +49,12 @@ const FactoryPaletteItemList = observer(() => {
 
     return (
         <>
-            <Group
-                gap='2px'
+            <div
+                className={hstack({
+                    gap: '2px',
+                    padding: 'var(--mantine-spacing-xs)',
+                    flexWrap: 'wrap',
+                })}
                 onClick={(e) => handleItemClick(factoryFromEvent(e.target))}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -57,7 +62,6 @@ const FactoryPaletteItemList = observer(() => {
                         handleItemClick(factoryFromEvent(e.target));
                     }
                 }}
-                p='xs'
             >
                 {filterStore.filter.map((group, index) => (
                     <Fragment key={index}>
@@ -72,7 +76,7 @@ const FactoryPaletteItemList = observer(() => {
                         ))}
                     </Fragment>
                 ))}
-            </Group>
+            </div>
             {createPortal(
                 <DragOverlay dropAnimation={null}>
                     <GameIconDragging item={dragItem} />
