@@ -30,6 +30,11 @@ const emit = defineEmits<{
     productName: string,
     screenPosition: ReadonlyPointType
   ): void;
+  (
+    e: "input-dropped-empty",
+    productName: string,
+    screenPosition: ReadonlyPointType
+  ): void;
 }>();
 
 type BetweenSelfIo = {
@@ -274,10 +279,16 @@ useEventHook(hooks.notifyDrop, (param) => {
   } else if (sourceItem && hoveringBetweenIo) {
     processSwapIo(hoveringBetweenIo, sourceItem);
   } else if (sourceItem && !sourceItem.isInput) {
-    // Output dropped in empty space - emit event to show recipe suggestions
+    // Output dropped in empty space - emit event to show consuming recipes
     const productName = sourceItem.name;
     if (productName) {
       emit("output-dropped-empty", productName, param.screenRect);
+    }
+  } else if (sourceItem && sourceItem.isInput) {
+    // Input dropped in empty space - emit event to show producing recipes
+    const productName = sourceItem.name;
+    if (productName) {
+      emit("input-dropped-empty", productName, param.screenRect);
     }
   }
   clearHoveringItem();

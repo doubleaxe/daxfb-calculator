@@ -162,13 +162,29 @@ onMounted(() => {
   updateSurface(blueprintModel.items);
 });
 
-// Handle output dropped in empty space - show recipe suggestions
+// Handle output dropped in empty space - show recipe suggestions for consumers
 function handleOutputDroppedEmpty(
   productName: string,
   screenPosition: ReadonlyPointType
 ) {
   lastDroppedOutputProductName = productName;
-  recipeSuggestionMenuElement.value?.activate(productName, screenPosition);
+  recipeSuggestionMenuElement.value?.activate(
+    productName,
+    screenPosition,
+    "consuming"
+  );
+}
+
+// Handle input dropped in empty space - show recipe suggestions for producers
+function handleInputDroppedEmpty(
+  productName: string,
+  screenPosition: ReadonlyPointType
+) {
+  recipeSuggestionMenuElement.value?.activate(
+    productName,
+    screenPosition,
+    "producing"
+  );
 }
 
 // Handle recipe selected from suggestion menu - create factory and link
@@ -176,7 +192,8 @@ function handleRecipeSelected(
   factory: GameItem,
   recipe: GameRecipe,
   productName: string,
-  screenPosition: ReadonlyPointType
+  screenPosition: ReadonlyPointType,
+  mode: "consuming" | "producing"
 ) {
   // Get the collection element for position calculation
   const collectionEl = unref(blueprintCollection) as HTMLElement | null;
@@ -200,18 +217,36 @@ function handleRecipeSelected(
   // Select the specific recipe
   newItem.selectRecipe(recipe.name);
 
-  // Find the source item that has the output we want to link
-  // and create the link
-  for (const existingItem of blueprintModel.items) {
-    if (existingItem === newItem) continue;
-    const outputs = existingItem.selectedRecipe?.visibleOutput() || [];
-    for (const output of outputs) {
-      if (output.name === productName) {
-        // Found the source output - create link to new factory
-        newItem.createLink(output);
-        // Update surface to recalculate bounds
-        updateSurface(blueprintModel.items);
-        return;
+  if (mode === "consuming") {
+    // Find the source item that has the output we want to link to the new factory's input
+    for (const existingItem of blueprintModel.items) {
+      if (existingItem === newItem) continue;
+      const outputs = existingItem.selectedRecipe?.visibleOutput() || [];
+      for (const output of outputs) {
+        if (output.name === productName) {
+          // Found the source output - create link to new factory
+          newItem.createLink(output);
+          updateSurface(blueprintModel.items);
+          return;
+        }
+      }
+    }
+  } else {
+    // Mode is 'producing' - find the source item that has the input we want to link from the new factory's output
+    for (const existingItem of blueprintModel.items) {
+      if (existingItem === newItem) continue;
+      const inputs = existingItem.selectedRecipe?.visibleInput() || [];
+      for (const input of inputs) {
+        if (input.name === productName) {
+          // Found the target input - link new factory's output to it
+          existingItem.createLink(
+            newItem.selectedRecipe
+              ?.visibleOutput()
+              ?.find((o) => o.name === productName) as any
+          );
+          updateSurface(blueprintModel.items);
+          return;
+        }
       }
     }
   }
@@ -234,7 +269,10 @@ function handleRecipeSelected(
       class="blueprint-collection"
       :style="scaleStyle"
     >
-      <link-draggable @output-dropped-empty="handleOutputDroppedEmpty" />
+      <link-draggable
+        @output-dropped-empty="handleOutputDroppedEmpty"
+        @input-dropped-empty="handleInputDroppedEmpty"
+      />
       <recipes-menu ref="recipesMenuElement" />
       <recipe-suggestion-menu
         ref="recipeSuggestionMenuElement"

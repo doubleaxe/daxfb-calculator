@@ -26,6 +26,7 @@ const recipes = ref<RecipeWithFactory[]>([]);
 const menuPosition = ref<{ x: number; y: number }>({ x: 0, y: 0 });
 const sourceProductName = ref<string>("");
 const dropScreenPosition = ref<ReadonlyPointType>({ x: 0, y: 0 });
+const menuMode = ref<"consuming" | "producing">("consuming");
 
 const pageSize = 10;
 const page = ref(1);
@@ -34,6 +35,13 @@ const pages = computed(() => Math.ceil(unref(recipes).length / pageSize) || 1);
 const currentPage = computed(() => {
   const start = (unref(page) - 1) * pageSize;
   return unref(recipes).slice(start, start + pageSize);
+});
+
+// Compute menu title based on mode
+const menuTitle = computed(() => {
+  return unref(menuMode) === "consuming"
+    ? "Add consuming factory"
+    : "Add producing factory";
 });
 
 // Compute menu style based on position
@@ -51,7 +59,8 @@ const emit = defineEmits<{
     factory: GameItem,
     recipe: GameRecipe,
     productName: string,
-    screenPosition: ReadonlyPointType
+    screenPosition: ReadonlyPointType,
+    mode: "consuming" | "producing"
   ): void;
 }>();
 
@@ -73,12 +82,39 @@ function findRecipesUsingInput(itemName: string): RecipeWithFactory[] {
   return results;
 }
 
-function activate(productName: string, screenPosition: ReadonlyPointType) {
-  const foundRecipes = findRecipesUsingInput(productName);
+function findRecipesProducingOutput(itemName: string): RecipeWithFactory[] {
+  const results: RecipeWithFactory[] = [];
+  for (const factory of gameData.gameFactoriesArray) {
+    const dict = factory.recipeDictionary;
+    if (!dict) continue;
+    const recipeNames = dict.recipesByOutputMap.get(itemName);
+    if (recipeNames) {
+      for (const recipeName of recipeNames) {
+        const recipe = dict.recipesMap.get(recipeName);
+        if (recipe) {
+          results.push({ factory, recipe });
+        }
+      }
+    }
+  }
+  return results;
+}
+
+function activate(
+  productName: string,
+  screenPosition: ReadonlyPointType,
+  mode: "consuming" | "producing" = "consuming"
+) {
+  const foundRecipes =
+    mode === "consuming"
+      ? findRecipesUsingInput(productName)
+      : findRecipesProducingOutput(productName);
+
   if (foundRecipes.length === 0) {
     return; // No recipes found, don't show menu
   }
 
+  menuMode.value = mode;
   sourceProductName.value = productName;
   dropScreenPosition.value = screenPosition;
   allRecipes.value = foundRecipes;
@@ -104,7 +140,8 @@ function recipeSelected(item: RecipeWithFactory) {
     item.factory,
     item.recipe,
     unref(sourceProductName),
-    unref(dropScreenPosition)
+    unref(dropScreenPosition),
+    unref(menuMode)
   );
 }
 
@@ -169,7 +206,7 @@ defineExpose({
     <div v-if="active" class="recipe-suggestion-menu" :style="menuStyle">
       <v-card elevation="8" class="menu-card">
         <v-card-title class="menu-header">
-          <span>Add consuming factory</span>
+          <span>{{ menuTitle }}</span>
           <v-btn
             size="small"
             variant="text"
