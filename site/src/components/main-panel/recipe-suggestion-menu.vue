@@ -28,6 +28,7 @@ const menuStyle = ref<{ left: string; top: string }>({
   top: "0px",
 });
 const sourceProductName = ref<string>("");
+const dropScreenPosition = ref<ReadonlyPointType>({ x: 0, y: 0 });
 
 const pageSize = 10;
 const page = ref(1);
@@ -43,7 +44,8 @@ const emit = defineEmits<{
     e: "recipe-selected",
     factory: GameItem,
     recipe: GameRecipe,
-    productName: string
+    productName: string,
+    screenPosition: ReadonlyPointType
   ): void;
 }>();
 
@@ -72,6 +74,7 @@ function activate(productName: string, screenPosition: ReadonlyPointType) {
   }
 
   sourceProductName.value = productName;
+  dropScreenPosition.value = screenPosition;
   allRecipes.value = foundRecipes;
   recipes.value = foundRecipes;
   page.value = 1;
@@ -90,7 +93,13 @@ function activate(productName: string, screenPosition: ReadonlyPointType) {
 
 function recipeSelected(item: RecipeWithFactory) {
   active.value = false;
-  emit("recipe-selected", item.factory, item.recipe, unref(sourceProductName));
+  emit(
+    "recipe-selected",
+    item.factory,
+    item.recipe,
+    unref(sourceProductName),
+    unref(dropScreenPosition)
+  );
 }
 
 function closeMenu() {

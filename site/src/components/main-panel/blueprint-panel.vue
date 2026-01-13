@@ -21,10 +21,11 @@ import {
   useOverflowScroll,
   usePointAndClick,
   useSharedBlueprintSurface,
+  screenToClient,
 } from "@/composables/drag-helpers";
 import { useEventHook } from "@/composables";
 import { injectFilter } from "@/scripts/filter";
-import type { ReadonlyPointType } from "@/scripts/geometry";
+import { Rect, type ReadonlyPointType } from "@/scripts/geometry";
 import type { GameItem, GameRecipe } from "#types/game-data";
 import { buildTransformStyle } from "@/scripts/util";
 
@@ -174,14 +175,27 @@ function handleOutputDroppedEmpty(
 function handleRecipeSelected(
   factory: GameItem,
   recipe: GameRecipe,
-  productName: string
+  productName: string,
+  screenPosition: ReadonlyPointType
 ) {
-  // Get the surface element for position calculation
-  const surfaceEl = unref(blueprintSurface) as HTMLElement | null;
-  if (!surfaceEl) return;
+  // Get the collection element for position calculation
+  const collectionEl = unref(blueprintCollection) as HTMLElement | null;
+  if (!collectionEl) return;
 
-  // Create new factory item at a default position (will be placed near center)
+  // Convert screen position to client position (accounting for scale)
+  const clientPosition = screenToClient(
+    collectionEl,
+    Rect.assign(screenPosition),
+    settings.scale
+  );
+
+  // Create new factory item
   const newItem = reactive(blueprintModel.addItem(factory.name));
+
+  // Position the factory at the drop location
+  newItem.setRect(
+    newItem.rect.assignPoint(clientPosition).limit(unref(boundingRect))
+  );
 
   // Select the specific recipe
   newItem.selectRecipe(recipe.name);
