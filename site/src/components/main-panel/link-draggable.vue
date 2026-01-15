@@ -28,11 +28,13 @@ const emit = defineEmits<{
   (
     e: "output-dropped-empty",
     productName: string,
+    sourceItemId: string,
     screenPosition: ReadonlyPointType
   ): void;
   (
     e: "input-dropped-empty",
     productName: string,
+    sourceItemId: string,
     screenPosition: ReadonlyPointType
   ): void;
 }>();
@@ -281,14 +283,16 @@ useEventHook(hooks.notifyDrop, (param) => {
   } else if (sourceItem && !sourceItem.isInput) {
     // Output dropped in empty space - emit event to show consuming recipes
     const productName = sourceItem.name;
-    if (productName) {
-      emit("output-dropped-empty", productName, param.screenRect);
+    const sourceItemId = sourceItem.ownerItem?.key;
+    if (productName && sourceItemId) {
+      emit("output-dropped-empty", productName, sourceItemId, param.screenRect);
     }
   } else if (sourceItem && sourceItem.isInput) {
     // Input dropped in empty space - emit event to show producing recipes
     const productName = sourceItem.name;
-    if (productName) {
-      emit("input-dropped-empty", productName, param.screenRect);
+    const sourceItemId = sourceItem.ownerItem?.key;
+    if (productName && sourceItemId) {
+      emit("input-dropped-empty", productName, sourceItemId, param.screenRect);
     }
   }
   clearHoveringItem();

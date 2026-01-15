@@ -25,6 +25,7 @@ const allRecipes = ref<RecipeWithFactory[]>([]);
 const recipes = ref<RecipeWithFactory[]>([]);
 const menuPosition = ref<{ x: number; y: number }>({ x: 0, y: 0 });
 const sourceProductName = ref<string>("");
+const sourceItemId = ref<string>("");
 const dropScreenPosition = ref<ReadonlyPointType>({ x: 0, y: 0 });
 const menuMode = ref<"consuming" | "producing">("consuming");
 
@@ -59,6 +60,7 @@ const emit = defineEmits<{
     factory: GameItem,
     recipe: GameRecipe,
     productName: string,
+    sourceItemId: string,
     screenPosition: ReadonlyPointType,
     mode: "consuming" | "producing"
   ): void;
@@ -102,6 +104,7 @@ function findRecipesProducingOutput(itemName: string): RecipeWithFactory[] {
 
 function activate(
   productName: string,
+  _sourceItemId: string,
   screenPosition: ReadonlyPointType,
   mode: "consuming" | "producing" = "consuming"
 ) {
@@ -116,6 +119,7 @@ function activate(
 
   menuMode.value = mode;
   sourceProductName.value = productName;
+  sourceItemId.value = _sourceItemId;
   dropScreenPosition.value = screenPosition;
   allRecipes.value = foundRecipes;
   recipes.value = foundRecipes;
@@ -140,6 +144,7 @@ function recipeSelected(item: RecipeWithFactory) {
     item.factory,
     item.recipe,
     unref(sourceProductName),
+    unref(sourceItemId),
     unref(dropScreenPosition),
     unref(menuMode)
   );

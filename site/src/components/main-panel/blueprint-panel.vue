@@ -165,11 +165,13 @@ onMounted(() => {
 // Handle output dropped in empty space - show recipe suggestions for consumers
 function handleOutputDroppedEmpty(
   productName: string,
+  sourceItemId: string,
   screenPosition: ReadonlyPointType
 ) {
   lastDroppedOutputProductName = productName;
   recipeSuggestionMenuElement.value?.activate(
     productName,
+    sourceItemId,
     screenPosition,
     "consuming"
   );
@@ -178,10 +180,12 @@ function handleOutputDroppedEmpty(
 // Handle input dropped in empty space - show recipe suggestions for producers
 function handleInputDroppedEmpty(
   productName: string,
+  sourceItemId: string,
   screenPosition: ReadonlyPointType
 ) {
   recipeSuggestionMenuElement.value?.activate(
     productName,
+    sourceItemId,
     screenPosition,
     "producing"
   );
@@ -192,6 +196,7 @@ function handleRecipeSelected(
   factory: GameItem,
   recipe: GameRecipe,
   productName: string,
+  sourceItemId: string,
   screenPosition: ReadonlyPointType,
   mode: "consuming" | "producing"
 ) {
@@ -217,36 +222,34 @@ function handleRecipeSelected(
   // Select the specific recipe
   newItem.selectRecipe(recipe.name);
 
+  // Find the exact source/target item by ID
+  const linkedItem = blueprintModel.itemByKey(sourceItemId);
+  if (!linkedItem) return;
+
   if (mode === "consuming") {
-    // Find the source item that has the output we want to link to the new factory's input
-    for (const existingItem of blueprintModel.items) {
-      if (existingItem === newItem) continue;
-      const outputs = existingItem.selectedRecipe?.visibleOutput() || [];
-      for (const output of outputs) {
-        if (output.name === productName) {
-          // Found the source output - create link to new factory
-          newItem.createLink(output);
-          updateSurface(blueprintModel.items);
-          return;
-        }
+    // We created a consumer (newItem), linkedItem is the producer (source)
+    const outputs = linkedItem.selectedRecipe?.visibleOutput() || [];
+    for (const output of outputs) {
+      if (output.name === productName) {
+        // Found the source output - create link to new factory
+        newItem.createLink(output);
+        updateSurface(blueprintModel.items);
+        return;
       }
     }
   } else {
-    // Mode is 'producing' - find the source item that has the input we want to link from the new factory's output
-    for (const existingItem of blueprintModel.items) {
-      if (existingItem === newItem) continue;
-      const inputs = existingItem.selectedRecipe?.visibleInput() || [];
-      for (const input of inputs) {
-        if (input.name === productName) {
-          // Found the target input - link new factory's output to it
-          existingItem.createLink(
-            newItem.selectedRecipe
-              ?.visibleOutput()
-              ?.find((o) => o.name === productName) as any
-          );
-          updateSurface(blueprintModel.items);
-          return;
-        }
+    // Mode is 'producing', we created a producer (newItem), linkedItem is the consumer (target)
+    const inputs = linkedItem.selectedRecipe?.visibleInput() || [];
+    for (const input of inputs) {
+      if (input.name === productName) {
+        // Found the target input - link new factory's output to it
+        linkedItem.createLink(
+          newItem.selectedRecipe
+            ?.visibleOutput()
+            ?.find((o) => o.name === productName) as any
+        );
+        updateSurface(blueprintModel.items);
+        return;
       }
     }
   }
