@@ -10,10 +10,34 @@ import {
     type RecipeIOModel,
 } from '@/scripts/model/store';
 import {Rect, type ReadonlyPointType} from '@/scripts/geometry';
-import {BlueprintItemState, type BlueprintItemStateValues} from '@/scripts/types';
-import {screenToClient, SelectedClassType, useLinkDragAndDrop, usePointAndClick, useSharedBlueprintSurface} from '@/composables/drag-helpers';
+import {
+    BlueprintItemState,
+    type BlueprintItemStateValues,
+} from '@/scripts/types';
+import {
+    screenToClient,
+    SelectedClassType,
+    useLinkDragAndDrop,
+    usePointAndClick,
+    useSharedBlueprintSurface,
+} from '@/composables/drag-helpers';
 import {useEventHook} from '@/composables';
 import {injectSettings} from '@/scripts/settings';
+
+const emit = defineEmits<{
+    (
+        e: 'output-dropped-empty',
+        productName: string,
+        sourceItemId: string,
+        screenPosition: ReadonlyPointType
+    ): void;
+    (
+        e: 'input-dropped-empty',
+        productName: string,
+        sourceItemId: string,
+        screenPosition: ReadonlyPointType
+    ): void;
+}>();
 
 type BetweenSelfIo = {
     upper?: RecipeIOModel;
@@ -45,17 +69,21 @@ const draggableStyle = computed(() => {
     };
 });
 
-watch(isDragging, (value) => {
-    if(!value) {
-        draggableClass.value = 'link-draggable-hidden';
-    } else {
-        //this is against flickering, so first position is set, and next icon is shown
-        //otherwise it sometimes jump out of somewhere
-        nextTick(() => {
-            draggableClass.value = '';
-        });
-    }
-}, {immediate: true});
+watch(
+    isDragging,
+    (value) => {
+        if(!value) {
+            draggableClass.value = 'link-draggable-hidden';
+        } else {
+            //this is against flickering, so first position is set, and next icon is shown
+            //otherwise it sometimes jump out of somewhere
+            nextTick(() => {
+                draggableClass.value = '';
+            });
+        }
+    },
+    {immediate: true},
+);
 
 function clearHoveringItem() {
     if(hoveringItem) {
@@ -101,12 +129,21 @@ type SourceItemWithElement = {
     sourceItem: BlueprintItemModel;
     sourceElem: HTMLElement;
 };
-function getSelfLinkNeighbourIo({sourceItem, sourceElem}: SourceItemWithElement, sourceIo: RecipeIOModel, screenPoint: ReadonlyPointType) {
-    const clientPoint = screenToClient(sourceElem, Rect.assign(screenPoint), settings.scale).offsetBy(sourceItem.rect);
+function getSelfLinkNeighbourIo(
+    {sourceItem, sourceElem}: SourceItemWithElement,
+    sourceIo: RecipeIOModel,
+    screenPoint: ReadonlyPointType,
+) {
+    const clientPoint = screenToClient(
+        sourceElem,
+        Rect.assign(screenPoint),
+        settings.scale,
+    ).offsetBy(sourceItem.rect);
     //check if mouse point is between io rects
-    const neighbourIo = (sourceIo.isInput ?
-        sourceItem.selectedRecipe?.visibleInput() :
-        sourceItem.selectedRecipe?.visibleOutput()) || [];
+    const neighbourIo =
+    (sourceIo.isInput
+        ? sourceItem.selectedRecipe?.visibleInput()
+        : sourceItem.selectedRecipe?.visibleOutput()) || [];
 
     const betweenIo: BetweenSelfIo = {};
     for(let i = 0; i < neighbourIo.length; i++) {
@@ -133,11 +170,14 @@ function getSelfLinkNeighbourIo({sourceItem, sourceElem}: SourceItemWithElement,
 
 function processSelfLinkInsertionPoint(betweenIo: BetweenSelfIo) {
     if(!betweenIo.upper && !betweenIo.lower) {
-        //impossible, maybe exactly midpoint
+    //impossible, maybe exactly midpoint
         clearHoveringBetweenIo();
         return;
     }
-    if((betweenIo.lowerIndex === hoveringBetweenIo?.lowerIndex) && (betweenIo.upperIndex === hoveringBetweenIo?.upperIndex)) {
+    if(
+        betweenIo.lowerIndex === hoveringBetweenIo?.lowerIndex &&
+    betweenIo.upperIndex === hoveringBetweenIo?.upperIndex
+    ) {
         return;
     }
     clearHoveringBetweenIo();
@@ -147,13 +187,21 @@ function processSelfLinkInsertionPoint(betweenIo: BetweenSelfIo) {
     hoveringBetweenIo = betweenIo;
 }
 
-function processOtherFactoryLink(sourceIo: RecipeIOModel, draggingIo: RecipeIOModel, targetItem: BlueprintItemModel) {
+function processOtherFactoryLink(
+    sourceIo: RecipeIOModel,
+    draggingIo: RecipeIOModel,
+    targetItem: BlueprintItemModel,
+) {
     hoveringItem = targetItem;
     hoveringItem.updateLinkState(sourceIo);
     draggingIo.setFlipped(targetItem.isFlipped);
 }
 
-function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOModel, screenPoint: ReadonlyPointType) {
+function processTargetItem(
+    sourceItem: RecipeIOModel,
+    draggingItem: RecipeIOModel,
+    screenPoint: ReadonlyPointType,
+) {
     const {item, element} = detectItemFromPoint(screenPoint);
     if(!item || !element) {
         clearHoveringItem();
@@ -162,7 +210,11 @@ function processTargetItem(sourceItem: RecipeIOModel, draggingItem: RecipeIOMode
     }
     if(toRaw(item) === toRaw(sourceItem?.ownerItem)) {
         clearHoveringItem();
-        const betweenIo = getSelfLinkNeighbourIo({sourceItem: item, sourceElem: element}, sourceItem, screenPoint);
+        const betweenIo = getSelfLinkNeighbourIo(
+            {sourceItem: item, sourceElem: element},
+            sourceItem,
+            screenPoint,
+        );
         processSelfLinkInsertionPoint(betweenIo);
         return;
     }
@@ -178,18 +230,28 @@ function processSwapIo(betweenIo: BetweenSelfIo, sourceIo: RecipeIOModel) {
     if(!betweenIo.upper && !betweenIo.lower) {
         return false;
     }
-    if((toRaw(betweenIo.lower) === toRaw(sourceIo)) || (toRaw(betweenIo.upper) === toRaw(sourceIo))) {
+    if(
+        toRaw(betweenIo.lower) === toRaw(sourceIo) ||
+    toRaw(betweenIo.upper) === toRaw(sourceIo)
+    ) {
         return false;
     }
     const selectedRecipe = sourceIo.ownerItem?.selectedRecipe;
     if(!selectedRecipe) {
         return false;
     }
-    selectedRecipe.swapIo(sourceIo.key, [betweenIo.upperIndex, betweenIo.lowerIndex]);
+    selectedRecipe.swapIo(sourceIo.key, [
+        betweenIo.upperIndex,
+        betweenIo.lowerIndex,
+    ]);
     return true;
 }
 
-function processLink(sourceItem: RecipeIOModel, _hoveringItem: BlueprintItemModel, hoveringState: BlueprintItemStateValues) {
+function processLink(
+    sourceItem: RecipeIOModel,
+    _hoveringItem: BlueprintItemModel,
+    hoveringState: BlueprintItemStateValues,
+) {
     if(hoveringState === BlueprintItemState.CanLinkTarget) {
         _hoveringItem.createLink(sourceItem);
         return true;
@@ -218,6 +280,20 @@ useEventHook(hooks.notifyDrop, (param) => {
         processLink(sourceItem, hoveringItem, hoveringItem.state);
     } else if(sourceItem && hoveringBetweenIo) {
         processSwapIo(hoveringBetweenIo, sourceItem);
+    } else if(sourceItem && !sourceItem.isInput) {
+    // Output dropped in empty space - emit event to show consuming recipes
+        const productName = sourceItem.name;
+        const sourceItemId = sourceItem.ownerItem?.key;
+        if(productName && sourceItemId) {
+            emit('output-dropped-empty', productName, sourceItemId, param.screenRect);
+        }
+    } else if(sourceItem && sourceItem.isInput) {
+    // Input dropped in empty space - emit event to show producing recipes
+        const productName = sourceItem.name;
+        const sourceItemId = sourceItem.ownerItem?.key;
+        if(productName && sourceItemId) {
+            emit('input-dropped-empty', productName, sourceItemId, param.screenRect);
+        }
     }
     clearHoveringItem();
     clearHoveringBetweenIo();
@@ -239,12 +315,18 @@ useEventHook(notifySelected, (param) => {
         return;
     }
     const sourceItem = param.item.item as RecipeIOModel;
-    const {item: _hoveringItem, element} = detectItemFromPoint(param.screenPosition);
+    const {item: _hoveringItem, element} = detectItemFromPoint(
+        param.screenPosition,
+    );
     if(!_hoveringItem || !element) {
         return;
     }
     if(toRaw(_hoveringItem) === toRaw(sourceItem?.ownerItem)) {
-        const betweenIo = getSelfLinkNeighbourIo({sourceItem: _hoveringItem, sourceElem: element}, sourceItem, param.screenPosition);
+        const betweenIo = getSelfLinkNeighbourIo(
+            {sourceItem: _hoveringItem, sourceElem: element},
+            sourceItem,
+            param.screenPosition,
+        );
         if(processSwapIo(betweenIo, sourceItem)) {
             param.wasHandled();
         }
