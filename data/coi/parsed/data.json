@@ -1073,6 +1073,33 @@
             }
           ],
           "time": 10
+        },
+        {
+          "name": "OceanWaterPumping2x",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 2,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 300,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Seawater",
+              "count": 18
+            }
+          ],
+          "time": 5
         }
       ]
     },
@@ -1094,7 +1121,7 @@
             },
             {
               "name": "Electricity",
-              "count": 300,
+              "count": 200,
               "flags": 12
             }
           ],
@@ -1105,6 +1132,33 @@
             }
           ],
           "time": 10
+        },
+        {
+          "name": "OceanWaterPumping2xT2",
+          "input": [
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 28
+            },
+            {
+              "name": "MaintenanceT1",
+              "count": 4,
+              "flags": 12
+            },
+            {
+              "name": "Electricity",
+              "count": 600,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "Seawater",
+              "count": 18
+            }
+          ],
+          "time": 5
         }
       ]
     },
@@ -1574,7 +1628,7 @@
           "input": [
             {
               "name": "Seawater",
-              "count": 48
+              "count": 32
             },
             {
               "name": "Worker",
@@ -1595,10 +1649,10 @@
           "output": [
             {
               "name": "Salt",
-              "count": 3
+              "count": 2
             }
           ],
-          "time": 30
+          "time": 20
         },
         {
           "name": "SaltMakingFromBrineHeated",
@@ -1667,7 +1721,7 @@
           "input": [
             {
               "name": "Seawater",
-              "count": 48
+              "count": 32
             },
             {
               "name": "Worker",
@@ -1683,10 +1737,10 @@
           "output": [
             {
               "name": "Salt",
-              "count": 3
+              "count": 2
             }
           ],
-          "time": 60
+          "time": 40
         },
         {
           "name": "SaltMakingFromBrine",
@@ -2610,7 +2664,7 @@
           "input": [
             {
               "name": "Glass",
-              "count": 4
+              "count": 2
             },
             {
               "name": "Plastic",
@@ -2653,7 +2707,7 @@
             },
             {
               "name": "Copper",
-              "count": 16
+              "count": 24
             },
             {
               "name": "MaintenanceT3",
@@ -2674,10 +2728,10 @@
           "output": [
             {
               "name": "Electronics",
-              "count": 16
+              "count": 24
             }
           ],
-          "time": 10
+          "time": 15
         },
         {
           "name": "Electronics2AssemblyT3",
@@ -2692,7 +2746,7 @@
             },
             {
               "name": "PolySilicon",
-              "count": 4
+              "count": 2
             },
             {
               "name": "MaintenanceT3",
@@ -2801,7 +2855,7 @@
             },
             {
               "name": "SiliconWafer",
-              "count": 9
+              "count": 12
             },
             {
               "name": "Glass",
@@ -4364,7 +4418,7 @@
           "input": [
             {
               "name": "Glass",
-              "count": 4
+              "count": 2
             },
             {
               "name": "Plastic",
@@ -4412,7 +4466,7 @@
             },
             {
               "name": "Copper",
-              "count": 8
+              "count": 12
             },
             {
               "name": "Worker",
@@ -4438,10 +4492,10 @@
           "output": [
             {
               "name": "Electronics",
-              "count": 8
+              "count": 12
             }
           ],
-          "time": 10
+          "time": 15
         },
         {
           "name": "Electronics2AssemblyT2",
@@ -4456,7 +4510,7 @@
             },
             {
               "name": "PolySilicon",
-              "count": 4
+              "count": 2
             },
             {
               "name": "Worker",
@@ -5816,7 +5870,7 @@
           "input": [
             {
               "name": "Glass",
-              "count": 4
+              "count": 2
             },
             {
               "name": "Plastic",
@@ -5859,7 +5913,7 @@
             },
             {
               "name": "Copper",
-              "count": 4
+              "count": 6
             },
             {
               "name": "Worker",
@@ -5880,10 +5934,10 @@
           "output": [
             {
               "name": "Electronics",
-              "count": 4
+              "count": 6
             }
           ],
-          "time": 10
+          "time": 15
         },
         {
           "name": "Electronics2AssemblyT1",
@@ -5898,7 +5952,7 @@
             },
             {
               "name": "PolySilicon",
-              "count": 4
+              "count": 2
             },
             {
               "name": "Worker",
@@ -6705,7 +6759,7 @@
             },
             {
               "name": "Copper",
-              "count": 4
+              "count": 6
             },
             {
               "name": "Worker",
@@ -6726,10 +6780,10 @@
           "output": [
             {
               "name": "Electronics",
-              "count": 4
+              "count": 6
             }
           ],
-          "time": 20
+          "time": 30
         }
       ]
     },
@@ -6865,7 +6919,7 @@
             },
             {
               "name": "Copper",
-              "count": 4
+              "count": 6
             },
             {
               "name": "Worker",
@@ -6881,7 +6935,7 @@
           "output": [
             {
               "name": "Electronics",
-              "count": 4
+              "count": 6
             }
           ],
           "time": 60
@@ -10950,11 +11004,11 @@
           "input": [
             {
               "name": "Sand",
-              "count": 32
+              "count": 20
             },
             {
               "name": "Coal",
-              "count": 8
+              "count": 4
             },
             {
               "name": "Graphite",
@@ -10983,11 +11037,11 @@
           "output": [
             {
               "name": "MoltenSilicon",
-              "count": 24
+              "count": 16
             },
             {
               "name": "Slag",
-              "count": 12
+              "count": 8
             },
             {
               "name": "SteamLP",
@@ -10995,7 +11049,7 @@
             },
             {
               "name": "Exhaust",
-              "count": 16
+              "count": 12
             }
           ],
           "time": 20
@@ -11409,11 +11463,11 @@
           "input": [
             {
               "name": "Sand",
-              "count": 16
+              "count": 10
             },
             {
               "name": "Coal",
-              "count": 4
+              "count": 2
             },
             {
               "name": "Graphite",
@@ -11438,15 +11492,15 @@
           "output": [
             {
               "name": "MoltenSilicon",
-              "count": 12
+              "count": 8
             },
             {
               "name": "Slag",
-              "count": 6
+              "count": 4
             },
             {
               "name": "Exhaust",
-              "count": 8
+              "count": 6
             }
           ],
           "time": 20
@@ -12464,7 +12518,7 @@
           "input": [
             {
               "name": "PolySilicon",
-              "count": 24
+              "count": 12
             },
             {
               "name": "Water",
@@ -12545,11 +12599,11 @@
           "input": [
             {
               "name": "MoltenSilicon",
-              "count": 9
+              "count": 3
             },
             {
               "name": "Hydrogen",
-              "count": 2
+              "count": 1
             },
             {
               "name": "Worker",
@@ -12570,10 +12624,10 @@
           "output": [
             {
               "name": "PolySilicon",
-              "count": 9
+              "count": 3
             }
           ],
-          "time": 30
+          "time": 15
         }
       ]
     },
@@ -16048,7 +16102,7 @@
           "input": [
             {
               "name": "Water",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16056,14 +16110,14 @@
               "flags": 28
             }
           ],
-          "time": 2
+          "time": 3
         },
         {
           "name": "BrineDumping",
           "input": [
             {
               "name": "Brine",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16071,14 +16125,14 @@
               "flags": 28
             }
           ],
-          "time": 2
+          "time": 3
         },
         {
           "name": "OceanWasteWaterPumping",
           "input": [
             {
               "name": "WasteWater",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16089,17 +16143,17 @@
           "output": [
             {
               "name": "PollutedWater",
-              "count": 2
+              "count": 10
             }
           ],
-          "time": 2
+          "time": 3
         },
         {
           "name": "SourWaterDumping",
           "input": [
             {
               "name": "SourWater",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16110,17 +16164,17 @@
           "output": [
             {
               "name": "PollutedWater",
-              "count": 4
+              "count": 20
             }
           ],
-          "time": 2
+          "time": 3
         },
         {
           "name": "WasteAcidDumping",
           "input": [
             {
               "name": "Acid",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16131,17 +16185,74 @@
           "output": [
             {
               "name": "PollutedWater",
-              "count": 4
+              "count": 20
             }
           ],
-          "time": 2
+          "time": 3
         },
         {
           "name": "ToxicSlurryDumping",
           "input": [
             {
               "name": "ToxicSlurry",
+              "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
+              "count": 25
+            }
+          ],
+          "time": 3
+        },
+        {
+          "name": "SeaWaterDumping",
+          "input": [
+            {
+              "name": "Seawater",
+              "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 28
+            }
+          ],
+          "time": 3
+        },
+        {
+          "name": "FertilizerOrganicDumping",
+          "input": [
+            {
+              "name": "FertilizerOrganic",
+              "count": 10
+            },
+            {
+              "name": "Worker",
+              "count": 1,
+              "flags": 28
+            }
+          ],
+          "output": [
+            {
+              "name": "PollutedWater",
               "count": 2
+            }
+          ],
+          "time": 3
+        },
+        {
+          "name": "FertilizerChem1Dumping",
+          "input": [
+            {
+              "name": "Fertilizer",
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16155,71 +16266,14 @@
               "count": 5
             }
           ],
-          "time": 2
-        },
-        {
-          "name": "SeaWaterDumping",
-          "input": [
-            {
-              "name": "Seawater",
-              "count": 2
-            },
-            {
-              "name": "Worker",
-              "count": 1,
-              "flags": 28
-            }
-          ],
-          "time": 2
-        },
-        {
-          "name": "FertilizerOrganicDumping",
-          "input": [
-            {
-              "name": "FertilizerOrganic",
-              "count": 4
-            },
-            {
-              "name": "Worker",
-              "count": 1,
-              "flags": 28
-            }
-          ],
-          "output": [
-            {
-              "name": "PollutedWater",
-              "count": 1
-            }
-          ],
-          "time": 4
-        },
-        {
-          "name": "FertilizerChem1Dumping",
-          "input": [
-            {
-              "name": "Fertilizer",
-              "count": 2
-            },
-            {
-              "name": "Worker",
-              "count": 1,
-              "flags": 28
-            }
-          ],
-          "output": [
-            {
-              "name": "PollutedWater",
-              "count": 1
-            }
-          ],
-          "time": 4
+          "time": 3
         },
         {
           "name": "FertilizerChem2Dumping",
           "input": [
             {
               "name": "Fertilizer2",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16230,17 +16284,17 @@
           "output": [
             {
               "name": "PollutedWater",
-              "count": 2
+              "count": 10
             }
           ],
-          "time": 4
+          "time": 3
         },
         {
           "name": "RedMudDumping",
           "input": [
             {
               "name": "RedMud",
-              "count": 2
+              "count": 10
             },
             {
               "name": "Worker",
@@ -16251,10 +16305,10 @@
           "output": [
             {
               "name": "PollutedWater",
-              "count": 2
+              "count": 10
             }
           ],
-          "time": 2
+          "time": 3
         }
       ]
     },
@@ -23447,6 +23501,27 @@
           "time": 60
         },
         {
+          "name": "Contract_Product_FuelGas_For_Product_Rock",
+          "input": [
+            {
+              "name": "Rock",
+              "count": 400
+            },
+            {
+              "name": "Upoints",
+              "count": 0.09960938,
+              "flags": 12
+            }
+          ],
+          "output": [
+            {
+              "name": "FuelGas",
+              "count": 100
+            }
+          ],
+          "time": 60
+        },
+        {
           "name": "Contract_Product_UraniumOre_For_Product_FoodPack",
           "input": [
             {
@@ -23535,7 +23610,7 @@
           "input": [
             {
               "name": "Server",
-              "count": 2.1739130434782608
+              "count": 1.0869565217391304
             },
             {
               "name": "Upoints",
@@ -23682,7 +23757,7 @@
           "input": [
             {
               "name": "Server",
-              "count": 1.0869565217391304
+              "count": 1.1111111111111112
             },
             {
               "name": "Upoints",
