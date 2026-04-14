@@ -10,7 +10,7 @@
   "author": "Alexey Usov (dax@xdax.ru)",
   "homepage": "https://github.com/doubleaxe/daxfb-calculator",
   "license": "MIT",
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=22"
   },
@@ -25,20 +25,20 @@
     "changeset-snapshot": "@changesets/cli version --snapshot"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.7",
-    "@doubleaxe/eslint-config": "^2.0.4",
-    "@doubleaxe/prettier-config": "^1.0.4",
-    "@doubleaxe/typescript-config": "^1.0.4",
-    "@types/node": "^24.5.0",
-    "eslint": "^9.35.0",
+    "@changesets/cli": "^2.30.0",
+    "@doubleaxe/eslint-config": "^2.0.5",
+    "@doubleaxe/prettier-config": "^1.0.5",
+    "@doubleaxe/typescript-config": "^1.0.5",
+    "@types/node": "^24.12.2",
+    "eslint": "^9.39.4",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-react-refresh": "^0.4.26",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.6.2",
-    "rimraf": "^6.0.1",
-    "tslib": "^2.8.1",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.43.0"
+    "prettier": "^3.8.2",
+    "rimraf": "^6.1.3",
+    "tslib": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.58.2"
   }
 }

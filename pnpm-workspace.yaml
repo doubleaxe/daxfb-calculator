@@ -1,5 +1,5 @@
 packages:
   - 'packages/**'
-
-onlyBuiltDependencies:
-  - nx
+catalog:
+  tslib: ^2.8.1
+  typescript: ^5.9.2

@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0-alpha.1",
   "license": "MIT",
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=22"
   },
@@ -20,18 +20,18 @@
     "@doubleaxe/daxfb-calculator-styles": "workspace:*",
     "@doubleaxe/daxfb-gamedata-generated": "workspace:*",
     "@doubleaxe/daxfb-shared": "workspace:*",
-    "@mantine/core": "^8.3.1",
-    "@mantine/hooks": "^8.3.1",
+    "@mantine/core": "^8.3.18",
+    "@mantine/hooks": "^8.3.18",
     "@phosphor-icons/react": "^2.1.10",
-    "mobx": "^6.13.7",
-    "mobx-react-lite": "^4.1.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tslib": "^2.8.1"
+    "mobx": "^6.15.0",
+    "mobx-react-lite": "^4.1.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tslib": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "typescript": "^5.9.2"
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "catalog:"
   }
 }
