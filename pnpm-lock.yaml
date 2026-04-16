@@ -21,8 +21,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0(@types/node@24.12.2)
       '@doubleaxe/eslint-config':
-        specifier: ^2.0.5
-        version: 2.0.5(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-plugin-react-hooks@5.2.0(eslint@9.39.4))(eslint-plugin-react-refresh@0.4.26(eslint@9.39.4))(eslint-plugin-react@7.37.5(eslint@9.39.4))(eslint@9.39.4)(typescript-eslint@8.58.2(eslint@9.39.4)(typescript@5.9.3))(typescript@5.9.3)
+        specifier: ^2.0.6
+        version: 2.0.6(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@9.39.4))(eslint-plugin-react-refresh@0.5.2(eslint@9.39.4))(eslint-plugin-react@7.37.5(eslint@9.39.4))(eslint@9.39.4)(typescript-eslint@8.58.2(eslint@9.39.4)(typescript@5.9.3))(typescript@5.9.3)
       '@doubleaxe/prettier-config':
         specifier: ^1.0.5
         version: 1.0.5(prettier@3.8.2)
@@ -39,11 +39,11 @@ importers:
         specifier: ^7.37.5
         version: 7.37.5(eslint@9.39.4)
       eslint-plugin-react-hooks:
-        specifier: ^5.2.0
-        version: 5.2.0(eslint@9.39.4)
+        specifier: ^7.0.1
+        version: 7.0.1(eslint@9.39.4)
       eslint-plugin-react-refresh:
-        specifier: ^0.4.26
-        version: 0.4.26(eslint@9.39.4)
+        specifier: ^0.5.2
+        version: 0.5.2(eslint@9.39.4)
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -453,12 +453,12 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
 
-  '@doubleaxe/eslint-config@2.0.5':
-    resolution: {integrity: sha512-Hy6SXwOSfdpq+hVKAxolwrnIB3kZXyKUvzP4zA6rpG3Yfg1vlfk5t8MWVGI3DWGaY4XQDfkwh+R1/N1qMLujLA==}
+  '@doubleaxe/eslint-config@2.0.6':
+    resolution: {integrity: sha512-kqGdZugYTVQ5TDn8lJyZrbYKn9fUo+gnp2xlxiKObzJiTAAPdJ55idu+PPfchsuKMVdbGdK12ROFv4+SYxiZ9w==}
     peerDependencies:
       eslint: 9.x
       eslint-plugin-react: ^7.37.5
-      eslint-plugin-react-hooks: ^5.2.0
+      eslint-plugin-react-hooks: ^7.0.1
       eslint-plugin-react-refresh: 0.x
       eslint-plugin-vue: ^10.8.0
       typescript-eslint: ^8.58.1
@@ -1823,16 +1823,16 @@ packages:
     peerDependencies:
       eslint: ^8.45.0 || ^9.0.0 || ^10.0.0
 
-  eslint-plugin-react-hooks@5.2.0:
-    resolution: {integrity: sha512-+f15FfK64YQwZdJNELETdn5ibXEUQmW1DZL6KXhNnc2heoy/sg9VJJeT7n8TlMWouzWqSWavFkIhHyIbIAEapg==}
-    engines: {node: '>=10'}
+  eslint-plugin-react-hooks@7.0.1:
+    resolution: {integrity: sha512-O0d0m04evaNzEPoSW+59Mezf8Qt0InfgGIBJnpC0h3NH/WjUAR7BIKUfysC6todmtiZ/A0oUVS8Gce0WhBrHsA==}
+    engines: {node: '>=18'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
 
-  eslint-plugin-react-refresh@0.4.26:
-    resolution: {integrity: sha512-1RETEylht2O6FM/MvgnyvT+8K21wLqDNg4qD51Zj3guhjt433XbnnkVttHMyaVyAFD03QSV4LPS5iE3VQmO7XQ==}
+  eslint-plugin-react-refresh@0.5.2:
+    resolution: {integrity: sha512-hmgTH57GfzoTFjVN0yBwTggnsVUF2tcqi7RJZHqi9lIezSs4eFyAMktA68YD4r5kNw1mxyY4dmkyoFDb3FIqrA==}
     peerDependencies:
-      eslint: '>=8.40'
+      eslint: ^9 || ^10
 
   eslint-plugin-react@7.37.5:
     resolution: {integrity: sha512-Qteup0SqU15kdocexFNAJMvCJEfa2xUKNV4CC1xsVMrIIqEy3SQ/rqyxCWNzfrd3/ldy6HMlD2e0JDVpDg2qIA==}
@@ -2131,6 +2131,12 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  hermes-estree@0.25.1:
+    resolution: {integrity: sha512-0wUoCcLp+5Ev5pDW2OriHC2MJCbwLwuRx+gAqMTOkGKJJiBCLjtrvy4PWUGn6MIVefecRpzoOZ/UV6iGdOr+Cw==}
+
+  hermes-parser@0.25.1:
+    resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
 
   hono@4.12.12:
     resolution: {integrity: sha512-p1JfQMKaceuCbpJKAPKVqyqviZdS0eUxH9v82oWo1kb9xjQ5wA6iP3FNVAPDFlz5/p7d45lO+BpSk1tuSZMF4Q==}
@@ -3590,6 +3596,12 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
+  zod-validation-error@4.0.2:
+    resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      zod: ^3.25.0 || ^4.0.0
+
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
@@ -3913,7 +3925,7 @@ snapshots:
       react: 19.2.5
       tslib: 2.8.1
 
-  '@doubleaxe/eslint-config@2.0.5(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-plugin-react-hooks@5.2.0(eslint@9.39.4))(eslint-plugin-react-refresh@0.4.26(eslint@9.39.4))(eslint-plugin-react@7.37.5(eslint@9.39.4))(eslint@9.39.4)(typescript-eslint@8.58.2(eslint@9.39.4)(typescript@5.9.3))(typescript@5.9.3)':
+  '@doubleaxe/eslint-config@2.0.6(@typescript-eslint/parser@8.58.2(eslint@9.39.4)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@9.39.4))(eslint-plugin-react-refresh@0.5.2(eslint@9.39.4))(eslint-plugin-react@7.37.5(eslint@9.39.4))(eslint@9.39.4)(typescript-eslint@8.58.2(eslint@9.39.4)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       '@eslint/js': 9.39.4
       eslint: 9.39.4
@@ -3925,8 +3937,8 @@ snapshots:
       globals: 17.5.0
     optionalDependencies:
       eslint-plugin-react: 7.37.5(eslint@9.39.4)
-      eslint-plugin-react-hooks: 5.2.0(eslint@9.39.4)
-      eslint-plugin-react-refresh: 0.4.26(eslint@9.39.4)
+      eslint-plugin-react-hooks: 7.0.1(eslint@9.39.4)
+      eslint-plugin-react-refresh: 0.5.2(eslint@9.39.4)
       typescript-eslint: 8.58.2(eslint@9.39.4)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
@@ -5455,11 +5467,18 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-react-hooks@5.2.0(eslint@9.39.4):
+  eslint-plugin-react-hooks@7.0.1(eslint@9.39.4):
     dependencies:
+      '@babel/core': 7.29.0
+      '@babel/parser': 7.29.2
       eslint: 9.39.4
+      hermes-parser: 0.25.1
+      zod: 4.3.6
+      zod-validation-error: 4.0.2(zod@4.3.6)
+    transitivePeerDependencies:
+      - supports-color
 
-  eslint-plugin-react-refresh@0.4.26(eslint@9.39.4):
+  eslint-plugin-react-refresh@0.5.2(eslint@9.39.4):
     dependencies:
       eslint: 9.39.4
 
@@ -5818,6 +5837,12 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  hermes-estree@0.25.1: {}
+
+  hermes-parser@0.25.1:
+    dependencies:
+      hermes-estree: 0.25.1
 
   hono@4.12.12: {}
 
@@ -7251,6 +7276,10 @@ snapshots:
   yocto-queue@1.2.2: {}
 
   zod-to-json-schema@3.25.2(zod@4.3.6):
+    dependencies:
+      zod: 4.3.6
+
+  zod-validation-error@4.0.2(zod@4.3.6):
     dependencies:
       zod: 4.3.6
 
