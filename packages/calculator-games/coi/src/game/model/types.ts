@@ -1,4 +1,4 @@
-import type { PublicInterfaceOf } from '#daxfb-shared/types/UtilityTypes';
+import type { PublicInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 
 import type {
     FactoryModelCoiImpl,
@@ -6,8 +6,8 @@ import type {
     IOLinkModelCoiImpl,
     RecipeIOModelCoiImpl,
     RecipeModelCoiImpl,
-} from './FlowChartModel';
-import { flowChartModelCoiFactory } from './FlowChartModel';
+} from './FlowChartModel.js';
+import { flowChartModelCoiFactory } from './FlowChartModel.js';
 
 export type FlowChartModelCoi = PublicInterfaceOf<FlowChartModelCoiImpl>;
 export type FactoryModelCoi = PublicInterfaceOf<FactoryModelCoiImpl>;

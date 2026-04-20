@@ -1,7 +1,7 @@
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 
-import type { BaseProps } from '#core/types/props';
+import type { BaseProps } from '#core/types/props.js';
 
 export default function DragAndDropInitializer({ children }: BaseProps) {
     const sensors = useSensors(

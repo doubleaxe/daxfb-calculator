@@ -4,9 +4,9 @@ import { Handle, Position } from '@xyflow/react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import type { RecipeIOModelBase } from '#core/game/model';
+import type { RecipeIOModelBase } from '#core/game/model/index.js';
+import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
 import GameIcon from '#core/ui/components/GameIcon.js';
-import { draggableSelectableStyles } from '#core/ui/styles/DraggableSelectable';
 
 type Props = {
     io: RecipeIOModelBase;

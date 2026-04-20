@@ -6,10 +6,10 @@ import { action } from 'mobx';
 import { Observer, observer } from 'mobx-react-lite';
 import { useMemo, useState } from 'react';
 
-import { useGameDataBase } from '#core/game/parser';
-import { useFilterStoreBase } from '#core/stores/FilterStoreBase';
+import { useGameDataBase } from '#core/game/parser/index.js';
+import { useFilterStoreBase } from '#core/stores/FilterStoreBase.js';
 
-import GameIcon from '../components/GameIcon';
+import GameIcon from '../components/GameIcon.jsx';
 
 const ITEMS_PER_PAGE = 10;
 

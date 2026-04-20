@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { GameDataBase } from './ParsedGameData';
+import type { GameDataBase } from './ParsedGameData.js';
 
 export const GameContext = createContext(null as GameDataBase | null);
 export function useGameDataBase() {

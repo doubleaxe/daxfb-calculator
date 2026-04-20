@@ -1,9 +1,9 @@
+import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 
-import type { GameDataBase } from '#core/game/parser';
-import { isAbstractClassItem } from '#core/game/parser';
-import type { InterfaceOf } from '#daxfb-shared/types/UtilityTypes';
+import type { GameDataBase } from '#core/game/parser/index.js';
+import { isAbstractClassItem } from '#core/game/parser/index.js';
 
 export class FilterStoreBaseImpl {
     readonly gameData;

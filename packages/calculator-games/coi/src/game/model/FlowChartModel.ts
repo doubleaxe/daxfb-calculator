@@ -1,10 +1,10 @@
-import { FactoryModelBaseImpl } from '#core/game/model/FactoryModel';
-import { FlowChartModelBaseImpl } from '#core/game/model/FlowChartModel';
-import { IOLinkModelBaseImpl } from '#core/game/model/IOLinkModel';
-import { RecipeIOModelBaseImpl } from '#core/game/model/RecipeIOModel';
-import { RecipeModelBaseImpl } from '#core/game/model/RecipeModel';
+import { FactoryModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/FactoryModel';
+import { FlowChartModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/FlowChartModel';
+import { IOLinkModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/IOLinkModel';
+import { RecipeIOModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/RecipeIOModel';
+import { RecipeModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/RecipeModel';
 
-import type { GameDataCoi } from '../parser';
+import type { GameDataCoi } from '../parser/index.js';
 
 export class FlowChartModelCoiImpl extends FlowChartModelBaseImpl {
     constructor(gameData: GameDataCoi) {

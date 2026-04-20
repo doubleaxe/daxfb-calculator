@@ -1,4 +1,4 @@
-import { freezeMap, freezeSet } from '#daxfb-shared/common-utils/CollectionUtils';
+import { freezeMap, freezeSet } from '@doubleaxe/daxfb-shared/common-utils/CollectionUtils';
 import type {
     GameDataBaseJson,
     GameDescriptionBaseJson,
@@ -9,9 +9,13 @@ import type {
     GameRecipeDictionaryBaseJson,
     GameRecipeDictionaryReferenceBaseJson,
     GameRecipeIOBaseJson,
-} from '#daxfb-shared/types/gamedata/common';
-import { GameItemFlagsBase, GameItemTypeBase, GameRecipeIOFlagsBase } from '#daxfb-shared/types/gamedata/common';
-import type { ReadonlyInterfaceOf } from '#daxfb-shared/types/UtilityTypes';
+} from '@doubleaxe/daxfb-shared/types/gamedata/common';
+import {
+    GameItemFlagsBase,
+    GameItemTypeBase,
+    GameRecipeIOFlagsBase,
+} from '@doubleaxe/daxfb-shared/types/gamedata/common';
+import type { ReadonlyInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 
 export type CreateGameItem<ITMJ extends GameItemBaseJson, ITM extends GameItemBase> = (
     _item: ITMJ,

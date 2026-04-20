@@ -1,7 +1,7 @@
 import type { CSSVariablesResolver } from '@mantine/core';
 import { DEFAULT_THEME, MantineProvider, toRgba } from '@mantine/core';
 
-import type { BaseProps } from '#core/types/props';
+import type { BaseProps } from '#core/types/props.js';
 
 const mantineColorsMix = Object.entries(DEFAULT_THEME.colors)
     .map(([color, array]) =>

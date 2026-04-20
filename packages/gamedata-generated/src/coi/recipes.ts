@@ -1,4 +1,4 @@
-import type { GameRecipeDictionaryCoiJson } from '#daxfb-shared/types/gamedata/coi.js';
+import type { GameRecipeDictionaryCoiJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi';
 export const recipesJson: GameRecipeDictionaryCoiJson[] = [
   {
     "key": "3y",

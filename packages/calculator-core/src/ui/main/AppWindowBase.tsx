@@ -4,8 +4,8 @@ import { observer } from 'mobx-react-lite';
 import type { ReactNode } from 'react';
 import { Children, isValidElement } from 'react';
 
-import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
-import type { BaseProps } from '#core/types/props';
+import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
+import type { BaseProps } from '#core/types/props.js';
 
 function AppWindowBaseToolBar({ children }: BaseProps) {
     return children;

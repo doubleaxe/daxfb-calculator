@@ -4,8 +4,9 @@ import { useDroppable } from '@dnd-kit/core';
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { ReactFlowProvider } from '@xyflow/react';
 
-import FlowChart from './FlowChart';
-import { FlowChartDroppable } from './types';
+import { FlowChartDroppable } from '#core/types/flowchart/types.js';
+
+import FlowChart from './FlowChart.jsx';
 
 export default function FlowChartFrame() {
     const { setNodeRef } = useDroppable({ id: FlowChartDroppable });

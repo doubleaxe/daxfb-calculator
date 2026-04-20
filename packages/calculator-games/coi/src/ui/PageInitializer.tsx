@@ -1,11 +1,11 @@
-import DragAndDropInitializer from '#core/ui/main/DragAndDropInitializer';
-import InternalStoresInitializer from '#core/ui/main/InternalStoresInitializer';
-import useStylesInitializer from '#core/ui/main/StylesInitializer';
-import iconsPath from '#daxfb-gamedata-generated/coi/images.png';
+import DragAndDropInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/DragAndDropInitializer';
+import InternalStoresInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/InternalStoresInitializer';
+import useStylesInitializer from '@doubleaxe/daxfb-calculator-core/utils/main/StylesInitializer';
+import iconsPath from '@doubleaxe/daxfb-gamedata-generated/coi/images.png';
 
-import { flowChartModelCoiFactory } from '../game/model';
-import { useGameData } from '../game/parser';
-import AppWindow from './AppWindow';
+import { flowChartModelCoiFactory } from '../game/model/index.js';
+import { useGameData } from '../game/parser/index.js';
+import AppWindow from './AppWindow.jsx';
 
 export default function PageInitializer() {
     const gameData = useGameData();

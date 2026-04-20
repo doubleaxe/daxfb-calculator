@@ -4,8 +4,8 @@ import { ActionIcon } from '@mantine/core';
 import { ListIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 
-import type { FactoryNodeProps } from './types';
-import { NodeDragHandleClass } from './types';
+import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
+import { NodeDragHandleClass } from '#core/types/flowchart/node/types.js';
 
 const TitleRow = observer(({ data, dragging }: { dragging?: boolean } & FactoryNodeProps) => {
     return (

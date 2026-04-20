@@ -4,8 +4,8 @@ import type {
     IOLinkModelBase,
     RecipeIOModelBase,
     RecipeModelBase,
-} from './types';
+} from './types.js';
 
 export type { FactoryModelBase, FlowChartModelBase, IOLinkModelBase, RecipeIOModelBase, RecipeModelBase };
 
-export * from './FlowChartContextBase';
+export * from './FlowChartContextBase.js';

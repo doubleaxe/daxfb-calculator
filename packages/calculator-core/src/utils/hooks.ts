@@ -1,8 +1,6 @@
 import type { IReactionDisposer } from 'mobx';
-import type { Context, DependencyList } from 'react';
-import { createElement, useEffect, useRef } from 'react';
-
-import type { BaseProps } from '#core/types/props';
+import type { DependencyList } from 'react';
+import { useEffect, useRef } from 'react';
 
 const initRefSymbol = Symbol('initRef');
 
@@ -12,14 +10,6 @@ export function useInitRef<T>(init: () => T) {
         ref.current = init();
     }
     return ref.current;
-}
-
-export function createUniversalProvider<T>(context: Context<T>, init: () => T) {
-    return function UniversalProvider({ children }: BaseProps) {
-        const value = useInitRef(init);
-
-        return createElement(context, { value }, children);
-    };
 }
 
 export function useReaction(reactionInstance: () => IReactionDisposer, deps?: DependencyList) {

@@ -1,6 +1,6 @@
 import type { Node as FlowNode } from '@xyflow/react';
 
-import type { FactoryModelBase } from '#core/game/model';
+import type { FactoryModelBase } from '#core/game/model/index.js';
 
 export const FactoryNodeTypeName = 'factoryNode';
 export type FactoryNodeType = FlowNode<FactoryModelBase, typeof FactoryNodeTypeName>;

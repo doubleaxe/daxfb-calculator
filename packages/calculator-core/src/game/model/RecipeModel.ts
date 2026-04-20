@@ -1,9 +1,9 @@
 import { action, computed, makeObservable } from 'mobx';
 
-import type { GameItemBase, GameRecipeIOBase } from '../parser';
-import type { FactoryModelBaseImpl } from './FactoryModel';
-import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel';
-import type { RecipeIOModelBase } from './types';
+import type { GameItemBase, GameRecipeIOBase } from '../parser/index.js';
+import type { FactoryModelBaseImpl } from './FactoryModel.js';
+import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
+import type { RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeModel<
     FACT extends FactoryModelBaseImpl = FactoryModelBaseImpl,

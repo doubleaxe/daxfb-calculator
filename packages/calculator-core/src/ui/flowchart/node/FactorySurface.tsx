@@ -3,9 +3,10 @@ import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import FactoryIO from './FactoryIO';
-import MainIconActions from './MainIconActions';
-import type { FactoryNodeProps } from './types';
+import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
+
+import FactoryIO from './FactoryIO.jsx';
+import MainIconActions from './MainIconActions.jsx';
 
 const FactorySurface = observer(({ data }: FactoryNodeProps) => {
     const isFat = computed(() => {

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { FlowChartModelBase } from './types';
+import type { FlowChartModelBase } from './types.js';
 
 export const FlowChartModelContext = createContext(null as FlowChartModelBase | null);
 export function useFlowChartModelBase() {

@@ -7,13 +7,13 @@ import { useState } from 'react';
 import { Fragment } from 'react/jsx-runtime';
 import { createPortal } from 'react-dom';
 
-import type { GameItemBase } from '#core/game/parser';
-import { useGameDataBase } from '#core/game/parser';
-import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState';
-import { useFilterStoreBase } from '#core/stores/FilterStoreBase';
+import type { GameItemBase } from '#core/game/parser/index.js';
+import { useGameDataBase } from '#core/game/parser/index.js';
+import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
+import { useFilterStoreBase } from '#core/stores/FilterStoreBase.js';
 
-import GameIconDragging from '../components/GameIconDragging';
-import GameIconDraggableSelectable from './GameIconDraggableSelectable';
+import GameIconDragging from '../components/GameIconDragging.jsx';
+import GameIconDraggableSelectable from './GameIconDraggableSelectable.jsx';
 
 const FactoryPaletteItemList = observer(() => {
     const gameData = useGameDataBase();

@@ -1,10 +1,10 @@
-import type { PublicInterfaceOf } from '#daxfb-shared/types/UtilityTypes';
+import type { PublicInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 
-import type { FactoryModelBaseImpl } from './FactoryModel';
-import type { FlowChartModelBaseImpl } from './FlowChartModel';
-import type { IOLinkModelBaseImpl } from './IOLinkModel';
-import type { RecipeIOModelBaseImpl } from './RecipeIOModel';
-import type { RecipeModelBaseImpl } from './RecipeModel';
+import type { FactoryModelBaseImpl } from './FactoryModel.js';
+import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
+import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
+import type { RecipeModelBaseImpl } from './RecipeModel.js';
 
 export type FlowChartModelBase = PublicInterfaceOf<FlowChartModelBaseImpl>;
 export type FactoryModelBase = PublicInterfaceOf<FactoryModelBaseImpl>;

@@ -2,7 +2,7 @@ import { hstack, vstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import type { ReactNode } from 'react';
 import { Children, isValidElement } from 'react';
 
-import type { BaseProps } from '#core/types/props';
+import type { BaseProps } from '#core/types/props.js';
 
 function FilterPanel({ children }: BaseProps) {
     return children;

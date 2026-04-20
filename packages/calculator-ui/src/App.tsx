@@ -1,13 +1,12 @@
+import MantineInit from '@doubleaxe/daxfb-calculator-core/ui/MantineInit';
 import { center } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import { Loader } from '@mantine/core';
 import { lazy, Suspense, useEffect, useState } from 'react';
 
-import MantineInit from '#core/ui/MantineInit';
+import { GameIds } from './GameIds.js';
 
-import { GameIds } from './GameIds';
-
-const LandingPage = lazy(() => import(`./pages/LandingPage`));
-const CoiGamePage = lazy(() => import('./pages/CoiGamePage'));
+const LandingPage = lazy(() => import(`./pages/LandingPage.jsx`));
+const CoiGamePage = lazy(() => import('./pages/CoiGamePage.jsx'));
 
 function getGameId() {
     const params = new URLSearchParams(window.location.search);

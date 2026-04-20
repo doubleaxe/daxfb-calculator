@@ -3,17 +3,17 @@ import type { Node as FlowNode, OnConnect, OnConnectEnd, OnConnectStart, OnNodeD
 import { Background, Controls, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
 import { action, reaction } from 'mobx';
 
-import type { FactoryModelBase, IOLinkModelBase } from '#core/game/model';
-import { useFlowChartModelBase } from '#core/game/model';
-import { useReaction } from '#core/utils/hooks';
+import type { FactoryModelBase, IOLinkModelBase } from '#core/game/model/index.js';
+import { useFlowChartModelBase } from '#core/game/model/index.js';
+import type { FactoryEdgeType } from '#core/types/flowchart/edge/types.js';
+import { FactoryEdgeTypeName } from '#core/types/flowchart/edge/types.js';
+import type { FactoryNodeType } from '#core/types/flowchart/node/types.js';
+import { FactoryNodeTypeName, NodeDragHandleClass } from '#core/types/flowchart/node/types.js';
+import { FlowChartDroppable } from '#core/types/flowchart/types.js';
+import { useReaction } from '#core/utils/hooks.js';
 
-import FactoryEdge from './edge/FactoryEdge';
-import type { FactoryEdgeType } from './edge/types';
-import { FactoryEdgeTypeName } from './edge/types';
-import FactoryNode from './node/FactoryNode';
-import type { FactoryNodeType } from './node/types';
-import { FactoryNodeTypeName, NodeDragHandleClass } from './node/types';
-import { FlowChartDroppable } from './types';
+import FactoryEdge from './edge/FactoryEdge.jsx';
+import FactoryNode from './node/FactoryNode.jsx';
 
 const nodeTypes = {
     [FactoryNodeTypeName]: FactoryNode,

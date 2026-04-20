@@ -4,21 +4,16 @@ import { NodeToolbar, useUpdateNodeInternals } from '@xyflow/react';
 import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import { draggableSelectableStyles } from '#core/ui/styles/DraggableSelectable';
-import { draggingStyle } from '#core/ui/styles/Dragging';
+import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
+import { draggingStyle } from '#core/styles/Dragging.js';
+import type { FactoryNodeType } from '#core/types/flowchart/node/types.js';
 import { useReaction } from '#core/utils/hooks.js';
 
-import ExampleFlowchart from '../test/deepseek';
-import FactorySurface from './FactorySurface';
-import TitleRow from './TitleRow';
-import type { FactoryNodeType } from './types';
+import FactorySurface from './FactorySurface.jsx';
+import TitleRow from './TitleRow.jsx';
 
 const FactoryNode = observer((props: NodeProps<FactoryNodeType>) => {
     const data = props.data;
-
-    if (data.name === 'CoolingTowerT1') {
-        return <ExampleFlowchart />;
-    }
 
     const updateNodeInternals = useUpdateNodeInternals();
 

@@ -1,6 +1,6 @@
 import { Anchor, AppShell, Container, List, Paper, Text, Title } from '@mantine/core';
 
-import { GameIds } from '../GameIds';
+import { GameIds } from '../GameIds.js';
 
 export default function LandingPage() {
     return (

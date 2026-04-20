@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
 
-import ActionButton from '../components/ActionButton';
+import ActionButton from '../components/ActionButton.jsx';
 
 const ToolBarBase = observer(() => {
     const factoryPaletteState = useFactoryPaletteState();

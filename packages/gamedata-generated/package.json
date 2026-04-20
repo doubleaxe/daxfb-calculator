@@ -8,8 +8,17 @@
     "node": ">=22"
   },
   "type": "module",
-  "imports": {
-    "#daxfb-shared/*": "./node_modules/@doubleaxe/daxfb-shared/src/*"
+  "scripts": {
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "check": "tsc --noEmit"
+  },
+  "exports": {
+    "./coi": "./src/coi.ts",
+    "./coi/images.png": "./src/coi/images.png",
+    "./coi/keys.json": "./src/coi/keys.json",
+    "./coi/locales/*": "./src/coi/locales/*.ts",
+    "./package.json": "./package.json"
   },
   "dependencies": {
     "@doubleaxe/daxfb-shared": "workspace:*"

@@ -1,6 +1,6 @@
-import { newId } from './internal';
-import type { RecipeIOModelBaseImpl } from './RecipeIOModel';
-import type { RecipeIOModelBase } from './types';
+import { newId } from './internal.js';
+import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
+import type { RecipeIOModelBase } from './types.js';
 
 export type CreateIOLinkModel<
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,

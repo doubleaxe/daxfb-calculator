@@ -7,5 +7,14 @@
   "engines": {
     "node": ">=22"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "check": "tsc --noEmit"
+  },
+  "exports": {
+    "./*": "./src/*.ts",
+    "./package.json": "./package.json"
+  }
 }

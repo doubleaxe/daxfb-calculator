@@ -1,14 +1,13 @@
+import { GameContext } from '@doubleaxe/daxfb-calculator-core/game/parser';
+import type { BaseProps } from '@doubleaxe/daxfb-calculator-core/types/props';
 import { lazy, useRef } from 'react';
 
-import { GameContext } from '#core/game/parser';
-import type { BaseProps } from '#core/types/props';
-
-import { GameDataCoiImpl } from './ParsedGameData';
+import { GameDataCoiImpl } from './ParsedGameData.js';
 
 const GameContextProvider = lazy(async () => {
     const [{ gameDataJson }, { localeJson }] = await Promise.all([
-        import('#daxfb-gamedata-generated/coi'),
-        import('#daxfb-gamedata-generated/coi/locales/en'),
+        import('@doubleaxe/daxfb-gamedata-generated/coi'),
+        import('@doubleaxe/daxfb-gamedata-generated/coi/locales/en'),
     ]);
 
     gameDataJson.locale = localeJson;

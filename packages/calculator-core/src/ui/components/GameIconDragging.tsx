@@ -1,9 +1,9 @@
 import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 
-import type { GameItemBase } from '#core/game/parser';
+import type { GameItemBase } from '#core/game/parser/index.js';
+import { draggingStyle } from '#core/styles/Dragging.js';
 
-import GameIcon from '../components/GameIcon';
-import { draggingStyle } from '../styles/Dragging';
+import GameIcon from '../components/GameIcon.jsx';
 
 type Props = {
     item: GameItemBase | undefined;

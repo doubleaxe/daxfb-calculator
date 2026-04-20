@@ -4,10 +4,9 @@ import { CaretDoubleDownIcon, CaretDoubleUpIcon, MinusIcon, PlusIcon, WrenchIcon
 import { observer } from 'mobx-react-lite';
 import type { ReactElement } from 'react';
 
-import ActionButton from '#core/ui/components/ActionButton';
-import GameIcon from '#core/ui/components/GameIcon';
-
-import type { FactoryNodeProps } from './types';
+import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
+import ActionButton from '#core/ui/components/ActionButton.jsx';
+import GameIcon from '#core/ui/components/GameIcon.jsx';
 
 const cssVars = css({
     '--action-icon-size': '20px',

@@ -1,9 +1,9 @@
 import { useDraggable } from '@dnd-kit/core';
 
-import type { GameItemBase } from '#core/game/parser';
+import type { GameItemBase } from '#core/game/parser/index.js';
 
-import type { IconVariants } from '../components/GameIconDraggableSelectableBase';
-import GameIconDraggableSelectableBase from '../components/GameIconDraggableSelectableBase';
+import type { IconVariants } from '../components/GameIconDraggableSelectableBase.js';
+import GameIconDraggableSelectableBase from '../components/GameIconDraggableSelectableBase.jsx';
 
 type Props = {
     isSelected?: boolean;

@@ -1,11 +1,12 @@
-import type { FlowChartModelBase } from '#core/game/model';
-import { FlowChartModelContext } from '#core/game/model';
-import { useGameDataBase } from '#core/game/parser';
-import { FactoryPaletteStateContext, FactoryPaletteStateImpl } from '#core/stores/FactoryPaletteState';
-import type { FilterStoreBase } from '#core/stores/FilterStoreBase';
-import { FilterStoreBaseImpl, FilterStoreContext } from '#core/stores/FilterStoreBase';
-import type { BaseProps } from '#core/types/props';
-import { createUniversalProvider } from '#core/utils/hooks';
+import type { FlowChartModelBase } from '#core/game/model/index.js';
+import { FlowChartModelContext } from '#core/game/model/index.js';
+import { useGameDataBase } from '#core/game/parser/index.js';
+import { FactoryPaletteStateContext, FactoryPaletteStateImpl } from '#core/stores/FactoryPaletteState.js';
+import type { FilterStoreBase } from '#core/stores/FilterStoreBase.js';
+import { FilterStoreBaseImpl, FilterStoreContext } from '#core/stores/FilterStoreBase.js';
+import type { BaseProps } from '#core/types/props.js';
+
+import UniversalProvider from '../helpers/UniversalProvider.jsx';
 
 type Props = {
     flowChartModel: () => FlowChartModelBase;
@@ -14,20 +15,13 @@ type Props = {
 
 export default function InternalStoresInitializer({ children, store, flowChartModel }: Props) {
     const gameData = useGameDataBase();
-    const FilterStoreContextProvider = createUniversalProvider(
-        FilterStoreContext,
-        store ?? (() => new FilterStoreBaseImpl(gameData))
-    );
-    const FactoryPaletteStateContextProvider = createUniversalProvider(
-        FactoryPaletteStateContext,
-        () => new FactoryPaletteStateImpl()
-    );
-    const FlowChartModelContextProvider = createUniversalProvider(FlowChartModelContext, flowChartModel);
     return (
-        <FilterStoreContextProvider>
-            <FactoryPaletteStateContextProvider>
-                <FlowChartModelContextProvider>{children}</FlowChartModelContextProvider>
-            </FactoryPaletteStateContextProvider>
-        </FilterStoreContextProvider>
+        <UniversalProvider context={FilterStoreContext} init={store ?? (() => new FilterStoreBaseImpl(gameData))}>
+            <UniversalProvider context={FactoryPaletteStateContext} init={() => new FactoryPaletteStateImpl()}>
+                <UniversalProvider context={FlowChartModelContext} init={flowChartModel}>
+                    {children}
+                </UniversalProvider>
+            </UniversalProvider>
+        </UniversalProvider>
     );
 }

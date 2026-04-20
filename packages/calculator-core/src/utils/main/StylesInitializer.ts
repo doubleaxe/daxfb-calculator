@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import type { GameDataBase } from '#core/game/parser';
+import type { GameDataBase } from '#core/game/parser/index.js';
 
 type Props = {
     gameData: GameDataBase;

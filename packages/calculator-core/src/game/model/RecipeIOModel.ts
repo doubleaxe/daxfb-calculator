@@ -1,11 +1,11 @@
 import { action, makeObservable, observable } from 'mobx';
 
-import type { GameItemBase, GameRecipeIOBase } from '../parser';
-import { GameRecipeIOFlagsBase, isAbstractClassItem } from '../parser';
-import type { IOLinkModelBaseImpl } from './IOLinkModel';
-import { ItemModelBaseImpl } from './ItemModel';
-import type { RecipeModelBaseImpl } from './RecipeModel';
-import type { FactoryModelBase, RecipeIOModelBase } from './types';
+import type { GameItemBase, GameRecipeIOBase } from '../parser/index.js';
+import { GameRecipeIOFlagsBase, isAbstractClassItem } from '../parser/index.js';
+import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
+import { ItemModelBaseImpl } from './ItemModel.js';
+import type { RecipeModelBaseImpl } from './RecipeModel.js';
+import type { FactoryModelBase, RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeIOModel<
     REC extends RecipeModelBaseImpl = RecipeModelBaseImpl,

@@ -1,9 +1,9 @@
 import { action, makeObservable, observable } from 'mobx';
 
-import type { FlowChartModelBaseImpl } from './FlowChartModel';
-import { ItemModelBaseImpl } from './ItemModel';
-import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel';
-import type { RecipeModelBase } from './types';
+import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
+import { ItemModelBaseImpl } from './ItemModel.js';
+import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
+import type { RecipeModelBase } from './types.js';
 
 type XYPosition = {
     x: number;

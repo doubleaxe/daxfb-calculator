@@ -1,8 +1,8 @@
+import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 import { makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
 
-import type { GameItemBase } from '#core/game/parser';
-import type { InterfaceOf } from '#daxfb-shared/types/UtilityTypes';
+import type { GameItemBase } from '#core/game/parser/index.js';
 
 export class FactoryPaletteStateImpl {
     factoryPaletteOpened = true;

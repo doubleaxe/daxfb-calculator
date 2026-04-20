@@ -1,9 +1,9 @@
 import { action, makeObservable, observable } from 'mobx';
 
-import type { GameDataBase } from '../parser';
-import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel';
-import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel';
-import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types';
+import type { GameDataBase } from '../parser/index.js';
+import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
+import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
 export abstract class FlowChartModelBaseImpl {
     chartName = '';

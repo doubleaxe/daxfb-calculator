@@ -1,12 +1,11 @@
 import './index.css';
 import '../generated/styled-system/styles.css';
 
+import { initApplication } from '@doubleaxe/daxfb-calculator-core/ui/init';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { initApplication } from '#core/ui/init';
-
-import App from './App';
+import App from './App.jsx';
 
 initApplication();
 

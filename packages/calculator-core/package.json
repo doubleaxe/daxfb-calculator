@@ -8,10 +8,25 @@
     "node": ">=22"
   },
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "check": "tsc --noEmit"
+  },
   "imports": {
-    "#core/*": "./src/*",
-    "#daxfb-shared/*": "./node_modules/@doubleaxe/daxfb-shared/src/*"
+    "#core/*": "./src/*"
+  },
+  "exports": {
+    "./game/model": "./src/game/model/index.ts",
+    "./game/model/*": "./src/game/model/*.ts",
+    "./game/parser": "./src/game/parser/index.ts",
+    "./game/parser/*": "./src/game/parser/*.ts",
+    "./stores/*": "./src/stores/*.ts",
+    "./types/*": "./src/types/*.ts",
+    "./ui/init": "./src/ui/init.ts",
+    "./ui/*": "./src/ui/*.tsx",
+    "./utils/*": "./src/utils/*.ts",
+    "./package.json": "./package.json"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

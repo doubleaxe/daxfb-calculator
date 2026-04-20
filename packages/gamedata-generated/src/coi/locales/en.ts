@@ -1,4 +1,4 @@
-import type { GameItemLocaleJson } from '#daxfb-shared/types/gamedata/coi.js';
+import type { GameItemLocaleJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi';
 export const localeJson: GameItemLocaleJson = [
   [
     "6I",

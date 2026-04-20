@@ -1,9 +1,9 @@
-import FactoryPalette from '#core/ui/factory-palette/FactoryPalette';
-import FactoryPaletteItemList from '#core/ui/factory-palette/FactoryPaletteItemList';
-import FilterFactoryItem from '#core/ui/factory-palette/FilterFactoryItem';
-import FlowChartFrame from '#core/ui/flowchart/FlowChartFrame';
-import AppWindowBase from '#core/ui/main/AppWindowBase';
-import ToolBarBase from '#core/ui/toolbar/ToolBarBase';
+import FactoryPalette from '@doubleaxe/daxfb-calculator-core/ui/factory-palette/FactoryPalette';
+import FactoryPaletteItemList from '@doubleaxe/daxfb-calculator-core/ui/factory-palette/FactoryPaletteItemList';
+import FilterFactoryItem from '@doubleaxe/daxfb-calculator-core/ui/factory-palette/FilterFactoryItem';
+import FlowChartFrame from '@doubleaxe/daxfb-calculator-core/ui/flowchart/FlowChartFrame';
+import AppWindowBase from '@doubleaxe/daxfb-calculator-core/ui/main/AppWindowBase';
+import ToolBarBase from '@doubleaxe/daxfb-calculator-core/ui/toolbar/ToolBarBase';
 
 export default function AppWindow() {
     return (
