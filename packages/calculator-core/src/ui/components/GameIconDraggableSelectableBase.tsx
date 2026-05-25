@@ -5,7 +5,7 @@ import type { HTMLAttributes, Ref } from 'react';
 import type { GameItemImageJson } from '#core/game/parser/index.js';
 import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
 
-import GameIcon from '../components/GameIcon.jsx';
+import GameIcon from './GameIcon.jsx';
 
 const iconStyles = cva({
     base: {

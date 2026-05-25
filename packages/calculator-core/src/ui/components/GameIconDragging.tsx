@@ -3,7 +3,7 @@ import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import type { GameItemBase } from '#core/game/parser/index.js';
 import { draggingStyle } from '#core/styles/Dragging.js';
 
-import GameIcon from '../components/GameIcon.jsx';
+import GameIcon from './GameIcon.jsx';
 
 type Props = {
     item: GameItemBase | undefined;

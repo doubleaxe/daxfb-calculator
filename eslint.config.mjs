@@ -1,9 +1,11 @@
 import reactTs from '@doubleaxe/eslint-config/react-ts';
+import modulePathFixer from '@doubleaxe/eslint-plugin-module-path-fixer';
 import { defineConfig } from 'eslint/config';
 
-const extendFiles = reactTs.utils.extendFiles;
 const patterns = reactTs.patterns;
 const configs = reactTs.configs;
+
+const nodeFiles = [...patterns.toolsEs, ...patterns.toolsTs, '**/panda.config.ts', '**/postcss.config.js'];
 
 export default defineConfig([
     {
@@ -13,7 +15,18 @@ export default defineConfig([
             'packages/calculator-styles/panda.config.d.ts',
         ],
     },
-    extendFiles(configs.esNextRoot, [...patterns.esFilter, ...patterns.tsFilter]),
+    {
+        name: 'es',
+        files: [...patterns.esFilter, ...patterns.tsFilter],
+        extends: [configs.esNextRoot],
+        plugins: {
+            'module-path-fixer': modulePathFixer,
+        },
+        rules: {
+            'module-path-fixer/prefer-alias-or-relative': ['error'],
+            'module-path-fixer/extensions': ['error', { extension: 'always', index: 'always' }],
+        },
+    },
     {
         name: 'ts',
         files: patterns.tsFilter,
@@ -39,12 +52,12 @@ export default defineConfig([
     {
         name: 'web',
         files: ['packages/calculator-ui/**'],
-        ignores: [...patterns.toolsEs, ...patterns.toolsTs, '**/panda.config.ts', '**/postcss.config.js'],
+        ignores: [...nodeFiles],
         extends: [configs.browser],
     },
     {
         name: 'node',
-        files: ['packages/gamedata/**', ...patterns.toolsEs, ...patterns.toolsTs],
-        extends: [reactTs.configs.node],
+        files: ['packages/gamedata/**', ...nodeFiles],
+        extends: [configs.node],
     },
 ]);

@@ -19,7 +19,8 @@
     "packages/**"
   ],
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
     "changeset-add": "@changesets/cli add",
     "changeset-release": "@changesets/cli version",
     "changeset-snapshot": "@changesets/cli version --snapshot"
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "@doubleaxe/eslint-config": "^2.0.6",
+    "@doubleaxe/eslint-plugin-module-path-fixer": "^1.0.3",
     "@doubleaxe/prettier-config": "^1.0.5",
     "@doubleaxe/typescript-config": "^1.0.5",
     "@types/node": "^24.12.2",
