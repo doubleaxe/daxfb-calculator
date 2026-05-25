@@ -1,5 +1,9 @@
 packages:
   - 'packages/**'
+allowBuilds:
+  esbuild: true
 catalog:
   tslib: ^2.8.1
-  typescript: ^5.9.2
+  typescript: ^5.9.3
+minimumReleaseAgeExclude:
+  - '@doubleaxe/*'

@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0-alpha.1",
   "license": "MIT",
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.3.0",
   "engines": {
     "node": ">=22"
   },
@@ -13,7 +13,7 @@
     "emit": "panda emit-pkg"
   },
   "devDependencies": {
-    "@pandacss/dev": "^1.9.1"
+    "@pandacss/dev": "^1.11.1"
   },
   "exports": {
     "./css": {
