@@ -1,21 +1,23 @@
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { AppShell, ScrollArea } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
-import type { ReactNode } from 'react';
-import { Children, isValidElement } from 'react';
 
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
 import type { BaseProps } from '#core/types/props.js';
+import { assignDisplayName, extractComponentsForCompoundParent } from '#core/utils/tsxhelpers.js';
 
 function AppWindowBaseToolBar({ children }: BaseProps) {
     return children;
 }
+assignDisplayName(AppWindowBaseToolBar, 'AppWindowBaseToolBar');
 function AppWindowBaseFactoryPalette({ children }: BaseProps) {
     return children;
 }
+assignDisplayName(AppWindowBaseFactoryPalette, 'AppWindowBaseFactoryPalette');
 function AppWindowBaseFlowChart({ children }: BaseProps) {
     return children;
 }
+assignDisplayName(AppWindowBaseFlowChart, 'AppWindowBaseFlowChart');
 
 const ScrollAreaAutoHide = observer((props: Record<string, unknown>) => {
     const factoryPaletteState = useFactoryPaletteState();
@@ -32,20 +34,11 @@ const ScrollAreaAutoHide = observer((props: Record<string, unknown>) => {
 function AppWindowBase({ children }: BaseProps) {
     const factoryPaletteState = useFactoryPaletteState();
 
-    let toolBar: ReactNode | undefined;
-    let factoryPalette: ReactNode | undefined;
-    let flowChart: ReactNode | undefined;
-
-    Children.forEach(children, (child) => {
-        if (!isValidElement(child)) return;
-        if (child.type === AppWindowBaseToolBar) {
-            toolBar = child;
-        } else if (child.type === AppWindowBaseFactoryPalette) {
-            factoryPalette = child;
-        } else if (child.type === AppWindowBaseFlowChart) {
-            flowChart = child;
-        }
-    });
+    const [toolBar, factoryPalette, flowChart] = extractComponentsForCompoundParent(children, [
+        'AppWindowBaseToolBar',
+        'AppWindowBaseFactoryPalette',
+        'AppWindowBaseFlowChart',
+    ]);
 
     return (
         <AppShell

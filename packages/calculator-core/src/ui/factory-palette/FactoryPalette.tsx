@@ -1,28 +1,19 @@
 import { hstack, vstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
-import type { ReactNode } from 'react';
-import { Children, isValidElement } from 'react';
 
 import type { BaseProps } from '#core/types/props.js';
+import { assignDisplayName, extractComponentsForCompoundParent } from '#core/utils/tsxhelpers.js';
 
 function FilterPanel({ children }: BaseProps) {
     return children;
 }
+assignDisplayName(FilterPanel, 'FilterPanel');
 function ItemList({ children }: BaseProps) {
     return children;
 }
+assignDisplayName(ItemList, 'ItemList');
 
 function FactoryPalette({ children }: BaseProps) {
-    let filterPanel: ReactNode | undefined;
-    let itemList: ReactNode | undefined;
-
-    Children.forEach(children, (child) => {
-        if (!isValidElement(child)) return;
-        if (child.type === FilterPanel) {
-            filterPanel = child;
-        } else if (child.type === ItemList) {
-            itemList = child;
-        }
-    });
+    const [filterPanel, itemList] = extractComponentsForCompoundParent(children, ['FilterPanel', 'ItemList']);
 
     return (
         <div className={vstack({})}>
