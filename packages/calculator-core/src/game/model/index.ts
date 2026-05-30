@@ -8,4 +8,5 @@ import type {
 
 export type { FactoryModelBase, FlowChartModelBase, IOLinkModelBase, RecipeIOModelBase, RecipeModelBase };
 
+export * from './constants.js';
 export * from './FlowChartContextBase.js';

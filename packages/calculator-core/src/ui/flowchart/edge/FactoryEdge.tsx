@@ -14,7 +14,7 @@ const FactoryEdge = observer((props: EdgeProps<FactoryEdgeType>) => {
         targetPosition: props.targetPosition,
     });
 
-    return <BaseEdge path={edgePath} />;
+    return <BaseEdge markerEnd={props.markerEnd} path={edgePath} />;
 });
 
 export default FactoryEdge;

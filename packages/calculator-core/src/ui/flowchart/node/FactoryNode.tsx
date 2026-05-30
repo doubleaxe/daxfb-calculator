@@ -1,9 +1,10 @@
 import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import type { NodeProps } from '@xyflow/react';
 import { NodeToolbar, useUpdateNodeInternals } from '@xyflow/react';
-import { reaction } from 'mobx';
+import { computed, reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
+import { useFlowChartModelBase } from '#core/game/model/index.js';
 import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
 import { draggingStyle } from '#core/styles/Dragging.js';
 import type { FactoryNodeType } from '#core/types/flowchart/node/types.js';
@@ -13,7 +14,11 @@ import FactorySurface from './FactorySurface.jsx';
 import TitleRow from './TitleRow.jsx';
 
 const FactoryNode = observer((props: NodeProps<FactoryNodeType>) => {
-    const data = props.data;
+    const flowChartModel = useFlowChartModelBase();
+    const data = computed(() => flowChartModel.itemByKey(props.id)).get();
+    if (!data) {
+        return null;
+    }
 
     const updateNodeInternals = useUpdateNodeInternals();
 

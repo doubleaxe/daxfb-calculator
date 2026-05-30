@@ -2,6 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 
 import type { GameItemBase, GameRecipeIOBase } from '../parser/index.js';
 import { GameRecipeIOFlagsBase, isAbstractClassItem } from '../parser/index.js';
+import { EdgeStatus } from './constants.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { RecipeModelBaseImpl } from './RecipeModel.js';
@@ -14,7 +15,7 @@ export type CreateRecipeIOModel<
 > = (__recipe: REC, __io: IOJ) => IO;
 
 export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
-    selected = false;
+    public status: EdgeStatus = EdgeStatus.None;
 
     readonly isInput;
 
@@ -31,7 +32,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         this.isInput = __io.isInput;
 
         makeObservable<RecipeIOModelBaseImpl, '__materializedAbstractItem'>(this, {
-            selected: observable,
+            status: observable,
             __materializedAbstractItem: observable,
             __addLink: action,
             __materializeAbstractItem: action,

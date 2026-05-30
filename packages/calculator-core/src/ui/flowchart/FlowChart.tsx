@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/refs */
 import { useDndMonitor } from '@dnd-kit/core';
 import type { Node as FlowNode, OnConnect, OnConnectEnd, OnConnectStart, OnNodeDrag } from '@xyflow/react';
 import { Background, Controls, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
 import { action, reaction } from 'mobx';
+import { useRef } from 'react';
 
-import type { FactoryModelBase, IOLinkModelBase } from '#core/game/model/index.js';
-import { useFlowChartModelBase } from '#core/game/model/index.js';
+import type { FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from '#core/game/model/index.js';
+import { EdgeStatus, useFlowChartModelBase } from '#core/game/model/index.js';
 import type { FactoryEdgeType } from '#core/types/flowchart/edge/types.js';
 import { FactoryEdgeTypeName } from '#core/types/flowchart/edge/types.js';
 import type { FactoryNodeType } from '#core/types/flowchart/node/types.js';
@@ -12,6 +14,7 @@ import { FactoryNodeTypeName, NodeDragHandleClass } from '#core/types/flowchart/
 import { FlowChartDroppable } from '#core/types/flowchart/types.js';
 import { useReaction } from '#core/utils/hooks.js';
 
+import ConnectionLine from './edge/ConnectionLine.jsx';
 import FactoryEdge from './edge/FactoryEdge.jsx';
 import FactoryNode from './node/FactoryNode.jsx';
 
@@ -31,8 +34,8 @@ function syncNodes(nds: FactoryNodeType[], items: FactoryModelBase[]) {
             id: factory.itemId,
             type: FactoryNodeTypeName,
             position: factory.position,
-            data: factory,
             dragHandle: `.${NodeDragHandleClass}`,
+            data: { itemId: factory.itemId },
         };
         return node;
     });
@@ -50,10 +53,27 @@ function syncEdges(edges: FactoryEdgeType[], links: IOLinkModelBase[]) {
             sourceHandle: link.output.itemId,
             target: link.input.factory.itemId,
             targetHandle: link.input.itemId,
+            data: { linkId: link.linkId },
         };
         return edge;
     });
     return newEdges;
+}
+
+type ActiveConn = {
+    source: RecipeIOModelBase | undefined;
+    target: RecipeIOModelBase | undefined;
+};
+
+function clearActiveConnection(_activeConn: ActiveConn) {
+    if (_activeConn.source) {
+        _activeConn.source.status = EdgeStatus.None;
+        _activeConn.source = undefined;
+    }
+    if (_activeConn.target) {
+        _activeConn.target.status = EdgeStatus.None;
+        _activeConn.target = undefined;
+    }
 }
 
 export default function FlowChart() {
@@ -61,6 +81,7 @@ export default function FlowChart() {
     const [edges, setEdges, onEdgesChange] = useEdgesState<FactoryEdgeType>([]);
     const { screenToFlowPosition } = useReactFlow();
     const flowChartModel = useFlowChartModelBase();
+    const activeConn = useRef({} as ActiveConn);
 
     useReaction(
         () =>
@@ -85,25 +106,40 @@ export default function FlowChart() {
                 },
                 { delay: 1 }
             ),
-        [flowChartModel, setNodes, nodes]
+        [flowChartModel, setEdges, edges]
     );
 
     const onNodeDragStop: OnNodeDrag<FlowNode> = action((event, node) => {
         if (node.type === FactoryNodeTypeName) {
-            const data: FactoryModelBase = (node as FactoryNodeType).data;
-            data.setPosition(node.position);
+            const data = flowChartModel.itemByKey(node.id);
+            data?.setPosition(node.position);
         }
     });
 
     const onClickConnectStart: OnConnectStart = action((event, params) => {
+        clearActiveConnection(activeConn.current);
         const io = flowChartModel.findIo(params.nodeId ?? '', params.handleId ?? '');
         if (io) {
-            io.selected = true;
+            io.status = EdgeStatus.ClickSource;
+            activeConn.current.source = io;
         }
     });
 
-    const onClickConnectEnd: OnConnectEnd = action((event, params) => {
-        console.log(params);
+    const onClickConnectEnd: OnConnectEnd = action(() => {
+        clearActiveConnection(activeConn.current);
+    });
+
+    const onConnectStart: OnConnectStart = action((_event, params) => {
+        clearActiveConnection(activeConn.current);
+        const io = flowChartModel.findIo(params.nodeId ?? '', params.handleId ?? '');
+        if (io) {
+            io.status = EdgeStatus.DragSource;
+            activeConn.current.source = io;
+        }
+    });
+
+    const onConnectEnd: OnConnectEnd = action(() => {
+        clearActiveConnection(activeConn.current);
     });
 
     const onConnect: OnConnect = action((connection) => {
@@ -113,6 +149,7 @@ export default function FlowChart() {
             targetId: connection.target,
             targetIOId: connection.targetHandle ?? '',
         });
+        clearActiveConnection(activeConn.current);
     });
 
     useDndMonitor({
@@ -133,6 +170,7 @@ export default function FlowChart() {
 
     return (
         <ReactFlow
+            connectionLineComponent={ConnectionLine}
             edgeTypes={edgeTypes}
             edges={edges}
             nodeTypes={nodeTypes}
@@ -140,6 +178,8 @@ export default function FlowChart() {
             onClickConnectEnd={onClickConnectEnd}
             onClickConnectStart={onClickConnectStart}
             onConnect={onConnect}
+            onConnectEnd={onConnectEnd}
+            onConnectStart={onConnectStart}
             onEdgesChange={onEdgesChange}
             onNodeDragStop={onNodeDragStop}
             onNodesChange={onNodesChange}

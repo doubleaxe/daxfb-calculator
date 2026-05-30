@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 
+import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
@@ -16,6 +17,7 @@ export type CreateFactoryModel<
 > = (__flowChart: CHART, key: string) => FACT;
 
 export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
+    public status: NodeStatus = NodeStatus.None;
     public isFlipped = false;
 
     protected __position: XYPosition = { x: 0, y: 0 };
@@ -35,6 +37,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         }
 
         makeObservable<FactoryModelBaseImpl, '__selectedRecipe'>(this, {
+            status: observable,
             isFlipped: observable,
             __selectedRecipe: observable,
             deleteThis: action,
