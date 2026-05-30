@@ -1,7 +1,9 @@
 export const NodeStatus = {
     None: 'None',
     DragSource: 'DragSource',
+    ClickTarget: 'ClickTarget',
     DragTarget: 'DragTarget',
+    PossibleClickTarget: 'PossibleDragTarget',
     PossibleDragTarget: 'PossibleDragTarget',
     ImpossibleDragTarget: 'ImpossibleDragTarget',
 } as const;

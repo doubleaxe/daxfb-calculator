@@ -4,7 +4,7 @@ import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
-import type { RecipeModelBase } from './types.js';
+import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
 type XYPosition = {
     x: number;
@@ -54,6 +54,24 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     get selectedRecipe(): RecipeModelBase | undefined {
         return this.__selectedRecipe;
     }
+    __possibleRecipesForIo(sourceIo?: RecipeIOModelBase): string[] {
+        if (!sourceIo) return [];
+        return this.__possibleRecipesForItem(sourceIo.key, sourceIo.isInput ? 1 : -1);
+    }
+    __possibleRecipesForItem(itemId: string | undefined, direction: number): string[] {
+        let possibleRecipesArray: string[] = [];
+        if (!itemId) return possibleRecipesArray;
+        if (direction <= 0) {
+            const possibleRecipes = this.__recipesDictionary.recipesByInputMap.get(itemId);
+            if (possibleRecipes) possibleRecipesArray = possibleRecipesArray.concat(possibleRecipes);
+        }
+        if (direction >= 0) {
+            const possibleRecipes = this.__recipesDictionary.recipesByOutputMap.get(itemId);
+            if (possibleRecipes) possibleRecipesArray = possibleRecipesArray.concat(possibleRecipes);
+        }
+        return possibleRecipesArray;
+    }
+
     setPosition(position: XYPosition) {
         this.__position = position;
     }
@@ -67,5 +85,11 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
     __getIO(itemId: string) {
         return this.__selectedRecipe?.__getIO(itemId);
+    }
+    __findConnectable(target: RecipeIOModelBase) {
+        return this.__selectedRecipe?.__findConnectable(target);
+    }
+    __findAlreadyLinked(target: RecipeIOModelBase) {
+        return this.__selectedRecipe?.__findAlreadyLinked(target);
     }
 }

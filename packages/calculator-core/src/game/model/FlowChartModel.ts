@@ -57,6 +57,25 @@ export abstract class FlowChartModelBaseImpl {
         }
         return undefined;
     }
+    findConnectable(io: RecipeIOModelBase) {
+        const connectable: {
+            factory: FactoryModelBase;
+            io?: RecipeIOModelBase;
+        }[] = [];
+        for (const item of this.__items.values()) {
+            if (item.itemId === io.factory.itemId) continue;
+            if (item.__findAlreadyLinked(io)) continue;
+            const connectableIo = item.__findConnectable(io);
+            if (connectableIo) {
+                connectable.push({ factory: item, io: connectableIo });
+                continue;
+            }
+            if (item.__possibleRecipesForIo(io).length) {
+                connectable.push({ factory: item });
+            }
+        }
+        return connectable;
+    }
 
     resetChartName() {
         this.chartName = this.defaultChartName;

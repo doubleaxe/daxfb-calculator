@@ -1,6 +1,6 @@
-import { action, computed, makeObservable } from 'mobx';
+import { computed, makeObservable } from 'mobx';
 
-import type { GameItemBase, GameRecipeIOBase } from '../parser/index.js';
+import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
@@ -36,7 +36,6 @@ export abstract class RecipeModelBaseImpl {
             invisibleInput: computed,
             visibleOutput: computed,
             invisibleOutput: computed,
-            __materializeAllAbstractItems: action,
         });
     }
 
@@ -66,22 +65,12 @@ export abstract class RecipeModelBaseImpl {
     __getIO(itemId: string) {
         return this.__itemsById.get(itemId);
     }
-
-    __materializeAllAbstractItems(item: GameItemBase | undefined) {
-        const items = [...this.__input, ...this.__output];
-        if (item) {
-            // link is added, materialize all io
-            for (const io of items) {
-                io.__materializeAbstractItem(item);
-            }
-        } else {
-            // link is removed, if no links are left - dematerialize all io
-            const haveLinks = items.some((io) => io.linksCount);
-            if (!haveLinks) {
-                for (const io of items) {
-                    io.__materializeAbstractItem(undefined);
-                }
-            }
-        }
+    __findConnectable(target: RecipeIOModelBase) {
+        const otherSide = target.isInput ? this.__output : this.__input;
+        return otherSide.find((io) => io.isConnectable(target));
+    }
+    __findAlreadyLinked(target: RecipeIOModelBase) {
+        const otherSide = target.isInput ? this.__output : this.__input;
+        return otherSide.find((io) => io.isAlreadyLinked(target));
     }
 }

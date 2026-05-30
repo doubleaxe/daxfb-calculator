@@ -4,9 +4,11 @@ import { Handle, Position } from '@xyflow/react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import type { RecipeIOModelBase } from '#core/game/model/index.js';
+import { EdgeStatus, type RecipeIOModelBase } from '#core/game/model/index.js';
 import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
 import GameIcon from '#core/ui/components/GameIcon.js';
+
+import ConnectionMarker from './ConnectionMarker.jsx';
 
 type Props = {
     io: RecipeIOModelBase;
@@ -20,33 +22,38 @@ const IOConnectionPoint = observer(({ io }: Props) => {
 
     return (
         <div
+            aria-selected={io.status === EdgeStatus.ClickSource}
             className={cx(
                 css({ position: 'relative', borderRadius: 'var(--mantine-radius-md)', borderColor: 'transparent' }),
-                draggableSelectableStyles({ hover: 'cursor', transition: 'lift', select: 'flow' })
+                draggableSelectableStyles({ hover: 'cursor', transition: 'lift', select: 'none' })
             )}
         >
             <GameIcon image={io.image} />
             <Handle
-                className={css({
-                    position: 'absolute',
-                    top: '0px',
-                    left: '0px',
-                    transform: 'none',
-                    minWidth: 'auto',
-                    minHeight: 'auto',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: 0,
-                    border: '0px transparent',
-                    backgroundColor: 'transparent',
-                    cursor: 'grab',
-                })}
+                className={cx(
+                    css({
+                        position: 'absolute',
+                        top: '0px',
+                        left: '0px',
+                        transform: 'none',
+                        minWidth: 'auto',
+                        minHeight: 'auto',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 0,
+                        border: '0px transparent',
+                        backgroundColor: 'transparent',
+                        cursor: 'grab',
+                    })
+                )}
                 id={io.itemId}
                 isConnectableEnd
                 isConnectableStart
                 position={edgePosition}
                 type={io.isInput ? 'target' : 'source'}
-            />
+            >
+                <ConnectionMarker status={io.status} />
+            </Handle>
         </div>
     );
 });

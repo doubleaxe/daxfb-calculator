@@ -36,9 +36,6 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         });
     }
 
-    get rawKey() {
-        return this.__item?.key;
-    }
     get isHidden() {
         return !!((this.__io.flags ?? 0) & GameRecipeIOFlagsBase.Hidden);
     }

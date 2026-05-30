@@ -59,6 +59,7 @@ export const draggableSelectableStyles = cva({
                     '&:has(.clickconnecting)': selectedBase,
                 },
             },
+            none: {},
         },
         transition: {
             lift: {
