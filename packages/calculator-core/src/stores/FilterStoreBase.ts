@@ -3,7 +3,6 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
 
 import type { GameDataBase } from '#core/game/parser/index.js';
-import { isAbstractClassItem } from '#core/game/parser/index.js';
 
 export class FilterStoreBaseImpl {
     readonly gameData;
@@ -28,39 +27,11 @@ export class FilterStoreBaseImpl {
         const key = this._key;
         const filterItem = key ? this.gameData.getGameItem(key) : undefined;
         if (key && filterItem) {
-            const abstractFilterItemType = isAbstractClassItem(filterItem) ? filterItem.type : undefined;
-            const relativeAbsractItem = filterItem.type
-                ? this.gameData.gameAbstractItems.get(filterItem.type)
-                : undefined;
             filteredItems = filteredItems.filter((item) => {
                 if (item.key === key) return true;
                 const recipeDictionary = item.recipeDictionary;
                 if (this._direction <= 0 && recipeDictionary?.recipesByInputMap?.has(key)) return true;
-                if (
-                    abstractFilterItemType &&
-                    this._direction <= 0 &&
-                    recipeDictionary?.hasInputTypes?.has(abstractFilterItemType)
-                )
-                    return true;
-                if (
-                    relativeAbsractItem &&
-                    this._direction <= 0 &&
-                    recipeDictionary?.recipesByInputMap?.has(relativeAbsractItem.name)
-                )
-                    return true;
                 if (this._direction >= 0 && recipeDictionary?.recipesByOutputMap?.has(key)) return true;
-                if (
-                    abstractFilterItemType &&
-                    this._direction >= 0 &&
-                    recipeDictionary?.hasOutputTypes?.has(abstractFilterItemType)
-                )
-                    return true;
-                if (
-                    relativeAbsractItem &&
-                    this._direction >= 0 &&
-                    recipeDictionary?.recipesByOutputMap?.has(relativeAbsractItem.name)
-                )
-                    return true;
                 return false;
             });
         }

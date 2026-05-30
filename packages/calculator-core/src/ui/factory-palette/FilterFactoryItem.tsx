@@ -6,7 +6,7 @@ import { action } from 'mobx';
 import { Observer, observer } from 'mobx-react-lite';
 import { useMemo, useState } from 'react';
 
-import { useGameDataBase } from '#core/game/parser/index.js';
+import { isAbstractClassItem, useGameDataBase } from '#core/game/parser/index.js';
 import { useFilterStoreBase } from '#core/stores/FilterStoreBase.js';
 
 import GameIcon from '../components/GameIcon.jsx';
@@ -23,7 +23,7 @@ const FilterFactoryItem = observer(() => {
     const [requestedPage, setRequestedPage] = useState(1);
 
     const filteredItems = useMemo(() => {
-        const allItems = gameData.gameItemsArray;
+        const allItems = gameData.gameItemsArray.filter((item) => !isAbstractClassItem(item));
         if (!debouncedSearch.trim()) {
             return allItems;
         }
@@ -32,7 +32,9 @@ const FilterFactoryItem = observer(() => {
             .toLowerCase()
             .split(/\s+/)
             .map((s) => s.trim());
-        return allItems.filter((item) => searchTerms.every((term) => !term || item.lowerLabel.includes(term)));
+        return allItems.filter((item) => {
+            return searchTerms.every((term) => !term || item.lowerLabel.includes(term));
+        });
     }, [gameData, debouncedSearch]);
 
     const selectedItem = useMemo(

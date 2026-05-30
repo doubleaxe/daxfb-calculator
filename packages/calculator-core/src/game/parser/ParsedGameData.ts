@@ -17,6 +17,8 @@ import {
 } from '@doubleaxe/daxfb-shared/types/gamedata/common';
 import type { ReadonlyInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 
+import { isAbstractClassItem } from './GameDataUtils.js';
+
 export type CreateGameItem<ITMJ extends GameItemBaseJson, ITM extends GameItemBase> = (
     _item: ITMJ,
     _locale: GameItemLocale,
@@ -234,6 +236,8 @@ export abstract class ParsedGameDataBaseImpl<
 > {
     emptyRecipeDictionary: REC;
     parsedItems: ReadonlyMap<string, ITM>;
+    parsedItemsArray: readonly ITM[];
+    parsedItemsByType: ReadonlyMap<number, ITM[]>;
     parsedRecipes: ReadonlyMap<string, REC>;
 
     constructor(
@@ -250,9 +254,60 @@ export abstract class ParsedGameDataBaseImpl<
             const item = createGameItem(value, locale, index);
             parsedItems.set(value.key, item);
         });
+
+        const parsedItemsArray = [...parsedItems.values()];
+        const parsedItemsByType = parsedItemsArray.reduce((map, item) => {
+            const type = item.type;
+            const items = map.get(type);
+            if (!items) {
+                map.set(type, [item]);
+            } else {
+                items.push(item);
+            }
+            return map;
+        }, new Map<number, ITM[]>());
+
+        // convert abstract recipes to materialized ones
         gameData.recipes.forEach((value) => {
-            const recipeDictionary = createGameRecipeDictionary(value);
-            parsedRecipes.set(value.key, recipeDictionary);
+            const dictionary: RECJ = { ...value, recipes: [] };
+            for (const recipe of value.recipes) {
+                const inputs = recipe.input?.map((io) => parsedItems.get(io.key)) ?? [];
+                const outputs = recipe.output?.map((io) => parsedItems.get(io.key)) ?? [];
+                const abstractInputs = inputs.filter((item) => isAbstractClassItem(item));
+                const abstractOutputs = outputs.filter((item) => isAbstractClassItem(item));
+                if (!abstractInputs.length && !abstractOutputs.length) {
+                    dictionary.recipes.push(recipe);
+                    continue;
+                }
+                if (
+                    abstractInputs.length <= 1 &&
+                    abstractOutputs.length <= 1 &&
+                    (!abstractInputs[0] || !abstractOutputs[0] || abstractInputs[0].type === abstractOutputs[0].type)
+                ) {
+                    const key = abstractInputs[0]?.key ?? abstractOutputs[0]?.key;
+                    const type = abstractInputs[0]?.type ?? abstractOutputs[0]?.type ?? GameItemTypeBase.Unknown;
+                    const items = parsedItemsByType.get(type) ?? [];
+                    for (const item of items) {
+                        dictionary.recipes.push({
+                            ...recipe,
+                            key: `${recipe.key}|${item.key}`,
+                            input: recipe.input?.map((io) => {
+                                if (io.key === key) return { ...io, key: item.key, name: item.name };
+                                return io;
+                            }),
+                            output: recipe.output?.map((io) => {
+                                if (io.key === key) return { ...io, key: item.key, name: item.name };
+                                return io;
+                            }),
+                        });
+                    }
+                    continue;
+                }
+                // TODO - maybe support cross-abstract recipes, intersections and other anomalies, currently unused
+                throw new Error('Unsupported abstract recipe');
+            }
+            const recipeDictionary = createGameRecipeDictionary(dictionary);
+            parsedRecipes.set(dictionary.key, recipeDictionary);
         });
 
         // now let's cross link
@@ -275,6 +330,8 @@ export abstract class ParsedGameDataBaseImpl<
         this.emptyRecipeDictionary = createGameRecipeDictionary(null);
         this.emptyRecipeDictionary.freeze();
         this.parsedItems = freezeMap(parsedItems);
+        this.parsedItemsArray = Object.freeze(parsedItemsArray);
+        this.parsedItemsByType = freezeMap(parsedItemsByType);
         this.parsedRecipes = freezeMap(parsedRecipes);
 
         Object.freeze(this);
@@ -307,7 +364,8 @@ export abstract class GameDataBaseImpl<
         parsedGameData: ParsedGameDataBase<DESCJ, RECJ, REC, ITMJ, ITM>
     ) {
         const gameItemsMap = parsedGameData.parsedItems;
-        const gameItemsArray = [...gameItemsMap.values()];
+        const gameItemsArray = parsedGameData.parsedItemsArray;
+        const gameItemsByType = parsedGameData.parsedItemsByType;
 
         const gameAbstractItems = gameItemsArray.reduce((map, item) => {
             if (item.flags & GameItemFlagsBase.AbstractTypePlaceholderItem && item.type) {
@@ -320,23 +378,12 @@ export abstract class GameDataBaseImpl<
             return map;
         }, new Map<number, GameItemBase>());
 
-        const gameItemsByType = gameItemsArray.reduce((map, item) => {
-            const type = item.type;
-            const items = map.get(type);
-            if (!items) {
-                map.set(type, [item]);
-            } else {
-                items.push(item);
-            }
-            return map;
-        }, new Map<number, GameItemBase[]>());
-
         const gameFactoriesArray = gameItemsArray.filter((item) => item.recipeDictionary);
         const emptyRecipeDictionary = parsedGameData.emptyRecipeDictionary;
 
-        this.gameItemsArray = Object.freeze(gameItemsArray);
+        this.gameItemsArray = gameItemsArray;
         this.gameAbstractItems = freezeMap(gameAbstractItems);
-        this.gameItemsByType = freezeMap(gameItemsByType);
+        this.gameItemsByType = gameItemsByType;
         this.#gameItemsMap = gameItemsMap;
         this.gameFactoriesArray = Object.freeze(gameFactoriesArray);
         this.description = Object.freeze(gameData.description);
