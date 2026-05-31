@@ -33,7 +33,7 @@ function clearActiveConnection(_activeConn: ActiveConn) {
 }
 
 export default function useFlowChartConnectionManager(flowChartModel: FlowChartModelBase) {
-    const activeConn = useRef({ targets: [], source: undefined } as ActiveConn);
+    const activeConn = useRef<ActiveConn>({ targets: [], source: undefined });
 
     const onClickConnectStart: OnConnectStart = action((event, params) => {
         // we manually manage click connections
@@ -75,9 +75,13 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
 
     const onConnect: OnConnect = action((connection) => {
         const _activeConn = activeConn.current;
+        const activeSource = _activeConn.source?.itemId;
+        const activeSourceFactory = _activeConn.source?.factory.itemId;
         if (
-            connection.sourceHandle !== _activeConn.source?.itemId ||
-            connection.source !== _activeConn.source?.factory.itemId
+            !(
+                (connection.sourceHandle === activeSource && connection.source === activeSourceFactory) ||
+                (connection.targetHandle === activeSource && connection.target === activeSourceFactory)
+            )
         ) {
             return;
         }

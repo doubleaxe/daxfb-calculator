@@ -8,7 +8,7 @@ import { EdgeStatus, type RecipeIOModelBase } from '#core/game/model/index.js';
 import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
 import GameIcon from '#core/ui/components/GameIcon.js';
 
-import ConnectionMarker from './ConnectionMarker.jsx';
+import IOConnectionMarker from './IOConnectionMarker.js';
 
 type Props = {
     io: RecipeIOModelBase;
@@ -52,7 +52,7 @@ const IOConnectionPoint = observer(({ io }: Props) => {
                 position={edgePosition}
                 type={io.isInput ? 'target' : 'source'}
             >
-                <ConnectionMarker status={io.status} />
+                <IOConnectionMarker status={io.status} />
             </Handle>
         </div>
     );
