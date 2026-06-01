@@ -70,7 +70,7 @@ function FactoryConnectionMarker({ config }: FactoryConnectionMarkerProps) {
     ) : null;
 }
 
-const FactoryMainAction = observer(({ data }: FactoryNodeProps) => {
+const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
     const config = statusConfig[data.status];
 
     return (
@@ -106,4 +106,4 @@ const FactoryMainAction = observer(({ data }: FactoryNodeProps) => {
     );
 });
 
-export default FactoryMainAction;
+export default FactoryMainButton;

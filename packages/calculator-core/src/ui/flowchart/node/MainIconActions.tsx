@@ -7,7 +7,7 @@ import type { ReactElement } from 'react';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import ActionButton from '#core/ui/components/ActionButton.jsx';
 
-import FactoryMainAction from './FactoryMainAction.js';
+import FactoryMainButton from './FactoryMainButton.js';
 
 const cssVars = css({
     '--action-icon-size': '20px',
@@ -111,7 +111,7 @@ const MainIconActions = observer(({ data }: FactoryNodeProps) => {
                 })}
                 icon={<PlusIcon />}
             />
-            <FactoryMainAction data={data} />
+            <FactoryMainButton data={data} />
         </div>
     );
 });
