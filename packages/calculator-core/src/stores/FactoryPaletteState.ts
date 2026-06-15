@@ -26,7 +26,7 @@ export class FactoryPaletteStateImpl {
 
 export type FactoryPaletteState = InterfaceOf<FactoryPaletteStateImpl>;
 
-export const FactoryPaletteStateContext = createContext(new FactoryPaletteStateImpl());
+export const FactoryPaletteStateContext = createContext(null as FactoryPaletteState | null);
 export function useFactoryPaletteState() {
     const factoryPaletteState = useContext(FactoryPaletteStateContext);
     if (!factoryPaletteState) {

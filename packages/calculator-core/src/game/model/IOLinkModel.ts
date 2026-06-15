@@ -25,9 +25,13 @@ export abstract class IOLinkModelBaseImpl {
         return this.__output;
     }
 
-    __getOtherSide(item: RecipeIOModelBaseImpl) {
-        if (item.key === this.__input?.key) return this.__output;
-        if (item.key === this.__output?.key) return this.__input;
+    getOtherSide(item: RecipeIOModelBase): RecipeIOModelBase | undefined {
+        return this.__getOtherSide(item);
+    }
+
+    __getOtherSide(item: RecipeIOModelBase) {
+        if (item.itemId === this.__input?.itemId) return this.__output;
+        if (item.itemId === this.__output?.itemId) return this.__input;
         return undefined;
     }
 }

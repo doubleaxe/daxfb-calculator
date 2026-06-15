@@ -64,7 +64,7 @@ export default function FlowChart() {
     const [edges, setEdges, onEdgesChange] = useEdgesState<FactoryEdgeType>([]);
     const { screenToFlowPosition } = useReactFlow();
     const flowChartModel = useFlowChartModelBase();
-    const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, onConnect } =
+    const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, onConnect, isValidConnection } =
         useFlowChartConnectionManager(flowChartModel);
 
     useReaction(
@@ -121,6 +121,7 @@ export default function FlowChart() {
             connectionLineComponent={ConnectionLine}
             edgeTypes={edgeTypes}
             edges={edges}
+            isValidConnection={isValidConnection}
             nodeTypes={nodeTypes}
             nodes={nodes}
             onClickConnectEnd={onClickConnectEnd}

@@ -1,5 +1,5 @@
 import { css, cva, cx, type RecipeVariant } from '@doubleaxe/daxfb-calculator-styles/css';
-import { ArrowFatLinesDownIcon, ArrowFatLinesUpIcon, type Icon, XCircleIcon } from '@phosphor-icons/react';
+import { ArrowFatLinesDownIcon, ArrowFatLinesUpIcon, type Icon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 
 import { EdgeStatus } from '#core/game/model/index.js';
@@ -12,7 +12,7 @@ type Props = {
 const iconColor = cva({
     variants: {
         color: {
-            ClickSource: {
+            Source: {
                 _light: {
                     fill: 'var(--mantine-color-indigo-6)',
                 },
@@ -20,7 +20,7 @@ const iconColor = cva({
                     fill: 'var(--mantine-color-indigo-3)',
                 },
             },
-            ClickTarget: {
+            Target: {
                 _light: {
                     fill: 'var(--mantine-color-green-6)',
                 },
@@ -35,14 +35,11 @@ const iconColor = cva({
 export type IconColorVariants = RecipeVariant<typeof iconColor>['color'];
 
 const statusConfig: Partial<Record<EdgeStatus, { icon: Icon }>> = {
-    [EdgeStatus.ClickSource]: {
+    [EdgeStatus.Source]: {
         icon: ArrowFatLinesUpIcon,
     },
-    [EdgeStatus.ClickTarget]: {
+    [EdgeStatus.Target]: {
         icon: ArrowFatLinesDownIcon,
-    },
-    [EdgeStatus.ImpossibleDragTarget]: {
-        icon: XCircleIcon,
     },
 };
 

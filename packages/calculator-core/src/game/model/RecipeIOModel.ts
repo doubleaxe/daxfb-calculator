@@ -6,7 +6,7 @@ import { EdgeStatus } from './constants.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { RecipeModelBaseImpl } from './RecipeModel.js';
-import type { FactoryModelBase, RecipeIOModelBase } from './types.js';
+import type { FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeIOModel<
     REC extends RecipeModelBaseImpl = RecipeModelBaseImpl,
@@ -56,7 +56,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         return this.__item?.image;
     }
 
-    get links() {
+    get links(): IterableIterator<IOLinkModelBase> {
         return this.__links.values();
     }
     get linksCount() {

@@ -22,7 +22,7 @@ const IOConnectionPoint = observer(({ io }: Props) => {
 
     return (
         <div
-            aria-selected={io.status === EdgeStatus.ClickSource}
+            aria-selected={io.status === EdgeStatus.Source}
             className={cx(
                 css({ position: 'relative', borderRadius: 'var(--mantine-radius-md)', borderColor: 'transparent' }),
                 draggableSelectableStyles({ hover: 'cursor', transition: 'lift', select: 'none' })

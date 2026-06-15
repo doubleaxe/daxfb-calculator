@@ -13,7 +13,7 @@ type FactoryConnectionMarkerProps = {
 };
 
 const statusConfig: Partial<Record<NodeStatus, StatusConfig>> = {
-    [NodeStatus.PossibleClickTarget]: {
+    [NodeStatus.PossibleTarget]: {
         icon: QuestionMarkIcon,
         color: 'var(--mantine-color-yellow-filled)',
     },
