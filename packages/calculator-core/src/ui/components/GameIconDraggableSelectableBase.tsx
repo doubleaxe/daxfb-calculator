@@ -31,7 +31,7 @@ export type IconVariants = RecipeVariantProps<typeof iconStyles>;
 type Props = {
     image?: GameItemImageJson;
     isSelected?: boolean;
-    ref?: Ref<HTMLInputElement>;
+    ref?: Ref<HTMLDivElement>;
 } & HTMLAttributes<HTMLDivElement> &
     IconVariants;
 

@@ -1,4 +1,4 @@
-import { useDraggable } from '@dnd-kit/core';
+import { useDraggable } from '@dnd-kit/react';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 
@@ -11,21 +11,20 @@ type Props = {
 } & IconVariants;
 
 export default function GameIconDraggableSelectable({ item, ...props }: Props) {
-    const { attributes, listeners, setNodeRef } = useDraggable({
+    const draggable = useDraggable({
         id: item.key,
-        attributes: {
-            role: 'img',
-        },
     });
+
+    const setNodeRef = (element: HTMLDivElement | null) => {
+        draggable.ref(element);
+    };
 
     return (
         <GameIconDraggableSelectableBase
-            ref={setNodeRef}
-            {...listeners}
-            {...attributes}
             {...props}
             data-item={item.key}
             image={item.image}
+            ref={setNodeRef}
             tabIndex={0}
         />
     );

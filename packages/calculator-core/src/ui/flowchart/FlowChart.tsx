@@ -1,4 +1,4 @@
-import { useDndMonitor } from '@dnd-kit/core';
+import { useDragDropMonitor } from '@dnd-kit/react';
 import type { Node as FlowNode, OnNodeDrag } from '@xyflow/react';
 import { Background, Controls, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
 import { action, reaction } from 'mobx';
@@ -100,17 +100,20 @@ export default function FlowChart() {
         }
     });
 
-    useDndMonitor({
+    useDragDropMonitor({
         onDragEnd(event) {
-            if (event.over?.id !== FlowChartDroppable) {
+            if (event.operation.target?.id !== FlowChartDroppable) {
                 return;
             }
-            const factoryKey = event.active.id;
+            const factoryKey = event.operation.source?.id;
+            if (!factoryKey) {
+                return;
+            }
             const factory = flowChartModel.addItem(String(factoryKey));
-            const rect = event.active.rect.current.translated;
+            const rect = event.operation.position.current;
             const position = screenToFlowPosition({
-                x: rect?.left ?? 0,
-                y: rect?.top ?? 0,
+                x: rect?.x ?? 0,
+                y: rect?.y ?? 0,
             });
             factory.setPosition(position);
         },

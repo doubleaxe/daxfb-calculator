@@ -29,8 +29,8 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@dnd-kit/core": "catalog:",
-    "@dnd-kit/modifiers": "catalog:",
+    "@dnd-kit/dom": "catalog:",
+    "@dnd-kit/react": "catalog:",
     "@doubleaxe/daxfb-calculator-styles": "workspace:*",
     "@doubleaxe/daxfb-shared": "workspace:*",
     "@mantine/core": "catalog:",

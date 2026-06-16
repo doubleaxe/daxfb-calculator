@@ -1,4 +1,4 @@
-import { DragOverlay, useDndMonitor } from '@dnd-kit/core';
+import { DragOverlay, useDragDropMonitor } from '@dnd-kit/react';
 import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import { Divider } from '@mantine/core';
 import { action } from 'mobx';
@@ -22,10 +22,10 @@ const FactoryPaletteItemList = observer(() => {
 
     const [dragItem, setDragItem] = useState<GameItemBase | undefined>(undefined);
 
-    useDndMonitor({
+    useDragDropMonitor({
         onDragStart(event) {
-            if (typeof event.active.id === 'string') {
-                setDragItem(gameData.getGameItem(event.active.id));
+            if (typeof event.operation.source?.id === 'string') {
+                setDragItem(gameData.getGameItem(event.operation.source?.id));
                 factoryPaletteState.setSelectedFactory(undefined);
             }
         },
