@@ -30,9 +30,11 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         this.__recipe = __recipe;
         this.isInput = __io.isInput;
 
-        makeObservable<RecipeIOModelBaseImpl>(this, {
+        makeObservable<RecipeIOModelBaseImpl, '__links'>(this, {
             status: observable,
+            __links: observable,
             __addLink: action,
+            __deleteLink: action,
         });
     }
 
@@ -69,14 +71,17 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         return sourceItem === targetItem;
     }
 
-    isAlreadyLinked(target: RecipeIOModelBase) {
+    __findAlreadyLinked(target: RecipeIOModelBase) {
         for (const link of this.__links.values()) {
-            if (link.__getOtherSide(this)?.itemId === target.itemId) return true;
+            if (link.__getOtherSide(this)?.itemId === target.itemId) return link;
         }
-        return false;
+        return undefined;
     }
 
     __addLink(link: IOLinkModelBaseImpl) {
         this.__links.set(link.linkId, link);
+    }
+    __deleteLink(linkId: string) {
+        this.__links.delete(linkId);
     }
 }

@@ -1,45 +1,27 @@
-import { css, cva, cx, type RecipeVariant } from '@doubleaxe/daxfb-calculator-styles/css';
-import { ArrowFatLinesDownIcon, ArrowFatLinesUpIcon, type Icon } from '@phosphor-icons/react';
+import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { ArrowFatLinesDownIcon, ArrowFatLinesUpIcon, type Icon, XIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 
 import { EdgeStatus } from '#core/game/model/index.js';
 import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
+import { StatusIconColor } from '#core/styles/StatusIcons.js';
 
 type Props = {
     status: EdgeStatus;
 };
 
-const iconColor = cva({
-    variants: {
-        color: {
-            Source: {
-                _light: {
-                    fill: 'var(--mantine-color-indigo-6)',
-                },
-                _dark: {
-                    fill: 'var(--mantine-color-indigo-3)',
-                },
-            },
-            Target: {
-                _light: {
-                    fill: 'var(--mantine-color-green-6)',
-                },
-                _dark: {
-                    fill: 'var(--mantine-color-green-3)',
-                },
-            },
-        },
-    },
-});
-
-export type IconColorVariants = RecipeVariant<typeof iconColor>['color'];
-
-const statusConfig: Partial<Record<EdgeStatus, { icon: Icon }>> = {
+const statusConfig: Partial<Record<EdgeStatus, { color: string; icon: Icon }>> = {
     [EdgeStatus.Source]: {
         icon: ArrowFatLinesUpIcon,
+        color: StatusIconColor({ color: EdgeStatus.Source }),
     },
     [EdgeStatus.Target]: {
         icon: ArrowFatLinesDownIcon,
+        color: StatusIconColor({ color: EdgeStatus.Target }),
+    },
+    [EdgeStatus.ConnectedTarget]: {
+        icon: XIcon,
+        color: StatusIconColor({ color: EdgeStatus.ConnectedTarget }),
     },
 };
 
@@ -50,9 +32,7 @@ const ConnectionMarker = observer(({ status }: Props) => {
 
     const config = statusConfig[status];
     const Icon = config?.icon;
-    const color = iconColor({ color: status as IconColorVariants });
-
-    return Icon ? <Icon className={cx(css(actionIconIndicatorStyle), color)} weight='bold' /> : null;
+    return config && Icon ? <Icon className={cx(css(actionIconIndicatorStyle), config.color)} weight='bold' /> : null;
 });
 
 export default ConnectionMarker;

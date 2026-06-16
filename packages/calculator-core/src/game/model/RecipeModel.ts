@@ -71,6 +71,6 @@ export abstract class RecipeModelBaseImpl {
     }
     __findAlreadyLinked(target: RecipeIOModelBase) {
         const otherSide = target.isInput ? this.__output : this.__input;
-        return otherSide.find((io) => io.isAlreadyLinked(target));
+        return otherSide.find((io) => io.__findAlreadyLinked(target));
     }
 }

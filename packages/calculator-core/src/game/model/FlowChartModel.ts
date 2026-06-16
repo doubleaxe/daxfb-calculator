@@ -90,10 +90,12 @@ export abstract class FlowChartModelBaseImpl {
     }
 
     __deleteItem(item: FactoryModelBase) {
+        const __item = this.__items.get(item.itemId);
+        __item?.deleteThis();
         this.__items.delete(item.itemId);
     }
 
-    createLink(connection: FactoryConnection): IOLinkModelBase | undefined {
+    createLink(connection: FactoryConnection, revertIfPossible?: boolean): IOLinkModelBase | undefined {
         const sourceItem = this.__items.get(connection.sourceId);
         const sourceIO = sourceItem?.__getIO(connection.sourceIOId);
         const targetItem = this.__items.get(connection.targetId);
@@ -101,11 +103,16 @@ export abstract class FlowChartModelBaseImpl {
         if (!sourceIO || !targetIO) {
             return undefined;
         }
-        if (
-            !!sourceIO.isInput === !!targetIO.isInput ||
-            !sourceIO.isConnectable(targetIO) ||
-            sourceIO.isAlreadyLinked(targetIO)
-        ) {
+        if (!!sourceIO.isInput === !!targetIO.isInput || !sourceIO.isConnectable(targetIO)) {
+            return undefined;
+        }
+        const existingLink = sourceIO.__findAlreadyLinked(targetIO);
+        if (existingLink) {
+            if (revertIfPossible) {
+                this.__links.delete(existingLink.linkId);
+                sourceIO.__deleteLink(existingLink.linkId);
+                targetIO.__deleteLink(existingLink.linkId);
+            }
             return undefined;
         }
         const input = sourceIO.isInput ? sourceIO : targetIO;

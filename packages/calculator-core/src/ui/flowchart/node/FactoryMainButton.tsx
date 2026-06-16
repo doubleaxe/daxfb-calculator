@@ -1,28 +1,30 @@
 import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import type { Icon } from '@phosphor-icons/react';
-import { QuestionMarkIcon, WrenchIcon } from '@phosphor-icons/react';
+import { ArrowFatLinesDownIcon, WrenchIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 
 import { NodeStatus } from '#core/game/model/index.js';
+import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
+import { StatusIconColor } from '#core/styles/StatusIcons.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import GameIcon from '#core/ui/components/GameIcon.jsx';
 
-type StatusConfig = { color: string; icon: Icon };
 type FactoryConnectionMarkerProps = {
-    config: StatusConfig | undefined;
+    status: NodeStatus;
 };
 
-const statusConfig: Partial<Record<NodeStatus, StatusConfig>> = {
+const statusConfig: Partial<Record<NodeStatus, { color: string; icon: Icon }>> = {
     [NodeStatus.PossibleTarget]: {
-        icon: QuestionMarkIcon,
-        color: 'var(--mantine-color-yellow-filled)',
+        icon: ArrowFatLinesDownIcon,
+        color: StatusIconColor({ color: NodeStatus.PossibleTarget }),
     },
 };
 
-function FactoryConnectionMarker({ config }: FactoryConnectionMarkerProps) {
+function FactoryConnectionMarker({ status }: FactoryConnectionMarkerProps) {
+    const config = statusConfig[status];
     const Icon = config?.icon;
 
-    if (!Icon)
+    if (!Icon || !config)
         return (
             <div
                 className={css({
@@ -53,26 +55,23 @@ function FactoryConnectionMarker({ config }: FactoryConnectionMarkerProps) {
 
     return Icon ? (
         <Icon
-            className={css({
-                position: 'absolute',
-                top: '0px',
-                left: '0px',
-                minWidth: 'auto',
-                minHeight: 'auto',
-                width: '100%',
-                height: '100%',
-                background: 'var(--mantine-color-body)',
-                opacity: 0.5,
-            })}
-            color={config?.color}
+            className={cx(
+                css({
+                    position: 'absolute',
+                    top: '0px',
+                    left: '0px',
+                    background: 'var(--mantine-color-body)',
+                    opacity: 0.5,
+                }),
+                css(actionIconIndicatorStyle),
+                config?.color
+            )}
             weight='bold'
         />
     ) : null;
 }
 
 const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
-    const config = statusConfig[data.status];
-
     return (
         <button
             className={cx(
@@ -101,7 +100,7 @@ const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
             type='button'
         >
             <GameIcon image={data.image} />
-            <FactoryConnectionMarker config={config} />
+            <FactoryConnectionMarker status={data.status} />
         </button>
     );
 });

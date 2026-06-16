@@ -63,19 +63,26 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
             return;
         }
 
-        flowChartModel.createLink({
-            sourceId: connection.source,
-            sourceIOId: connection.sourceHandle ?? '',
-            targetId: connection.target,
-            targetIOId: connection.targetHandle ?? '',
-        });
+        flowChartModel.createLink(
+            {
+                sourceId: connection.source,
+                sourceIOId: connection.sourceHandle ?? '',
+                targetId: connection.target,
+                targetIOId: connection.targetHandle ?? '',
+            },
+            true
+        );
         flowConnectionState.clearActiveConnection();
     });
 
     const isValidConnection: IsValidConnection = action((connection) => {
         const source = flowChartModel.findIo(connection.source ?? '', connection.sourceHandle ?? '');
         const target = flowChartModel.findIo(connection.target ?? '', connection.targetHandle ?? '');
-        return source?.status === NodeStatus.Source && target?.status === NodeStatus.Target;
+        const validStatus = [NodeStatus.Source, NodeStatus.Target, NodeStatus.ConnectedTarget];
+        return (
+            validStatus.some((status) => source?.status === status) &&
+            validStatus.some((status) => target?.status === status)
+        );
     });
 
     return {
