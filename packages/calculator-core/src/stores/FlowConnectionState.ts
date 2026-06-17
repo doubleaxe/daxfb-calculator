@@ -20,12 +20,12 @@ export type ConnectionMode = (typeof ConnectionMode)[keyof typeof ConnectionMode
 
 export class FlowConnectionStateImpl {
     private readonly flowChartModel: FlowChartModelBase;
-    source: RecipeIOModelBase | undefined = undefined;
-    possibleTargets: {
+    origin: RecipeIOModelBase | undefined = undefined;
+    possibleDests: {
         factory: FactoryModelBase;
         io?: RecipeIOModelBase;
     }[] = [];
-    connectedTargets: RecipeIOModelBase[] = [];
+    connectedDests: RecipeIOModelBase[] = [];
     connectionMode: ConnectionMode = ConnectionMode.None;
 
     constructor(flowChartModel: FlowChartModelBase) {
@@ -34,47 +34,47 @@ export class FlowConnectionStateImpl {
     }
 
     clearActiveConnection() {
-        if (this.source) {
-            this.source.status = EdgeStatus.None;
-            this.source.factory.status = NodeStatus.None;
-            this.source = undefined;
+        if (this.origin) {
+            this.origin.status = EdgeStatus.None;
+            this.origin.factory.status = NodeStatus.None;
+            this.origin = undefined;
         }
-        if (this.possibleTargets.length) {
-            this.possibleTargets.forEach((target) => {
-                target.factory.status = NodeStatus.None;
-                if (target.io) target.io.status = EdgeStatus.None;
+        if (this.possibleDests.length) {
+            this.possibleDests.forEach((dest) => {
+                dest.factory.status = NodeStatus.None;
+                if (dest.io) dest.io.status = EdgeStatus.None;
             });
-            this.possibleTargets = [];
+            this.possibleDests = [];
         }
-        if (this.connectedTargets.length) {
-            this.connectedTargets.forEach((target) => {
-                target.factory.status = NodeStatus.None;
-                target.status = EdgeStatus.None;
+        if (this.connectedDests.length) {
+            this.connectedDests.forEach((dest) => {
+                dest.factory.status = NodeStatus.None;
+                dest.status = EdgeStatus.None;
             });
-            this.connectedTargets = [];
+            this.connectedDests = [];
         }
         this.connectionMode = ConnectionMode.None;
     }
 
-    startConnection(source: RecipeIOModelBase, connectionMode: ConnectionMode) {
+    startConnection(origin: RecipeIOModelBase, connectionMode: ConnectionMode) {
         const flowChartModel = this.flowChartModel;
-        this.source = source;
-        source.status = EdgeStatus.Source;
+        this.origin = origin;
+        origin.status = EdgeStatus.ConnectionOrigin;
 
-        const possibleTargets = flowChartModel.findConnectable(source);
-        this.possibleTargets = possibleTargets;
-        possibleTargets.forEach((target) => {
-            target.factory.status = target.io ? NodeStatus.Target : NodeStatus.PossibleTarget;
-            if (target.io) target.io.status = EdgeStatus.Target;
+        const possibleDests = flowChartModel.findConnectable(origin);
+        this.possibleDests = possibleDests;
+        possibleDests.forEach((dest) => {
+            dest.factory.status = dest.io ? NodeStatus.ConnectionDest : NodeStatus.PossibleDest;
+            if (dest.io) dest.io.status = EdgeStatus.ConnectionDest;
         });
 
-        this.connectedTargets = [];
-        for (const link of source.links) {
-            const connectedTarget = link.getOtherSide(source);
-            if (connectedTarget) {
-                this.connectedTargets.push(connectedTarget);
-                connectedTarget.factory.status = NodeStatus.ConnectedTarget;
-                connectedTarget.status = EdgeStatus.ConnectedTarget;
+        this.connectedDests = [];
+        for (const link of origin.links) {
+            const connectedDest = link.getOtherSide(origin);
+            if (connectedDest) {
+                this.connectedDests.push(connectedDest);
+                connectedDest.factory.status = NodeStatus.ConnectedDest;
+                connectedDest.status = EdgeStatus.ConnectedDest;
             }
         }
 

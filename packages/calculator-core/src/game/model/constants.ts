@@ -1,18 +1,18 @@
 export const NodeStatus = {
     None: 'None',
-    Source: 'Source',
-    Target: 'Target',
-    PossibleTarget: 'PossibleTarget',
-    ConnectedTarget: 'ConnectedTarget',
+    ConnectionOrigin: 'ConnectionOrigin',
+    ConnectionDest: 'ConnectionDest',
+    PossibleDest: 'PossibleDest',
+    ConnectedDest: 'ConnectedDest',
 } as const;
 
 export type NodeStatus = (typeof NodeStatus)[keyof typeof NodeStatus];
 
 export const EdgeStatus = {
     None: 'None',
-    Source: 'Source',
-    Target: 'Target',
-    ConnectedTarget: 'ConnectedTarget',
+    ConnectionOrigin: 'ConnectionOrigin',
+    ConnectionDest: 'ConnectionDest',
+    ConnectedDest: 'ConnectedDest',
 } as const;
 
 export type EdgeStatus = (typeof EdgeStatus)[keyof typeof EdgeStatus];

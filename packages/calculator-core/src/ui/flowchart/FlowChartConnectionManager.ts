@@ -7,7 +7,7 @@ import {
 } from '@xyflow/react';
 import { action } from 'mobx';
 
-import { type FlowChartModelBase, NodeStatus } from '#core/game/model/index.js';
+import { EdgeStatus, type FlowChartModelBase, NodeStatus } from '#core/game/model/index.js';
 import { ConnectionMode, useFlowConnectionState } from '#core/stores/FlowConnectionState.js';
 
 export default function useFlowChartConnectionManager(flowChartModel: FlowChartModelBase) {
@@ -52,12 +52,12 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
     });
 
     const onConnect: OnConnect = action((connection) => {
-        const activeSource = flowConnectionState.source?.itemId;
-        const activeSourceFactory = flowConnectionState.source?.factory.itemId;
+        const activeOrigin = flowConnectionState.origin?.itemId;
+        const activeOriginFactory = flowConnectionState.origin?.factory.itemId;
         if (
             !(
-                (connection.sourceHandle === activeSource && connection.source === activeSourceFactory) ||
-                (connection.targetHandle === activeSource && connection.target === activeSourceFactory)
+                (connection.sourceHandle === activeOrigin && connection.source === activeOriginFactory) ||
+                (connection.targetHandle === activeOrigin && connection.target === activeOriginFactory)
             )
         ) {
             return;
@@ -76,13 +76,23 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
     });
 
     const isValidConnection: IsValidConnection = action((connection) => {
-        const source = flowChartModel.findIo(connection.source ?? '', connection.sourceHandle ?? '');
-        const target = flowChartModel.findIo(connection.target ?? '', connection.targetHandle ?? '');
-        const validStatus = [NodeStatus.Source, NodeStatus.Target, NodeStatus.ConnectedTarget];
-        return (
-            validStatus.some((status) => source?.status === status) &&
-            validStatus.some((status) => target?.status === status)
-        );
+        const origin = flowConnectionState.origin;
+        if (!origin) return false;
+
+        const destItemId = origin.isInput ? connection.source : connection.target;
+        const destHandleId = origin.isInput ? connection.sourceHandle : connection.targetHandle;
+        if (!destItemId || !destHandleId) return false;
+
+        if (destItemId === destHandleId) {
+            // factory hadle
+            const destFactory = flowChartModel.itemByKey(destItemId);
+            if (!destFactory) return false;
+            return [NodeStatus.PossibleDest].some((status) => status === destFactory.status);
+        }
+
+        const destIo = flowChartModel.findIo(destItemId, destHandleId);
+        if (!destIo) return false;
+        return [EdgeStatus.ConnectedDest, EdgeStatus.ConnectionDest].some((status) => status === destIo.status);
     });
 
     return {

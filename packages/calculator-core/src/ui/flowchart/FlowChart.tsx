@@ -122,6 +122,7 @@ export default function FlowChart() {
     return (
         <ReactFlow
             connectionLineComponent={ConnectionLine}
+            connectionRadius={40}
             edgeTypes={edgeTypes}
             edges={edges}
             isValidConnection={isValidConnection}

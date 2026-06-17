@@ -1,22 +1,26 @@
 import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import type { Icon } from '@phosphor-icons/react';
 import { ArrowFatLinesDownIcon, WrenchIcon } from '@phosphor-icons/react';
+import { Handle, Position, useUpdateNodeInternals } from '@xyflow/react';
+import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import { NodeStatus } from '#core/game/model/index.js';
+import { useFlowConnectionState } from '#core/stores/FlowConnectionState.js';
 import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
 import { StatusIconColor } from '#core/styles/StatusIcons.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import GameIcon from '#core/ui/components/GameIcon.jsx';
+import { useReaction } from '#core/utils/hooks.js';
 
 type FactoryConnectionMarkerProps = {
     status: NodeStatus;
 };
 
 const statusConfig: Partial<Record<NodeStatus, { color: string; icon: Icon }>> = {
-    [NodeStatus.PossibleTarget]: {
+    [NodeStatus.PossibleDest]: {
         icon: ArrowFatLinesDownIcon,
-        color: StatusIconColor({ color: NodeStatus.PossibleTarget }),
+        color: StatusIconColor({ color: NodeStatus.PossibleDest }),
     },
 };
 
@@ -72,6 +76,21 @@ function FactoryConnectionMarker({ status }: FactoryConnectionMarkerProps) {
 }
 
 const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
+    const flowConnectionState = useFlowConnectionState();
+    const updateNodeInternals = useUpdateNodeInternals();
+
+    useReaction(
+        () =>
+            reaction(
+                () => data.status,
+                () => {
+                    updateNodeInternals(data.itemId);
+                },
+                { delay: 1 }
+            ),
+        [flowConnectionState, data, updateNodeInternals]
+    );
+
     return (
         <button
             className={cx(
@@ -101,6 +120,31 @@ const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
         >
             <GameIcon image={data.image} />
             <FactoryConnectionMarker status={data.status} />
+            {data.status === NodeStatus.PossibleDest && flowConnectionState.origin ? (
+                <Handle
+                    className={css({
+                        position: 'absolute',
+                        top: '0px',
+                        left: '0px',
+                        transform: 'none',
+                        minWidth: 'auto',
+                        minHeight: 'auto',
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 0,
+                        border: '0px transparent',
+                        backgroundColor: 'transparent',
+                        zIndex: -1,
+                        cursor: 'default',
+                        pointerEvents: 'none',
+                    })}
+                    id={data.itemId}
+                    isConnectableEnd
+                    isConnectableStart={false}
+                    position={Position.Top}
+                    type={flowConnectionState.origin.isInput ? 'source' : 'target'}
+                />
+            ) : null}
         </button>
     );
 });

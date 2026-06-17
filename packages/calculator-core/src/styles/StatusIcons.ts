@@ -3,7 +3,7 @@ import { cva, type RecipeVariant } from '@doubleaxe/daxfb-calculator-styles/css'
 export const StatusIconColor = cva({
     variants: {
         color: {
-            Source: {
+            ConnectionOrigin: {
                 _light: {
                     fill: 'var(--mantine-color-indigo-6)',
                 },
@@ -11,7 +11,7 @@ export const StatusIconColor = cva({
                     fill: 'var(--mantine-color-indigo-3)',
                 },
             },
-            Target: {
+            ConnectionDest: {
                 _light: {
                     fill: 'var(--mantine-color-green-6)',
                 },
@@ -19,7 +19,7 @@ export const StatusIconColor = cva({
                     fill: 'var(--mantine-color-green-3)',
                 },
             },
-            PossibleTarget: {
+            PossibleDest: {
                 _light: {
                     fill: 'var(--mantine-color-yellow-6)',
                 },
@@ -27,7 +27,7 @@ export const StatusIconColor = cva({
                     fill: 'var(--mantine-color-yellow-3)',
                 },
             },
-            ConnectedTarget: {
+            ConnectedDest: {
                 _light: {
                     fill: 'var(--mantine-color-red-6)',
                 },

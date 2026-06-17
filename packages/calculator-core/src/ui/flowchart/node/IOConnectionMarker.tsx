@@ -11,17 +11,17 @@ type Props = {
 };
 
 const statusConfig: Partial<Record<EdgeStatus, { color: string; icon: Icon }>> = {
-    [EdgeStatus.Source]: {
+    [EdgeStatus.ConnectionOrigin]: {
         icon: ArrowFatLinesUpIcon,
-        color: StatusIconColor({ color: EdgeStatus.Source }),
+        color: StatusIconColor({ color: EdgeStatus.ConnectionOrigin }),
     },
-    [EdgeStatus.Target]: {
+    [EdgeStatus.ConnectionDest]: {
         icon: ArrowFatLinesDownIcon,
-        color: StatusIconColor({ color: EdgeStatus.Target }),
+        color: StatusIconColor({ color: EdgeStatus.ConnectionDest }),
     },
-    [EdgeStatus.ConnectedTarget]: {
+    [EdgeStatus.ConnectedDest]: {
         icon: XIcon,
-        color: StatusIconColor({ color: EdgeStatus.ConnectedTarget }),
+        color: StatusIconColor({ color: EdgeStatus.ConnectedDest }),
     },
 };
 
