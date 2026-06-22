@@ -40,6 +40,7 @@
     "mobx": "catalog:",
     "mobx-react-lite": "catalog:",
     "pako": "catalog:",
+    "perfect-debounce": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tslib": "catalog:"

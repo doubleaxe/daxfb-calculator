@@ -35,6 +35,8 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
             __links: observable,
             __addLink: action,
             __deleteLink: action,
+            __deleteAllLinks: action,
+            __copySimilarLinksTo: action,
         });
     }
 
@@ -45,6 +47,9 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         return this.__recipe.__factory.isFlipped;
     }
     get factory(): FactoryModelBase {
+        return this.__factory;
+    }
+    get __factory() {
         return this.__recipe.__factory;
     }
 
@@ -83,5 +88,18 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     }
     __deleteLink(linkId: string) {
         this.__links.delete(linkId);
+        return this.__factory;
+    }
+    __deleteAllLinks() {
+        const __links = [...this.__links.values()];
+        __links.forEach((link) => link.deleteLink());
+    }
+    __copySimilarLinksTo(targetIo: RecipeIOModelBaseImpl) {
+        const __flowChart = this.__factory.__flowChart;
+        for (const link of this.__links.values()) {
+            const otherSide = link.__getOtherSide(this);
+            if (!otherSide) continue;
+            __flowChart.__createLink(otherSide.__factory, otherSide, targetIo.__factory, targetIo);
+        }
     }
 }

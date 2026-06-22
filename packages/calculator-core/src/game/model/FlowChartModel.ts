@@ -1,8 +1,10 @@
 import { action, makeObservable, observable } from 'mobx';
+import { debounce } from 'perfect-debounce';
 
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
 export abstract class FlowChartModelBaseImpl {
@@ -14,6 +16,10 @@ export abstract class FlowChartModelBaseImpl {
 
     protected readonly __factoryConstructor: CreateFactoryModel;
     protected readonly __ioLinkConstructor: CreateIOLinkModel;
+
+    protected __solveFrozen = false;
+    private __changedItems: FactoryModelBaseImpl[] = [];
+    private __solveEntireGraph = false;
 
     constructor(
         gameData: GameDataBase,
@@ -32,7 +38,12 @@ export abstract class FlowChartModelBaseImpl {
             resetChartName: action,
             addItem: action,
             __deleteItem: action,
+            createLinkAuto: action,
             createLink: action,
+            __createLink: action,
+            __deleteLink: action,
+            __requestSolveGraph: action,
+            __solveGraph: action,
         });
     }
 
@@ -52,7 +63,7 @@ export abstract class FlowChartModelBaseImpl {
     findIo(itemId: string, ioId: string): RecipeIOModelBase | undefined {
         const factory = this.__items.get(itemId);
         if (factory) {
-            const io = factory.__getIO(ioId);
+            const io = factory.__getIOById(ioId);
             return io;
         }
         return undefined;
@@ -86,23 +97,50 @@ export abstract class FlowChartModelBaseImpl {
         // invalid item
         if (!item.key) return item;
         this.__items.set(item.itemId, item);
+        this.__requestSolveGraph([item]);
         return item;
     }
 
-    __deleteItem(item: FactoryModelBase) {
-        const __item = this.__items.get(item.itemId);
-        __item?.deleteThis();
+    __deleteItem(item: FactoryModelBaseImpl) {
+        //if it is not linked to anything, it will not change graph
+        //if it linked - __deleteLink will cause graph update
         this.__items.delete(item.itemId);
+    }
+
+    createLinkAuto(sourceId: string, sourceIOId: string, targetId: string): IOLinkModelBase | undefined {
+        const sourceItem = this.__items.get(sourceId);
+        const sourceIO = sourceItem?.__getIOById(sourceIOId);
+        const targetItem = this.__items.get(targetId);
+        if (!sourceItem || !sourceIO || !targetItem) {
+            return undefined;
+        }
+        const recipes = targetItem.__possibleRecipesForIo(sourceIO);
+        const recipe = recipes[0];
+        if (!recipe) return undefined;
+        targetItem.selectRecipe(recipe);
+        const targetIO = targetItem.__getIOByKey(sourceIO.key ?? '');
+        if (!targetIO) return undefined;
+        return this.__createLink(sourceItem, sourceIO, targetItem, targetIO, true);
     }
 
     createLink(connection: FactoryConnection, revertIfPossible?: boolean): IOLinkModelBase | undefined {
         const sourceItem = this.__items.get(connection.sourceId);
-        const sourceIO = sourceItem?.__getIO(connection.sourceIOId);
+        const sourceIO = sourceItem?.__getIOById(connection.sourceIOId);
         const targetItem = this.__items.get(connection.targetId);
-        const targetIO = targetItem?.__getIO(connection.targetIOId);
-        if (!sourceIO || !targetIO) {
+        const targetIO = targetItem?.__getIOById(connection.targetIOId);
+        if (!sourceItem || !sourceIO || !targetItem || !targetIO) {
             return undefined;
         }
+        return this.__createLink(sourceItem, sourceIO, targetItem, targetIO, revertIfPossible);
+    }
+
+    __createLink(
+        sourceItem: FactoryModelBaseImpl,
+        sourceIO: RecipeIOModelBaseImpl,
+        targetItem: FactoryModelBaseImpl,
+        targetIO: RecipeIOModelBaseImpl,
+        revertIfPossible?: boolean
+    ): IOLinkModelBase | undefined {
         if (!!sourceIO.isInput === !!targetIO.isInput || !sourceIO.isConnectable(targetIO)) {
             return undefined;
         }
@@ -112,6 +150,7 @@ export abstract class FlowChartModelBaseImpl {
                 this.__links.delete(existingLink.linkId);
                 sourceIO.__deleteLink(existingLink.linkId);
                 targetIO.__deleteLink(existingLink.linkId);
+                this.__requestSolveGraph([sourceItem, targetItem]);
             }
             return undefined;
         }
@@ -121,6 +160,54 @@ export abstract class FlowChartModelBaseImpl {
         this.__links.set(link.linkId, link);
         input.__addLink(link);
         output.__addLink(link);
+        this.__requestSolveGraph([sourceItem, targetItem]);
         return link;
     }
+
+    __deleteLink(link: IOLinkModelBaseImpl, changedItems: FactoryModelBaseImpl[] | undefined) {
+        this.__links.delete(link.linkId);
+        this.__requestSolveGraph(changedItems);
+    }
+
+    requestSolveGraph() {
+        this.__requestSolveGraph(undefined);
+    }
+
+    __requestSolveGraph(changedItems: (FactoryModelBaseImpl | undefined)[] | undefined) {
+        if (this.__solveFrozen) return;
+
+        if (changedItems) {
+            this.__changedItems = this.__changedItems.concat(changedItems.filter((item) => !!item));
+            this.__debouncedSolveGraph().catch(() => {});
+            return;
+        }
+
+        this.__changedItems = [];
+        this.__solveEntireGraph = true;
+        this.__debouncedSolveGraph.flush()?.catch(() => {});
+    }
+    __debouncedSolveGraph = debounce(() => {
+        this.__solveGraph();
+    }, 200);
+    __solveGraph() {
+        let changedItems = this.__changedItems;
+        const solveEntireGraph = this.__solveEntireGraph;
+        this.__changedItems = [];
+        this.__solveEntireGraph = false;
+        if (!solveEntireGraph) {
+            //filter, because may be already deleted
+            changedItems = changedItems.filter((item) => this.__items.has(item.itemId));
+            if (!changedItems.length) return;
+        }
+
+        const solveFrozen = this.__solveFrozen;
+        this.__solveFrozen = true;
+        try {
+            this.__solveGraphInternal(changedItems);
+        } finally {
+            this.__solveFrozen = solveFrozen;
+        }
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    __solveGraphInternal(_changedItems: FactoryModelBaseImpl[]) {}
 }

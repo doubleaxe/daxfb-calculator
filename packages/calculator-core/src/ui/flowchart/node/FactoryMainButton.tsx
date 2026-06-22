@@ -2,7 +2,7 @@ import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 import type { Icon } from '@phosphor-icons/react';
 import { ArrowFatLinesDownIcon, WrenchIcon } from '@phosphor-icons/react';
 import { Handle, Position, useUpdateNodeInternals } from '@xyflow/react';
-import { reaction } from 'mobx';
+import { computed, reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import { NodeStatus } from '#core/game/model/index.js';
@@ -79,6 +79,13 @@ const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
     const flowConnectionState = useFlowConnectionState();
     const updateNodeInternals = useUpdateNodeInternals();
 
+    const edgePosition = computed(() => {
+        const origin = flowConnectionState.origin;
+        if (!origin) return Position.Top;
+        const isLeft = data.isFlipped ? origin.isInput : !origin.isInput;
+        return isLeft ? Position.Left : Position.Right;
+    }).get();
+
     useReaction(
         () =>
             reaction(
@@ -134,14 +141,13 @@ const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
                         borderRadius: 0,
                         border: '0px transparent',
                         backgroundColor: 'transparent',
-                        zIndex: -1,
-                        cursor: 'default',
-                        pointerEvents: 'none',
+                        zIndex: 1000,
+                        cursor: 'grab',
                     })}
                     id={data.itemId}
                     isConnectableEnd
                     isConnectableStart={false}
-                    position={Position.Top}
+                    position={edgePosition}
                     type={flowConnectionState.origin.isInput ? 'source' : 'target'}
                 />
             ) : null}

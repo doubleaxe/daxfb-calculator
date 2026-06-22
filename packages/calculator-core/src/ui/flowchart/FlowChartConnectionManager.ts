@@ -1,25 +1,11 @@
-import {
-    type IsValidConnection,
-    type OnConnect,
-    type OnConnectEnd,
-    type OnConnectStart,
-    useConnection,
-} from '@xyflow/react';
+import type { IsValidConnection, OnConnect, OnConnectEnd, OnConnectStart } from '@xyflow/react';
 import { action } from 'mobx';
 
 import { EdgeStatus, type FlowChartModelBase, NodeStatus } from '#core/game/model/index.js';
 import { ConnectionMode, useFlowConnectionState } from '#core/stores/FlowConnectionState.js';
 
 export default function useFlowChartConnectionManager(flowChartModel: FlowChartModelBase) {
-    const connectionState = useConnection((conn) => {
-        return {
-            inProgress: conn.inProgress,
-            pointer: conn.pointer,
-        };
-    });
     const flowConnectionState = useFlowConnectionState();
-
-    console.log('connectionState', connectionState.pointer);
 
     const onClickConnectStart: OnConnectStart = action((event, params) => {
         // we manually manage click connections
@@ -52,23 +38,27 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
     });
 
     const onConnect: OnConnect = action((connection) => {
-        const activeOrigin = flowConnectionState.origin?.itemId;
-        const activeOriginFactory = flowConnectionState.origin?.factory.itemId;
-        if (
-            !(
-                (connection.sourceHandle === activeOrigin && connection.source === activeOriginFactory) ||
-                (connection.targetHandle === activeOrigin && connection.target === activeOriginFactory)
-            )
-        ) {
+        const origin = flowConnectionState.origin;
+        if (!origin) return;
+
+        const originItemId = origin.isInput ? connection.target : connection.source;
+        const originHandleId = origin.isInput ? connection.targetHandle : connection.sourceHandle;
+        const destItemId = origin.isInput ? connection.source : connection.target;
+        const destHandleId = origin.isInput ? connection.sourceHandle : connection.targetHandle;
+        if (!originItemId || !originHandleId || !destItemId || !destHandleId) return;
+
+        if (destItemId === destHandleId) {
+            // factory hadle
+            flowChartModel.createLinkAuto(originItemId, originHandleId, destItemId);
             return;
         }
 
         flowChartModel.createLink(
             {
-                sourceId: connection.source,
-                sourceIOId: connection.sourceHandle ?? '',
-                targetId: connection.target,
-                targetIOId: connection.targetHandle ?? '',
+                sourceId: originItemId,
+                sourceIOId: originHandleId,
+                targetId: destItemId,
+                targetIOId: destHandleId,
             },
             true
         );

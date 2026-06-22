@@ -1,5 +1,4 @@
 import './index.css';
-import '../generated/styled-system/styles.css';
 
 import { initApplication } from '@doubleaxe/daxfb-calculator-core/ui/init';
 import { StrictMode } from 'react';

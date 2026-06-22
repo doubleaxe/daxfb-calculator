@@ -34,4 +34,10 @@ export abstract class IOLinkModelBaseImpl {
         if (item.itemId === this.__output?.itemId) return this.__input;
         return undefined;
     }
+
+    deleteLink() {
+        const inputFactory = this.__input.__deleteLink(this.linkId);
+        const outputFactory = this.__output.__deleteLink(this.linkId);
+        inputFactory.__flowChart.__deleteLink(this, [inputFactory, outputFactory]);
+    }
 }

@@ -40,7 +40,9 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
             status: observable,
             isFlipped: observable,
             __selectedRecipe: observable,
-            deleteThis: action,
+            deleteAllLinks: action,
+            deleteItem: action,
+            selectRecipe: action,
         });
     }
 
@@ -76,15 +78,35 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         this.__position = position;
     }
 
-    deleteThis() {
+    deleteAllLinks() {
+        this.__selectedRecipe?.__deleteAllLinks();
+    }
+    deleteItem() {
+        //if it is not linked to anything, it will not change graph
+        //if it linked - __deleteLink will cause graph update
+        this.__selectedRecipe?.__deleteAllLinks();
         this.__flowChart?.__deleteItem(this);
+    }
+
+    selectRecipe(key: string) {
+        const oldRecipe = this.__selectedRecipe;
+        if (key === oldRecipe?.key) return false;
+        const newRecipe = this.__recipeModelConstructor(this, key);
+        //try to persist similar links from old recipe to new one
+        oldRecipe?.__copySimilarLinksTo(newRecipe);
+        oldRecipe?.__deleteAllLinks();
+        this.__selectedRecipe = newRecipe;
+        return true;
     }
 
     __getRecipe(key: string) {
         return this.__recipesDictionary.recipesMap.get(key);
     }
-    __getIO(itemId: string) {
-        return this.__selectedRecipe?.__getIO(itemId);
+    __getIOById(itemId: string) {
+        return this.__selectedRecipe?.__getIOById(itemId);
+    }
+    __getIOByKey(key: string) {
+        return this.__selectedRecipe?.__getIOByKey(key);
     }
     __findConnectable(target: RecipeIOModelBase) {
         return this.__selectedRecipe?.__findConnectable(target);

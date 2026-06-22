@@ -15,6 +15,7 @@ process.env['VITE_BUILD_TIME'] = new Date().toISOString();
 // node --inspect-brk node_modules/vite/bin/vite.js
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: './',
     plugins: [react()],
     esbuild: { legalComments: 'none' },
     build: {

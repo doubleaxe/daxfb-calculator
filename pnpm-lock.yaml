@@ -18,6 +18,9 @@ catalogs:
     '@mantine/hooks':
       specifier: ^9.2.1
       version: 9.2.1
+    '@pandacss/dev':
+      specifier: ^1.11.1
+      version: 1.11.1
     '@phosphor-icons/react':
       specifier: ^2.1.10
       version: 2.1.10
@@ -36,7 +39,13 @@ catalogs:
     mobx-react-lite:
       specifier: ^4.1.1
       version: 4.1.1
+    npm-run-all:
+      specifier: ^4.1.5
+      version: 4.1.5
     pako:
+      specifier: ^2.1.0
+      version: 2.1.0
+    perfect-debounce:
       specifier: ^2.1.0
       version: 2.1.0
     react:
@@ -87,7 +96,7 @@ importers:
         specifier: ^0.5.2
         version: 0.5.2(eslint@9.39.4)
       npm-run-all:
-        specifier: ^4.1.5
+        specifier: 'catalog:'
         version: 4.1.5
       prettier:
         specifier: ^3.8.3
@@ -138,6 +147,9 @@ importers:
         specifier: 'catalog:'
         version: 4.1.1(mobx@6.15.4)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       pako:
+        specifier: 'catalog:'
+        version: 2.1.0
+      perfect-debounce:
         specifier: 'catalog:'
         version: 2.1.0
       react:
@@ -212,7 +224,7 @@ importers:
   packages/calculator-styles:
     devDependencies:
       '@pandacss/dev':
-        specifier: ^1.11.1
+        specifier: 'catalog:'
         version: 1.11.1(typescript@5.9.3)
 
   packages/calculator-ui:
@@ -270,7 +282,7 @@ importers:
         version: 2.8.1
     devDependencies:
       '@pandacss/dev':
-        specifier: ^1.11.1
+        specifier: 'catalog:'
         version: 1.11.1(typescript@5.9.3)
       '@types/react':
         specifier: 'catalog:'
@@ -285,7 +297,7 @@ importers:
         specifier: ^10.5.0
         version: 10.5.0(postcss@8.5.15)
       npm-run-all:
-        specifier: ^4.1.5
+        specifier: 'catalog:'
         version: 4.1.5
       postcss:
         specifier: ^8.5.15
@@ -2848,6 +2860,9 @@ packages:
 
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
+
+  perfect-debounce@2.1.0:
+    resolution: {integrity: sha512-LjgdTytVFXeUgtHZr9WYViYSM/g8MkcTPYDlPa3cDqMirHjKiSZPYd6DoL7pK8AJQr+uWkQvCjHNdiMqsrJs+g==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -6495,6 +6510,8 @@ snapshots:
   pathe@2.0.3: {}
 
   perfect-debounce@1.0.0: {}
+
+  perfect-debounce@2.1.0: {}
 
   picocolors@1.1.1: {}
 
