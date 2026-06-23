@@ -12,7 +12,9 @@ export abstract class FlowChartModelBaseImpl {
     readonly gameData;
 
     protected readonly __items = new Map<string, FactoryModelBaseImpl>();
+    protected __itemsGeneration = 0;
     protected readonly __links = new Map<string, IOLinkModelBaseImpl>();
+    protected __linksGeneration = 0;
 
     protected readonly __factoryConstructor: CreateFactoryModel;
     protected readonly __ioLinkConstructor: CreateIOLinkModel;
@@ -31,20 +33,25 @@ export abstract class FlowChartModelBaseImpl {
         this.gameData = gameData;
         this.resetChartName();
 
-        makeObservable<FlowChartModelBaseImpl, '__items' | '__links'>(this, {
-            chartName: observable,
-            __items: observable,
-            __links: observable,
-            resetChartName: action,
-            addItem: action,
-            __deleteItem: action,
-            createLinkAuto: action,
-            createLink: action,
-            __createLink: action,
-            __deleteLink: action,
-            __requestSolveGraph: action,
-            __solveGraph: action,
-        });
+        makeObservable<FlowChartModelBaseImpl, '__items' | '__itemsGeneration' | '__links' | '__linksGeneration'>(
+            this,
+            {
+                chartName: observable,
+                __items: observable,
+                __itemsGeneration: observable,
+                __links: observable,
+                __linksGeneration: observable,
+                resetChartName: action,
+                addItem: action,
+                __deleteItem: action,
+                createLinkAuto: action,
+                createLink: action,
+                __createLink: action,
+                __deleteLink: action,
+                __requestSolveGraph: action,
+                __solveGraph: action,
+            }
+        );
     }
 
     get defaultChartName() {
@@ -53,8 +60,14 @@ export abstract class FlowChartModelBaseImpl {
     get items(): IterableIterator<FactoryModelBase> {
         return this.__items.values();
     }
+    get itemsGeneration() {
+        return this.__itemsGeneration;
+    }
     get links(): IterableIterator<IOLinkModelBase> {
         return this.__links.values();
+    }
+    get linksGeneration() {
+        return this.__linksGeneration;
     }
 
     itemByKey(key: string): FactoryModelBase | undefined {
@@ -98,6 +111,7 @@ export abstract class FlowChartModelBaseImpl {
         if (!item.key) return item;
         this.__items.set(item.itemId, item);
         this.__requestSolveGraph([item]);
+        this.__itemsGeneration++;
         return item;
     }
 
@@ -105,6 +119,7 @@ export abstract class FlowChartModelBaseImpl {
         //if it is not linked to anything, it will not change graph
         //if it linked - __deleteLink will cause graph update
         this.__items.delete(item.itemId);
+        this.__itemsGeneration++;
     }
 
     createLinkAuto(sourceId: string, sourceIOId: string, targetId: string): IOLinkModelBase | undefined {
@@ -151,6 +166,7 @@ export abstract class FlowChartModelBaseImpl {
                 sourceIO.__deleteLink(existingLink.linkId);
                 targetIO.__deleteLink(existingLink.linkId);
                 this.__requestSolveGraph([sourceItem, targetItem]);
+                this.__linksGeneration++;
             }
             return undefined;
         }
@@ -161,12 +177,14 @@ export abstract class FlowChartModelBaseImpl {
         input.__addLink(link);
         output.__addLink(link);
         this.__requestSolveGraph([sourceItem, targetItem]);
+        this.__linksGeneration++;
         return link;
     }
 
     __deleteLink(link: IOLinkModelBaseImpl, changedItems: FactoryModelBaseImpl[] | undefined) {
         this.__links.delete(link.linkId);
         this.__requestSolveGraph(changedItems);
+        this.__linksGeneration++;
     }
 
     requestSolveGraph() {

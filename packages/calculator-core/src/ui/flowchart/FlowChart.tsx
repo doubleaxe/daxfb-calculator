@@ -1,6 +1,5 @@
-import { useDragDropMonitor } from '@dnd-kit/react';
 import type { Node as FlowNode, OnNodeDrag } from '@xyflow/react';
-import { Background, Controls, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
+import { Background, Controls, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
 import { action, reaction } from 'mobx';
 
 import type { FactoryModelBase, IOLinkModelBase } from '#core/game/model/index.js';
@@ -9,12 +8,13 @@ import type { FactoryEdgeType } from '#core/types/flowchart/edge/types.js';
 import { FactoryEdgeTypeName } from '#core/types/flowchart/edge/types.js';
 import type { FactoryNodeType } from '#core/types/flowchart/node/types.js';
 import { FactoryNodeTypeName, NodeDragHandleClass } from '#core/types/flowchart/node/types.js';
-import { FlowChartDroppable } from '#core/types/flowchart/types.js';
 import { useReaction } from '#core/utils/hooks.js';
 
 import ConnectionLine from './edge/ConnectionLine.jsx';
 import FactoryEdge from './edge/FactoryEdge.jsx';
 import useFlowChartConnectionManager from './FlowChartConnectionManager.js';
+import { FlowChartDropIndicator } from './FlowChartDropIndicator.js';
+import useFlowChartDropManager from './FlowChartDropManager.js';
 import FactoryNode from './node/FactoryNode.jsx';
 
 const nodeTypes = {
@@ -62,18 +62,19 @@ function syncEdges(edges: FactoryEdgeType[], links: IOLinkModelBase[]) {
 export default function FlowChart() {
     const [nodes, setNodes, onNodesChange] = useNodesState<FactoryNodeType>([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState<FactoryEdgeType>([]);
-    const { screenToFlowPosition } = useReactFlow();
     const flowChartModel = useFlowChartModelBase();
     const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, onConnect, isValidConnection } =
         useFlowChartConnectionManager(flowChartModel);
+    const { dragIndicator, onPaneMouseLeave, onPaneMouseMove, onPaneClick, onClickOutside } =
+        useFlowChartDropManager(flowChartModel);
 
     useReaction(
         () =>
             reaction(
-                () => flowChartModel.items,
-                (items) => {
+                () => flowChartModel.itemsGeneration,
+                () => {
                     // sync schema and react flow
-                    setNodes(syncNodes(nodes, [...items]));
+                    setNodes(syncNodes(nodes, [...flowChartModel.items]));
                 },
                 { delay: 1 }
             ),
@@ -83,10 +84,10 @@ export default function FlowChart() {
     useReaction(
         () =>
             reaction(
-                () => flowChartModel.links,
-                (items) => {
+                () => flowChartModel.linksGeneration,
+                () => {
                     // sync schema and react flow
-                    setEdges(syncEdges(edges, [...items]));
+                    setEdges(syncEdges(edges, [...flowChartModel.links]));
                 },
                 { delay: 1 }
             ),
@@ -98,25 +99,6 @@ export default function FlowChart() {
             const data = flowChartModel.itemByKey(node.id);
             data?.setPosition(node.position);
         }
-    });
-
-    useDragDropMonitor({
-        onDragEnd(event) {
-            if (event.operation.target?.id !== FlowChartDroppable) {
-                return;
-            }
-            const factoryKey = event.operation.source?.id;
-            if (!factoryKey) {
-                return;
-            }
-            const factory = flowChartModel.addItem(String(factoryKey));
-            const rect = event.operation.position.current;
-            const position = screenToFlowPosition({
-                x: rect?.x ?? 0,
-                y: rect?.y ?? 0,
-            });
-            factory.setPosition(position);
-        },
     });
 
     return (
@@ -133,12 +115,18 @@ export default function FlowChart() {
             onConnect={onConnect}
             onConnectEnd={onConnectEnd}
             onConnectStart={onConnectStart}
+            onEdgeClick={onClickOutside}
             onEdgesChange={onEdgesChange}
+            onNodeClick={onClickOutside}
             onNodeDragStop={onNodeDragStop}
             onNodesChange={onNodesChange}
+            onPaneClick={onPaneClick}
+            onPaneMouseLeave={onPaneMouseLeave}
+            onPaneMouseMove={onPaneMouseMove}
         >
             <Background />
             <Controls />
+            <FlowChartDropIndicator {...dragIndicator} />
         </ReactFlow>
     );
 }

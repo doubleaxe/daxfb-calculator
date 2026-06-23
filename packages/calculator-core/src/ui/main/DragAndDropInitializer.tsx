@@ -13,7 +13,7 @@ export default function DragAndDropInitializer({ children }: BaseProps) {
                 PointerSensor.configure({
                     activationConstraints: [
                         new PointerActivationConstraints.Distance({ value: 8 }),
-                        new PointerActivationConstraints.Delay({ value: 200, tolerance: Infinity }),
+                        new PointerActivationConstraints.Delay({ value: 400, tolerance: Infinity }),
                     ],
                 }),
             ]}
