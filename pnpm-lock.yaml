@@ -39,6 +39,9 @@ catalogs:
     mobx-react-lite:
       specifier: ^4.1.1
       version: 4.1.1
+    nanoevents:
+      specifier: ^9.1.0
+      version: 9.1.0
     npm-run-all:
       specifier: ^4.1.5
       version: 4.1.5
@@ -146,6 +149,9 @@ importers:
       mobx-react-lite:
         specifier: 'catalog:'
         version: 4.1.1(mobx@6.15.4)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      nanoevents:
+        specifier: 'catalog:'
+        version: 9.1.0
       pako:
         specifier: 'catalog:'
         version: 2.1.0
@@ -2661,6 +2667,10 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  nanoevents@9.1.0:
+    resolution: {integrity: sha512-Jd0fILWG44a9luj8v5kED4WI+zfkkgwKyRQKItTtlPfEsh7Lznfi1kr8/iZ+XAIss4Qq5GqRB0qtWbaz9ceO/A==}
+    engines: {node: ^18.0.0 || >=20.0.0}
 
   nanoid@3.3.12:
     resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
@@ -6313,6 +6323,8 @@ snapshots:
   mri@1.2.0: {}
 
   ms@2.1.3: {}
+
+  nanoevents@9.1.0: {}
 
   nanoid@3.3.12: {}
 

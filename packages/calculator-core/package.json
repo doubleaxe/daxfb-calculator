@@ -39,6 +39,7 @@
     "@xyflow/react": "catalog:",
     "mobx": "catalog:",
     "mobx-react-lite": "catalog:",
+    "nanoevents": "catalog:",
     "pako": "catalog:",
     "perfect-debounce": "catalog:",
     "react": "catalog:",

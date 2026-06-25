@@ -1,13 +1,16 @@
 import { action, makeObservable, observable } from 'mobx';
+import { createNanoEvents, type Emitter } from 'nanoevents';
 import { debounce } from 'perfect-debounce';
 
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
+import type { FlowChartEventsBase } from './FlowChartEvents.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
 export abstract class FlowChartModelBaseImpl {
+    private __events: Emitter<FlowChartEventsBase>;
     chartName = '';
     readonly gameData;
 
@@ -28,6 +31,7 @@ export abstract class FlowChartModelBaseImpl {
         __factoryConstructor: CreateFactoryModel,
         __ioLinkConstructor: CreateIOLinkModel
     ) {
+        this.__events = createNanoEvents<FlowChartEventsBase>();
         this.__factoryConstructor = __factoryConstructor;
         this.__ioLinkConstructor = __ioLinkConstructor;
         this.gameData = gameData;
@@ -52,6 +56,10 @@ export abstract class FlowChartModelBaseImpl {
                 __solveGraph: action,
             }
         );
+    }
+
+    get events(): Emitter<FlowChartEventsBase> {
+        return this.__events;
     }
 
     get defaultChartName() {
@@ -226,6 +234,7 @@ export abstract class FlowChartModelBaseImpl {
             this.__solveFrozen = solveFrozen;
         }
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    __solveGraphInternal(_changedItems: FactoryModelBaseImpl[]) {}
+    __solveGraphInternal(_changedItems: FactoryModelBaseImpl[]) {
+        this.events.emit('solveGraph', _changedItems);
+    }
 }

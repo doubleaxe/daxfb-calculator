@@ -10,3 +10,4 @@ export type { FactoryModelBase, FlowChartModelBase, IOLinkModelBase, RecipeIOMod
 
 export * from './constants.js';
 export * from './FlowChartContextBase.js';
+export * from './FlowChartEvents.js';

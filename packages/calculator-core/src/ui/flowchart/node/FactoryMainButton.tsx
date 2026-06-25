@@ -95,7 +95,7 @@ const FactoryMainButton = observer(({ data }: FactoryNodeProps) => {
                 },
                 { delay: 1 }
             ),
-        [flowConnectionState, data, updateNodeInternals]
+        [data]
     );
 
     return (

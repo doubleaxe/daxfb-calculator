@@ -65,8 +65,7 @@ export default function FlowChart() {
     const flowChartModel = useFlowChartModelBase();
     const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, onConnect, isValidConnection } =
         useFlowChartConnectionManager(flowChartModel);
-    const { dragIndicator, onPaneMouseLeave, onPaneMouseMove, onPaneClick, onClickOutside } =
-        useFlowChartDropManager(flowChartModel);
+    const { dragIndicator, onPaneMouseLeave, onPaneMouseMove, onPaneClick } = useFlowChartDropManager(flowChartModel);
 
     useReaction(
         () =>
@@ -78,7 +77,7 @@ export default function FlowChart() {
                 },
                 { delay: 1 }
             ),
-        [flowChartModel, setNodes, nodes]
+        [flowChartModel]
     );
 
     useReaction(
@@ -91,7 +90,7 @@ export default function FlowChart() {
                 },
                 { delay: 1 }
             ),
-        [flowChartModel, setEdges, edges]
+        [flowChartModel]
     );
 
     const onNodeDragStop: OnNodeDrag<FlowNode> = action((event, node) => {
@@ -115,9 +114,7 @@ export default function FlowChart() {
             onConnect={onConnect}
             onConnectEnd={onConnectEnd}
             onConnectStart={onConnectStart}
-            onEdgeClick={onClickOutside}
             onEdgesChange={onEdgesChange}
-            onNodeClick={onClickOutside}
             onNodeDragStop={onNodeDragStop}
             onNodesChange={onNodesChange}
             onPaneClick={onPaneClick}

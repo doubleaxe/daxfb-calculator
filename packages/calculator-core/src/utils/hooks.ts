@@ -20,3 +20,17 @@ export function useReaction(reactionInstance: () => IReactionDisposer, deps?: De
         };
     }, deps);
 }
+
+export function useWindowClick(callback: (event: MouseEvent) => void) {
+    useEffect(() => {
+        const handleWindowClick = (event: MouseEvent) => {
+            callback(event);
+        };
+
+        window.addEventListener('click', handleWindowClick);
+
+        return () => {
+            window.removeEventListener('click', handleWindowClick);
+        };
+    }, [callback]);
+}

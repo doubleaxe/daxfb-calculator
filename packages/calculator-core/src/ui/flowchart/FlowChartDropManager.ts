@@ -3,7 +3,7 @@ import { useReactFlow } from '@xyflow/react';
 import { action } from 'mobx';
 import { type MouseEvent as ReactMouseEvent, useState } from 'react';
 
-import type { FlowChartModelBase } from '#core/game/model/index.js';
+import { type FlowChartModelBase, useFlowChartEvents } from '#core/game/model/index.js';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
 import { FlowChartDroppable } from '#core/types/flowchart/types.js';
 
@@ -58,16 +58,17 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
         setDragIndicator({ x: 0, y: 0 });
     });
 
-    const onClickOutside: (event: ReactMouseEvent<Element, MouseEvent>) => void = action(() => {
+    const onClickOutside: (event: MouseEvent) => void = action(() => {
         factoryPaletteState.selectedFactory = undefined;
         setDragIndicator({ x: 0, y: 0 });
     });
+
+    useFlowChartEvents(() => [flowChartModel.events.on('paneClickAnywhere', onClickOutside)], [flowChartModel]);
 
     return {
         onPaneMouseLeave,
         onPaneMouseMove,
         onPaneClick,
-        onClickOutside,
         dragIndicator,
     };
 }

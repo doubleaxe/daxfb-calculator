@@ -31,7 +31,7 @@ const FactoryNode = observer((props: NodeProps<FactoryNodeType>) => {
                 },
                 { delay: 1 }
             ),
-        [data, updateNodeInternals]
+        [data]
     );
 
     return (
