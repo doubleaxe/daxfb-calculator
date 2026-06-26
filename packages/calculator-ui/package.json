@@ -18,11 +18,14 @@
   "type": "module",
   "scripts": {
     "prepare": "panda codegen --clean",
-    "dev": "vite",
+    "dev": "run-p watch-panda watch-vite-wait-panda",
     "watch-vite": "vite",
     "watch-panda": "panda --watch",
-    "build": "tsc && vite build",
-    "build-panda": "panda",
+    "watch-vite-wait-panda": "run-s wait-panda watch-vite",
+    "wait-panda": "wait-on --delay 500 ./generated/styled-system/styles.css",
+    "build": "run-s build-panda build-vite",
+    "build-vite": "vite build",
+    "build-panda": "panda --clean",
     "preview": "vite preview",
     "lint": "eslint --fix .",
     "format": "prettier --write .",
@@ -54,11 +57,13 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "^5.2.0",
     "autoprefixer": "^10.5.0",
+    "cross-env": "^10.1.0",
     "npm-run-all": "catalog:",
     "postcss": "^8.5.15",
     "postcss-preset-mantine": "^1.18.0",
     "rollup-plugin-visualizer": "^6.0.11",
     "typescript": "catalog:",
-    "vite": "^7.3.3"
+    "vite": "^7.3.3",
+    "wait-on": "^9.0.10"
   }
 }

@@ -12,5 +12,5 @@ export const actionIconIndicatorStyle = css.raw({
         filter: 'drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.9)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.7))',
     },
     willChange: 'filter',
-    animation: 'scaleBurst 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+    animationStyle: 'scaleBurst',
 });

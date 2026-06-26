@@ -1,4 +1,5 @@
 import './index.css';
+import './panda.css';
 
 import { initApplication } from '@doubleaxe/daxfb-calculator-core/ui/init';
 import { StrictMode } from 'react';
