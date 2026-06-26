@@ -14,7 +14,8 @@ export default function useStylesInitializer({ gameData, iconsPath }: Props) {
         style.textContent = `:root {
 --game-icon-path: url(${iconsPath});
 --game-icon-size: ${imageSize}px;
---xy-edge-stroke-width: ${imageSize >> 1}px;
+--game-icon-size-half: ${imageSize >> 1}px;
+--game-icon-size-quarter: ${imageSize >> 2}px;
 }`;
         document.head.appendChild(style);
         return () => {

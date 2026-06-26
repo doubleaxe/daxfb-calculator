@@ -130,6 +130,9 @@ export abstract class FlowChartModelBaseImpl {
         this.__itemsGeneration++;
     }
 
+    linkByKey(key: string): IOLinkModelBase | undefined {
+        return this.__links.get(key);
+    }
     createLinkAuto(sourceId: string, sourceIOId: string, targetId: string): IOLinkModelBase | undefined {
         const sourceItem = this.__items.get(sourceId);
         const sourceIO = sourceItem?.__getIOById(sourceIOId);
