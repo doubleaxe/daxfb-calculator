@@ -28,6 +28,7 @@ const FactoryEdge = observer((props: EdgeProps<FactoryEdgeType>) => {
             className={css({
                 stroke: 'var(--mantine-color-text)',
                 strokeWidth: 'var(--game-icon-size-quarter)',
+                fill: 'none',
             })}
             path={edgePath}
         />
