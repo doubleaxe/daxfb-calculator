@@ -31,20 +31,26 @@
   "dependencies": {
     "@dnd-kit/dom": "catalog:",
     "@dnd-kit/react": "catalog:",
+    "@dnd-kit/vue": "catalog:",
     "@doubleaxe/daxfb-calculator-styles": "workspace:*",
     "@doubleaxe/daxfb-shared": "workspace:*",
     "@mantine/core": "catalog:",
     "@mantine/hooks": "catalog:",
     "@phosphor-icons/react": "catalog:",
+    "@phosphor-icons/vue": "catalog:",
+    "@primeuix/themes": "catalog:",
+    "@vueuse/core": "catalog:",
     "@xyflow/react": "catalog:",
     "mobx": "catalog:",
     "mobx-react-lite": "catalog:",
     "nanoevents": "catalog:",
     "pako": "catalog:",
     "perfect-debounce": "catalog:",
+    "primevue": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tslib": "catalog:"
+    "tslib": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

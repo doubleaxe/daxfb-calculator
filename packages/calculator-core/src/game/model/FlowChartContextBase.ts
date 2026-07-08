@@ -1,12 +1,16 @@
-import { createContext, useContext } from 'react';
+import { createInjectionState } from '@vueuse/core';
 
 import type { FlowChartModelBase } from './types.js';
 
-export const FlowChartModelContext = createContext(null as FlowChartModelBase | null);
+const [useProvideFlowChartModelBase, _useFlowChartModelBase] = createInjectionState(
+    (flowChartModel: FlowChartModelBase) => flowChartModel
+);
+
+export { useProvideFlowChartModelBase };
 export function useFlowChartModelBase() {
-    const flowChartModel = useContext(FlowChartModelContext);
+    const flowChartModel = _useFlowChartModelBase();
     if (!flowChartModel) {
-        throw new Error('FlowChartModelContext was not found');
+        throw new Error('FlowChartModel is not provided');
     }
     return flowChartModel;
 }

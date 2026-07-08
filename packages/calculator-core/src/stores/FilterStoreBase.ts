@@ -1,6 +1,5 @@
 import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
-import { action, computed, makeObservable, observable } from 'mobx';
-import { createContext, useContext } from 'react';
+import { createInjectionState } from '@vueuse/core';
 
 import type { GameDataBase } from '#core/game/parser/index.js';
 
@@ -11,13 +10,6 @@ export class FilterStoreBaseImpl {
 
     constructor(gameData: GameDataBase) {
         this.gameData = gameData;
-
-        makeObservable<FilterStoreBaseImpl, '_direction' | '_key'>(this, {
-            _key: observable,
-            _direction: observable,
-            setKey: action,
-            filter: computed,
-        });
     }
 
     get filter() {
@@ -56,11 +48,15 @@ export class FilterStoreBaseImpl {
 
 export type FilterStoreBase = InterfaceOf<FilterStoreBaseImpl>;
 
-export const FilterStoreContext = createContext(null as FilterStoreBase | null);
+const [useProvideFilterStoreBase, _useFilterStoreBase] = createInjectionState(
+    (filterStore: FilterStoreBase) => filterStore
+);
+
+export { useProvideFilterStoreBase };
 export function useFilterStoreBase() {
-    const filterStore = useContext(FilterStoreContext);
+    const filterStore = _useFilterStoreBase();
     if (!filterStore) {
-        throw new Error('FilterStoreContext was not found');
+        throw new Error('FilterStore is not provided');
     }
     return filterStore;
 }

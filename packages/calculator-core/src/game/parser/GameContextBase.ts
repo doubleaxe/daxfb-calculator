@@ -1,12 +1,16 @@
-import { createContext, useContext } from 'react';
+import { createInjectionState } from '@vueuse/core';
 
 import type { GameDataBase } from './ParsedGameData.js';
 
-export const GameContext = createContext(null as GameDataBase | null);
+const [useProvideGameDataBase, _useGameDataBase] = createInjectionState(() => {
+    return null as GameDataBase | null;
+});
+
+export { useProvideGameDataBase };
 export function useGameDataBase() {
-    const gameData = useContext(GameContext);
+    const gameData = _useGameDataBase();
     if (!gameData) {
-        throw new Error('GameContext was not found');
+        throw new Error('GameData is not provided');
     }
     return gameData;
 }

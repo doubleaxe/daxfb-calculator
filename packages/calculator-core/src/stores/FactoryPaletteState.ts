@@ -1,6 +1,5 @@
 import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
-import { makeAutoObservable } from 'mobx';
-import { createContext, useContext } from 'react';
+import { createInjectionState } from '@vueuse/core';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 
@@ -8,10 +7,6 @@ export class FactoryPaletteStateImpl {
     factoryPaletteOpened = true;
     itemSearchOpened = false;
     selectedFactory: GameItemBase | undefined;
-
-    constructor() {
-        makeAutoObservable(this);
-    }
 
     toggleFactoryPalette() {
         this.factoryPaletteOpened = !this.factoryPaletteOpened;
@@ -26,11 +21,15 @@ export class FactoryPaletteStateImpl {
 
 export type FactoryPaletteState = InterfaceOf<FactoryPaletteStateImpl>;
 
-export const FactoryPaletteStateContext = createContext(null as FactoryPaletteState | null);
+const [useProvideFactoryPaletteState, _useFactoryPaletteState] = createInjectionState(
+    (factoryPaletteState: FactoryPaletteState) => factoryPaletteState
+);
+
+export { useProvideFactoryPaletteState };
 export function useFactoryPaletteState() {
-    const factoryPaletteState = useContext(FactoryPaletteStateContext);
+    const factoryPaletteState = _useFactoryPaletteState();
     if (!factoryPaletteState) {
-        throw new Error('FactoryPaletteStateContext was not found');
+        throw new Error('FactoryPaletteState is not provided');
     }
     return factoryPaletteState;
 }

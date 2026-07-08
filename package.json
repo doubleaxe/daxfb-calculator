@@ -26,21 +26,23 @@
     "changeset-snapshot": "@changesets/cli version --snapshot"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
+    "@changesets/cli": "^2.31.1",
     "@doubleaxe/eslint-config": "^2.0.7",
     "@doubleaxe/eslint-plugin-module-path-fixer": "^1.0.3",
     "@doubleaxe/prettier-config": "^1.0.5",
     "@doubleaxe/typescript-config": "^1.0.5",
-    "@types/node": "^24.12.4",
-    "eslint": "^9.39.4",
+    "@types/node": "^24.13.4",
+    "eslint": "^9.39.5",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "eslint-plugin-vue": "^10.11.0",
     "npm-run-all": "catalog:",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.6",
     "rimraf": "^6.1.3",
     "tslib": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.59.4"
+    "typescript-eslint": "^8.70.0",
+    "vue-eslint-parser": "^10.4.1"
   }
 }

@@ -1,5 +1,3 @@
-import { action, computed, makeObservable } from 'mobx';
-
 import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
@@ -34,15 +32,6 @@ export abstract class RecipeModelBaseImpl {
         this.__itemsArray = items;
         this.__itemsById = new Map(items.map((io) => [io.itemId, io]));
         this.__itemsByKey = new Map(items.map((io) => [io.key, io]));
-
-        makeObservable(this, {
-            visibleInput: computed,
-            invisibleInput: computed,
-            visibleOutput: computed,
-            invisibleOutput: computed,
-            __deleteAllLinks: action,
-            __copySimilarLinksTo: action,
-        });
     }
 
     get key() {

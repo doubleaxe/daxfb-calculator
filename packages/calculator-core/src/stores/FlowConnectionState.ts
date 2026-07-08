@@ -1,6 +1,5 @@
 import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
-import { makeAutoObservable } from 'mobx';
-import { createContext, useContext } from 'react';
+import { createInjectionState } from '@vueuse/core';
 
 import {
     EdgeStatus,
@@ -30,7 +29,6 @@ export class FlowConnectionStateImpl {
 
     constructor(flowChartModel: FlowChartModelBase) {
         this.flowChartModel = flowChartModel;
-        makeAutoObservable(this);
     }
 
     clearActiveConnection() {
@@ -84,11 +82,15 @@ export class FlowConnectionStateImpl {
 
 export type FlowConnectionState = InterfaceOf<FlowConnectionStateImpl>;
 
-export const FlowConnectionStateContext = createContext(null as FlowConnectionState | null);
+const [useProvideFlowConnectionState, _useFlowConnectionState] = createInjectionState(
+    (flowConnectionState: FlowConnectionState) => flowConnectionState
+);
+
+export { useProvideFlowConnectionState };
 export function useFlowConnectionState() {
-    const flowConnectionState = useContext(FlowConnectionStateContext);
+    const flowConnectionState = _useFlowConnectionState();
     if (!flowConnectionState) {
-        throw new Error('FlowConnectionStateContext was not found');
+        throw new Error('FlowConnectionState is not provided');
     }
     return flowConnectionState;
 }

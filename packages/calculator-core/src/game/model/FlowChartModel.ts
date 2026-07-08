@@ -1,4 +1,3 @@
-import { action, makeObservable, observable } from 'mobx';
 import { createNanoEvents, type Emitter } from 'nanoevents';
 import { debounce } from 'perfect-debounce';
 
@@ -36,26 +35,6 @@ export abstract class FlowChartModelBaseImpl {
         this.__ioLinkConstructor = __ioLinkConstructor;
         this.gameData = gameData;
         this.resetChartName();
-
-        makeObservable<FlowChartModelBaseImpl, '__items' | '__itemsGeneration' | '__links' | '__linksGeneration'>(
-            this,
-            {
-                chartName: observable,
-                __items: observable,
-                __itemsGeneration: observable,
-                __links: observable,
-                __linksGeneration: observable,
-                resetChartName: action,
-                addItem: action,
-                __deleteItem: action,
-                createLinkAuto: action,
-                createLink: action,
-                __createLink: action,
-                __deleteLink: action,
-                __requestSolveGraph: action,
-                __solveGraph: action,
-            }
-        );
     }
 
     get events(): Emitter<FlowChartEventsBase> {

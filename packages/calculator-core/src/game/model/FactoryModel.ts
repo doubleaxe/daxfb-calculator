@@ -1,5 +1,3 @@
-import { action, makeObservable, observable } from 'mobx';
-
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
@@ -35,15 +33,6 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         if (recipes.length && recipes[0]) {
             this.__selectedRecipe = __recipeModelConstructor(this, recipes[0].key);
         }
-
-        makeObservable<FactoryModelBaseImpl, '__selectedRecipe'>(this, {
-            status: observable,
-            isFlipped: observable,
-            __selectedRecipe: observable,
-            deleteAllLinks: action,
-            deleteItem: action,
-            selectRecipe: action,
-        });
     }
 
     get upgradable() {

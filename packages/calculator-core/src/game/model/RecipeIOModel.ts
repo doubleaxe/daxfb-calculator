@@ -1,5 +1,3 @@
-import { action, makeObservable, observable } from 'mobx';
-
 import type { GameRecipeIOBase } from '../parser/index.js';
 import { GameRecipeIOFlagsBase } from '../parser/index.js';
 import { EdgeStatus } from './constants.js';
@@ -29,15 +27,6 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         this.__io = __io;
         this.__recipe = __recipe;
         this.isInput = __io.isInput;
-
-        makeObservable<RecipeIOModelBaseImpl, '__links'>(this, {
-            status: observable,
-            __links: observable,
-            __addLink: action,
-            __deleteLink: action,
-            __deleteAllLinks: action,
-            __copySimilarLinksTo: action,
-        });
     }
 
     get isHidden() {

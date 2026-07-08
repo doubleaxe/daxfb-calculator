@@ -1,9 +1,9 @@
-import reactTs from '@doubleaxe/eslint-config/react-ts';
+import vueTs from '@doubleaxe/eslint-config/vue-ts';
 import modulePathFixer from '@doubleaxe/eslint-plugin-module-path-fixer';
 import { defineConfig } from 'eslint/config';
 
-const patterns = reactTs.patterns;
-const configs = reactTs.configs;
+const patterns = vueTs.patterns;
+const configs = vueTs.configs;
 
 const nodeFiles = [...patterns.toolsEs, ...patterns.toolsTs, '**/panda.config.ts', '**/postcss.config.js'];
 
@@ -17,7 +17,7 @@ export default defineConfig([
     },
     {
         name: 'es',
-        files: [...patterns.esFilter, ...patterns.tsFilter],
+        files: [...patterns.esFilter, ...patterns.tsFilter, ...patterns.vueFilter],
         extends: [configs.esNextRoot],
         plugins: {
             'module-path-fixer': modulePathFixer,
@@ -29,7 +29,7 @@ export default defineConfig([
     },
     {
         name: 'ts',
-        files: patterns.tsFilter,
+        files: [...patterns.tsFilter, ...patterns.vueFilter],
         extends: [configs.tsRoot],
         rules: {
             '@typescript-eslint/no-shadow': [
@@ -41,6 +41,7 @@ export default defineConfig([
             ],
         },
     },
+    /*
     {
         name: 'tsx',
         files: patterns.tsxFilter,
@@ -48,6 +49,12 @@ export default defineConfig([
         rules: {
             'perfectionist/sort-jsx-props': 'off',
         },
+    },
+    */
+    {
+        name: 'vue',
+        files: patterns.vueFilter,
+        extends: [configs.vueTsRoot],
     },
     {
         name: 'web',
