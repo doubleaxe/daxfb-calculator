@@ -1,5 +1,6 @@
 import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 import { createInjectionState } from '@vueuse/core';
+import { reactive } from 'vue';
 
 import {
     EdgeStatus,
@@ -83,7 +84,7 @@ export class FlowConnectionStateImpl {
 export type FlowConnectionState = InterfaceOf<FlowConnectionStateImpl>;
 
 const [useProvideFlowConnectionState, _useFlowConnectionState] = createInjectionState(
-    (flowConnectionState: FlowConnectionState) => flowConnectionState
+    (flowConnectionState: FlowConnectionState): FlowConnectionState => reactive(flowConnectionState)
 );
 
 export { useProvideFlowConnectionState };

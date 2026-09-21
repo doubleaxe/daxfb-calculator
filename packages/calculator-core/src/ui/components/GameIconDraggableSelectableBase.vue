@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { RecipeVariantProps } from '@doubleaxe/daxfb-calculator-styles/css';
 import { cva, cx } from '@doubleaxe/daxfb-calculator-styles/css';
 
 import type { GameItemImageJson } from '#core/game/parser/index.js';
@@ -7,13 +6,12 @@ import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
 
 import GameIcon from './GameIcon.vue';
 
-export type IconVariants = RecipeVariantProps<typeof iconStyles>;
-
 type Props = {
+    borderStyle?: 'plain';
     elementRef?: (el: HTMLElement | null) => void;
     image: GameItemImageJson | undefined;
     isSelected?: boolean;
-} & IconVariants;
+};
 
 const { image, isSelected = false, borderStyle = 'plain', elementRef = () => {} } = defineProps<Props>();
 
@@ -21,7 +19,7 @@ const emit = defineEmits<(e: 'click', event: MouseEvent) => void>();
 
 const iconStyles = cva({
     base: {
-        borderRadius: 'var(--mantine-radius-md)',
+        borderRadius: 'lg',
     },
     variants: {
         borderStyle: {

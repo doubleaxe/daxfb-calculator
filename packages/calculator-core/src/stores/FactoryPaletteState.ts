@@ -1,5 +1,6 @@
 import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 import { createInjectionState } from '@vueuse/core';
+import { reactive } from 'vue';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 
@@ -22,7 +23,7 @@ export class FactoryPaletteStateImpl {
 export type FactoryPaletteState = InterfaceOf<FactoryPaletteStateImpl>;
 
 const [useProvideFactoryPaletteState, _useFactoryPaletteState] = createInjectionState(
-    (factoryPaletteState: FactoryPaletteState) => factoryPaletteState
+    (factoryPaletteState: FactoryPaletteState): FactoryPaletteState => reactive(factoryPaletteState)
 );
 
 export { useProvideFactoryPaletteState };

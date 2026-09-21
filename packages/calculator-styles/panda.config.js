@@ -19,7 +19,7 @@ export default defineConfig({
     outdir: 'generated/styled-system',
 
     clean: true,
-    presets: [],
+    presets: ['@pandacss/preset-base', '@pandacss/preset-panda'],
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: true },
@@ -27,8 +27,8 @@ export default defineConfig({
 
     conditions: {
         extend: {
-            light: '[data-mantine-color-scheme="light"] &',
-            dark: '[data-mantine-color-scheme="dark"] &',
+            light: ':root:not(.dark) &',
+            dark: '.dark &',
         },
     },
 

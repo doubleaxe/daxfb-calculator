@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { PhWarning as WarningIcon } from '@phosphor-icons/vue';
+import { PhWarning } from '@phosphor-icons/vue';
 import { computed } from 'vue';
 
 import type { GameItemImageJson } from '#core/game/parser/index.js';
@@ -32,7 +32,7 @@ const backgroundPosition = computed(() => {
         "
         :style="{ backgroundPosition }"
     />
-    <WarningIcon
+    <PhWarning
         v-else
         :class="
             css({

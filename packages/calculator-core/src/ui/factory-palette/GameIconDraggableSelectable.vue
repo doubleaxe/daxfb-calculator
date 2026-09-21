@@ -4,13 +4,13 @@ import { shallowRef } from 'vue';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 
-import type { IconVariants } from '../components/GameIconDraggableSelectableBase.js';
 import GameIconDraggableSelectableBase from '../components/GameIconDraggableSelectableBase.vue';
 
 type Props = {
+    borderStyle?: 'plain';
     isSelected?: boolean;
     item: GameItemBase;
-} & IconVariants;
+};
 
 const { item, isSelected = false, borderStyle = 'plain' } = defineProps<Props>();
 

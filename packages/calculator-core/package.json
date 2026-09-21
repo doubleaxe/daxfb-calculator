@@ -24,7 +24,7 @@
     "./stores/*": "./src/stores/*.ts",
     "./types/*": "./src/types/*.ts",
     "./ui/init": "./src/ui/init.ts",
-    "./ui/*": "./src/ui/*.tsx",
+    "./ui/*": "./src/ui/*.vue",
     "./utils/*": "./src/utils/*.ts",
     "./package.json": "./package.json"
   },
@@ -39,6 +39,9 @@
     "@phosphor-icons/react": "catalog:",
     "@phosphor-icons/vue": "catalog:",
     "@primeuix/themes": "catalog:",
+    "@vue-flow/background": "^1.3.2",
+    "@vue-flow/controls": "^1.1.3",
+    "@vue-flow/core": "^1.48.2",
     "@vueuse/core": "catalog:",
     "@xyflow/react": "catalog:",
     "mobx": "catalog:",

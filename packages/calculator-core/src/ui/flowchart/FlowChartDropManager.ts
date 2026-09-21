@@ -1,18 +1,23 @@
-import { useDragDropMonitor } from '@dnd-kit/react';
-import { useReactFlow } from '@xyflow/react';
-import { action } from 'mobx';
-import { type MouseEvent as ReactMouseEvent, useState } from 'react';
+import { useDragDropMonitor } from '@dnd-kit/vue';
+import { useVueFlow } from '@vue-flow/core';
+import { ref } from 'vue';
 
 import { type FlowChartModelBase, useFlowChartEvents } from '#core/game/model/index.js';
+import type { GameItemBase } from '#core/game/parser/index.js';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
 import { FlowChartDroppable } from '#core/types/flowchart/types.js';
 
-import type { FlowChartDropIndicatorProps } from './FlowChartDropIndicator.jsx';
+export type FlowChartDropIndicatorState = {
+    item?: GameItemBase;
+    visible?: boolean;
+    x: number;
+    y: number;
+};
 
 export default function useFlowChartDropManager(flowChartModel: FlowChartModelBase) {
-    const { screenToFlowPosition } = useReactFlow();
+    const { screenToFlowCoordinate } = useVueFlow();
     const factoryPaletteState = useFactoryPaletteState();
-    const [dragIndicator, setDragIndicator] = useState<FlowChartDropIndicatorProps>({ x: 0, y: 0 });
+    const dragIndicator = ref<FlowChartDropIndicatorState>({ x: 0, y: 0 });
 
     useDragDropMonitor({
         onDragEnd(event) {
@@ -25,7 +30,7 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
             }
             const factory = flowChartModel.addItem(String(factoryKey));
             const rect = event.operation.position.current;
-            const position = screenToFlowPosition({
+            const position = screenToFlowCoordinate({
                 x: rect?.x ?? 0,
                 y: rect?.y ?? 0,
             });
@@ -33,37 +38,42 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
         },
     });
 
-    const onPaneMouseLeave: (event: ReactMouseEvent<Element, MouseEvent>) => void = action(() => {
-        setDragIndicator({ x: 0, y: 0 });
-    });
+    const onPaneMouseLeave = () => {
+        dragIndicator.value = { x: 0, y: 0 };
+    };
 
-    const onPaneMouseMove: (event: ReactMouseEvent<Element, MouseEvent>) => void = action((event) => {
+    const onPaneMouseMove = (event: MouseEvent) => {
         if (!factoryPaletteState.selectedFactory) return;
-        const position = screenToFlowPosition({
+        const position = screenToFlowCoordinate({
             x: event.clientX,
             y: event.clientY,
         });
-        setDragIndicator({ x: position.x, y: position.y, visible: true, item: factoryPaletteState.selectedFactory });
-    });
+        dragIndicator.value = {
+            x: position.x,
+            y: position.y,
+            visible: true,
+            item: factoryPaletteState.selectedFactory,
+        };
+    };
 
-    const onPaneClick: (event: ReactMouseEvent<Element, MouseEvent>) => void = action((event) => {
+    const onPaneClick = (event: MouseEvent) => {
         if (!factoryPaletteState.selectedFactory) return;
         const factory = flowChartModel.addItem(String(factoryPaletteState.selectedFactory.key));
-        const position = screenToFlowPosition({
+        const position = screenToFlowCoordinate({
             x: event.clientX,
             y: event.clientY,
         });
         factory.setPosition(position);
-        factoryPaletteState.selectedFactory = undefined;
-        setDragIndicator({ x: 0, y: 0 });
-    });
+        factoryPaletteState.setSelectedFactory(undefined);
+        dragIndicator.value = { x: 0, y: 0 };
+    };
 
-    const onClickOutside: (event: MouseEvent) => void = action(() => {
-        factoryPaletteState.selectedFactory = undefined;
-        setDragIndicator({ x: 0, y: 0 });
-    });
+    const onClickOutside = () => {
+        factoryPaletteState.setSelectedFactory(undefined);
+        dragIndicator.value = { x: 0, y: 0 };
+    };
 
-    useFlowChartEvents(() => [flowChartModel.events.on('paneClickAnywhere', onClickOutside)], [flowChartModel]);
+    useFlowChartEvents(() => [flowChartModel.events.on('paneClickAnywhere', onClickOutside)]);
 
     return {
         onPaneMouseLeave,

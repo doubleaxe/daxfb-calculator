@@ -2,9 +2,9 @@ import { createInjectionState } from '@vueuse/core';
 
 import type { GameDataBase } from './ParsedGameData.js';
 
-const [useProvideGameDataBase, _useGameDataBase] = createInjectionState(() => {
-    return null as GameDataBase | null;
-});
+const [useProvideGameDataBase, _useGameDataBase] = createInjectionState(
+    (gameData: GameDataBase): GameDataBase => gameData
+);
 
 export { useProvideGameDataBase };
 export function useGameDataBase() {

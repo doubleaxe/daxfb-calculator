@@ -31,6 +31,7 @@
     "@doubleaxe/eslint-plugin-module-path-fixer": "^1.0.3",
     "@doubleaxe/prettier-config": "^1.0.5",
     "@doubleaxe/typescript-config": "^1.0.5",
+    "@primevue/mcp": "^5.0.1",
     "@types/node": "^24.13.4",
     "eslint": "^9.39.5",
     "eslint-plugin-react": "^7.37.5",

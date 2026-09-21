@@ -13,12 +13,7 @@ const { item } = defineProps<{
 
 <template>
     <div
-        :class="
-            cx(
-                css({ backgroundColor: 'var(--mantine-color-body)', borderRadius: 'var(--mantine-radius-md)' }),
-                draggingStyle
-            )
-        "
+        :class="cx(css({ backgroundColor: 'var(--p-content-background)', borderRadius: 'lg' }), draggingStyle)"
         data-dragging
     >
         <GameIcon v-if="item" :image="item?.image" />

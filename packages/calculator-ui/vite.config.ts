@@ -1,7 +1,7 @@
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import react from '@vitejs/plugin-react';
+import vue from '@vitejs/plugin-vue';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 
@@ -16,7 +16,7 @@ process.env['VITE_BUILD_TIME'] = new Date().toISOString();
 // https://vitejs.dev/config/
 export default defineConfig({
     base: './',
-    plugins: [react()],
+    plugins: [vue()],
     esbuild: { legalComments: 'none' },
     build: {
         emptyOutDir: true,

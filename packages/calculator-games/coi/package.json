@@ -19,7 +19,7 @@
   "exports": {
     "./game/model": "./src/game/model/index.ts",
     "./game/parser/*": "./src/game/parser/*.ts",
-    "./GameContextLoader": "./src/GameContextLoader.tsx",
+    "./GameContextLoader": "./src/GameContextLoader.vue",
     "./package.json": "./package.json"
   },
   "dependencies": {
@@ -34,7 +34,8 @@
     "mobx-react-lite": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tslib": "catalog:"
+    "tslib": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

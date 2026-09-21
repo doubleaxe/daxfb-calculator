@@ -1,5 +1,4 @@
 export { useGameData } from './GameContext.js';
-export { default as GameContextProvider } from './GameContextProvider.js';
 export type {
     GameDataCoi,
     GameItemCoi,

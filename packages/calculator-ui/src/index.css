@@ -1,6 +1,4 @@
-@layer reset, base, baseui, tokens, recipes, utilities;
-
-@import '@mantine/core/styles.css' layer(baseui);
+@layer reset, base, primevue, tokens, recipes, utilities;
 
 html,
 body,

@@ -1,1 +1,2 @@
-@import '@xyflow/react/dist/style.css' layer(baseui);
+@import '@vue-flow/core/dist/style.css' layer(baseui);
+@import '@vue-flow/core/dist/theme-default.css' layer(baseui);

@@ -1,5 +1,6 @@
 import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
 import { createInjectionState } from '@vueuse/core';
+import { reactive } from 'vue';
 
 import type { GameDataBase } from '#core/game/parser/index.js';
 
@@ -49,7 +50,7 @@ export class FilterStoreBaseImpl {
 export type FilterStoreBase = InterfaceOf<FilterStoreBaseImpl>;
 
 const [useProvideFilterStoreBase, _useFilterStoreBase] = createInjectionState(
-    (filterStore: FilterStoreBase) => filterStore
+    (filterStore: FilterStoreBase): FilterStoreBase => reactive(filterStore)
 );
 
 export { useProvideFilterStoreBase };

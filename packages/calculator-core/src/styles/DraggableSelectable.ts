@@ -2,12 +2,12 @@ import { css, cva } from '@doubleaxe/daxfb-calculator-styles/css';
 
 const selectedBase = css.raw({
     _light: {
-        borderColor: 'var(--mantine-color-blue-4)',
-        boxShadow: '0 4px 12px rgb(var(--mantine-color-rgb-blue-4) / 0.6)',
+        borderColor: 'var(--p-blue-400)',
+        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-400) 60%, transparent)',
     },
     _dark: {
-        borderColor: 'var(--mantine-color-blue-6)',
-        boxShadow: '0 4px 12px rgb(var(--mantine-color-rgb-blue-6) / 0.6)',
+        borderColor: 'var(--p-blue-600)',
+        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-600) 60%, transparent)',
     },
 });
 
@@ -19,12 +19,12 @@ const selected = css.raw({
 
 const hover = css.raw({
     _light: {
-        borderColor: 'rgb(var(--mantine-color-rgb-blue-3) / 0.5)',
-        boxShadow: '0 4px 12px rgb(var(--mantine-color-rgb-blue-3) / 0.6)',
+        borderColor: 'color-mix(in srgb, var(--p-blue-300) 50%, transparent)',
+        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-300) 60%, transparent)',
     },
     _dark: {
-        borderColor: 'rgb(var(--mantine-color-rgb-blue-7) / 0.5)',
-        boxShadow: '0 4px 12px rgb(var(--mantine-color-rgb-blue-7) / 0.6)',
+        borderColor: 'color-mix(in srgb, var(--p-blue-700) 50%, transparent)',
+        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-700) 60%, transparent)',
     },
 });
 
