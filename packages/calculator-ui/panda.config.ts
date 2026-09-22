@@ -8,9 +8,9 @@ import { defineConfig } from '@pandacss/dev';
 export default defineConfig({
     ...baseConfig,
     include: [
-        './node_modules/@doubleaxe/daxfb-calculator-core/src/**/*.{ts,tsx,vue}',
-        './node_modules/@doubleaxe/daxfb-calculator-games.coi/src/**/*.{ts,tsx,vue}',
-        './src/**/*.{ts,tsx,vue}',
+        './node_modules/@doubleaxe/daxfb-calculator-core/src/**/*.{ts,vue}',
+        './node_modules/@doubleaxe/daxfb-calculator-games.coi/src/**/*.{ts,vue}',
+        './src/**/*.{ts,vue}',
     ],
     importMap: '@doubleaxe/daxfb-calculator-styles',
 });

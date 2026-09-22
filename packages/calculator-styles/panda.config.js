@@ -23,12 +23,12 @@ export default defineConfig({
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: true },
-    jsxFramework: 'react',
+    jsxFramework: '',
 
     conditions: {
         extend: {
-            light: ':root:not(.dark) &',
-            dark: '.dark &',
+            light: ':root:not(.daxfb-dark) &',
+            dark: '.daxfb-dark &',
         },
     },
 

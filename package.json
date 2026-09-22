@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@doubleaxe/eslint-config": "^2.0.7",
+    "@doubleaxe/eslint-config": "^2.0.8",
     "@doubleaxe/eslint-plugin-module-path-fixer": "^1.0.3",
     "@doubleaxe/prettier-config": "^1.0.5",
     "@doubleaxe/typescript-config": "^1.0.5",

@@ -16,6 +16,9 @@ process.env['VITE_BUILD_TIME'] = new Date().toISOString();
 // https://vitejs.dev/config/
 export default defineConfig({
     base: './',
+    server: {
+        port: process.env['PORT'] ? Number(process.env['PORT']) : 5173,
+    },
     plugins: [vue()],
     esbuild: { legalComments: 'none' },
     build: {

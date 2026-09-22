@@ -1,4 +1,4 @@
-@layer reset, base, primevue, tokens, recipes, utilities;
+@import 'normalize.css' layer(reset);
 
 html,
 body,

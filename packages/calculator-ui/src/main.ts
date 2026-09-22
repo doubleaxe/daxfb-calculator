@@ -1,22 +1,22 @@
-import './index.css';
 import './panda.css';
+import './index.css';
 
-import { initApplication } from '@doubleaxe/daxfb-calculator-core/ui/init';
+import { preInitApplication } from '@doubleaxe/daxfb-calculator-core/ui/PreInitApplication';
 import Aura from '@primeuix/themes/aura';
 import PrimeVue from 'primevue/config';
 import { createApp } from 'vue';
 
 import App from './App.vue';
 
-initApplication();
-
 const app = createApp(App);
+
+preInitApplication(app);
 
 app.use(PrimeVue, {
     theme: {
         preset: Aura,
         options: {
-            darkModeSelector: '.dark',
+            darkModeSelector: '.daxfb-dark',
             cssLayer: { name: 'primevue' },
         },
     },

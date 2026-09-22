@@ -29,7 +29,7 @@
     "preview": "vite preview",
     "lint": "eslint --fix .",
     "format": "prettier --write .",
-    "check": "tsc --noEmit"
+    "check": "vue-tsc --noEmit"
   },
   "imports": {},
   "dependencies": {
@@ -44,9 +44,11 @@
     "@mantine/hooks": "catalog:",
     "@phosphor-icons/react": "catalog:",
     "@primeuix/themes": "catalog:",
+    "@vueuse/core": "catalog:",
     "@xyflow/react": "catalog:",
     "mobx": "catalog:",
     "mobx-react-lite": "catalog:",
+    "normalize.css": "^8.0.1",
     "pako": "catalog:",
     "primevue": "catalog:",
     "react": "catalog:",
@@ -68,6 +70,7 @@
     "rollup-plugin-visualizer": "^6.0.11",
     "typescript": "catalog:",
     "vite": "^7.3.6",
+    "vue-tsc": "catalog:",
     "wait-on": "^9.1.0"
   }
 }

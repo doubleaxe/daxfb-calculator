@@ -1,13 +1,27 @@
 <script setup lang="ts">
-import MantineInit from '@doubleaxe/daxfb-calculator-core/ui/MantineInit';
+import InitApplication from '@doubleaxe/daxfb-calculator-core/ui/InitApplication';
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { createReusableTemplate } from '@vueuse/core';
 import ProgressSpinner from 'primevue/progressspinner';
 import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
 
 import { GameIds } from './GameIds.js';
 
-const LandingPage = defineAsyncComponent(() => import('./pages/LandingPage.vue'));
-const CoiGamePage = defineAsyncComponent(() => import('./pages/CoiGamePage.vue'));
+const [DefineFallback, Fallback] = createReusableTemplate();
+
+const asyncOptions = {
+    loadingComponent: Fallback,
+    delay: 200,
+};
+
+const LandingPage = defineAsyncComponent({
+    loader: () => import('./pages/LandingPage.vue'),
+    ...asyncOptions,
+});
+const CoiGamePage = defineAsyncComponent({
+    loader: () => import('./pages/CoiGamePage.vue'),
+    ...asyncOptions,
+});
 
 const getGameId = () => new URLSearchParams(window.location.search).get('gameId');
 
@@ -37,14 +51,12 @@ const fallbackClass = css({
 </script>
 
 <template>
-    <MantineInit>
-        <Suspense>
-            <component :is="pageComponent" />
-            <template #fallback>
-                <div :class="fallbackClass">
-                    <ProgressSpinner />
-                </div>
-            </template>
-        </Suspense>
-    </MantineInit>
+    <InitApplication>
+        <DefineFallback>
+            <div :class="fallbackClass">
+                <ProgressSpinner />
+            </div>
+        </DefineFallback>
+        <component :is="pageComponent" />
+    </InitApplication>
 </template>

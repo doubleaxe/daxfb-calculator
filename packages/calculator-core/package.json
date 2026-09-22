@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint --fix .",
     "format": "prettier --write .",
-    "check": "tsc --noEmit"
+    "check": "vue-tsc --noEmit"
   },
   "imports": {
     "#core/*": "./src/*"
@@ -23,7 +23,7 @@
     "./game/parser/*": "./src/game/parser/*.ts",
     "./stores/*": "./src/stores/*.ts",
     "./types/*": "./src/types/*.ts",
-    "./ui/init": "./src/ui/init.ts",
+    "./ui/PreInitApplication": "./src/ui/PreInitApplication.ts",
     "./ui/*": "./src/ui/*.vue",
     "./utils/*": "./src/utils/*.ts",
     "./package.json": "./package.json"
@@ -53,7 +53,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "tslib": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

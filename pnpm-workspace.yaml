@@ -29,5 +29,6 @@ catalog:
   tslib: ^2.8.1
   typescript: ^5.9.3
   vue: ^3.5.42
+  vue-tsc: ^3.3.11
 minimumReleaseAgeExclude:
   - '@doubleaxe/*'

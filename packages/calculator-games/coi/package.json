@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint --fix .",
     "format": "prettier --write .",
-    "check": "tsc --noEmit"
+    "check": "vue-tsc --noEmit"
   },
   "imports": {
     "#game-ui-coi/*": "./src/*"
@@ -35,7 +35,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "tslib": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

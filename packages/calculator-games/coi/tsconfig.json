@@ -9,5 +9,6 @@
       "#game-ui-coi/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["**/*.tsx"]
 }

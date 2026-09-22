@@ -8,5 +8,6 @@
     "paths": {}
   },
   "include": ["src"],
+  "exclude": ["**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
