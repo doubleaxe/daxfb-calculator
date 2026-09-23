@@ -5,7 +5,7 @@ useProvideDarkModeStore();
 </script>
 
 <template>
-    <div>
+    <div id="init">
         <slot />
     </div>
 </template>

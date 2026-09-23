@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { vstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
 import Panel from 'primevue/panel';
 

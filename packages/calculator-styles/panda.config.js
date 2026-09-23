@@ -1,5 +1,7 @@
 import { defineAnimationStyles, defineConfig, definePattern } from '@pandacss/dev';
 
+import theme from './theme.js';
+
 // only code generation options, because we have separate css generator
 const patterns = {
     // remove gap
@@ -16,9 +18,12 @@ const patterns = {
 };
 
 export default defineConfig({
+    ...theme,
+
     outdir: 'generated/styled-system',
 
     clean: true,
+    preflight: false,
     presets: ['@pandacss/preset-base', '@pandacss/preset-panda'],
     shorthands: false,
     prefix: 'panda',

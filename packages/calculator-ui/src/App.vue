@@ -40,20 +40,22 @@ onUnmounted(() => {
 });
 
 const pageComponent = computed(() => (gameId.value === GameIds.COI ? CoiGamePage : LandingPage));
-
-const fallbackClass = css({
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-});
 </script>
 
 <template>
     <InitApplication>
         <DefineFallback>
-            <div :class="fallbackClass">
+            <div
+                :class="
+                    css({
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    })
+                "
+            >
                 <ProgressSpinner />
             </div>
         </DefineFallback>

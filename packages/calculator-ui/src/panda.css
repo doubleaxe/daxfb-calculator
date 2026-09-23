@@ -1,3 +1,6 @@
 @layer reset, base, primevue, tokens, recipes, utilities;
 
+/* panda automatically inserts its styles here, if we also import - there are duplicates */
+/*
 @import '../generated/styled-system/styles.css';
+*/

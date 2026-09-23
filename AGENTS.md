@@ -10,6 +10,10 @@ This repository is a monorepo for `daxfb-calculator`, a factory planner for mana
 - Version control: `git`
 - Code format: `prettier` and `eslint`
 
+## Tools
+
+- Prefer to use `rg` if available
+
 ## Workspace Structure
 
 - `packages/calculator-ui`: Vite application entrypoint and top-level routing.
