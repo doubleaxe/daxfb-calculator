@@ -13,7 +13,9 @@
     "emit": "panda emit-pkg"
   },
   "devDependencies": {
-    "@pandacss/dev": "catalog:"
+    "@pandacss/dev": "catalog:",
+    "@pandacss/preset-panda": "catalog:",
+    "@primeuix/themes": "catalog:"
   },
   "exports": {
     "./css": {

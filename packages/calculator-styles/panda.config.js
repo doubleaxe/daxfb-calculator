@@ -1,6 +1,7 @@
 import { defineAnimationStyles, defineConfig, definePattern } from '@pandacss/dev';
 
-import theme from './theme.js';
+import GlobalTheme from './global-theme.js';
+import PresetPrimevue from './preset-primevue.js';
 
 // only code generation options, because we have separate css generator
 const patterns = {
@@ -18,13 +19,13 @@ const patterns = {
 };
 
 export default defineConfig({
-    ...theme,
+    ...GlobalTheme,
 
     outdir: 'generated/styled-system',
 
     clean: true,
     preflight: false,
-    presets: ['@pandacss/preset-base', '@pandacss/preset-panda'],
+    presets: ['@pandacss/preset-base', PresetPrimevue],
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: true },

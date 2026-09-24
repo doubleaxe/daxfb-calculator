@@ -10,6 +10,7 @@ catalog:
   '@mantine/core': ^9.6.1
   '@mantine/hooks': ^9.6.1
   '@pandacss/dev': ^1.12.1
+  '@pandacss/preset-panda': ^1.12.1
   '@phosphor-icons/react': ^2.1.10
   '@phosphor-icons/vue': ^2.2.1
   '@primeuix/themes': ^2.0.3

@@ -19,7 +19,7 @@
   "exports": {
     "./game/model": "./src/game/model/index.ts",
     "./game/parser/*": "./src/game/parser/*.ts",
-    "./GameContextLoader": "./src/GameContextLoader.vue",
+    "./GameContextLoader.vue": "./src/GameContextLoader.vue",
     "./package.json": "./package.json"
   },
   "dependencies": {
