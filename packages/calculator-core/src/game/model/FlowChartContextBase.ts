@@ -1,9 +1,10 @@
 import { createInjectionState } from '@vueuse/core';
+import { reactive } from 'vue';
 
 import type { FlowChartModelBase } from './types.js';
 
 const [useProvideFlowChartModelBase, _useFlowChartModelBase] = createInjectionState(
-    (flowChartModel: FlowChartModelBase) => flowChartModel
+    (flowChartModel: FlowChartModelBase) => reactive(flowChartModel)
 );
 
 export { useProvideFlowChartModelBase };

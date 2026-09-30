@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DragAndDropInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/DragAndDropInitializer.vue';
-import InternalStoresInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/InternalStoresInitializer.vue';
+import useInternalStoresInitializer from '@doubleaxe/daxfb-calculator-core/utils/main/InternalStoresInitializer.js';
 import useStylesInitializer from '@doubleaxe/daxfb-calculator-core/utils/main/StylesInitializer.js';
 import iconsPath from '@doubleaxe/daxfb-gamedata-generated/coi/images.png';
 
@@ -11,12 +11,14 @@ import AppWindow from './AppWindow.vue';
 
 const gameData = useGameData();
 useStylesInitializer({ gameData, iconsPath });
+useInternalStoresInitializer({
+    gameData,
+    flowChartModel: flowChartModelCoiFactory(gameData),
+});
 </script>
 
 <template>
     <DragAndDropInitializer>
-        <InternalStoresInitializer :flow-chart-model="() => flowChartModelCoiFactory(gameData)">
-            <AppWindow />
-        </InternalStoresInitializer>
+        <AppWindow />
     </DragAndDropInitializer>
 </template>

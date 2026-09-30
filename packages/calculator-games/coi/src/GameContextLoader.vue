@@ -5,8 +5,8 @@ import { GameDataCoiImpl } from '#game-ui-coi/game/parser/ParsedGameData.js';
 import PageInitializer from '#game-ui-coi/ui/PageInitializer.vue';
 
 const [{ gameDataJson }, { localeJson }] = await Promise.all([
-    import('@doubleaxe/daxfb-gamedata-generated/coi'),
-    import('@doubleaxe/daxfb-gamedata-generated/coi/locales/en'),
+    import('@doubleaxe/daxfb-gamedata-generated/coi.js'),
+    import('@doubleaxe/daxfb-gamedata-generated/coi/locales/en.js'),
 ]);
 
 gameDataJson.locale = localeJson;
