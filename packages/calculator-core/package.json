@@ -17,15 +17,15 @@
     "#core/*": "./src/*"
   },
   "exports": {
-    "./game/model": "./src/game/model/index.ts",
-    "./game/model/*": "./src/game/model/*.ts",
-    "./game/parser": "./src/game/parser/index.ts",
-    "./game/parser/*": "./src/game/parser/*.ts",
-    "./stores/*": "./src/stores/*.ts",
-    "./types/*": "./src/types/*.ts",
-    "./ui/PreInitApplication": "./src/ui/PreInitApplication.ts",
-    "./ui/*": "./src/ui/*.vue",
-    "./utils/*": "./src/utils/*.ts",
+    "./game/model/index.js": "./src/game/model/index.ts",
+    "./game/model/*.js": "./src/game/model/*.ts",
+    "./game/parser/index.js": "./src/game/parser/index.ts",
+    "./game/parser/*.js": "./src/game/parser/*.ts",
+    "./stores/*.js": "./src/stores/*.ts",
+    "./types/*.js": "./src/types/*.ts",
+    "./ui/PreInitApplication.js": "./src/ui/PreInitApplication.ts",
+    "./ui/*.vue": "./src/ui/*.vue",
+    "./utils/*.js": "./src/utils/*.ts",
     "./package.json": "./package.json"
   },
   "dependencies": {

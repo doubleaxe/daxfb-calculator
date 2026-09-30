@@ -1,4 +1,4 @@
-import type { GameItemLocale, RecipeIOOptions } from '@doubleaxe/daxfb-calculator-core/game/parser/ParsedGameData';
+import type { GameItemLocale, RecipeIOOptions } from '@doubleaxe/daxfb-calculator-core/game/parser/ParsedGameData.js';
 import {
     GameDataBaseImpl,
     GameItemBaseImpl,
@@ -6,7 +6,7 @@ import {
     GameRecipeDictionaryBaseImpl,
     GameRecipeIOBaseImpl,
     ParsedGameDataBaseImpl,
-} from '@doubleaxe/daxfb-calculator-core/game/parser/ParsedGameData';
+} from '@doubleaxe/daxfb-calculator-core/game/parser/ParsedGameData.js';
 import type {
     GameDataCoiJson,
     GameDescriptionCoiJson,
@@ -16,9 +16,9 @@ import type {
     GameRecipeDictionaryCoiJson,
     GameRecipeDictionaryReferenceCoiJson,
     GameRecipeIOCoiJson,
-} from '@doubleaxe/daxfb-shared/types/gamedata/coi';
-import { GameItemSpecialTypeCoi } from '@doubleaxe/daxfb-shared/types/gamedata/coi';
-import type { ReadonlyInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
+} from '@doubleaxe/daxfb-shared/types/gamedata/coi.js';
+import { GameItemSpecialTypeCoi } from '@doubleaxe/daxfb-shared/types/gamedata/coi.js';
+import type { ReadonlyInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes.js';
 
 export class GameItemCoiImpl extends GameItemBaseImpl implements GameItemCoiJson {
     declare cost?: GameItemRefCoiJson[];

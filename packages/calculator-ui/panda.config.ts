@@ -1,4 +1,4 @@
-import baseConfig from '@doubleaxe/daxfb-calculator-styles/panda.config';
+import baseConfig from '@doubleaxe/daxfb-calculator-styles/panda.config.js';
 import { defineConfig } from '@pandacss/dev';
 
 // only css generation options, because we have external '@doubleaxe/daxfb-calculator-styles'

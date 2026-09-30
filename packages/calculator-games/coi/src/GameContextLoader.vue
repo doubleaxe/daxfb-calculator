@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { useProvideGameDataBase } from '@doubleaxe/daxfb-calculator-core/game/parser/index.js';
 
-import GameContextProvider from '#game-ui-coi/game/parser/GameContextProvider.vue';
+import { GameDataCoiImpl } from '#game-ui-coi/game/parser/ParsedGameData.js';
 import PageInitializer from '#game-ui-coi/ui/PageInitializer.vue';
+
+const [{ gameDataJson }, { localeJson }] = await Promise.all([
+    import('@doubleaxe/daxfb-gamedata-generated/coi'),
+    import('@doubleaxe/daxfb-gamedata-generated/coi/locales/en'),
+]);
+
+gameDataJson.locale = localeJson;
+useProvideGameDataBase(new GameDataCoiImpl(gameDataJson));
 </script>
 
 <template>
-    <Suspense>
-        <GameContextProvider>
-            <PageInitializer />
-        </GameContextProvider>
-        <template #fallback>
-            <div :class="css({ width: '100%', height: '100%' })" />
-        </template>
-    </Suspense>
+    <PageInitializer />
 </template>

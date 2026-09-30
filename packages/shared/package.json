@@ -14,7 +14,7 @@
     "check": "tsc --noEmit"
   },
   "exports": {
-    "./*": "./src/*.ts",
+    "./*.js": "./src/*.ts",
     "./package.json": "./package.json"
   }
 }

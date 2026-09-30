@@ -1,4 +1,4 @@
-import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes';
+import type { InterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes.js';
 import { createInjectionState } from '@vueuse/core';
 import { reactive } from 'vue';
 

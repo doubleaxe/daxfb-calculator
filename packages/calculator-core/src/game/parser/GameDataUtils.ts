@@ -1,4 +1,4 @@
-import { GameItemFlagsBase } from '@doubleaxe/daxfb-shared/types/gamedata/common';
+import { GameItemFlagsBase } from '@doubleaxe/daxfb-shared/types/gamedata/common.js';
 
 import type { GameItemBase } from './ParsedGameData.js';
 

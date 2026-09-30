@@ -7,9 +7,9 @@ export type {
     GameRecipeDictionaryBase,
     GameRecipeIOBase,
 } from './ParsedGameData.js';
-export type { GameDescriptionBaseJson, GameItemImageJson } from '@doubleaxe/daxfb-shared/types/gamedata/common';
+export type { GameDescriptionBaseJson, GameItemImageJson } from '@doubleaxe/daxfb-shared/types/gamedata/common.js';
 export {
     GameItemFlagsBase,
     GameItemTypeBase,
     GameRecipeIOFlagsBase,
-} from '@doubleaxe/daxfb-shared/types/gamedata/common';
+} from '@doubleaxe/daxfb-shared/types/gamedata/common.js';

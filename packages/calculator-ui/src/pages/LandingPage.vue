@@ -28,7 +28,7 @@ import { GameIds } from '../GameIds.js';
 
             <ul>
                 <li>
-                    <a :href="`?gameId=${GameIds.COI}`"> Captain of Industry </a>
+                    <a :href="`?gameId=${GameIds.COI}`">Captain of Industry</a>
                 </li>
             </ul>
         </Panel>

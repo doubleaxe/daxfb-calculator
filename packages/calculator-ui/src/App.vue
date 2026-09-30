@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import InitApplication from '@doubleaxe/daxfb-calculator-core/ui/InitApplication';
+import InitApplication from '@doubleaxe/daxfb-calculator-core/ui/InitApplication.vue';
 import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { createReusableTemplate } from '@vueuse/core';
 import ProgressSpinner from 'primevue/progressspinner';
-import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
+import { computed, defineAsyncComponent, onErrorCaptured, onMounted, onUnmounted, ref } from 'vue';
 
 import { GameIds } from './GameIds.js';
 
-const [DefineFallback, Fallback] = createReusableTemplate();
-
 const asyncOptions = {
-    loadingComponent: Fallback,
     delay: 200,
 };
 
@@ -26,6 +22,7 @@ const CoiGamePage = defineAsyncComponent({
 const getGameId = () => new URLSearchParams(window.location.search).get('gameId');
 
 const gameId = ref<null | string>(getGameId());
+const error = ref<Error | null>(null);
 
 const updateGameId = () => {
     gameId.value = getGameId();
@@ -39,26 +36,42 @@ onUnmounted(() => {
     window.removeEventListener('popstate', updateGameId);
 });
 
-const pageComponent = computed(() => (gameId.value === GameIds.COI ? CoiGamePage : LandingPage));
+const pageComponent = computed(() => {
+    const _gameId = gameId.value;
+    if (!_gameId) return LandingPage;
+    switch (_gameId) {
+        case GameIds.COI:
+            return CoiGamePage;
+    }
+    return LandingPage;
+});
+
+onErrorCaptured((err) => {
+    error.value = err;
+    return false;
+});
 </script>
 
 <template>
     <InitApplication>
-        <DefineFallback>
-            <div
-                :class="
-                    css({
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    })
-                "
-            >
-                <ProgressSpinner />
-            </div>
-        </DefineFallback>
-        <component :is="pageComponent" />
+        <div v-if="error">Failed to load: {{ error.message }}</div>
+        <Suspense v-else>
+            <component :is="pageComponent" />
+            <template #fallback>
+                <div
+                    :class="
+                        css({
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        })
+                    "
+                >
+                    <ProgressSpinner />
+                </div>
+            </template>
+        </Suspense>
     </InitApplication>
 </template>

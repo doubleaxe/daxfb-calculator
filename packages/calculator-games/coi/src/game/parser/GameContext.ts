@@ -1,4 +1,4 @@
-import { useGameDataBase } from '@doubleaxe/daxfb-calculator-core/game/parser';
+import { useGameDataBase } from '@doubleaxe/daxfb-calculator-core/game/parser/index.js';
 
 import type { GameDataCoi } from './ParsedGameData.js';
 

@@ -1,8 +1,8 @@
-import { FactoryModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/FactoryModel';
-import { FlowChartModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/FlowChartModel';
-import { IOLinkModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/IOLinkModel';
-import { RecipeIOModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/RecipeIOModel';
-import { RecipeModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/RecipeModel';
+import { FactoryModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/FactoryModel.js';
+import { FlowChartModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/FlowChartModel.js';
+import { IOLinkModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/IOLinkModel.js';
+import { RecipeIOModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/RecipeIOModel.js';
+import { RecipeModelBaseImpl } from '@doubleaxe/daxfb-calculator-core/game/model/RecipeModel.js';
 
 import type { GameDataCoi } from '../parser/index.js';
 

@@ -1,4 +1,4 @@
-import type { GameItemCoiJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi';
+import type { GameItemCoiJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi.js';
 export const itemsJson: GameItemCoiJson[] = [
   {
     "image": [

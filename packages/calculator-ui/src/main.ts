@@ -1,7 +1,7 @@
 import './panda.css';
 import './index.css';
 
-import { preInitApplication } from '@doubleaxe/daxfb-calculator-core/ui/PreInitApplication';
+import { preInitApplication } from '@doubleaxe/daxfb-calculator-core/ui/PreInitApplication.js';
 import Aura from '@primeuix/themes/aura';
 import PrimeVue from 'primevue/config';
 import { createApp } from 'vue';

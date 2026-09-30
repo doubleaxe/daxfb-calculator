@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import DragAndDropInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/DragAndDropInitializer';
-import InternalStoresInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/InternalStoresInitializer';
-import useStylesInitializer from '@doubleaxe/daxfb-calculator-core/utils/main/StylesInitializer';
+import DragAndDropInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/DragAndDropInitializer.vue';
+import InternalStoresInitializer from '@doubleaxe/daxfb-calculator-core/ui/main/InternalStoresInitializer.vue';
+import useStylesInitializer from '@doubleaxe/daxfb-calculator-core/utils/main/StylesInitializer.js';
 import iconsPath from '@doubleaxe/daxfb-gamedata-generated/coi/images.png';
 
 import { flowChartModelCoiFactory } from '#game-ui-coi/game/model/index.js';

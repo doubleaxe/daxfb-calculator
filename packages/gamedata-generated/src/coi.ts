@@ -1,4 +1,4 @@
-import type { GameDataCoiJson, GameDescriptionCoiJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi';
+import type { GameDataCoiJson, GameDescriptionCoiJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi.js';
 
 import { itemsJson } from './coi/items.js';
 import { recipesJson } from './coi/recipes.js';

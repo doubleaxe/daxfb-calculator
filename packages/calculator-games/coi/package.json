@@ -17,8 +17,8 @@
     "#game-ui-coi/*": "./src/*"
   },
   "exports": {
-    "./game/model": "./src/game/model/index.ts",
-    "./game/parser/*": "./src/game/parser/*.ts",
+    "./game/model/index.js": "./src/game/model/index.ts",
+    "./game/parser/*.js": "./src/game/parser/*.ts",
     "./GameContextLoader.vue": "./src/GameContextLoader.vue",
     "./package.json": "./package.json"
   },
