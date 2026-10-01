@@ -1,4 +1,4 @@
-import './panda.css';
+import '../generated/styled-system/styles.css';
 import './index.css';
 
 import { preInitApplication } from '@doubleaxe/daxfb-calculator-core/ui/PreInitApplication.js';
@@ -17,7 +17,7 @@ app.use(PrimeVue, {
         preset: Aura,
         options: {
             darkModeSelector: '.daxfb-dark',
-            cssLayer: { name: 'primevue' },
+            cssLayer: { name: 'primevue', order: 'reset, base, primevue, tokens, recipes, utilities' },
         },
     },
 });

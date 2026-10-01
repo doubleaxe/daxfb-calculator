@@ -23,8 +23,8 @@
     "./game/parser/*.js": "./src/game/parser/*.ts",
     "./stores/*.js": "./src/stores/*.ts",
     "./types/*.js": "./src/types/*.ts",
-    "./ui/PreInitApplication.js": "./src/ui/PreInitApplication.ts",
     "./ui/*.vue": "./src/ui/*.vue",
+    "./ui/*.js": "./src/ui/*.ts",
     "./utils/*.js": "./src/utils/*.ts",
     "./package.json": "./package.json"
   },

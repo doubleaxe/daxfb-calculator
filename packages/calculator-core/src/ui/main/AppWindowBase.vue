@@ -8,8 +8,8 @@ const factoryPaletteState = useFactoryPaletteState();
 
 const scrollBar = cva({
     base: {
-        width: '100%',
-        height: '100%',
+        flex: '1 1 0%',
+        minHeight: 0,
         overflowX: 'hidden',
         scrollbarGutter: 'stable',
     },
@@ -34,7 +34,6 @@ const scrollBar = cva({
     <div
         :class="
             vstack({
-                gap: 0,
                 alignItems: 'stretch',
                 width: '100%',
                 height: '100%',
@@ -48,7 +47,6 @@ const scrollBar = cva({
                     height: '60px',
                     flexShrink: 0,
                     paddingInline: 'md',
-                    gap: 'md',
                 })
             "
         >
@@ -58,11 +56,9 @@ const scrollBar = cva({
         <div
             :class="
                 hstack({
-                    flex: '1 1 0%',
-                    minHeight: 0,
-                    width: '100%',
-                    height: '100%',
                     alignItems: 'stretch',
+                    flex: '1 1 0%',
+                    minWidth: 0,
                     overflow: 'hidden',
                 })
             "
@@ -71,28 +67,15 @@ const scrollBar = cva({
                 v-if="factoryPaletteState.factoryPaletteOpened"
                 :class="
                     vstack({
-                        flexShrink: 0,
-                        width: { base: '190px', sm: '190px', lg: '260px' },
-                        height: '100%',
-                        padding: 'md',
                         alignItems: 'stretch',
+                        width: { base: '190px', sm: '190px', lg: '260px' },
+                        flexShrink: 0,
                         overflow: 'hidden',
                     })
                 "
             >
-                <div
-                    :class="
-                        vstack({
-                            flex: '1 1 0%',
-                            minHeight: 0,
-                            width: '100%',
-                            alignItems: 'stretch',
-                        })
-                    "
-                >
-                    <div :class="scrollBar({ scrollable: factoryPaletteState.itemSearchOpened ? 'no' : 'yes' })">
-                        <slot name="factoryPalette" />
-                    </div>
+                <div :class="scrollBar({ scrollable: factoryPaletteState.itemSearchOpened ? 'no' : 'yes' })">
+                    <slot name="factoryPalette" />
                 </div>
             </aside>
 
@@ -100,13 +83,11 @@ const scrollBar = cva({
                 :class="
                     stack({
                         flex: '1 1 0%',
-                        width: '100%',
-                        height: '100%',
                         minWidth: 0,
                         minHeight: 0,
-                        padding: 'md',
                         overflow: 'hidden',
                         alignItems: 'stretch',
+                        justifyContent: 'stretch',
                     })
                 "
             >
