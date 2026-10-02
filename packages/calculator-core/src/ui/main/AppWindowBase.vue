@@ -74,6 +74,8 @@ const scrollBar = cva({
                     })
                 "
             >
+                <!-- insert filter panel here if you want it sticky -->
+                <slot name="filterPanel" />
                 <div :class="scrollBar({ scrollable: factoryPaletteState.itemSearchOpened ? 'no' : 'yes' })">
                     <slot name="factoryPalette" />
                 </div>

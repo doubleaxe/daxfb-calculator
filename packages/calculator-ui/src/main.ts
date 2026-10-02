@@ -1,5 +1,5 @@
-import '../generated/styled-system/styles.css';
 import './index.css';
+import '../generated/styled-system/styles.css';
 
 import { preInitApplication } from '@doubleaxe/daxfb-calculator-core/ui/PreInitApplication.js';
 import Aura from '@primeuix/themes/aura';

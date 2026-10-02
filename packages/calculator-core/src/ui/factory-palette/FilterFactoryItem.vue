@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { css } from '@doubleaxe/daxfb-calculator-styles/css';
 import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
-import { refDebounced } from '@vueuse/core';
-import AutoComplete from 'primevue/autocomplete';
-import Button from 'primevue/button';
-import Paginator from 'primevue/paginator';
-import { computed, ref, watch } from 'vue';
+import { useDebounceFn } from '@vueuse/core';
+import AutoComplete, {
+    type AutoCompleteCompleteEvent,
+    type AutoCompleteDropdownClickEvent,
+    type AutoCompleteOptionSelectEvent,
+} from 'primevue/autocomplete';
+import Paginator, { type PageState } from 'primevue/paginator';
+import SelectButton from 'primevue/selectbutton';
+import { computed, ref } from 'vue';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 import { isAbstractClassItem, useGameDataBase } from '#core/game/parser/index.js';
@@ -18,119 +23,171 @@ const gameData = useGameDataBase();
 const filter = useFilterStoreBase();
 
 const search = ref('');
-const debouncedSearch = refDebounced(search, 400);
-const requestedPage = ref(1);
-const model = ref<GameItemBase | string | undefined>(undefined);
+const filteredItems = ref<GameItemBase[]>([]);
+const firstRecordIndex = ref(0);
+const directionOptions = [
+    { label: 'Input', value: -1 },
+    { label: 'All', value: 0 },
+    { label: 'Output', value: 1 },
+];
 
-const filteredItems = computed(() => {
-    const allItems = gameData.gameItemsArray.filter((item) => !isAbstractClassItem(item));
-    if (!debouncedSearch.value.trim()) {
-        return allItems;
+const selectedItem = computed(() => (filter.key ? gameData.getGameItem(filter.key) : undefined));
+
+function updateFilteredItems() {
+    const _allItems = gameData.gameItemsArray.filter((item) => !isAbstractClassItem(item));
+    const _search = search.value.trim();
+    let _filteredItems = _allItems;
+    if (_search) {
+        const searchTerms = _search
+            .toLowerCase()
+            .split(/\s+/)
+            .map((s) => s.trim());
+
+        _filteredItems = _allItems.filter((item) =>
+            searchTerms.every((term) => !term || item.lowerLabel.includes(term))
+        );
     }
 
-    const searchTerms = debouncedSearch.value
-        .toLowerCase()
-        .split(/\s+/)
-        .map((s) => s.trim());
-    return allItems.filter((item) => searchTerms.every((term) => !term || item.lowerLabel.includes(term)));
-});
+    filteredItems.value = _filteredItems;
+    firstRecordIndex.value = 0;
+}
 
-watch(
-    () => filter.key,
-    (key) => {
-        if (key) {
-            const item = gameData.getGameItem(key);
-            if (item) model.value = item;
-        } else {
-            model.value = undefined;
-        }
+const debouncedUpdateFilteredItems = useDebounceFn(
+    () => {
+        updateFilteredItems();
     },
-    { immediate: true }
+    400,
+    { maxWait: 1000 }
 );
 
-const totalPages = computed(() => Math.ceil(filteredItems.value.length / ITEMS_PER_PAGE) || 1);
-const effectivePage = computed(() => Math.min(requestedPage.value, totalPages.value));
+function toGameItem({ option, value }: { option?: any; value?: any }): GameItemBase {
+    return (value ?? option) as GameItemBase;
+}
+
 const currentPageItems = computed(() => {
-    const start = (effectivePage.value - 1) * ITEMS_PER_PAGE;
+    const start = firstRecordIndex.value;
     return filteredItems.value.slice(start, start + ITEMS_PER_PAGE);
 });
 
-watch(debouncedSearch, () => {
-    requestedPage.value = 1;
-});
-
-const onComplete = (event: { query: string }) => {
+function handleComplete(event: AutoCompleteCompleteEvent) {
+    // console.log(`handleComplete ${event.query}`);
     search.value = event.query ?? '';
-};
+    debouncedUpdateFilteredItems().catch(() => {});
+}
 
-const onOptionSelect = (event: { value: GameItemBase }) => {
-    filter.setKey(event.value.key);
-};
+function handleDropdownClick(_event: AutoCompleteDropdownClickEvent) {
+    // console.log(`handleDropdownClick ${event.query}`);
+    updateFilteredItems();
+}
 
-const onClear = () => {
+function handleSelect(value: AutoCompleteOptionSelectEvent) {
+    filter.setKey(toGameItem(value).key);
+}
+
+function handleClear() {
     filter.setKey(undefined);
     search.value = '';
-    model.value = undefined;
-};
+    updateFilteredItems();
+}
 
-const onPage = (event: { page: number }) => {
-    requestedPage.value = event.page + 1;
-};
+function handleDirectionChange(value: number) {
+    filter.setDirection(value);
+}
+
+function handlePageChange(event: PageState) {
+    firstRecordIndex.value = event.first;
+}
+/*
+:pt="{
+        overlay: {
+          class: css({
+            maxHeight: '25rem'
+          })
+        },
+        list: {
+          class: css({
+            maxHeight: '20rem',
+            overflowY: 'auto'
+          })
+        },
+        option: {
+          class: css({
+            '&[data-p-highlight=\"true\"]': {
+              backgroundColor: 'var(--mantine-primary-color-light)',
+              color: 'var(--mantine-color-text)'
+            }
+          })
+        }
+      }"
+
+:pt="{
+              root: {
+                class: css({
+                  flexWrap: 'nowrap',
+                  padding: '0.25rem 0.5rem'
+                })
+              },
+              page: {
+                class: css({
+                  minWidth: '1.75rem',
+                  height: '1.75rem',
+                  fontSize: '0.85rem'
+                })
+              }
+            }"
+*/
 </script>
 
 <template>
     <div :class="hstack({ gap: '2' })">
         <AutoComplete
-            v-model="model"
+            :model-value="selectedItem"
             :suggestions="currentPageItems"
             dropdown
             option-label="label"
             placeholder="Filter item..."
             scroll-height="20rem"
             show-clear
-            @clear="onClear"
-            @complete="onComplete"
-            @option-select="onOptionSelect"
+            @item-select="handleSelect"
+            @clear="handleClear"
+            @complete="handleComplete"
+            @dropdown-click="handleDropdownClick"
         >
             <template #header>
-                <div :class="hstack({ justify: 'center', gap: '1' })">
-                    <Button
-                        label="Input"
+                <div :class="hstack({ justifyContent: 'center', gap: '1' })">
+                    <SelectButton
+                        :model-value="filter.direction"
+                        :options="directionOptions"
+                        option-label="label"
+                        option-value="value"
                         size="small"
-                        :severity="filter.direction === -1 ? 'primary' : 'secondary'"
-                        :variant="filter.direction === -1 ? 'filled' : 'outlined'"
-                        @click="filter.setDirection(-1)"
-                    />
-                    <Button
-                        label="All"
-                        size="small"
-                        :severity="filter.direction === 0 ? 'primary' : 'secondary'"
-                        :variant="filter.direction === 0 ? 'filled' : 'outlined'"
-                        @click="filter.setDirection(0)"
-                    />
-                    <Button
-                        label="Output"
-                        size="small"
-                        :severity="filter.direction === 1 ? 'primary' : 'secondary'"
-                        :variant="filter.direction === 1 ? 'filled' : 'outlined'"
-                        @click="filter.setDirection(1)"
+                        :allow-empty="false"
+                        @update:model-value="handleDirectionChange"
                     />
                 </div>
             </template>
             <template #option="slotProps">
-                <div :class="hstack({ gap: '2' })">
-                    <GameIcon :image="slotProps.option.image" />
-                    {{ slotProps.option.label }}
+                <div :class="hstack({ gap: '1' })">
+                    <GameIcon :image="toGameItem(slotProps).image" />
+                    <span>{{ toGameItem(slotProps).label }}</span>
                 </div>
             </template>
+            <template #empty>
+                <div :class="css({ textAlign: 'center', padding: '1', color: 'stone.400' })">Nothing found</div>
+            </template>
             <template #footer>
-                <Paginator
-                    :first="(effectivePage - 1) * ITEMS_PER_PAGE"
-                    :rows="ITEMS_PER_PAGE"
-                    template="PrevPageLink PageLinks NextPageLink"
-                    :total-records="filteredItems.length"
-                    @page="onPage"
-                />
+                <div
+                    v-if="filteredItems.length > ITEMS_PER_PAGE"
+                    :class="css({ borderTop: '1px solid var(--mantine-color-default-border)' })"
+                >
+                    <Paginator
+                        :rows="ITEMS_PER_PAGE"
+                        :total-records="filteredItems.length"
+                        :first="firstRecordIndex"
+                        template="PrevPageLink PageLinks NextPageLink"
+                        @page="handlePageChange"
+                    />
+                </div>
             </template>
         </AutoComplete>
     </div>

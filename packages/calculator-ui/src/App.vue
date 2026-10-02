@@ -6,6 +6,7 @@ import { computed, defineAsyncComponent, onErrorCaptured, onMounted, onUnmounted
 
 import { GameIds } from './GameIds.js';
 
+const hasLoaded = ref(false);
 const asyncOptions = {
     delay: 200,
 };
@@ -22,7 +23,7 @@ const CoiGamePage = defineAsyncComponent({
 const getGameId = () => new URLSearchParams(window.location.search).get('gameId');
 
 const gameId = ref<null | string>(getGameId());
-const error = ref<Error | null>(null);
+const fatalError = ref<Error | null>(null);
 
 const updateGameId = () => {
     gameId.value = getGameId();
@@ -47,15 +48,18 @@ const pageComponent = computed(() => {
 });
 
 onErrorCaptured((err) => {
-    error.value = err;
+    if (hasLoaded.value) {
+        return true;
+    }
+    fatalError.value = err;
     return false;
 });
 </script>
 
 <template>
     <InitApplication>
-        <div v-if="error">Failed to load: {{ error.message }}</div>
-        <Suspense v-else>
+        <div v-if="fatalError">Failed to load: {{ fatalError.message }}</div>
+        <Suspense v-else @resolve="hasLoaded = true">
             <component :is="pageComponent" />
             <template #fallback>
                 <div
