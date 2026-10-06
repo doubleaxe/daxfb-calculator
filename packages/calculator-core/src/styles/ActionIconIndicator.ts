@@ -1,4 +1,4 @@
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 
 export const actionIconIndicatorStyle = css.raw({
     minWidth: 'auto',

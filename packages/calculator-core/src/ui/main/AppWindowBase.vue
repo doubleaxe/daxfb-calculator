@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { cva } from '@doubleaxe/daxfb-calculator-styles/css';
-import { hstack, stack, vstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { cva } from '@daxfb/styles/css';
+import { hstack, stack, vstack } from '@daxfb/styles/patterns';
 
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
-import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { css, cx } from '@daxfb/styles/css';
+import { hstack } from '@daxfb/styles/patterns';
 import { PhList } from '@phosphor-icons/vue';
 
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';

@@ -1,4 +1,4 @@
-import { css, cva } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cva } from '@daxfb/styles/css';
 
 const selectedBase = css.raw({
     _light: {

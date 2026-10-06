@@ -158,10 +158,10 @@ importers:
       '@dnd-kit/vue':
         specifier: 'catalog:'
         version: 0.5.0(vue@3.5.42(typescript@5.9.3))
-      '@doubleaxe/daxfb-calculator-styles':
+      '@daxfb/styles':
         specifier: workspace:*
         version: link:../calculator-styles
-      '@doubleaxe/daxfb-shared':
+      '@daxfb/shared':
         specifier: workspace:*
         version: link:../shared
       '@mantine/core':
@@ -240,16 +240,16 @@ importers:
 
   packages/calculator-games/coi:
     dependencies:
-      '@doubleaxe/daxfb-calculator-core':
+      '@daxfb/core':
         specifier: workspace:*
         version: link:../../calculator-core
-      '@doubleaxe/daxfb-calculator-styles':
+      '@daxfb/styles':
         specifier: workspace:*
         version: link:../../calculator-styles
-      '@doubleaxe/daxfb-gamedata-generated':
+      '@daxfb/gamedata-generated':
         specifier: workspace:*
         version: link:../../gamedata-generated
-      '@doubleaxe/daxfb-shared':
+      '@daxfb/shared':
         specifier: workspace:*
         version: link:../../shared
       '@mantine/core':
@@ -313,19 +313,19 @@ importers:
       '@dnd-kit/react':
         specifier: 'catalog:'
         version: 0.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@doubleaxe/daxfb-calculator-core':
+      '@daxfb/core':
         specifier: workspace:*
         version: link:../calculator-core
-      '@doubleaxe/daxfb-calculator-games.coi':
+      '@daxfb/games.coi':
         specifier: workspace:*
         version: link:../calculator-games/coi
-      '@doubleaxe/daxfb-calculator-styles':
+      '@daxfb/styles':
         specifier: workspace:*
         version: link:../calculator-styles
-      '@doubleaxe/daxfb-gamedata-generated':
+      '@daxfb/gamedata-generated':
         specifier: workspace:*
         version: link:../gamedata-generated
-      '@doubleaxe/daxfb-shared':
+      '@daxfb/shared':
         specifier: workspace:*
         version: link:../shared
       '@mantine/core':
@@ -422,7 +422,7 @@ importers:
 
   packages/gamedata-generated:
     dependencies:
-      '@doubleaxe/daxfb-shared':
+      '@daxfb/shared':
         specifier: workspace:*
         version: link:../shared
 

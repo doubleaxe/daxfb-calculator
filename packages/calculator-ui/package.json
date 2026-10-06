@@ -1,5 +1,5 @@
 {
-  "name": "@doubleaxe/daxfb-calculator",
+  "name": "@daxfb/calculator",
   "private": true,
   "version": "2.0.0-alpha.1",
   "description": "Factory planner for management games - core UI lib",
@@ -35,11 +35,11 @@
   "dependencies": {
     "@dnd-kit/dom": "catalog:",
     "@dnd-kit/react": "catalog:",
-    "@doubleaxe/daxfb-calculator-core": "workspace:*",
-    "@doubleaxe/daxfb-calculator-games.coi": "workspace:*",
-    "@doubleaxe/daxfb-calculator-styles": "workspace:*",
-    "@doubleaxe/daxfb-gamedata-generated": "workspace:*",
-    "@doubleaxe/daxfb-shared": "workspace:*",
+    "@daxfb/core": "workspace:*",
+    "@daxfb/games.coi": "workspace:*",
+    "@daxfb/styles": "workspace:*",
+    "@daxfb/gamedata-generated": "workspace:*",
+    "@daxfb/shared": "workspace:*",
     "@mantine/core": "catalog:",
     "@mantine/hooks": "catalog:",
     "@phosphor-icons/react": "catalog:",

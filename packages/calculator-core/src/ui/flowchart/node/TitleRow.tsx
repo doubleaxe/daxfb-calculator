@@ -1,5 +1,5 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
-import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { css, cx } from '@daxfb/styles/css';
+import { hstack } from '@daxfb/styles/patterns';
 import { ActionIcon } from '@mantine/core';
 import { ListIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';

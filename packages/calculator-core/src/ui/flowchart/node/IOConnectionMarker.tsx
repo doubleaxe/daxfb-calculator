@@ -1,4 +1,4 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import { ArrowFatLinesDownIcon, ArrowFatLinesUpIcon, type Icon, XIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';
 

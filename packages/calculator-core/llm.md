@@ -7,17 +7,17 @@ packages subclass the abstract model/parser classes and compose the core compone
 
 ## Stack
 
-| Concern       | Choice                                                                    |
-| ------------- | ------------------------------------------------------------------------- |
-| Framework     | `vue` 3.5 (`<script setup lang="ts">`, Composition API only)              |
-| UI components | `primevue` 4 (`Button`, `AutoComplete`, `Paginator`, `Divider`)           |
-| Flowchart     | `@vue-flow/core`, `@vue-flow/background`, `@vue-flow/controls`            |
-| Drag & drop   | `@dnd-kit/vue` + `@dnd-kit/dom` (pointer sensor, feedback overlay)        |
-| Reactivity    | `vue` `reactive` + `@vueuse/core` (`createInjectionState`, `useDark`)     |
-| Events        | `nanoevents` (`flowChartModel.events`)                                    |
-| Icons         | `@phosphor-icons/vue`                                                     |
-| Styling       | Panda CSS (`@doubleaxe/daxfb-calculator-styles`) + PrimeVue CSS variables |
-| Data types    | `@doubleaxe/daxfb-shared` (JSON gamedata types, `PublicInterfaceOf`)      |
+| Concern       | Choice                                                                |
+| ------------- | --------------------------------------------------------------------- |
+| Framework     | `vue` 3.5 (`<script setup lang="ts">`, Composition API only)          |
+| UI components | `primevue` 4 (`Button`, `AutoComplete`, `Paginator`, `Divider`)       |
+| Flowchart     | `@vue-flow/core`, `@vue-flow/background`, `@vue-flow/controls`        |
+| Drag & drop   | `@dnd-kit/vue` + `@dnd-kit/dom` (pointer sensor, feedback overlay)    |
+| Reactivity    | `vue` `reactive` + `@vueuse/core` (`createInjectionState`, `useDark`) |
+| Events        | `nanoevents` (`flowChartModel.events`)                                |
+| Icons         | `@phosphor-icons/vue`                                                 |
+| Styling       | Panda CSS (`@daxfb/styles`) + PrimeVue CSS variables                  |
+| Data types    | `@daxfb/shared` (JSON gamedata types, `PublicInterfaceOf`)            |
 
 Internal imports use the alias `#core/*` → `./src/*`.
 
@@ -214,8 +214,8 @@ the returned unsubscribers are disposed with the component scope.
 
 ## Styling
 
-- Use Panda helpers from `@doubleaxe/daxfb-calculator-styles/css`: `css`, `cx`, `cva`, `css.raw`,
-  and `@doubleaxe/daxfb-calculator-styles/patterns`: `hstack`, `vstack`, `stack`.
+- Use Panda helpers from `@daxfb/styles/css`: `css`, `cx`, `cva`, `css.raw`,
+  and `@daxfb/styles/patterns`: `hstack`, `vstack`, `stack`.
 - Do **not** add scoped or inline styles. For dynamic values (e.g. drag indicator position) bind a
   CSS custom property through `:style` and consume it in a Panda `css()` rule.
 - No Tailwind. Express layout/spacing/colors with the Panda stack patterns (`hstack`/`vstack`/

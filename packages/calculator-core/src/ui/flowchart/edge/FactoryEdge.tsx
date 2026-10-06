@@ -1,4 +1,4 @@
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import type { EdgeProps } from '@xyflow/react';
 import { BaseEdge, getBezierPath } from '@xyflow/react';
 import { computed } from 'mobx';

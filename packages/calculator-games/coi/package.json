@@ -1,5 +1,5 @@
 {
-  "name": "@doubleaxe/daxfb-calculator-games.coi",
+  "name": "@daxfb/games.coi",
   "private": true,
   "version": "2.0.0-alpha.1",
   "license": "MIT",
@@ -23,10 +23,10 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@doubleaxe/daxfb-calculator-core": "workspace:*",
-    "@doubleaxe/daxfb-calculator-styles": "workspace:*",
-    "@doubleaxe/daxfb-gamedata-generated": "workspace:*",
-    "@doubleaxe/daxfb-shared": "workspace:*",
+    "@daxfb/core": "workspace:*",
+    "@daxfb/styles": "workspace:*",
+    "@daxfb/gamedata-generated": "workspace:*",
+    "@daxfb/shared": "workspace:*",
     "@mantine/core": "catalog:",
     "@mantine/hooks": "catalog:",
     "@phosphor-icons/react": "catalog:",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hstack, vstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { hstack, vstack } from '@daxfb/styles/patterns';
 </script>
 
 <template>

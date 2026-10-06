@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import { PhArrowFatLinesDown, PhArrowFatLinesUp, PhX } from '@phosphor-icons/vue';
 import type { Component } from 'vue';
 import { computed } from 'vue';

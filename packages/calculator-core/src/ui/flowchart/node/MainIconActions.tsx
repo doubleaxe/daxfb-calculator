@@ -1,4 +1,4 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import type { IconProps } from '@phosphor-icons/react';
 import { CaretDoubleDownIcon, CaretDoubleUpIcon, MinusIcon, PlusIcon } from '@phosphor-icons/react';
 import { observer } from 'mobx-react-lite';

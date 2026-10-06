@@ -1,4 +1,4 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import { WarningIcon } from '@phosphor-icons/react';
 
 import type { GameItemImageJson } from '#core/game/parser/index.js';

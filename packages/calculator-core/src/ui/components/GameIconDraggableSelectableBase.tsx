@@ -1,5 +1,5 @@
-import type { RecipeVariantProps } from '@doubleaxe/daxfb-calculator-styles/css';
-import { cva, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import type { RecipeVariantProps } from '@daxfb/styles/css';
+import { cva, cx } from '@daxfb/styles/css';
 import type { HTMLAttributes, Ref } from 'react';
 
 import type { GameItemImageJson } from '#core/game/parser/index.js';

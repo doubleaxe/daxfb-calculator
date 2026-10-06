@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cva, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { cva, cx } from '@daxfb/styles/css';
 
 import type { GameItemImageJson } from '#core/game/parser/index.js';
 import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';

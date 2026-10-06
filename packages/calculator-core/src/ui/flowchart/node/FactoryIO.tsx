@@ -1,5 +1,5 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
-import { stack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { css, cx } from '@daxfb/styles/css';
+import { stack } from '@daxfb/styles/patterns';
 import { Handle, Position } from '@xyflow/react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';

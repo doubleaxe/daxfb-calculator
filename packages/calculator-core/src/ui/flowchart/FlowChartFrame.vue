@@ -2,7 +2,7 @@
 import './flow.css';
 
 import { useDroppable } from '@dnd-kit/vue';
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import { shallowRef } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';

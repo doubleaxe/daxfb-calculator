@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { vstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { vstack } from '@daxfb/styles/patterns';
 import Panel from 'primevue/panel';
 
 import { GameIds } from '../GameIds.js';

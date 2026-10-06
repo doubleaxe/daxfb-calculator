@@ -1,4 +1,4 @@
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import type { ConnectionLineComponentProps } from '@xyflow/react';
 import { getBezierPath, useConnection } from '@xyflow/react';
 import { computed } from 'mobx';

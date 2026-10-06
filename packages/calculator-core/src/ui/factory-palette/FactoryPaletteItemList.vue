@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DragOverlay, useDragDropMonitor } from '@dnd-kit/vue';
-import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { hstack } from '@daxfb/styles/patterns';
 import Divider from 'primevue/divider';
 import { ref } from 'vue';
 

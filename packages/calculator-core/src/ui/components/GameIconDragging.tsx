@@ -1,4 +1,4 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 import { draggingStyle } from '#core/styles/Dragging.js';

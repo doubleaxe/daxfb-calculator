@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import type { Position } from '@vue-flow/core';
 import { BaseEdge, getBezierPath } from '@vue-flow/core';
 import { computed } from 'vue';

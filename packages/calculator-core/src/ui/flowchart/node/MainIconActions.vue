@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import { PhCaretDoubleDown, PhCaretDoubleUp, PhMinus, PhPlus } from '@phosphor-icons/vue';
 
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';

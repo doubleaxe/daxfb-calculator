@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
-import { stack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { css, cx } from '@daxfb/styles/css';
+import { stack } from '@daxfb/styles/patterns';
 import { Handle, Position } from '@vue-flow/core';
 import { computed } from 'vue';
 

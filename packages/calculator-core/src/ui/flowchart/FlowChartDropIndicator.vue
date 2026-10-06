@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import { computed } from 'vue';
 
 import type { GameItemBase } from '#core/game/parser/index.js';

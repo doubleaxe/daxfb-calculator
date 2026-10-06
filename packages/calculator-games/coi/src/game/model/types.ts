@@ -1,4 +1,4 @@
-import type { PublicInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes.js';
+import type { PublicInterfaceOf } from '@daxfb/shared/types/UtilityTypes.js';
 
 import type {
     FactoryModelCoiImpl,

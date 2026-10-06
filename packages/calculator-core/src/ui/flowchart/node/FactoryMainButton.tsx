@@ -1,4 +1,4 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import type { Icon } from '@phosphor-icons/react';
 import { ArrowFatLinesDownIcon, WrenchIcon } from '@phosphor-icons/react';
 import { Handle, Position, useUpdateNodeInternals } from '@xyflow/react';

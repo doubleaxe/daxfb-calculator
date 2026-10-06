@@ -1,4 +1,4 @@
-import { useFlowChartModelBase } from '@doubleaxe/daxfb-calculator-core/game/model/index.js';
+import { useFlowChartModelBase } from '@daxfb/core/game/model/index.js';
 
 import type { FlowChartModelCoi } from './types.js';
 

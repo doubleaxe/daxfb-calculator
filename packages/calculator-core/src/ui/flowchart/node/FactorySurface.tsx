@@ -1,5 +1,5 @@
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
-import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { css } from '@daxfb/styles/css';
+import { hstack } from '@daxfb/styles/patterns';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
 

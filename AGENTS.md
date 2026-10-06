@@ -53,7 +53,7 @@ Prefer to lint/check only touched packages or even files.
 - Install dependencies: `pnpm install`
 - Lint: `pnpm lint` or `npx eslint --fix [list of changed liles]`
 - Format: `pnpm format`
-- Start the Vite app with Panda watch: `pnpm --filter @doubleaxe/daxfb-calculator dev`
+- Start the Vite app with Panda watch: `pnpm --filter @daxfb/calculator dev`
 - Type-check: `pnpm --filter @doubleaxe/[package] check`
 
 ## Editing Guidance

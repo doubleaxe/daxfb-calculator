@@ -1,7 +1,7 @@
 import './index.css';
 import '../generated/styled-system/styles.css';
 
-import { preInitApplication } from '@doubleaxe/daxfb-calculator-core/ui/PreInitApplication.js';
+import { preInitApplication } from '@daxfb/core/ui/PreInitApplication.js';
 import Aura from '@primeuix/themes/aura';
 import PrimeVue from 'primevue/config';
 import { createApp } from 'vue';

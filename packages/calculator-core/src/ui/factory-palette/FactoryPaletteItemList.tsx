@@ -1,5 +1,5 @@
 import { DragOverlay, useDragDropMonitor } from '@dnd-kit/react';
-import { hstack } from '@doubleaxe/daxfb-calculator-styles/patterns';
+import { hstack } from '@daxfb/styles/patterns';
 import { Divider } from '@mantine/core';
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';

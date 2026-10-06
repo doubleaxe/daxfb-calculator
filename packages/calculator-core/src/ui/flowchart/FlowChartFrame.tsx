@@ -1,7 +1,7 @@
 import './flow.css';
 
 import { useDroppable } from '@dnd-kit/react';
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import { ReactFlowProvider } from '@xyflow/react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 

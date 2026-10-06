@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import { useVueFlow } from '@vue-flow/core';
 import { computed, watch } from 'vue';
 

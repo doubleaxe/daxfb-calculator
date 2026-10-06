@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GameContextLoader from '@doubleaxe/daxfb-calculator-games.coi/GameContextLoader.vue';
+import GameContextLoader from '@daxfb/games.coi/GameContextLoader.vue';
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { freezeMap, freezeSet } from '@doubleaxe/daxfb-shared/common-utils/CollectionUtils.js';
+import { freezeMap, freezeSet } from '@daxfb/shared/common-utils/CollectionUtils.js';
 import type {
     GameDataBaseJson,
     GameDescriptionBaseJson,
@@ -9,13 +9,9 @@ import type {
     GameRecipeDictionaryBaseJson,
     GameRecipeDictionaryReferenceBaseJson,
     GameRecipeIOBaseJson,
-} from '@doubleaxe/daxfb-shared/types/gamedata/common.js';
-import {
-    GameItemFlagsBase,
-    GameItemTypeBase,
-    GameRecipeIOFlagsBase,
-} from '@doubleaxe/daxfb-shared/types/gamedata/common.js';
-import type { ReadonlyInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes.js';
+} from '@daxfb/shared/types/gamedata/common.js';
+import { GameItemFlagsBase, GameItemTypeBase, GameRecipeIOFlagsBase } from '@daxfb/shared/types/gamedata/common.js';
+import type { ReadonlyInterfaceOf } from '@daxfb/shared/types/UtilityTypes.js';
 
 import { isAbstractClassItem } from './GameDataUtils.js';
 

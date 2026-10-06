@@ -1,4 +1,4 @@
-import { css, cx } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css, cx } from '@daxfb/styles/css';
 import type { NodeProps } from '@xyflow/react';
 import { NodeToolbar, useUpdateNodeInternals } from '@xyflow/react';
 import { computed, reaction } from 'mobx';

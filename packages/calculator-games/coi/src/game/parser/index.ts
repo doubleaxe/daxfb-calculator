@@ -6,5 +6,5 @@ export type {
     GameRecipeDictionaryCoi,
     GameRecipeIOCoi,
 } from './ParsedGameData.js';
-export type { GameDescriptionCoiJson, GameItemImageJson } from '@doubleaxe/daxfb-shared/types/gamedata/coi.js';
-export { GameItemFlagsCoi, GameItemTypeCoi, GameRecipeIOFlagsCoi } from '@doubleaxe/daxfb-shared/types/gamedata/coi.js';
+export type { GameDescriptionCoiJson, GameItemImageJson } from '@daxfb/shared/types/gamedata/coi.js';
+export { GameItemFlagsCoi, GameItemTypeCoi, GameRecipeIOFlagsCoi } from '@daxfb/shared/types/gamedata/coi.js';

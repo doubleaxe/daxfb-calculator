@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import { css } from '@daxfb/styles/css';
 import { PhWarning } from '@phosphor-icons/vue';
 import { computed } from 'vue';
 

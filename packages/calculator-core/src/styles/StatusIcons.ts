@@ -1,4 +1,4 @@
-import { cva, type RecipeVariant } from '@doubleaxe/daxfb-calculator-styles/css';
+import { cva, type RecipeVariant } from '@daxfb/styles/css';
 
 export const StatusIconColor = cva({
     variants: {

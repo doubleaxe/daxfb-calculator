@@ -1,4 +1,4 @@
-import type { PublicInterfaceOf } from '@doubleaxe/daxfb-shared/types/UtilityTypes.js';
+import type { PublicInterfaceOf } from '@daxfb/shared/types/UtilityTypes.js';
 
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';

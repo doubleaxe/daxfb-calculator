@@ -1,5 +1,5 @@
 {
-  "name": "@doubleaxe/daxfb-calculator-core",
+  "name": "@daxfb/core",
   "private": true,
   "version": "2.0.0-alpha.1",
   "license": "MIT",
@@ -32,8 +32,8 @@
     "@dnd-kit/dom": "catalog:",
     "@dnd-kit/react": "catalog:",
     "@dnd-kit/vue": "catalog:",
-    "@doubleaxe/daxfb-calculator-styles": "workspace:*",
-    "@doubleaxe/daxfb-shared": "workspace:*",
+    "@daxfb/styles": "workspace:*",
+    "@daxfb/shared": "workspace:*",
     "@mantine/core": "catalog:",
     "@mantine/hooks": "catalog:",
     "@phosphor-icons/react": "catalog:",

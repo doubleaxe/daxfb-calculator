@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import InitApplication from '@doubleaxe/daxfb-calculator-core/ui/InitApplication.vue';
-import { css } from '@doubleaxe/daxfb-calculator-styles/css';
+import InitApplication from '@daxfb/core/ui/InitApplication.vue';
+import { css } from '@daxfb/styles/css';
 import ProgressSpinner from 'primevue/progressspinner';
 import { computed, defineAsyncComponent, onErrorCaptured, onMounted, onUnmounted, ref } from 'vue';
 
