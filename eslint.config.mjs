@@ -9,11 +9,7 @@ const nodeFiles = [...patterns.toolsEs, ...patterns.toolsTs, '**/panda.config.ts
 
 export default defineConfig([
     {
-        ignores: [
-            '**/gamedata-generated/src/*/',
-            '**/generated/styled-system',
-            'packages/calculator-styles/panda.config.d.ts',
-        ],
+        ignores: ['**/gamedata-generated/src/*/', '**/generated/styled-system'],
     },
     {
         name: 'es',
@@ -64,7 +60,7 @@ export default defineConfig([
     },
     {
         name: 'node',
-        files: ['packages/gamedata/**', ...nodeFiles],
+        files: ['packages/gamedata/**', 'packages/calculator-styles/**', ...nodeFiles],
         extends: [configs.node],
     },
 ]);

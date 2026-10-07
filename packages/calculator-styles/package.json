@@ -9,39 +9,46 @@
   },
   "type": "module",
   "scripts": {
-    "prepare": "panda codegen --clean",
-    "emit": "panda emit-pkg"
+    "codegen": "panda codegen",
+    "lib": "panda lib",
+    "css": "panda cssgen --outfile generated/styled-system/styles.css",
+    "clean": "rimraf generated",
+    "build": "run-s clean codegen lib css"
   },
   "devDependencies": {
     "@pandacss/dev": "catalog:",
+    "@pandacss/preset-base": "catalog:",
     "@pandacss/preset-panda": "catalog:",
+    "@pandacss/types": "catalog:",
     "@primeuix/themes": "catalog:"
   },
   "exports": {
     "./css": {
       "types": "./generated/styled-system/css/index.d.ts",
-      "import": "./generated/styled-system/css/index.mjs"
+      "default": "./generated/styled-system/css/index.mjs"
     },
-    "./tokens": {
-      "types": "./generated/styled-system/tokens/index.d.ts",
-      "import": "./generated/styled-system/tokens/index.mjs"
-    },
-    "./types": {
-      "types": "./generated/styled-system/types/index.d.ts",
-      "import": "./generated/styled-system/types/index.mjs"
+    "./helpers": {
+      "types": "./generated/styled-system/helpers.d.ts",
+      "default": "./generated/styled-system/helpers.mjs"
     },
     "./patterns": {
       "types": "./generated/styled-system/patterns/index.d.ts",
-      "import": "./generated/styled-system/patterns/index.mjs"
+      "default": "./generated/styled-system/patterns/index.mjs"
     },
-    "./jsx": {
-      "types": "./generated/styled-system/jsx/index.d.ts",
-      "import": "./generated/styled-system/jsx/index.mjs"
+    "./tokens": {
+      "types": "./generated/styled-system/tokens/index.d.ts",
+      "default": "./generated/styled-system/tokens/index.mjs"
     },
     "./styles.css": "./generated/styled-system/styles.css",
-    "./panda.config.js": {
-      "types": "./panda.config.d.ts",
-      "import": "./panda.config.js"
+    "./panda.config.ts": "./panda.config.ts",
+    "./panda/*": "./dist/panda/*",
+    "./css/*": {
+      "types": "./generated/styled-system/css/*.d.ts",
+      "default": "./generated/styled-system/css/*.mjs"
+    },
+    "./patterns/*": {
+      "types": "./generated/styled-system/patterns/*.d.ts",
+      "default": "./generated/styled-system/patterns/*.mjs"
     }
   }
 }

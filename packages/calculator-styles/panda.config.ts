@@ -1,4 +1,5 @@
 import { defineAnimationStyles, defineConfig, definePattern } from '@pandacss/dev';
+import { preset as PresetBase } from '@pandacss/preset-base';
 
 import GlobalTheme from './global-theme.js';
 import PresetPrimevue from './preset-primevue.js';
@@ -22,14 +23,15 @@ export default defineConfig({
     ...GlobalTheme,
 
     outdir: 'generated/styled-system',
+    logLevel: 'warn',
 
     clean: true,
-    preflight: false,
-    presets: ['@pandacss/preset-base', PresetPrimevue],
+    presets: [PresetBase, PresetPrimevue],
     shorthands: false,
     prefix: 'panda',
-    hash: { cssVar: false, className: true },
+    hash: { cssVar: false, className: process.env['NODE_ENV'] === 'production' },
     jsxFramework: '',
+    outExtension: 'mjs',
 
     conditions: {
         extend: {
@@ -38,9 +40,7 @@ export default defineConfig({
         },
     },
 
-    patterns: {
-        extend: patterns,
-    },
+    patterns,
 
     theme: {
         extend: {
