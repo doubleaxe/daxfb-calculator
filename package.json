@@ -21,6 +21,7 @@
   "scripts": {
     "lint": "eslint --fix .",
     "format": "prettier --write .",
+    "dev": "concurrently -k -n \"CODE,LIB,CSS,VITE\" \"pnpm --filter @daxfb/styles watch-codegen\" \"pnpm --filter @daxfb/styles watch-lib\" \"pnpm --filter @daxfb/calculator watch-css\" \"pnpm --filter @daxfb/calculator watch-vite\"",
     "changeset-add": "@changesets/cli add",
     "changeset-release": "@changesets/cli version",
     "changeset-snapshot": "@changesets/cli version --snapshot"
@@ -32,6 +33,7 @@
     "@doubleaxe/prettier-config": "^1.0.5",
     "@doubleaxe/typescript-config": "^1.0.5",
     "@types/node": "^24.13.4",
+    "concurrently": "catalog:",
     "eslint": "^9.39.5",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",

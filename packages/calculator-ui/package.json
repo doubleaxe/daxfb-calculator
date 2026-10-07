@@ -17,15 +17,13 @@
   },
   "type": "module",
   "scripts": {
-    "prepare": "panda codegen --clean",
-    "dev": "run-p watch-panda watch-vite-wait-panda",
-    "watch-vite": "vite",
-    "watch-panda": "panda --watch",
-    "watch-vite-wait-panda": "run-s wait-panda watch-vite",
-    "wait-panda": "wait-on --delay 500 ./generated/styled-system/styles.css",
+    "dev": "concurrently -k -n \"CSS,VITE\" \"pnpm run watch-css\" \"pnpm run watch-vite\"",
+    "watch-vite": "pnpm run wait-css && vite",
+    "watch-css": "panda cssgen --watch",
+    "wait-css": "wait-on --delay 500 file:./generated/styled-system/styles.css file:./node_modules/@daxfb/styles/generated/lib/panda/lib.json",
     "build": "run-s build-panda build-vite",
     "build-vite": "vite build",
-    "build-panda": "panda --clean",
+    "build-panda": "panda cssgen --clean",
     "preview": "vite preview",
     "lint": "eslint --fix .",
     "format": "prettier --write .",
@@ -63,6 +61,7 @@
     "@vitejs/plugin-react": "^5.2.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "autoprefixer": "^10.6.0",
+    "concurrently": "catalog:",
     "cross-env": "^10.1.0",
     "npm-run-all": "catalog:",
     "postcss": "^8.5.28",
@@ -71,6 +70,6 @@
     "typescript": "catalog:",
     "vite": "^7.3.6",
     "vue-tsc": "catalog:",
-    "wait-on": "^9.1.0"
+    "wait-on": "catalog:"
   }
 }

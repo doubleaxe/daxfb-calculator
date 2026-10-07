@@ -9,31 +9,61 @@
   },
   "type": "module",
   "scripts": {
+    "build": "run-s clean codegen lib",
     "codegen": "panda codegen",
-    "lib": "panda lib",
-    "css": "panda cssgen --outfile generated/styled-system/styles.css",
+    "lib": "panda lib --outdir generated/lib",
     "clean": "rimraf generated",
-    "build": "run-s clean codegen lib css"
+    "dev": "concurrently -k -n \"CODE,LIB\" \"pnpm run watch-codegen\" \"pnpm run watch-lib\"",
+    "watch-codegen": "panda codegen --watch",
+    "watch-lib": "pnpm run wait-codegen && pnpm run lib --watch",
+    "wait-codegen": "wait-on --delay 500 file:./generated/styled-system/css/index.mjs"
   },
   "devDependencies": {
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
     "@pandacss/preset-panda": "catalog:",
     "@pandacss/types": "catalog:",
-    "@primeuix/themes": "catalog:"
+    "@primeuix/themes": "catalog:",
+    "concurrently": "catalog:",
+    "npm-run-all": "catalog:",
+    "wait-on": "catalog:"
   },
   "exports": {
     "./css": {
       "types": "./generated/styled-system/css/index.d.ts",
       "default": "./generated/styled-system/css/index.mjs"
     },
+    "./css/*": {
+      "types": "./generated/styled-system/css/*.d.ts",
+      "default": "./generated/styled-system/css/*.mjs"
+    },
     "./helpers": {
       "types": "./generated/styled-system/helpers.d.ts",
       "default": "./generated/styled-system/helpers.mjs"
     },
+    "./jsx": {
+      "types": "./generated/styled-system/jsx/index.d.ts",
+      "default": "./generated/styled-system/jsx/index.mjs"
+    },
+    "./jsx/*": {
+      "types": "./generated/styled-system/jsx/*.d.ts",
+      "default": "./generated/styled-system/jsx/*.mjs"
+    },
     "./patterns": {
       "types": "./generated/styled-system/patterns/index.d.ts",
       "default": "./generated/styled-system/patterns/index.mjs"
+    },
+    "./patterns/*": {
+      "types": "./generated/styled-system/patterns/*.d.ts",
+      "default": "./generated/styled-system/patterns/*.mjs"
+    },
+    "./recipes": {
+      "types": "./generated/styled-system/recipes/index.d.ts",
+      "default": "./generated/styled-system/recipes/index.mjs"
+    },
+    "./recipes/*": {
+      "types": "./generated/styled-system/recipes/*.d.ts",
+      "default": "./generated/styled-system/recipes/*.mjs"
     },
     "./tokens": {
       "types": "./generated/styled-system/tokens/index.d.ts",
@@ -41,14 +71,6 @@
     },
     "./styles.css": "./generated/styled-system/styles.css",
     "./panda.config.ts": "./panda.config.ts",
-    "./panda/*": "./dist/panda/*",
-    "./css/*": {
-      "types": "./generated/styled-system/css/*.d.ts",
-      "default": "./generated/styled-system/css/*.mjs"
-    },
-    "./patterns/*": {
-      "types": "./generated/styled-system/patterns/*.d.ts",
-      "default": "./generated/styled-system/patterns/*.mjs"
-    }
+    "./panda/*": "./generated/lib/panda/*"
   }
 }

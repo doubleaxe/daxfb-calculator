@@ -1,23 +1,8 @@
-import { defineAnimationStyles, defineConfig, definePattern } from '@pandacss/dev';
+import { defineAnimationStyles, defineConfig } from '@pandacss/dev';
 import { preset as PresetBase } from '@pandacss/preset-base';
 
 import GlobalTheme from './global-theme.js';
 import PresetPrimevue from './preset-primevue.js';
-
-// only code generation options, because we have separate css generator
-const patterns = {
-    // remove gap
-    // https://github.com/chakra-ui/panda/discussions/810
-    stack: definePattern({
-        defaultValues: { direction: 'column', gap: undefined },
-    }),
-    vstack: definePattern({
-        defaultValues: { gap: undefined },
-    }),
-    hstack: definePattern({
-        defaultValues: { gap: undefined },
-    }),
-};
 
 export default defineConfig({
     ...GlobalTheme,
@@ -40,7 +25,19 @@ export default defineConfig({
         },
     },
 
-    patterns,
+    patterns: {
+        extend: {
+            stack: {
+                defaultValues: { direction: 'column', gap: 0 },
+            },
+            vstack: {
+                defaultValues: { gap: 0 },
+            },
+            hstack: {
+                defaultValues: { gap: 0 },
+            },
+        },
+    },
 
     theme: {
         extend: {
