@@ -13,6 +13,7 @@ catalog:
   '@pandacss/dev': ^2.1.1
   '@pandacss/preset-base': ^2.1.1
   '@pandacss/preset-panda': ^2.1.1
+  '@pandacss/preset-typography': ^2.1.1
   '@pandacss/types': ^2.1.1
   '@phosphor-icons/react': ^2.1.10
   '@phosphor-icons/vue': ^2.2.1

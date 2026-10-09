@@ -9,7 +9,7 @@ const nodeFiles = [...patterns.toolsEs, ...patterns.toolsTs, '**/panda.config.ts
 
 export default defineConfig([
     {
-        ignores: ['**/gamedata-generated/src/*/', '**/generated/styled-system'],
+        ignores: ['**/gamedata-generated/src/*/', '**/generated'],
     },
     {
         name: 'es',

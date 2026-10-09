@@ -1,17 +1,26 @@
 import { defineAnimationStyles, defineConfig } from '@pandacss/dev';
 import { preset as PresetBase } from '@pandacss/preset-base';
-
-import GlobalTheme from './global-theme.js';
-import PresetPrimevue from './preset-primevue.js';
+import { preset as PresetPanda } from '@pandacss/preset-panda';
+import { createTypographyPreset } from '@pandacss/preset-typography';
 
 export default defineConfig({
-    ...GlobalTheme,
+    globalCss: {
+        html: {
+            fontFamily: 'sans',
+            fontSize: 'md',
+            lineHeight: 'normal',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+            textRendering: 'optimizeLegibility',
+            textSizeAdjust: '100%',
+        },
+    },
 
     outdir: 'generated/styled-system',
     logLevel: 'warn',
 
     clean: true,
-    presets: [PresetBase, PresetPrimevue],
+    presets: [PresetBase, PresetPanda, createTypographyPreset({ notProse: true })],
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: process.env['NODE_ENV'] === 'production' },

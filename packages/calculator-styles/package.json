@@ -22,6 +22,7 @@
     "@pandacss/dev": "catalog:",
     "@pandacss/preset-base": "catalog:",
     "@pandacss/preset-panda": "catalog:",
+    "@pandacss/preset-typography": "catalog:",
     "@pandacss/types": "catalog:",
     "@primeuix/themes": "catalog:",
     "concurrently": "catalog:",

@@ -30,6 +30,9 @@ catalogs:
     '@pandacss/preset-panda':
       specifier: ^2.1.1
       version: 2.1.1
+    '@pandacss/preset-typography':
+      specifier: ^2.1.1
+      version: 2.1.1
     '@pandacss/types':
       specifier: ^2.1.1
       version: 2.1.1
@@ -317,6 +320,9 @@ importers:
         specifier: 'catalog:'
         version: 2.1.1
       '@pandacss/preset-panda':
+        specifier: 'catalog:'
+        version: 2.1.1
+      '@pandacss/preset-typography':
         specifier: 'catalog:'
         version: 2.1.1
       '@pandacss/types':
@@ -1114,6 +1120,10 @@ packages:
 
   '@pandacss/preset-panda@2.1.1':
     resolution: {integrity: sha512-c7xaDhGkor/vM3nir6HlMFRmxE3s5uqgQCmrLybaA4s7BjRGsIl48qRv2nSpOHQstWXI/iBg7BvbKgGFZ/m+Sg==}
+    engines: {node: '>=22'}
+
+  '@pandacss/preset-typography@2.1.1':
+    resolution: {integrity: sha512-DTrZOjaMss79RAjAsSg0MSv0yeqcBp4D3sYeDhPdiAZ7aX5MCEVMLGUcPySVcRq28BNXZRvyFcZm76EJBuXSTA==}
     engines: {node: '>=22'}
 
   '@pandacss/types@2.1.1':
@@ -4522,6 +4532,10 @@ snapshots:
       '@pandacss/types': 2.1.1
 
   '@pandacss/preset-panda@2.1.1':
+    dependencies:
+      '@pandacss/types': 2.1.1
+
+  '@pandacss/preset-typography@2.1.1':
     dependencies:
       '@pandacss/types': 2.1.1
 
