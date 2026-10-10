@@ -5,34 +5,34 @@ export const StatusIconColor = cva({
         color: {
             ConnectionOrigin: {
                 _light: {
-                    fill: 'var(--p-indigo-600)',
+                    fill: 'indigo.600',
                 },
                 _dark: {
-                    fill: 'var(--p-indigo-300)',
+                    fill: 'indigo.300',
                 },
             },
             ConnectionDest: {
                 _light: {
-                    fill: 'var(--p-green-600)',
+                    fill: 'green.600',
                 },
                 _dark: {
-                    fill: 'var(--p-green-300)',
+                    fill: 'green.300',
                 },
             },
             PossibleDest: {
                 _light: {
-                    fill: 'var(--p-yellow-600)',
+                    fill: 'yellow.600',
                 },
                 _dark: {
-                    fill: 'var(--p-yellow-300)',
+                    fill: 'yellow.300',
                 },
             },
             ConnectedDest: {
                 _light: {
-                    fill: 'var(--p-red-600)',
+                    fill: 'red.600',
                 },
                 _dark: {
-                    fill: 'var(--p-red-300)',
+                    fill: 'red.300',
                 },
             },
         },

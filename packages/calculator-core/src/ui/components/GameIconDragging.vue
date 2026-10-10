@@ -12,10 +12,7 @@ const { item } = defineProps<{
 </script>
 
 <template>
-    <div
-        :class="cx(css({ backgroundColor: 'var(--p-content-background)', borderRadius: 'lg' }), draggingStyle)"
-        data-dragging
-    >
+    <div :class="cx(css({ backgroundColor: 'content.background', borderRadius: 'lg' }), draggingStyle)" data-dragging>
         <GameIcon v-if="item" :image="item?.image" />
     </div>
 </template>

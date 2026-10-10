@@ -1,9 +1,58 @@
 import { defineAnimationStyles, definePreset } from '@pandacss/dev';
 
+const surfaceScale = Object.fromEntries(
+    ([0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const).map((step) => [
+        step,
+        {
+            value:
+                step === 0
+                    ? { _light: '{colors.white}', _dark: '{colors.white}' }
+                    : { _light: `{colors.slate.${step}}`, _dark: `{colors.zinc.${step}}` },
+        },
+    ])
+);
+
 export default definePreset({
     name: 'calcilator',
     theme: {
         semanticTokens: {
+            colors: {
+                text: {
+                    value: {
+                        _light: '{colors.slate.700}',
+                        _dark: '{colors.white}',
+                    },
+                },
+                primary: {
+                    DEFAULT: {
+                        value: {
+                            _light: '{colors.emerald.500}',
+                            _dark: '{colors.emerald.400}',
+                        },
+                    },
+                    contrast: {
+                        value: {
+                            _light: '{colors.white}',
+                            _dark: '{colors.zinc.900}',
+                        },
+                    },
+                },
+                content: {
+                    background: {
+                        value: {
+                            _light: '{colors.white}',
+                            _dark: '{colors.zinc.900}',
+                        },
+                    },
+                },
+                border: {
+                    value: {
+                        _light: '{colors.slate.200}',
+                        _dark: '{colors.zinc.700}',
+                    },
+                },
+                surface: surfaceScale,
+            },
             shadows: {
                 scaleBurstShadow: {
                     value: {

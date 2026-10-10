@@ -39,7 +39,7 @@ const edgePath = computed(() => {
         <path
             :class="
                 css({
-                    stroke: 'var(--p-text-color)',
+                    stroke: 'text',
                     strokeWidth: 'var(--game-icon-size-quarter)',
                     fill: 'none',
                 })

@@ -36,7 +36,7 @@ const sideButtonClass = css({
     borderRadius: 0,
     minHeight: 0,
     minWidth: 0,
-    borderColor: 'var(--p-primary-color)',
+    borderColor: 'primary',
 });
 </script>
 

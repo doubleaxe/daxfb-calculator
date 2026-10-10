@@ -113,8 +113,8 @@ function handlePageChange(event: PageState) {
         option: {
           class: css({
             '&[data-p-highlight=\"true\"]': {
-              backgroundColor: 'var(--mantine-primary-color-light)',
-              color: 'var(--mantine-color-text)'
+              backgroundColor: 'primary/15',
+              color: 'text'
             }
           })
         }
@@ -178,7 +178,7 @@ function handlePageChange(event: PageState) {
             <template #footer>
                 <div
                     v-if="filteredItems.length > ITEMS_PER_PAGE"
-                    :class="css({ borderTop: '1px solid var(--mantine-color-default-border)' })"
+                    :class="css({ borderTopWidth: '1px', borderTopStyle: 'solid', borderTopColor: 'border' })"
                 >
                     <Paginator
                         :rows="ITEMS_PER_PAGE"

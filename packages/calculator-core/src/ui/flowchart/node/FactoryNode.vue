@@ -39,12 +39,12 @@ watch(
                     cursor: 'auto',
                     borderRadius: 'sm',
                     _light: {
-                        borderColor: 'var(--p-surface-300)',
-                        background: 'linear-gradient(135deg, var(--p-surface-0) 0%, var(--p-surface-200) 100%)',
+                        borderColor: 'surface.300',
+                        background: 'linear-gradient(135deg, {colors.surface.0} 0%, {colors.surface.200} 100%)',
                     },
                     _dark: {
-                        borderColor: 'var(--p-surface-600)',
-                        background: 'linear-gradient(135deg, var(--p-surface-900) 0%, var(--p-surface-700) 100%)',
+                        borderColor: 'surface.600',
+                        background: 'linear-gradient(135deg, {colors.surface.900} 0%, {colors.surface.700} 100%)',
                     },
                 }),
                 draggableSelectableStyles({ hover: 'child', transition: 'none' }),

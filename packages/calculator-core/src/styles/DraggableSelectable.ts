@@ -2,12 +2,12 @@ import { css, cva } from '@daxfb/styles/css';
 
 const selectedBase = css.raw({
     _light: {
-        borderColor: 'var(--p-blue-400)',
-        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-400) 60%, transparent)',
+        borderColor: 'blue.400',
+        boxShadow: '0 4px 12px {colors.blue.400/60}',
     },
     _dark: {
-        borderColor: 'var(--p-blue-600)',
-        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-600) 60%, transparent)',
+        borderColor: 'blue.600',
+        boxShadow: '0 4px 12px {colors.blue.600/60}',
     },
 });
 
@@ -19,12 +19,12 @@ const selected = css.raw({
 
 const hover = css.raw({
     _light: {
-        borderColor: 'color-mix(in srgb, var(--p-blue-300) 50%, transparent)',
-        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-300) 60%, transparent)',
+        borderColor: 'blue.300/50',
+        boxShadow: '0 4px 12px {colors.blue.300/60}',
     },
     _dark: {
-        borderColor: 'color-mix(in srgb, var(--p-blue-700) 50%, transparent)',
-        boxShadow: '0 4px 12px color-mix(in srgb, var(--p-blue-700) 60%, transparent)',
+        borderColor: 'blue.700/50',
+        boxShadow: '0 4px 12px {colors.blue.700/60}',
     },
 });
 

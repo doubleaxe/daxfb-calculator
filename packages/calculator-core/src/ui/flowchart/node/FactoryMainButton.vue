@@ -55,7 +55,7 @@ const handleType = computed(() => (flowConnectionState.origin?.isInput ? 'source
                 width: 'var(--game-icon-size)',
                 height: 'var(--game-icon-size)',
                 border: 'var(--central-border) solid',
-                borderColor: 'var(--p-primary-color)',
+                borderColor: 'primary',
                 boxSizing: 'content-box',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
@@ -63,10 +63,10 @@ const handleType = computed(() => (flowConnectionState.origin?.isInput ? 'source
                     transform: 'scale(1.1)',
                 },
                 _light: {
-                    backgroundColor: 'var(--p-surface-100)',
+                    backgroundColor: 'surface.100',
                 },
                 _dark: {
-                    backgroundColor: 'var(--p-surface-800)',
+                    backgroundColor: 'surface.800',
                 },
             })
         "
@@ -82,7 +82,7 @@ const handleType = computed(() => (flowConnectionState.origin?.isInput ? 'source
                         position: 'absolute',
                         top: '0px',
                         left: '0px',
-                        background: 'var(--p-content-background)',
+                        background: 'content.background',
                         opacity: 0.5,
                     }),
                     css(actionIconIndicatorStyle),
@@ -101,13 +101,15 @@ const handleType = computed(() => (flowConnectionState.origin?.isInput ? 'source
                     left: '0px',
                     width: 'var(--action-icon-size)',
                     height: 'var(--action-icon-size)',
-                    color: 'var(--p-text-color)',
-                    border: '1px solid var(--p-text-color)',
+                    color: 'text',
+                    borderColor: 'text',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
                     _light: {
-                        backgroundColor: 'color-mix(in srgb, var(--p-blue-100) 70%, transparent)',
+                        backgroundColor: 'blue.100/70',
                     },
                     _dark: {
-                        backgroundColor: 'color-mix(in srgb, var(--p-blue-900) 70%, transparent)',
+                        backgroundColor: 'blue.900/70',
                     },
                     _groupHover: {
                         display: 'flex',
