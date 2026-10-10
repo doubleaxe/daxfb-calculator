@@ -2,7 +2,7 @@ import './index.css';
 import '../generated/styled-system/styles.css';
 
 import { preInitApplication } from '@daxfb/core/ui/PreInitApplication.js';
-import Aura from '@primeuix/themes/aura';
+import MyPrimeVueTheme from '@daxfb/styles/primevue/my-theme-aura.js';
 import PrimeVue from 'primevue/config';
 import { createApp } from 'vue';
 
@@ -14,7 +14,7 @@ preInitApplication(app);
 
 app.use(PrimeVue, {
     theme: {
-        preset: Aura,
+        preset: MyPrimeVueTheme,
         options: {
             darkModeSelector: '.daxfb-dark',
             cssLayer: { name: 'primevue', order: 'reset, base, primevue, tokens, recipes, utilities' },

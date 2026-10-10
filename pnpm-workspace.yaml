@@ -10,11 +10,11 @@ catalog:
   '@dnd-kit/vue': ^0.5.0
   '@mantine/core': ^9.6.1
   '@mantine/hooks': ^9.6.1
-  '@pandacss/dev': ^2.1.1
-  '@pandacss/preset-base': ^2.1.1
-  '@pandacss/preset-panda': ^2.1.1
-  '@pandacss/preset-typography': ^2.1.1
-  '@pandacss/types': ^2.1.1
+  '@pandacss/dev': ^2.2.0
+  '@pandacss/preset-base': ^2.2.0
+  '@pandacss/preset-panda': ^2.2.0
+  '@pandacss/preset-typography': ^2.2.0
+  '@pandacss/types': ^2.2.0
   '@phosphor-icons/react': ^2.1.10
   '@phosphor-icons/vue': ^2.2.1
   '@primeuix/themes': ^2.0.3
@@ -39,3 +39,4 @@ catalog:
   wait-on: ^9.1.0
 minimumReleaseAgeExclude:
   - '@doubleaxe/*'
+  - '@pandacss/*'

@@ -70,8 +70,12 @@
       "types": "./generated/styled-system/tokens/index.d.ts",
       "default": "./generated/styled-system/tokens/index.mjs"
     },
+    "./types": {
+      "types": "./generated/styled-system/types/index.d.ts"
+    },
     "./styles.css": "./generated/styled-system/styles.css",
-    "./panda.config.ts": "./panda.config.ts",
-    "./panda/*": "./generated/lib/panda/*"
+    "./panda.config.js": "./panda.config.ts",
+    "./panda/*": "./generated/lib/panda/*",
+    "./primevue/*.js": "./src/primevue/*.ts"
   }
 }
