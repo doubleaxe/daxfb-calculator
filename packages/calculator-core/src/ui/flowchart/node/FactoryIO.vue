@@ -5,7 +5,7 @@ import { Handle, Position } from '@vue-flow/core';
 import { computed } from 'vue';
 
 import { EdgeStatus, type RecipeIOModelBase } from '#core/game/model/index.js';
-import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
+import { draggableSelectableCva } from '#core/styles/DraggableSelectable.js';
 import GameIcon from '#core/ui/components/GameIcon.vue';
 
 import IOConnectionMarker from './IOConnectionMarker.vue';
@@ -25,7 +25,7 @@ const edgePosition = computed(() => (isLtr.value ? Position.Left : Position.Righ
             :class="
                 cx(
                     css({ position: 'relative', borderRadius: 'lg', borderColor: 'transparent' }),
-                    draggableSelectableStyles({ hover: 'cursor', transition: 'lift', select: 'none' })
+                    draggableSelectableCva({ hover: 'cursor', transition: 'lift', select: 'none' })
                 )
             "
         >

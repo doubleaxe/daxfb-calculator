@@ -22,12 +22,21 @@ export default defineConfig({
     logLevel: 'warn',
 
     clean: true,
-    presets: [PresetBase, PresetPanda, createTypographyPreset({ notProse: true }), CalculatorTheme],
+    presets: [
+        // order matters!
+        PresetBase,
+        PresetPanda,
+        CalculatorTheme,
+        createTypographyPreset({ notProse: true, semanticTokens: { enabled: true } }),
+    ],
     shorthands: false,
     prefix: 'panda',
     hash: { cssVar: false, className: process.env['NODE_ENV'] === 'production' },
     jsxFramework: '',
     outExtension: 'mjs',
+
+    strictTokens: false,
+    strictPropertyValues: true,
 
     conditions: {
         extend: {

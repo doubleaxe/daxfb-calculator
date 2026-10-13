@@ -3,6 +3,8 @@
   "extends": "@doubleaxe/typescript-config/web.json",
   "compilerOptions": {
     "noEmit": true,
+    "declaration": false,
+    "declarationMap": false,
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "importHelpers": true,

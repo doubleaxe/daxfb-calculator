@@ -6,7 +6,7 @@ import { computed } from 'vue';
 
 import { EdgeStatus } from '#core/game/model/index.js';
 import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
-import { StatusIconColor } from '#core/styles/StatusIcons.js';
+import { StatusIconColorCva } from '#core/styles/StatusIcons.js';
 
 const { status } = defineProps<{
     status: EdgeStatus;
@@ -17,17 +17,17 @@ const config = computed(() => {
         case EdgeStatus.ConnectedDest:
             return {
                 icon: PhX as Component,
-                color: StatusIconColor({ color: EdgeStatus.ConnectedDest }),
+                color: StatusIconColorCva({ color: EdgeStatus.ConnectedDest }),
             };
         case EdgeStatus.ConnectionDest:
             return {
                 icon: PhArrowFatLinesDown as Component,
-                color: StatusIconColor({ color: EdgeStatus.ConnectionDest }),
+                color: StatusIconColorCva({ color: EdgeStatus.ConnectionDest }),
             };
         case EdgeStatus.ConnectionOrigin:
             return {
                 icon: PhArrowFatLinesUp as Component,
-                color: StatusIconColor({ color: EdgeStatus.ConnectionOrigin }),
+                color: StatusIconColorCva({ color: EdgeStatus.ConnectionOrigin }),
             };
         default:
             return undefined;

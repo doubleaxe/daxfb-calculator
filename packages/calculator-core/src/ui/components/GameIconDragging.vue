@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { css, cx } from '@daxfb/styles/css';
+import { css } from '@daxfb/styles/css';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 import { draggingStyle } from '#core/styles/Dragging.js';
@@ -12,7 +12,7 @@ const { item } = defineProps<{
 </script>
 
 <template>
-    <div :class="cx(css({ backgroundColor: 'content.background', borderRadius: 'lg' }), draggingStyle)" data-dragging>
+    <div :class="css({ ...draggingStyle, backgroundColor: 'content.background', borderRadius: 'lg' })" data-dragging>
         <GameIcon v-if="item" :image="item?.image" />
     </div>
 </template>

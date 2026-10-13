@@ -229,14 +229,13 @@ const semantic = {
         },
     },
     colorScheme: {
+        ...colorScheme,
         light: {
-            ...colorScheme,
             focusRing: {
                 shadow: `0 0 1px 4px ${token.var('colors.surface.200')}`,
             },
         },
         dark: {
-            ...colorScheme,
             focusRing: {
                 shadow: `0 0 1px 4px ${token.var('colors.surface.700')}`,
             },

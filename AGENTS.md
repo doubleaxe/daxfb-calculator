@@ -36,8 +36,8 @@ This repository is a monorepo for `daxfb-calculator`, a factory planner for mana
     - `dnd-kit` for drag-n-drop
     - `vue-flow` for flowchart
 - Styling
-    - `primevue` when base styles are acceptable
-    - `panda css` for customizations
+    - `panda css` is primary source of design tokens
+    - `primevue` custom style based on panda tokens
 
 ## Documentation
 
@@ -53,7 +53,7 @@ Prefer to lint/check only touched packages or even files.
 - Install dependencies: `pnpm install`
 - Lint: `pnpm lint` or `npx eslint --fix [list of changed liles]`
 - Format: `pnpm format`
-- Start the Vite app with Panda watch: `pnpm --filter @daxfb/calculator dev`
+- Start the Vite app with Panda watch: `pnpm dev`
 - Type-check: `pnpm --filter @doubleaxe/[package] check`
 
 ## Editing Guidance

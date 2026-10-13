@@ -28,7 +28,7 @@ const hover = css.raw({
     },
 });
 
-export const draggableSelectableStyles = cva({
+export const draggableSelectableCva = cva({
     base: {
         transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
         border: '2px solid',

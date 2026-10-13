@@ -4,7 +4,7 @@ import { useVueFlow } from '@vue-flow/core';
 import { computed, watch } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
-import { draggableSelectableStyles } from '#core/styles/DraggableSelectable.js';
+import { draggableSelectableCva } from '#core/styles/DraggableSelectable.js';
 import { draggingStyle } from '#core/styles/Dragging.js';
 
 import FactorySurface from './FactorySurface.vue';
@@ -36,6 +36,7 @@ watch(
         :class="
             cx(
                 css({
+                    ...draggingStyle,
                     cursor: 'auto',
                     borderRadius: 'sm',
                     _light: {
@@ -47,8 +48,7 @@ watch(
                         background: 'linear-gradient(135deg, {colors.surface.900} 0%, {colors.surface.700} 100%)',
                     },
                 }),
-                draggableSelectableStyles({ hover: 'child', transition: 'none' }),
-                draggingStyle
+                draggableSelectableCva({ hover: 'child', transition: 'none' })
             )
         "
         :data-dragging="dragging || undefined"

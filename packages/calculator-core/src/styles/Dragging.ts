@@ -1,6 +1,6 @@
 import { css } from '@daxfb/styles/css';
 
-export const draggingStyle = css({
+export const draggingStyle = css.raw({
     '&[data-dragging]': {
         cursor: 'grabbing!',
         border: '2px solid',

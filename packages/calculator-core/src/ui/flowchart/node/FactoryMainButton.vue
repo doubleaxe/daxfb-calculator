@@ -8,7 +8,7 @@ import { computed, watch } from 'vue';
 import { NodeStatus } from '#core/game/model/index.js';
 import { useFlowConnectionState } from '#core/stores/FlowConnectionState.js';
 import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
-import { StatusIconColor } from '#core/styles/StatusIcons.js';
+import { StatusIconColorCva } from '#core/styles/StatusIcons.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import GameIcon from '#core/ui/components/GameIcon.vue';
 
@@ -21,7 +21,7 @@ const markerConfig = computed(() =>
     data.status === NodeStatus.PossibleDest
         ? {
               icon: PhArrowFatLinesDown as Component,
-              color: StatusIconColor({ color: NodeStatus.PossibleDest }),
+              color: StatusIconColorCva({ color: NodeStatus.PossibleDest }),
           }
         : undefined
 );

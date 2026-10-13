@@ -1,6 +1,6 @@
 import { cva, type RecipeVariant } from '@daxfb/styles/css';
 
-export const StatusIconColor = cva({
+export const StatusIconColorCva = cva({
     variants: {
         color: {
             ConnectionOrigin: {
@@ -39,4 +39,4 @@ export const StatusIconColor = cva({
     },
 });
 
-export type StatusIconColorVariants = RecipeVariant<typeof StatusIconColor>['color'];
+export type StatusIconColorCvaVariants = RecipeVariant<typeof StatusIconColorCva>['color'];
