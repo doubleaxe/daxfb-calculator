@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
-import { useVueFlow, VueFlow } from '@vue-flow/core';
+import { ConnectionMode, type EdgeComponent, type NodeComponent, useVueFlow, VueFlow } from '@vue-flow/core';
 import type { Component } from 'vue';
 import { watch } from 'vue';
 
@@ -18,8 +18,8 @@ import FlowChartDropIndicator from './FlowChartDropIndicator.vue';
 import useFlowChartDropManager from './FlowChartDropManager.js';
 import FactoryNode from './node/FactoryNode.vue';
 
-const nodeTypes: Record<string, Component> = { [FactoryNodeTypeName]: FactoryNode as Component };
-const edgeTypes: Record<string, Component> = { [FactoryEdgeTypeName]: FactoryEdge as Component };
+const nodeTypes: Record<string, NodeComponent> = { [FactoryNodeTypeName]: FactoryNode as Component };
+const edgeTypes: Record<string, EdgeComponent> = { [FactoryEdgeTypeName]: FactoryEdge as Component };
 
 const flowChartModel = useFlowChartModelBase();
 const { setNodes, setEdges, findNode } = useVueFlow();
@@ -72,17 +72,18 @@ const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, on
     useFlowChartConnectionManager(flowChartModel);
 const { dragIndicator, onPaneMouseLeave, onPaneMouseMove, onPaneClick } = useFlowChartDropManager(flowChartModel);
 
-const onNodeDragStop = (event: { node: { id: string; position: { x: number; y: number }; type?: string } }) => {
+function onNodeDragStop(event: { node: { id: string; position: { x: number; y: number }; type?: string } }) {
     if (event.node.type === FactoryNodeTypeName) {
         const data = flowChartModel.itemByKey(event.node.id);
         data?.setPosition(event.node.position);
     }
-};
+}
 </script>
 
 <template>
     <VueFlow
         :connection-radius="40"
+        :connection-mode="ConnectionMode.Strict"
         :edge-types="edgeTypes"
         :is-valid-connection="isValidConnection"
         :node-types="nodeTypes"

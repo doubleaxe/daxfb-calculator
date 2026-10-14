@@ -38,11 +38,11 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
         },
     });
 
-    const onPaneMouseLeave = () => {
+    function onPaneMouseLeave() {
         dragIndicator.value = { x: 0, y: 0 };
-    };
+    }
 
-    const onPaneMouseMove = (event: MouseEvent) => {
+    function onPaneMouseMove(event: MouseEvent) {
         if (!factoryPaletteState.selectedFactory) return;
         const position = screenToFlowCoordinate({
             x: event.clientX,
@@ -54,9 +54,9 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
             visible: true,
             item: factoryPaletteState.selectedFactory,
         };
-    };
+    }
 
-    const onPaneClick = (event: MouseEvent) => {
+    function onPaneClick(event: MouseEvent) {
         if (!factoryPaletteState.selectedFactory) return;
         const factory = flowChartModel.addItem(String(factoryPaletteState.selectedFactory.key));
         const position = screenToFlowCoordinate({
@@ -66,12 +66,12 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
         factory.setPosition(position);
         factoryPaletteState.setSelectedFactory(undefined);
         dragIndicator.value = { x: 0, y: 0 };
-    };
+    }
 
-    const onClickOutside = () => {
+    function onClickOutside() {
         factoryPaletteState.setSelectedFactory(undefined);
         dragIndicator.value = { x: 0, y: 0 };
-    };
+    }
 
     useFlowChartEvents(() => [flowChartModel.events.on('paneClickAnywhere', onClickOutside)]);
 

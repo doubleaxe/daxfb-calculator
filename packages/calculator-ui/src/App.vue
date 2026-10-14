@@ -20,14 +20,16 @@ const CoiGamePage = defineAsyncComponent({
     ...asyncOptions,
 });
 
-const getGameId = () => new URLSearchParams(window.location.search).get('gameId');
+function getGameId() {
+    return new URLSearchParams(window.location.search).get('gameId');
+}
 
 const gameId = ref<null | string>(getGameId());
 const fatalError = ref<Error | null>(null);
 
-const updateGameId = () => {
+function updateGameId() {
     gameId.value = getGameId();
-};
+}
 
 onMounted(() => {
     window.addEventListener('popstate', updateGameId);

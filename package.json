@@ -21,6 +21,7 @@
   "scripts": {
     "lint": "eslint --fix .",
     "format": "prettier --write .",
+    "check": "pnpm --filter \"@daxfb/*\" check",
     "dev": "concurrently -k -n \"CODE,LIB,CSS,VITE\" \"pnpm --filter @daxfb/styles watch-codegen\" \"pnpm --filter @daxfb/styles watch-lib\" \"pnpm --filter @daxfb/calculator watch-css\" \"pnpm --filter @daxfb/calculator watch-vite\"",
     "build-codegen": "pnpm --filter @daxfb/styles build",
     "build-ui": "pnpm --filter @daxfb/calculator build",

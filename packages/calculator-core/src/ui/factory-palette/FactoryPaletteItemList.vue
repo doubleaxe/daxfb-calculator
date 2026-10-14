@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { DragOverlay, useDragDropMonitor } from '@dnd-kit/vue';
 import { hstack } from '@daxfb/styles/patterns';
+import { DragOverlay, useDragDropMonitor } from '@dnd-kit/vue';
 import Divider from 'primevue/divider';
-import { ref } from 'vue';
+import { shallowRef } from 'vue';
 
 import type { GameItemBase } from '#core/game/parser/index.js';
 import { useGameDataBase } from '#core/game/parser/index.js';
@@ -16,7 +16,7 @@ const gameData = useGameDataBase();
 const filterStore = useFilterStoreBase();
 const factoryPaletteState = useFactoryPaletteState();
 
-const dragItem = ref<GameItemBase | undefined>(undefined);
+const dragItem = shallowRef<GameItemBase | undefined>(undefined);
 
 useDragDropMonitor({
     onDragStart(event) {
@@ -30,24 +30,26 @@ useDragDropMonitor({
     },
 });
 
-const factoryFromEvent = (target: EventTarget | null) => {
+function factoryFromEvent(target: EventTarget | null) {
     const itemFromEvent = (target as HTMLElement | null)?.closest('[data-item]');
     if (!itemFromEvent) return undefined;
     return gameData.getGameItem(itemFromEvent.getAttribute('data-item') ?? '');
-};
-const handleItemClick = (factory: GameItemBase | undefined) => {
+}
+
+function handleItemClick(factory: GameItemBase | undefined) {
     if (factory === undefined) {
         factoryPaletteState.setSelectedFactory(undefined);
         return;
     }
     factoryPaletteState.setSelectedFactory(factoryPaletteState.selectedFactory === factory ? undefined : factory);
-};
-const handleItemKeydown = (event: KeyboardEvent) => {
+}
+
+function handleItemKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         handleItemClick(factoryFromEvent(event.target));
     }
-};
+}
 </script>
 
 <template>

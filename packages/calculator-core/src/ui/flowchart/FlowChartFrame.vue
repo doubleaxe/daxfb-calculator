@@ -13,14 +13,14 @@ import FlowChart from './FlowChart.vue';
 const flowChartModel = useFlowChartModelBase();
 
 const element = shallowRef<HTMLElement | null>(null);
-const setElementRef = (el: HTMLElement | null) => {
+function setElementRef(el: HTMLElement | null) {
     element.value = el;
-};
+}
 useDroppable({ id: FlowChartDroppable, element });
 
-const onClick = (event: MouseEvent) => {
+function onClick(event: MouseEvent) {
     flowChartModel.events.emit('paneClickAnywhere', event);
-};
+}
 </script>
 
 <template>

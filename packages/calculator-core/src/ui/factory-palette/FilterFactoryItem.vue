@@ -60,8 +60,8 @@ const debouncedUpdateFilteredItems = useDebounceFn(
     { maxWait: 1000 }
 );
 
-function toGameItem({ option, value }: { option?: any; value?: any }): GameItemBase {
-    return (value ?? option) as GameItemBase;
+function toGameItem({ option, value }: { option?: GameItemBase; value?: GameItemBase }): GameItemBase {
+    return (value ?? option)!;
 }
 
 const currentPageItems = computed(() => {
@@ -97,45 +97,6 @@ function handleDirectionChange(value: number) {
 function handlePageChange(event: PageState) {
     firstRecordIndex.value = event.first;
 }
-/*
-:pt="{
-        overlay: {
-          class: css({
-            maxHeight: '25rem'
-          })
-        },
-        list: {
-          class: css({
-            maxHeight: '20rem',
-            overflowY: 'auto'
-          })
-        },
-        option: {
-          class: css({
-            '&[data-p-highlight=\"true\"]': {
-              backgroundColor: 'primary/15',
-              color: 'text'
-            }
-          })
-        }
-      }"
-
-:pt="{
-              root: {
-                class: css({
-                  flexWrap: 'nowrap',
-                  padding: '0.25rem 0.5rem'
-                })
-              },
-              page: {
-                class: css({
-                  minWidth: '1.75rem',
-                  height: '1.75rem',
-                  fontSize: '0.85rem'
-                })
-              }
-            }"
-*/
 </script>
 
 <template>
@@ -173,7 +134,7 @@ function handlePageChange(event: PageState) {
                 </div>
             </template>
             <template #empty>
-                <div :class="css({ textAlign: 'center', padding: '1', color: 'stone.400' })">Nothing found</div>
+                <div :class="css({ textAlign: 'center', padding: '1', color: 'text.muted' })">Nothing found</div>
             </template>
             <template #footer>
                 <div

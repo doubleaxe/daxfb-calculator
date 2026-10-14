@@ -11,7 +11,7 @@ type ConnectStartParams = {
 export default function useFlowChartConnectionManager(flowChartModel: FlowChartModelBase) {
     const flowConnectionState = useFlowConnectionState();
 
-    const onClickConnectStart = (params: ConnectStartParams) => {
+    function onClickConnectStart(params: ConnectStartParams) {
         // we manually manage click connections
         // vue-flow has its own click connections, but it is too unpredictable
         // the click connect state remains active even when we also drag item
@@ -21,25 +21,25 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
         if (io) {
             flowConnectionState.startConnection(io, ConnectionMode.Click);
         }
-    };
+    }
 
-    const onClickConnectEnd = () => {
+    function onClickConnectEnd() {
         flowConnectionState.clearActiveConnection();
-    };
+    }
 
-    const onConnectStart = (params: ConnectStartParams) => {
+    function onConnectStart(params: ConnectStartParams) {
         flowConnectionState.clearActiveConnection();
         const io = flowChartModel.findIo(params.nodeId ?? '', params.handleId ?? '');
         if (io) {
             flowConnectionState.startConnection(io, ConnectionMode.Drag);
         }
-    };
+    }
 
-    const onConnectEnd = () => {
+    function onConnectEnd() {
         flowConnectionState.clearActiveConnection();
-    };
+    }
 
-    const onConnect = (connection: Connection) => {
+    function onConnect(connection: Connection) {
         const origin = flowConnectionState.origin;
         if (!origin) return;
 
@@ -65,9 +65,9 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
             true
         );
         flowConnectionState.clearActiveConnection();
-    };
+    }
 
-    const isValidConnection = (connection: Connection) => {
+    function isValidConnection(connection: Connection) {
         const origin = flowConnectionState.origin;
         if (!origin) return false;
 
@@ -85,7 +85,7 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
         const destIo = flowChartModel.findIo(destItemId, destHandleId);
         if (!destIo) return false;
         return [EdgeStatus.ConnectedDest, EdgeStatus.ConnectionDest].some((status) => status === destIo.status);
-    };
+    }
 
     return {
         onClickConnectStart,

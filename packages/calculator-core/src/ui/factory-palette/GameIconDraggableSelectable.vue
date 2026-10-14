@@ -15,9 +15,9 @@ type Props = {
 const { item, isSelected = false, borderStyle = 'plain' } = defineProps<Props>();
 
 const element = shallowRef<HTMLElement | null>(null);
-const setElementRef = (el: HTMLElement | null) => {
+function setElementRef(el: HTMLElement | null) {
     element.value = el;
-};
+}
 
 useDraggable({
     id: item.key,
