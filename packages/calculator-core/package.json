@@ -29,11 +29,11 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
+    "@daxfb/shared": "workspace:*",
+    "@daxfb/styles": "workspace:*",
     "@dnd-kit/dom": "catalog:",
     "@dnd-kit/react": "catalog:",
     "@dnd-kit/vue": "catalog:",
-    "@daxfb/styles": "workspace:*",
-    "@daxfb/shared": "workspace:*",
     "@mantine/core": "catalog:",
     "@mantine/hooks": "catalog:",
     "@phosphor-icons/react": "catalog:",
@@ -42,6 +42,7 @@
     "@vue-flow/background": "^1.3.2",
     "@vue-flow/controls": "^1.1.3",
     "@vue-flow/core": "^1.48.2",
+    "@vue-flow/node-toolbar": "^1.1.1",
     "@vueuse/core": "catalog:",
     "@xyflow/react": "catalog:",
     "mobx": "catalog:",

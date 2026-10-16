@@ -3,9 +3,9 @@ import { css, cx } from '@daxfb/styles/css';
 import { PhCaretDoubleDown, PhCaretDoubleUp, PhMinus, PhPlus } from '@phosphor-icons/vue';
 
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
-import ActionButton from '#core/ui/components/ActionButton.vue';
 
 import FactoryMainButton from './FactoryMainButton.vue';
+import SideButton from './SideButton.vue';
 
 const { data } = defineProps<FactoryNodeProps>();
 
@@ -30,14 +30,6 @@ const cssVarsNonUpgradable = css({
     '--side-offset-y': '0px',
     '--side-height': 'var(--total-size-y)',
 });
-
-const sideButtonClass = css({
-    position: 'absolute',
-    borderRadius: 0,
-    minHeight: 0,
-    minWidth: 0,
-    borderColor: 'primary',
-});
 </script>
 
 <template>
@@ -58,53 +50,43 @@ const sideButtonClass = css({
         "
     >
         <template v-if="data.upgradable">
-            <ActionButton
+            <SideButton
+                :class="css({ top: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' })"
+            >
+                <PhCaretDoubleUp />
+            </SideButton>
+            <SideButton
                 :class="
-                    cx(
-                        sideButtonClass,
-                        css({ top: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' })
-                    )
+                    cx(css({ bottom: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' }))
                 "
-                :icon="PhCaretDoubleUp"
-            />
-            <ActionButton
-                :class="
-                    cx(
-                        sideButtonClass,
-                        css({ bottom: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' })
-                    )
-                "
-                :icon="PhCaretDoubleDown"
-            />
+            >
+                <PhCaretDoubleDown />
+            </SideButton>
         </template>
-        <ActionButton
+        <SideButton
             :class="
-                cx(
-                    sideButtonClass,
-                    css({
-                        left: '0',
-                        top: 'var(--side-offset-y)',
-                        width: 'var(--action-icon-size)',
-                        height: 'var(--side-height)',
-                    })
-                )
+                css({
+                    left: '0',
+                    top: 'var(--side-offset-y)',
+                    width: 'var(--action-icon-size)',
+                    height: 'var(--side-height)',
+                })
             "
-            :icon="PhMinus"
-        />
-        <ActionButton
+        >
+            <PhMinus />
+        </SideButton>
+        <SideButton
             :class="
-                cx(
-                    sideButtonClass,
-                    css({
-                        right: '0',
-                        top: 'var(--side-offset-y)',
-                        width: 'var(--action-icon-size)',
-                        height: 'var(--side-height)',
-                    })
-                )
+                css({
+                    right: '0',
+                    top: 'var(--side-offset-y)',
+                    width: 'var(--action-icon-size)',
+                    height: 'var(--side-height)',
+                })
             "
-            :icon="PhPlus"
-        />
+        >
+            <PhPlus />
+        </SideButton>
         <FactoryMainButton :data="data" />
     </div>
 </template>

@@ -1,22 +1,13 @@
 <script setup lang="ts">
 import { css } from '@daxfb/styles/css';
-import type { HandleElement, Position } from '@vue-flow/core';
+import type { ConnectionLineProps } from '@vue-flow/core';
 import { getBezierPath } from '@vue-flow/core';
 import { computed } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
 
-const props = defineProps<{
-    sourceHandle: HandleElement | null;
-    sourcePosition: Position;
-    sourceX: number;
-    sourceY: number;
-    targetPosition: Position;
-    targetX: number;
-    targetY: number;
-}>();
-
-defineOptions({ inheritAttrs: false });
+// eslint-disable-next-line vue/no-unused-properties
+const props = defineProps<ConnectionLineProps>();
 
 const flowChartModel = useFlowChartModelBase();
 const data = computed(() => flowChartModel.findIo(props.sourceHandle?.nodeId ?? '', props.sourceHandle?.id ?? ''));
@@ -46,5 +37,6 @@ const edgePath = computed(() => {
             "
             :d="edgePath"
         />
+        <circle :cx="props.targetX" :cy="props.targetY" fill="#fff" :r="4" stroke="#6F3381" :stroke-width="1.5" />
     </g>
 </template>

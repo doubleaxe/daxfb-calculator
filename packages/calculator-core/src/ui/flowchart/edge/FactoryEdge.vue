@@ -1,22 +1,13 @@
 <script setup lang="ts">
 import { css } from '@daxfb/styles/css';
-import type { Position } from '@vue-flow/core';
 import { BaseEdge, getBezierPath } from '@vue-flow/core';
 import { computed } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
+import type { FactoryEdgeInstanceProps } from '#core/types/flowchart/edge/types.js';
 
-const props = defineProps<{
-    id: string;
-    sourcePosition: Position;
-    sourceX: number;
-    sourceY: number;
-    targetPosition: Position;
-    targetX: number;
-    targetY: number;
-}>();
-
-defineOptions({ inheritAttrs: false });
+// eslint-disable-next-line vue/no-unused-properties
+const props = defineProps<FactoryEdgeInstanceProps>();
 
 const flowChartModel = useFlowChartModelBase();
 const data = computed(() => flowChartModel.linkByKey(props.id));

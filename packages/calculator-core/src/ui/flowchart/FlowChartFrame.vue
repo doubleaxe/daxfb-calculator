@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import './flow.css';
 
-import { useDroppable } from '@dnd-kit/vue';
 import { css } from '@daxfb/styles/css';
-import { shallowRef } from 'vue';
+import { useDroppable } from '@dnd-kit/vue';
+import { useTemplateRef } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
 import { FlowChartDroppable } from '#core/types/flowchart/types.js';
@@ -12,10 +12,7 @@ import FlowChart from './FlowChart.vue';
 
 const flowChartModel = useFlowChartModelBase();
 
-const element = shallowRef<HTMLElement | null>(null);
-function setElementRef(el: HTMLElement | null) {
-    element.value = el;
-}
+const element = useTemplateRef('element');
 useDroppable({ id: FlowChartDroppable, element });
 
 function onClick(event: MouseEvent) {
@@ -24,11 +21,7 @@ function onClick(event: MouseEvent) {
 </script>
 
 <template>
-    <div
-        :ref="(el) => setElementRef(el as HTMLElement | null)"
-        :class="css({ width: '100%', height: '100%' })"
-        @click="onClick"
-    >
+    <div ref="element" :class="css({ width: '100%', height: '100%' })" @click="onClick">
         <FlowChart />
     </div>
 </template>

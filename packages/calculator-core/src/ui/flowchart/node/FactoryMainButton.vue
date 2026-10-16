@@ -1,38 +1,19 @@
 <script setup lang="ts">
-import { css, cx } from '@daxfb/styles/css';
-import { PhArrowFatLinesDown, PhWrench } from '@phosphor-icons/vue';
+import { css } from '@daxfb/styles/css';
 import { Handle, Position, useVueFlow } from '@vue-flow/core';
-import type { Component } from 'vue';
 import { computed, watch } from 'vue';
 
 import { NodeStatus } from '#core/game/model/index.js';
 import { useFlowConnectionState } from '#core/stores/FlowConnectionState.js';
-import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
-import { StatusIconColorCva } from '#core/styles/StatusIcons.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import GameIcon from '#core/ui/components/GameIcon.vue';
+
+import ConnectionMarkerForFactory from './ConnectionMarkerForFactory.vue';
 
 const { data } = defineProps<FactoryNodeProps>();
 
 const flowConnectionState = useFlowConnectionState();
 const { updateNodeInternals } = useVueFlow();
-
-const markerConfig = computed(() =>
-    data.status === NodeStatus.PossibleDest
-        ? {
-              icon: PhArrowFatLinesDown as Component,
-              color: StatusIconColorCva({ color: NodeStatus.PossibleDest }),
-          }
-        : undefined
-);
-
-watch(
-    () => data.status,
-    () => {
-        updateNodeInternals(data.itemId);
-    },
-    { flush: 'post' }
-);
 
 const edgePosition = computed(() => {
     const origin = flowConnectionState.origin;
@@ -43,6 +24,14 @@ const edgePosition = computed(() => {
 
 const showHandle = computed(() => data.status === NodeStatus.PossibleDest && !!flowConnectionState.origin);
 const handleType = computed(() => (flowConnectionState.origin?.isInput ? 'source' : 'target'));
+
+watch(
+    () => data.status,
+    () => {
+        updateNodeInternals([data.itemId]);
+    },
+    { flush: 'post' }
+);
 </script>
 
 <template>
@@ -73,54 +62,7 @@ const handleType = computed(() => (flowConnectionState.origin?.isInput ? 'source
         type="button"
     >
         <GameIcon :image="data.image" />
-        <component
-            :is="markerConfig.icon"
-            v-if="markerConfig"
-            :class="
-                cx(
-                    css({
-                        position: 'absolute',
-                        top: '0px',
-                        left: '0px',
-                        background: 'content.background',
-                        opacity: 0.5,
-                    }),
-                    css(actionIconIndicatorStyle),
-                    markerConfig.color
-                )
-            "
-            weight="bold"
-        />
-        <div
-            v-else
-            :class="
-                css({
-                    display: 'none',
-                    position: 'absolute',
-                    top: '0px',
-                    left: '0px',
-                    width: 'var(--action-icon-size)',
-                    height: 'var(--action-icon-size)',
-                    color: 'text',
-                    borderColor: 'text',
-                    borderWidth: '1px',
-                    borderStyle: 'solid',
-                    _light: {
-                        backgroundColor: 'blue.100/70',
-                    },
-                    _dark: {
-                        backgroundColor: 'blue.900/70',
-                    },
-                    _groupHover: {
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    },
-                })
-            "
-        >
-            <PhWrench size="100%" />
-        </div>
+        <ConnectionMarkerForFactory :status="data.status" />
         <Handle
             v-if="showHandle"
             :id="data.itemId"

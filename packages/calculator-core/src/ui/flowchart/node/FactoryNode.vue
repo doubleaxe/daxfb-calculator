@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { css, cx } from '@daxfb/styles/css';
 import { useVueFlow } from '@vue-flow/core';
+import { NodeToolbar } from '@vue-flow/node-toolbar';
 import { computed, watch } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
 import { draggableSelectableCva } from '#core/styles/DraggableSelectable.js';
 import { draggingStyle } from '#core/styles/Dragging.js';
+import type { FactoryNodeInstanceProps } from '#core/types/flowchart/node/types.js';
 
 import FactorySurface from './FactorySurface.vue';
 import TitleRow from './TitleRow.vue';
 
-const { id, dragging } = defineProps<{
-    dragging?: boolean;
-    id: string;
-}>();
-
-defineOptions({ inheritAttrs: false });
+// eslint-disable-next-line vue/no-unused-properties
+const { id, dragging } = defineProps<FactoryNodeInstanceProps>();
 
 const flowChartModel = useFlowChartModelBase();
 const data = computed(() => flowChartModel.itemByKey(id));
@@ -24,13 +22,16 @@ const { updateNodeInternals } = useVueFlow();
 watch(
     () => data.value?.isFlipped,
     () => {
-        if (data.value) updateNodeInternals(data.value.itemId);
+        if (data.value) updateNodeInternals([data.value.itemId]);
     },
     { flush: 'post' }
 );
 </script>
 
 <template>
+    <NodeToolbar v-show="false">
+        <button type="button">cut</button>
+    </NodeToolbar>
     <div
         v-if="data"
         :class="
@@ -40,8 +41,8 @@ watch(
                     cursor: 'auto',
                     borderRadius: 'sm',
                     _light: {
-                        borderColor: 'surface.300',
-                        background: 'linear-gradient(135deg, {colors.surface.0} 0%, {colors.surface.200} 100%)',
+                        borderColor: 'surface.500',
+                        background: 'linear-gradient(135deg, {colors.surface.0} 0%, {colors.surface.400} 100%)',
                     },
                     _dark: {
                         borderColor: 'surface.600',

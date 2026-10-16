@@ -2,10 +2,10 @@
 import { css, cx } from '@daxfb/styles/css';
 import { hstack } from '@daxfb/styles/patterns';
 import { PhList } from '@phosphor-icons/vue';
+import Button from 'primevue/button';
 
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import { NodeDragHandleClass } from '#core/types/flowchart/node/types.js';
-import ActionButton from '#core/ui/components/ActionButton.vue';
 
 const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps>();
 </script>
@@ -16,7 +16,7 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
             cx(
                 hstack({ gap: '0.25em', paddingLeft: '0.25em', paddingRight: '0.25em' }),
                 css({
-                    'fontSize': '0.875rem',
+                    'fontSize': 'sm',
                     'lineHeight': '1.25',
                     'height': '1.7rem',
                     'color': 'primary.contrast',
@@ -63,7 +63,9 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
             {{ data.label }}
         </div>
         <div :class="css({ flex: 'none', whiteSpace: 'nowrap' })">
-            <ActionButton :icon="PhList" aria-label="Menu" />
+            <Button :class="css({ padding: 0 })" severity="secondary" size="small" variant="outlined" aria-label="Menu">
+                <PhList />
+            </Button>
         </div>
     </div>
 </template>
