@@ -5,11 +5,9 @@
     "noEmit": true,
     "declaration": false,
     "declarationMap": false,
-    "jsx": "react-jsx",
     "importHelpers": true,
     "paths": {}
   },
   "include": ["src"],
-  "exclude": ["**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

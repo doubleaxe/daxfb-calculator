@@ -8,7 +8,7 @@ import { EdgeStatus, type RecipeIOModelBase } from '#core/game/model/index.js';
 import { draggableSelectableCva } from '#core/styles/DraggableSelectable.js';
 import GameIcon from '#core/ui/components/GameIcon.vue';
 
-import IOConnectionMarker from './IOConnectionMarker.vue';
+import IOConnectionMarker from './ConnectionMarkerForIO.vue';
 
 const { io } = defineProps<{
     io: RecipeIOModelBase;

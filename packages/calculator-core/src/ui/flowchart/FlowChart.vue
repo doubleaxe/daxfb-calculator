@@ -3,11 +3,10 @@ import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
 import { ConnectionMode, type EdgeComponent, type NodeComponent, useVueFlow, VueFlow } from '@vue-flow/core';
 import type { Component } from 'vue';
-import { watch } from 'vue';
+import { onMounted, watch } from 'vue';
 
-import type { FactoryModelBase, IOLinkModelBase } from '#core/game/model/index.js';
 import { useFlowChartModelBase } from '#core/game/model/index.js';
-import { FactoryEdgeTypeName } from '#core/types/flowchart/edge/types.js';
+import { type FactoryEdgeType, FactoryEdgeTypeName } from '#core/types/flowchart/edge/types.js';
 import type { FactoryNodeType } from '#core/types/flowchart/node/types.js';
 import { FactoryNodeTypeName, NodeDragHandleClass } from '#core/types/flowchart/node/types.js';
 
@@ -22,10 +21,11 @@ const nodeTypes: Record<string, NodeComponent> = { [FactoryNodeTypeName]: Factor
 const edgeTypes: Record<string, EdgeComponent> = { [FactoryEdgeTypeName]: FactoryEdge as Component };
 
 const flowChartModel = useFlowChartModelBase();
-const { setNodes, setEdges, findNode } = useVueFlow();
+const { setNodes, setEdges, findNode, findEdge } = useVueFlow();
 
-function syncNodes(items: FactoryModelBase[]) {
-    return items.map((factory) => {
+function syncNodes() {
+    const items = flowChartModel.items;
+    const nodes = [...items].map((factory) => {
         const existing = findNode(factory.itemId);
         if (existing) return existing;
         return {
@@ -34,39 +34,31 @@ function syncNodes(items: FactoryModelBase[]) {
             position: { ...factory.position },
             dragHandle: `.${NodeDragHandleClass}`,
             data: { itemId: factory.itemId },
-        } as FactoryNodeType;
+        } satisfies FactoryNodeType;
     });
+    setNodes(nodes);
 }
 
-function syncEdges(links: IOLinkModelBase[]) {
-    return links.map((link) => ({
-        id: link.linkId,
-        type: FactoryEdgeTypeName,
-        source: link.output.factory.itemId,
-        sourceHandle: link.output.itemId,
-        target: link.input.factory.itemId,
-        targetHandle: link.input.itemId,
-        data: { linkId: link.linkId },
-    }));
+function syncEdges() {
+    const links = flowChartModel.links;
+    const edges = [...links].map((link) => {
+        const existing = findEdge(link.linkId);
+        if (existing) return existing;
+        return {
+            id: link.linkId,
+            type: FactoryEdgeTypeName,
+            source: link.output.factory.itemId,
+            sourceHandle: link.output.itemId,
+            target: link.input.factory.itemId,
+            targetHandle: link.input.itemId,
+            data: { linkId: link.linkId },
+        } satisfies FactoryEdgeType;
+    });
+    setEdges(edges);
 }
 
-setNodes(syncNodes([...flowChartModel.items]));
-setEdges(syncEdges([...flowChartModel.links]));
-
-watch(
-    () => flowChartModel.itemsGeneration,
-    () => {
-        setNodes(syncNodes([...flowChartModel.items]));
-    },
-    { flush: 'post' }
-);
-watch(
-    () => flowChartModel.linksGeneration,
-    () => {
-        setEdges(syncEdges([...flowChartModel.links]));
-    },
-    { flush: 'post' }
-);
+watch(() => flowChartModel.itemsGeneration, syncNodes, { flush: 'post' });
+watch(() => flowChartModel.linksGeneration, syncEdges, { flush: 'post' });
 
 const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, onConnect, isValidConnection } =
     useFlowChartConnectionManager(flowChartModel);
@@ -78,6 +70,11 @@ function onNodeDragStop(event: { node: { id: string; position: { x: number; y: n
         data?.setPosition(event.node.position);
     }
 }
+
+onMounted(() => {
+    syncNodes();
+    syncEdges();
+});
 </script>
 
 <template>

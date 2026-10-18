@@ -6,32 +6,21 @@ allowBuilds:
   vue-demi: true
 catalog:
   '@dnd-kit/dom': ^0.5.0
-  '@dnd-kit/react': ^0.5.0
   '@dnd-kit/vue': ^0.5.0
-  '@mantine/core': ^9.6.1
-  '@mantine/hooks': ^9.6.1
   '@pandacss/dev': ^2.2.0
   '@pandacss/preset-base': ^2.2.0
   '@pandacss/preset-panda': ^2.2.0
   '@pandacss/preset-typography': ^2.2.0
   '@pandacss/types': ^2.2.0
-  '@phosphor-icons/react': ^2.1.10
   '@phosphor-icons/vue': ^2.2.1
   '@primeuix/themes': ^2.0.3
-  '@types/react': ^19.3.0
-  '@types/react-dom': ^19.3.0
-  '@xyflow/react': ^12.11.6
   '@vueuse/core': ^14.4.0
   concurrently: ^10.0.5
-  mobx: ^6.16.1
-  mobx-react-lite: ^4.1.1
   nanoevents: ^9.1.0
   npm-run-all: ^4.1.5
   pako: ^2.2.0
   perfect-debounce: ^2.1.0
   primevue: ^4.5.5
-  react: ^19.3.0
-  react-dom: ^19.3.0
   tslib: ^2.8.1
   typescript: ^5.9.3
   vue: ^3.5.42
@@ -39,4 +28,3 @@ catalog:
   wait-on: ^9.1.0
 minimumReleaseAgeExclude:
   - '@doubleaxe/*'
-  - '@pandacss/*'

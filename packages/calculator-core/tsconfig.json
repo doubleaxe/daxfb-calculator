@@ -6,12 +6,10 @@
     "declaration": false,
     "declarationMap": false,
     "allowImportingTsExtensions": true,
-    "jsx": "react-jsx",
     "importHelpers": true,
     "paths": {
       "#core/*": ["./src/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["**/*.tsx"]
+  "include": ["src"]
 }

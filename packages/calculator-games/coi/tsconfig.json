@@ -5,12 +5,10 @@
     "noEmit": true,
     "declaration": false,
     "declarationMap": false,
-    "jsx": "react-jsx",
     "importHelpers": true,
     "paths": {
       "#game-ui-coi/*": ["./src/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["**/*.tsx"]
+  "include": ["src"]
 }

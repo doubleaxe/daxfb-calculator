@@ -37,16 +37,6 @@ export default defineConfig([
             ],
         },
     },
-    /*
-    {
-        name: 'tsx',
-        files: patterns.tsxFilter,
-        extends: [configs.reactTsRoot],
-        rules: {
-            'perfectionist/sort-jsx-props': 'off',
-        },
-    },
-    */
     {
         name: 'vue',
         files: patterns.vueFilter,

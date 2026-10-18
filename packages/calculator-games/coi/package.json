@@ -27,20 +27,11 @@
     "@daxfb/styles": "workspace:*",
     "@daxfb/gamedata-generated": "workspace:*",
     "@daxfb/shared": "workspace:*",
-    "@mantine/core": "catalog:",
-    "@mantine/hooks": "catalog:",
-    "@phosphor-icons/react": "catalog:",
-    "mobx": "catalog:",
-    "mobx-react-lite": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
     "tslib": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
     "typescript": "catalog:"
   }
 }
