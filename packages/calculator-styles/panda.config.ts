@@ -15,6 +15,7 @@ export default defineConfig({
             MozOsxFontSmoothing: 'grayscale',
             textRendering: 'optimizeLegibility',
             textSizeAdjust: '100%',
+            backgroundColor: '{colors.page.background}',
         },
     },
 
@@ -35,7 +36,7 @@ export default defineConfig({
     jsxFramework: '',
     outExtension: 'mjs',
 
-    strictTokens: false,
+    strictTokens: true,
     strictPropertyValues: true,
 
     conditions: {

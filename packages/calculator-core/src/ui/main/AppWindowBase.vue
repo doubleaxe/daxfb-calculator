@@ -8,8 +8,8 @@ const factoryPaletteState = useFactoryPaletteState();
 
 const scrollBar = cva({
     base: {
-        flex: '1 1 0%',
-        minHeight: 0,
+        flex: '[1 1 0%]',
+        minHeight: '0',
         overflowX: 'hidden',
         scrollbarGutter: 'stable',
     },
@@ -18,12 +18,12 @@ const scrollBar = cva({
             yes: {
                 'overflowY': 'auto',
                 'scrollbarWidth': 'thin',
-                '&::-webkit-scrollbar': { display: 'block', width: '6px' },
+                '&::-webkit-scrollbar': { display: 'block', width: '1.5' },
             },
             no: {
                 'overflowY': 'hidden',
                 'scrollbarWidth': 'none',
-                '&::-webkit-scrollbar': { display: 'none', width: '0px' },
+                '&::-webkit-scrollbar': { display: 'none', width: '0' },
             },
         },
     },
@@ -35,8 +35,8 @@ const scrollBar = cva({
         :class="
             vstack({
                 alignItems: 'stretch',
-                width: '100%',
-                height: '100%',
+                width: 'full',
+                height: 'full',
                 overflow: 'hidden',
             })
         "
@@ -44,9 +44,10 @@ const scrollBar = cva({
         <header
             :class="
                 hstack({
-                    height: '60px',
+                    height: '[60px]',
                     flexShrink: 0,
-                    paddingInline: 'md',
+                    paddingInline: '1',
+                    borderBottom: '[1px solid {colors.content.border}]',
                 })
             "
         >
@@ -57,8 +58,8 @@ const scrollBar = cva({
             :class="
                 hstack({
                     alignItems: 'stretch',
-                    flex: '1 1 0%',
-                    minWidth: 0,
+                    flex: '[1 1 0%]',
+                    minWidth: '0',
                     overflow: 'hidden',
                 })
             "
@@ -68,9 +69,11 @@ const scrollBar = cva({
                 :class="
                     vstack({
                         alignItems: 'stretch',
-                        width: { base: '190px', sm: '190px', lg: '260px' },
+                        width: { base: '48', sm: '48', lg: '64' },
                         flexShrink: 0,
                         overflow: 'hidden',
+                        borderRight: '[1px solid {colors.content.border}]',
+                        paddingTop: '1',
                     })
                 "
             >
@@ -84,9 +87,9 @@ const scrollBar = cva({
             <main
                 :class="
                     stack({
-                        flex: '1 1 0%',
-                        minWidth: 0,
-                        minHeight: 0,
+                        flex: '[1 1 0%]',
+                        minWidth: '0',
+                        minHeight: '0',
                         overflow: 'hidden',
                         alignItems: 'stretch',
                         justifyContent: 'stretch',

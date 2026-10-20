@@ -5,7 +5,8 @@ import type { Preset } from '@primeuix/themes/types';
 // panda is the primary source of truth, we build the primevue theme based on it
 // override everything, do not merge (definePreset is deepMerge)
 // remove now unused base color palette
-const Material = (MaterialPreset.default ?? MaterialPreset) as Preset;
+// eslint-disable-next-line @typescript-eslint/dot-notation
+const Material = (MaterialPreset['default'] ?? MaterialPreset) as Preset;
 
 const colorScale = (color: string) => ({
     0: token.var(`colors.${color}.0`),

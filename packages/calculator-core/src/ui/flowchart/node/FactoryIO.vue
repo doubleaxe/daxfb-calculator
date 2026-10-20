@@ -35,15 +35,15 @@ const edgePosition = computed(() => (isLtr.value ? Position.Left : Position.Righ
                 :class="
                     css({
                         position: 'absolute',
-                        top: '0px',
-                        left: '0px',
+                        top: '0',
+                        left: '0',
                         transform: 'none',
                         minWidth: 'auto',
                         minHeight: 'auto',
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: 0,
-                        border: '0px transparent',
+                        width: 'full',
+                        height: 'full',
+                        borderRadius: '[0]',
+                        border: '[0px transparent]',
                         backgroundColor: 'transparent',
                         cursor: 'grab',
                     })
@@ -59,11 +59,11 @@ const edgePosition = computed(() => (isLtr.value ? Position.Left : Position.Righ
         <div
             :class="
                 css({
-                    paddingLeft: '0.25em',
-                    paddingRight: '0.25em',
-                    flex: 1,
+                    paddingLeft: '1',
+                    paddingRight: '1',
+                    flex: '1',
                     textAlign: isLtr ? 'left' : 'right',
-                    fontSize: '0.75rem',
+                    fontSize: 'xs',
                 })
             "
         >

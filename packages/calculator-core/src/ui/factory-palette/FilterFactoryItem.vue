@@ -139,7 +139,7 @@ function handlePageChange(event: PageState) {
             <template #footer>
                 <div
                     v-if="filteredItems.length > ITEMS_PER_PAGE"
-                    :class="css({ borderTopWidth: '1px', borderTopStyle: 'solid', borderTopColor: 'border' })"
+                    :class="css({ borderTopWidth: '1px', borderTopStyle: 'solid', borderTopColor: 'content.border' })"
                 >
                     <Paginator
                         :rows="ITEMS_PER_PAGE"

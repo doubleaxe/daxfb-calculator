@@ -29,10 +29,10 @@ const iconCva = cva({
             plain: {
                 borderColor: 'transparent',
                 _light: {
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                    boxShadow: '[0 2px 4px rgba(0, 0, 0, 0.1)]',
                 },
                 _dark: {
-                    boxShadow: '0 2px 4px rgba(255, 255, 255, 0.2)',
+                    boxShadow: '[0 2px 4px rgba(255, 255, 255, 0.2)]',
                 },
             },
         },

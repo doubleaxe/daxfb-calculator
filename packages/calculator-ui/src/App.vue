@@ -67,8 +67,8 @@ onErrorCaptured((err) => {
                 <div
                     :class="
                         css({
-                            width: '100%',
-                            height: '100%',
+                            width: 'full',
+                            height: 'full',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',

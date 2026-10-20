@@ -41,12 +41,12 @@ watch(
                     cursor: 'auto',
                     borderRadius: 'sm',
                     _light: {
-                        borderColor: 'surface.500',
-                        background: 'linear-gradient(135deg, {colors.surface.0} 0%, {colors.surface.400} 100%)',
+                        borderColor: 'surface.400',
+                        background: '[linear-gradient(135deg, {colors.surface.50} 0%, {colors.surface.300} 100%)]',
                     },
                     _dark: {
-                        borderColor: 'surface.600',
-                        background: 'linear-gradient(135deg, {colors.surface.900} 0%, {colors.surface.700} 100%)',
+                        borderColor: 'surface.400',
+                        background: '[linear-gradient(135deg, {colors.surface.800} 0%, {colors.surface.600} 100%)]',
                     },
                 }),
                 draggableSelectableCva({ hover: 'child', transition: 'none' })

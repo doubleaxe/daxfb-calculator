@@ -5,9 +5,10 @@ import type { Preset } from '@primeuix/themes/types';
 // panda is the primary source of truth, we build the primevue theme based on it
 // override everything, do not merge (definePreset is deepMerge)
 // remove now unused base color palette
-const Aura = (AuraPreset.default ?? AuraPreset) as Preset;
+// eslint-disable-next-line @typescript-eslint/dot-notation
+const Aura = (AuraPreset['default'] ?? AuraPreset) as Preset;
 
-const colorScale = (color: string) => ({
+const colorScale = (color: 'primary' | 'surface') => ({
     0: token.var(`colors.${color}.0`),
     50: token.var(`colors.${color}.50`),
     100: token.var(`colors.${color}.100`),

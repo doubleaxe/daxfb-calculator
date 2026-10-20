@@ -21,7 +21,7 @@ function onClick(event: MouseEvent) {
 </script>
 
 <template>
-    <div ref="element" :class="css({ width: '100%', height: '100%' })" @click="onClick">
+    <div ref="element" :class="css({ width: 'full', height: 'full' })" @click="onClick">
         <FlowChart />
     </div>
 </template>

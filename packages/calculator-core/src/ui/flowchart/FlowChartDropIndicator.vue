@@ -30,8 +30,8 @@ const positionStyle = computed(() => ({
         :class="
             css({
                 position: 'absolute',
-                top: '0px',
-                left: '0px',
+                top: '0',
+                left: '0',
                 pointerEvents: 'none',
                 transform: 'translate(var(--indicator-x), var(--indicator-y))',
             })

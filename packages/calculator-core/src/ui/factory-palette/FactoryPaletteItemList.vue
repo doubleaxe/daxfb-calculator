@@ -54,7 +54,7 @@ function handleItemKeydown(event: KeyboardEvent) {
 
 <template>
     <div
-        :class="hstack({ gap: '2px', padding: '2', flexWrap: 'wrap' })"
+        :class="hstack({ gap: '0.5', padding: '2', flexWrap: 'wrap' })"
         @click="handleItemClick(factoryFromEvent($event.target))"
         @keydown="handleItemKeydown"
     >

@@ -14,24 +14,24 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
     <div
         :class="
             cx(
-                hstack({ gap: '0.25em', paddingLeft: '0.25em', paddingRight: '0.25em' }),
+                hstack({ gap: '1', paddingLeft: '1', paddingRight: '1' }),
                 css({
                     'fontSize': 'sm',
-                    'lineHeight': '1.25',
-                    'height': '1.7rem',
-                    'color': 'primary.contrast',
+                    'lineHeight': 'tight',
+                    'height': '7',
+                    'color': 'white',
                     '_light': {
-                        background: 'linear-gradient(135deg, {colors.blue.700} 0%, {colors.blue.900} 100%)',
+                        background: '[linear-gradient(135deg, {colors.sky.600} 0%, {colors.sky.700} 100%)]',
                     },
                     '_dark': {
-                        background: 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)',
+                        background: '[linear-gradient(135deg, {colors.blue.800} 0%, {colors.blue.900} 100%)]',
                     },
                     '&:has([data-hoverable]:hover)': {
                         _light: {
-                            background: 'linear-gradient(135deg, {colors.blue.500} 0%, {colors.blue.700} 100%)',
+                            background: '[linear-gradient(135deg, {colors.sky.500} 0%, {colors.sky.600} 100%)]',
                         },
                         _dark: {
-                            background: 'linear-gradient(135deg, {colors.indigo.800} 0%, {colors.indigo.900} 100%)',
+                            background: '[linear-gradient(135deg, {colors.blue.600} 0%, {colors.blue.700} 100%)]',
                         },
                     },
                 })
@@ -43,9 +43,9 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
                 cx(
                     css({
                         'cursor': 'grab',
-                        'flex': 1,
-                        'minWidth': 0,
-                        'width': 0,
+                        'flex': '1',
+                        'minWidth': '0',
+                        'width': '0',
                         'overflow': 'hidden',
                         'textOverflow': 'ellipsis',
                         'whiteSpace': 'nowrap',
@@ -63,7 +63,13 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
             {{ data.label }}
         </div>
         <div :class="css({ flex: 'none', whiteSpace: 'nowrap' })">
-            <Button :class="css({ padding: 0 })" severity="secondary" size="small" variant="outlined" aria-label="Menu">
+            <Button
+                :class="css({ padding: '0' })"
+                severity="secondary"
+                size="small"
+                variant="outlined"
+                aria-label="Menu"
+            >
                 <PhList />
             </Button>
         </div>

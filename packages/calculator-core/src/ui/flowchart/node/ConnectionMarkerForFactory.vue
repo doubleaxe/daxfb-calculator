@@ -23,8 +23,8 @@ const markerConfig = computed(() => NodeStatusConfig[status]);
             cx(
                 css({
                     position: 'absolute',
-                    top: '0px',
-                    left: '0px',
+                    top: '0',
+                    left: '0',
                     background: 'content.background',
                     opacity: 0.5,
                 }),
@@ -40,8 +40,8 @@ const markerConfig = computed(() => NodeStatusConfig[status]);
             css({
                 display: 'none',
                 position: 'absolute',
-                top: '0px',
-                left: '0px',
+                top: '0',
+                left: '0',
                 width: 'var(--action-icon-size)',
                 height: 'var(--action-icon-size)',
                 color: 'text',

@@ -3,11 +3,11 @@ import { css, cva } from '@daxfb/styles/css';
 const selectedBase = css.raw({
     _light: {
         borderColor: 'blue.400',
-        boxShadow: '0 4px 12px {colors.blue.400/60}',
+        boxShadow: '[0 4px 12px {colors.blue.400/60}]',
     },
     _dark: {
         borderColor: 'blue.600',
-        boxShadow: '0 4px 12px {colors.blue.600/60}',
+        boxShadow: '[0 4px 12px {colors.blue.600/60}]',
     },
 });
 
@@ -20,18 +20,18 @@ const selected = css.raw({
 const hover = css.raw({
     _light: {
         borderColor: 'blue.300/50',
-        boxShadow: '0 4px 12px {colors.blue.300/60}',
+        boxShadow: '[0 4px 12px {colors.blue.300/60}]',
     },
     _dark: {
         borderColor: 'blue.700/50',
-        boxShadow: '0 4px 12px {colors.blue.700/60}',
+        boxShadow: '[0 4px 12px {colors.blue.700/60}]',
     },
 });
 
 export const draggableSelectableCva = cva({
     base: {
-        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-        border: '2px solid',
+        transition: '[all 0.2s cubic-bezier(0.4, 0, 0.2, 1)]',
+        border: '[2px solid]',
         boxSizing: 'border-box',
         touchAction: 'none',
         userSelect: 'none',

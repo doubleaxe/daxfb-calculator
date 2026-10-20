@@ -9,9 +9,9 @@ import Button from 'primevue/button';
             cx(
                 css({
                     position: 'absolute',
-                    borderRadius: 0,
-                    minHeight: 0,
-                    minWidth: 0,
+                    borderRadius: '[0]',
+                    minHeight: '0',
+                    minWidth: '0',
                     borderColor: 'primary',
                 })
             )

@@ -12,7 +12,7 @@ const isDark = useDarkModeStore();
 </script>
 
 <template>
-    <div :class="hstack({ alignItems: 'center', paddingInline: '1', flex: '1 1 0%' })">
+    <div :class="hstack({ alignItems: 'center', paddingInline: '1', flex: '[1 1 0%]' })">
         <div :class="hstack()">
             <Button
                 aria-label="Toggle palette"
@@ -24,7 +24,7 @@ const isDark = useDarkModeStore();
                 <PhList v-else />
             </Button>
         </div>
-        <div :class="hstack({ flex: '1 1 0%' })"></div>
+        <div :class="hstack({ flex: '[1 1 0%]' })"></div>
         <div :class="hstack()">
             <Button
                 :class="css({ color: isDark ? 'yellow.300' : 'blue.600' })"

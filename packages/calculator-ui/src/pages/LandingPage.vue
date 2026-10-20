@@ -10,7 +10,7 @@ import { GameIds } from '../GameIds.js';
     <div
         :class="
             vstack({
-                minHeight: '100%',
+                minHeight: 'full',
                 justifyContent: 'space-between',
                 padding: '6',
             })
@@ -20,8 +20,8 @@ import { GameIds } from '../GameIds.js';
         <Panel
             :class="
                 vstack({
-                    width: '100%',
-                    maxWidth: '400px',
+                    width: 'full',
+                    maxWidth: '96',
                 })
             "
         >

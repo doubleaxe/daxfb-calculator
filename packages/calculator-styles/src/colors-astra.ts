@@ -1,9 +1,6 @@
 import { defineSemanticTokens } from '@pandacss/dev';
 
-import { colorScale } from './utils.js';
-
-const scheme = (light: string, dark: string) => ({ value: { _light: light, _dark: dark } });
-const fixed = (value: string) => ({ value });
+import { colorScale, fixed, scheme } from './utils.js';
 
 export default defineSemanticTokens({
     colors: {
