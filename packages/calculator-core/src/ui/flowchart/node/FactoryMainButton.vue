@@ -44,7 +44,6 @@ watch(
                 width: 'var(--game-icon-size)',
                 height: 'var(--game-icon-size)',
                 border: '[var(--central-border) solid]',
-                borderColor: 'primary',
                 boxSizing: 'content-box',
                 cursor: 'pointer',
                 transition: '[all 0.2s ease]',
@@ -53,9 +52,11 @@ watch(
                 },
                 _light: {
                     backgroundColor: 'surface.100',
+                    borderColor: 'sky.600',
                 },
                 _dark: {
                     backgroundColor: 'surface.800',
+                    borderColor: 'sky.700',
                 },
             })
         "
