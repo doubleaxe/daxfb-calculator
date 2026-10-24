@@ -14,6 +14,9 @@ import TitleRow from './TitleRow.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
 const { id, dragging } = defineProps<FactoryNodeInstanceProps>();
+defineOptions({
+    inheritAttrs: false,
+});
 
 const flowChartModel = useFlowChartModelBase();
 const data = computed(() => flowChartModel.itemByKey(id));
@@ -29,7 +32,7 @@ watch(
 </script>
 
 <template>
-    <NodeToolbar v-show="false">
+    <NodeToolbar v-if="false">
         <button type="button">cut</button>
     </NodeToolbar>
     <div

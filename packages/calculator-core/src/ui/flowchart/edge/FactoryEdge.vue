@@ -8,6 +8,9 @@ import type { FactoryEdgeInstanceProps } from '#core/types/flowchart/edge/types.
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<FactoryEdgeInstanceProps>();
+defineOptions({
+    inheritAttrs: false,
+});
 
 const flowChartModel = useFlowChartModelBase();
 const data = computed(() => flowChartModel.linkByKey(props.id));

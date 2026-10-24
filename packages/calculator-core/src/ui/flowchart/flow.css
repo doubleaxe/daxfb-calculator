@@ -1,2 +1,3 @@
-@import '@vue-flow/core/dist/style.css' layer(baseui);
-@import '@vue-flow/core/dist/theme-default.css' layer(baseui);
+@import '@vue-flow/core/dist/style.css' layer(flowchart);
+@import '@vue-flow/core/dist/theme-default.css' layer(flowchart);
+@import '@vue-flow/controls/dist/style.css' layer(flowchart);

@@ -3,7 +3,7 @@ import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
 import { ConnectionMode, type EdgeComponent, type NodeComponent, useVueFlow, VueFlow } from '@vue-flow/core';
 import type { Component } from 'vue';
-import { onMounted, watch } from 'vue';
+import { markRaw, onMounted, watch } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
 import { type FactoryEdgeType, FactoryEdgeTypeName } from '#core/types/flowchart/edge/types.js';
@@ -17,8 +17,8 @@ import FlowChartDropIndicator from './FlowChartDropIndicator.vue';
 import useFlowChartDropManager from './FlowChartDropManager.js';
 import FactoryNode from './node/FactoryNode.vue';
 
-const nodeTypes: Record<string, NodeComponent> = { [FactoryNodeTypeName]: FactoryNode as Component };
-const edgeTypes: Record<string, EdgeComponent> = { [FactoryEdgeTypeName]: FactoryEdge as Component };
+const nodeTypes: Record<string, NodeComponent> = { [FactoryNodeTypeName]: markRaw(FactoryNode as Component) };
+const edgeTypes: Record<string, EdgeComponent> = { [FactoryEdgeTypeName]: markRaw(FactoryEdge as Component) };
 
 const flowChartModel = useFlowChartModelBase();
 const { setNodes, setEdges, findNode, findEdge } = useVueFlow();
@@ -84,6 +84,7 @@ onMounted(() => {
         :edge-types="edgeTypes"
         :is-valid-connection="isValidConnection"
         :node-types="nodeTypes"
+        connect-on-click
         @click-connect-end="onClickConnectEnd"
         @click-connect-start="onClickConnectStart"
         @connect="onConnect"

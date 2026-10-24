@@ -63,13 +63,7 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
             {{ data.label }}
         </div>
         <div :class="css({ flex: 'none', whiteSpace: 'nowrap' })">
-            <Button
-                :class="css({ padding: '0' })"
-                severity="secondary"
-                size="small"
-                variant="outlined"
-                aria-label="Menu"
-            >
+            <Button :class="css({ padding: '0' })" severity="secondary" aria-label="Menu">
                 <PhList />
             </Button>
         </div>

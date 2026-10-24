@@ -17,7 +17,7 @@ app.use(PrimeVue, {
         preset: MyPrimeVueTheme,
         options: {
             darkModeSelector: '.daxfb-dark',
-            cssLayer: { name: 'primevue', order: 'reset, base, primevue, tokens, recipes, utilities' },
+            cssLayer: { name: 'primevue', order: 'reset, flowchart, base, primevue, tokens, recipes, utilities' },
         },
     },
 });
