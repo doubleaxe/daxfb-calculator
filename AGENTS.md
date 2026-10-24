@@ -59,11 +59,8 @@ Prefer to lint/check only touched packages or even files.
 ## Editing Guidance
 
 - Use panda helper `className={hstack({})}` and `className={vstack({})}` for simple flexboxes.
+- Never install pnpm packages, ask me to install
 
 ## Development workflow
 
 Development is performed in pair programmer mode, human + AI. Do not do anything automatically, only after explicit request, even if change leads to not compiling code somewhere else. Files can be modified between requests - if file was changed - human did this, do not overwrite changes or restore previous version. Do not cross project boundary.
-
-## Current status
-
-Currently project is being migrated from react to vue. There are react leftovers everywhere, some files do not compile. Do not delete old react files.
