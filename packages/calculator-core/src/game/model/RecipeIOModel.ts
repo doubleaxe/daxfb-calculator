@@ -64,6 +64,9 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         const targetItem = target.key;
         return sourceItem === targetItem;
     }
+    isAlreadyLinked(target: RecipeIOModelBase) {
+        return !!this.__findAlreadyLinked(target);
+    }
 
     __findAlreadyLinked(target: RecipeIOModelBase) {
         for (const link of this.__links.values()) {

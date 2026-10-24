@@ -40,7 +40,6 @@
     "@vue-flow/core": "^1.48.2",
     "@vue-flow/node-toolbar": "^1.1.1",
     "@vueuse/core": "catalog:",
-    "@xyflow/vue": "2.0.0-next.18",
     "nanoevents": "catalog:",
     "pako": "catalog:",
     "perfect-debounce": "catalog:",
