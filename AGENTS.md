@@ -43,7 +43,7 @@ This repository is a monorepo for `daxfb-calculator`, a factory planner for mana
 
 LLM optimized documentation is available for some packages. If info is needed, check if `tmp\llm` directory already contains documents and use them. Otherwise download documentation with `curl` and save it in `tmp\llm`
 
-- `primevue` - `https://primevue.dev/llms/llms-full.txt`
+- `primevue` - `https://v4.primevue.org/llms/llms-full.txt`
 - `panda css` - `https://panda-css.com/llms-full.txt`
 
 ## Commands

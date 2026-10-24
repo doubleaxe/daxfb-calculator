@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { css, cx } from '@daxfb/styles/css';
 import { hstack } from '@daxfb/styles/patterns';
-import { PhList } from '@phosphor-icons/vue';
-import Button from 'primevue/button';
 
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 import { NodeDragHandleClass } from '#core/types/flowchart/node/types.js';
+
+import FactoryMainMenu from './FactoryMainMenu.vue';
 
 const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps>();
 </script>
@@ -63,9 +63,7 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
             {{ data.label }}
         </div>
         <div :class="css({ flex: 'none', whiteSpace: 'nowrap' })">
-            <Button :class="css({ padding: '0' })" severity="secondary" aria-label="Menu">
-                <PhList />
-            </Button>
+            <FactoryMainMenu :data="data" />
         </div>
     </div>
 </template>

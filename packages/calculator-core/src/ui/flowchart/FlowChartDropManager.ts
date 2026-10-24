@@ -15,7 +15,7 @@ export type FlowChartDropIndicatorState = {
 };
 
 export default function useFlowChartDropManager(flowChartModel: FlowChartModelBase) {
-    const { screenToFlowCoordinate } = useVueFlow();
+    const { screenToFlowCoordinate, vueFlowRef } = useVueFlow();
     const factoryPaletteState = useFactoryPaletteState();
     const dragIndicator = ref<FlowChartDropIndicatorState>({ x: 0, y: 0 });
 
@@ -44,13 +44,10 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
 
     function onPaneMouseMove(event: MouseEvent) {
         if (!factoryPaletteState.selectedFactory) return;
-        const position = screenToFlowCoordinate({
-            x: event.clientX,
-            y: event.clientY,
-        });
+        const rect = vueFlowRef.value?.getBoundingClientRect();
         dragIndicator.value = {
-            x: position.x,
-            y: position.y,
+            x: event.clientX - (rect?.left ?? 0),
+            y: event.clientY - (rect?.top ?? 0),
             visible: true,
             item: factoryPaletteState.selectedFactory,
         };
