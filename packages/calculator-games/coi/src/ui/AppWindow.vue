@@ -3,6 +3,7 @@ import FactoryPalette from '@daxfb/core/ui/factory-palette/FactoryPalette.vue';
 import FactoryPaletteItemList from '@daxfb/core/ui/factory-palette/FactoryPaletteItemList.vue';
 import FilterFactoryItem from '@daxfb/core/ui/factory-palette/FilterFactoryItem.vue';
 import FlowChartFrame from '@daxfb/core/ui/flowchart/FlowChartFrame.vue';
+import FlowChartStatusBar from '@daxfb/core/ui/flowchart/FlowChartStatusBar.vue';
 import AppWindowBase from '@daxfb/core/ui/main/AppWindowBase.vue';
 import ToolBarBase from '@daxfb/core/ui/toolbar/ToolBarBase.vue';
 </script>
@@ -24,6 +25,9 @@ import ToolBarBase from '@daxfb/core/ui/toolbar/ToolBarBase.vue';
         </template>
         <template #flowChart>
             <FlowChartFrame />
+        </template>
+        <template #statusBar>
+            <FlowChartStatusBar />
         </template>
     </AppWindowBase>
 </template>

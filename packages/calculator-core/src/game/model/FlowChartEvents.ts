@@ -5,6 +5,8 @@ import type { FactoryModelBase } from './types.js';
 
 export type FlowChartEventsBase = {
     paneClickAnywhere: (event: MouseEvent) => void;
+    panePointerLeave: (event: PointerEvent) => void;
+    panePointerOver: (event: PointerEvent) => void;
     solveGraph: (changedItems: FactoryModelBase[]) => void;
 };
 

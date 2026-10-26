@@ -99,5 +99,9 @@ const scrollBar = cva({
                 <slot name="flowChart" />
             </main>
         </div>
+
+        <footer :class="hstack({ alignItems: 'stretch', width: 'full', flexShrink: 0 })">
+            <slot name="statusBar" />
+        </footer>
     </div>
 </template>

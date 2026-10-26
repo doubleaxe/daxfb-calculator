@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { css } from '@daxfb/styles/css';
-import { PhList, PhTrash } from '@phosphor-icons/vue';
+import { PhLinkBreak, PhList, PhTrash } from '@phosphor-icons/vue';
 import Button from 'primevue/button';
 import Menu, { type MenuMethods } from 'primevue/menu';
 import type { MenuItem } from 'primevue/menuitem';
@@ -10,9 +10,14 @@ import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 
 const { data } = defineProps<FactoryNodeProps>();
 
-const menu = useTemplateRef('menu');
+const menu = useTemplateRef<MenuMethods | null>('menu');
 
 const items = computed<MenuItem[]>(() => [
+    {
+        label: 'Delete all links',
+        command: () => data.deleteAllLinks(),
+        iconComponent: PhLinkBreak,
+    },
     {
         label: 'Delete',
         command: () => data.deleteItem(),
@@ -21,7 +26,7 @@ const items = computed<MenuItem[]>(() => [
 ]);
 
 function toggle(event: Event) {
-    const _menu: MenuMethods | null = menu.value;
+    const _menu = menu.value;
     if (!_menu) return;
     _menu.toggle(event);
 }

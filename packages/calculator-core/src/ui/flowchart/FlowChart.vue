@@ -15,6 +15,7 @@ import FactoryEdge from './edge/FactoryEdge.vue';
 import useFlowChartConnectionManager from './FlowChartConnectionManager.js';
 import FlowChartDropIndicator from './FlowChartDropIndicator.vue';
 import useFlowChartDropManager from './FlowChartDropManager.js';
+import useFlowChartHoverManager from './FlowChartHoverManager.js';
 import FactoryNode from './node/FactoryNode.vue';
 
 const nodeTypes: Record<string, NodeComponent> = { [FactoryNodeTypeName]: markRaw(FactoryNode as Component) };
@@ -63,6 +64,7 @@ watch(() => flowChartModel.linksGeneration, syncEdges, { flush: 'post' });
 const { onClickConnectStart, onClickConnectEnd, onConnectStart, onConnectEnd, onConnect, isValidConnection } =
     useFlowChartConnectionManager(flowChartModel);
 const { dragIndicator, onPaneMouseLeave, onPaneMouseMove, onPaneClick } = useFlowChartDropManager(flowChartModel);
+useFlowChartHoverManager(flowChartModel);
 
 function onNodeDragStop(event: { node: { id: string; position: { x: number; y: number }; type?: string } }) {
     if (event.node.type === FactoryNodeTypeName) {

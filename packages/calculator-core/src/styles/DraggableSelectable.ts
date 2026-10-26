@@ -1,12 +1,11 @@
 import { css, cva } from '@daxfb/styles/css';
 
 const selectedBase = css.raw({
+    borderColor: 'selected.border',
     _light: {
-        borderColor: 'blue.400',
         boxShadow: '[0 4px 12px {colors.blue.400/60}]',
     },
     _dark: {
-        borderColor: 'blue.600',
         boxShadow: '[0 4px 12px {colors.blue.600/60}]',
     },
 });

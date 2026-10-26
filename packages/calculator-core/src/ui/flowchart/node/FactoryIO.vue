@@ -28,6 +28,8 @@ const edgePosition = computed(() => (isLtr.value ? Position.Left : Position.Righ
                     draggableSelectableCva({ hover: 'cursor', transition: 'lift', select: 'none' })
                 )
             "
+            data-hoverable
+            :data-item="io.key"
         >
             <GameIcon :image="io.image" />
             <Handle

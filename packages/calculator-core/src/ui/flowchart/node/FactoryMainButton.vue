@@ -61,6 +61,8 @@ watch(
             })
         "
         type="button"
+        data-hoverable
+        :data-item="data.key"
     >
         <GameIcon :image="data.image" />
         <ConnectionMarkerForFactory :status="data.status" />

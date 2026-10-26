@@ -5,6 +5,7 @@ import { FactoryPaletteStateImpl, useProvideFactoryPaletteState } from '#core/st
 import type { FilterStoreBase } from '#core/stores/FilterStoreBase.js';
 import { FilterStoreBaseImpl, useProvideFilterStoreBase } from '#core/stores/FilterStoreBase.js';
 import { FlowConnectionStateImpl, useProvideFlowConnectionState } from '#core/stores/FlowConnectionState.js';
+import { StatusBarStoreImpl, useProvideStatusBarStore } from '#core/stores/StatusBarStore.js';
 
 export type InternalStoresInitializerOptions = {
     flowChartModel: FlowChartModelBase;
@@ -21,10 +22,13 @@ export default function useInternalStoresInitializer(options: InternalStoresInit
     const factoryPaletteState = new FactoryPaletteStateImpl();
     useProvideFactoryPaletteState(factoryPaletteState);
 
+    const statusBarStore = new StatusBarStoreImpl();
+    useProvideStatusBarStore(statusBarStore);
+
     const flowChartModel = options.flowChartModel;
     useProvideFlowChartModelBase(flowChartModel);
 
-    const flowConnectionState = new FlowConnectionStateImpl(flowChartModel);
+    const flowConnectionState = new FlowConnectionStateImpl(flowChartModel, statusBarStore);
     useProvideFlowConnectionState(flowConnectionState);
 
     return {
@@ -33,5 +37,6 @@ export default function useInternalStoresInitializer(options: InternalStoresInit
         factoryPaletteState,
         flowChartModel,
         flowConnectionState,
+        statusBarStore,
     };
 }

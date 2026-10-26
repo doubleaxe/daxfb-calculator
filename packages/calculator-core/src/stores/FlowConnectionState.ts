@@ -10,6 +10,8 @@ import {
     type RecipeIOModelBase,
 } from '#core/game/model/index.js';
 
+import type { StatusBarStore } from './StatusBarStore.js';
+
 export const ConnectionMode = {
     None: 'None',
     Click: 'Click',
@@ -20,6 +22,7 @@ export type ConnectionMode = (typeof ConnectionMode)[keyof typeof ConnectionMode
 
 export class FlowConnectionStateImpl {
     private readonly flowChartModel: FlowChartModelBase;
+    private readonly statusBarStore: StatusBarStore;
     origin: RecipeIOModelBase | undefined = undefined;
     possibleDests: {
         factory: FactoryModelBase;
@@ -28,8 +31,9 @@ export class FlowConnectionStateImpl {
     connectedDests: RecipeIOModelBase[] = [];
     connectionMode: ConnectionMode = ConnectionMode.None;
 
-    constructor(flowChartModel: FlowChartModelBase) {
+    constructor(flowChartModel: FlowChartModelBase, statusBarStore: StatusBarStore) {
         this.flowChartModel = flowChartModel;
+        this.statusBarStore = statusBarStore;
     }
 
     clearActiveConnection() {
@@ -53,6 +57,7 @@ export class FlowConnectionStateImpl {
             this.connectedDests = [];
         }
         this.connectionMode = ConnectionMode.None;
+        this.statusBarStore.setSelectedItem(undefined);
     }
 
     startConnection(origin: RecipeIOModelBase, connectionMode: ConnectionMode) {
@@ -78,6 +83,7 @@ export class FlowConnectionStateImpl {
         }
 
         this.connectionMode = connectionMode;
+        this.statusBarStore.setSelectedItem(origin.label);
     }
 }
 

@@ -18,10 +18,22 @@ useDroppable({ id: FlowChartDroppable, element });
 function onClick(event: MouseEvent) {
     flowChartModel.events.emit('paneClickAnywhere', event);
 }
+function onPointerLeave(event: PointerEvent) {
+    flowChartModel.events.emit('panePointerLeave', event);
+}
+function onPointerOver(event: PointerEvent) {
+    flowChartModel.events.emit('panePointerOver', event);
+}
 </script>
 
 <template>
-    <div ref="element" :class="css({ width: 'full', height: 'full' })" @click="onClick">
+    <div
+        ref="element"
+        :class="css({ width: 'full', height: 'full' })"
+        @click="onClick"
+        @pointerleave="onPointerLeave"
+        @pointerover="onPointerOver"
+    >
         <FlowChart />
     </div>
 </template>

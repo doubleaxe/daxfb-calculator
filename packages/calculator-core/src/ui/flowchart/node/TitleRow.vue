@@ -59,6 +59,7 @@ const { data, dragging } = defineProps<{ dragging?: boolean } & FactoryNodeProps
             "
             :data-dragging="dragging ? 'true' : undefined"
             data-hoverable
+            :data-item="data.key"
         >
             {{ data.label }}
         </div>

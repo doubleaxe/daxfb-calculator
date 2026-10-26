@@ -8,6 +8,7 @@ import type { GameItemBase } from '#core/game/parser/index.js';
 import { useGameDataBase } from '#core/game/parser/index.js';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
 import { useFilterStoreBase } from '#core/stores/FilterStoreBase.js';
+import { useStatusBarStore } from '#core/stores/StatusBarStore.js';
 
 import GameIconDragging from '../components/GameIconDragging.vue';
 import GameIconDraggableSelectable from './GameIconDraggableSelectable.vue';
@@ -15,18 +16,23 @@ import GameIconDraggableSelectable from './GameIconDraggableSelectable.vue';
 const gameData = useGameDataBase();
 const filterStore = useFilterStoreBase();
 const factoryPaletteState = useFactoryPaletteState();
+const statusBarStore = useStatusBarStore();
 
 const dragItem = shallowRef<GameItemBase | undefined>(undefined);
 
 useDragDropMonitor({
     onDragStart(event) {
         if (typeof event.operation.source?.id === 'string') {
-            dragItem.value = gameData.getGameItem(event.operation.source.id);
+            const draggedFactory = gameData.getGameItem(event.operation.source.id);
+            dragItem.value = draggedFactory;
             factoryPaletteState.setSelectedFactory(undefined);
+            statusBarStore.setHoveredItem(undefined);
+            statusBarStore.setSelectedItem(draggedFactory?.label);
         }
     },
     onDragEnd() {
         dragItem.value = undefined;
+        statusBarStore.setSelectedItem(undefined);
     },
 });
 
@@ -39,9 +45,20 @@ function factoryFromEvent(target: EventTarget | null) {
 function handleItemClick(factory: GameItemBase | undefined) {
     if (factory === undefined) {
         factoryPaletteState.setSelectedFactory(undefined);
+        statusBarStore.setSelectedItem(undefined);
         return;
     }
-    factoryPaletteState.setSelectedFactory(factoryPaletteState.selectedFactory === factory ? undefined : factory);
+    const selectedFactory = factoryPaletteState.selectedFactory === factory ? undefined : factory;
+    factoryPaletteState.setSelectedFactory(selectedFactory);
+    statusBarStore.setSelectedItem(selectedFactory?.label);
+}
+
+function handleItemHover(event: PointerEvent) {
+    statusBarStore.setHoveredItem(factoryFromEvent(event.target)?.label);
+}
+
+function handleItemLeave() {
+    statusBarStore.setHoveredItem(undefined);
 }
 
 function handleItemKeydown(event: KeyboardEvent) {
@@ -57,6 +74,8 @@ function handleItemKeydown(event: KeyboardEvent) {
         :class="hstack({ gap: '0.5', padding: '2', flexWrap: 'wrap' })"
         @click="handleItemClick(factoryFromEvent($event.target))"
         @keydown="handleItemKeydown"
+        @pointerleave="handleItemLeave"
+        @pointerover="handleItemHover"
     >
         <template v-for="(group, index) in filterStore.filter" :key="index">
             <Divider v-if="index" />
