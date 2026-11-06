@@ -43,6 +43,9 @@ export abstract class RecipeModelBaseImpl {
     get output(): IterableIterator<RecipeIOModelBase> {
         return this.__output[Symbol.iterator]();
     }
+    get ports(): IterableIterator<RecipeIOModelBase> {
+        return this.__itemsArray[Symbol.iterator]();
+    }
 
     get visibleInput(): RecipeIOModelBase[] {
         return this.__input.filter((item) => !item.isHidden);

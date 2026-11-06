@@ -14,6 +14,7 @@ export type CreateRecipeIOModel<
 
 export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     public status: EdgeStatus = EdgeStatus.None;
+    public causesSolvingError = false;
 
     readonly isInput;
 
@@ -57,6 +58,15 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     }
     get linksCount() {
         return this.__links.size;
+    }
+    get cpsMax() {
+        const time = this.__io?.recipe?.time;
+        if (!time) return this.__io?.count ?? 0;
+        return (this.__io.count * 60) / time;
+    }
+
+    setCausesSolvingError(causesSolvingError: boolean) {
+        this.causesSolvingError = causesSolvingError;
     }
 
     isConnectable(target: RecipeIOModelBase) {

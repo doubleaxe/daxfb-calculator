@@ -158,6 +158,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 14.4.0(vue@3.5.42(typescript@5.9.3))
+      glpk.js:
+        specifier: ^5.0.0
+        version: 5.0.0
       nanoevents:
         specifier: 'catalog:'
         version: 9.1.0
@@ -2134,6 +2137,10 @@ packages:
 
   globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+
+  glpk.js@5.0.0:
+    resolution: {integrity: sha512-ni6nVv/EZVLs4dbN13Vy/H9pDTCjhB9oTlJ7tYi3e7zT6GCunUZJ0DuwCaJhmNc25sQUm6Ra18VaaMY8/fMWWw==}
+    engines: {node: '>=20'}
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -5129,6 +5136,10 @@ snapshots:
       slash: 3.0.0
 
   globrex@0.1.2: {}
+
+  glpk.js@5.0.0:
+    dependencies:
+      pako: 2.2.0
 
   gopd@1.2.0: {}
 

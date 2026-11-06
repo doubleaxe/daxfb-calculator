@@ -20,6 +20,6 @@ export type EdgeStatus = (typeof EdgeStatus)[keyof typeof EdgeStatus];
 export const NodeEdgeStatus = {
     ...NodeStatus,
     ...EdgeStatus,
-};
+} as const;
 
 export type NodeEdgeStatus = (typeof NodeEdgeStatus)[keyof typeof NodeEdgeStatus];

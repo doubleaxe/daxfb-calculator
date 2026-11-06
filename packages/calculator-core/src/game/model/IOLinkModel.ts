@@ -11,6 +11,7 @@ export abstract class IOLinkModelBaseImpl {
     readonly linkId;
     protected readonly __input: RecipeIOModelBaseImpl;
     protected readonly __output: RecipeIOModelBaseImpl;
+    protected __flow: number | undefined = undefined;
 
     constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl) {
         this.__input = input;
@@ -23,6 +24,13 @@ export abstract class IOLinkModelBaseImpl {
     }
     get output(): RecipeIOModelBase {
         return this.__output;
+    }
+    get flow() {
+        return this.__flow;
+    }
+
+    setFlow(flow: number | undefined) {
+        this.__flow = flow;
     }
 
     getOtherSide(item: RecipeIOModelBase): RecipeIOModelBase | undefined {

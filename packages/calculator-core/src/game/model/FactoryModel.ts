@@ -17,8 +17,14 @@ export type CreateFactoryModel<
 export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     public status: NodeStatus = NodeStatus.None;
     public isFlipped = false;
+    public partOfCycle = false;
+    public chainContainsError = false;
 
     protected __position: XYPosition = { x: 0, y: 0 };
+    protected __count = 1;
+    protected __solvedCount: number | undefined = undefined;
+    protected __weight: number | undefined = undefined;
+    protected __locked = false;
     protected readonly __recipesDictionary;
     protected __selectedRecipe?: RecipeModelBaseImpl;
 
@@ -44,6 +50,43 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
     get selectedRecipe(): RecipeModelBase | undefined {
         return this.__selectedRecipe;
+    }
+    get count() {
+        return this.__count;
+    }
+    get solvedCount() {
+        return this.__solvedCount;
+    }
+    get weight() {
+        return this.__weight;
+    }
+    get locked() {
+        return this.__locked;
+    }
+
+    setCount(count: number) {
+        this.__count = count;
+        this.__flowChart.__requestSolveGraph([this]);
+    }
+    setSolvedCount(solvedCount: number | undefined) {
+        this.__solvedCount = solvedCount;
+    }
+    setWeight(weight: number | undefined) {
+        this.__weight = weight;
+        this.__flowChart.__requestSolveGraph([this]);
+    }
+    setLocked(locked: boolean) {
+        this.__locked = locked;
+        this.__flowChart.__requestSolveGraph([this]);
+    }
+    resetSolutionStatus() {
+        this.chainContainsError = false;
+        for (const io of this.__selectedRecipe?.ports ?? []) {
+            io.setCausesSolvingError(false);
+            for (const link of io.links) {
+                link.setFlow(undefined);
+            }
+        }
     }
     __possibleRecipesForIo(sourceIo?: RecipeIOModelBase): string[] {
         if (!sourceIo) return [];

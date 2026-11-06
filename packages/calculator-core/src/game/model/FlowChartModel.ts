@@ -1,6 +1,7 @@
 import { createNanoEvents, type Emitter } from 'nanoevents';
 import { debounce } from 'perfect-debounce';
 
+import { useSolveGraphSingleton } from '../graph/Solver.js';
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartEventsBase } from './FlowChartEvents.js';
@@ -24,6 +25,7 @@ export abstract class FlowChartModelBaseImpl {
     protected __solveFrozen = false;
     private __changedItems: FactoryModelBaseImpl[] = [];
     private __solveEntireGraph = false;
+    private __solver = useSolveGraphSingleton();
 
     constructor(
         gameData: GameDataBase,
@@ -218,5 +220,6 @@ export abstract class FlowChartModelBaseImpl {
     }
     __solveGraphInternal(_changedItems: FactoryModelBaseImpl[]) {
         this.events.emit('solveGraph', _changedItems);
+        this.__solver(_changedItems.length ? _changedItems : this.__items.values()).catch(() => {});
     }
 }
