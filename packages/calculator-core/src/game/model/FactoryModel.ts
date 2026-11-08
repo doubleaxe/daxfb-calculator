@@ -51,6 +51,9 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     get selectedRecipe(): RecipeModelBase | undefined {
         return this.__selectedRecipe;
     }
+    get recipes() {
+        return this.__recipesDictionary.recipes;
+    }
     get count() {
         return this.__count;
     }

@@ -8,7 +8,8 @@ import { actionIconIndicatorStyle } from '#core/styles/ActionIconIndicator.js';
 
 import { NodeStatusConfig } from './StatusConfig.js';
 
-const { status } = defineProps<{
+const { status, showWrench } = defineProps<{
+    showWrench?: boolean;
     status: NodeStatus;
 }>();
 
@@ -35,7 +36,7 @@ const markerConfig = computed(() => NodeStatusConfig[status]);
         weight="bold"
     />
     <div
-        v-else
+        v-else-if="showWrench"
         :class="
             css({
                 display: 'none',
