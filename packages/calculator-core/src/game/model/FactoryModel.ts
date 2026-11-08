@@ -79,6 +79,9 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         this.__locked = locked;
         this.__flowChart.__requestSolveGraph([this]);
     }
+    flip() {
+        this.isFlipped = !this.isFlipped;
+    }
     resetSolutionStatus() {
         this.chainContainsError = false;
         for (const io of this.__selectedRecipe?.ports ?? []) {

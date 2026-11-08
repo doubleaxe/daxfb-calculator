@@ -10,6 +10,7 @@ import { draggingStyle } from '#core/styles/Dragging.js';
 import type { FactoryNodeInstanceProps } from '#core/types/flowchart/node/types.js';
 
 import FactorySurface from './FactorySurface.vue';
+import StatusBar from './StatusBar.vue';
 import TitleRow from './TitleRow.vue';
 
 // eslint-disable-next-line vue/no-unused-properties
@@ -59,5 +60,6 @@ watch(
     >
         <TitleRow :data="data" :dragging="dragging" />
         <FactorySurface :data="data" />
+        <StatusBar :item="data" />
     </div>
 </template>

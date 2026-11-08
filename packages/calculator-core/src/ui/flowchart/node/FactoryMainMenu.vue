@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { css } from '@daxfb/styles/css';
-import { PhLinkBreak, PhList, PhTrash } from '@phosphor-icons/vue';
+import { PhFlipHorizontal, PhLinkBreak, PhList, PhTrash } from '@phosphor-icons/vue';
 import Button from 'primevue/button';
 import Menu, { type MenuMethods } from 'primevue/menu';
 import type { MenuItem } from 'primevue/menuitem';
@@ -13,6 +13,13 @@ const { data } = defineProps<FactoryNodeProps>();
 const menu = useTemplateRef<MenuMethods | null>('menu');
 
 const items = computed<MenuItem[]>(() => [
+    {
+        label: 'Flip',
+        command: () => {
+            data.flip();
+        },
+        iconComponent: PhFlipHorizontal,
+    },
     {
         label: 'Delete all links',
         command: () => data.deleteAllLinks(),

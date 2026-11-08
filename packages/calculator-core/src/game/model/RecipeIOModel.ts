@@ -1,3 +1,5 @@
+import { formatNumber } from '#core/utils/format.js';
+
 import type { GameRecipeIOBase } from '../parser/index.js';
 import { GameRecipeIOFlagsBase } from '../parser/index.js';
 import { EdgeStatus } from './constants.js';
@@ -59,10 +61,30 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     get linksCount() {
         return this.__links.size;
     }
-    get cpsMax() {
+
+    get flowMax() {
         const time = this.__io?.recipe?.time;
         if (!time) return this.__io?.count ?? 0;
         return (this.__io.count * 60) / time;
+    }
+    get __combinedFlowMax() {
+        return this.flowMax * this.__factory.count;
+    }
+    get __combinedFlowTotal() {
+        return this.flowMax * (this.__factory.solvedCount ?? 0);
+    }
+    get __flowLinks() {
+        const flow = [...this.__links.values()].reduce((acc: number | undefined, link) => {
+            if (acc === undefined || link.flow === undefined) return acc ?? link.flow;
+            return (acc ?? 0) + (link.flow ?? 0);
+        }, undefined);
+        return flow;
+    }
+    formatCombinedFlowMax() {
+        return formatNumber(this.__combinedFlowMax);
+    }
+    formatCombinedFlowTotal() {
+        return formatNumber(this.__combinedFlowTotal);
     }
 
     setCausesSolvingError(causesSolvingError: boolean) {

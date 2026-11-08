@@ -16,6 +16,9 @@ const { io } = defineProps<{
 
 const isLtr = computed(() => (io.isFlipped ? !io.isInput : io.isInput));
 const edgePosition = computed(() => (isLtr.value ? Position.Left : Position.Right));
+
+const flowMax = computed(() => io.formatCombinedFlowMax());
+const flowTotal = computed(() => io.formatCombinedFlowTotal());
 </script>
 
 <template>
@@ -60,16 +63,20 @@ const edgePosition = computed(() => (isLtr.value ? Position.Left : Position.Righ
         </div>
         <div
             :class="
-                css({
-                    paddingLeft: '1',
-                    paddingRight: '1',
-                    flex: '1',
-                    textAlign: isLtr ? 'left' : 'right',
-                    fontSize: 'xs',
-                })
+                cx(
+                    stack({ alignItems: isLtr ? 'start' : 'end' }),
+                    css({
+                        paddingLeft: '1',
+                        paddingRight: '1',
+                        flex: '1',
+                        textAlign: isLtr ? 'left' : 'right',
+                        fontSize: 'xs',
+                    })
+                )
             "
         >
-            {{ io.label }}
+            <div>{{ flowTotal }}</div>
+            <div>{{ flowMax }}</div>
         </div>
     </div>
 </template>

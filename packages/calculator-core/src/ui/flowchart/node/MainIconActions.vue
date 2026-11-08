@@ -30,6 +30,10 @@ const cssVarsNonUpgradable = css({
     '--side-offset-y': '0px',
     '--side-height': 'var(--total-size-y)',
 });
+
+function count(offset: number) {
+    data.setCount(Math.max(data.count + offset, 0));
+}
 </script>
 
 <template>
@@ -72,6 +76,7 @@ const cssVarsNonUpgradable = css({
                     height: 'var(--side-height)',
                 })
             "
+            @click="count(-1)"
         >
             <PhMinus />
         </SideButton>
@@ -84,6 +89,7 @@ const cssVarsNonUpgradable = css({
                     height: 'var(--side-height)',
                 })
             "
+            @click="count(1)"
         >
             <PhPlus />
         </SideButton>

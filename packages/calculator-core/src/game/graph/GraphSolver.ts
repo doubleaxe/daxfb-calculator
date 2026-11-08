@@ -1,20 +1,20 @@
-import GLPK, { type LP } from 'glpk.js';
+import type { GLPK as GlpkType, LP } from 'glpk.js';
 
 import type { FactoryModelBase, IOLinkModelBase } from '../model/index.js';
 
-type Glpk = Awaited<ReturnType<typeof GLPK>>;
-
 export class GlpkGraphSolver {
-    private glpkInstance: Glpk | undefined;
+    private glpkInstance: GlpkType | undefined;
 
+    private static GLPK: () => Promise<GlpkType> | undefined;
     private static readonly SLACK_PENALTY = 10000;
     private static readonly CYCLE_BREAK_EPSILON = 0.0001;
     private static readonly SINK_FLOW_EPSILON = 0.01;
 
     private async getGlpk() {
         // Initialize WebAssembly engine
-        this.glpkInstance ??= await GLPK();
-        return this.glpkInstance;
+        GlpkGraphSolver.GLPK ??= (await import('glpk.js')).default;
+        this.glpkInstance ??= await GlpkGraphSolver.GLPK();
+        return this.glpkInstance!;
     }
 
     public async solve(items: FactoryModelBase[], links: IOLinkModelBase[]) {
@@ -33,7 +33,7 @@ export class GlpkGraphSolver {
         this.applySolution(isOptimal, result.result?.vars ?? {}, items, links);
     }
 
-    private generateLp(glpk: Glpk, items: FactoryModelBase[], links: IOLinkModelBase[]): LP {
+    private generateLp(glpk: GlpkType, items: FactoryModelBase[], links: IOLinkModelBase[]): LP {
         const objectiveVars: LP['objective']['vars'] = [];
         const subjectTo: LP['subjectTo'] = [];
         const bounds: NonNullable<LP['bounds']> = [];
@@ -91,7 +91,7 @@ export class GlpkGraphSolver {
                 }
 
                 vars.push({ name: `sink_${outKey}`, coef: -1 });
-                vars.push({ name: `m_${mKey}`, coef: outIo.cpsMax });
+                vars.push({ name: `m_${mKey}`, coef: outIo.flowMax });
                 subjectTo.push({
                     name: `c_out_${outKey}`,
                     vars,
@@ -108,7 +108,7 @@ export class GlpkGraphSolver {
                 }
 
                 vars.push({ name: `src_${inKey}`, coef: 1 });
-                vars.push({ name: `m_${mKey}`, coef: -inIo.cpsMax });
+                vars.push({ name: `m_${mKey}`, coef: -inIo.flowMax });
                 subjectTo.push({
                     name: `c_in_${inKey}`,
                     vars,
