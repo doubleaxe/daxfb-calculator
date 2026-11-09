@@ -41,7 +41,7 @@ function count(offset: number) {
         :class="
             cx(
                 cssVars,
-                data.upgradable ? cssVarsUpgradable : cssVarsNonUpgradable,
+                data.isUpgradable() ? cssVarsUpgradable : cssVarsNonUpgradable,
                 css({
                     position: 'relative',
                     width: 'var(--total-size-x)',
@@ -53,9 +53,11 @@ function count(offset: number) {
             )
         "
     >
-        <template v-if="data.upgradable">
+        <template v-if="data.isUpgradable()">
             <SideButton
                 :class="css({ top: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' })"
+                :disabled="!data.isUpgradable(1)"
+                @click="data.upgrade(1)"
             >
                 <PhCaretDoubleUp />
             </SideButton>
@@ -63,6 +65,8 @@ function count(offset: number) {
                 :class="
                     cx(css({ bottom: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' }))
                 "
+                :disabled="!data.isUpgradable(-1)"
+                @click="data.upgrade(-1)"
             >
                 <PhCaretDoubleDown />
             </SideButton>

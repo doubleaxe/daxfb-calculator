@@ -95,6 +95,9 @@ export abstract class FlowChartModelBaseImpl {
     }
 
     addItem(key: string): FactoryModelBase {
+        return this.__addItem(key);
+    }
+    __addItem(key: string): FactoryModelBaseImpl {
         const item = this.__factoryConstructor(this, key);
         // invalid item
         if (!item.key) return item;

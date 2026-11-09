@@ -41,8 +41,31 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         }
     }
 
-    get upgradable() {
-        return !!this.__item?.prevTier || !!this.__item?.nextTier;
+    isUpgradable(direction?: -1 | 1): boolean {
+        if (!this.__item?.prevTier && !this.__item?.nextTier) return false;
+        if (direction === undefined) return true;
+        if (direction < 0 && this.__item?.prevTier) return true;
+        if (direction > 0 && this.__item?.nextTier) return true;
+        return false;
+    }
+    upgrade(direction: -1 | 1) {
+        //tricky. will recreate new item, and place it instead of old one
+        const nextTier = direction > 0 ? this.__item?.nextTier : this.__item?.prevTier;
+        if (!nextTier) return;
+        const key = this.__flowChart.gameData.getGameItemByName(nextTier)?.key;
+        if (!key) return;
+
+        const newItem = this.__flowChart.__addItem(key);
+        newItem.isFlipped = this.isFlipped;
+        newItem.__position = this.__position;
+        newItem.__count = this.__count;
+        newItem.__weight = this.__weight;
+        newItem.__locked = this.__locked;
+        if (this.__selectedRecipe) {
+            newItem.__selectSimilarRecipe(this.__selectedRecipe);
+        }
+
+        this.deleteItem();
     }
 
     get position() {
@@ -110,6 +133,36 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
             if (possibleRecipes) possibleRecipesArray = possibleRecipesArray.concat(possibleRecipes);
         }
         return possibleRecipesArray;
+    }
+    __selectSimilarRecipe(otherRecipe: RecipeModelBaseImpl) {
+        //try to select similar recipe
+        //next tier may not have same recipe, we must just check all io, and select most appropriate
+        const recipeWeight = new Map<string, number>();
+        const calcWeight = (
+            ioArray: IterableIterator<RecipeIOModelBase> | undefined,
+            recipeMap: ReadonlyMap<string, string[]>
+        ) => {
+            if (!ioArray) {
+                return;
+            }
+            for (const io of ioArray) {
+                const recipe = recipeMap.get(io.key ?? '') ?? [];
+                for (const recipeItem of recipe) {
+                    const weight = recipeWeight.get(recipeItem) ?? 0;
+                    recipeWeight.set(recipeItem, weight + 1);
+                }
+            }
+        };
+        calcWeight(otherRecipe.input, this.__recipesDictionary.recipesByInputMap);
+        calcWeight(otherRecipe.output, this.__recipesDictionary.recipesByOutputMap);
+        const selectedRecipe = [...recipeWeight.entries()].sort((a, b) => b[1] - a[1])?.[0]?.[0];
+
+        if (selectedRecipe) {
+            this.selectRecipe(selectedRecipe);
+            if (this.__selectedRecipe) {
+                otherRecipe.__copySimilarLinksTo(this.__selectedRecipe);
+            }
+        }
     }
 
     setPosition(position: XYPosition) {

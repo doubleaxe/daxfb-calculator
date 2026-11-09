@@ -166,6 +166,12 @@ export abstract class GameRecipeDictionaryBaseImpl implements GameRecipeDictiona
         this.recipes = _recipeDictionary.recipes.map((r) => createGameRecipe(this, r));
         this.items = [];
         this.recipesMap = freezeMap(new Map<string, GameRecipeBase>(this.recipes.map((r) => [r.key, r])));
+
+        // abstract dictionary
+        if (!_recipeDictionary.key) {
+            this.recipesByInputMap = new Map();
+            this.recipesByOutputMap = new Map();
+        }
     }
 
     #recipesByProduct(type: 'input' | 'output') {
@@ -232,6 +238,7 @@ export abstract class ParsedGameDataBaseImpl<
 > {
     emptyRecipeDictionary: REC;
     parsedItems: ReadonlyMap<string, ITM>;
+    parsedItemsByName: ReadonlyMap<string, ITM>;
     parsedItemsArray: readonly ITM[];
     parsedItemsByType: ReadonlyMap<number, ITM[]>;
     parsedRecipes: ReadonlyMap<string, REC>;
@@ -252,6 +259,7 @@ export abstract class ParsedGameDataBaseImpl<
         });
 
         const parsedItemsArray = [...parsedItems.values()];
+        const parsedItemsByName = new Map<string, ITM>(parsedItemsArray.map((item) => [item.name, item]));
         const parsedItemsByType = parsedItemsArray.reduce((map, item) => {
             const type = item.type;
             const items = map.get(type);
@@ -326,6 +334,7 @@ export abstract class ParsedGameDataBaseImpl<
         this.emptyRecipeDictionary = createGameRecipeDictionary(null);
         this.emptyRecipeDictionary.freeze();
         this.parsedItems = freezeMap(parsedItems);
+        this.parsedItemsByName = freezeMap(parsedItemsByName);
         this.parsedItemsArray = Object.freeze(parsedItemsArray);
         this.parsedItemsByType = freezeMap(parsedItemsByType);
         this.parsedRecipes = freezeMap(parsedRecipes);
@@ -352,6 +361,7 @@ export abstract class GameDataBaseImpl<
     gameAbstractItems;
     gameItemsByType;
     #gameItemsMap;
+    #gameItemsByNameMap;
     gameFactoriesArray;
     description;
     #emptyRecipeDictionary;
@@ -360,6 +370,7 @@ export abstract class GameDataBaseImpl<
         parsedGameData: ParsedGameDataBase<DESCJ, RECJ, REC, ITMJ, ITM>
     ) {
         const gameItemsMap = parsedGameData.parsedItems;
+        const gameItemsByNameMap = parsedGameData.parsedItemsByName;
         const gameItemsArray = parsedGameData.parsedItemsArray;
         const gameItemsByType = parsedGameData.parsedItemsByType;
 
@@ -381,6 +392,7 @@ export abstract class GameDataBaseImpl<
         this.gameAbstractItems = freezeMap(gameAbstractItems);
         this.gameItemsByType = gameItemsByType;
         this.#gameItemsMap = gameItemsMap;
+        this.#gameItemsByNameMap = gameItemsByNameMap;
         this.gameFactoriesArray = Object.freeze(gameFactoriesArray);
         this.description = Object.freeze(gameData.description);
         Object.freeze(gameData.description.compatibleSaveVersions);
@@ -390,6 +402,9 @@ export abstract class GameDataBaseImpl<
 
     getGameItem(key: string) {
         return this.#gameItemsMap.get(key);
+    }
+    getGameItemByName(name: string) {
+        return this.#gameItemsByNameMap.get(name);
     }
     getItemRecipeDictionary(item?: GameItemBase) {
         return item?.recipeDictionary ?? this.#emptyRecipeDictionary;
