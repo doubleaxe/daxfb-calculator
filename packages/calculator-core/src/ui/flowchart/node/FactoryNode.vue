@@ -8,6 +8,7 @@ import { useFlowChartModelBase } from '#core/game/model/index.js';
 import { draggableSelectableCva } from '#core/styles/DraggableSelectable.js';
 import { draggingStyle } from '#core/styles/Dragging.js';
 import type { FactoryNodeInstanceProps } from '#core/types/flowchart/node/types.js';
+import { FactoryDataAttribute } from '#core/types/flowchart/types.js';
 
 import FactorySurface from './FactorySurface.vue';
 import StatusBar from './StatusBar.vue';
@@ -57,6 +58,7 @@ watch(
             )
         "
         :data-dragging="dragging || undefined"
+        v-bind="{ [FactoryDataAttribute]: '' }"
     >
         <TitleRow :data="data" :dragging="dragging" />
         <FactorySurface :data="data" />

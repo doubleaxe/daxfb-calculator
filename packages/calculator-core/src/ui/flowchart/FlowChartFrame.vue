@@ -6,7 +6,7 @@ import { useDroppable } from '@dnd-kit/vue';
 import { useTemplateRef } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
-import { FlowChartDroppable } from '#core/types/flowchart/types.js';
+import { FlowChartDroppable, FlowChartFrameId } from '#core/types/flowchart/types.js';
 
 import FlowChart from './FlowChart.vue';
 
@@ -28,6 +28,7 @@ function onPointerOver(event: PointerEvent) {
 
 <template>
     <div
+        :id="FlowChartFrameId"
         ref="element"
         :class="css({ width: 'full', height: 'full' })"
         @click="onClick"

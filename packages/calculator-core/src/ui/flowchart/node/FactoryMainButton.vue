@@ -108,6 +108,7 @@ watch(
                 :connectable-start="false"
                 :position="edgePosition"
                 :type="handleType"
+                @click.stop
             />
         </button>
         <RecipeMenuList v-if="hasRecipeMenu" ref="recipeMenu" :data="data" />

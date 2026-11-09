@@ -5,7 +5,7 @@ import { ref } from 'vue';
 import { type FlowChartModelBase, useFlowChartEvents } from '#core/game/model/index.js';
 import type { GameItemBase } from '#core/game/parser/index.js';
 import { useFactoryPaletteState } from '#core/stores/FactoryPaletteState.js';
-import { FlowChartDroppable } from '#core/types/flowchart/types.js';
+import { FlowChartDroppable, FlowChartFrameId } from '#core/types/flowchart/types.js';
 
 export type FlowChartDropIndicatorState = {
     item?: GameItemBase;
@@ -43,14 +43,35 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
     }
 
     function onPaneMouseMove(event: MouseEvent) {
-        if (!factoryPaletteState.selectedFactory) return;
-        const rect = vueFlowRef.value?.getBoundingClientRect();
-        dragIndicator.value = {
-            x: event.clientX - (rect?.left ?? 0),
-            y: event.clientY - (rect?.top ?? 0),
-            visible: true,
-            item: factoryPaletteState.selectedFactory,
-        };
+        const haveAnyMode = factoryPaletteState.selectedFactory;
+        if (!haveAnyMode) return;
+
+        const target = event.target instanceof HTMLElement || event.target instanceof SVGElement ? event.target : null;
+        let current = target;
+        let aboveAnyItem = false;
+        while (current && current !== document.body && current.getAttribute('id') !== FlowChartFrameId) {
+            if (current.classList.contains('vue-flow__node') || current.classList.contains('vue-flow__edge')) {
+                aboveAnyItem = true;
+                break;
+            }
+            current = current.parentElement;
+        }
+        if (aboveAnyItem) {
+            // we are above factory or connection line
+            dragIndicator.value = { x: 0, y: 0 };
+            return;
+        }
+
+        if (factoryPaletteState.selectedFactory) {
+            // drop from palette
+            const rect = vueFlowRef.value?.getBoundingClientRect();
+            dragIndicator.value = {
+                x: event.clientX - (rect?.left ?? 0),
+                y: event.clientY - (rect?.top ?? 0),
+                visible: true,
+                item: factoryPaletteState.selectedFactory,
+            };
+        }
     }
 
     function onPaneClick(event: MouseEvent) {

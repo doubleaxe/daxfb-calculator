@@ -5,6 +5,7 @@ import { computed } from 'vue';
 
 import { useFlowChartModelBase } from '#core/game/model/index.js';
 import type { FactoryEdgeInstanceProps } from '#core/types/flowchart/edge/types.js';
+import { FactoryEdgeDataAttribute } from '#core/types/flowchart/types.js';
 
 // eslint-disable-next-line vue/no-unused-properties
 const props = defineProps<FactoryEdgeInstanceProps>();
@@ -39,5 +40,6 @@ const edgePath = computed(() => {
             })
         "
         :path="edgePath"
+        v-bind="{ [FactoryEdgeDataAttribute]: '' }"
     />
 </template>
