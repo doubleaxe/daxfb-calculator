@@ -3,6 +3,8 @@ export type RemovePackagePrivateMembers<T> = {
 };
 
 export type InterfaceOf<T> = Pick<T, keyof T>;
+export type Keys<T> = keyof T;
+export type Values<T> = T[keyof T];
 export type PublicInterfaceOf<T> = RemovePackagePrivateMembers<InterfaceOf<T>>;
 export type ReadonlyInterfaceOf<T> = Readonly<InterfaceOf<T>>;
 export type ReadonlyPublicInterfaceOf<T> = Readonly<PublicInterfaceOf<T>>;

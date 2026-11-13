@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@doubleaxe/typescript-config/web.json",
   "compilerOptions": {
+    "types": ["vite/client"],
     "noEmit": true,
     "declaration": false,
     "declarationMap": false,
@@ -11,5 +12,5 @@
       "#core/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "src/vite-env.d.ts"]
 }

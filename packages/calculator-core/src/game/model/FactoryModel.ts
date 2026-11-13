@@ -1,7 +1,10 @@
+import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
+
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
+import type { SerializedFactory, SerializedLink } from './SerializedModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
 type XYPosition = {
@@ -16,11 +19,11 @@ export type CreateFactoryModel<
 
 export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     public status: NodeStatus = NodeStatus.None;
-    public isFlipped = false;
     public partOfCycle = false;
     public chainContainsError = false;
 
     protected __position: XYPosition = { x: 0, y: 0 };
+    protected __isFlipped = false;
     protected __count = 1;
     protected __solvedCount: number | undefined = undefined;
     protected __weight: number | undefined = undefined;
@@ -56,7 +59,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         if (!key) return;
 
         const newItem = this.__flowChart.__addItem(key);
-        newItem.isFlipped = this.isFlipped;
+        newItem.__isFlipped = this.__isFlipped;
         newItem.__position = this.__position;
         newItem.__count = this.__count;
         newItem.__weight = this.__weight;
@@ -70,6 +73,9 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
 
     get position() {
         return this.__position;
+    }
+    get isFlipped() {
+        return this.__isFlipped;
     }
     get selectedRecipe(): RecipeModelBase | undefined {
         return this.__selectedRecipe;
@@ -105,8 +111,8 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         this.__locked = locked;
         this.__flowChart.__requestSolveGraph([this]);
     }
-    flip() {
-        this.isFlipped = !this.isFlipped;
+    setFlipped(isFlipped: boolean) {
+        this.__isFlipped = isFlipped;
     }
     resetSolutionStatus() {
         this.chainContainsError = false;
@@ -204,5 +210,37 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
     __findAlreadyLinked(target: RecipeIOModelBase) {
         return this.__selectedRecipe?.__findAlreadyLinked(target);
+    }
+
+    __save(offsetBy?: XYPosition): SerializedFactory {
+        const position = this.__position;
+        return {
+            n: this.__item?.key ?? '',
+            p: [Math.round(position.x - (offsetBy?.x ?? 0)), Math.round(position.y - (offsetBy?.y ?? 0))],
+            r: this.__selectedRecipe?.key ?? '',
+            c: this.__count === 1 ? undefined : this.__count,
+            f: this.__isFlipped ? 1 : undefined,
+            w: this.__weight,
+            ...this.__selectedRecipe?.__saveIoOrder(),
+        };
+    }
+    __loadItem(i: SerializedFactory, errorCollector: ErrorCollector) {
+        if (!this.selectRecipe(i.r)) {
+            errorCollector.collectError(`Cannot select recipe ${i.r} for item ${this.label}`);
+        }
+        this.__position = {
+            x: i.p[0] ?? 0,
+            y: i.p[1] ?? 0,
+        };
+        this.__count = i.c ?? 1;
+        this.__isFlipped = !!i.f;
+        this.__weight = i.w;
+        this.__selectedRecipe?.__loadIoOrder(i);
+    }
+    __loadLink(l: SerializedLink, outputItem: FactoryModelBaseImpl, errorCollector: ErrorCollector) {
+        if (this.__selectedRecipe && outputItem.__selectedRecipe) {
+            return this.__selectedRecipe.__loadLink(l, outputItem.__selectedRecipe, errorCollector);
+        }
+        return undefined;
     }
 }

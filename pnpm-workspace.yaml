@@ -23,6 +23,7 @@ catalog:
   primevue: ^4.5.5
   tslib: ^2.8.1
   typescript: ^5.9.3
+  vite: ^7.3.6
   vue: ^3.5.42
   vue-tsc: ^3.3.11
   wait-on: ^9.1.0

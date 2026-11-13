@@ -21,7 +21,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     readonly isInput;
 
     protected readonly __io;
-    protected readonly __recipe;
+    readonly __recipe;
     protected readonly __links = new Map<string, IOLinkModelBaseImpl>();
 
     constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase) {

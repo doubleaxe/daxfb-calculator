@@ -1,6 +1,10 @@
+import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
+
 import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
+import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
+import type { SerializedLink, SerializedOrder } from './SerializedModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeModel<
@@ -83,6 +87,90 @@ export abstract class RecipeModelBaseImpl {
             const similarIo = possibleSimilarIo.find((io) => io.key === targetIo.key);
             if (!similarIo) continue;
             similarIo.__copySimilarLinksTo(targetIo);
+        }
+    }
+
+    __loadLink(l: SerializedLink, outputRecipe: RecipeModelBaseImpl, errorCollector: ErrorCollector) {
+        let inputIoArray = [...(this.__input ?? [])];
+        let outputIoArray = [...(outputRecipe.__output ?? [])];
+        if (!inputIoArray.length || !outputIoArray.length) return undefined;
+        //if we can link by multiple paths for same item - then link is ambiguous
+        //we should restore saved name
+        if (l.n) {
+            inputIoArray = inputIoArray.filter((io) => io.key === l.n);
+            outputIoArray = outputIoArray.filter((io) => io.key === l.n);
+        }
+        let link: IOLinkModelBaseImpl | undefined;
+        for (const inputIo of inputIoArray) {
+            const maybeTarget = outputIoArray.find((io) => io.key === inputIo.key);
+            if (maybeTarget) {
+                link = this.__factory.__flowChart?.__createLink(
+                    inputIo.__recipe.__factory,
+                    inputIo,
+                    maybeTarget.__recipe.__factory,
+                    maybeTarget
+                );
+                break;
+            }
+        }
+        if (!link) {
+            errorCollector.collectError(
+                `Cannot load link "${outputRecipe.__factory.label}" => "${this.__factory.label}"`
+            );
+        }
+        return link;
+    }
+    __saveIoOrder() {
+        const order = {
+            input: {
+                original: this.__recipe?.input ?? [],
+                user: this.__input,
+            },
+            output: {
+                original: this.__recipe?.output ?? [],
+                user: this.__output,
+            },
+        };
+        const savedOrder: SerializedOrder = {};
+        for (const [key, value] of Object.entries(order)) {
+            const hasOriginalOrder = value.original.every((io, index) => value.user[index]?.key === io.key);
+            if (!hasOriginalOrder) {
+                const originalIndexes = new Map<string, number>(value.original.map((io, index) => [io.name, index]));
+                const customOrder = value.user.map((io, index) => {
+                    const originalIndex = originalIndexes.get(io.key ?? '');
+                    if (originalIndex !== undefined) return originalIndex;
+                    return index;
+                });
+                if (key === 'input') {
+                    savedOrder.o1 = customOrder;
+                } else {
+                    savedOrder.o2 = customOrder;
+                }
+            }
+        }
+        return savedOrder;
+    }
+    __loadIoOrder(savedOrder: SerializedOrder) {
+        const order = [
+            {
+                original: this.__recipe?.input ?? [],
+                user: this.__input,
+                order: savedOrder.o1,
+            },
+            {
+                original: this.__recipe?.output ?? [],
+                user: this.__output,
+                order: savedOrder.o2,
+            },
+        ];
+        for (const value of order) {
+            if (!value.order) continue;
+            const customOrder = new Map<string, number>(
+                value.order.map((originalIndex, customIndex) => [value.original[originalIndex]?.key ?? '', customIndex])
+            );
+            [...value.user].forEach((io) => {
+                value.user[customOrder.get(io.key ?? '') ?? 0] = io;
+            });
         }
     }
 }

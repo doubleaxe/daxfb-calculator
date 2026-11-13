@@ -1,5 +1,6 @@
 import { newId } from './internal.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
+import type { SerializedLink } from './SerializedModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateIOLinkModel<
@@ -47,5 +48,23 @@ export abstract class IOLinkModelBaseImpl {
         const inputFactory = this.__input.__deleteLink(this.linkId);
         const outputFactory = this.__output.__deleteLink(this.linkId);
         inputFactory.__flowChart.__deleteLink(this, [inputFactory, outputFactory]);
+    }
+
+    __save(input?: number, output?: number): SerializedLink {
+        //if we can link by multiple paths for same item - then link is ambiguous
+        //we should store name as well in this case
+        let isAmbiguous = false;
+        const allInputs = this.__input?.__recipe?.input;
+        const allOutputs = this.__output?.__recipe?.output;
+        const allInputsNames = new Set([...(allInputs || [])].map((i) => i.key ?? ''));
+        const similarIo = [...(allOutputs || [])].reduce((sum, i) => {
+            if (allInputsNames.has(i.key ?? '')) sum++;
+            return sum;
+        }, 0);
+        isAmbiguous = similarIo > 1;
+        return {
+            l: [input ?? 0, output ?? 0],
+            n: isAmbiguous ? this.input?.key : undefined,
+        };
     }
 }
