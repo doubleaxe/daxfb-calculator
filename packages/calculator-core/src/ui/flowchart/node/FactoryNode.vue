@@ -34,7 +34,7 @@ watch(
 </script>
 
 <template>
-    <NodeToolbar v-if="false">
+    <NodeToolbar>
         <button type="button">cut</button>
     </NodeToolbar>
     <div

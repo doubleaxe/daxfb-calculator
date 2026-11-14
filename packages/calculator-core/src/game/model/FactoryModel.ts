@@ -1,10 +1,11 @@
 import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 
+import type { FlowChartAction } from '../actions/index.js';
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
+import type { SerializedFactory, SerializedLink } from './ModelSerialized.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
-import type { SerializedFactory, SerializedLink } from './SerializedModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
 type XYPosition = {
@@ -96,23 +97,55 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return this.__locked;
     }
 
-    setCount(count: number) {
-        this.__count = count;
-        this.__flowChart.__requestSolveGraph([this]);
+    setCount(count: number): FlowChartAction {
+        const countOld = this.__count;
+        return {
+            after: () => this.__flowChart.__requestSolveGraph([this]),
+            undo: () => {
+                this.__count = countOld;
+            },
+            redo: () => {
+                this.__count = count;
+            },
+        };
     }
     setSolvedCount(solvedCount: number | undefined) {
         this.__solvedCount = solvedCount;
     }
-    setWeight(weight: number | undefined) {
-        this.__weight = weight;
-        this.__flowChart.__requestSolveGraph([this]);
+    setWeight(weight: number | undefined): FlowChartAction {
+        const weightOld = this.__weight;
+        return {
+            after: () => this.__flowChart.__requestSolveGraph([this]),
+            undo: () => {
+                this.__weight = weightOld;
+            },
+            redo: () => {
+                this.__weight = weight;
+            },
+        };
     }
-    setLocked(locked: boolean) {
-        this.__locked = locked;
-        this.__flowChart.__requestSolveGraph([this]);
+    setLocked(locked: boolean): FlowChartAction {
+        const lockedOld = this.__locked;
+        return {
+            after: () => this.__flowChart.__requestSolveGraph([this]),
+            undo: () => {
+                this.__locked = lockedOld;
+            },
+            redo: () => {
+                this.__locked = locked;
+            },
+        };
     }
-    setFlipped(isFlipped: boolean) {
-        this.__isFlipped = isFlipped;
+    setFlipped(isFlipped: boolean): FlowChartAction {
+        const isFlippedOld = this.__isFlipped;
+        return {
+            undo: () => {
+                this.__isFlipped = isFlippedOld;
+            },
+            redo: () => {
+                this.__isFlipped = isFlipped;
+            },
+        };
     }
     resetSolutionStatus() {
         this.chainContainsError = false;
@@ -176,7 +209,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
 
     deleteAllLinks() {
-        this.__selectedRecipe?.__deleteAllLinks();
+        return this.__selectedRecipe?.__deleteAllLinks();
     }
     deleteItem() {
         //if it is not linked to anything, it will not change graph

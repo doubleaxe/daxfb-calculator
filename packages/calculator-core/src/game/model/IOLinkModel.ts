@@ -1,6 +1,6 @@
 import { newId } from './internal.js';
+import type { SerializedLink } from './ModelSerialized.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
-import type { SerializedLink } from './SerializedModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateIOLinkModel<

@@ -1,10 +1,11 @@
 import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 
+import type { FlowChartAction } from '../actions/index.js';
 import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { SerializedLink, SerializedOrder } from './ModelSerialized.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
-import type { SerializedLink, SerializedOrder } from './SerializedModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeModel<
@@ -78,8 +79,15 @@ export abstract class RecipeModelBaseImpl {
         const otherSide = target.isInput ? this.__output : this.__input;
         return otherSide.find((io) => io.__findAlreadyLinked(target));
     }
-    __deleteAllLinks() {
-        this.__itemsArray.forEach((io) => io.__deleteAllLinks());
+    __deleteAllLinks(): FlowChartAction {
+        return {
+            undo: () => {
+                this.__isFlipped = isFlippedOld;
+            },
+            redo: () => {
+                this.__itemsArray.forEach((io) => io.__deleteAllLinks());
+            },
+        };
     }
     __copySimilarLinksTo(targetRecipe: RecipeModelBaseImpl) {
         for (const targetIo of targetRecipe.__itemsArray) {

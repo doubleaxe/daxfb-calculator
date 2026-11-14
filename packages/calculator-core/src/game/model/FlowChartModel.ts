@@ -3,14 +3,15 @@ import { debounce } from 'perfect-debounce';
 
 import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 
+import type { FlowChartAction } from '../actions/index.js';
 import { useSolveGraphSingleton } from '../graph/Solver.js';
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartEventsBase } from './FlowChartEvents.js';
 import { normalizeItemPositions, resetIdStore } from './internal.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { SerializedFlowChart } from './ModelSerialized.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
-import type { SerializedFlowChart } from './SerializedModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
 export abstract class FlowChartModelBaseImpl {
@@ -92,6 +93,18 @@ export abstract class FlowChartModelBaseImpl {
             }
         }
         return connectable;
+    }
+
+    setChartName(name: string): FlowChartAction {
+        const nameOld = this.chartName;
+        return {
+            undo: () => {
+                this.chartName = nameOld;
+            },
+            redo: () => {
+                this.chartName = name;
+            },
+        };
     }
 
     resetChartName() {

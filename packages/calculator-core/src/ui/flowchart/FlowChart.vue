@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { MoveFactoryAction, useHistoryManager } from '@daxfb/core/game/actions/index.js';
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';
 import { ConnectionMode, type EdgeComponent, type NodeComponent, useVueFlow, VueFlow } from '@vue-flow/core';
@@ -22,6 +23,7 @@ const nodeTypes: Record<string, NodeComponent> = { [FactoryNodeTypeName]: markRa
 const edgeTypes: Record<string, EdgeComponent> = { [FactoryEdgeTypeName]: markRaw(FactoryEdge as Component) };
 
 const flowChartModel = useFlowChartModelBase();
+const historyManager = useHistoryManager();
 const { setNodes, setEdges, findNode, findEdge } = useVueFlow();
 
 function syncNodes() {
@@ -69,7 +71,9 @@ useFlowChartHoverManager(flowChartModel);
 function onNodeDragStop(event: { node: { id: string; position: { x: number; y: number }; type?: string } }) {
     if (event.node.type === FactoryNodeTypeName) {
         const data = flowChartModel.itemByKey(event.node.id);
-        data?.setPosition(event.node.position);
+        if (data) {
+            historyManager.execute(new MoveFactoryAction(flowChartModel, data, event.node.position));
+        }
     }
 }
 

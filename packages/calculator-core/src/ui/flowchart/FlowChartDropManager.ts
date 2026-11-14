@@ -1,3 +1,4 @@
+import { AddFactoryAction, useHistoryManager } from '@daxfb/core/game/actions/index.js';
 import { useDragDropMonitor } from '@dnd-kit/vue';
 import { useVueFlow } from '@vue-flow/core';
 import { ref } from 'vue';
@@ -17,6 +18,7 @@ export type FlowChartDropIndicatorState = {
 export default function useFlowChartDropManager(flowChartModel: FlowChartModelBase) {
     const { screenToFlowCoordinate, vueFlowRef } = useVueFlow();
     const factoryPaletteState = useFactoryPaletteState();
+    const historyManager = useHistoryManager();
     const dragIndicator = ref<FlowChartDropIndicatorState>({ x: 0, y: 0 });
 
     useDragDropMonitor({
@@ -28,13 +30,12 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
             if (!factoryKey) {
                 return;
             }
-            const factory = flowChartModel.addItem(String(factoryKey));
             const rect = event.operation.position.current;
             const position = screenToFlowCoordinate({
                 x: rect?.x ?? 0,
                 y: rect?.y ?? 0,
             });
-            factory.setPosition(position);
+            historyManager.execute(new AddFactoryAction(flowChartModel, String(factoryKey), position));
         },
     });
 
@@ -76,12 +77,13 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
 
     function onPaneClick(event: MouseEvent) {
         if (!factoryPaletteState.selectedFactory) return;
-        const factory = flowChartModel.addItem(String(factoryPaletteState.selectedFactory.key));
         const position = screenToFlowCoordinate({
             x: event.clientX,
             y: event.clientY,
         });
-        factory.setPosition(position);
+        historyManager.execute(
+            new AddFactoryAction(flowChartModel, String(factoryPaletteState.selectedFactory.key), position)
+        );
         factoryPaletteState.setSelectedFactory(undefined);
         dragIndicator.value = { x: 0, y: 0 };
     }

@@ -1,3 +1,4 @@
+import { CreateLinkAction, CreateLinkAutoAction, useHistoryManager } from '@daxfb/core/game/actions/index.js';
 import { type Connection, type OnConnectStartParams, useVueFlow } from '@vue-flow/core';
 import { onScopeDispose } from 'vue';
 
@@ -11,6 +12,7 @@ type ConnectStartParams = {
 
 export default function useFlowChartConnectionManager(flowChartModel: FlowChartModelBase) {
     const flowConnectionState = useFlowConnectionState();
+    const historyManager = useHistoryManager();
     const { endConnection } = useVueFlow();
 
     let pendingDrag: { io: RecipeIOModelBase; x: number; y: number } | undefined;
@@ -92,18 +94,28 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
 
         if (destItemId === destHandleId) {
             // factory handle
-            flowChartModel.createLinkAuto(originItemId, originHandleId, destItemId);
+            historyManager.execute(
+                new CreateLinkAutoAction(flowChartModel, {
+                    sourceId: originItemId,
+                    sourceIOId: originHandleId,
+                    targetId: destItemId,
+                    targetIOId: destHandleId,
+                })
+            );
             return;
         }
 
-        flowChartModel.createLink(
-            {
-                sourceId: originItemId,
-                sourceIOId: originHandleId,
-                targetId: destItemId,
-                targetIOId: destHandleId,
-            },
-            true
+        historyManager.execute(
+            new CreateLinkAction(
+                flowChartModel,
+                {
+                    sourceId: originItemId,
+                    sourceIOId: originHandleId,
+                    targetId: destItemId,
+                    targetIOId: destHandleId,
+                },
+                true
+            )
         );
         flowConnectionState.clearActiveConnection();
     }

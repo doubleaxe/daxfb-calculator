@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import { SetFactoryCountAction, UpgradeFactoryAction, useHistoryManager } from '@daxfb/core/game/actions/index.js';
 import { css, cx } from '@daxfb/styles/css';
 import { PhCaretDoubleDown, PhCaretDoubleUp, PhMinus, PhPlus } from '@phosphor-icons/vue';
 
+import { useFlowChartModelBase } from '#core/game/model/index.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 
 import FactoryMainButton from './FactoryMainButton.vue';
 import SideButton from './SideButton.vue';
 
 const { data } = defineProps<FactoryNodeProps>();
+
+const flowChartModel = useFlowChartModelBase();
+const historyManager = useHistoryManager();
 
 const cssVars = css({
     '--action-icon-size': '20px',
@@ -32,7 +37,11 @@ const cssVarsNonUpgradable = css({
 });
 
 function count(offset: number) {
-    data.setCount(Math.max(data.count + offset, 0));
+    historyManager.execute(new SetFactoryCountAction(data, Math.max(data.count + offset, 0)));
+}
+
+function upgrade(direction: -1 | 1) {
+    historyManager.execute(new UpgradeFactoryAction(flowChartModel, data, direction));
 }
 </script>
 
@@ -57,7 +66,7 @@ function count(offset: number) {
             <SideButton
                 :class="css({ top: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' })"
                 :disabled="!data.isUpgradable(1)"
-                @click="data.upgrade(1)"
+                @click="upgrade(1)"
             >
                 <PhCaretDoubleUp />
             </SideButton>
@@ -66,7 +75,7 @@ function count(offset: number) {
                     cx(css({ bottom: '0', left: '0', width: 'var(--total-size-x)', height: 'var(--action-icon-size)' }))
                 "
                 :disabled="!data.isUpgradable(-1)"
-                @click="data.upgrade(-1)"
+                @click="upgrade(-1)"
             >
                 <PhCaretDoubleDown />
             </SideButton>

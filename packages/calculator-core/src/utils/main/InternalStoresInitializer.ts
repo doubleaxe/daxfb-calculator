@@ -1,3 +1,6 @@
+import { useProvideHistoryManager } from '@daxfb/core/game/actions/index.js';
+
+import { HistoryManagerImpl } from '#core/game/actions/HistoryManager.js';
 import type { FlowChartModelBase } from '#core/game/model/index.js';
 import { useProvideFlowChartModelBase } from '#core/game/model/index.js';
 import { type GameDataBase, useGameDataBase } from '#core/game/parser/index.js';
@@ -31,6 +34,9 @@ export default function useInternalStoresInitializer(options: InternalStoresInit
     const flowConnectionState = new FlowConnectionStateImpl(flowChartModel, statusBarStore);
     useProvideFlowConnectionState(flowConnectionState);
 
+    const historyManager = new HistoryManagerImpl(flowChartModel);
+    useProvideHistoryManager(historyManager);
+
     return {
         gameData,
         filterStore,
@@ -38,5 +44,6 @@ export default function useInternalStoresInitializer(options: InternalStoresInit
         flowChartModel,
         flowConnectionState,
         statusBarStore,
+        historyManager,
     };
 }

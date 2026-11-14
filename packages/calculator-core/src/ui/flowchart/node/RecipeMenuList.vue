@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { SelectRecipeAction, useHistoryManager } from '@daxfb/core/game/actions/index.js';
 import { css } from '@daxfb/styles/css';
 import { hstack } from '@daxfb/styles/patterns';
 import { PhArrowRight } from '@phosphor-icons/vue';
@@ -6,12 +7,14 @@ import Menu, { type MenuMethods } from 'primevue/menu';
 import type { MenuItem } from 'primevue/menuitem';
 import { computed, useTemplateRef } from 'vue';
 
-import type { FactoryModelBase } from '#core/game/model/index.js';
+import { type FactoryModelBase, useFlowChartModelBase } from '#core/game/model/index.js';
 import { type GameRecipeBase, type GameRecipeIOBase, GameRecipeIOFlagsBase } from '#core/game/parser/index.js';
 import GameIcon from '#core/ui/components/GameIcon.vue';
 
 const { data } = defineProps<{ data: FactoryModelBase }>();
 
+const flowChartModel = useFlowChartModelBase();
+const historyManager = useHistoryManager();
 const menu = useTemplateRef<MenuMethods | null>('menu');
 
 const menuPt = {
@@ -28,7 +31,7 @@ const items = computed<MenuItem[]>(() =>
         label: recipe.output.map((io) => io.name).join(', '),
         recipe,
         class: data.selectedRecipe?.key === recipe.key ? selectedClass : undefined,
-        command: () => data.selectRecipe(recipe.key),
+        command: () => historyManager.execute(new SelectRecipeAction(flowChartModel, data, recipe.key)),
     }))
 );
 

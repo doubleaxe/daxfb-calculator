@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import {
+    DeleteAllLinksAction,
+    DeleteFactoryAction,
+    FlipFactoryAction,
+    useHistoryManager,
+} from '@daxfb/core/game/actions/index.js';
 import { css } from '@daxfb/styles/css';
 import { PhFlipHorizontal, PhLinkBreak, PhList, PhTrash } from '@phosphor-icons/vue';
 import Button from 'primevue/button';
@@ -6,28 +12,29 @@ import Menu, { type MenuMethods } from 'primevue/menu';
 import type { MenuItem } from 'primevue/menuitem';
 import { computed, useTemplateRef } from 'vue';
 
+import { useFlowChartModelBase } from '#core/game/model/index.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 
 const { data } = defineProps<FactoryNodeProps>();
 
+const flowChartModel = useFlowChartModelBase();
+const historyManager = useHistoryManager();
 const menu = useTemplateRef<MenuMethods | null>('menu');
 
 const items = computed<MenuItem[]>(() => [
     {
         label: 'Flip',
-        command: () => {
-            data.flip();
-        },
+        command: () => historyManager.execute(new FlipFactoryAction(data)),
         iconComponent: PhFlipHorizontal,
     },
     {
         label: 'Delete all links',
-        command: () => data.deleteAllLinks(),
+        command: () => historyManager.execute(new DeleteAllLinksAction(data)),
         iconComponent: PhLinkBreak,
     },
     {
         label: 'Delete',
-        command: () => data.deleteItem(),
+        command: () => historyManager.execute(new DeleteFactoryAction(flowChartModel, data)),
         iconComponent: PhTrash,
     },
 ]);
