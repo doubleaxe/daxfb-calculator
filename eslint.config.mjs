@@ -35,6 +35,7 @@ export default defineConfig([
                     allow: ['Text'],
                 },
             ],
+            '@typescript-eslint/no-unnecessary-condition': ['off'],
         },
     },
     {

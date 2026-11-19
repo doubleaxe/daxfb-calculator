@@ -3,16 +3,11 @@ import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 import type { FlowChartAction } from '../actions/index.js';
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
+import type { XYPosition } from './internal.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { SerializedFactory, SerializedLink } from './ModelSerialized.js';
-import { FactorySnapshotBase, type FactorySnapshotDataBase } from './ModelSnapshot.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
-
-type XYPosition = {
-    x: number;
-    y: number;
-};
 
 export type CreateFactoryModel<
     CHART extends FlowChartModelBaseImpl = FlowChartModelBaseImpl,
@@ -246,18 +241,6 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return this.__selectedRecipe?.__findAlreadyLinked(target);
     }
 
-    __save(offsetBy?: XYPosition): SerializedFactory {
-        const position = this.__position;
-        return {
-            n: this.__item?.key ?? '',
-            p: [Math.round(position.x - (offsetBy?.x ?? 0)), Math.round(position.y - (offsetBy?.y ?? 0))],
-            r: this.__selectedRecipe?.key ?? '',
-            c: this.__count === 1 ? undefined : this.__count,
-            f: this.__isFlipped ? 1 : undefined,
-            w: this.__weight,
-            ...this.__selectedRecipe?.__saveIoOrder(),
-        };
-    }
     __loadItem(i: SerializedFactory, errorCollector: ErrorCollector) {
         if (!this.selectRecipe(i.r)) {
             errorCollector.collectError(`Cannot select recipe ${i.r} for item ${this.label}`);
@@ -278,11 +261,8 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return undefined;
     }
 
-    protected __newSnapshot(snapshot: FactorySnapshotDataBase) {
-        return new FactorySnapshotBase(this.__flowChart, snapshot);
-    }
     __saveToSnapshot() {
-        const snapshot = this.__newSnapshot({
+        const snapshot = this.__flowChart.__newFactorySnapshot({
             count: this.__count,
             isFlipped: this.__isFlipped,
             itemId: this.itemId,

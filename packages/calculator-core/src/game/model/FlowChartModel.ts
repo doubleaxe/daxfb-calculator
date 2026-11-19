@@ -8,10 +8,23 @@ import { useSolveGraphSingleton } from '../graph/Solver.js';
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartEventsBase } from './FlowChartEvents.js';
-import { normalizeItemPositions, resetIdStore } from './internal.js';
+import { resetIdStore } from './internal.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
 import type { SerializedFlowChart } from './ModelSerialized.js';
-import { FlowChartSnapshotBase, type FlowChartSnapshotDataBase } from './ModelSnapshot.js';
+import type {
+    FactorySnapshotDataBase,
+    FlowChartSnapshotDataBase,
+    IOLinkSnapshotDataBase,
+    RecipeIOSnapshotDataBase,
+    RecipeSnapshotDataBase,
+} from './ModelSnapshot.js';
+import {
+    FactorySnapshotBase,
+    FlowChartSnapshotBase,
+    IOLinkSnapshotBase,
+    RecipeIOSnapshotBase,
+    RecipeSnapshotBase,
+} from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -214,33 +227,29 @@ export abstract class FlowChartModelBaseImpl {
     }
 
     save() {
-        //normalize positions before saving
-        const items = [...this.__items.values()];
-        const links = [...this.__links.values()];
-        const { minItemXY: offsetBy } = normalizeItemPositions(items);
-        const itemIndexes = new Map(items.map((item, index) => [item.key, index]));
-        const serialized: SerializedFlowChart = {
-            i: items.map((item) => item.__save(offsetBy)),
-            l: links.map((link) =>
-                link.__save(
-                    itemIndexes.get(link.input?.factory?.key ?? ''),
-                    itemIndexes.get(link.output?.factory?.key ?? '')
-                )
-            ),
-        };
-        const description = this.gameData.description;
-        serialized.h = {
-            g: description.shortName,
-            v: description.saveVersion,
-        };
+        const snapshot = this.__saveToSnapshot();
+        const serialized = snapshot.toSerializedCompactForm();
         return serialized;
     }
 
-    protected __newSnapshot(snapshot: FlowChartSnapshotDataBase) {
+    __newFlowChartSnapshot(snapshot: FlowChartSnapshotDataBase) {
         return new FlowChartSnapshotBase(this, snapshot);
     }
+    __newFactorySnapshot(snapshot: FactorySnapshotDataBase) {
+        return new FactorySnapshotBase(this, snapshot);
+    }
+    __newRecipeSnapshot(snapshot: RecipeSnapshotDataBase) {
+        return new RecipeSnapshotBase(this, snapshot);
+    }
+    __newRecipeIOSnapshot(snapshot: RecipeIOSnapshotDataBase) {
+        return new RecipeIOSnapshotBase(this, snapshot);
+    }
+    __newIOLinkSnapshot(snapshot: IOLinkSnapshotDataBase) {
+        return new IOLinkSnapshotBase(this, snapshot);
+    }
+
     __saveToSnapshot() {
-        const snapshot = this.__newSnapshot({
+        const snapshot = this.__newFlowChartSnapshot({
             chartName: this.chartName,
             items: [...this.__items.values()].map((item) => item.__saveToSnapshot()),
         });

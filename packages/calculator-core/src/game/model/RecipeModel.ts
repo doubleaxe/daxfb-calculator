@@ -5,7 +5,6 @@ import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import type { SerializedLink, SerializedOrder } from './ModelSerialized.js';
-import { RecipeSnapshotBase, type RecipeSnapshotDataBase } from './ModelSnapshot.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
@@ -82,9 +81,7 @@ export abstract class RecipeModelBaseImpl {
     }
     __deleteAllLinks(): FlowChartAction {
         return {
-            undo: () => {
-                this.__isFlipped = isFlippedOld;
-            },
+            undo: () => {},
             redo: () => {
                 this.__itemsArray.forEach((io) => io.__deleteAllLinks());
             },
@@ -129,36 +126,6 @@ export abstract class RecipeModelBaseImpl {
         }
         return link;
     }
-    __saveIoOrder() {
-        const order = {
-            input: {
-                original: this.__recipe?.input ?? [],
-                user: this.__input,
-            },
-            output: {
-                original: this.__recipe?.output ?? [],
-                user: this.__output,
-            },
-        };
-        const savedOrder: SerializedOrder = {};
-        for (const [key, value] of Object.entries(order)) {
-            const hasOriginalOrder = value.original.every((io, index) => value.user[index]?.key === io.key);
-            if (!hasOriginalOrder) {
-                const originalIndexes = new Map<string, number>(value.original.map((io, index) => [io.name, index]));
-                const customOrder = value.user.map((io, index) => {
-                    const originalIndex = originalIndexes.get(io.key ?? '');
-                    if (originalIndex !== undefined) return originalIndex;
-                    return index;
-                });
-                if (key === 'input') {
-                    savedOrder.o1 = customOrder;
-                } else {
-                    savedOrder.o2 = customOrder;
-                }
-            }
-        }
-        return savedOrder;
-    }
     __loadIoOrder(savedOrder: SerializedOrder) {
         const order = [
             {
@@ -183,13 +150,11 @@ export abstract class RecipeModelBaseImpl {
         }
     }
 
-    protected __newSnapshot(snapshot: RecipeSnapshotDataBase) {
-        return new RecipeSnapshotBase(this.__factory.__flowChart, snapshot);
-    }
     __saveToSnapshot() {
-        const snapshot = this.__newSnapshot({
-            io: this.__itemsArray.map((io) => io.__saveToSnapshot()),
+        const snapshot = this.__factory.__flowChart.__newRecipeSnapshot({
+            input: this.__input.map((io) => io.__saveToSnapshot()),
             key: this.key ?? '',
+            output: this.__output.map((io) => io.__saveToSnapshot()),
         });
         return snapshot;
     }

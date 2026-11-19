@@ -1,5 +1,3 @@
-import type { FactoryModelBase } from './types.js';
-
 let currentId = 0;
 
 export function newId(id?: string) {
@@ -10,7 +8,16 @@ export function resetIdStore() {
     currentId = 0;
 }
 
-export function normalizeItemPositions(items: FactoryModelBase[] | IterableIterator<FactoryModelBase>) {
+export type XYPosition = {
+    x: number;
+    y: number;
+};
+
+type Positional = {
+    position: XYPosition;
+};
+
+export function normalizeItemPositions(items: IterableIterator<Positional> | Positional[]) {
     type MinMax = Record<'maxX' | 'maxY' | 'minX' | 'minY', number | undefined>;
     const _items = Array.isArray(items) ? items : [...items];
     const { minX, minY, maxX, maxY } = _items.reduce(

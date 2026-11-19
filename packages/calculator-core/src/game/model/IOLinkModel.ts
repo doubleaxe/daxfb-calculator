@@ -1,6 +1,5 @@
 import { newId } from './internal.js';
 import type { SerializedLink } from './ModelSerialized.js';
-import { IOLinkSnapshotBase, type IOLinkSnapshotDataBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
@@ -69,16 +68,13 @@ export abstract class IOLinkModelBaseImpl {
         };
     }
 
-    protected __newSnapshot(snapshot: IOLinkSnapshotDataBase) {
-        return new IOLinkSnapshotBase(this.__input.__flowChart, snapshot);
-    }
     __saveToSnapshot() {
-        const snapshot = this.__newSnapshot({
+        const snapshot = this.__input.__flowChart.__newIOLinkSnapshot({
             linkId: this.linkId,
             sourceIO: this.__output.itemId,
-            sourceItem: this.__output.__factory.itemId,
+            sourceItem: this.__output.factory.itemId,
             targetIO: this.__input.itemId,
-            targetItem: this.__input.__factory.itemId,
+            targetItem: this.__input.factory.itemId,
         });
         return snapshot;
     }

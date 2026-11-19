@@ -5,7 +5,6 @@ import { GameRecipeIOFlagsBase } from '../parser/index.js';
 import { EdgeStatus } from './constants.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
-import { RecipeIOSnapshotBase, type RecipeIOSnapshotDataBase } from './ModelSnapshot.js';
 import type { RecipeModelBaseImpl } from './RecipeModel.js';
 import type { FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -34,7 +33,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     }
 
     get isHidden() {
-        return !!((this.__io.flags ?? 0) & GameRecipeIOFlagsBase.Hidden);
+        return !!(this.__io.flags & GameRecipeIOFlagsBase.Hidden);
     }
     get isFlipped() {
         return this.__recipe.__factory.isFlipped;
@@ -64,8 +63,8 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     }
 
     get flowMax() {
-        const time = this.__io?.recipe?.time;
-        if (!time) return this.__io?.count ?? 0;
+        const time = this.__io.recipe.time;
+        if (!time) return this.__io.count;
         return (this.__io.count * 60) / time;
     }
     get __combinedFlowMax() {
@@ -128,11 +127,8 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         }
     }
 
-    protected __newSnapshot(snapshot: RecipeIOSnapshotDataBase) {
-        return new RecipeIOSnapshotBase(this.__flowChart, snapshot);
-    }
     __saveToSnapshot() {
-        const snapshot = this.__newSnapshot({
+        const snapshot = this.__flowChart.__newRecipeIOSnapshot({
             itemId: this.itemId,
             key: this.key ?? '',
             links: [...this.__links.values()].map((link) => link.__saveToSnapshot()),
