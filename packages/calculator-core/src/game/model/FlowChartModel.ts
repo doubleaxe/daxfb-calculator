@@ -11,6 +11,7 @@ import type { FlowChartEventsBase } from './FlowChartEvents.js';
 import { normalizeItemPositions, resetIdStore } from './internal.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
 import type { SerializedFlowChart } from './ModelSerialized.js';
+import { FlowChartSnapshotBase, type FlowChartSnapshotDataBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -166,7 +167,8 @@ export abstract class FlowChartModelBaseImpl {
         sourceIO: RecipeIOModelBaseImpl,
         targetItem: FactoryModelBaseImpl,
         targetIO: RecipeIOModelBaseImpl,
-        revertIfPossible?: boolean
+        revertIfPossible?: boolean,
+        linkId?: string
     ) {
         if (!!sourceIO.isInput === !!targetIO.isInput || !sourceIO.isConnectable(targetIO)) {
             return undefined;
@@ -184,7 +186,7 @@ export abstract class FlowChartModelBaseImpl {
         }
         const input = sourceIO.isInput ? sourceIO : targetIO;
         const output = sourceIO.isInput ? targetIO : sourceIO;
-        const link = this.__ioLinkConstructor(input, output);
+        const link = this.__ioLinkConstructor(input, output, linkId);
         this.__links.set(link.linkId, link);
         input.__addLink(link);
         output.__addLink(link);
@@ -232,6 +234,17 @@ export abstract class FlowChartModelBaseImpl {
             v: description.saveVersion,
         };
         return serialized;
+    }
+
+    protected __newSnapshot(snapshot: FlowChartSnapshotDataBase) {
+        return new FlowChartSnapshotBase(this, snapshot);
+    }
+    __saveToSnapshot() {
+        const snapshot = this.__newSnapshot({
+            chartName: this.chartName,
+            items: [...this.__items.values()].map((item) => item.__saveToSnapshot()),
+        });
+        return snapshot;
     }
 
     load(serialized: SerializedFlowChart, errorCollector: ErrorCollector) {

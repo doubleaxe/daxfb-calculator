@@ -11,7 +11,8 @@ export class FlowChartModelCoiImpl extends FlowChartModelBaseImpl {
         super(
             gameData,
             (__flowChart: FlowChartModelCoiImpl, key) => new FactoryModelCoiImpl(__flowChart, key),
-            (input: RecipeIOModelCoiImpl, output: RecipeIOModelCoiImpl) => new IOLinkModelCoiImpl(input, output)
+            (input: RecipeIOModelCoiImpl, output: RecipeIOModelCoiImpl, linkId) =>
+                new IOLinkModelCoiImpl(input, output, linkId)
         );
     }
 }
@@ -24,7 +25,7 @@ export class FactoryModelCoiImpl extends FactoryModelBaseImpl {
 
 export class RecipeModelCoiImpl extends RecipeModelBaseImpl {
     constructor(__factory: FactoryModelCoiImpl, key: string) {
-        super(__factory, key, (recipe: RecipeModelCoiImpl, io) => new RecipeIOModelCoiImpl(recipe, io));
+        super(__factory, key, (recipe: RecipeModelCoiImpl, io, itemId) => new RecipeIOModelCoiImpl(recipe, io, itemId));
     }
 }
 

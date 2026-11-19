@@ -5,6 +5,7 @@ import { GameRecipeIOFlagsBase } from '../parser/index.js';
 import { EdgeStatus } from './constants.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
+import { RecipeIOSnapshotBase, type RecipeIOSnapshotDataBase } from './ModelSnapshot.js';
 import type { RecipeModelBaseImpl } from './RecipeModel.js';
 import type { FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -12,7 +13,7 @@ export type CreateRecipeIOModel<
     REC extends RecipeModelBaseImpl = RecipeModelBaseImpl,
     IOJ extends GameRecipeIOBase = GameRecipeIOBase,
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,
-> = (__recipe: REC, __io: IOJ) => IO;
+> = (__recipe: REC, __io: IOJ, itemId?: string) => IO;
 
 export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     public status: EdgeStatus = EdgeStatus.None;
@@ -24,8 +25,8 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     readonly __recipe;
     protected readonly __links = new Map<string, IOLinkModelBaseImpl>();
 
-    constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase) {
-        super(__recipe.__factory.__flowChart, __io.product);
+    constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase, itemId?: string) {
+        super(__recipe.__factory.__flowChart, __io.product, itemId);
 
         this.__io = __io;
         this.__recipe = __recipe;
@@ -125,5 +126,17 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
             if (!otherSide) continue;
             __flowChart.__createLink(otherSide.__factory, otherSide, targetIo.__factory, targetIo);
         }
+    }
+
+    protected __newSnapshot(snapshot: RecipeIOSnapshotDataBase) {
+        return new RecipeIOSnapshotBase(this.__flowChart, snapshot);
+    }
+    __saveToSnapshot() {
+        const snapshot = this.__newSnapshot({
+            itemId: this.itemId,
+            key: this.key ?? '',
+            links: [...this.__links.values()].map((link) => link.__saveToSnapshot()),
+        });
+        return snapshot;
     }
 }

@@ -1,12 +1,13 @@
 import { newId } from './internal.js';
 import type { SerializedLink } from './ModelSerialized.js';
+import { IOLinkSnapshotBase, type IOLinkSnapshotDataBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateIOLinkModel<
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,
     LINK extends IOLinkModelBaseImpl = IOLinkModelBaseImpl,
-> = (input: IO, output: IO) => LINK;
+> = (input: IO, output: IO, linkId?: string) => LINK;
 
 export abstract class IOLinkModelBaseImpl {
     readonly linkId;
@@ -14,10 +15,10 @@ export abstract class IOLinkModelBaseImpl {
     protected readonly __output: RecipeIOModelBaseImpl;
     protected __flow: number | undefined = undefined;
 
-    constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl) {
+    constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl, linkId?: string) {
         this.__input = input;
         this.__output = output;
-        this.linkId = newId();
+        this.linkId = newId(linkId);
     }
 
     get input(): RecipeIOModelBase {
@@ -54,8 +55,8 @@ export abstract class IOLinkModelBaseImpl {
         //if we can link by multiple paths for same item - then link is ambiguous
         //we should store name as well in this case
         let isAmbiguous = false;
-        const allInputs = this.__input?.__recipe?.input;
-        const allOutputs = this.__output?.__recipe?.output;
+        const allInputs = this.__input.__recipe?.input;
+        const allOutputs = this.__output.__recipe?.output;
         const allInputsNames = new Set([...(allInputs || [])].map((i) => i.key ?? ''));
         const similarIo = [...(allOutputs || [])].reduce((sum, i) => {
             if (allInputsNames.has(i.key ?? '')) sum++;
@@ -66,5 +67,19 @@ export abstract class IOLinkModelBaseImpl {
             l: [input ?? 0, output ?? 0],
             n: isAmbiguous ? this.input?.key : undefined,
         };
+    }
+
+    protected __newSnapshot(snapshot: IOLinkSnapshotDataBase) {
+        return new IOLinkSnapshotBase(this.__input.__flowChart, snapshot);
+    }
+    __saveToSnapshot() {
+        const snapshot = this.__newSnapshot({
+            linkId: this.linkId,
+            sourceIO: this.__output.itemId,
+            sourceItem: this.__output.__factory.itemId,
+            targetIO: this.__input.itemId,
+            targetItem: this.__input.__factory.itemId,
+        });
+        return snapshot;
     }
 }

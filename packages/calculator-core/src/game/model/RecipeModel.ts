@@ -5,6 +5,7 @@ import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import type { SerializedLink, SerializedOrder } from './ModelSerialized.js';
+import { RecipeSnapshotBase, type RecipeSnapshotDataBase } from './ModelSnapshot.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
@@ -180,5 +181,16 @@ export abstract class RecipeModelBaseImpl {
                 value.user[customOrder.get(io.key ?? '') ?? 0] = io;
             });
         }
+    }
+
+    protected __newSnapshot(snapshot: RecipeSnapshotDataBase) {
+        return new RecipeSnapshotBase(this.__factory.__flowChart, snapshot);
+    }
+    __saveToSnapshot() {
+        const snapshot = this.__newSnapshot({
+            io: this.__itemsArray.map((io) => io.__saveToSnapshot()),
+            key: this.key ?? '',
+        });
+        return snapshot;
     }
 }

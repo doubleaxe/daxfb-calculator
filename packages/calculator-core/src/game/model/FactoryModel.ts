@@ -5,6 +5,7 @@ import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { SerializedFactory, SerializedLink } from './ModelSerialized.js';
+import { FactorySnapshotBase, type FactorySnapshotDataBase } from './ModelSnapshot.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
@@ -275,5 +276,22 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
             return this.__selectedRecipe.__loadLink(l, outputItem.__selectedRecipe, errorCollector);
         }
         return undefined;
+    }
+
+    protected __newSnapshot(snapshot: FactorySnapshotDataBase) {
+        return new FactorySnapshotBase(this.__flowChart, snapshot);
+    }
+    __saveToSnapshot() {
+        const snapshot = this.__newSnapshot({
+            count: this.__count,
+            isFlipped: this.__isFlipped,
+            itemId: this.itemId,
+            key: this.key ?? '',
+            locked: this.__locked,
+            position: { x: this.__position.x, y: this.__position.y },
+            recipe: this.__selectedRecipe?.__saveToSnapshot(),
+            weight: this.__weight,
+        });
+        return snapshot;
     }
 }
