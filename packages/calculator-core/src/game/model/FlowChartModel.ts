@@ -8,23 +8,10 @@ import { useSolveGraphSingleton } from '../graph/Solver.js';
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartEventsBase } from './FlowChartEvents.js';
-import { resetIdStore } from './internal.js';
+import { createFlowChartHelpers, type FlowChartHelpersBase } from './internal/FlowChartHelpers.js';
+import { resetIdStore } from './internal/internal.js';
+import type { SerializedFlowChart } from './internal/ModelSerialized.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
-import type { SerializedFlowChart } from './ModelSerialized.js';
-import type {
-    FactorySnapshotDataBase,
-    FlowChartSnapshotDataBase,
-    IOLinkSnapshotDataBase,
-    RecipeIOSnapshotDataBase,
-    RecipeSnapshotDataBase,
-} from './ModelSnapshot.js';
-import {
-    FactorySnapshotBase,
-    FlowChartSnapshotBase,
-    IOLinkSnapshotBase,
-    RecipeIOSnapshotBase,
-    RecipeSnapshotBase,
-} from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -40,6 +27,7 @@ export abstract class FlowChartModelBaseImpl {
 
     protected readonly __factoryConstructor: CreateFactoryModel;
     protected readonly __ioLinkConstructor: CreateIOLinkModel;
+    protected __helpersInstance: FlowChartHelpersBase | undefined;
 
     protected __solveFrozen = false;
     protected __changedItems: FactoryModelBaseImpl[] = [];
@@ -56,6 +44,15 @@ export abstract class FlowChartModelBaseImpl {
         this.__ioLinkConstructor = __ioLinkConstructor;
         this.gameData = gameData;
         this.resetChartName();
+    }
+
+    get __helpers() {
+        if (this.__helpersInstance) return this.__helpersInstance;
+        this.__helpersInstance = createFlowChartHelpers(this);
+        return this.__helpersInstance;
+    }
+    get __snapshotFactory() {
+        return this.__helpers.snapshotFactory;
     }
 
     get events(): Emitter<FlowChartEventsBase> {
@@ -228,28 +225,12 @@ export abstract class FlowChartModelBaseImpl {
 
     save() {
         const snapshot = this.__saveToSnapshot();
-        const serialized = snapshot.toSerializedCompactForm();
+        const serialized = this.__helpers.snapshotToSerializedCompactForm.toSerializedCompactForm(snapshot);
         return serialized;
     }
 
-    __newFlowChartSnapshot(snapshot: FlowChartSnapshotDataBase) {
-        return new FlowChartSnapshotBase(this, snapshot);
-    }
-    __newFactorySnapshot(snapshot: FactorySnapshotDataBase) {
-        return new FactorySnapshotBase(this, snapshot);
-    }
-    __newRecipeSnapshot(snapshot: RecipeSnapshotDataBase) {
-        return new RecipeSnapshotBase(this, snapshot);
-    }
-    __newRecipeIOSnapshot(snapshot: RecipeIOSnapshotDataBase) {
-        return new RecipeIOSnapshotBase(this, snapshot);
-    }
-    __newIOLinkSnapshot(snapshot: IOLinkSnapshotDataBase) {
-        return new IOLinkSnapshotBase(this, snapshot);
-    }
-
     __saveToSnapshot() {
-        const snapshot = this.__newFlowChartSnapshot({
+        const snapshot = this.__snapshotFactory.newFlowChartSnapshot({
             chartName: this.chartName,
             items: [...this.__items.values()].map((item) => item.__saveToSnapshot()),
         });

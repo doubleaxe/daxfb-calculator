@@ -3,8 +3,8 @@ import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 import type { FlowChartAction } from '../actions/index.js';
 import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
+import type { SerializedLink, SerializedOrder } from './internal/ModelSerialized.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
-import type { SerializedLink, SerializedOrder } from './ModelSerialized.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
@@ -151,7 +151,7 @@ export abstract class RecipeModelBaseImpl {
     }
 
     __saveToSnapshot() {
-        const snapshot = this.__factory.__flowChart.__newRecipeSnapshot({
+        const snapshot = this.__factory.__flowChart.__snapshotFactory.newRecipeSnapshot({
             input: this.__input.map((io) => io.__saveToSnapshot()),
             key: this.key ?? '',
             output: this.__output.map((io) => io.__saveToSnapshot()),

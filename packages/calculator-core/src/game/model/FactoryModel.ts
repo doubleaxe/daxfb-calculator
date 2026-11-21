@@ -3,9 +3,9 @@ import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 import type { FlowChartAction } from '../actions/index.js';
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
-import type { XYPosition } from './internal.js';
+import type { XYPosition } from './internal/internal.js';
+import type { SerializedFactory, SerializedLink } from './internal/ModelSerialized.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
-import type { SerializedFactory, SerializedLink } from './ModelSerialized.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
@@ -262,7 +262,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
 
     __saveToSnapshot() {
-        const snapshot = this.__flowChart.__newFactorySnapshot({
+        const snapshot = this.__flowChart.__snapshotFactory.newFactorySnapshot({
             count: this.__count,
             isFlipped: this.__isFlipped,
             itemId: this.itemId,

@@ -1,6 +1,6 @@
 import type { GameItemBase } from '../parser/index.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
-import { newId } from './internal.js';
+import { newId } from './internal/internal.js';
 
 export class ItemModelBaseImpl {
     readonly itemId;

@@ -1,5 +1,5 @@
-import { newId } from './internal.js';
-import type { SerializedLink } from './ModelSerialized.js';
+import { newId } from './internal/internal.js';
+import type { SerializedLink } from './internal/ModelSerialized.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
@@ -69,7 +69,7 @@ export abstract class IOLinkModelBaseImpl {
     }
 
     __saveToSnapshot() {
-        const snapshot = this.__input.__flowChart.__newIOLinkSnapshot({
+        const snapshot = this.__input.__flowChart.__snapshotFactory.newIOLinkSnapshot({
             linkId: this.linkId,
             sourceIO: this.__output.itemId,
             sourceItem: this.__output.factory.itemId,
