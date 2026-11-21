@@ -8,11 +8,23 @@ import type {
     RecipeIOSnapshotBase,
     RecipeSnapshotBase,
 } from '../ModelSnapshot.js';
-import { normalizeItemPositions, type XYPosition } from './internal.js';
+import { newId, normalizeItemPositions, type XYPosition } from './internal.js';
 import type { SerializedFactory, SerializedFlowChart, SerializedLink, SerializedOrder } from './ModelSerialized.js';
 import type { ModelSnapshotFactoryBase } from './ModelSnapshotFactory.js';
 
-export type IOMap = Map<string, { factory: FactorySnapshotBase; io: RecipeIOSnapshotBase; recipe: RecipeSnapshotBase }>;
+type IOMap = Map<string, { factory: FactorySnapshotBase; io: RecipeIOSnapshotBase; recipe: RecipeSnapshotBase }>;
+
+type ConvertedRecipe = {
+    input: RecipeIOSnapshotBase[];
+    output: RecipeIOSnapshotBase[];
+    recipe?: RecipeSnapshotBase;
+};
+
+type SerializedFactoryEntry = {
+    factory: FactorySnapshotBase;
+    label: string;
+    recipe: ConvertedRecipe;
+};
 
 export class ModelSnapshotToSerializedCompactFormBase {
     protected readonly gameData: GameDataBase;
@@ -152,5 +164,156 @@ export class ModelSnapshotFromSerializedCompactFormBase {
     fromSerializedCompactForm(
         serializedFlowChart: SerializedFlowChart,
         errorCollector: ErrorCollector
-    ): FlowChartSnapshotBase {}
+    ): FlowChartSnapshotBase {
+        const { compatibleSaveVersions: compatVersions } = this.gameData.description;
+        if (serializedFlowChart.h?.v && !compatVersions.some((v) => v === serializedFlowChart.h?.v)) {
+            errorCollector.collectError(
+                `Incompatible game version, expecting "${compatVersions.join(',')}", got "${serializedFlowChart.h?.v}"`
+            );
+        }
+
+        const items: FactorySnapshotBase[] = [];
+        const factoryEntries = new Map<number, SerializedFactoryEntry>();
+        serializedFlowChart.i.forEach((i, index) => {
+            const entry = this.factoryFromSerializedCompactForm(i, errorCollector);
+            if (!entry) return;
+            items.push(entry.factory);
+            factoryEntries.set(index, entry);
+        });
+
+        const usedPairs = new Set<string>();
+        serializedFlowChart.l.forEach((link) => {
+            this.ioLinkFromSerializedCompactForm(link, factoryEntries, usedPairs, errorCollector);
+        });
+
+        return this.snapshotFactory.newFlowChartSnapshot({
+            chartName: `${this.gameData.description.description} New Flow Chart`,
+            items,
+        });
+    }
+
+    protected factoryFromSerializedCompactForm(
+        factory: SerializedFactory,
+        errorCollector: ErrorCollector
+    ): SerializedFactoryEntry | undefined {
+        const item = this.gameData.getGameItem(factory.n);
+        if (!item?.name) {
+            //invalid item, old/broken recipe
+            errorCollector.collectError(`Invalid item id "${factory.n}"`);
+            return undefined;
+        }
+        const recipe = this.recipeFromSerializedCompactForm(factory, errorCollector);
+        const factorySnapshot = this.snapshotFactory.newFactorySnapshot({
+            count: factory.c ?? 1,
+            isFlipped: !!factory.f,
+            itemId: newId(),
+            key: factory.n,
+            locked: !!factory.l,
+            position: {
+                x: factory.p[0] ?? 0,
+                y: factory.p[1] ?? 0,
+            },
+            recipe: recipe.recipe,
+            weight: factory.w,
+        });
+        return { factory: factorySnapshot, label: item.label, recipe };
+    }
+
+    protected recipeFromSerializedCompactForm(
+        factory: SerializedFactory,
+        errorCollector: ErrorCollector
+    ): ConvertedRecipe {
+        const empty: ConvertedRecipe = { input: [], output: [] };
+        if (!factory.r) return empty;
+
+        const itemKey = factory.n;
+        const item = this.gameData.getGameItem(itemKey);
+        const recipe = this.gameData.getItemRecipeDictionary(item).recipesMap.get(factory.r);
+        if (!recipe) {
+            errorCollector.collectError(`Cannot select recipe ${factory.r} for item ${item?.label ?? itemKey}`);
+            return empty;
+        }
+
+        const input = this.__applyIoOrder(recipe.input, factory.o1).map((io) =>
+            this.snapshotFactory.newRecipeIOSnapshot({
+                itemId: newId(),
+                key: io.key,
+                links: [],
+            })
+        );
+        const output = this.__applyIoOrder(recipe.output, factory.o2).map((io) =>
+            this.snapshotFactory.newRecipeIOSnapshot({
+                itemId: newId(),
+                key: io.key,
+                links: [],
+            })
+        );
+        const recipeSnapshot = this.snapshotFactory.newRecipeSnapshot({
+            input,
+            key: recipe.key,
+            output,
+        });
+        return { recipe: recipeSnapshot, input, output };
+    }
+
+    protected ioLinkFromSerializedCompactForm(
+        link: SerializedLink,
+        factoryEntries: Map<number, SerializedFactoryEntry>,
+        usedPairs: Set<string>,
+        errorCollector: ErrorCollector
+    ): IOLinkSnapshotBase | undefined {
+        //first array item is always input, second is always output
+        //the order is important, because we may connect for example generator to electric engine
+        //in this case we may connect by either end
+        //generator output to electric engine
+        //or electric engine output to generator
+        //which end is connected is determined by io order
+        const inputEntry = factoryEntries.get(link.l[0] ?? -1);
+        const outputEntry = factoryEntries.get(link.l[1] ?? -1);
+        if (!inputEntry || !outputEntry) {
+            //broken link
+            errorCollector.collectError(`Invalid link "${link.l[0]}" => "${link.l[1]}"`);
+            return undefined;
+        }
+        //if we can link by multiple paths for same item - then link is ambiguous
+        //we should restore saved name
+        const inputIos = link.n
+            ? inputEntry.recipe.input.filter((io) => io.snapshot.key === link.n)
+            : inputEntry.recipe.input;
+        const outputIos = link.n
+            ? outputEntry.recipe.output.filter((io) => io.snapshot.key === link.n)
+            : outputEntry.recipe.output;
+
+        for (const inputIo of inputIos) {
+            const outputIo = outputIos.find((io) => {
+                if (io.snapshot.key !== inputIo.snapshot.key) return false;
+                return !usedPairs.has(`${inputIo.snapshot.itemId}|${io.snapshot.itemId}`);
+            });
+            if (!outputIo) continue;
+
+            usedPairs.add(`${inputIo.snapshot.itemId}|${outputIo.snapshot.itemId}`);
+            const loadedLink = this.snapshotFactory.newIOLinkSnapshot({
+                linkId: newId(),
+                sourceIO: outputIo.snapshot.itemId,
+                sourceItem: outputEntry.factory.snapshot.itemId,
+                targetIO: inputIo.snapshot.itemId,
+                targetItem: inputEntry.factory.snapshot.itemId,
+            });
+            inputIo.snapshot.links.push(loadedLink);
+            outputIo.snapshot.links.push(loadedLink);
+            return loadedLink;
+        }
+        errorCollector.collectError(`Cannot load link "${outputEntry.label}" => "${inputEntry.label}"`);
+        return undefined;
+    }
+
+    protected __applyIoOrder(original: GameRecipeIOBase[], order?: number[]): GameRecipeIOBase[] {
+        if (!order) return [...original];
+        const result = [...original];
+        order.forEach((originalIndex, customIndex) => {
+            const io = original[originalIndex];
+            if (io) result[customIndex] = io;
+        });
+        return result;
+    }
 }
