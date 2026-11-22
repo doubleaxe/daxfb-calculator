@@ -14,7 +14,7 @@ defineOptions({
 });
 
 const flowChartModel = useFlowChartModelBase();
-const data = computed(() => flowChartModel.linkByKey(props.id));
+const data = computed(() => flowChartModel.linkById(props.id));
 
 const edgePath = computed(() => {
     const [path] = getBezierPath({

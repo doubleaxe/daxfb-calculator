@@ -138,7 +138,7 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
 
         if (destItemId === destHandleId) {
             // factory handle
-            const destFactory = flowChartModel.itemByKey(destItemId);
+            const destFactory = flowChartModel.itemById(destItemId);
             if (!destFactory) return false;
             return [NodeStatus.PossibleDest].some((status) => status === destFactory.status);
         }

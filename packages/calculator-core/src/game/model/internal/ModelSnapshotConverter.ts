@@ -119,8 +119,8 @@ export class ModelSnapshotToSerializedCompactFormBase {
         ioMap: IOMap
     ): SerializedLink {
         const snapshot = ioLinkSnapshot.snapshot;
-        const source = ioMap.get(snapshot.sourceIO);
-        const target = ioMap.get(snapshot.targetIO);
+        const source = ioMap.get(snapshot.sourceIOId);
+        const target = ioMap.get(snapshot.targetIOId);
         const sourceRecipe = source ? this.__getGameRecipe(source.factory, source.recipe) : undefined;
         const targetRecipe = target ? this.__getGameRecipe(target.factory, target.recipe) : undefined;
         const inputIndex = itemIndexes.get(target?.factory.snapshot.key ?? '') ?? 0;
@@ -202,11 +202,12 @@ export class ModelSnapshotFromSerializedCompactFormBase {
             errorCollector.collectError(`Invalid item id "${factory.n}"`);
             return undefined;
         }
-        const recipe = this.recipeFromSerializedCompactForm(factory, errorCollector);
+        const factoryItemId = newId();
+        const recipe = this.recipeFromSerializedCompactForm(factory, factoryItemId, errorCollector);
         const factorySnapshot = this.snapshotFactory.newFactorySnapshot({
             count: factory.c ?? 1,
             isFlipped: !!factory.f,
-            itemId: newId(),
+            itemId: factoryItemId,
             key: factory.n,
             locked: !!factory.l,
             position: {
@@ -221,6 +222,7 @@ export class ModelSnapshotFromSerializedCompactFormBase {
 
     protected recipeFromSerializedCompactForm(
         factory: SerializedFactory,
+        factoryItemId: string,
         errorCollector: ErrorCollector
     ): ConvertedRecipe {
         const empty: ConvertedRecipe = { input: [], output: [] };
@@ -237,6 +239,7 @@ export class ModelSnapshotFromSerializedCompactFormBase {
         const input = this.__applyIoOrder(recipe.input, factory.o1).map((io) =>
             this.snapshotFactory.newRecipeIOSnapshot({
                 itemId: newId(),
+                factoryItemId,
                 key: io.key,
                 links: [],
             })
@@ -244,11 +247,13 @@ export class ModelSnapshotFromSerializedCompactFormBase {
         const output = this.__applyIoOrder(recipe.output, factory.o2).map((io) =>
             this.snapshotFactory.newRecipeIOSnapshot({
                 itemId: newId(),
+                factoryItemId,
                 key: io.key,
                 links: [],
             })
         );
         const recipeSnapshot = this.snapshotFactory.newRecipeSnapshot({
+            factoryItemId,
             input,
             key: recipe.key,
             output,
@@ -294,10 +299,10 @@ export class ModelSnapshotFromSerializedCompactFormBase {
             usedPairs.add(`${inputIo.snapshot.itemId}|${outputIo.snapshot.itemId}`);
             const loadedLink = this.snapshotFactory.newIOLinkSnapshot({
                 linkId: newId(),
-                sourceIO: outputIo.snapshot.itemId,
-                sourceItem: outputEntry.factory.snapshot.itemId,
-                targetIO: inputIo.snapshot.itemId,
-                targetItem: inputEntry.factory.snapshot.itemId,
+                sourceIOId: outputIo.snapshot.itemId,
+                sourceId: outputEntry.factory.snapshot.itemId,
+                targetIOId: inputIo.snapshot.itemId,
+                targetId: inputEntry.factory.snapshot.itemId,
             });
             inputIo.snapshot.links.push(loadedLink);
             outputIo.snapshot.links.push(loadedLink);

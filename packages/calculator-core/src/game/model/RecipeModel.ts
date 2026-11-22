@@ -5,13 +5,15 @@ import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { SerializedLink, SerializedOrder } from './internal/ModelSerialized.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { RecipeIOSnapshotBase, RecipeSnapshotBase } from './ModelSnapshot.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeModel<
     FACT extends FactoryModelBaseImpl = FactoryModelBaseImpl,
+    SNAP extends RecipeSnapshotBase = RecipeSnapshotBase,
     REC extends RecipeModelBaseImpl = RecipeModelBaseImpl,
-> = (__factory: FACT, key: string) => REC;
+> = (__factory: FACT, key: string, snapshot?: SNAP) => REC;
 
 export abstract class RecipeModelBaseImpl {
     readonly __factory;
@@ -24,14 +26,46 @@ export abstract class RecipeModelBaseImpl {
 
     protected readonly __ioConstructor: CreateRecipeIOModel;
 
-    constructor(__factory: FactoryModelBaseImpl, key: string, __ioConstructor: CreateRecipeIOModel) {
+    constructor(
+        __factory: FactoryModelBaseImpl,
+        key: string,
+        __ioConstructor: CreateRecipeIOModel,
+        snapshot?: RecipeSnapshotBase
+    ) {
         this.__ioConstructor = __ioConstructor;
         this.__factory = __factory;
         const recipe = __factory.__getRecipe(key);
         this.__recipe = recipe;
 
-        this.__input = recipe?.input.map((io: GameRecipeIOBase) => __ioConstructor(this, io)) ?? [];
-        this.__output = recipe?.output.map((io: GameRecipeIOBase) => __ioConstructor(this, io)) ?? [];
+        type IOSnapshot = { index: number; snapshot: RecipeIOSnapshotBase };
+        const snapshotInputMap = new Map<string, IOSnapshot>(
+            (snapshot?.snapshot.input ?? []).map((i, index) => [i.snapshot.key, { snapshot: i, index }])
+        );
+        const snapshotOutputMap = new Map<string, IOSnapshot>(
+            (snapshot?.snapshot.output ?? []).map((i, index) => [i.snapshot.key, { snapshot: i, index }])
+        );
+
+        this.__input =
+            recipe?.input.map((io: GameRecipeIOBase) =>
+                __ioConstructor(this, io, snapshot ? snapshotInputMap.get(io.key)?.snapshot : undefined)
+            ) ?? [];
+        this.__output =
+            recipe?.output.map((io: GameRecipeIOBase) =>
+                __ioConstructor(this, io, snapshot ? snapshotOutputMap.get(io.key)?.snapshot : undefined)
+            ) ?? [];
+
+        if (snapshot) {
+            this.__input.sort(
+                (io1, io2) =>
+                    (snapshotInputMap.get(io1.key ?? '')?.index ?? 0) -
+                    (snapshotInputMap.get(io2.key ?? '')?.index ?? 0)
+            );
+            this.__output.sort(
+                (io1, io2) =>
+                    (snapshotOutputMap.get(io1.key ?? '')?.index ?? 0) -
+                    (snapshotOutputMap.get(io2.key ?? '')?.index ?? 0)
+            );
+        }
 
         const items = [...this.__input, ...this.__output];
         this.__itemsArray = items;
@@ -152,6 +186,7 @@ export abstract class RecipeModelBaseImpl {
 
     __saveToSnapshot() {
         const snapshot = this.__factory.__flowChart.__snapshotFactory.newRecipeSnapshot({
+            factoryItemId: this.__factory.itemId,
             input: this.__input.map((io) => io.__saveToSnapshot()),
             key: this.key ?? '',
             output: this.__output.map((io) => io.__saveToSnapshot()),

@@ -6,6 +6,7 @@ import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import type { XYPosition } from './internal/internal.js';
 import type { SerializedFactory, SerializedLink } from './internal/ModelSerialized.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
+import type { RecipeSnapshotBase } from './ModelSnapshot.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
@@ -215,11 +216,16 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
 
     selectRecipe(key: string) {
+        return this.__selectRecipe(key);
+    }
+    __selectRecipe(key: string, snapshot?: RecipeSnapshotBase) {
         const oldRecipe = this.__selectedRecipe;
-        if (key === oldRecipe?.key) return false;
-        const newRecipe = this.__recipeModelConstructor(this, key);
-        //try to persist similar links from old recipe to new one
-        oldRecipe?.__copySimilarLinksTo(newRecipe);
+        if (!snapshot && key === oldRecipe?.key) return false;
+        const newRecipe = this.__recipeModelConstructor(this, key, snapshot);
+        if (!snapshot) {
+            //try to persist similar links from old recipe to new one
+            oldRecipe?.__copySimilarLinksTo(newRecipe);
+        }
         oldRecipe?.__deleteAllLinks();
         this.__selectedRecipe = newRecipe;
         return true;

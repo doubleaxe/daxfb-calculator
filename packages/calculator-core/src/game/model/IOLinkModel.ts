@@ -1,12 +1,14 @@
 import { newId } from './internal/internal.js';
 import type { SerializedLink } from './internal/ModelSerialized.js';
+import type { IOLinkSnapshotBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
 export type CreateIOLinkModel<
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,
+    SNAP extends IOLinkSnapshotBase = IOLinkSnapshotBase,
     LINK extends IOLinkModelBaseImpl = IOLinkModelBaseImpl,
-> = (input: IO, output: IO, linkId?: string) => LINK;
+> = (input: IO, output: IO, snapshot?: SNAP) => LINK;
 
 export abstract class IOLinkModelBaseImpl {
     readonly linkId;
@@ -14,10 +16,10 @@ export abstract class IOLinkModelBaseImpl {
     protected readonly __output: RecipeIOModelBaseImpl;
     protected __flow: number | undefined = undefined;
 
-    constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl, linkId?: string) {
+    constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl, snapshot?: IOLinkSnapshotBase) {
         this.__input = input;
         this.__output = output;
-        this.linkId = newId(linkId);
+        this.linkId = newId(snapshot?.snapshot.linkId);
     }
 
     get input(): RecipeIOModelBase {
@@ -71,10 +73,10 @@ export abstract class IOLinkModelBaseImpl {
     __saveToSnapshot() {
         const snapshot = this.__input.__flowChart.__snapshotFactory.newIOLinkSnapshot({
             linkId: this.linkId,
-            sourceIO: this.__output.itemId,
-            sourceItem: this.__output.factory.itemId,
-            targetIO: this.__input.itemId,
-            targetItem: this.__input.factory.itemId,
+            sourceIOId: this.__output.itemId,
+            sourceId: this.__output.factory.itemId,
+            targetIOId: this.__input.itemId,
+            targetId: this.__input.factory.itemId,
         });
         return snapshot;
     }

@@ -5,14 +5,16 @@ import { GameRecipeIOFlagsBase } from '../parser/index.js';
 import { EdgeStatus } from './constants.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
+import type { RecipeIOSnapshotBase } from './ModelSnapshot.js';
 import type { RecipeModelBaseImpl } from './RecipeModel.js';
 import type { FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
 export type CreateRecipeIOModel<
     REC extends RecipeModelBaseImpl = RecipeModelBaseImpl,
     IOJ extends GameRecipeIOBase = GameRecipeIOBase,
+    SNAP extends RecipeIOSnapshotBase = RecipeIOSnapshotBase,
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,
-> = (__recipe: REC, __io: IOJ, itemId?: string) => IO;
+> = (__recipe: REC, __io: IOJ, snapshot?: SNAP) => IO;
 
 export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     public status: EdgeStatus = EdgeStatus.None;
@@ -24,8 +26,8 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     readonly __recipe;
     protected readonly __links = new Map<string, IOLinkModelBaseImpl>();
 
-    constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase, itemId?: string) {
-        super(__recipe.__factory.__flowChart, __io.product, itemId);
+    constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase, snapshot?: RecipeIOSnapshotBase) {
+        super(__recipe.__factory.__flowChart, __io.product, snapshot?.snapshot.itemId);
 
         this.__io = __io;
         this.__recipe = __recipe;
@@ -130,6 +132,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     __saveToSnapshot() {
         const snapshot = this.__flowChart.__snapshotFactory.newRecipeIOSnapshot({
             itemId: this.itemId,
+            factoryItemId: this.__factory.itemId,
             key: this.key ?? '',
             links: [...this.__links.values()].map((link) => link.__saveToSnapshot()),
         });

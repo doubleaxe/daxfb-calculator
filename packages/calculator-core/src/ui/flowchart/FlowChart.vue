@@ -70,7 +70,7 @@ useFlowChartHoverManager(flowChartModel);
 
 function onNodeDragStop(event: { node: { id: string; position: { x: number; y: number }; type?: string } }) {
     if (event.node.type === FactoryNodeTypeName) {
-        const data = flowChartModel.itemByKey(event.node.id);
+        const data = flowChartModel.itemById(event.node.id);
         if (data) {
             historyManager.execute(new MoveFactoryAction(flowChartModel, data, event.node.position));
         }

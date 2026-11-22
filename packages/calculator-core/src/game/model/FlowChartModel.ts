@@ -12,6 +12,7 @@ import { createFlowChartHelpers, type FlowChartHelpersBase } from './internal/Fl
 import { resetIdStore } from './internal/internal.js';
 import type { SerializedFlowChart } from './internal/ModelSerialized.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
+import type { IOLinkSnapshotBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -75,13 +76,19 @@ export abstract class FlowChartModelBaseImpl {
         return this.__linksGeneration;
     }
 
-    itemByKey(key: string): FactoryModelBase | undefined {
-        return this.__items.get(key);
+    itemById(itemId: string): FactoryModelBase | undefined {
+        return this.__itemById(itemId);
+    }
+    __itemById(itemId: string) {
+        return this.__items.get(itemId);
     }
     findIo(itemId: string, ioId: string): RecipeIOModelBase | undefined {
+        return this.__findIo(itemId, ioId);
+    }
+    __findIo(itemId: string, ioIdOrKey: string, byIoKey?: boolean) {
         const factory = this.__items.get(itemId);
         if (factory) {
-            const io = factory.__getIOById(ioId);
+            const io = byIoKey ? factory.__getIOByKey(ioIdOrKey) : factory.__getIOById(ioIdOrKey);
             return io;
         }
         return undefined;
@@ -142,8 +149,8 @@ export abstract class FlowChartModelBaseImpl {
         this.__itemsGeneration++;
     }
 
-    linkByKey(key: string): IOLinkModelBase | undefined {
-        return this.__links.get(key);
+    linkById(linkId: string): IOLinkModelBase | undefined {
+        return this.__links.get(linkId);
     }
     createLinkAuto(sourceId: string, sourceIOId: string, targetId: string): IOLinkModelBase | undefined {
         const sourceItem = this.__items.get(sourceId);
@@ -162,6 +169,10 @@ export abstract class FlowChartModelBaseImpl {
     }
 
     createLink(connection: FactoryConnection, revertIfPossible?: boolean): IOLinkModelBase | undefined {
+        return this.__createLink0(connection, revertIfPossible);
+    }
+
+    __createLink0(connection: FactoryConnection, revertIfPossible?: boolean, snapshot?: IOLinkSnapshotBase) {
         const sourceItem = this.__items.get(connection.sourceId);
         const sourceIO = sourceItem?.__getIOById(connection.sourceIOId);
         const targetItem = this.__items.get(connection.targetId);
@@ -169,7 +180,7 @@ export abstract class FlowChartModelBaseImpl {
         if (!sourceItem || !sourceIO || !targetItem || !targetIO) {
             return undefined;
         }
-        return this.__createLink(sourceItem, sourceIO, targetItem, targetIO, revertIfPossible);
+        return this.__createLink(sourceItem, sourceIO, targetItem, targetIO, revertIfPossible, snapshot);
     }
 
     __createLink(
@@ -178,7 +189,7 @@ export abstract class FlowChartModelBaseImpl {
         targetItem: FactoryModelBaseImpl,
         targetIO: RecipeIOModelBaseImpl,
         revertIfPossible?: boolean,
-        linkId?: string
+        snapshot?: IOLinkSnapshotBase
     ) {
         if (!!sourceIO.isInput === !!targetIO.isInput || !sourceIO.isConnectable(targetIO)) {
             return undefined;
@@ -196,7 +207,7 @@ export abstract class FlowChartModelBaseImpl {
         }
         const input = sourceIO.isInput ? sourceIO : targetIO;
         const output = sourceIO.isInput ? targetIO : sourceIO;
-        const link = this.__ioLinkConstructor(input, output, linkId);
+        const link = this.__ioLinkConstructor(input, output, snapshot);
         this.__links.set(link.linkId, link);
         input.__addLink(link);
         output.__addLink(link);

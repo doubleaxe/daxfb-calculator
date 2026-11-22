@@ -21,7 +21,7 @@ defineOptions({
 });
 
 const flowChartModel = useFlowChartModelBase();
-const data = computed(() => flowChartModel.itemByKey(id));
+const data = computed(() => flowChartModel.itemById(id));
 const { updateNodeInternals } = useVueFlow();
 
 watch(
