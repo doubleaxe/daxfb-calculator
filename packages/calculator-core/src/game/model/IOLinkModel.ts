@@ -8,7 +8,7 @@ export type CreateIOLinkModel<
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,
     SNAP extends IOLinkSnapshotBase = IOLinkSnapshotBase,
     LINK extends IOLinkModelBaseImpl = IOLinkModelBaseImpl,
-> = (input: IO, output: IO, snapshot?: SNAP) => LINK;
+> = (input: IO, output: IO, snapshot: SNAP | undefined) => LINK;
 
 export abstract class IOLinkModelBaseImpl {
     readonly linkId;
@@ -16,7 +16,7 @@ export abstract class IOLinkModelBaseImpl {
     protected readonly __output: RecipeIOModelBaseImpl;
     protected __flow: number | undefined = undefined;
 
-    constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl, snapshot?: IOLinkSnapshotBase) {
+    constructor(input: RecipeIOModelBaseImpl, output: RecipeIOModelBaseImpl, snapshot: IOLinkSnapshotBase | undefined) {
         this.__input = input;
         this.__output = output;
         this.linkId = newId(snapshot?.snapshot.linkId);

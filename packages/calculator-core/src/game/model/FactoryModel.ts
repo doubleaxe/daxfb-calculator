@@ -6,14 +6,15 @@ import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import type { XYPosition } from './internal/internal.js';
 import type { SerializedFactory, SerializedLink } from './internal/ModelSerialized.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
-import type { RecipeSnapshotBase } from './ModelSnapshot.js';
+import type { FactorySnapshotBase, RecipeSnapshotBase } from './ModelSnapshot.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
 import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
 
 export type CreateFactoryModel<
     CHART extends FlowChartModelBaseImpl = FlowChartModelBaseImpl,
+    SNAP extends FactorySnapshotBase = FactorySnapshotBase,
     FACT extends FactoryModelBaseImpl = FactoryModelBaseImpl,
-> = (__flowChart: CHART, key: string) => FACT;
+> = (__flowChart: CHART, key: string, snapshot: SNAP | undefined) => FACT;
 
 export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     public status: NodeStatus = NodeStatus.None;
@@ -27,18 +28,24 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     protected __weight: number | undefined = undefined;
     protected __locked = false;
     protected readonly __recipesDictionary;
-    protected __selectedRecipe?: RecipeModelBaseImpl;
+    protected __selectedRecipe: RecipeModelBaseImpl | undefined;
 
     protected readonly __recipeModelConstructor: CreateRecipeModel;
 
-    constructor(__flowChart: FlowChartModelBaseImpl, key: string, __recipeModelConstructor: CreateRecipeModel) {
-        super(__flowChart, __flowChart.gameData.getGameItem(key));
+    constructor(
+        __flowChart: FlowChartModelBaseImpl,
+        key: string,
+        snapshot: FactorySnapshotBase | undefined,
+        __recipeModelConstructor: CreateRecipeModel
+    ) {
+        super(__flowChart, __flowChart.gameData.getGameItem(key), snapshot?.snapshot.itemId);
         this.__recipeModelConstructor = __recipeModelConstructor;
         this.__recipesDictionary = __flowChart.gameData.getItemRecipeDictionary(this.__item);
 
         const recipes = this.__recipesDictionary.recipes;
-        if (recipes.length && recipes[0]) {
-            this.__selectedRecipe = __recipeModelConstructor(this, recipes[0].key);
+        if (!snapshot?.snapshot.recipe && recipes.length && recipes[0]) {
+            // snapshot will select recipe later
+            this.__selectedRecipe = __recipeModelConstructor(this, recipes[0].key, undefined);
         }
     }
 

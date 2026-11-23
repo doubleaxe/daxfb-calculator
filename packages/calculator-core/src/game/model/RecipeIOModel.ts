@@ -14,7 +14,7 @@ export type CreateRecipeIOModel<
     IOJ extends GameRecipeIOBase = GameRecipeIOBase,
     SNAP extends RecipeIOSnapshotBase = RecipeIOSnapshotBase,
     IO extends RecipeIOModelBaseImpl = RecipeIOModelBaseImpl,
-> = (__recipe: REC, __io: IOJ, snapshot?: SNAP) => IO;
+> = (__recipe: REC, __io: IOJ, snapshot: SNAP | undefined) => IO;
 
 export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     public status: EdgeStatus = EdgeStatus.None;
@@ -26,7 +26,7 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
     readonly __recipe;
     protected readonly __links = new Map<string, IOLinkModelBaseImpl>();
 
-    constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase, snapshot?: RecipeIOSnapshotBase) {
+    constructor(__recipe: RecipeModelBaseImpl, __io: GameRecipeIOBase, snapshot: RecipeIOSnapshotBase | undefined) {
         super(__recipe.__factory.__flowChart, __io.product, snapshot?.snapshot.itemId);
 
         this.__io = __io;

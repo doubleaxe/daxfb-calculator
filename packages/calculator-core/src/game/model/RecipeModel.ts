@@ -5,7 +5,7 @@ import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { SerializedLink, SerializedOrder } from './internal/ModelSerialized.js';
 import type { IOLinkModelBaseImpl } from './IOLinkModel.js';
-import type { RecipeIOSnapshotBase, RecipeSnapshotBase } from './ModelSnapshot.js';
+import type { RecipeSnapshotBase } from './ModelSnapshot.js';
 import type { CreateRecipeIOModel, RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
 
@@ -13,7 +13,7 @@ export type CreateRecipeModel<
     FACT extends FactoryModelBaseImpl = FactoryModelBaseImpl,
     SNAP extends RecipeSnapshotBase = RecipeSnapshotBase,
     REC extends RecipeModelBaseImpl = RecipeModelBaseImpl,
-> = (__factory: FACT, key: string, snapshot?: SNAP) => REC;
+> = (__factory: FACT, key: string, snapshot: SNAP | undefined) => REC;
 
 export abstract class RecipeModelBaseImpl {
     readonly __factory;
@@ -29,32 +29,27 @@ export abstract class RecipeModelBaseImpl {
     constructor(
         __factory: FactoryModelBaseImpl,
         key: string,
-        __ioConstructor: CreateRecipeIOModel,
-        snapshot?: RecipeSnapshotBase
+        snapshot: RecipeSnapshotBase | undefined,
+        __ioConstructor: CreateRecipeIOModel
     ) {
         this.__ioConstructor = __ioConstructor;
         this.__factory = __factory;
         const recipe = __factory.__getRecipe(key);
         this.__recipe = recipe;
 
-        type IOSnapshot = { index: number; snapshot: RecipeIOSnapshotBase };
-        const snapshotInputMap = new Map<string, IOSnapshot>(
-            (snapshot?.snapshot.input ?? []).map((i, index) => [i.snapshot.key, { snapshot: i, index }])
-        );
-        const snapshotOutputMap = new Map<string, IOSnapshot>(
-            (snapshot?.snapshot.output ?? []).map((i, index) => [i.snapshot.key, { snapshot: i, index }])
-        );
+        const snapshotInputMap = snapshot?.inputMap;
+        const snapshotOutputMap = snapshot?.outputMap;
 
         this.__input =
             recipe?.input.map((io: GameRecipeIOBase) =>
-                __ioConstructor(this, io, snapshot ? snapshotInputMap.get(io.key)?.snapshot : undefined)
+                __ioConstructor(this, io, snapshotInputMap?.get(io.key)?.snapshot)
             ) ?? [];
         this.__output =
             recipe?.output.map((io: GameRecipeIOBase) =>
-                __ioConstructor(this, io, snapshot ? snapshotOutputMap.get(io.key)?.snapshot : undefined)
+                __ioConstructor(this, io, snapshotOutputMap?.get(io.key)?.snapshot)
             ) ?? [];
 
-        if (snapshot) {
+        if (snapshotInputMap && snapshotOutputMap) {
             this.__input.sort(
                 (io1, io2) =>
                     (snapshotInputMap.get(io1.key ?? '')?.index ?? 0) -

@@ -12,7 +12,7 @@ import { createFlowChartHelpers, type FlowChartHelpersBase } from './internal/Fl
 import { resetIdStore } from './internal/internal.js';
 import type { SerializedFlowChart } from './internal/ModelSerialized.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
-import type { IOLinkSnapshotBase } from './ModelSnapshot.js';
+import type { FactorySnapshotBase, IOLinkSnapshotBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -132,8 +132,8 @@ export abstract class FlowChartModelBaseImpl {
     addItem(key: string): FactoryModelBase {
         return this.__addItem(key);
     }
-    __addItem(key: string): FactoryModelBaseImpl {
-        const item = this.__factoryConstructor(this, key);
+    __addItem(key: string, snapshot?: FactorySnapshotBase): FactoryModelBaseImpl {
+        const item = this.__factoryConstructor(this, key, snapshot);
         // invalid item
         if (!item.key) return item;
         this.__items.set(item.itemId, item);
