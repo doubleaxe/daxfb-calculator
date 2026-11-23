@@ -1,5 +1,4 @@
 import { newId } from './internal/internal.js';
-import type { SerializedLink } from './internal/ModelSerialized.js';
 import type { IOLinkSnapshotBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { RecipeIOModelBase } from './types.js';
@@ -52,24 +51,6 @@ export abstract class IOLinkModelBaseImpl {
         inputFactory.__flowChart.__deleteLink(this, [inputFactory, outputFactory]);
     }
 
-    __save(input?: number, output?: number): SerializedLink {
-        //if we can link by multiple paths for same item - then link is ambiguous
-        //we should store name as well in this case
-        let isAmbiguous = false;
-        const allInputs = this.__input.__recipe?.input;
-        const allOutputs = this.__output.__recipe?.output;
-        const allInputsNames = new Set([...(allInputs || [])].map((i) => i.key ?? ''));
-        const similarIo = [...(allOutputs || [])].reduce((sum, i) => {
-            if (allInputsNames.has(i.key ?? '')) sum++;
-            return sum;
-        }, 0);
-        isAmbiguous = similarIo > 1;
-        return {
-            l: [input ?? 0, output ?? 0],
-            n: isAmbiguous ? this.input?.key : undefined,
-        };
-    }
-
     __saveToSnapshot() {
         const snapshot = this.__input.__flowChart.__snapshotFactory.newIOLinkSnapshot({
             linkId: this.linkId,
@@ -80,4 +61,5 @@ export abstract class IOLinkModelBaseImpl {
         });
         return snapshot;
     }
+    __loadFromSnapshot(_snapshot: IOLinkSnapshotBase) {}
 }

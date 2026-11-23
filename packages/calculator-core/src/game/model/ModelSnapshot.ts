@@ -1,6 +1,7 @@
+import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import type { XYPosition } from './internal/internal.js';
-import type { FactoryModelBase, IOLinkModelBase, RecipeIOModelBase, RecipeModelBase } from './types.js';
+import type { RecipeModelBaseImpl } from './RecipeModel.js';
 
 export const LoadFromSnapshotStage = {
     FACTORY: 1,
@@ -33,9 +34,15 @@ export class IOLinkSnapshotBase extends SnapshotBase {
         this.snapshot = snapshot;
     }
 
-    loadFromSnapshot(_options?: LoadFromSnapshotOptions): IOLinkModelBase | undefined {
+    loadFromSnapshot(options?: LoadFromSnapshotOptions) {
+        this.__loadFromSnapshot(options);
+    }
+
+    protected __loadFromSnapshot(_options?: LoadFromSnapshotOptions) {
         const snapshot = this.snapshot;
-        return this.flowChart.__createLink0(snapshot, false, this);
+        const link = this.flowChart.__createLink0(snapshot, false, this);
+        link?.__loadFromSnapshot(this);
+        return link;
     }
 }
 
@@ -53,13 +60,18 @@ export class RecipeIOSnapshotBase extends SnapshotBase {
         this.snapshot = snapshot;
     }
 
-    loadFromSnapshot(options?: LoadFromSnapshotOptions): RecipeIOModelBase | undefined {
+    loadFromSnapshot(options?: LoadFromSnapshotOptions) {
+        this.__loadFromSnapshot(options);
+    }
+
+    protected __loadFromSnapshot(options?: LoadFromSnapshotOptions) {
         const stage = options?.stage;
         const snapshot = this.snapshot;
         const io = this.flowChart.__findIo(snapshot.factoryItemId, snapshot.itemId);
         if (!io) return undefined;
         if (stage === undefined || stage === LoadFromSnapshotStage.LINK) {
             io.__deleteAllLinks();
+            io.__loadFromSnapshot(this);
             snapshot.links.forEach((l) => l.loadFromSnapshot(options));
         }
         return io;
@@ -84,13 +96,20 @@ export class RecipeSnapshotBase extends SnapshotBase {
         this.snapshot = snapshot;
     }
 
-    loadFromSnapshot(options?: LoadFromSnapshotOptions): RecipeModelBase | undefined {
+    loadFromSnapshot(options?: LoadFromSnapshotOptions) {
+        this.__loadFromSnapshot(options);
+    }
+
+    protected __loadFromSnapshot(options?: LoadFromSnapshotOptions) {
         const stage = options?.stage;
         const snapshot = this.snapshot;
         const item = this.flowChart.__itemById(snapshot.factoryItemId);
         if (!item) return undefined;
+
+        let recipe: RecipeModelBaseImpl | undefined;
         if (stage === undefined || stage === LoadFromSnapshotStage.FACTORY) {
-            item.__selectRecipe(snapshot.key, this);
+            recipe = item.__selectRecipe(snapshot.key, this);
+            recipe?.__loadFromSnapshot(this);
         }
         if (stage === undefined || stage === LoadFromSnapshotStage.LINK) {
             snapshot.input.forEach((input) => input.loadFromSnapshot(options));
@@ -99,7 +118,9 @@ export class RecipeSnapshotBase extends SnapshotBase {
                 snapshot.output.forEach((output) => output.loadFromSnapshot(options));
             }
         }
-        return item.selectedRecipe;
+
+        recipe ??= item.__selectedRecipeInternal;
+        return recipe;
     }
 
     get inputMap() {
@@ -145,17 +166,23 @@ export class FactorySnapshotBase extends SnapshotBase {
         this.snapshot = snapshot;
     }
 
-    loadFromSnapshot(options?: LoadFromSnapshotOptions): FactoryModelBase | undefined {
+    loadFromSnapshot(options?: LoadFromSnapshotOptions) {
+        this.__loadFromSnapshot(options);
+    }
+
+    protected __loadFromSnapshot(options?: LoadFromSnapshotOptions) {
         const stage = options?.stage;
         const snapshot = this.snapshot;
-        let item: FactoryModelBase | undefined;
+
+        let item: FactoryModelBaseImpl | undefined;
         if (stage === undefined || stage === LoadFromSnapshotStage.FACTORY) {
-            item = this.flowChart.__addItem(snapshot.key, this);
+            const item0 = this.flowChart.__addItem(snapshot.key, this);
+            item0.__loadFromSnapshot(this);
+            item = item0;
         }
-        if (stage === undefined || stage === LoadFromSnapshotStage.LINK) {
-            snapshot.recipe?.loadFromSnapshot(options);
-        }
-        item ??= this.flowChart.itemById(snapshot.itemId);
+        snapshot.recipe?.loadFromSnapshot(options);
+
+        item ??= this.flowChart.__itemById(snapshot.itemId);
         return item;
     }
 }
@@ -163,6 +190,7 @@ export class FactorySnapshotBase extends SnapshotBase {
 export type FlowChartSnapshotDataBase = {
     readonly chartName: string;
     readonly items: FactorySnapshotBase[];
+    readonly nextId: number;
 };
 
 export class FlowChartSnapshotBase extends SnapshotBase {
@@ -170,5 +198,29 @@ export class FlowChartSnapshotBase extends SnapshotBase {
     constructor(flowChart: FlowChartModelBaseImpl, snapshot: FlowChartSnapshotDataBase) {
         super(flowChart);
         this.snapshot = snapshot;
+    }
+
+    loadFromSnapshot(options?: LoadFromSnapshotOptions) {
+        this.__loadFromSnapshot(options);
+    }
+
+    protected __loadFromSnapshot(options?: LoadFromSnapshotOptions) {
+        const snapshot = this.snapshot;
+        this.flowChart.__loadFromSnapshot(this);
+
+        // items, then links
+        snapshot.items.forEach((item) =>
+            item.loadFromSnapshot({
+                ...options,
+                stage: LoadFromSnapshotStage.FACTORY,
+            })
+        );
+
+        snapshot.items.forEach((item) =>
+            item.loadFromSnapshot({
+                ...options,
+                stage: LoadFromSnapshotStage.LINK,
+            })
+        );
     }
 }

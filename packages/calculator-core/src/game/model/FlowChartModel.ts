@@ -9,10 +9,10 @@ import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
 import type { FlowChartEventsBase } from './FlowChartEvents.js';
 import { createFlowChartHelpers, type FlowChartHelpersBase } from './internal/FlowChartHelpers.js';
-import { resetIdStore } from './internal/internal.js';
+import { getNextId, resetIdStore } from './internal/internal.js';
 import type { SerializedFlowChart } from './internal/ModelSerialized.js';
 import type { CreateIOLinkModel, IOLinkModelBaseImpl } from './IOLinkModel.js';
-import type { FactorySnapshotBase, IOLinkSnapshotBase } from './ModelSnapshot.js';
+import type { FactorySnapshotBase, FlowChartSnapshotBase, IOLinkSnapshotBase } from './ModelSnapshot.js';
 import type { RecipeIOModelBaseImpl } from './RecipeIOModel.js';
 import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOModelBase } from './types.js';
 
@@ -224,11 +224,11 @@ export abstract class FlowChartModelBaseImpl {
 
     clear() {
         this.__clear();
+        resetIdStore();
         this.__itemsGeneration++;
         this.__linksGeneration++;
     }
     protected __clear() {
-        resetIdStore();
         this.__items.clear();
         this.__links.clear();
         this.resetChartName();
@@ -239,22 +239,22 @@ export abstract class FlowChartModelBaseImpl {
         const serialized = this.__helpers.snapshotToSerializedCompactForm.toSerializedCompactForm(snapshot);
         return serialized;
     }
-
-    __saveToSnapshot() {
-        const snapshot = this.__snapshotFactory.newFlowChartSnapshot({
-            chartName: this.chartName,
-            items: [...this.__items.values()].map((item) => item.__saveToSnapshot()),
-        });
-        return snapshot;
+    load(serialized: SerializedFlowChart, errorCollector: ErrorCollector) {
+        resetIdStore();
+        const snapshot = this.__helpers.snapshotFromSerializedCompactForm.fromSerializedCompactForm(
+            serialized,
+            errorCollector
+        );
+        this.__load(snapshot, errorCollector);
     }
 
-    load(serialized: SerializedFlowChart, errorCollector: ErrorCollector) {
+    protected __load(snapshot: FlowChartSnapshotBase, errorCollector?: ErrorCollector) {
         this.__solveFrozen = true;
         try {
             this.__clear();
-            this.__load(serialized, errorCollector);
+            snapshot.loadFromSnapshot();
         } catch (err) {
-            errorCollector.collectError(err);
+            errorCollector?.collectError(err);
         } finally {
             this.__solveFrozen = false;
         }
@@ -262,45 +262,19 @@ export abstract class FlowChartModelBaseImpl {
         this.__itemsGeneration++;
         this.__linksGeneration++;
     }
-    protected __load(serialized: SerializedFlowChart, errorCollector: ErrorCollector) {
-        const { compatibleSaveVersions: compatVersions } = this.gameData.description;
-        if (serialized.h?.v && !compatVersions.some((v) => v === serialized.h?.v)) {
-            errorCollector.collectError(
-                `Incompatible game version, expecting "${compatVersions.join(',')}", got "${serialized.h?.v}"`
-            );
-        }
-        const itemIndexes = new Map<number, string>();
-        serialized.i.forEach((i, index) => {
-            const item = this.__addItem(i.n);
-            if (!item.name) {
-                //invalid item, old/broken recipe
-                errorCollector.collectError(`Invalid item id "${i.n}"`);
-                return;
-            }
-            item.__loadItem(i, errorCollector);
-            itemIndexes.set(index, item.key ?? '');
+
+    __saveToSnapshot() {
+        const snapshot = this.__snapshotFactory.newFlowChartSnapshot({
+            nextId: getNextId(),
+            chartName: this.chartName,
+            items: [...this.__items.values()].map((item) => item.__saveToSnapshot()),
         });
-        serialized.l.forEach((link) => {
-            //first array item is always input, second is always output
-            //the order is important, because we may connect for example generator to electric engine
-            //in this case we may connect by either end
-            //generator output to electric engine
-            //or electric engine output to generator
-            //which end is connected is determined by io order
-            const inputKey = itemIndexes.get(link.l[0] ?? 0);
-            const outputKey = itemIndexes.get(link.l[1] ?? 0);
-            if (!inputKey || !outputKey) {
-                //broken link
-                errorCollector.collectError(`Invalid link "${link.l[0]}" => "${link.l[1]}"`);
-                return;
-            }
-            const input = this.__items.get(inputKey);
-            const output = this.__items.get(outputKey);
-            if (!input || !output) {
-                return;
-            }
-            input.__loadLink(link, output, errorCollector);
-        });
+        return snapshot;
+    }
+    __loadFromSnapshot(_snapshot: FlowChartSnapshotBase) {
+        const snapshot = _snapshot.snapshot;
+        resetIdStore(snapshot.nextId);
+        this.chartName = snapshot.chartName || this.defaultChartName;
     }
 
     requestSolveGraph() {

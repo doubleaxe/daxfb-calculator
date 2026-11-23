@@ -4,8 +4,12 @@ export function newId(id?: string) {
     return id ?? `k${currentId++}`;
 }
 
-export function resetIdStore() {
-    currentId = 0;
+export function resetIdStore(nextId?: number) {
+    currentId = nextId ?? 0;
+}
+
+export function getNextId() {
+    return currentId;
 }
 
 export type XYPosition = {

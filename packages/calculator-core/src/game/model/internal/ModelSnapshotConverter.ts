@@ -8,7 +8,7 @@ import type {
     RecipeIOSnapshotBase,
     RecipeSnapshotBase,
 } from '../ModelSnapshot.js';
-import { newId, normalizeItemPositions, type XYPosition } from './internal.js';
+import { getNextId, newId, normalizeItemPositions, type XYPosition } from './internal.js';
 import type { SerializedFactory, SerializedFlowChart, SerializedLink, SerializedOrder } from './ModelSerialized.js';
 import type { ModelSnapshotFactoryBase } from './ModelSnapshotFactory.js';
 
@@ -187,7 +187,8 @@ export class ModelSnapshotFromSerializedCompactFormBase {
         });
 
         return this.snapshotFactory.newFlowChartSnapshot({
-            chartName: `${this.gameData.description.description} New Flow Chart`,
+            nextId: getNextId(),
+            chartName: '',
             items,
         });
     }

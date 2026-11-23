@@ -138,4 +138,5 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         });
         return snapshot;
     }
+    __loadFromSnapshot(_snapshot: RecipeIOSnapshotBase) {}
 }

@@ -1,10 +1,7 @@
-import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
-
 import type { FlowChartAction } from '../actions/index.js';
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import type { XYPosition } from './internal/internal.js';
-import type { SerializedFactory, SerializedLink } from './internal/ModelSerialized.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { FactorySnapshotBase, RecipeSnapshotBase } from './ModelSnapshot.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
@@ -83,6 +80,9 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return this.__isFlipped;
     }
     get selectedRecipe(): RecipeModelBase | undefined {
+        return this.__selectedRecipe;
+    }
+    get __selectedRecipeInternal() {
         return this.__selectedRecipe;
     }
     get recipes() {
@@ -223,11 +223,11 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
 
     selectRecipe(key: string) {
-        return this.__selectRecipe(key);
+        return !!this.__selectRecipe(key);
     }
     __selectRecipe(key: string, snapshot?: RecipeSnapshotBase) {
         const oldRecipe = this.__selectedRecipe;
-        if (!snapshot && key === oldRecipe?.key) return false;
+        if (!snapshot && key === oldRecipe?.key) return undefined;
         const newRecipe = this.__recipeModelConstructor(this, key, snapshot);
         if (!snapshot) {
             //try to persist similar links from old recipe to new one
@@ -235,7 +235,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         }
         oldRecipe?.__deleteAllLinks();
         this.__selectedRecipe = newRecipe;
-        return true;
+        return newRecipe;
     }
 
     __getRecipe(key: string) {
@@ -254,26 +254,6 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return this.__selectedRecipe?.__findAlreadyLinked(target);
     }
 
-    __loadItem(i: SerializedFactory, errorCollector: ErrorCollector) {
-        if (!this.selectRecipe(i.r)) {
-            errorCollector.collectError(`Cannot select recipe ${i.r} for item ${this.label}`);
-        }
-        this.__position = {
-            x: i.p[0] ?? 0,
-            y: i.p[1] ?? 0,
-        };
-        this.__count = i.c ?? 1;
-        this.__isFlipped = !!i.f;
-        this.__weight = i.w;
-        this.__selectedRecipe?.__loadIoOrder(i);
-    }
-    __loadLink(l: SerializedLink, outputItem: FactoryModelBaseImpl, errorCollector: ErrorCollector) {
-        if (this.__selectedRecipe && outputItem.__selectedRecipe) {
-            return this.__selectedRecipe.__loadLink(l, outputItem.__selectedRecipe, errorCollector);
-        }
-        return undefined;
-    }
-
     __saveToSnapshot() {
         const snapshot = this.__flowChart.__snapshotFactory.newFactorySnapshot({
             count: this.__count,
@@ -286,5 +266,13 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
             weight: this.__weight,
         });
         return snapshot;
+    }
+    __loadFromSnapshot(_snapshot: FactorySnapshotBase) {
+        const snapshot = _snapshot.snapshot;
+        this.__count = snapshot.count;
+        this.__isFlipped = snapshot.isFlipped;
+        this.__locked = snapshot.locked;
+        this.__position = { x: snapshot.position.x, y: snapshot.position.y };
+        this.__weight = snapshot.weight;
     }
 }
