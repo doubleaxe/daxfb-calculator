@@ -1,25 +1,11 @@
 import type { FlowChartModelBase } from '../model/index.js';
 
-export type FlowChartAction = {
-    after?: () => void;
-    before?: () => void;
-    redo: () => void;
-    undo: () => void;
-};
-
 export abstract class ActionBase {
-    protected __action: FlowChartAction | undefined;
-    abstract init(flowChartModel: FlowChartModelBase): void;
-    redo(): void {
-        if (!this.__action) return;
-        this.__action.before?.();
-        this.__action.redo();
-        this.__action.after?.();
+    protected __flowChartModel: FlowChartModelBase | undefined;
+    init(flowChartModel: FlowChartModelBase) {
+        this.__flowChartModel = flowChartModel;
     }
-    undo(): void {
-        if (!this.__action) return;
-        this.__action.before?.();
-        this.__action.undo();
-        this.__action.after?.();
-    }
+
+    abstract redo(): void;
+    abstract undo(): void;
 }

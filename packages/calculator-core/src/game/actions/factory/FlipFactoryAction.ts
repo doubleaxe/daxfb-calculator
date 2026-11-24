@@ -1,16 +1,19 @@
-import type { FactoryModelBase } from '@daxfb/core/game/model/types.js';
+import { FactoryActionBase } from './FactoryActionBase.js';
 
-import { ActionBase } from '../Action.js';
+export class FlipFactoryAction extends FactoryActionBase {
+    private __isFlippedOld: boolean | undefined;
 
-export class FlipFactoryAction extends ActionBase {
-    private readonly __item: FactoryModelBase;
-
-    constructor(item: FactoryModelBase) {
-        super();
-        this.__item = item;
+    override redo() {
+        const factory = this.__factory;
+        if (!factory) return;
+        const isFlipped = factory.isFlipped;
+        this.__isFlippedOld = isFlipped;
+        factory.setFlipped(!isFlipped);
     }
-
-    override init(): void {
-        this.__action = this.__item.setFlipped(!this.__item.isFlipped);
+    override undo() {
+        const factory = this.__factory;
+        const isFlipped = this.__isFlippedOld;
+        if (!factory || isFlipped === undefined) return;
+        factory.setFlipped(isFlipped);
     }
 }

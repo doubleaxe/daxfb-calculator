@@ -1,18 +1,24 @@
-import type { FactoryModelBase } from '@daxfb/core/game/model/types.js';
+import { FactoryActionBase } from './FactoryActionBase.js';
 
-import { ActionBase } from '../Action.js';
+export class SetFactoryWeightAction extends FactoryActionBase {
+    private readonly __weight: number;
+    private __weightOld: number | undefined;
 
-export class SetFactoryWeightAction extends ActionBase {
-    private readonly __item: FactoryModelBase;
-    private readonly __weight: number | undefined;
-
-    constructor(item: FactoryModelBase, weight: number | undefined) {
-        super();
-        this.__item = item;
+    constructor(itemId: string, weight: number) {
+        super(itemId);
         this.__weight = weight;
     }
 
-    override init(): void {
-        this.__action = this.__item.setWeight(this.__weight);
+    override redo() {
+        const factory = this.__factory;
+        if (!factory) return;
+        this.__weightOld = factory.weight;
+        factory.setWeight(this.__weight);
+    }
+    override undo() {
+        const factory = this.__factory;
+        const weightOld = this.__weightOld;
+        if (!factory || weightOld === undefined) return;
+        factory.setWeight(weightOld);
     }
 }

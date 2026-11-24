@@ -24,12 +24,12 @@ const menu = useTemplateRef<MenuMethods | null>('menu');
 const items = computed<MenuItem[]>(() => [
     {
         label: 'Flip',
-        command: () => historyManager.execute(new FlipFactoryAction(data)),
+        command: () => historyManager.execute(new FlipFactoryAction(data.itemId)),
         iconComponent: PhFlipHorizontal,
     },
     {
         label: 'Delete all links',
-        command: () => historyManager.execute(new DeleteAllLinksAction(data)),
+        command: () => historyManager.execute(new DeleteAllLinksAction(data.itemId)),
         iconComponent: PhLinkBreak,
     },
     {

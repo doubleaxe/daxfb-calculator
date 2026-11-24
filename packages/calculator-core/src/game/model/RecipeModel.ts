@@ -1,4 +1,3 @@
-import type { FlowChartAction } from '../actions/index.js';
 import type { GameRecipeIOBase } from '../parser/index.js';
 import type { FactoryModelBaseImpl } from './FactoryModel.js';
 import type { RecipeSnapshotBase } from './ModelSnapshot.js';
@@ -104,13 +103,8 @@ export abstract class RecipeModelBaseImpl {
         const otherSide = target.isInput ? this.__output : this.__input;
         return otherSide.find((io) => io.__findAlreadyLinked(target));
     }
-    __deleteAllLinks(): FlowChartAction {
-        return {
-            undo: () => {},
-            redo: () => {
-                this.__itemsArray.forEach((io) => io.__deleteAllLinks());
-            },
-        };
+    __deleteAllLinks() {
+        this.__itemsArray.forEach((io) => io.__deleteAllLinks());
     }
     __copySimilarLinksTo(targetRecipe: RecipeModelBaseImpl) {
         for (const targetIo of targetRecipe.__itemsArray) {
@@ -121,14 +115,16 @@ export abstract class RecipeModelBaseImpl {
         }
     }
 
-    __saveToSnapshot() {
+    saveToSnapshot() {
         const snapshot = this.__factory.__flowChart.__snapshotFactory.newRecipeSnapshot({
             factoryItemId: this.__factory.itemId,
-            input: this.__input.map((io) => io.__saveToSnapshot()),
+            input: this.__input.map((io) => io.saveToSnapshot()),
             key: this.key ?? '',
-            output: this.__output.map((io) => io.__saveToSnapshot()),
+            output: this.__output.map((io) => io.saveToSnapshot()),
         });
         return snapshot;
     }
-    __loadFromSnapshot(_snapshot: RecipeSnapshotBase) {}
+    __loadFromSnapshot(_snapshot: RecipeSnapshotBase) {
+        this.__factory.__flowChart.__requestSolveGraph([this.__factory]);
+    }
 }

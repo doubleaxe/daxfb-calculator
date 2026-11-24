@@ -1,16 +1,17 @@
-import type { FactoryModelBase } from '@daxfb/core/game/model/types.js';
+import { LoadFromSnapshotStage, type RecipeSnapshotBase } from '#core/game/model/ModelSnapshot.js';
 
-import { ActionBase } from '../Action.js';
+import { FactoryActionBase } from './FactoryActionBase.js';
 
-export class DeleteAllLinksAction extends ActionBase {
-    private readonly __item: FactoryModelBase;
+export class DeleteAllLinksAction extends FactoryActionBase {
+    private __snapshot: RecipeSnapshotBase | undefined;
 
-    constructor(item: FactoryModelBase) {
-        super();
-        this.__item = item;
+    override redo() {
+        const factory = this.__factory;
+        if (!factory) return;
+        this.__snapshot ??= factory.selectedRecipe?.saveToSnapshot();
+        factory.deleteAllLinks();
     }
-
-    override init(): void {
-        this.__action = this.__item.deleteAllLinks();
+    override undo() {
+        this.__snapshot?.loadFromSnapshot({ stage: LoadFromSnapshotStage.FACTORY_LINK });
     }
 }

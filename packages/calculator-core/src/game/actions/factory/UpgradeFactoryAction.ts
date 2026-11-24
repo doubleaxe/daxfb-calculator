@@ -1,56 +1,34 @@
-import type { FactoryModelBaseImpl } from '@daxfb/core/game/model/FactoryModel.js';
-import type { FlowChartModelBaseImpl } from '@daxfb/core/game/model/FlowChartModel.js';
-import type { IOLinkModelBaseImpl } from '@daxfb/core/game/model/IOLinkModel.js';
-import type { FactoryModelBase, FlowChartModelBase } from '@daxfb/core/game/model/types.js';
+import type { FactorySnapshotBase } from '#core/game/model/ModelSnapshot.js';
 
-import { ActionBase } from '../Action.js';
+import { FactoryActionBase } from './FactoryActionBase.js';
 
-export class UpgradeFactoryAction extends ActionBase {
-    protected readonly __flowChart: FlowChartModelBaseImpl;
-    protected readonly __oldItem: FactoryModelBaseImpl;
-    protected readonly __direction: -1 | 1;
-    protected __newItem: FactoryModelBaseImpl | undefined;
-    protected __oldLinks: IOLinkModelBaseImpl[] = [];
-    protected __newLinks: IOLinkModelBaseImpl[] = [];
-    protected __executed = false;
+export class UpgradeFactoryAction extends FactoryActionBase {
+    private readonly __direction: -1 | 1;
+    private __itemIdUpgraded: string | undefined;
+    private __snapshot: FactorySnapshotBase | undefined;
+    private __snapshotRedo: FactorySnapshotBase | undefined;
 
-    constructor(flowChart: FlowChartModelBase, item: FactoryModelBase, direction: -1 | 1) {
-        super();
-        this.__flowChart = flowChart as unknown as FlowChartModelBaseImpl;
-        this.__oldItem = item as unknown as FactoryModelBaseImpl;
+    constructor(itemId: string, direction: -1 | 1) {
+        super(itemId);
         this.__direction = direction;
     }
 
-    execute() {
-        if (!this.__executed) {
-            this.__executed = true;
-            this.__oldLinks = this.__oldItem.__getAllLinks();
-            this.__newItem = this.__oldItem.__upgrade(this.__direction);
-            if (!this.__newItem) return;
-            this.__newLinks = this.__newItem.__getAllLinks();
+    override redo() {
+        if (this.__snapshotRedo !== undefined) {
+            this.__snapshotRedo.loadFromSnapshot();
             return;
         }
-
-        if (!this.__newItem) return;
-        for (const link of this.__oldLinks) {
-            this.__flowChart.__deleteLink(link);
-        }
-        this.__flowChart.__deleteItem(this.__oldItem);
-        this.__flowChart.__insertItem(this.__newItem);
-        for (const link of this.__newLinks) {
-            this.__flowChart.__insertLink(link);
-        }
+        const originalFactory = this.__factory;
+        if (!originalFactory) return;
+        this.__snapshot ??= originalFactory.saveToSnapshot();
+        const upgradedFactory = originalFactory.upgrade(this.__direction);
+        this.__itemIdUpgraded = upgradedFactory?.itemId;
     }
-
-    undo() {
-        if (!this.__newItem) return;
-        for (const link of this.__newLinks) {
-            this.__flowChart.__deleteLink(link);
-        }
-        this.__flowChart.__deleteItem(this.__newItem);
-        this.__flowChart.__insertItem(this.__oldItem);
-        for (const link of this.__oldLinks) {
-            this.__flowChart.__insertLink(link);
-        }
+    override undo() {
+        const upgradedFactory = this.__flowChartModel?.itemById(this.__itemIdUpgraded ?? '');
+        if (!upgradedFactory) return;
+        this.__snapshotRedo ??= upgradedFactory.saveToSnapshot();
+        upgradedFactory.deleteItem();
+        this.__snapshot?.loadFromSnapshot();
     }
 }

@@ -51,7 +51,7 @@ export abstract class IOLinkModelBaseImpl {
         inputFactory.__flowChart.__deleteLink(this, [inputFactory, outputFactory]);
     }
 
-    __saveToSnapshot() {
+    saveToSnapshot() {
         const snapshot = this.__input.__flowChart.__snapshotFactory.newIOLinkSnapshot({
             linkId: this.linkId,
             sourceIOId: this.__output.itemId,

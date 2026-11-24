@@ -162,7 +162,7 @@ export abstract class FlowChartModelBaseImpl {
         const recipes = targetItem.__possibleRecipesForIo(sourceIO);
         const recipe = recipes[0];
         if (!recipe) return undefined;
-        targetItem.selectRecipe(recipe);
+        targetItem.__selectRecipe(recipe);
         const targetIO = targetItem.__getIOByKey(sourceIO.key ?? '');
         if (!targetIO) return undefined;
         return this.__createLink(sourceItem, sourceIO, targetItem, targetIO, true);
@@ -235,7 +235,7 @@ export abstract class FlowChartModelBaseImpl {
     }
 
     save() {
-        const snapshot = this.__saveToSnapshot();
+        const snapshot = this.saveToSnapshot();
         const serialized = this.__helpers.snapshotToSerializedCompactForm.toSerializedCompactForm(snapshot);
         return serialized;
     }
@@ -263,11 +263,11 @@ export abstract class FlowChartModelBaseImpl {
         this.__linksGeneration++;
     }
 
-    __saveToSnapshot() {
+    saveToSnapshot() {
         const snapshot = this.__snapshotFactory.newFlowChartSnapshot({
             nextId: getNextId(),
             chartName: this.chartName,
-            items: [...this.__items.values()].map((item) => item.__saveToSnapshot()),
+            items: [...this.__items.values()].map((item) => item.saveToSnapshot()),
         });
         return snapshot;
     }

@@ -5,7 +5,8 @@ import type { RecipeModelBaseImpl } from './RecipeModel.js';
 
 export const LoadFromSnapshotStage = {
     FACTORY: 1,
-    LINK: 2,
+    FACTORY_LINK: 2,
+    FLOWCHART_LINK: 2,
 } as const;
 
 export type LoadFromSnapshotOptions = {
@@ -69,7 +70,11 @@ export class RecipeIOSnapshotBase extends SnapshotBase {
         const snapshot = this.snapshot;
         const io = this.flowChart.__findIo(snapshot.factoryItemId, snapshot.itemId);
         if (!io) return undefined;
-        if (stage === undefined || stage === LoadFromSnapshotStage.LINK) {
+        if (
+            stage === undefined ||
+            stage === LoadFromSnapshotStage.FACTORY_LINK ||
+            stage === LoadFromSnapshotStage.FLOWCHART_LINK
+        ) {
             io.__deleteAllLinks();
             io.__loadFromSnapshot(this);
             snapshot.links.forEach((l) => l.loadFromSnapshot(options));
@@ -111,10 +116,14 @@ export class RecipeSnapshotBase extends SnapshotBase {
             recipe = item.__selectRecipe(snapshot.key, this);
             recipe?.__loadFromSnapshot(this);
         }
-        if (stage === undefined || stage === LoadFromSnapshotStage.LINK) {
+        if (
+            stage === undefined ||
+            stage === LoadFromSnapshotStage.FACTORY_LINK ||
+            stage === LoadFromSnapshotStage.FLOWCHART_LINK
+        ) {
             snapshot.input.forEach((input) => input.loadFromSnapshot(options));
-            // if we are loading links globally, we only have to load one type, because they always have two sides
-            if (stage === undefined) {
+            if (stage !== LoadFromSnapshotStage.FLOWCHART_LINK) {
+                // if we are loading links globally, we only have to load one type, because they always have two sides
                 snapshot.output.forEach((output) => output.loadFromSnapshot(options));
             }
         }
@@ -219,7 +228,7 @@ export class FlowChartSnapshotBase extends SnapshotBase {
         snapshot.items.forEach((item) =>
             item.loadFromSnapshot({
                 ...options,
-                stage: LoadFromSnapshotStage.LINK,
+                stage: LoadFromSnapshotStage.FLOWCHART_LINK,
             })
         );
     }

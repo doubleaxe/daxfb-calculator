@@ -7,13 +7,12 @@ import Menu, { type MenuMethods } from 'primevue/menu';
 import type { MenuItem } from 'primevue/menuitem';
 import { computed, useTemplateRef } from 'vue';
 
-import { type FactoryModelBase, useFlowChartModelBase } from '#core/game/model/index.js';
+import type { FactoryModelBase } from '#core/game/model/index.js';
 import { type GameRecipeBase, type GameRecipeIOBase, GameRecipeIOFlagsBase } from '#core/game/parser/index.js';
 import GameIcon from '#core/ui/components/GameIcon.vue';
 
 const { data } = defineProps<{ data: FactoryModelBase }>();
 
-const flowChartModel = useFlowChartModelBase();
 const historyManager = useHistoryManager();
 const menu = useTemplateRef<MenuMethods | null>('menu');
 
@@ -31,7 +30,7 @@ const items = computed<MenuItem[]>(() =>
         label: recipe.output.map((io) => io.name).join(', '),
         recipe,
         class: data.selectedRecipe?.key === recipe.key ? selectedClass : undefined,
-        command: () => historyManager.execute(new SelectRecipeAction(flowChartModel, data, recipe.key)),
+        command: () => historyManager.execute(new SelectRecipeAction(data, recipe.key)),
     }))
 );
 

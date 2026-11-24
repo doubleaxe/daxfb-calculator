@@ -1,11 +1,10 @@
-import type { FlowChartAction } from '../actions/index.js';
 import { NodeStatus } from './constants.js';
 import type { FlowChartModelBaseImpl } from './FlowChartModel.js';
 import type { XYPosition } from './internal/internal.js';
 import { ItemModelBaseImpl } from './ItemModel.js';
 import type { FactorySnapshotBase, RecipeSnapshotBase } from './ModelSnapshot.js';
 import type { CreateRecipeModel, RecipeModelBaseImpl } from './RecipeModel.js';
-import type { RecipeIOModelBase, RecipeModelBase } from './types.js';
+import type { FactoryModelBase, RecipeIOModelBase, RecipeModelBase } from './types.js';
 
 export type CreateFactoryModel<
     CHART extends FlowChartModelBaseImpl = FlowChartModelBaseImpl,
@@ -53,12 +52,12 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         if (direction > 0 && this.__item?.nextTier) return true;
         return false;
     }
-    upgrade(direction: -1 | 1) {
+    upgrade(direction: -1 | 1): FactoryModelBase | undefined {
         //tricky. will recreate new item, and place it instead of old one
         const nextTier = direction > 0 ? this.__item?.nextTier : this.__item?.prevTier;
-        if (!nextTier) return;
+        if (!nextTier) return undefined;
         const key = this.__flowChart.gameData.getGameItemByName(nextTier)?.key;
-        if (!key) return;
+        if (!key) return undefined;
 
         const newItem = this.__flowChart.__addItem(key);
         newItem.__isFlipped = this.__isFlipped;
@@ -71,6 +70,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         }
 
         this.deleteItem();
+        return newItem;
     }
 
     get position() {
@@ -101,55 +101,23 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return this.__locked;
     }
 
-    setCount(count: number): FlowChartAction {
-        const countOld = this.__count;
-        return {
-            after: () => this.__flowChart.__requestSolveGraph([this]),
-            undo: () => {
-                this.__count = countOld;
-            },
-            redo: () => {
-                this.__count = count;
-            },
-        };
+    setCount(count: number) {
+        this.__count = count;
+        this.__flowChart.__requestSolveGraph([this]);
     }
     setSolvedCount(solvedCount: number | undefined) {
         this.__solvedCount = solvedCount;
     }
-    setWeight(weight: number | undefined): FlowChartAction {
-        const weightOld = this.__weight;
-        return {
-            after: () => this.__flowChart.__requestSolveGraph([this]),
-            undo: () => {
-                this.__weight = weightOld;
-            },
-            redo: () => {
-                this.__weight = weight;
-            },
-        };
+    setWeight(weight: number | undefined) {
+        this.__weight = weight;
+        this.__flowChart.__requestSolveGraph([this]);
     }
-    setLocked(locked: boolean): FlowChartAction {
-        const lockedOld = this.__locked;
-        return {
-            after: () => this.__flowChart.__requestSolveGraph([this]),
-            undo: () => {
-                this.__locked = lockedOld;
-            },
-            redo: () => {
-                this.__locked = locked;
-            },
-        };
+    setLocked(locked: boolean) {
+        this.__locked = locked;
+        this.__flowChart.__requestSolveGraph([this]);
     }
-    setFlipped(isFlipped: boolean): FlowChartAction {
-        const isFlippedOld = this.__isFlipped;
-        return {
-            undo: () => {
-                this.__isFlipped = isFlippedOld;
-            },
-            redo: () => {
-                this.__isFlipped = isFlipped;
-            },
-        };
+    setFlipped(isFlipped: boolean) {
+        this.__isFlipped = isFlipped;
     }
     resetSolutionStatus() {
         this.chainContainsError = false;
@@ -201,7 +169,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         const selectedRecipe = [...recipeWeight.entries()].sort((a, b) => b[1] - a[1])?.[0]?.[0];
 
         if (selectedRecipe) {
-            this.selectRecipe(selectedRecipe);
+            this.__selectRecipe(selectedRecipe);
             if (this.__selectedRecipe) {
                 otherRecipe.__copySimilarLinksTo(this.__selectedRecipe);
             }
@@ -213,7 +181,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
 
     deleteAllLinks() {
-        return this.__selectedRecipe?.__deleteAllLinks();
+        this.__selectedRecipe?.__deleteAllLinks();
     }
     deleteItem() {
         //if it is not linked to anything, it will not change graph
@@ -223,7 +191,9 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
     }
 
     selectRecipe(key: string) {
-        return !!this.__selectRecipe(key);
+        const selected = this.__selectRecipe(key);
+        this.__flowChart.__requestSolveGraph([this]);
+        return !!selected;
     }
     __selectRecipe(key: string, snapshot?: RecipeSnapshotBase) {
         const oldRecipe = this.__selectedRecipe;
@@ -254,7 +224,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         return this.__selectedRecipe?.__findAlreadyLinked(target);
     }
 
-    __saveToSnapshot() {
+    saveToSnapshot() {
         const snapshot = this.__flowChart.__snapshotFactory.newFactorySnapshot({
             count: this.__count,
             isFlipped: this.__isFlipped,
@@ -262,7 +232,7 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
             key: this.key ?? '',
             locked: this.__locked,
             position: { x: this.__position.x, y: this.__position.y },
-            recipe: this.__selectedRecipe?.__saveToSnapshot(),
+            recipe: this.__selectedRecipe?.saveToSnapshot(),
             weight: this.__weight,
         });
         return snapshot;
@@ -274,5 +244,6 @@ export abstract class FactoryModelBaseImpl extends ItemModelBaseImpl {
         this.__locked = snapshot.locked;
         this.__position = { x: snapshot.position.x, y: snapshot.position.y };
         this.__weight = snapshot.weight;
+        this.__flowChart.__requestSolveGraph([this]);
     }
 }

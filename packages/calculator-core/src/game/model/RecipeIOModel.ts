@@ -129,12 +129,12 @@ export abstract class RecipeIOModelBaseImpl extends ItemModelBaseImpl {
         }
     }
 
-    __saveToSnapshot() {
+    saveToSnapshot() {
         const snapshot = this.__flowChart.__snapshotFactory.newRecipeIOSnapshot({
             itemId: this.itemId,
             factoryItemId: this.__factory.itemId,
             key: this.key ?? '',
-            links: [...this.__links.values()].map((link) => link.__saveToSnapshot()),
+            links: [...this.__links.values()].map((link) => link.saveToSnapshot()),
         });
         return snapshot;
     }
