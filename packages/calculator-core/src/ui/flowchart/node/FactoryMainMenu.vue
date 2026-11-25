@@ -12,12 +12,10 @@ import Menu, { type MenuMethods } from 'primevue/menu';
 import type { MenuItem } from 'primevue/menuitem';
 import { computed, useTemplateRef } from 'vue';
 
-import { useFlowChartModelBase } from '#core/game/model/index.js';
 import type { FactoryNodeProps } from '#core/types/flowchart/node/types.js';
 
 const { data } = defineProps<FactoryNodeProps>();
 
-const flowChartModel = useFlowChartModelBase();
 const historyManager = useHistoryManager();
 const menu = useTemplateRef<MenuMethods | null>('menu');
 
@@ -34,7 +32,7 @@ const items = computed<MenuItem[]>(() => [
     },
     {
         label: 'Delete',
-        command: () => historyManager.execute(new DeleteFactoryAction(flowChartModel, data)),
+        command: () => historyManager.execute(new DeleteFactoryAction(data.itemId)),
         iconComponent: PhTrash,
     },
 ]);

@@ -30,7 +30,9 @@ function syncNodes() {
     const items = flowChartModel.items;
     const nodes = [...items].map((factory) => {
         const existing = findNode(factory.itemId);
-        if (existing) return existing;
+        if (existing) {
+            return existing;
+        }
         return {
             id: factory.itemId,
             type: FactoryNodeTypeName,
@@ -72,7 +74,7 @@ function onNodeDragStop(event: { node: { id: string; position: { x: number; y: n
     if (event.node.type === FactoryNodeTypeName) {
         const data = flowChartModel.itemById(event.node.id);
         if (data) {
-            historyManager.execute(new MoveFactoryAction(flowChartModel, data, event.node.position));
+            historyManager.execute(new MoveFactoryAction(data.itemId, event.node.position));
         }
     }
 }

@@ -95,7 +95,7 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
         if (destItemId === destHandleId) {
             // factory handle
             historyManager.execute(
-                new CreateLinkAutoAction(flowChartModel, {
+                new CreateLinkAutoAction({
                     sourceId: originItemId,
                     sourceIOId: originHandleId,
                     targetId: destItemId,
@@ -107,7 +107,6 @@ export default function useFlowChartConnectionManager(flowChartModel: FlowChartM
 
         historyManager.execute(
             new CreateLinkAction(
-                flowChartModel,
                 {
                     sourceId: originItemId,
                     sourceIOId: originHandleId,

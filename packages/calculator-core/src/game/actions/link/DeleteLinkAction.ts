@@ -1,24 +1,24 @@
-import type { FlowChartModelBaseImpl } from '@daxfb/core/game/model/FlowChartModel.js';
-import type { IOLinkModelBaseImpl } from '@daxfb/core/game/model/IOLinkModel.js';
-import type { FlowChartModelBase, IOLinkModelBase } from '@daxfb/core/game/model/types.js';
+import type { IOLinkSnapshotBase } from '#core/game/model/ModelSnapshot.js';
 
 import { ActionBase } from '../Action.js';
 
 export class DeleteLinkAction extends ActionBase {
-    protected readonly __flowChart: FlowChartModelBaseImpl;
-    protected readonly __link: IOLinkModelBaseImpl;
+    private readonly __linkId: string;
+    private __snapshot: IOLinkSnapshotBase | undefined;
 
-    constructor(flowChart: FlowChartModelBase, link: IOLinkModelBase) {
+    constructor(linkId: string) {
         super();
-        this.__flowChart = flowChart as unknown as FlowChartModelBaseImpl;
-        this.__link = link as unknown as IOLinkModelBaseImpl;
+        this.__linkId = linkId;
     }
 
-    execute() {
-        this.__flowChart.__deleteLink(this.__link);
+    override redo() {
+        const flowChart = this.__flowChartModel;
+        const link = flowChart?.linkById(this.__linkId);
+        if (!link) return;
+        this.__snapshot ??= link.saveToSnapshot();
+        link.deleteLink();
     }
-
-    undo() {
-        this.__flowChart.__insertLink(this.__link);
+    override undo() {
+        this.__snapshot?.loadFromSnapshot();
     }
 }

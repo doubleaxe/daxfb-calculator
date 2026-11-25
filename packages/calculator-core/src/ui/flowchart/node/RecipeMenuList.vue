@@ -30,7 +30,7 @@ const items = computed<MenuItem[]>(() =>
         label: recipe.output.map((io) => io.name).join(', '),
         recipe,
         class: data.selectedRecipe?.key === recipe.key ? selectedClass : undefined,
-        command: () => historyManager.execute(new SelectRecipeAction(data, recipe.key)),
+        command: () => historyManager.execute(new SelectRecipeAction(data.itemId, recipe.key)),
     }))
 );
 

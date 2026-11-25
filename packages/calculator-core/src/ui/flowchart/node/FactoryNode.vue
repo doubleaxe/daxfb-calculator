@@ -22,7 +22,7 @@ defineOptions({
 
 const flowChartModel = useFlowChartModelBase();
 const data = computed(() => flowChartModel.itemById(id));
-const { updateNodeInternals } = useVueFlow();
+const { updateNode, updateNodeInternals } = useVueFlow();
 
 watch(
     () => data.value?.isFlipped,
@@ -30,6 +30,13 @@ watch(
         if (data.value) updateNodeInternals([data.value.itemId]);
     },
     { flush: 'post' }
+);
+
+watch(
+    () => data.value?.position,
+    () => {
+        if (data.value) updateNode(id, { position: { ...data.value.position } });
+    }
 );
 </script>
 

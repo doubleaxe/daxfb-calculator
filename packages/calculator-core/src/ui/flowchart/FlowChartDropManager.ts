@@ -35,7 +35,7 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
                 x: rect?.x ?? 0,
                 y: rect?.y ?? 0,
             });
-            historyManager.execute(new AddFactoryAction(flowChartModel, String(factoryKey), position));
+            historyManager.execute(new AddFactoryAction(String(factoryKey), position));
         },
     });
 
@@ -81,9 +81,7 @@ export default function useFlowChartDropManager(flowChartModel: FlowChartModelBa
             x: event.clientX,
             y: event.clientY,
         });
-        historyManager.execute(
-            new AddFactoryAction(flowChartModel, String(factoryPaletteState.selectedFactory.key), position)
-        );
+        historyManager.execute(new AddFactoryAction(String(factoryPaletteState.selectedFactory.key), position));
         factoryPaletteState.setSelectedFactory(undefined);
         dragIndicator.value = { x: 0, y: 0 };
     }

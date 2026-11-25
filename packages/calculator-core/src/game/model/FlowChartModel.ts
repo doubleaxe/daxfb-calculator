@@ -3,7 +3,6 @@ import { debounce } from 'perfect-debounce';
 
 import type { ErrorCollector } from '#core/utils/ErrorCollector.js';
 
-import type { FlowChartAction } from '../actions/index.js';
 import { useSolveGraphSingleton } from '../graph/Solver.js';
 import type { GameDataBase } from '../parser/index.js';
 import type { CreateFactoryModel, FactoryModelBaseImpl } from './FactoryModel.js';
@@ -18,7 +17,7 @@ import type { FactoryConnection, FactoryModelBase, IOLinkModelBase, RecipeIOMode
 
 export abstract class FlowChartModelBaseImpl {
     private __events: Emitter<FlowChartEventsBase>;
-    chartName = '';
+    protected __chartName = '';
     readonly gameData;
 
     protected readonly __items = new Map<string, FactoryModelBaseImpl>();
@@ -113,20 +112,14 @@ export abstract class FlowChartModelBaseImpl {
         return connectable;
     }
 
-    setChartName(name: string): FlowChartAction {
-        const nameOld = this.chartName;
-        return {
-            undo: () => {
-                this.chartName = nameOld;
-            },
-            redo: () => {
-                this.chartName = name;
-            },
-        };
+    get chartName() {
+        return this.__chartName;
     }
-
+    setChartName(name: string) {
+        this.__chartName = name;
+    }
     resetChartName() {
-        this.chartName = this.defaultChartName;
+        this.__chartName = this.defaultChartName;
     }
 
     addItem(key: string): FactoryModelBase {
@@ -266,7 +259,7 @@ export abstract class FlowChartModelBaseImpl {
     saveToSnapshot() {
         const snapshot = this.__snapshotFactory.newFlowChartSnapshot({
             nextId: getNextId(),
-            chartName: this.chartName,
+            chartName: this.__chartName,
             items: [...this.__items.values()].map((item) => item.saveToSnapshot()),
         });
         return snapshot;
@@ -274,7 +267,7 @@ export abstract class FlowChartModelBaseImpl {
     __loadFromSnapshot(_snapshot: FlowChartSnapshotBase) {
         const snapshot = _snapshot.snapshot;
         resetIdStore(snapshot.nextId);
-        this.chartName = snapshot.chartName || this.defaultChartName;
+        this.__chartName = snapshot.chartName || this.defaultChartName;
     }
 
     requestSolveGraph() {
